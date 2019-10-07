@@ -133,6 +133,20 @@ add_interface_port clock_sink clock_sink_clk clk Input 1
 
 
 # 
+# connection point ftdi_clock_sink
+# 
+add_interface ftdi_clock_sink clock end
+set_interface_property ftdi_clock_sink clockRate 0
+set_interface_property ftdi_clock_sink ENABLED true
+set_interface_property ftdi_clock_sink EXPORT_OF ""
+set_interface_property ftdi_clock_sink PORT_NAME_MAP ""
+set_interface_property ftdi_clock_sink CMSIS_SVD_VARIABLES ""
+set_interface_property ftdi_clock_sink SVD_ADDRESS_GROUP ""
+
+add_interface_port ftdi_clock_sink ftdi_clock_sink_clk clk Input 1
+
+
+# 
 # connection point reset_sink
 # 
 add_interface reset_sink reset end
@@ -239,7 +253,7 @@ set_interface_property avalon_slave_data PORT_NAME_MAP ""
 set_interface_property avalon_slave_data CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_slave_data SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_slave_data avalon_slave_data_address address Input 8
+add_interface_port avalon_slave_data avalon_slave_data_address address Input 9
 add_interface_port avalon_slave_data avalon_slave_data_write write Input 1
 add_interface_port avalon_slave_data avalon_slave_data_read read Input 1
 add_interface_port avalon_slave_data avalon_slave_data_writedata writedata Input 256

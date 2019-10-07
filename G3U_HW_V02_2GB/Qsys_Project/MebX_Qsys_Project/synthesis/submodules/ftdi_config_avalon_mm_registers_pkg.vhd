@@ -84,15 +84,15 @@ package ftdi_config_avalon_mm_registers_pkg is
 	type t_ftdi_rx_buffer_status_rd_reg is record
 		rx_buffer_0_rdable     : std_logic; -- Rx Buffer 0 Readable
 		rx_buffer_0_empty      : std_logic; -- Rx Buffer 0 Empty
-		rx_buffer_0_used_bytes : std_logic_vector(13 downto 0); -- Rx Buffer 0 Used [Bytes]
+		rx_buffer_0_used_bytes : std_logic_vector(14 downto 0); -- Rx Buffer 0 Used [Bytes]
 		rx_buffer_0_full       : std_logic; -- Rx Buffer 0 Full
 		rx_buffer_1_rdable     : std_logic; -- Rx Buffer 1 Readable
 		rx_buffer_1_empty      : std_logic; -- Rx Buffer 1 Empty
-		rx_buffer_1_used_bytes : std_logic_vector(13 downto 0); -- Rx Buffer 1 Used [Bytes]
+		rx_buffer_1_used_bytes : std_logic_vector(14 downto 0); -- Rx Buffer 1 Used [Bytes]
 		rx_buffer_1_full       : std_logic; -- Rx Buffer 1 Full
 		rx_dbuffer_rdable      : std_logic; -- Rx Double Buffer Readable
 		rx_dbuffer_empty       : std_logic; -- Rx Double Buffer Empty
-		rx_dbuffer_used_bytes  : std_logic_vector(13 downto 0); -- Rx Double Buffer Used [Bytes]
+		rx_dbuffer_used_bytes  : std_logic_vector(14 downto 0); -- Rx Double Buffer Used [Bytes]
 		rx_dbuffer_full        : std_logic; -- Rx Double Buffer Full
 	end record t_ftdi_rx_buffer_status_rd_reg;
 
@@ -100,15 +100,15 @@ package ftdi_config_avalon_mm_registers_pkg is
 	type t_ftdi_tx_buffer_status_rd_reg is record
 		tx_buffer_0_wrable      : std_logic; -- Tx Buffer 0 Writeable
 		tx_buffer_0_empty       : std_logic; -- Tx Buffer 0 Empty
-		tx_buffer_0_space_bytes : std_logic_vector(13 downto 0); -- Tx Buffer 0 Space [Bytes]
+		tx_buffer_0_space_bytes : std_logic_vector(14 downto 0); -- Tx Buffer 0 Space [Bytes]
 		tx_buffer_0_full        : std_logic; -- Tx Buffer 0 Full
 		tx_buffer_1_wrable      : std_logic; -- Tx Buffer 1 Writeable
 		tx_buffer_1_empty       : std_logic; -- Tx Buffer 1 Empty
-		tx_buffer_1_space_bytes : std_logic_vector(13 downto 0); -- Tx Buffer 1 Space [Bytes]
+		tx_buffer_1_space_bytes : std_logic_vector(14 downto 0); -- Tx Buffer 1 Space [Bytes]
 		tx_buffer_1_full        : std_logic; -- Tx Buffer 1 Full
 		tx_dbuffer_wrable       : std_logic; -- Tx Double Buffer Writeable
 		tx_dbuffer_empty        : std_logic; -- Tx Double Buffer Empty
-		tx_dbuffer_space_bytes  : std_logic_vector(13 downto 0); -- Tx Double Buffer Space [Bytes]
+		tx_dbuffer_space_bytes  : std_logic_vector(14 downto 0); -- Tx Double Buffer Space [Bytes]
 		tx_dbuffer_full         : std_logic; -- Tx Double Buffer Full
 	end record t_ftdi_tx_buffer_status_rd_reg;
 

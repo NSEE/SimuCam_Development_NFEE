@@ -558,6 +558,8 @@ architecture bhv of MebX_TopLevel is
 			rs232_uart_rxd                                              : in    std_logic                     := 'X'; -- rxd
 			rs232_uart_txd                                              : out   std_logic; --                         -- txd
 			--
+			ftdi_clk_clk                                                : in    std_logic                     := 'X'; --          -- clk
+			--
 			umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
 			umft601a_pins_umft_reset_n_signal                           : out   std_logic; --                                     -- umft_reset_n_signal
 			umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := 'X'; --          -- umft_rxf_n_signal
@@ -750,10 +752,12 @@ begin
 			rs232_uart_rxd                                              => I_RS232_UART_RXD, -- --                            rs232_uart.rxd
 			rs232_uart_txd                                              => O_RS232_UART_TXD, -- --                                      .txd
 			--
+			ftdi_clk_clk                                                => FTDI_CLOCK, --       --                              ftdi_clk.clk
+			--
 			umft601a_pins_umft_data_signal                              => FTDI_DATA, --        --                         umft601a_pins.umft_data_signal
-			--			umft601a_pins_umft_reset_n_signal                           => FTDI_RESET_N, --     --                                      .umft_reset_n_signal
+			umft601a_pins_umft_reset_n_signal                           => open, --             --                                      .umft_reset_n_signal
 			umft601a_pins_umft_rxf_n_signal                             => FTDI_RXF_N, --       --                                      .umft_rxf_n_signal
-			umft601a_pins_umft_clock_signal                             => FTDI_CLOCK, --       --                                      .umft_clock_signal
+			umft601a_pins_umft_clock_signal                             => '0', --              --                                      .umft_clock_signal
 			umft601a_pins_umft_wakeup_n_signal                          => FTDI_WAKEUP_N, --    --                                      .umft_wakeup_n_signal
 			umft601a_pins_umft_be_signal                                => FTDI_BE, --          --                                      .umft_be_signal
 			umft601a_pins_umft_txe_n_signal                             => FTDI_TXE_N, --       --                                      .umft_txe_n_signal

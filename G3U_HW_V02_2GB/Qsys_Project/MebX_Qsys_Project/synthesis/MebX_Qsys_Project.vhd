@@ -54,6 +54,7 @@ entity MebX_Qsys_Project is
 		ctrl_io_lvds_export                                         : out   std_logic_vector(3 downto 0);                     --                    ctrl_io_lvds.export
 		dip_export                                                  : in    std_logic_vector(7 downto 0)  := (others => '0'); --                             dip.export
 		ext_export                                                  : in    std_logic                     := '0';             --                             ext.export
+		ftdi_clk_clk                                                : in    std_logic                     := '0';             --                        ftdi_clk.clk
 		led_de4_export                                              : out   std_logic_vector(7 downto 0);                     --                         led_de4.export
 		led_painel_export                                           : out   std_logic_vector(20 downto 0);                    --                      led_painel.export
 		m1_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                 m1_ddr2_i2c_scl.export
@@ -211,6 +212,7 @@ architecture rtl of MebX_Qsys_Project is
 	component ftdi_usb3_top is
 		port (
 			clock_sink_clk                  : in    std_logic                      := 'X';             -- clk
+			ftdi_clock_sink_clk             : in    std_logic                      := 'X';             -- clk
 			reset_sink_reset                : in    std_logic                      := 'X';             -- reset
 			umft_data_bus                   : inout std_logic_vector(31 downto 0)  := (others => 'X'); -- umft_data_signal
 			umft_reset_n_pin                : out   std_logic;                                         -- umft_reset_n_signal
@@ -231,7 +233,7 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
 			avalon_slave_config_waitrequest : out   std_logic;                                         -- waitrequest
 			avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
-			avalon_slave_data_address       : in    std_logic_vector(7 downto 0)   := (others => 'X'); -- address
+			avalon_slave_data_address       : in    std_logic_vector(8 downto 0)   := (others => 'X'); -- address
 			avalon_slave_data_write         : in    std_logic                      := 'X';             -- write
 			avalon_slave_data_read          : in    std_logic                      := 'X';             -- read
 			avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
@@ -1038,7 +1040,7 @@ architecture rtl of MebX_Qsys_Project is
 			FTDI_USB3_0_avalon_slave_config_writedata                       : out std_logic_vector(31 downto 0);                     -- writedata
 			FTDI_USB3_0_avalon_slave_config_byteenable                      : out std_logic_vector(3 downto 0);                      -- byteenable
 			FTDI_USB3_0_avalon_slave_config_waitrequest                     : in  std_logic                      := 'X';             -- waitrequest
-			FTDI_USB3_0_avalon_slave_data_address                           : out std_logic_vector(7 downto 0);                      -- address
+			FTDI_USB3_0_avalon_slave_data_address                           : out std_logic_vector(8 downto 0);                      -- address
 			FTDI_USB3_0_avalon_slave_data_write                             : out std_logic;                                         -- write
 			FTDI_USB3_0_avalon_slave_data_read                              : out std_logic;                                         -- read
 			FTDI_USB3_0_avalon_slave_data_readdata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
@@ -1853,7 +1855,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_ddr2_address_span_extender_windowed_slave_burstcount                 : std_logic_vector(7 downto 0);   -- mm_interconnect_0:ddr2_address_span_extender_windowed_slave_burstcount -> ddr2_address_span_extender:avs_s0_burstcount
 	signal mm_interconnect_0_ftdi_usb3_0_avalon_slave_data_readdata                               : std_logic_vector(255 downto 0); -- FTDI_USB3_0:avalon_slave_data_readdata -> mm_interconnect_0:FTDI_USB3_0_avalon_slave_data_readdata
 	signal mm_interconnect_0_ftdi_usb3_0_avalon_slave_data_waitrequest                            : std_logic;                      -- FTDI_USB3_0:avalon_slave_data_waitrequest -> mm_interconnect_0:FTDI_USB3_0_avalon_slave_data_waitrequest
-	signal mm_interconnect_0_ftdi_usb3_0_avalon_slave_data_address                                : std_logic_vector(7 downto 0);   -- mm_interconnect_0:FTDI_USB3_0_avalon_slave_data_address -> FTDI_USB3_0:avalon_slave_data_address
+	signal mm_interconnect_0_ftdi_usb3_0_avalon_slave_data_address                                : std_logic_vector(8 downto 0);   -- mm_interconnect_0:FTDI_USB3_0_avalon_slave_data_address -> FTDI_USB3_0:avalon_slave_data_address
 	signal mm_interconnect_0_ftdi_usb3_0_avalon_slave_data_read                                   : std_logic;                      -- mm_interconnect_0:FTDI_USB3_0_avalon_slave_data_read -> FTDI_USB3_0:avalon_slave_data_read
 	signal mm_interconnect_0_ftdi_usb3_0_avalon_slave_data_write                                  : std_logic;                      -- mm_interconnect_0:FTDI_USB3_0_avalon_slave_data_write -> FTDI_USB3_0:avalon_slave_data_write
 	signal mm_interconnect_0_ftdi_usb3_0_avalon_slave_data_writedata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:FTDI_USB3_0_avalon_slave_data_writedata -> FTDI_USB3_0:avalon_slave_data_writedata
@@ -2395,6 +2397,7 @@ begin
 	ftdi_usb3_0 : component ftdi_usb3_top
 		port map (
 			clock_sink_clk                  => m2_ddr2_memory_afi_half_clk_clk,                               --            clock_sink.clk
+			ftdi_clock_sink_clk             => ftdi_clk_clk,                                                  --       ftdi_clock_sink.clk
 			reset_sink_reset                => rst_controller_008_reset_out_reset,                            --            reset_sink.reset
 			umft_data_bus                   => umft601a_pins_umft_data_signal,                                --     conduit_umft_pins.umft_data_signal
 			umft_reset_n_pin                => umft601a_pins_umft_reset_n_signal,                             --                      .umft_reset_n_signal

@@ -5,6 +5,7 @@ use ieee.numeric_std.all;
 entity ftdi_umft601a_controller_ent is
 	port(
 		clk_i                         : in    std_logic;
+		ftdi_clk_i                    : in    std_logic;
 		rst_i                         : in    std_logic;
 		-- ftdi module control inputs
 		ftdi_module_clear_i           : in    std_logic;
@@ -121,7 +122,7 @@ architecture RTL of ftdi_umft601a_controller_ent is
 
 	signal s_delay_cnt : natural range 0 to 2 := 0;
 
-	signal s_umft601a_clock : std_logic;
+--	signal s_umft601a_clock : std_logic;
 
 	signal s_rx_wrreq_protected : std_logic;
 	signal s_tx_rdreq_protected : std_logic;
@@ -159,7 +160,7 @@ begin
 			aclr              => s_tx_dc_data_fifo.aclr,
 			data(35 downto 4) => tx_dc_data_fifo_wrdata_data_i,
 			data(3 downto 0)  => tx_dc_data_fifo_wrdata_be_i,
-			rdclk             => s_umft601a_clock,
+			rdclk             => ftdi_clk_i,
 			rdreq             => s_tx_rdreq_protected,
 			wrclk             => clk_i,
 			wrreq             => tx_dc_data_fifo_wrreq_i,
@@ -189,7 +190,7 @@ begin
 			--			data(3 downto 0)  => s_rx_dc_be_little_endian,
 			rdclk             => clk_i,
 			rdreq             => rx_dc_data_fifo_rdreq_i,
-			wrclk             => s_umft601a_clock,
+			wrclk             => ftdi_clk_i,
 			wrreq             => s_rx_wrreq_protected,
 			q(35 downto 4)    => rx_dc_data_fifo_rddata_data_o,
 			q(3 downto 0)     => rx_dc_data_fifo_rddata_be_o,
@@ -292,7 +293,7 @@ begin
 		)
 		port map(
 			wrclk_i     => clk_i,
-			rdclk_i     => s_umft601a_clock,
+			rdclk_i     => ftdi_clk_i,
 			rst_i       => rst_i,
 			rstsig_i(0) => '0',
 			rstsig_i(1) => '0',
@@ -306,7 +307,7 @@ begin
 		);
 
 	-- ftdi umft601a controller fsm process (245 Synchronous FIFO mode Protocols)
-	p_ftdi_umft601a_controller : process(s_umft601a_clock, rst_i)
+	p_ftdi_umft601a_controller : process(ftdi_clk_i, rst_i)
 		variable v_ftdi_umft601a_controller_state : t_ftdi_umft601a_controller_fsm; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
@@ -331,7 +332,7 @@ begin
 			s_umft601a_buffered_pins.siwu_n       <= '1';
 			s_tx_dc_data_fifo.rdreq               <= '0';
 			s_rx_dc_data_fifo.wrreq               <= '0';
-		elsif (rising_edge(s_umft601a_clock)) then
+		elsif (rising_edge(ftdi_clk_i)) then
 
 			-- States transitions FSM
 			case (s_ftdi_umft601a_controller_state) is
@@ -552,20 +553,20 @@ begin
 						-- tx dc fifo still have no more data
 						s_ftdi_umft601a_controller_state <= TX_FILLING;
 						v_ftdi_umft601a_controller_state := TX_FILLING;
---						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+					--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					else
 						-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
---						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+						--						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
 						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							--						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							-- umft601a module can still receive data
 							s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
 							v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
---							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
---						-- check if the umft601a module can still receive data and if the tx words are over (force each write to have a maximum of 4096 Bytes)
---						elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt = 0)) then
---							s_ftdi_umft601a_controller_state <= IDLE;
---							v_ftdi_umft601a_controller_state := IDLE;
+						--							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+						--						-- check if the umft601a module can still receive data and if the tx words are over (force each write to have a maximum of 4096 Bytes)
+						--						elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt = 0)) then
+						--							s_ftdi_umft601a_controller_state <= IDLE;
+						--							v_ftdi_umft601a_controller_state := IDLE;
 						else
 							s_tx_interrupted      <= '1';
 							s_tx_interrupted_data <= s_tx_dc_data_fifo.rddata_data;
@@ -585,13 +586,13 @@ begin
 					s_tx_words_cnt                   <= 0;
 					-- conditional state transition and internal signal values
 					-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
---					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+					--					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
 					if ((s_umft601a_buffered_pins.txe_n = '0')) then
 						--					if ((s_umft601a_buffered_pins.txe_n = '0')) then
 						-- umft601a module can still receive data
 						s_ftdi_umft601a_controller_state <= TX_FILLING;
 						v_ftdi_umft601a_controller_state := TX_FILLING;
---						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+						--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					end if;
 
 				-- all the other states (not defined)
@@ -604,8 +605,8 @@ begin
 
 			-- check if a stop command was issued
 			if (s_synchronized_stop = '1') then
---				s_ftdi_umft601a_controller_state <= STOPPED;
---				v_ftdi_umft601a_controller_state := STOPPED;
+				--				s_ftdi_umft601a_controller_state <= STOPPED;
+				--				v_ftdi_umft601a_controller_state := STOPPED;
 				null;
 			-- check if a clear command was issued
 			elsif (s_synchronized_clear = '1') then
@@ -852,7 +853,7 @@ begin
 
 	-- signals assingments
 	-- clock and reset assingments
-	s_umft601a_clock                 <= (s_umft601a_buffered_pins.clock);
+--	s_umft601a_clock                 <= (s_umft601a_buffered_pins.clock);
 	s_umft601a_buffered_pins.reset_n <= not (rst_i);
 
 	s_tx_dc_extended_wrusedw(s_tx_dc_data_fifo.rdusedw'length)                <= s_tx_dc_data_fifo.rdfull;

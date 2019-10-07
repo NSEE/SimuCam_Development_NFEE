@@ -22,6 +22,7 @@ entity ftdi_usb3_top is
 	);
 	port(
 		clock_sink_clk                  : in    std_logic                      := '0'; --          --            clock_sink.clk
+		ftdi_clock_sink_clk             : in    std_logic                      := '0'; --          --       ftdi_clock_sink.clk
 		reset_sink_reset                : in    std_logic                      := '0'; --          --            reset_sink.reset
 		umft_data_bus                   : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --     conduit_umft_pins.umft_data_signal
 		umft_reset_n_pin                : out   std_logic; --                                      --                      .umft_reset_n_signal
@@ -133,8 +134,8 @@ architecture rtl of ftdi_usb3_top is
 	signal s_loopback_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
 
 	-- Tx/Rx Mux Signals
---	signal s_tx_mux_select : std_logic_vector(1 downto 0);
---	signal s_rx_mux_select : std_logic_vector(1 downto 0);
+	--	signal s_tx_mux_select : std_logic_vector(1 downto 0);
+	--	signal s_rx_mux_select : std_logic_vector(1 downto 0);
 
 	-- FTDI Tx DC Data FIFO Signals
 	signal s_ftdi_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
@@ -185,28 +186,28 @@ begin
 		-- Config Avalon MM Read Instantiation
 		ftdi_config_avalon_mm_read_ent_inst : entity work.ftdi_config_avalon_mm_read_ent
 			port map(
-				clk_i                 => a_avs_clock,
-				rst_i                 => a_reset,
-				ftdi_config_avalon_mm_i.address                                                                                                                                     => avalon_slave_config_address,
-				ftdi_config_avalon_mm_i.read                                                                                                                                                                                                           => avalon_slave_config_read,
-				ftdi_config_avalon_mm_i.byteenable                                                                                                                                                                                                                                                                  => avalon_slave_config_byteenable,
-				ftdi_config_avalon_mm_o.readdata                                                                                                                                                                                                                                                                                                                                             => avalon_slave_config_readdata,
-				ftdi_config_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                               => s_config_avalon_mm_read_waitrequest,
-				ftdi_config_wr_regs_i => s_config_write_registers,
-				ftdi_config_rd_regs_i => s_config_read_registers
+				clk_i                               => a_avs_clock,
+				rst_i                               => a_reset,
+				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.read        => avalon_slave_config_read,
+				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.readdata    => avalon_slave_config_readdata,
+				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_read_waitrequest,
+				ftdi_config_wr_regs_i               => s_config_write_registers,
+				ftdi_config_rd_regs_i               => s_config_read_registers
 			);
 
 		-- Config Avalon MM Write Instantiation
 		ftdi_config_avalon_mm_write_ent_inst : entity work.ftdi_config_avalon_mm_write_ent
 			port map(
-				clk_i                 => a_avs_clock,
-				rst_i                 => a_reset,
-				ftdi_config_avalon_mm_i.address                                                                                                                                       => avalon_slave_config_address,
-				ftdi_config_avalon_mm_i.write                                                                                                                                                                                                            => avalon_slave_config_write,
-				ftdi_config_avalon_mm_i.writedata                                                                                                                                                                                                                                                                       => avalon_slave_config_writedata,
-				ftdi_config_avalon_mm_i.byteenable                                                                                                                                                                                                                                                                                                                                             => avalon_slave_config_byteenable,
-				ftdi_config_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                                     => s_config_avalon_mm_write_waitrequest,
-				ftdi_config_wr_regs_o => s_config_write_registers
+				clk_i                               => a_avs_clock,
+				rst_i                               => a_reset,
+				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.write       => avalon_slave_config_write,
+				ftdi_config_avalon_mm_i.writedata   => avalon_slave_config_writedata,
+				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_write_waitrequest,
+				ftdi_config_wr_regs_o               => s_config_write_registers
 			);
 
 	end generate g_ftdi_avs_config_read_write;
@@ -214,17 +215,17 @@ begin
 	-- Tx Data Avalon MM Write Instantiation
 	ftdi_tx_data_avalon_mm_write_ent_inst : entity work.ftdi_tx_data_avalon_mm_write_ent
 		port map(
-			clk_i                => a_avs_clock,
-			rst_i                => a_reset,
-			ftdi_tx_data_avalon_mm_i.address                                                                                                                                       => avalon_slave_data_address,
-			ftdi_tx_data_avalon_mm_i.write                                                                                                                                                                                                           => avalon_slave_data_write,
-			ftdi_tx_data_avalon_mm_i.writedata                                                                                                                                                                                                                                                                     => avalon_slave_data_writedata,
-			buffer_stat_full_i   => s_tx_dbuffer_stat_full,
-			buffer_wrready_i     => s_tx_dbuffer_wrready,
-			ftdi_tx_data_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                                                       => s_data_avalon_mm_write_waitrequest,
-			buffer_data_loaded_o => s_tx_dbuffer_data_loaded,
-			buffer_wrdata_o      => s_tx_dbuffer_wrdata,
-			buffer_wrreq_o       => s_tx_dbuffer_wrreq
+			clk_i                                => a_avs_clock,
+			rst_i                                => a_reset,
+			ftdi_tx_data_avalon_mm_i.address     => avalon_slave_data_address,
+			ftdi_tx_data_avalon_mm_i.write       => avalon_slave_data_write,
+			ftdi_tx_data_avalon_mm_i.writedata   => avalon_slave_data_writedata,
+			buffer_stat_full_i                   => s_tx_dbuffer_stat_full,
+			buffer_wrready_i                     => s_tx_dbuffer_wrready,
+			ftdi_tx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_write_waitrequest,
+			buffer_data_loaded_o                 => s_tx_dbuffer_data_loaded,
+			buffer_wrdata_o                      => s_tx_dbuffer_wrdata,
+			buffer_wrreq_o                       => s_tx_dbuffer_wrreq
 		);
 
 	-- Tx (Double) Data Buffer Instantiation (Tx: FPGA => FTDI)	
@@ -290,19 +291,19 @@ begin
 	-- Rx Data Avalon MM Read Instantiation
 	ftdi_rx_data_avalon_mm_read_ent_inst : entity work.ftdi_rx_data_avalon_mm_read_ent
 		port map(
-			clk_i               => a_avs_clock,
-			rst_i               => a_reset,
-			data_rx_stop_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
-			data_rx_start_i     => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
-			ftdi_rx_data_avalon_mm_i.address                                                                                                                                                                                                                                                                                                                      => avalon_slave_data_address,
-			ftdi_rx_data_avalon_mm_i.read                                                                                                                                                                                                                                                                                                                                                                                           => avalon_slave_data_read,
-			buffer_stat_empty_i => s_rx_dbuffer_stat_empty,
-			buffer_rddata_i     => s_rx_dbuffer_rddata,
-			buffer_rdready_i    => s_rx_dbuffer_rdready,
-			ftdi_rx_data_avalon_mm_o.readdata                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              => avalon_slave_data_readdata,
-			ftdi_rx_data_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               => s_data_avalon_mm_read_waitrequest,
-			buffer_rdreq_o      => s_rx_dbuffer_rdreq,
-			buffer_change_o     => s_rx_dbuffer_change
+			clk_i                                => a_avs_clock,
+			rst_i                                => a_reset,
+			data_rx_stop_i                       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			data_rx_start_i                      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			ftdi_rx_data_avalon_mm_i.address     => avalon_slave_data_address,
+			ftdi_rx_data_avalon_mm_i.read        => avalon_slave_data_read,
+			buffer_stat_empty_i                  => s_rx_dbuffer_stat_empty,
+			buffer_rddata_i                      => s_rx_dbuffer_rddata,
+			buffer_rdready_i                     => s_rx_dbuffer_rdready,
+			ftdi_rx_data_avalon_mm_o.readdata    => avalon_slave_data_readdata,
+			ftdi_rx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_read_waitrequest,
+			buffer_rdreq_o                       => s_rx_dbuffer_rdreq,
+			buffer_change_o                      => s_rx_dbuffer_change
 		);
 
 	-- Rx (Double) Data Buffer Instantiation (Rx: FTDI => FPGA)
@@ -464,77 +465,78 @@ begin
 			rx_dbuffer_wrreq_o                   => s_rx_dbuffer_wrreq
 		);
 
---	-- FTDI Data Loopback  Instantiation (Loopback: FTDI => FTDI)
---	ftdi_data_loopback_ent_inst : entity work.ftdi_data_loopback_ent
---		port map(
---			clk_i                         => a_avs_clock,
---			rst_i                         => a_reset,
---			tx_dc_data_fifo_wrempty_i     => s_loopback_tx_dc_data_fifo_wrempty,
---			tx_dc_data_fifo_wrfull_i      => s_loopback_tx_dc_data_fifo_wrfull,
---			tx_dc_data_fifo_wrusedw_i     => s_loopback_tx_dc_data_fifo_wrusedw,
---			rx_dc_data_fifo_rddata_data_i => s_loopback_rx_dc_data_fifo_rddata_data,
---			rx_dc_data_fifo_rddata_be_i   => s_loopback_rx_dc_data_fifo_rddata_be,
---			rx_dc_data_fifo_rdempty_i     => s_loopback_rx_dc_data_fifo_rdempty,
---			rx_dc_data_fifo_rdfull_i      => s_loopback_rx_dc_data_fifo_rdfull,
---			rx_dc_data_fifo_rdusedw_i     => s_loopback_rx_dc_data_fifo_rdusedw,
---			tx_dc_data_fifo_wrdata_data_o => s_loopback_tx_dc_data_fifo_wrdata_data,
---			tx_dc_data_fifo_wrdata_be_o   => s_loopback_tx_dc_data_fifo_wrdata_be,
---			tx_dc_data_fifo_wrreq_o       => s_loopback_tx_dc_data_fifo_wrreq,
---			rx_dc_data_fifo_rdreq_o       => s_loopback_rx_dc_data_fifo_rdreq
---		);
+	--	-- FTDI Data Loopback  Instantiation (Loopback: FTDI => FTDI)
+	--	ftdi_data_loopback_ent_inst : entity work.ftdi_data_loopback_ent
+	--		port map(
+	--			clk_i                         => a_avs_clock,
+	--			rst_i                         => a_reset,
+	--			tx_dc_data_fifo_wrempty_i     => s_loopback_tx_dc_data_fifo_wrempty,
+	--			tx_dc_data_fifo_wrfull_i      => s_loopback_tx_dc_data_fifo_wrfull,
+	--			tx_dc_data_fifo_wrusedw_i     => s_loopback_tx_dc_data_fifo_wrusedw,
+	--			rx_dc_data_fifo_rddata_data_i => s_loopback_rx_dc_data_fifo_rddata_data,
+	--			rx_dc_data_fifo_rddata_be_i   => s_loopback_rx_dc_data_fifo_rddata_be,
+	--			rx_dc_data_fifo_rdempty_i     => s_loopback_rx_dc_data_fifo_rdempty,
+	--			rx_dc_data_fifo_rdfull_i      => s_loopback_rx_dc_data_fifo_rdfull,
+	--			rx_dc_data_fifo_rdusedw_i     => s_loopback_rx_dc_data_fifo_rdusedw,
+	--			tx_dc_data_fifo_wrdata_data_o => s_loopback_tx_dc_data_fifo_wrdata_data,
+	--			tx_dc_data_fifo_wrdata_be_o   => s_loopback_tx_dc_data_fifo_wrdata_be,
+	--			tx_dc_data_fifo_wrreq_o       => s_loopback_tx_dc_data_fifo_wrreq,
+	--			rx_dc_data_fifo_rdreq_o       => s_loopback_rx_dc_data_fifo_rdreq
+	--		);
 
---	-- FTDI Tx Data Mux  Instantiation (Tx: FPGA => FTDI)
---	ftdi_tx_data_mux_ent_inst : entity work.ftdi_tx_data_mux_ent
---		port map(
---			mux_scr_select_i               => s_tx_mux_select,
---			mux_ftdi_tx_data_wrempty_i     => s_ftdi_tx_dc_data_fifo_wrempty,
---			mux_ftdi_tx_data_wrfull_i      => s_ftdi_tx_dc_data_fifo_wrfull,
---			mux_ftdi_tx_data_wrusedw_i     => s_ftdi_tx_dc_data_fifo_wrusedw,
---			mux_scr0_tx_data_wrdata_data_i => s_avalon_tx_dc_data_fifo_wrdata_data,
---			mux_scr0_tx_data_wrdata_be_i   => s_avalon_tx_dc_data_fifo_wrdata_be,
---			mux_scr0_tx_data_wrreq_i       => s_avalon_tx_dc_data_fifo_wrreq,
---			mux_scr1_tx_data_wrdata_data_i => s_loopback_tx_dc_data_fifo_wrdata_data,
---			mux_scr1_tx_data_wrdata_be_i   => s_loopback_tx_dc_data_fifo_wrdata_be,
---			mux_scr1_tx_data_wrreq_i       => s_loopback_tx_dc_data_fifo_wrreq,
---			mux_ftdi_tx_data_wrdata_data_o => s_ftdi_tx_dc_data_fifo_wrdata_data,
---			mux_ftdi_tx_data_wrdata_be_o   => s_ftdi_tx_dc_data_fifo_wrdata_be,
---			mux_ftdi_tx_data_wrreq_o       => s_ftdi_tx_dc_data_fifo_wrreq,
---			mux_scr0_tx_data_wrempty_o     => s_avalon_tx_dc_data_fifo_wrempty,
---			mux_scr0_tx_data_wrfull_o      => s_avalon_tx_dc_data_fifo_wrfull,
---			mux_scr0_tx_data_wrusedw_o     => s_avalon_tx_dc_data_fifo_wrusedw,
---			mux_scr1_tx_data_wrempty_o     => s_loopback_tx_dc_data_fifo_wrempty,
---			mux_scr1_tx_data_wrfull_o      => s_loopback_tx_dc_data_fifo_wrfull,
---			mux_scr1_tx_data_wrusedw_o     => s_loopback_tx_dc_data_fifo_wrusedw
---		);
---
---	-- FTDI Rx Data Mux  Instantiation (Rx: FTDI => FPGA)
---	ftdi_rx_data_mux_ent_inst : entity work.ftdi_rx_data_mux_ent
---		port map(
---			mux_scr_select_i               => s_rx_mux_select,
---			mux_ftdi_rx_data_rddata_data_i => s_ftdi_rx_dc_data_fifo_rddata_data,
---			mux_ftdi_rx_data_rddata_be_i   => s_ftdi_rx_dc_data_fifo_rddata_be,
---			mux_ftdi_rx_data_rdempty_i     => s_ftdi_rx_dc_data_fifo_rdempty,
---			mux_ftdi_rx_data_rdfull_i      => s_ftdi_rx_dc_data_fifo_rdfull,
---			mux_ftdi_rx_data_rdusedw_i     => s_ftdi_rx_dc_data_fifo_rdusedw,
---			mux_scr0_rx_data_rdreq_i       => s_avalon_rx_dc_data_fifo_rdreq,
---			mux_scr1_rx_data_rdreq_i       => s_loopback_rx_dc_data_fifo_rdreq,
---			mux_ftdi_rx_data_rdreq_o       => s_ftdi_rx_dc_data_fifo_rdreq,
---			mux_scr0_rx_data_rddata_data_o => s_avalon_rx_dc_data_fifo_rddata_data,
---			mux_scr0_rx_data_rddata_be_o   => s_avalon_rx_dc_data_fifo_rddata_be,
---			mux_scr0_rx_data_rdempty_o     => s_avalon_rx_dc_data_fifo_rdempty,
---			mux_scr0_rx_data_rdfull_o      => s_avalon_rx_dc_data_fifo_rdfull,
---			mux_scr0_rx_data_rdusedw_o     => s_avalon_rx_dc_data_fifo_rdusedw,
---			mux_scr1_rx_data_rddata_data_o => s_loopback_rx_dc_data_fifo_rddata_data,
---			mux_scr1_rx_data_rddata_be_o   => s_loopback_rx_dc_data_fifo_rddata_be,
---			mux_scr1_rx_data_rdempty_o     => s_loopback_rx_dc_data_fifo_rdempty,
---			mux_scr1_rx_data_rdfull_o      => s_loopback_rx_dc_data_fifo_rdfull,
---			mux_scr1_rx_data_rdusedw_o     => s_loopback_rx_dc_data_fifo_rdusedw
---		);
+	--	-- FTDI Tx Data Mux  Instantiation (Tx: FPGA => FTDI)
+	--	ftdi_tx_data_mux_ent_inst : entity work.ftdi_tx_data_mux_ent
+	--		port map(
+	--			mux_scr_select_i               => s_tx_mux_select,
+	--			mux_ftdi_tx_data_wrempty_i     => s_ftdi_tx_dc_data_fifo_wrempty,
+	--			mux_ftdi_tx_data_wrfull_i      => s_ftdi_tx_dc_data_fifo_wrfull,
+	--			mux_ftdi_tx_data_wrusedw_i     => s_ftdi_tx_dc_data_fifo_wrusedw,
+	--			mux_scr0_tx_data_wrdata_data_i => s_avalon_tx_dc_data_fifo_wrdata_data,
+	--			mux_scr0_tx_data_wrdata_be_i   => s_avalon_tx_dc_data_fifo_wrdata_be,
+	--			mux_scr0_tx_data_wrreq_i       => s_avalon_tx_dc_data_fifo_wrreq,
+	--			mux_scr1_tx_data_wrdata_data_i => s_loopback_tx_dc_data_fifo_wrdata_data,
+	--			mux_scr1_tx_data_wrdata_be_i   => s_loopback_tx_dc_data_fifo_wrdata_be,
+	--			mux_scr1_tx_data_wrreq_i       => s_loopback_tx_dc_data_fifo_wrreq,
+	--			mux_ftdi_tx_data_wrdata_data_o => s_ftdi_tx_dc_data_fifo_wrdata_data,
+	--			mux_ftdi_tx_data_wrdata_be_o   => s_ftdi_tx_dc_data_fifo_wrdata_be,
+	--			mux_ftdi_tx_data_wrreq_o       => s_ftdi_tx_dc_data_fifo_wrreq,
+	--			mux_scr0_tx_data_wrempty_o     => s_avalon_tx_dc_data_fifo_wrempty,
+	--			mux_scr0_tx_data_wrfull_o      => s_avalon_tx_dc_data_fifo_wrfull,
+	--			mux_scr0_tx_data_wrusedw_o     => s_avalon_tx_dc_data_fifo_wrusedw,
+	--			mux_scr1_tx_data_wrempty_o     => s_loopback_tx_dc_data_fifo_wrempty,
+	--			mux_scr1_tx_data_wrfull_o      => s_loopback_tx_dc_data_fifo_wrfull,
+	--			mux_scr1_tx_data_wrusedw_o     => s_loopback_tx_dc_data_fifo_wrusedw
+	--		);
+	--
+	--	-- FTDI Rx Data Mux  Instantiation (Rx: FTDI => FPGA)
+	--	ftdi_rx_data_mux_ent_inst : entity work.ftdi_rx_data_mux_ent
+	--		port map(
+	--			mux_scr_select_i               => s_rx_mux_select,
+	--			mux_ftdi_rx_data_rddata_data_i => s_ftdi_rx_dc_data_fifo_rddata_data,
+	--			mux_ftdi_rx_data_rddata_be_i   => s_ftdi_rx_dc_data_fifo_rddata_be,
+	--			mux_ftdi_rx_data_rdempty_i     => s_ftdi_rx_dc_data_fifo_rdempty,
+	--			mux_ftdi_rx_data_rdfull_i      => s_ftdi_rx_dc_data_fifo_rdfull,
+	--			mux_ftdi_rx_data_rdusedw_i     => s_ftdi_rx_dc_data_fifo_rdusedw,
+	--			mux_scr0_rx_data_rdreq_i       => s_avalon_rx_dc_data_fifo_rdreq,
+	--			mux_scr1_rx_data_rdreq_i       => s_loopback_rx_dc_data_fifo_rdreq,
+	--			mux_ftdi_rx_data_rdreq_o       => s_ftdi_rx_dc_data_fifo_rdreq,
+	--			mux_scr0_rx_data_rddata_data_o => s_avalon_rx_dc_data_fifo_rddata_data,
+	--			mux_scr0_rx_data_rddata_be_o   => s_avalon_rx_dc_data_fifo_rddata_be,
+	--			mux_scr0_rx_data_rdempty_o     => s_avalon_rx_dc_data_fifo_rdempty,
+	--			mux_scr0_rx_data_rdfull_o      => s_avalon_rx_dc_data_fifo_rdfull,
+	--			mux_scr0_rx_data_rdusedw_o     => s_avalon_rx_dc_data_fifo_rdusedw,
+	--			mux_scr1_rx_data_rddata_data_o => s_loopback_rx_dc_data_fifo_rddata_data,
+	--			mux_scr1_rx_data_rddata_be_o   => s_loopback_rx_dc_data_fifo_rddata_be,
+	--			mux_scr1_rx_data_rdempty_o     => s_loopback_rx_dc_data_fifo_rdempty,
+	--			mux_scr1_rx_data_rdfull_o      => s_loopback_rx_dc_data_fifo_rdfull,
+	--			mux_scr1_rx_data_rdusedw_o     => s_loopback_rx_dc_data_fifo_rdusedw
+	--		);
 
 	-- FTDI UMFT601A Controller Instantiation
 	ftdi_umft601a_controller_ent_inst : entity work.ftdi_umft601a_controller_ent
 		port map(
 			clk_i                         => a_avs_clock,
+			ftdi_clk_i                    => ftdi_clock_sink_clk,
 			rst_i                         => a_reset,
 			ftdi_module_clear_i           => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
 			ftdi_module_stop_i            => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
@@ -729,8 +731,8 @@ begin
 	avalon_slave_data_waitrequest <= ((s_data_avalon_mm_read_waitrequest) and (s_data_avalon_mm_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- Tx/Rx Mux Assignments
---	s_tx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
---	s_rx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
+	--	s_tx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
+	--	s_rx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
 
 	-- Reserved Signals Assignments
 	s_config_read_registers.reserved_reg.tx_buffer_0_empty_irq    <= '0';

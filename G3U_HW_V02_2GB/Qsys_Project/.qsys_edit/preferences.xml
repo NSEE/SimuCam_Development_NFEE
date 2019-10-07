@@ -3,7 +3,7 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="655" />
+   <connections preferredWidth="687" />
    <irq preferredWidth="34" />
    <name preferredWidth="307" />
    <inputclock preferredWidth="101" />
@@ -11,7 +11,8 @@
    <description preferredWidth="325" />
   </columns>
  </systemtable>
- <library expandedCategories="Project,Library" />
+ <library
+   expandedCategories="Library/Basic Functions/Clocks; PLLs and Resets,Library/Qsys Interconnect/Memory-Mapped Alpha,Project,Library/Basic Functions/Configuration and Programming,Library/Basic Functions,Library,Library/Qsys Interconnect/Interrupt,Library/University Program/Clock,Library/Basic Functions/Bridges and Adaptors/Memory Mapped,Library/University Program,Library/Basic Functions/Simulation; Debug and Verification/Simulation,Library/Basic Functions/On Chip Memory,Library/Basic Functions/Bridges and Adaptors,Library/Qsys Interconnect,Library/Basic Functions/Simulation; Debug and Verification" />
  <window width="1936" height="1056" x="-8" y="-8" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />
