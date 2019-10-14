@@ -83,6 +83,7 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_masking_buffer_rddata              : std_logic_vector(7 downto 0);
 	-- data manager signals
 	signal s_data_manager_sync                  : std_logic;
+	signal s_data_manager_hk_only               : std_logic;
 	-- header data signals
 	signal s_headerdata_logical_address         : std_logic_vector(7 downto 0);
 	signal s_headerdata_protocol_id             : std_logic_vector(7 downto 0);
@@ -217,6 +218,7 @@ begin
 			fee_start_signal_i                   => fee_machine_start_i,
 			fee_digitalise_en_i                  => s_registered_fee_digitalise_en,
 			fee_manager_sync_i                   => s_data_manager_sync,
+			fee_manager_hk_only_i                => s_data_manager_hk_only,
 			current_frame_number_i               => s_current_frame_number,
 			current_frame_counter_i              => s_current_frame_counter,
 			fee_logical_addr_i                   => s_registered_fee_logical_addr,
@@ -386,14 +388,16 @@ begin
 
 	-- fee frame manager
 	p_fee_frame_manager : process(clk_i, rst_i) is
-		variable v_full_frame_cnt : std_logic_vector(17 downto 0) := (others => '0');
+		variable v_full_frame_cnt : std_logic_vector(17 downto 0) := (others => '1');
 		variable v_stopped_flag   : std_logic                     := '1';
+		variable v_frame_cleared  : std_logic                     := '1';
 	begin
 		if (rst_i = '1') then
 			s_current_frame_counter <= (others => '0');
 			s_current_frame_number  <= (others => '0');
 			v_full_frame_cnt        := (others => '0');
 			v_stopped_flag          := '1';
+			v_frame_cleared         := '1';
 		elsif rising_edge(clk_i) then
 
 			--
@@ -433,11 +437,19 @@ begin
 			-- frame manager not stopped
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
-				-- sync signal received
-				-- update counters
 				v_full_frame_cnt(17 downto 2) := s_current_frame_counter;
 				v_full_frame_cnt(1 downto 0)  := s_current_frame_number;
-				v_full_frame_cnt              := std_logic_vector(unsigned(v_full_frame_cnt) + 1);
+				-- sync signal received
+				if (v_frame_cleared = '1') then
+					v_frame_cleared := '0';
+				else
+					-- update counters
+					if (v_full_frame_cnt = "111111111111111111") then
+						v_full_frame_cnt := (others => '0');
+					else
+						v_full_frame_cnt := std_logic_vector(unsigned(v_full_frame_cnt) + 1);
+					end if;
+				end if;
 				s_current_frame_counter       <= v_full_frame_cnt(17 downto 2);
 				s_current_frame_number        <= v_full_frame_cnt(1 downto 0);
 			end if;
@@ -453,6 +465,7 @@ begin
 				s_current_frame_counter <= (others => '0');
 				s_current_frame_number  <= (others => '0');
 				v_full_frame_cnt        := (others => '0');
+				v_frame_cleared         := '1';
 			end if;
 
 		end if;
@@ -567,7 +580,8 @@ begin
 	p_data_manager_sync_gen : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
-			s_data_manager_sync <= '0';
+			s_data_manager_sync    <= '0';
+			s_data_manager_hk_only <= '0';
 		elsif rising_edge(clk_i) then
 			s_data_manager_sync <= '0';
 			-- check if a sync signal was received and the side is active and the mode is valid
@@ -575,31 +589,44 @@ begin
 
 				case (data_pkt_fee_mode_i(3 downto 0)) is
 					when c_FEE_ON_MODE =>
-						s_data_manager_sync <= '0';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '1';
 					when c_FEE_FULLIMAGE_PATTERN_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_WINDOWING_PATTERN_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_STANDBY_MODE =>
-						s_data_manager_sync <= '0';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '1';
 					when c_FEE_FULLIMAGE_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_WINDOWING_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_PERFORMANCE_TEST_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_PARALLEL_TRAP_PUMPING_1_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_PARALLEL_TRAP_PUMPING_2_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_SERIAL_TRAP_PUMPING_1_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_SERIAL_TRAP_PUMPING_2_MODE =>
-						s_data_manager_sync <= '1';
+						s_data_manager_sync    <= '1';
+						s_data_manager_hk_only <= '0';
 					when c_FEE_OFF_MODE =>
-						s_data_manager_sync <= '0';
+						s_data_manager_sync    <= '0';
+						s_data_manager_hk_only <= '0';
 					when others =>
-						s_data_manager_sync <= '0';
+						s_data_manager_sync    <= '0';
+						s_data_manager_hk_only <= '0';
 				end case;
 
 			end if;

@@ -38,6 +38,20 @@ architecture RTL of config_avalon_stimuli is
 	--	alias a_wr_interrupt_control_L_buffer_empty_enable : std_logic is avalon_mm_writedata_o(8);
 	--	alias a_wr_interrupt_control_R_buffer_empty_enable : std_logic is avalon_mm_writedata_o(0);
 
+	-- fee mode constants
+	constant c_FEE_ON_MODE                      : std_logic_vector(3 downto 0) := "0000"; -- Mode ID 0
+	constant c_FEE_FULLIMAGE_PATTERN_MODE       : std_logic_vector(3 downto 0) := "0001"; -- Mode ID 1
+	constant c_FEE_WINDOWING_PATTERN_MODE       : std_logic_vector(3 downto 0) := "0010"; -- Mode ID 2
+	constant c_FEE_STANDBY_MODE                 : std_logic_vector(3 downto 0) := "0100"; -- Mode ID 4
+	constant c_FEE_FULLIMAGE_MODE               : std_logic_vector(3 downto 0) := "0101"; -- Mode ID 5
+	constant c_FEE_WINDOWING_MODE               : std_logic_vector(3 downto 0) := "0110"; -- Mode ID 6
+	constant c_FEE_PERFORMANCE_TEST_MODE        : std_logic_vector(3 downto 0) := "0111"; -- Mode ID 7
+	constant c_FEE_PARALLEL_TRAP_PUMPING_1_MODE : std_logic_vector(3 downto 0) := "1001"; -- Mode ID 9
+	constant c_FEE_PARALLEL_TRAP_PUMPING_2_MODE : std_logic_vector(3 downto 0) := "1010"; -- Mode ID 10
+	constant c_FEE_SERIAL_TRAP_PUMPING_1_MODE   : std_logic_vector(3 downto 0) := "1011"; -- Mode ID 11
+	constant c_FEE_SERIAL_TRAP_PUMPING_2_MODE   : std_logic_vector(3 downto 0) := "1100"; -- Mode ID 12
+	constant c_FEE_OFF_MODE                     : std_logic_vector(3 downto 0) := "1111"; -- Mode ID 15
+
 begin
 
 	p_config_avalon_stimuli : process(clk_i, rst_i) is
@@ -60,13 +74,13 @@ begin
 
 			case s_counter is
 
-				--				-- spw_timecode_reg
-				--				when 1500 to 1501 =>
-				--					-- register write
-				--					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#01#, g_ADDRESS_WIDTH));
-				--					avalon_mm_write_o     <= '1';
-				--					avalon_mm_writedata_o <= (others => '0');
-				--					avalon_mm_writedata_o(8) <= '1'; -- timecode_clear
+								-- spw_timecode_reg
+								when 300 to 301 =>
+									-- register write
+									avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#0E#, g_ADDRESS_WIDTH));
+									avalon_mm_write_o     <= '1';
+									avalon_mm_writedata_o <= (others => '0');
+									avalon_mm_writedata_o(0) <= '1'; -- timecode_clear
 
 				-- spw_link_config_status_reg
 				when 500 to 501 =>
@@ -125,8 +139,8 @@ begin
 					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#44#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
-					avalon_mm_writedata_o(7 downto 0)   <= std_logic_vector(to_unsigned(1 + 8, 8)); -- data_pkt_fee_mode
-					avalon_mm_writedata_o(15 downto 8)  <= std_logic_vector(to_unsigned(0, 8)); -- data_pkt_ccd_number
+					avalon_mm_writedata_o(3 downto 0)   <= c_FEE_FULLIMAGE_PATTERN_MODE; -- data_pkt_fee_mode
+					avalon_mm_writedata_o(15 downto 8)  <= std_logic_vector(to_unsigned(3, 8)); -- data_pkt_ccd_number
 					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(0, 16)); -- data_pkt_line_delay
 					avalon_mm_read_o                    <= '0';
 

@@ -13,6 +13,7 @@ entity fee_master_data_manager_ent is
 		fee_start_signal_i                   : in  std_logic;
 		fee_digitalise_en_i                  : in  std_logic;
 		fee_manager_sync_i                   : in  std_logic;
+		fee_manager_hk_only_i                : in  std_logic;
 		current_frame_number_i               : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i              : in  std_logic_vector(15 downto 0);
 		-- fee data manager parameters
@@ -294,8 +295,13 @@ begin
 					--					headerdata_type_field_mode_o         <= c_FULL_IMAGE_PATTERN_MODE;
 					headerdata_type_field_mode_o         <= fee_fee_mode_i;
 					headerdata_type_field_last_packet_o  <= '1';
-					headerdata_type_field_ccd_side_o     <= fee_ccd_side_i;
-					headerdata_type_field_ccd_number_o   <= fee_ccd_number_i;
+					if (fee_manager_hk_only_i = '1') then
+						headerdata_type_field_ccd_side_o   <= '0';
+						headerdata_type_field_ccd_number_o <= "00";
+					else
+						headerdata_type_field_ccd_side_o   <= fee_ccd_side_i;
+						headerdata_type_field_ccd_number_o <= fee_ccd_number_i;
+					end if;
 					headerdata_type_field_frame_number_o <= current_frame_number_i;
 					headerdata_type_field_packet_type_o  <= c_HOUSEKEEPING_PACKET;
 					headerdata_frame_counter_o           <= current_frame_counter_i;
@@ -442,8 +448,12 @@ begin
 					if (data_transmitter_finished_i = '1') then
 						-- data transmitter finished
 						-- TODO: modify later to support windowing
+						-- check if its only hk
+						if (fee_manager_hk_only_i = '1') then
+							-- go to finish fee operation
+							s_fee_data_manager_state <= FINISH_FEE_OPERATION;
 						-- check if the digitalise is enabled
-						if (fee_digitalise_en_i = '1') then
+						elsif (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, normal operation
 							-- signal the start of the imgdata cycle
 							imgdata_start_o          <= '1';
