@@ -495,7 +495,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)) {
 				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM2Dev,
+				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2Dev,
 						&xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
@@ -661,7 +661,7 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInByt
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)) {
 				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM2Dev,
+				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2Dev,
 						&xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}

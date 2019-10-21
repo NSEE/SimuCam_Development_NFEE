@@ -187,6 +187,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
+					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) COMM_CHANNEL_1_BASE_ADDR;
+					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
@@ -197,6 +199,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
+					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) COMM_CHANNEL_1_BASE_ADDR;
+					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);

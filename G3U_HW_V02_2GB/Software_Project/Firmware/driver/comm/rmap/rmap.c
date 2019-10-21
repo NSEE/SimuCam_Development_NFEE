@@ -186,7 +186,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 	}
 #endif
 
-	ucADDRReg = (unsigned char)uliRmapCh4WriteCmdAddress();
+	ucADDRReg = (unsigned char)uliRmapCh5WriteCmdAddress();
 
 	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 4;
 	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
@@ -220,7 +220,7 @@ void vRmapCh6HandleIrq(void* pvContext) {
 	}
 #endif
 
-	ucADDRReg = (unsigned char)uliRmapCh4WriteCmdAddress();
+	ucADDRReg = (unsigned char)uliRmapCh6WriteCmdAddress();
 
 	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 5;
 	uiCmdRmap.ucByte[2] = M_FEE_RMAP;

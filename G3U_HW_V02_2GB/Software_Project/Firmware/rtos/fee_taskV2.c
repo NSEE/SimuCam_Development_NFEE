@@ -82,7 +82,7 @@ void vFeeTaskV2(void *task_data) {
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				/* Disable the link SPW */
@@ -219,6 +219,11 @@ void vFeeTaskV2(void *task_data) {
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x04; /*sFeeStandBy*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
+				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				/* Disable IRQ and clear the Double Buffer */
 				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
@@ -718,7 +723,7 @@ void vFeeTaskV2(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"\nNFEE-%hu Task: D. B. prepared\n", pxNFee->ucId);
+								fprintf(fp,"\nNFEE-%hu Task: D. B. prepared, Side %u\n", pxNFee->ucId, ucSideFromMSG);
 							}
 							#endif
 						} else {
@@ -845,8 +850,6 @@ void vFeeTaskV2(void *task_data) {
 							/* Send message telling to controller that is not using the DMA any more */
 							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
 
-
-
 							/* Last Packet scheduled?*/
 							if ( (xTrans.bFinal[0] == TRUE) && (xTrans.bFinal[1] == TRUE) ) {
 								/* Changing the FEE state */
@@ -926,6 +929,13 @@ void vFeeTaskV2(void *task_data) {
 					xTrans.bFirstT = FALSE;
 					bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 					switch ( pxNFee->xControl.eMode ) {
+
+						case sOn: /*0x0*/
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x0) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x0;
+								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+							}
+							break;
 						case sFullPattern: /*0x1*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x1) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x1;
@@ -935,6 +945,12 @@ void vFeeTaskV2(void *task_data) {
 						case sWinPattern:/*0x2*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x2) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x2;
+								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+							}
+							break;
+						case sStandBy: /*0x4*/
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x4) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x4;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
@@ -1015,6 +1031,11 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1024,6 +1045,11 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
@@ -1093,6 +1119,12 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 			case M_FEE_FULL:
 			case M_FEE_FULL_PATTERN:
@@ -1139,6 +1171,11 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1149,6 +1186,11 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
 
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1158,6 +1200,10 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.bWatingSync = TRUE;
 					pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				} else {
 					#if DEBUG_ON
@@ -1173,6 +1219,9 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.bWatingSync = TRUE;
 					pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				} else {
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -1223,6 +1272,12 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 			case M_FEE_FULL:
 			case M_FEE_FULL_PATTERN:
@@ -1269,6 +1324,11 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1298,6 +1358,11 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
@@ -1335,10 +1400,14 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				if ( pxNFeeP->xControl.eLastMode == pxNFeeP->xControl.eNextMode ) {
 					/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 					 * configure the hardware to not send any data in the next sync */
+
+					/* rfranca */
+					/*
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-				}
+					*/
+ 				}
 
 				break;
 
@@ -1399,6 +1468,11 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1409,6 +1483,11 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
@@ -1488,6 +1567,12 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eNextMode = sConfig;
 				/* Real State */
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 
 			case M_FEE_ON:
@@ -1499,6 +1584,12 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				/* Real State */
 				pxNFeeP->xControl.eState = sWaitSync;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 			case M_FEE_ON_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1507,6 +1598,11 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				/* Real State */
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				break;
 
@@ -1642,6 +1738,12 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eNextMode = sConfig;
 				/* Real State */
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 			case M_FEE_STANDBY:
 				pxNFeeP->xControl.bWatingSync = TRUE;
@@ -1652,6 +1754,12 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eNextMode = sStandby_Enter;
 				/* Real State */
 				pxNFeeP->xControl.eState = sWaitSync;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 			case M_FEE_FULL_PATTERN:
 			case M_FEE_FULL_PATTERN_FORCED: /* There are no forced mode to go to the Pattern Mode */
@@ -1663,6 +1771,7 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sFullPattern;
 				/* Real State */
 				pxNFeeP->xControl.eState = sFullPattern_Enter;
+
 				break;
 			case M_FEE_WIN_PATTERN:
 			case M_FEE_WIN_PATTERN_FORCED: /* There are no forced mode to go to the Pattern Mode */
@@ -1752,6 +1861,12 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				/* Real State */
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 			case M_FEE_RMAP:
 				#if DEBUG_ON
@@ -1818,6 +1933,11 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1832,6 +1952,11 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
@@ -1902,6 +2027,12 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 			case M_FEE_FULL:
 			case M_FEE_FULL_PATTERN:
@@ -1954,6 +2085,11 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1985,6 +2121,11 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				/*don't need side*/
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
@@ -2038,6 +2179,12 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/* [rfranca] */
+				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 				break;
 
 			case M_FEE_DMA_ACCESS:
@@ -2979,6 +3126,12 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eNextMode = sStandby_Enter;
 					/* Real State */
 					pxNFeeP->xControl.eState = sWaitSync;
+
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 					break;
 				case 0x05: /*Windowing-Mode*/
 					#if DEBUG_ON
@@ -3226,6 +3379,11 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
 
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
@@ -3432,6 +3590,11 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
 
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
@@ -3563,6 +3726,12 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					/* Real State */
 					pxNFeeP->xControl.eState = sWaitSync;
+
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 					break;
 				case 0x01: /*Full Image Pattern Mode*/
 				case 0x02: /*Windowing-Pattern-Mode*/
@@ -3648,6 +3817,12 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					/* Real State */
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 					break;
 				case 0x0E: /*Reserved*/
 				case 0x0F: /*Reserved*/
@@ -3810,6 +3985,11 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
@@ -4018,6 +4198,11 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
 
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
@@ -4215,6 +4400,11 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
@@ -4421,6 +4611,11 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/* [rfranca] */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
