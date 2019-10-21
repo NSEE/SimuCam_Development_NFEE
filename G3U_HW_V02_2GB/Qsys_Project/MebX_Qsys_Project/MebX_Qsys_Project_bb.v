@@ -46,6 +46,7 @@ module MebX_Qsys_Project (
 	ctrl_io_lvds_export,
 	dip_export,
 	ext_export,
+	ftdi_clk_clk,
 	led_de4_export,
 	led_painel_export,
 	m1_ddr2_i2c_scl_export,
@@ -145,8 +146,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	ftdi_clk_clk);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -194,6 +194,7 @@ module MebX_Qsys_Project (
 	output	[3:0]	ctrl_io_lvds_export;
 	input	[7:0]	dip_export;
 	input		ext_export;
+	input		ftdi_clk_clk;
 	output	[7:0]	led_de4_export;
 	output	[20:0]	led_painel_export;
 	output		m1_ddr2_i2c_scl_export;
@@ -294,5 +295,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		ftdi_clk_clk;
 endmodule

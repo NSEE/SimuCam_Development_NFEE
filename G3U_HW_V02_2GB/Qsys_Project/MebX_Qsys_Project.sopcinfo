@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.10.10.16:49:55 -->
+ <!-- 2019.10.16.23:49:04 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1570736994</value>
+  <value>1571280543</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -20381,7 +20381,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200008000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200008000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -20781,14 +20781,6 @@ parameters are a RESULT of the module parameters. -->
     <name>FTDI_USB3_0.avalon_slave_data</name>
     <baseAddress>8589934592</baseAddress>
     <span>32768</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>nios2_gen2_0</moduleName>
-    <slaveName>debug_mem_slave</slaveName>
-    <name>nios2_gen2_0.debug_mem_slave</name>
-    <baseAddress>2147483648</baseAddress>
-    <span>2048</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
@@ -74719,7 +74711,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1570736994</value>
+   <value>1571280543</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -74739,7 +74731,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1570736994</value>
+   <value>1571280543</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -74755,7 +74747,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1570736994</value>
+   <value>1571280543</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -81649,57 +81641,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>mm_read</startConnectionPoint>
   <endModule>m2_ddr2_memory</endModule>
   <endConnectionPoint>avl</endConnectionPoint>
- </connection>
- <connection
-   name="dma_DDR_M1.mm_read/nios2_gen2_0.debug_mem_slave"
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_read"
-   end="nios2_gen2_0.debug_mem_slave">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x80000000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>dma_DDR_M1</startModule>
-  <startConnectionPoint>mm_read</startConnectionPoint>
-  <endModule>nios2_gen2_0</endModule>
-  <endConnectionPoint>debug_mem_slave</endConnectionPoint>
  </connection>
  <connection
    name="dma_DDR_M1.mm_read/m1_clock_bridge.s0"
@@ -89153,7 +89094,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>88</instanceCount>
+  <instanceCount>87</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

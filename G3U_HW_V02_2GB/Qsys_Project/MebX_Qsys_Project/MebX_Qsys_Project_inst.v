@@ -45,6 +45,7 @@
 		.ctrl_io_lvds_export                                         (<connected-to-ctrl_io_lvds_export>),                                         //                    ctrl_io_lvds.export
 		.dip_export                                                  (<connected-to-dip_export>),                                                  //                             dip.export
 		.ext_export                                                  (<connected-to-ext_export>),                                                  //                             ext.export
+		.ftdi_clk_clk                                                (<connected-to-ftdi_clk_clk>),                                                //                        ftdi_clk.clk
 		.led_de4_export                                              (<connected-to-led_de4_export>),                                              //                         led_de4.export
 		.led_painel_export                                           (<connected-to-led_painel_export>),                                           //                      led_painel.export
 		.m1_ddr2_i2c_scl_export                                      (<connected-to-m1_ddr2_i2c_scl_export>),                                      //                 m1_ddr2_i2c_scl.export
@@ -144,7 +145,6 @@
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                .umft_oe_n_signal
-		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                .umft_siwu_n_signal
-		.ftdi_clk_clk                                                (<connected-to-ftdi_clk_clk>)                                                 //                        ftdi_clk.clk
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                .umft_siwu_n_signal
 	);
 

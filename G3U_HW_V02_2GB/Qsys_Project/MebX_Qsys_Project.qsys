@@ -2064,9 +2064,9 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200004000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200008000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200004000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200008000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
@@ -2107,9 +2107,9 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200004000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200008000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200004000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200008000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
@@ -3126,7 +3126,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory</parameter>
+  <parameter name="autoInitializationFileName">MebX_Qsys_Project_onchip_memory</parameter>
   <parameter name="blockType" value="M9K" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -3967,15 +3967,6 @@
    version="18.1"
    start="dma_DDR_M2.mm_read"
    end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_read"
-   end="nios2_gen2_0.debug_mem_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80000000" />
   <parameter name="defaultConnection" value="false" />
