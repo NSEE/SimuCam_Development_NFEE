@@ -4,7 +4,7 @@
 
 
 # 
-# rst_controller "rst_controller" v1.4
+# rst_controller "rst_controller" v1.5
 #  2019.01.24.19:03:35
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME rst_controller
-set_module_property VERSION 1.4
+set_module_property VERSION 1.5
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -110,6 +110,23 @@ set_interface_property reset_source_simucam CMSIS_SVD_VARIABLES ""
 set_interface_property reset_source_simucam SVD_ADDRESS_GROUP ""
 
 add_interface_port reset_source_simucam reset_source_simucam_reset reset Output 1
+
+
+# 
+# connection point reset_source_ftdi
+# 
+add_interface reset_source_ftdi reset start
+set_interface_property reset_source_ftdi associatedClock clock_sink
+set_interface_property reset_source_ftdi associatedDirectReset ""
+set_interface_property reset_source_ftdi associatedResetSinks reset_sink
+set_interface_property reset_source_ftdi synchronousEdges DEASSERT
+set_interface_property reset_source_ftdi ENABLED true
+set_interface_property reset_source_ftdi EXPORT_OF ""
+set_interface_property reset_source_ftdi PORT_NAME_MAP ""
+set_interface_property reset_source_ftdi CMSIS_SVD_VARIABLES ""
+set_interface_property reset_source_ftdi SVD_ADDRESS_GROUP ""
+
+add_interface_port reset_source_ftdi reset_source_ftdi_reset reset Output 1
 
 
 # 

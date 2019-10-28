@@ -38,17 +38,17 @@ begin
 
 				--  SimuCam Reser Control Register                  (32 bits):
 				when (c_RSTC_SIMUCAM_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
-					--    31-17 : Reserved                               [-/-]
-					avalon_mm_spacewire_o.readdata(31 downto 17) <= (others => '0');
-					--    16-16 : SimuCam Reset control bit              [R/W]
-					avalon_mm_spacewire_o.readdata(16)           <= rst_controller_write_registers_i.simucam_reset.simucam_reset;
-					--    15- 0 : SimuCam Reset Timer value              [R/W]
-					avalon_mm_spacewire_o.readdata(15 downto 0)  <= rst_controller_write_registers_i.simucam_reset.simucam_timer;
+					--    31-31 : SimuCam Reset control bit              [R/W]
+					avalon_mm_spacewire_o.readdata(31)           <= rst_controller_write_registers_i.simucam_reset.simucam_reset;
+					--    30- 0 : SimuCam Reset Timer value              [R/W]
+					avalon_mm_spacewire_o.readdata(30 downto 0)  <= rst_controller_write_registers_i.simucam_reset.simucam_timer;
 
 				--  Device Reset Control Register                  (32 bits):
 				when (c_RSTC_DEVICE_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
-					--    31-11 : Reserved                               [-/-]
-					avalon_mm_spacewire_o.readdata(31 downto 11) <= (others => '0');
+					--    31-12 : Reserved                               [-/-]
+					avalon_mm_spacewire_o.readdata(31 downto 12) <= (others => '0');
+					--    11-11 : FTDI Module Reset control bit          [R/W]
+					avalon_mm_spacewire_o.readdata(11)           <= rst_controller_write_registers_i.device_reset.ftdi_reset;
 					--    10-10 : Sync Module Reset control bit          [R/W]
 					avalon_mm_spacewire_o.readdata(10)           <= rst_controller_write_registers_i.device_reset.sync_reset;
 					--     9- 9 : RS232 Module Reset control bit         [R/W]
