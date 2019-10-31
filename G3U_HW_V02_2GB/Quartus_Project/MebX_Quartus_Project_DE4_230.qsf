@@ -26,7 +26,7 @@
 # Notes:
 #
 # 1) The default values for assignments are stored in the file:
-#		MebX_Quartus_Project_assignment_defaults.qdf
+#		MebX_Quartus_Project_DE4_230_assignment_defaults.qdf
 #    If this file doesn't exist, see file:
 #		assignment_defaults.qdf
 #
@@ -38,10 +38,10 @@
 
 
 set_global_assignment -name FAMILY "Stratix IV"
-set_global_assignment -name DEVICE EP4SGX530KH40C2
+set_global_assignment -name DEVICE EP4SGX230KF40C2
 set_global_assignment -name TOP_LEVEL_ENTITY MebX_TopLevel
-set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
-set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:40:56  MAY 23, 2017"
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:49:12  OCTOBER 31, 2019"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Standard Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
@@ -2148,7 +2148,6 @@ set_location_assignment PIN_AP10 -to SYNC_OUT
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SYNC_OUT
 set_global_assignment -name SAVE_DISK_SPACE OFF
 set_global_assignment -name FLOW_ENABLE_IO_ASSIGNMENT_ANALYSIS ON
-set_global_assignment -name IGNORE_PARTITIONS OFF
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D0_IO
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D1_IO
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D2_IO
