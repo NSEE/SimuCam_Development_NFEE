@@ -38,7 +38,7 @@
 
 
 set_global_assignment -name FAMILY "Stratix IV"
-set_global_assignment -name DEVICE EP4SGX530KH40C2
+set_global_assignment -name DEVICE EP4SGX230KF40C2
 set_global_assignment -name TOP_LEVEL_ENTITY MebX_TopLevel
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:40:56  MAY 23, 2017"

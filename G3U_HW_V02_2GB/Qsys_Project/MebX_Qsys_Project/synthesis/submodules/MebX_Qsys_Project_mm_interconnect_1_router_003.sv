@@ -47,23 +47,23 @@ module MebX_Qsys_Project_mm_interconnect_1_router_003_default_decode
      parameter DEFAULT_CHANNEL = 0,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 13 
+               DEFAULT_DESTID = 3 
    )
-  (output [358 - 355 : 0] default_destination_id,
-   output [15-1 : 0] default_wr_channel,
-   output [15-1 : 0] default_rd_channel,
-   output [15-1 : 0] default_src_channel
+  (output [356 - 354 : 0] default_destination_id,
+   output [5-1 : 0] default_wr_channel,
+   output [5-1 : 0] default_rd_channel,
+   output [5-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[358 - 355 : 0];
+    DEFAULT_DESTID[356 - 354 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 15'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 5'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module MebX_Qsys_Project_mm_interconnect_1_router_003_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 15'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 15'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 5'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 5'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module MebX_Qsys_Project_mm_interconnect_1_router_003
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [372-1 : 0]    sink_data,
+    input  [370-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module MebX_Qsys_Project_mm_interconnect_1_router_003
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [372-1    : 0] src_data,
-    output reg [15-1 : 0] src_channel,
+    output reg [370-1    : 0] src_data,
+    output reg [5-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -114,12 +114,12 @@ module MebX_Qsys_Project_mm_interconnect_1_router_003
     // -------------------------------------------------------
     localparam PKT_ADDR_H = 321;
     localparam PKT_ADDR_L = 288;
-    localparam PKT_DEST_ID_H = 358;
-    localparam PKT_DEST_ID_L = 355;
-    localparam PKT_PROTECTION_H = 362;
-    localparam PKT_PROTECTION_L = 360;
-    localparam ST_DATA_W = 372;
-    localparam ST_CHANNEL_W = 15;
+    localparam PKT_DEST_ID_H = 356;
+    localparam PKT_DEST_ID_L = 354;
+    localparam PKT_PROTECTION_H = 360;
+    localparam PKT_PROTECTION_L = 358;
+    localparam ST_DATA_W = 370;
+    localparam ST_CHANNEL_W = 5;
     localparam DECODER_TYPE = 0;
 
     localparam PKT_TRANS_WRITE = 324;
@@ -165,7 +165,7 @@ module MebX_Qsys_Project_mm_interconnect_1_router_003
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [15-1 : 0] default_src_channel;
+    wire [5-1 : 0] default_src_channel;
 
 
 
@@ -191,14 +191,14 @@ module MebX_Qsys_Project_mm_interconnect_1_router_003
 
     // ( 0x0 .. 0x80000000 )
     if ( {address[RG:PAD0],{PAD0{1'b0}}} == 34'h0   ) begin
-            src_channel = 15'b01;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 13;
+            src_channel = 5'b01;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end
 
     // ( 0x200000000 .. 0x200008000 )
     if ( {address[RG:PAD1],{PAD1{1'b0}}} == 34'h200000000   ) begin
-            src_channel = 15'b10;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 12;
+            src_channel = 5'b10;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
 end

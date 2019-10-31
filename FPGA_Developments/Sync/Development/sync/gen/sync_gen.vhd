@@ -94,7 +94,7 @@ architecture rtl of sync_gen is
 	signal s_next_sync_cycle_cnt : natural range 0 to ((2 ** g_SYNC_CYCLE_NUMBER_WIDTH) - 1);
 	-- registered config record
 	signal s_registered_configs  : t_sync_gen_config;
-	
+
 	signal s_sync_gen : std_logic;
 
 	--============================================================================
@@ -122,6 +122,7 @@ begin
 			s_sync_blank                           <= (others => '0');
 			s_sync_cycle_cnt                       <= 0;
 			s_next_sync_cycle_cnt                  <= 0;
+			s_registered_configs.pre_blank_time    <= (others => '0');
 			s_registered_configs.master_blank_time <= (others => '0');
 			s_registered_configs.blank_time        <= (others => '0');
 			s_registered_configs.period            <= (others => '0');
@@ -149,9 +150,11 @@ begin
 					v_sync_gen_state                       := IDLE;
 					-- default internal signal values
 					s_sync_cnt                             <= (others => '0');
-					s_sync_blank                           <= config_i.master_blank_time;
+					--					s_sync_blank                           <= config_i.master_blank_time;
+					s_sync_blank                           <= config_i.blank_time;
 					s_sync_cycle_cnt                       <= 0;
 					s_next_sync_cycle_cnt                  <= 0;
+					s_registered_configs.pre_blank_time    <= (others => '0');
 					s_registered_configs.master_blank_time <= (others => '0');
 					s_registered_configs.blank_time        <= (others => '0');
 					s_registered_configs.period            <= (others => '0');
@@ -171,7 +174,9 @@ begin
 						s_registered_configs <= config_i;
 						if (unsigned(config_i.number_of_cycles) > 1) then
 							-- more than one cycle
-							s_next_sync_cycle_cnt <= 1;
+							s_sync_cycle_cnt      <= 1;
+							v_sync_cycle          := 0;
+							s_next_sync_cycle_cnt <= 2;
 							v_next_sync_cycle     := 1;
 						end if;
 					-- check if a one_shot was received
@@ -190,7 +195,9 @@ begin
 						s_registered_configs <= config_i;
 						if (unsigned(config_i.number_of_cycles) > 1) then
 							-- more than one cycle
-							s_next_sync_cycle_cnt <= 1;
+							s_sync_cycle_cnt      <= 1;
+							v_sync_cycle          := 0;
+							s_next_sync_cycle_cnt <= 2;
 							v_next_sync_cycle     := 1;
 						end if;
 					end if;
@@ -281,21 +288,24 @@ begin
 									-- upper limit reached
 									-- reset cycle counter
 									s_sync_cycle_cnt      <= 0;
-									v_sync_cycle          := 0;
+									v_sync_cycle          := 3;
 									-- set next cycle
 									s_next_sync_cycle_cnt <= 1;
-									v_next_sync_cycle     := 1;
+									v_next_sync_cycle     := 0;
 									-- return to master blank time
 									s_sync_blank          <= s_registered_configs.master_blank_time;
 								else
 									-- keep cycle counting
 									s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
-									v_sync_cycle     := v_sync_cycle + 1;
-
+									if (v_sync_cycle = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
+										v_sync_cycle := 0;
+									else
+										v_sync_cycle := v_sync_cycle + 1;
+									end if;
 									-- set next cycle
 									if (s_next_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
 										s_next_sync_cycle_cnt <= 0;
-										v_next_sync_cycle     := 0;
+										v_next_sync_cycle     := 3;
 									else
 										s_next_sync_cycle_cnt <= s_next_sync_cycle_cnt + 1;
 										v_next_sync_cycle     := v_next_sync_cycle + 1;
@@ -505,8 +515,8 @@ begin
 
 		end if;
 	end process p_sync_gen_fsm_state;
-	
-	sync_gen_o                             <= (not s_registered_configs.signal_polarity) when (reset_n_i = '0') else (s_sync_gen);
+
+	sync_gen_o <= (not s_registered_configs.signal_polarity) when (reset_n_i = '0') else (s_sync_gen);
 
 end architecture rtl;
 --============================================================================

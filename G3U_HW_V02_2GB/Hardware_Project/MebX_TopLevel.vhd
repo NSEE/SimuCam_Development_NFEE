@@ -472,30 +472,30 @@ architecture bhv of MebX_TopLevel is
 			comm_a_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
 			comm_a_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
 			--
-			comm_b_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_b_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_b_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_b_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
-			--
-			comm_c_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_c_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_c_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_c_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
-			--
-			comm_d_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_d_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_d_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_d_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
-			--
-			comm_e_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_e_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_e_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_e_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
-			--
-			comm_f_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_f_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_f_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_f_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+--			comm_b_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
+--			comm_b_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
+--			comm_b_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
+--			comm_b_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+--			--
+--			comm_c_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
+--			comm_c_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
+--			comm_c_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
+--			comm_c_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+--			--
+--			comm_d_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
+--			comm_d_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
+--			comm_d_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
+--			comm_d_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+--			--
+--			comm_e_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
+--			comm_e_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
+--			comm_e_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
+--			comm_e_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+--			--
+--			comm_f_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
+--			comm_f_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
+--			comm_f_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
+--			comm_f_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
 			--
 			--			comm_g_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
 			--			comm_g_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
@@ -508,20 +508,20 @@ architecture bhv of MebX_TopLevel is
 			--			comm_h_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
 			--
 			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
-			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
-			comm_c_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
-			comm_d_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
-			comm_e_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
-			comm_f_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
+--			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
+--			comm_c_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
+--			comm_d_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
+--			comm_e_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
+--			comm_f_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			--			comm_g_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			--			comm_h_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			--
 			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+--			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+--			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+--			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+--			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+--			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
 			--
 			temp_scl_export                                             : out   std_logic;
 			temp_sda_export                                             : inout std_logic;
@@ -666,30 +666,30 @@ begin
 			comm_a_conduit_end_data_out_signal                          => spw_a_do(0),
 			comm_a_conduit_end_strobe_out_signal                        => spw_a_so(0),
 			--
-			comm_b_conduit_end_data_in_signal                           => spw_b_di(0),
-			comm_b_conduit_end_strobe_in_signal                         => spw_b_si(0),
-			comm_b_conduit_end_data_out_signal                          => spw_b_do(0),
-			comm_b_conduit_end_strobe_out_signal                        => spw_b_so(0),
-			--
-			comm_c_conduit_end_data_in_signal                           => spw_c_di(0),
-			comm_c_conduit_end_strobe_in_signal                         => spw_c_si(0),
-			comm_c_conduit_end_data_out_signal                          => spw_c_do(0),
-			comm_c_conduit_end_strobe_out_signal                        => spw_c_so(0),
-			--
-			comm_d_conduit_end_data_in_signal                           => spw_d_di(0),
-			comm_d_conduit_end_strobe_in_signal                         => spw_d_si(0),
-			comm_d_conduit_end_data_out_signal                          => spw_d_do(0),
-			comm_d_conduit_end_strobe_out_signal                        => spw_d_so(0),
-			--
-			comm_e_conduit_end_data_in_signal                           => spw_e_di(0),
-			comm_e_conduit_end_strobe_in_signal                         => spw_e_si(0),
-			comm_e_conduit_end_data_out_signal                          => spw_e_do(0),
-			comm_e_conduit_end_strobe_out_signal                        => spw_e_so(0),
-			--
-			comm_f_conduit_end_data_in_signal                           => spw_f_di(0),
-			comm_f_conduit_end_strobe_in_signal                         => spw_f_si(0),
-			comm_f_conduit_end_data_out_signal                          => spw_f_do(0),
-			comm_f_conduit_end_strobe_out_signal                        => spw_f_so(0),
+--			comm_b_conduit_end_data_in_signal                           => spw_b_di(0),
+--			comm_b_conduit_end_strobe_in_signal                         => spw_b_si(0),
+--			comm_b_conduit_end_data_out_signal                          => spw_b_do(0),
+--			comm_b_conduit_end_strobe_out_signal                        => spw_b_so(0),
+--			--
+--			comm_c_conduit_end_data_in_signal                           => spw_c_di(0),
+--			comm_c_conduit_end_strobe_in_signal                         => spw_c_si(0),
+--			comm_c_conduit_end_data_out_signal                          => spw_c_do(0),
+--			comm_c_conduit_end_strobe_out_signal                        => spw_c_so(0),
+--			--
+--			comm_d_conduit_end_data_in_signal                           => spw_d_di(0),
+--			comm_d_conduit_end_strobe_in_signal                         => spw_d_si(0),
+--			comm_d_conduit_end_data_out_signal                          => spw_d_do(0),
+--			comm_d_conduit_end_strobe_out_signal                        => spw_d_so(0),
+--			--
+--			comm_e_conduit_end_data_in_signal                           => spw_e_di(0),
+--			comm_e_conduit_end_strobe_in_signal                         => spw_e_si(0),
+--			comm_e_conduit_end_data_out_signal                          => spw_e_do(0),
+--			comm_e_conduit_end_strobe_out_signal                        => spw_e_so(0),
+--			--
+--			comm_f_conduit_end_data_in_signal                           => spw_f_di(0),
+--			comm_f_conduit_end_strobe_in_signal                         => spw_f_si(0),
+--			comm_f_conduit_end_data_out_signal                          => spw_f_do(0),
+--			comm_f_conduit_end_strobe_out_signal                        => spw_f_so(0),
 			--
 			--			comm_g_conduit_end_data_in_signal                           => spw_g_di(0),
 			--			comm_g_conduit_end_strobe_in_signal                         => spw_g_si(0),
@@ -702,20 +702,20 @@ begin
 			--			comm_h_conduit_end_strobe_out_signal                        => spw_h_so(0),
 			--
 			comm_a_sync_end_sync_channel_signal                         => spw_1_sync, --       --                       comm_a_sync_end.sync_channel_signal
-			comm_b_sync_end_sync_channel_signal                         => spw_2_sync, --       --                       comm_b_sync_end.sync_channel_signal
-			comm_c_sync_end_sync_channel_signal                         => spw_3_sync, --       --                       comm_c_sync_end.sync_channel_signal
-			comm_d_sync_end_sync_channel_signal                         => spw_4_sync, --       --                       comm_d_sync_end.sync_channel_signal
-			comm_e_sync_end_sync_channel_signal                         => spw_5_sync, --       --                       comm_e_sync_end.sync_channel_signal
-			comm_f_sync_end_sync_channel_signal                         => spw_6_sync, --       --                       comm_f_sync_end.sync_channel_signal
+--			comm_b_sync_end_sync_channel_signal                         => spw_2_sync, --       --                       comm_b_sync_end.sync_channel_signal
+--			comm_c_sync_end_sync_channel_signal                         => spw_3_sync, --       --                       comm_c_sync_end.sync_channel_signal
+--			comm_d_sync_end_sync_channel_signal                         => spw_4_sync, --       --                       comm_d_sync_end.sync_channel_signal
+--			comm_e_sync_end_sync_channel_signal                         => spw_5_sync, --       --                       comm_e_sync_end.sync_channel_signal
+--			comm_f_sync_end_sync_channel_signal                         => spw_6_sync, --       --                       comm_f_sync_end.sync_channel_signal
 			--			comm_g_sync_end_sync_channel_signal                         => spw_7_sync, --       --                       comm_g_sync_end.sync_channel_signal
 			--			comm_h_sync_end_sync_channel_signal                         => spw_8_sync, --       --                       comm_h_sync_end.sync_channel_signal
 			--
 			comm_a_measurements_conduit_end_measurements_channel_signal => spw_a_measure, --    -- comm_a_measurements_conduit_end.measurements_channel_signal
-			comm_b_measurements_conduit_end_measurements_channel_signal => spw_b_measure, --    -- comm_b_measurements_conduit_end.measurements_channel_signal
-			comm_c_measurements_conduit_end_measurements_channel_signal => spw_c_measure, --    -- comm_c_measurements_conduit_end.measurements_channel_signal
-			comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
-			comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
-			comm_f_measurements_conduit_end_measurements_channel_signal => spw_f_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
+--			comm_b_measurements_conduit_end_measurements_channel_signal => spw_b_measure, --    -- comm_b_measurements_conduit_end.measurements_channel_signal
+--			comm_c_measurements_conduit_end_measurements_channel_signal => spw_c_measure, --    -- comm_c_measurements_conduit_end.measurements_channel_signal
+--			comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
+--			comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
+--			comm_f_measurements_conduit_end_measurements_channel_signal => spw_f_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
 			--
 			temp_scl_export                                             => TEMP_SMCLK,
 			temp_sda_export                                             => TEMP_SMDAT,
@@ -835,13 +835,15 @@ begin
 	JP3_GPIO0_D16_IO <= spw_e_measure(5); -- measurement 5 : left fee busy signal
 	JP3_GPIO0_D17_IO <= spw_f_measure(5); -- measurement 5 : left fee busy signal
 	
-	JP3_GPIO0_D34_IO <= spw_a_measure(6); -- measurement 6 : fee busy signal
+--	JP3_GPIO0_D34_IO <= spw_a_measure(6); -- measurement 6 : fee busy signal
 	JP3_GPIO0_D35_IO <= spw_b_measure(6); -- measurement 6 : fee busy signal
 	JP3_GPIO0_D32_IO <= spw_c_measure(6); -- measurement 6 : fee busy signal
 	JP3_GPIO0_D33_IO <= spw_d_measure(6); -- measurement 6 : fee busy signal
 	JP3_GPIO0_D30_IO <= spw_e_measure(6); -- measurement 6 : fee busy signal
 	JP3_GPIO0_D31_IO <= spw_f_measure(6); -- measurement 6 : fee busy signal
-
+	
+	JP3_GPIO0_D34_IO <= s_sync_out;
+	
 	--==========--
 	-- eth
 	--==========--

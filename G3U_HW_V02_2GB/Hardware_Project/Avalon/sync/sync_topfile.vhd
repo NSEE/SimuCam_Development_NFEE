@@ -266,9 +266,10 @@ begin
 			irq_flag_clear_i.pre_last_pulse_irq_flag_clear   => s_sync_mm_write_registers.pre_sync_irq_flag_clear_reg.pre_last_pulse_irq_flag_clear,
 			-- Input watch signals (that can produce interrupts)
 			irq_watch_i.pre_sync_cycle_number                => s_next_cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
-			irq_watch_i.pre_sync_wave_watch                  => s_pre_sync_signal,
+--			irq_watch_i.pre_sync_wave_watch                  => s_pre_sync_signal,
+			irq_watch_i.pre_sync_wave_watch                  => s_sync_signal,
 			-- Aux to inform pre-sync polarity
-			irq_watch_i.pre_sync_pol_watch                   => '1',
+			irq_watch_i.pre_sync_pol_watch                   => '0',
 			-- Aux to inform sync number of cycles
 			irq_watch_i.pre_sync_number_of_cycles            => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 			-- Irq flag
