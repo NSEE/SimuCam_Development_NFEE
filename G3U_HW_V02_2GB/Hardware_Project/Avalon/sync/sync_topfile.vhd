@@ -116,6 +116,13 @@ architecture rtl of sync_ent is
 	signal s_pre_sync_signal   : std_logic;
 	signal s_next_cycle_number : std_logic_vector(7 downto 0);
 
+	signal s_sync_processed                   : std_logic;
+	signal s_sync_delay                       : std_logic;
+	signal s_sync_processed_cycle_number      : std_logic_vector(7 downto 0);
+	signal s_sync_processed_next_cycle_number : std_logic_vector(7 downto 0);
+	signal s_sync_processed_time_counting     : std_logic;
+	signal s_sync_processed_time_cnt          : std_logic_vector(31 downto 0);
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
@@ -230,8 +237,8 @@ begin
 			irq_flag_clear_i.last_pulse_irq_flag_clear   => s_sync_mm_write_registers.sync_irq_flag_clear_reg.last_pulse_irq_flag_clear,
 			-- Input watch signals (that can produce interrupts)
 			irq_watch_i.error_code_watch                 => s_sync_mm_read_registers.sync_status_reg.error_code,
-			irq_watch_i.sync_cycle_number                => s_sync_mm_read_registers.sync_status_reg.cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
-			irq_watch_i.sync_wave_watch                  => s_sync_signal,
+			irq_watch_i.sync_cycle_number                => s_sync_processed_cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			irq_watch_i.sync_wave_watch                  => s_sync_processed,
 			-- Aux to inform sync polarity
 			irq_watch_i.sync_pol_watch                   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
 			-- Aux to inform sync number of cycles
@@ -265,9 +272,9 @@ begin
 			irq_flag_clear_i.pre_normal_pulse_irq_flag_clear => s_sync_mm_write_registers.pre_sync_irq_flag_clear_reg.pre_normal_pulse_irq_flag_clear,
 			irq_flag_clear_i.pre_last_pulse_irq_flag_clear   => s_sync_mm_write_registers.pre_sync_irq_flag_clear_reg.pre_last_pulse_irq_flag_clear,
 			-- Input watch signals (that can produce interrupts)
-			irq_watch_i.pre_sync_cycle_number                => s_next_cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
---			irq_watch_i.pre_sync_wave_watch                  => s_pre_sync_signal,
-			irq_watch_i.pre_sync_wave_watch                  => s_sync_signal,
+			irq_watch_i.pre_sync_cycle_number                => s_sync_processed_next_cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			--			irq_watch_i.pre_sync_wave_watch                  => s_pre_sync_signal,
+			irq_watch_i.pre_sync_wave_watch                  => s_sync_processed,
 			-- Aux to inform pre-sync polarity
 			irq_watch_i.pre_sync_pol_watch                   => '0',
 			-- Aux to inform sync number of cycles
@@ -279,6 +286,74 @@ begin
 			irq_flag_o.pre_last_pulse_irq_flag               => s_sync_mm_read_registers.pre_sync_irq_flag_reg.pre_last_pulse_irq_flag,
 			irq_o                                            => a_pre_sync_irq
 		);
+
+	-- Sync process sigal
+	p_sync_process_signal : process(a_clock, s_reset_n) is
+		variable v_reseted_cnt : std_logic := '1';
+	begin
+		if (s_reset_n = '0') then
+			s_sync_processed                   <= '0';
+			s_sync_delay                       <= '0';
+			s_sync_processed_cycle_number      <= std_logic_vector(to_unsigned(0, s_sync_processed_cycle_number'length));
+			s_sync_processed_next_cycle_number <= std_logic_vector(to_unsigned(1, s_sync_processed_next_cycle_number'length));
+			s_sync_processed_time_counting     <= '0';
+			s_sync_processed_time_cnt          <= (others => '0');
+			v_reseted_cnt                      := '1';
+		elsif (rising_edge(a_clock)) then
+
+			-- delay sync signal
+			s_sync_delay     <= s_sync_signal;
+			s_sync_processed <= s_sync_signal;
+
+			-- check if a rising edge ocurred
+			if ((s_sync_signal = '1') and (s_sync_delay = '0')) then
+				-- rising edge ocurred
+				-- check if the cnt was just reseted (no need to increment)
+				if (v_reseted_cnt = '1') then
+					v_reseted_cnt := '0';
+				else
+					-- increment counters
+					if (s_sync_processed_cycle_number = std_logic_vector(unsigned(s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0)) - 1)) then
+						s_sync_processed_cycle_number <= (others => '0');
+					else
+						s_sync_processed_cycle_number <= std_logic_vector(unsigned(s_sync_processed_cycle_number) + 1);
+					end if;
+					if (s_sync_processed_next_cycle_number = std_logic_vector(unsigned(s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0)) - 1)) then
+						s_sync_processed_next_cycle_number <= (others => '0');
+					else
+						s_sync_processed_next_cycle_number <= std_logic_vector(unsigned(s_sync_processed_next_cycle_number) + 1);
+					end if;
+				end if;
+			-- check if a falling edge ocurred
+			elsif ((s_sync_signal = '0') and (s_sync_delay = '1')) then
+				-- initiate 300 ms counter
+				s_sync_processed_time_counting <= '1';
+				s_sync_processed_time_cnt      <= std_logic_vector(to_unsigned(15000000 - 1, s_sync_processed_time_cnt'length));
+				--				s_sync_processed_time_cnt      <= std_logic_vector(to_unsigned(15 - 1, s_sync_processed_time_cnt'length));
+			end if;
+
+			-- check if the timer is counting
+			if (s_sync_processed_time_counting = '1') then
+				-- check if the timer is finished
+				if (s_sync_processed_time_cnt = std_logic_vector(to_unsigned(0, s_sync_processed_time_cnt'length))) then
+					-- stop timer
+					s_sync_processed_time_counting <= '0';
+					s_sync_processed_time_cnt      <= (others => '0');
+					-- check sync value
+					if (s_sync_signal = '0') then
+						-- reset counters to initial value
+						s_sync_processed_cycle_number      <= std_logic_vector(to_unsigned(0, s_sync_processed_cycle_number'length));
+						s_sync_processed_next_cycle_number <= std_logic_vector(to_unsigned(1, s_sync_processed_next_cycle_number'length));
+						v_reseted_cnt                      := '1';
+					end if;
+				else
+					-- decrement timer
+					s_sync_processed_time_cnt <= std_logic_vector(unsigned(s_sync_processed_time_cnt) - 1);
+				end if;
+			end if;
+
+		end if;
+	end process p_sync_process_signal;
 
 	-- Signals assignment (concurrent code)
 	s_reset_n               <= not a_reset;
