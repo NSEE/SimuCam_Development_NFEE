@@ -165,6 +165,11 @@ architecture RTL of fee_master_data_controller_top is
 	constant c_FEE_SERIAL_TRAP_PUMPING_1_MODE   : std_logic_vector(3 downto 0) := "1011"; -- Mode ID 11
 	constant c_FEE_SERIAL_TRAP_PUMPING_2_MODE   : std_logic_vector(3 downto 0) := "1100"; -- Mode ID 12
 	constant c_FEE_OFF_MODE                     : std_logic_vector(3 downto 0) := "1111"; -- Mode ID 15
+	-- error injection signals
+	signal s_errinj_spw_tx_write                : std_logic;
+	signal s_errinj_spw_tx_flag                 : std_logic;
+	signal s_errinj_spw_tx_data                 : std_logic_vector(7 downto 0);
+	signal s_errinj_spw_tx_ready                : std_logic;
 
 begin
 
@@ -376,14 +381,36 @@ begin
 			send_buffer_stat_empty_i        => s_send_buffer_stat_empty,
 			send_buffer_rddata_i            => s_send_buffer_rddata,
 			send_buffer_rdready_i           => s_send_buffer_rdready,
-			spw_tx_ready_i                  => fee_spw_tx_ready_i,
+			spw_tx_ready_i                  => s_errinj_spw_tx_ready,
 			data_transmitter_busy_o         => s_data_transmitter_busy,
 			data_transmitter_finished_o     => s_data_transmitter_finished,
 			send_buffer_rdreq_o             => s_send_buffer_rdreq,
-			spw_tx_write_o                  => fee_spw_tx_write_o,
-			spw_tx_flag_o                   => fee_spw_tx_flag_o,
-			spw_tx_data_o                   => fee_spw_tx_data_o,
+			spw_tx_write_o                  => s_errinj_spw_tx_write,
+			spw_tx_flag_o                   => s_errinj_spw_tx_flag,
+			spw_tx_data_o                   => s_errinj_spw_tx_data,
 			send_buffer_change_o            => s_send_buffer_change
+		);
+
+	-- error injection instantiation
+	error_injection_ent_inst : entity work.error_injection_ent
+		port map(
+			clk_i                 => clk_i,
+			rst_i                 => rst_i,
+			errinj_tx_disabled_i  => '0',
+			errinj_missing_pkts_i => '0',
+			errinj_missing_data_i => '1',
+			errinj_frame_num_i    => "00",
+			errinj_sequence_cnt_i => x"0003",
+			errinj_data_cnt_i     => x"0000",
+			errinj_n_repeat_i     => x"0000",
+			errinj_spw_tx_write_i => s_errinj_spw_tx_write,
+			errinj_spw_tx_flag_i  => s_errinj_spw_tx_flag,
+			errinj_spw_tx_data_i  => s_errinj_spw_tx_data,
+			fee_spw_tx_ready_i    => fee_spw_tx_ready_i,
+			errinj_spw_tx_ready_o => s_errinj_spw_tx_ready,
+			fee_spw_tx_write_o    => fee_spw_tx_write_o,
+			fee_spw_tx_flag_o     => fee_spw_tx_flag_o,
+			fee_spw_tx_data_o     => fee_spw_tx_data_o
 		);
 
 	-- fee frame manager
