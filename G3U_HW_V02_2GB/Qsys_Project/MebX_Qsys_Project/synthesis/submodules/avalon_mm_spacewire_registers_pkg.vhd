@@ -3,12 +3,11 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package avalon_mm_spacewire_registers_pkg is
-
 	-- Address Constants
 
 	-- Allowed Addresses
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#47#;
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#4C#;
 
 	-- Registers Types
 
@@ -208,6 +207,17 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_adc_delay    : std_logic_vector(15 downto 0); -- Data Packet ADC Delay
 	end record t_comm_data_packet_pixel_delay_wr_reg;
 
+	-- Error Injection Control Register
+	type t_comm_error_injection_control_wr_reg is record
+		errinj_tx_disabled  : std_logic; -- Error Injection Tx Disabled Enable
+		errinj_missing_pkts : std_logic; -- Error Injection Missing Packets Enable
+		errinj_missing_data : std_logic; -- Error Injection Missing Data Enable
+		errinj_frame_num    : std_logic_vector(1 downto 0); -- Error Injection Frame Number of Error
+		errinj_sequence_cnt : std_logic_vector(15 downto 0); -- Error Injection Sequence Counter of Error
+		errinj_data_cnt     : std_logic_vector(15 downto 0); -- Error Injection Data Counter of Error
+		errinj_n_repeat     : std_logic_vector(15 downto 0); -- Error Injection Number of Error Repeats
+	end record t_comm_error_injection_control_wr_reg;
+
 	-- Avalon MM Types
 
 	-- Avalon MM Read/Write Registers
@@ -230,6 +240,7 @@ package avalon_mm_spacewire_registers_pkg is
 		data_packet_dev_addr_reg        : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
 		data_packet_config_reg          : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
 		data_packet_pixel_delay_reg     : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
+		error_injection_control_reg     : t_comm_error_injection_control_wr_reg; -- Error Injection Control Register
 	end record t_windowing_write_registers;
 
 	-- Avalon MM Read-Only Registers

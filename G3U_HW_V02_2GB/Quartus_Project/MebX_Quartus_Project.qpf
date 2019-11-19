@@ -18,14 +18,14 @@
 #
 # Quartus Prime
 # Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-# Date created = 17:50:52  October 31, 2019
+# Date created = 15:31:54  November 19, 2019
 #
 # -------------------------------------------------------------------------- #
 
 QUARTUS_VERSION = "18.1"
-DATE = "17:50:52  October 31, 2019"
+DATE = "15:31:54  November 19, 2019"
 
 # Revisions
 
-PROJECT_REVISION = "MebX_Quartus_Project_DE4_530"
 PROJECT_REVISION = "MebX_Quartus_Project_DE4_230"
+PROJECT_REVISION = "MebX_Quartus_Project_DE4_530"
