@@ -222,93 +222,148 @@ enum CommSpwCh {
 	eCommSpwCh8
 } ECommSpwCh;
 
+ /* Comm Device Address Register Struct */
 typedef struct CommDevAddr {
-	alt_u32 uliDevBaseAddr; /* Comm Device Base Address */
+  alt_u32 uliDevBaseAddr; /* Comm Device Base Address */
 } TCommDevAddr;
 
+ /* Comm IRQ Control Register Struct */
 typedef struct CommIrqControl {
-	bool bGlobalIrqEn; /* Comm Global IRQ Enable */
+  bool bGlobalIrqEn; /* Comm Global IRQ Enable */
 } TCommIrqControl;
 
+ /* SpaceWire Device Address Register Struct */
 typedef struct SpwcDevAddr {
-	alt_u32 uliSpwcBaseAddr; /* SpaceWire Device Base Address */
+  alt_u32 uliSpwcBaseAddr; /* SpaceWire Device Base Address */
 } TSpwcDevAddr;
 
+ /* SpaceWire Link Config Register Struct */
 typedef struct SpwcLinkConfig {
-	bool bDisconnect; /* SpaceWire Link Config Disconnect */
-	bool bLinkStart; /* SpaceWire Link Config Linkstart */
-	bool bAutostart; /* SpaceWire Link Config Autostart */
-	alt_u8 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
+  bool bDisconnect; /* SpaceWire Link Config Disconnect */
+  bool bLinkStart; /* SpaceWire Link Config Linkstart */
+  bool bAutostart; /* SpaceWire Link Config Autostart */
+  alt_u8 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
 } TSpwcLinkConfig;
 
+ /* SpaceWire Link Status Register Struct */
 typedef struct SpwcLinkStatus {
-	bool bRunning; /* SpaceWire Link Running */
-	bool bConnecting; /* SpaceWire Link Connecting */
-	bool bStarted; /* SpaceWire Link Started */
+  bool bRunning; /* SpaceWire Link Running */
+  bool bConnecting; /* SpaceWire Link Connecting */
+  bool bStarted; /* SpaceWire Link Started */
 } TSpwcLinkStatus;
 
+ /* SpaceWire Link Status Register Struct */
 typedef struct SpwcLinkError {
-	bool bDisconnect; /* SpaceWire Error Disconnect */
-	bool bParity; /* SpaceWire Error Parity */
-	bool bEscape; /* SpaceWire Error Escape */
-	bool bCredit; /* SpaceWire Error Credit */
+  bool bDisconnect; /* SpaceWire Error Disconnect */
+  bool bParity; /* SpaceWire Error Parity */
+  bool bEscape; /* SpaceWire Error Escape */
+  bool bCredit; /* SpaceWire Error Credit */
 } TSpwcLinkError;
 
+ /* SpaceWire Timecode Config Register Struct */
 typedef struct SpwcTimecodeConfig {
-	bool bClear; /* SpaceWire Timecode Clear */
-	bool bEnable; /* SpaceWire Timecode Enable */
+  bool bClear; /* SpaceWire Timecode Clear */
+  bool bEnable; /* SpaceWire Timecode Enable */
 } TSpwcTimecodeConfig;
 
+ /* SpaceWire Timecode Status Register Struct */
 typedef struct SpwcTimecodeStatus {
-	alt_u8 ucTime; /* SpaceWire Timecode Time */
-	alt_u8 ucControl; /* SpaceWire Timecode Control */
+  alt_u8 ucTime; /* SpaceWire Timecode Time */
+  alt_u8 ucControl; /* SpaceWire Timecode Control */
 } TSpwcTimecodeStatus;
 
+ /* FEE Buffers Device Address Register Struct */
 typedef struct FeebDevAddr {
-	alt_u32 uliFeebBaseAddr; /* FEE Buffers Device Base Address */
+  alt_u32 uliFeebBaseAddr; /* FEE Buffers Device Base Address */
 } TFeebDevAddr;
 
+ /* FEE Machine Config Register Struct */
 typedef struct FeebMachineControl {
-	bool bClear; /* FEE Machine Clear */
-	bool bStop; /* FEE Machine Stop */
-	bool bStart; /* FEE Machine Start */
-	bool bDataControllerEn; /* FEE Data Controller Enable */
-	bool bDigitaliseEn; /* FEE Digitalise Enable */
-	bool bWindowingEn; /* FEE Windowing Enable */
+  bool bClear; /* FEE Machine Clear */
+  bool bStop; /* FEE Machine Stop */
+  bool bStart; /* FEE Machine Start */
+  bool bDataControllerEn; /* FEE Data Controller Enable */
+  bool bDigitaliseEn; /* FEE Digitalise Enable */
+  bool bWindowingEn; /* FEE Windowing Enable */
 } TFeebMachineControl;
 
+ /* FEE Buffers Config Register Struct */
 typedef struct FeebBufferStatus {
-	alt_u8 ucRightBufferSize; /* Windowing Right Buffer Size Config */
-	alt_u8 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
-	bool bRightBufferEmpty; /* Windowing Right Buffer Empty */
-	bool bLeftBufferEmpty; /* Windowing Left Buffer Empty */
-	bool bRightFeeBusy; /* FEE Right Machine Busy */
-	bool bLeftFeeBusy; /* FEE Left Machine Busy */
+  alt_u8 ucRightBufferSize; /* Windowing Right Buffer Size Config */
+  alt_u8 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
+  bool bRightBufferEmpty; /* Windowing Right Buffer Empty */
+  bool bLeftBufferEmpty; /* Windowing Left Buffer Empty */
+  bool bRightFeeBusy; /* FEE Right Machine Busy */
+  bool bLeftFeeBusy; /* FEE Left Machine Busy */
 } TFeebBufferStatus;
 
+ /* FEE Buffers IRQ Control Register Struct */
 typedef struct FeebIrqControl {
-	bool bRightBufferEmptyEn; /* FEE Right Buffer Empty IRQ Enable */
-	bool bLeftBufferEmptyEn; /* FEE Left Buffer Empty IRQ Enable */
+  bool bRightBufferEmptyEn; /* FEE Right Buffer Empty IRQ Enable */
+  bool bLeftBufferEmptyEn; /* FEE Left Buffer Empty IRQ Enable */
 } TFeebIrqControl;
 
+ /* FEE Buffers IRQ Flags Register Struct */
 typedef struct FeebIrqFlag {
-	bool bRightBufferEmpty0Flag; /* FEE Right Buffer 0 Empty IRQ Flag */
-	bool bRightBufferEmpty1Flag; /* FEE Right Buffer 1 Empty IRQ Flag */
-	bool bLeftBufferEmpty0Flag; /* FEE Left Buffer 0 Empty IRQ Flag */
-	bool bLeftBufferEmpty1Flag; /* FEE Left Buffer 1 Empty IRQ Flag */
+  bool bRightBufferEmpty0Flag; /* FEE Right Buffer 0 Empty IRQ Flag */
+  bool bRightBufferEmpty1Flag; /* FEE Right Buffer 1 Empty IRQ Flag */
+  bool bLeftBufferEmpty0Flag; /* FEE Left Buffer 0 Empty IRQ Flag */
+  bool bLeftBufferEmpty1Flag; /* FEE Left Buffer 1 Empty IRQ Flag */
 } TFeebIrqFlag;
 
+ /* FEE Buffers IRQ Flags Clear Register Struct */
 typedef struct FeebIrqFlagClr {
-	bool bRightBufferEmpty0FlagClr; /* FEE Right Buffer 0 Empty IRQ Flag Clear */
-	bool bRightBufferEmpty1FlagClr; /* FEE Right Buffer 1 Empty IRQ Flag Clear */
-	bool bLeftBufferEmpty0FlagClr; /* FEE Left Buffer 0 Empty IRQ Flag Clear */
-	bool bLeftBufferEmpty1FlagClr; /* FEE Left Buffer 1 Empty IRQ Flag Clear */
+  bool bRightBufferEmpty0FlagClr; /* FEE Right Buffer 0 Empty IRQ Flag Clear */
+  bool bRightBufferEmpty1FlagClr; /* FEE Right Buffer 1 Empty IRQ Flag Clear */
+  bool bLeftBufferEmpty0FlagClr; /* FEE Left Buffer 0 Empty IRQ Flag Clear */
+  bool bLeftBufferEmpty1FlagClr; /* FEE Left Buffer 1 Empty IRQ Flag Clear */
 } TFeebIrqFlagClr;
 
+ /* FEE Buffers IRQ Number Register Struct */
 typedef struct FeebIrqNumber {
-	alt_u32 uliBuffersEmptyIrqId; /* FEE Buffers IRQ Number/ID */
+  alt_u32 uliBuffersEmptyIrqId; /* FEE Buffers IRQ Number/ID */
 } TFeebIrqNumber;
 
+ /* RMAP Device Address Register Struct */
+typedef struct RmapDevAddr {
+  alt_u32 uliRmapBaseAddr; /* RMAP Device Base Address */
+} TRmapDevAddr;
+
+ /* RMAP Codec Config Register Struct */
+typedef struct RmapCodecConfig {
+  alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
+  alt_u8 ucKey; /* RMAP Target Key */
+} TRmapCodecConfig;
+
+ /* RMAP Codec Status Register Struct */
+typedef struct RmapCodecStatus {
+  bool bCommandReceived; /* RMAP Status Command Received */
+  bool bWriteRequested; /* RMAP Status Write Requested */
+  bool bWriteAuthorized; /* RMAP Status Write Authorized */
+  bool bReadRequested; /* RMAP Status Read Requested */
+  bool bReadAuthorized; /* RMAP Status Read Authorized */
+  bool bReplySended; /* RMAP Status Reply Sended */
+  bool bDiscardedPackage; /* RMAP Status Discarded Package */
+} TRmapCodecStatus;
+
+ /* RMAP Codec Status Register Struct */
+typedef struct RmapCodecError {
+  bool bEarlyEop; /* RMAP Error Early EOP */
+  bool bEep; /* RMAP Error EEP */
+  bool bHeaderCRC; /* RMAP Error Header CRC */
+  bool bUnusedPacketType; /* RMAP Error Unused Packet Type */
+  bool bInvalidCommandCode; /* RMAP Error Invalid Command Code */
+  bool bTooMuchData; /* RMAP Error Too Much Data */
+  bool bInvalidDataCrc; /* RMAP Error Invalid Data CRC */
+} TRmapCodecError;
+
+ /* RMAP Memory Status Register Struct */
+typedef struct RmapMemConfigStat {
+  alt_u32 uliLastWriteAddress; /* RMAP Last Write Address */
+  alt_u32 uliLastReadAddress; /* RMAP Last Read Address */
+} TRmapMemConfigStat;
+
+/* RMAP Memory Area Configuration Register Struct */
 typedef struct RmapMemAreaConfig {
 	alt_u16 usiVStart; /* V Start Config Field */
 	alt_u16 usiVEnd; /* V End Config Field */
@@ -376,6 +431,7 @@ typedef struct RmapMemAreaConfig {
 	alt_u32 uliReg23ConfigReserved; /* Register 23 Configuration Reserved */
 } TRmapMemAreaConfig;
 
+ /* RMAP Memory Area Housekeeping Register Struct */
 typedef struct RmapMemAreaHk {
 	alt_u16 usiTouSense1; /* TOU Sense 1 HK Field */
 	alt_u16 usiTouSense2; /* TOU Sense 2 HK Field */
@@ -466,95 +522,83 @@ typedef struct RmapMemAreaHk {
 	alt_u32 uliReg35HkReserved; /* Register 35 HK Reserved HK Field */
 } TRmapMemAreaHk;
 
+ /* RMAP Memory Area Address Register Struct */
+typedef struct RmapMemAreaAddr {
+  alt_u32 uliConfigAreaBaseAddr; /* RMAP Config Memory Area Base Address */
+  alt_u32 uliHkAreaBaseAddr; /* RMAP HouseKeeping Memory Area Base Address */
+} TRmapMemAreaAddr;
+
+ /* RMAP IRQ Control Register Struct */
+typedef struct RmapIrqControl {
+  bool bWriteCmdEn; /* RMAP Write Command IRQ Enable */
+} TRmapIrqControl;
+
+ /* RMAP IRQ Flags Register Struct */
+typedef struct RmapIrqFlag {
+  bool bWriteCmdFlag; /* RMAP Write Command IRQ Flag */
+} TRmapIrqFlag;
+
+ /* RMAP IRQ Flags Clear Register Struct */
+typedef struct RmapIrqFlagClr {
+  bool bWriteCmdFlagClr; /* RMAP Write Command IRQ Flag Clear */
+} TRmapIrqFlagClr;
+
+ /* RMAP IRQ Number Register Struct */
+typedef struct RmapIrqNumber {
+  alt_u32 uliWriteCmdIrqId; /* RMAP IRQ Number/ID */
+} TRmapIrqNumber;
+
+ /* Data Packet Device Channel Address Register Struct */
+typedef struct DpktDevAddr {
+  alt_u32 uliDpktBaseAddr; /* Data Packet Device Base Address */
+} TDpktDevAddr;
+
+ /* Data Packet Config Register Struct */
+typedef struct DpktDataPacketConfig {
+  alt_u16 usiCcdXSize; /* Data Packet CCD X Size */
+  alt_u16 usiCcdYSize; /* Data Packet CCD Y Size */
+  alt_u16 usiDataYSize; /* Data Packet Data Y Size */
+  alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
+  alt_u16 usiPacketLength; /* Data Packet Packet Length */
+  alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
+  alt_u8 ucProtocolId; /* Data Packet Protocol ID */
+  alt_u8 ucFeeMode; /* Data Packet FEE Mode */
+  alt_u8 ucCcdNumber; /* Data Packet CCD Number */
+} TDpktDataPacketConfig;
+
+ /* Data Packet Header Register Struct */
+typedef struct DpktDataPacketHeader {
+  alt_u16 usiLength; /* Data Packet Header Length */
+  alt_u16 usiType; /* Data Packet Header Type */
+  alt_u16 usiFrameCounter; /* Data Packet Header Frame Counter */
+  alt_u16 usiSequenceCounter; /* Data Packet Header Sequence Counter */
+} TDpktDataPacketHeader;
+
+ /* Data Packet Pixel Delay Register Struct */
+typedef struct DpktPixelDelay {
+  alt_u16 usiLineDelay; /* Data Packet Line Delay */
+  alt_u16 usiColumnDelay; /* Data Packet Column Delay */
+  alt_u16 usiAdcDelay; /* Data Packet ADC Delay */
+} TDpktPixelDelay;
+
+ /* Error Injection Control Register Struct */
+typedef struct DpktErrorInjection {
+  bool bTxDisabled; /* Error Injection Tx Disabled Enable */
+  bool bMissingPkts; /* Error Injection Missing Packets Enable */
+  bool bMissingData; /* Error Injection Missing Data Enable */
+  alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
+  alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
+  alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
+  alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
+} TDpktErrorInjection;
+
+/* General Struct for RMAP Memory Area Registers Access */
 typedef struct RmapMemArea {
 	TRmapMemAreaConfig xRmapMemAreaConfig;
 	TRmapMemAreaHk xRmapMemAreaHk;
 } TRmapMemArea;
 
-typedef struct RmapDevAddr {
-	alt_u32 uliRmapBaseAddr; /* RMAP Device Base Address */
-} TRmapDevAddr;
-
-typedef struct RmapCodecConfig {
-	alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
-	alt_u8 ucKey; /* RMAP Target Key */
-} TRmapCodecConfig;
-
-typedef struct RmapCodecStatus {
-	bool bCommandReceived; /* RMAP Status Command Received */
-	bool bWriteRequested; /* RMAP Status Write Requested */
-	bool bWriteAuthorized; /* RMAP Status Write Authorized */
-	bool bReadRequested; /* RMAP Status Read Requested */
-	bool bReadAuthorized; /* RMAP Status Read Authorized */
-	bool bReplySended; /* RMAP Status Reply Sended */
-	bool bDiscardedPackage; /* RMAP Status Discarded Package */
-} TRmapCodecStatus;
-
-typedef struct RmapCodecError {
-	bool bEarlyEop; /* RMAP Error Early EOP */
-	bool bEep; /* RMAP Error EEP */
-	bool bHeaderCRC; /* RMAP Error Header CRC */
-	bool bUnusedPacketType; /* RMAP Error Unused Packet Type */
-	bool bInvalidCommandCode; /* RMAP Error Invalid Command Code */
-	bool bTooMuchData; /* RMAP Error Too Much Data */
-	bool bInvalidDataCrc; /* RMAP Error Invalid Data CRC */
-} TRmapCodecError;
-
-typedef struct RmapMemConfigStat {
-	alt_u32 uliLastWriteAddress; /* RMAP Last Write Address */
-	alt_u32 uliLastReadAddress; /* RMAP Last Read Address */
-} TRmapMemConfigStat;
-
-typedef struct RmapMemAreaAddr {
-	TRmapMemAreaConfig *puliConfigAreaBaseAddr; /* RMAP Config Memory Area Base Address */
-	TRmapMemAreaHk *puliHkAreaBaseAddr; /* RMAP HouseKeeping Memory Area Base Address */
-} TRmapMemAreaAddr;
-
-typedef struct RmapIrqControl {
-	bool bWriteCmdEn; /* RMAP Write Command IRQ Enable */
-} TRmapIrqControl;
-
-typedef struct RmapIrqFlag {
-	bool bWriteCmdFlag; /* RMAP Write Command IRQ Flag */
-} TRmapIrqFlag;
-
-typedef struct RmapIrqFlagClr {
-	bool bWriteCmdFlagClr; /* RMAP Write Command IRQ Flag Clear */
-} TRmapIrqFlagClr;
-
-typedef struct RmapIrqNumber {
-	alt_u32 uliWriteCmdIrqId; /* RMAP IRQ Number/ID */
-} TRmapIrqNumber;
-
-typedef struct DpktDevAddr {
-	alt_u32 uliDpktBaseAddr; /* Data Packet Device Base Address */
-} TDpktDevAddr;
-
-typedef struct DpktDataPacketConfig {
-	alt_u16 usiCcdXSize; /* Data Packet CCD X Size */
-	alt_u16 usiCcdYSize; /* Data Packet CCD Y Size */
-	alt_u16 usiDataYSize; /* Data Packet Data Y Size */
-	alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
-	alt_u16 usiPacketLength; /* Data Packet Packet Length */
-	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
-	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
-	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
-	alt_u8 ucCcdNumber; /* Data Packet CCD Number */
-} TDpktDataPacketConfig;
-
-typedef struct DpktDataPacketHeader {
-	alt_u16 usiLength; /* Data Packet Header Length */
-	alt_u16 usiType; /* Data Packet Header Type */
-	alt_u16 usiFrameCounter; /* Data Packet Header Frame Counter */
-	alt_u16 usiSequenceCounter; /* Data Packet Header Sequence Counter */
-} TDpktDataPacketHeader;
-
-typedef struct DpktPixelDelay {
-	alt_u16 usiLineDelay; /* Data Packet Line Delay */
-	alt_u16 usiColumnDelay; /* Data Packet Column Delay */
-	alt_u16 usiAdcDelay; /* Data Packet ADC Delay */
-} TDpktPixelDelay;
-
+/* General Struct for SpaceWire Codec Registers Access */
 typedef struct SpwcChannel {
 	TSpwcDevAddr xSpwcDevAddr;
 	TSpwcLinkConfig xSpwcLinkConfig;
@@ -564,6 +608,7 @@ typedef struct SpwcChannel {
 	TSpwcTimecodeStatus xSpwcTimecodeStatus;
 } TSpwcChannel;
 
+/* General Struct for FEE Buffers Registers Access */
 typedef struct FeebChannel {
 	TFeebDevAddr xFeebDevAddr;
 	TFeebMachineControl xFeebMachineControl;
@@ -574,6 +619,7 @@ typedef struct FeebChannel {
 	TFeebIrqNumber xFeebIrqNumber;
 } TFeebChannel;
 
+/* General Struct for RMAP Codec Registers Access */
 typedef struct RmapChannel {
 	TRmapDevAddr xRmapDevAddr;
 	TRmapCodecConfig xRmapCodecConfig;
@@ -587,13 +633,16 @@ typedef struct RmapChannel {
 	TRmapIrqNumber xRmapIrqNumber;
 } TRmapChannel;
 
+ /* General Struct for Data Packet Registers Access */
 typedef struct DpktChannel {
 	TDpktDevAddr xDpktDevAddr;
 	TDpktDataPacketConfig xDpktDataPacketConfig;
 	TDpktDataPacketHeader xDpktDataPacketHeader;
 	TDpktPixelDelay xDpktPixelDelay;
+	TDpktErrorInjection xDpktErrorInjection;
 } TDpktChannel;
 
+ /* General Struct for Communication Module Registers Access */
 typedef struct CommChannel {
 	TCommDevAddr xCommDevAddr;
 	TCommIrqControl xCommIrqControl;
