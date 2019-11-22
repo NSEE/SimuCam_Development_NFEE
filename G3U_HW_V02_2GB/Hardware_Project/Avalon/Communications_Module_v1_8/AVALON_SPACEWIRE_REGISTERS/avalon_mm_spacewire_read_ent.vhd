@@ -644,7 +644,55 @@ begin
 						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_adc_delay(15 downto 8);
 					end if;
 
+				when (16#48#) =>
+					-- Error Injection Control Register : Error Injection Tx Disabled Enable
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_tx_disabled;
+					end if;
+
+				when (16#49#) =>
+					-- Error Injection Control Register : Error Injection Missing Packets Enable
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_missing_pkts;
+					end if;
+
+				when (16#4A#) =>
+					-- Error Injection Control Register : Error Injection Missing Data Enable
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_missing_data;
+					end if;
+
+				when (16#4B#) =>
+					-- Error Injection Control Register : Error Injection Frame Number of Error
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(1 downto 0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_frame_num;
+					end if;
+					-- Error Injection Control Register : Error Injection Sequence Counter of Error
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.error_injection_control_reg.errinj_sequence_cnt(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.error_injection_control_reg.errinj_sequence_cnt(15 downto 8);
+					end if;
+
+				when (16#4C#) =>
+					-- Error Injection Control Register : Error Injection Data Counter of Error
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_data_cnt(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.error_injection_control_reg.errinj_data_cnt(15 downto 8);
+					end if;
+					-- Error Injection Control Register : Error Injection Number of Error Repeats
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.error_injection_control_reg.errinj_n_repeat(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.error_injection_control_reg.errinj_n_repeat(15 downto 8);
+					end if;
+
 				when others =>
+					-- No register associated to the address, return with 0x00000000
 					avalon_mm_spacewire_o.readdata <= (others => '0');
 
 			end case;

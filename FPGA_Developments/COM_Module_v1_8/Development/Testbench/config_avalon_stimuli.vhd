@@ -207,6 +207,15 @@ begin
 					avalon_mm_writedata_o(0) <= '1'; -- FEE Digitalise Enable
 					avalon_mm_read_o         <= '0';
 
+				-- fee_windowing_buffers_config_reg
+				when 52222 to 52223 =>
+					-- register write
+					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#13#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o        <= '1';
+					avalon_mm_writedata_o    <= (others => '0');
+					avalon_mm_writedata_o(0) <= '1'; -- FEE Machine Stop
+					avalon_mm_read_o         <= '0';
+
 				--					
 				--			    -- teste de fee buffers flags
 				--

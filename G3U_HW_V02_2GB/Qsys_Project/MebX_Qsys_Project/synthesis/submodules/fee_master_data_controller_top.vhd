@@ -44,6 +44,14 @@ entity fee_master_data_controller_top is
 		data_pkt_line_delay_i              : in  std_logic_vector(15 downto 0);
 		data_pkt_column_delay_i            : in  std_logic_vector(15 downto 0);
 		data_pkt_adc_delay_i               : in  std_logic_vector(15 downto 0);
+		-- error injection control
+		errinj_tx_disabled_i               : in  std_logic;
+		errinj_missing_pkts_i              : in  std_logic;
+		errinj_missing_data_i              : in  std_logic;
+		errinj_frame_num_i                 : in  std_logic_vector(1 downto 0);
+		errinj_sequence_cnt_i              : in  std_logic_vector(15 downto 0);
+		errinj_data_cnt_i                  : in  std_logic_vector(15 downto 0);
+		errinj_n_repeat_i                  : in  std_logic_vector(15 downto 0);
 		-- fee machine status
 		fee_machine_busy_o                 : out std_logic;
 		-- fee slave data controller control
@@ -152,6 +160,19 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_registered_fee_digitalise_en       : std_logic;
 	signal s_registered_fee_windowing_en        : std_logic;
 	signal s_registered_fee_pattern_en          : std_logic;
+	-- registered error injection signals (for the entire read-out)
+	signal s_registered_errinj_tx_disabled      : std_logic;
+	signal s_registered_errinj_missing_pkts     : std_logic;
+	signal s_registered_errinj_missing_data     : std_logic;
+	signal s_registered_errinj_frame_num        : std_logic_vector(1 downto 0);
+	signal s_registered_errinj_sequence_cnt     : std_logic_vector(15 downto 0);
+	signal s_registered_errinj_data_cnt         : std_logic_vector(15 downto 0);
+	signal s_registered_errinj_n_repeat         : std_logic_vector(15 downto 0);
+	-- error injection spw signals
+	signal s_errinj_spw_tx_write                : std_logic;
+	signal s_errinj_spw_tx_flag                 : std_logic;
+	signal s_errinj_spw_tx_data                 : std_logic_vector(7 downto 0);
+	signal s_errinj_spw_tx_ready                : std_logic;
 	-- fee mode constants
 	constant c_FEE_ON_MODE                      : std_logic_vector(3 downto 0) := "0000"; -- Mode ID 0
 	constant c_FEE_FULLIMAGE_PATTERN_MODE       : std_logic_vector(3 downto 0) := "0001"; -- Mode ID 1
@@ -376,14 +397,36 @@ begin
 			send_buffer_stat_empty_i        => s_send_buffer_stat_empty,
 			send_buffer_rddata_i            => s_send_buffer_rddata,
 			send_buffer_rdready_i           => s_send_buffer_rdready,
-			spw_tx_ready_i                  => fee_spw_tx_ready_i,
+			spw_tx_ready_i                  => s_errinj_spw_tx_ready,
 			data_transmitter_busy_o         => s_data_transmitter_busy,
 			data_transmitter_finished_o     => s_data_transmitter_finished,
 			send_buffer_rdreq_o             => s_send_buffer_rdreq,
-			spw_tx_write_o                  => fee_spw_tx_write_o,
-			spw_tx_flag_o                   => fee_spw_tx_flag_o,
-			spw_tx_data_o                   => fee_spw_tx_data_o,
+			spw_tx_write_o                  => s_errinj_spw_tx_write,
+			spw_tx_flag_o                   => s_errinj_spw_tx_flag,
+			spw_tx_data_o                   => s_errinj_spw_tx_data,
 			send_buffer_change_o            => s_send_buffer_change
+		);
+
+	-- error injection instantiation
+	error_injection_ent_inst : entity work.error_injection_ent
+		port map(
+			clk_i                 => clk_i,
+			rst_i                 => rst_i,
+			errinj_tx_disabled_i  => s_registered_errinj_tx_disabled,
+			errinj_missing_pkts_i => s_registered_errinj_missing_pkts,
+			errinj_missing_data_i => s_registered_errinj_missing_data,
+			errinj_frame_num_i    => s_registered_errinj_frame_num,
+			errinj_sequence_cnt_i => s_registered_errinj_sequence_cnt,
+			errinj_data_cnt_i     => s_registered_errinj_data_cnt,
+			errinj_n_repeat_i     => s_registered_errinj_n_repeat,
+			errinj_spw_tx_write_i => s_errinj_spw_tx_write,
+			errinj_spw_tx_flag_i  => s_errinj_spw_tx_flag,
+			errinj_spw_tx_data_i  => s_errinj_spw_tx_data,
+			fee_spw_tx_ready_i    => fee_spw_tx_ready_i,
+			errinj_spw_tx_ready_o => s_errinj_spw_tx_ready,
+			fee_spw_tx_write_o    => fee_spw_tx_write_o,
+			fee_spw_tx_flag_o     => fee_spw_tx_flag_o,
+			fee_spw_tx_data_o     => fee_spw_tx_data_o
 		);
 
 	-- fee frame manager
@@ -502,6 +545,7 @@ begin
 		end if;
 	end process p_data_pkt_header_manager;
 
+	-- data pkt configs register
 	p_register_data_pkt_config : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
@@ -517,6 +561,13 @@ begin
 			s_registered_fee_digitalise_en   <= '1';
 			s_registered_fee_windowing_en    <= '0';
 			s_registered_fee_pattern_en      <= '1';
+			s_registered_errinj_tx_disabled  <= '0';
+			s_registered_errinj_missing_pkts <= '0';
+			s_registered_errinj_missing_data <= '0';
+			s_registered_errinj_frame_num    <= std_logic_vector(to_unsigned(0, 2));
+			s_registered_errinj_sequence_cnt <= std_logic_vector(to_unsigned(0, 16));
+			s_registered_errinj_data_cnt     <= std_logic_vector(to_unsigned(0, 16));
+			s_registered_errinj_n_repeat     <= std_logic_vector(to_unsigned(0, 16));
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
@@ -573,6 +624,14 @@ begin
 						s_registered_fee_windowing_en <= '0';
 						s_registered_fee_pattern_en   <= '0';
 				end case;
+				-- register error injection settings
+				s_registered_errinj_tx_disabled  <= errinj_tx_disabled_i;
+				s_registered_errinj_missing_pkts <= errinj_missing_pkts_i;
+				s_registered_errinj_missing_data <= errinj_missing_data_i;
+				s_registered_errinj_frame_num    <= errinj_frame_num_i;
+				s_registered_errinj_sequence_cnt <= errinj_sequence_cnt_i;
+				s_registered_errinj_data_cnt     <= errinj_data_cnt_i;
+				s_registered_errinj_n_repeat     <= errinj_n_repeat_i;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;
