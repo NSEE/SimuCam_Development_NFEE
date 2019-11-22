@@ -50,7 +50,7 @@ use IEEE.numeric_std.all;
 package sync_common_pkg is
 
 	-- Sync signal default standby (inactive) polarity
-	constant c_SYNC_DEFAULT_STBY_POLARITY : std_logic := '0';
+	constant c_SYNC_DEFAULT_STBY_POLARITY : std_logic := '1';
 
 end package sync_common_pkg;
 

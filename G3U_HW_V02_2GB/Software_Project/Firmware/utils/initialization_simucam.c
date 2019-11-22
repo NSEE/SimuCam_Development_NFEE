@@ -11,6 +11,8 @@
 void vInitSimucamBasicHW(void)
 {
 
+	vRstcReleaseSimucamReset(0);
+
 	/* Turn Off all LEDs */
 	bSetBoardLeds(LEDS_OFF, LEDS_BOARD_ALL_MASK);
 	bSetPainelLeds(LEDS_OFF, LEDS_PAINEL_ALL_MASK);

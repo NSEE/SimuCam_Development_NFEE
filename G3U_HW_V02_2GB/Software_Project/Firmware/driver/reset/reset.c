@@ -26,13 +26,22 @@ static alt_u32 uliRstReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [program memory private global variables]
 
 //! [public functions]
-void vRstcSimucamReset(alt_u16 usiRstCnt) {
+void vRstcReleaseSimucamReset(alt_u32 uliRstCnt) {
 	alt_u32 uliReg = 0;
 
-	uliReg |= (alt_u32) (usiRstCnt & RSTC_SIMUCAM_RST_TMR_MSK);
+	uliReg = uliRstReadReg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR, RSTC_SIMUCAM_RESET_REG_OFFSET);
+//	uliReg |= (alt_u32) (uliRstCnt & RSTC_SIMUCAM_RST_TMR_MSK);
+	uliReg &= ~((alt_u32) RSTC_SIMUCAM_RST_CTRL_MSK);
+	vRstcWriteReg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR, RSTC_SIMUCAM_RESET_REG_OFFSET, uliReg);
+}
+
+void vRstcHoldSimucamReset(alt_u32 uliRstCnt) {
+	alt_u32 uliReg = 0;
+
+	uliReg = uliRstReadReg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR, RSTC_SIMUCAM_RESET_REG_OFFSET);
+//	uliReg |= (alt_u32) (uliRstCnt & RSTC_SIMUCAM_RST_TMR_MSK);
 	uliReg |= (alt_u32) RSTC_SIMUCAM_RST_CTRL_MSK;
-	vRstcWriteReg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR,
-	RSTC_SIMUCAM_RESET_REG_OFFSET, uliReg);
+	vRstcWriteReg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR, RSTC_SIMUCAM_RESET_REG_OFFSET, uliReg);
 }
 
 void vRstcReleaseDeviceReset(alt_u32 usiRstMask) {

@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION "Synchronism module - Plato Simucam - R0"
 set_module_property NAME Sync
-set_module_property VERSION 1.5
+set_module_property VERSION 1.4
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR Franca/Cassio

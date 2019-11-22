@@ -9,18 +9,54 @@
 #define FEE_BUFFERS_H_
 
 #include "../comm.h"
-#include "../../../utils/error_handler_simucam.h"
-#include "../../../utils/queue_commands_list.h"
-#include "../../../utils/configs_bind_channel_FEEinst.h"
-
-extern OS_EVENT *xNfeeSchedule;
+#include "../../../api_driver/simucam_dma/simucam_dma.h"
 
 //! [constants definition]
 // address
 // bit masks
+const alt_u8 ucFeebIrqEmptyBufferFlagsQtd;
 //! [constants definition]
 
 //! [public module structs definition]
+enum FeebIrqEmptyBufferFlags {
+	eFeebIrqLeftEmptyBuffer0Flag = 0,
+	eFeebIrqLeftEmptyBuffer1Flag,
+	eFeebIrqRightEmptyBuffer0Flag,
+	eFeebIrqRightEmptyBuffer1Flag
+} EFeebIrqEmptyBufferFlags;
+
+typedef struct FeebWindowingConfig {
+	bool bMasking;
+} TFeebWindowingConfig;
+
+typedef struct FeebIrqControl {
+	bool bLeftBufferEmptyEn;
+	bool bRightBufferEmptyEn;
+} TFeebIrqControl;
+
+typedef struct FeebIrqFlag {
+	bool bLeftBufferEmpty0Flag;
+	bool bLeftBufferEmpty1Flag;
+	bool bRightBufferEmpty0Flag;
+	bool bRightBufferEmpty1Flag;
+} TFeebIrqFlag;
+
+typedef struct FeebBufferStatus {
+	bool bLeftBufferEmpty;
+	bool bRightBufferEmpty;
+	bool bLeftFeeBusy;
+	bool bRightFeeBusy;
+	alt_u8 ucLeftBufferSize;
+	alt_u8 ucRightBufferSize;
+} TFeebBufferStatus;
+
+typedef struct FeebChannel {
+	alt_u32 *puliFeebChAddr;
+	TFeebWindowingConfig xWindowingConfig;
+	TFeebIrqControl xIrqControl;
+	TFeebIrqFlag xIrqFlag;
+	TFeebBufferStatus xBufferStatus;
+} TFeebChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]
@@ -32,6 +68,24 @@ void vFeebCh5HandleIrq(void* pvContext);
 void vFeebCh6HandleIrq(void* pvContext);
 void vFeebCh7HandleIrq(void* pvContext);
 void vFeebCh8HandleIrq(void* pvContext);
+
+void vFeebCh1IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh2IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh3IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh4IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh5IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh6IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh7IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh8IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+
+void vFeebCh1IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh2IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh3IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh4IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh5IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh6IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh7IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh8IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
 
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
@@ -91,8 +145,8 @@ bool bFeebGetCh8RightFeeBusy(void);
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 		alt_u8 ucBufferSide);
 
-bool bFeebSetMachineControl(TFeebChannel *pxFeebCh);
-bool bFeebGetMachineControl(TFeebChannel *pxFeebCh);
+bool bFeebSetWindowing(TFeebChannel *pxFeebCh);
+bool bFeebGetWindowing(TFeebChannel *pxFeebCh);
 
 bool bFeebStartCh(TFeebChannel *pxFeebCh);
 bool bFeebStopCh(TFeebChannel *pxFeebCh);

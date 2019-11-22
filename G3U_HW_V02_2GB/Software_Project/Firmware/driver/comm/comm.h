@@ -524,8 +524,8 @@ typedef struct RmapMemAreaHk {
 
  /* RMAP Memory Area Address Register Struct */
 typedef struct RmapMemAreaAddr {
-  alt_u32 uliConfigAreaBaseAddr; /* RMAP Config Memory Area Base Address */
-  alt_u32 uliHkAreaBaseAddr; /* RMAP HouseKeeping Memory Area Base Address */
+  TRmapMemAreaConfig *puliConfigAreaBaseAddr; /* RMAP Config Memory Area Base Address */
+  TRmapMemAreaHk *puliHkAreaBaseAddr; /* RMAP HouseKeeping Memory Area Base Address */
 } TRmapMemAreaAddr;
 
  /* RMAP IRQ Control Register Struct */

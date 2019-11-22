@@ -23,18 +23,18 @@
 #include "driver/ctrl_io_lvds/ctrl_io_lvds.h"
 #include "driver/sync/sync.h"
 
+// Master blank time = (MBT * 20 ns) = 400 ms
+//#define MBT	10E6
+#define MBT	20E6
+// Blank time = (BT * 20 ns) = 200 ms
+#define BT	10E6
 // Period = (PER * 20 ns) = 6,25 s
 //#define PER	312500E3
-#define PER	312500E3
-// Master blank time = ((PER - MBT) * 20 ns) = 5,85 s
-//#define MBT	(PER - 10E6)
-#define MBT	(PER - 20E6)
-// Blank time = ((PER - BT) * 20 ns) = 6,05 s
-#define BT	(PER - 10E6)
+#define PER	312500E3*3
 // One shot time = (OST * 20 ns) = 500 ms
 #define OST	25E6
-// Blank level polarity = '1'
-#define POL TRUE
+// Blank level polarity = '0'
+#define POL FALSE
 // Number of cycles = 4
 #define N_CICLOS 4
 
@@ -59,14 +59,11 @@ int main() {
 	// Sync config
 	// Configura um padrão de sync interno
 	// MBT => 400 ms @ 20 ns (50 MHz)
-	bSyncSetMbt(uliPerCalcPeriodMs( 6.25*1000 - 400 ));
+	bSyncSetMbt(MBT);
 	// BT => 200 ms @ 20 ns (50 MHz)
-	bSyncSetBt(uliPerCalcPeriodMs( 6.25*1000 - 200 ));
+	bSyncSetBt(BT);
 	// PER => 6,25s @ 20 ns (50 MHz)
-	bSyncSetPer(  uliPerCalcPeriodMs( 6.25*1000 ) );
-
-	bSyncSetPreBt( uliPerCalcPeriodMs( 100 ) );
-
+	bSyncSetPer(  uliPerCalcPeriodMs( 25*1000 ) );
 	// OST => 500 ms @ 20 ns (50 MHz)
 	bSyncSetOst(OST);
 	// Polaridade
@@ -74,35 +71,10 @@ int main() {
 	// N. de ciclos
 	bSyncSetNCycles(N_CICLOS);
 	// Altera mux para sync interno
-	bSyncCtrIntern(TRUE);
+	bSyncCtrExtnIrq(TRUE);
 	// Habilita sync_out_ch1 enable (libera sync para o Ch 1)
 	bSyncCtrCh1OutEnable(TRUE);
-	bSyncCtrSyncOutEnable(TRUE);
 	bSyncCtrStart();
-	bSyncCtrReset();
-
-	printf("Waiting!\n");
-
-	vSyncInitIrq();
-	vSyncPreInitIrq();
-
-	bSyncIrqEnableMasterPulse(TRUE);
-	bSyncIrqEnableNormalPulse(TRUE);
-	bSyncIrqEnableLastPulse(TRUE);
-	bSyncIrqEnableBlankPulse(FALSE);
-
-	bSyncPreIrqEnableMasterPulse(TRUE);
-	bSyncPreIrqEnableNormalPulse(TRUE);
-	bSyncPreIrqEnableLastPulse(TRUE);
-	bSyncPreIrqEnableBlankPulse(FALSE);
-
-	usleep(10*1000*1000);
-
-	printf("Starting!\n");
-
-	bSyncCtrStart();
-	while(1) {}
-
 	bSyncCtrReset();
 
 	//Channel Config

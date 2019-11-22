@@ -20,6 +20,13 @@
 //! [constants definition]
 
 //! [public module structs definition]
+typedef struct CommChannel {
+	alt_u32 *puliCommChAddr;
+	TDpktChannel xDataPacket;
+	TFeebChannel xFeeBuffer;
+	TRmapChannel xRmap;
+	TSpwcChannel xSpacewire;
+} TCommChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]

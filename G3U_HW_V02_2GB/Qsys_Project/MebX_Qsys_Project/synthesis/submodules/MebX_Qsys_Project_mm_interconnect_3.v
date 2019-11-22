@@ -674,7 +674,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.out_error         ()                                                                 //   (terminated)
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_008 #(
+	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_013 #(
 		.inBitsPerSymbol (258),
 		.inUsePackets    (0),
 		.inDataWidth     (258),

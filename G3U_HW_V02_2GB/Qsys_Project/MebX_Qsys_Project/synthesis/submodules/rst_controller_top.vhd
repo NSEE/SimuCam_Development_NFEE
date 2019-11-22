@@ -26,7 +26,6 @@ entity rst_controller_top is
 		clock_sink_clk                          : in  std_logic                     := '0'; --          --                  clock_sink.clk
 		reset_sink_reset                        : in  std_logic                     := '0'; --          --                  reset_sink.reset
 		reset_source_simucam_reset              : out std_logic; --                                     --        reset_source_simucam.reset
-		reset_source_ftdi_reset                 : out std_logic; --                                     --           reset_source_ftdi.reset
 		reset_source_sync_reset                 : out std_logic; --                                     --           reset_source_sync.reset     
 		reset_source_rs232_reset                : out std_logic; --                                     --          reset_source_rs232.reset    
 		reset_source_sd_card_reset              : out std_logic; --                                     --        reset_source_sd_card.reset  
@@ -60,11 +59,8 @@ architecture rtl of rst_controller_top is
 	signal s_rst_controller_write_registers : t_rst_controller_write_registers;
 
 	-- simucam reset signals
-	signal s_simucam_delay : std_logic;
 	signal s_simucam_reset : std_logic;
-	signal s_simucam_start : std_logic;
-	signal s_simucam_stop  : std_logic;
-	signal s_reset_counter : std_logic_vector(30 downto 0);
+	signal s_reset_counter : std_logic_vector(15 downto 0);
 
 begin
 
@@ -95,81 +91,42 @@ begin
 	avalon_slave_rst_controller_waitrequest <= ((s_avalon_mm_rst_controller_read_waitrequest) and (s_avalon_mm_rst_controller_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- simucam reset
+	reset_source_simucam_reset <= (s_simucam_reset) when (a_reset = '0') else ('1');
 	p_simucam_reset : process(a_clock, a_reset) is
 	begin
 		if (a_reset = '1') then
-			s_simucam_delay            <= '0';
-			s_simucam_reset            <= '0';
-			s_simucam_start            <= '0';
-			s_simucam_stop             <= '0';
-			s_reset_counter            <= (others => '0');
-			reset_source_simucam_reset <= '0';
+			s_simucam_reset <= '0';
+			s_reset_counter <= (others => '0');
 		elsif (rising_edge(a_clock)) then
-
-			-- manage start/stop commands
+			s_simucam_reset <= '0';
+			s_reset_counter <= (others => '0');
 			if (s_rst_controller_write_registers.simucam_reset.simucam_reset = '1') then
-				s_simucam_start <= '1';
-			else
-				s_simucam_stop <= '1';
-			end if;
-
-			-- check if start or stop command was received
-			if (s_simucam_start = '1') then
-				s_simucam_delay <= '0';
 				s_simucam_reset <= '1';
-				s_simucam_start <= '0';
-				s_simucam_stop  <= '0';
 				s_reset_counter <= std_logic_vector(unsigned(s_rst_controller_write_registers.simucam_reset.simucam_timer) - 1);
-			elsif (s_simucam_stop = '1') then
-				s_simucam_delay <= '0';
-				s_simucam_reset <= '0';
-				s_simucam_start <= '0';
-				s_simucam_stop  <= '0';
-				s_reset_counter <= (others => '0');
 			end if;
-
-			-- check if a reset is in progress
 			if (s_simucam_reset = '1') then
-				-- check if the timer is zero
-				if (s_reset_counter = std_logic_vector(to_unsigned(0, 31))) then
-					-- timer is zero, change state
-					-- check if the current state is a delay or reset
-					if (s_simucam_delay = '1') then
-						-- current state is a delay
-						-- go to a reset state
-						s_simucam_delay            <= '0';
-						s_reset_counter            <= std_logic_vector(to_unsigned(1000000 - 1, 31));
-						reset_source_simucam_reset <= '0';
-					else
-						-- current state is a reset
-						-- go to a delay state
-						s_simucam_delay            <= '1';
-						s_reset_counter            <= std_logic_vector(unsigned(s_rst_controller_write_registers.simucam_reset.simucam_timer) - 1);
-						reset_source_simucam_reset <= '1';
-					end if;
-
+				if (s_reset_counter = std_logic_vector(to_unsigned(0, 16))) then
+					s_simucam_reset <= '0';
+					s_reset_counter <= (others => '0');
 				else
-					-- timer is not zero
+					s_simucam_reset <= '1';
 					s_reset_counter <= std_logic_vector(unsigned(s_reset_counter) - 1);
 				end if;
 			end if;
-
 		end if;
-
 	end process p_simucam_reset;
 
 	-- devices reset
-	reset_source_ftdi_reset     <= (s_rst_controller_write_registers.device_reset.ftdi_reset) or (a_reset);
-	reset_source_sync_reset     <= (s_rst_controller_write_registers.device_reset.sync_reset) or (a_reset);
-	reset_source_rs232_reset    <= (s_rst_controller_write_registers.device_reset.rs232_reset) or (a_reset);
-	reset_source_sd_card_reset  <= (s_rst_controller_write_registers.device_reset.sd_card_reset) or (a_reset);
-	reset_source_comm_ch8_reset <= (s_rst_controller_write_registers.device_reset.comm_ch8_reset) or (a_reset);
-	reset_source_comm_ch7_reset <= (s_rst_controller_write_registers.device_reset.comm_ch7_reset) or (a_reset);
-	reset_source_comm_ch6_reset <= (s_rst_controller_write_registers.device_reset.comm_ch6_reset) or (a_reset);
-	reset_source_comm_ch5_reset <= (s_rst_controller_write_registers.device_reset.comm_ch5_reset) or (a_reset);
-	reset_source_comm_ch4_reset <= (s_rst_controller_write_registers.device_reset.comm_ch4_reset) or (a_reset);
-	reset_source_comm_ch3_reset <= (s_rst_controller_write_registers.device_reset.comm_ch3_reset) or (a_reset);
-	reset_source_comm_ch2_reset <= (s_rst_controller_write_registers.device_reset.comm_ch2_reset) or (a_reset);
-	reset_source_comm_ch1_reset <= (s_rst_controller_write_registers.device_reset.comm_ch1_reset) or (a_reset);
+	reset_source_sync_reset     <= (s_rst_controller_write_registers.device_reset.sync_reset) when (a_reset = '0') else ('1');
+	reset_source_rs232_reset    <= (s_rst_controller_write_registers.device_reset.rs232_reset) when (a_reset = '0') else ('1');
+	reset_source_sd_card_reset  <= (s_rst_controller_write_registers.device_reset.sd_card_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch8_reset <= (s_rst_controller_write_registers.device_reset.comm_ch8_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch7_reset <= (s_rst_controller_write_registers.device_reset.comm_ch7_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch6_reset <= (s_rst_controller_write_registers.device_reset.comm_ch6_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch5_reset <= (s_rst_controller_write_registers.device_reset.comm_ch5_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch4_reset <= (s_rst_controller_write_registers.device_reset.comm_ch4_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch3_reset <= (s_rst_controller_write_registers.device_reset.comm_ch3_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch2_reset <= (s_rst_controller_write_registers.device_reset.comm_ch2_reset) when (a_reset = '0') else ('1');
+	reset_source_comm_ch1_reset <= (s_rst_controller_write_registers.device_reset.comm_ch1_reset) when (a_reset = '0') else ('1');
 
 end architecture rtl;                   -- of rst_controller_top

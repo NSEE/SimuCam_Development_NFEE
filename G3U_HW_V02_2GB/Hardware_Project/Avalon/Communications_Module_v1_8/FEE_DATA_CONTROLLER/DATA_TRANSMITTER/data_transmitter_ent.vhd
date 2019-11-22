@@ -132,16 +132,10 @@ begin
 				-- state "DELAY"
 				when DELAY =>
 					-- default state transition
-					s_data_transmitter_state <= DELAY;
-					v_data_transmitter_state := DELAY;
-					-- default internal signal values
-					-- conditional state transition
-					-- check if spw codec can receive data
-					if (spw_tx_ready_i = '1') then
-						-- spw codec can receive data
-						s_data_transmitter_state <= TRANSMIT_DATA;
-						v_data_transmitter_state := TRANSMIT_DATA;
-					end if;
+					s_data_transmitter_state <= TRANSMIT_DATA;
+					v_data_transmitter_state := TRANSMIT_DATA;
+				-- default internal signal values
+				-- conditional state transition
 
 				-- state "TRANSMIT_DATA"
 				when TRANSMIT_DATA =>
@@ -149,8 +143,9 @@ begin
 					-- default state transition
 					s_data_transmitter_state <= WAITING_DATA_BUFFER_SPACE;
 					v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
-				-- default internal signal values
-				-- conditional state transition and internal signal values
+					-- default internal signal values
+					-- conditional state transition and internal signal values
+
 
 				-- state "WAITING_EOP_BUFFER_SPACE"
 				when WAITING_EOP_BUFFER_SPACE =>

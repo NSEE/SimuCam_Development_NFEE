@@ -8,6 +8,9 @@
 #include "spw_controller.h"
 
 //! [private function prototypes]
+static void vSpwcWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
+		alt_u32 uliValue);
+static alt_u32 uliSpwcReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [private function prototypes]
 
 //! [data memory public global variables]
@@ -25,16 +28,34 @@
 //! [public functions]
 bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_LINK_CFG_STAT_REG_OFST);
 
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
+		if (pxSpwcCh->xLinkConfig.bAutostart) {
+			uliReg |= COMM_SPW_LNKCFG_AUTOSTART_MSK;
+		} else {
+			uliReg &= (~COMM_SPW_LNKCFG_AUTOSTART_MSK);
+		}
+		if (pxSpwcCh->xLinkConfig.bLinkStart) {
+			uliReg |= COMM_SPW_LNKCFG_LINKSTART_MSK;
+		} else {
+			uliReg &= (~COMM_SPW_LNKCFG_LINKSTART_MSK);
+		}
+		if (pxSpwcCh->xLinkConfig.bDisconnect) {
+			uliReg |= COMM_SPW_LNKCFG_DISCONNECT_MSK;
+		} else {
+			uliReg &= (~COMM_SPW_LNKCFG_DISCONNECT_MSK);
+		}
+		uliReg &= (~COMM_SPW_LNKCFG_TXDIVCNT_MSK);
+		uliReg |= (COMM_SPW_LNKCFG_TXDIVCNT_MSK
+				& (alt_u32)(pxSpwcCh->xLinkConfig.ucTxDivCnt << 24));
 
-		vpxCommChannel->xSpacewire.xSpwcLinkConfig = pxSpwcCh->xSpwcLinkConfig;
-
+		vSpwcWriteReg(pxSpwcCh->puliSpwcChAddr, COMM_LINK_CFG_STAT_REG_OFST,
+				uliReg);
 		bStatus = TRUE;
-
 	}
 
 	return bStatus;
@@ -42,16 +63,31 @@ bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_LINK_CFG_STAT_REG_OFST);
 
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
-
-		pxSpwcCh->xSpwcLinkConfig = vpxCommChannel->xSpacewire.xSpwcLinkConfig;
+		if (uliReg & COMM_SPW_LNKCFG_AUTOSTART_MSK) {
+			pxSpwcCh->xLinkConfig.bAutostart = TRUE;
+		} else {
+			pxSpwcCh->xLinkConfig.bAutostart = FALSE;
+		}
+		if (uliReg & COMM_SPW_LNKCFG_LINKSTART_MSK) {
+			pxSpwcCh->xLinkConfig.bLinkStart = TRUE;
+		} else {
+			pxSpwcCh->xLinkConfig.bLinkStart = FALSE;
+		}
+		if (uliReg & COMM_SPW_LNKCFG_DISCONNECT_MSK) {
+			pxSpwcCh->xLinkConfig.bDisconnect = TRUE;
+		} else {
+			pxSpwcCh->xLinkConfig.bDisconnect = FALSE;
+		}
+		pxSpwcCh->xLinkConfig.ucTxDivCnt= (alt_u8)(
+				(uliReg & COMM_SPW_LNKCFG_TXDIVCNT_MSK) >> 24);
 
 		bStatus = TRUE;
-
 	}
 
 	return bStatus;
@@ -59,16 +95,34 @@ bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_LINK_CFG_STAT_REG_OFST);
 
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
-
-		pxSpwcCh->xSpwcLinkError = vpxCommChannel->xSpacewire.xSpwcLinkError;
+		if (uliReg & COMM_SPW_LNKERR_DISCONNECT_MSK) {
+			pxSpwcCh->xLinkError.bDisconnect = TRUE;
+		} else {
+			pxSpwcCh->xLinkError.bDisconnect = FALSE;
+		}
+		if (uliReg & COMM_SPW_LNKERR_PARITY_MSK) {
+			pxSpwcCh->xLinkError.bParity = TRUE;
+		} else {
+			pxSpwcCh->xLinkError.bParity = FALSE;
+		}
+		if (uliReg & COMM_SPW_LNKERR_ESCAPE_MSK) {
+			pxSpwcCh->xLinkError.bEscape = TRUE;
+		} else {
+			pxSpwcCh->xLinkError.bEscape = FALSE;
+		}
+		if (uliReg & COMM_SPW_LNKERR_CREDIT_MSK) {
+			pxSpwcCh->xLinkError.bCredit = TRUE;
+		} else {
+			pxSpwcCh->xLinkError.bCredit = FALSE;
+		}
 
 		bStatus = TRUE;
-
 	}
 
 	return bStatus;
@@ -76,16 +130,29 @@ bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_LINK_CFG_STAT_REG_OFST);
 
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
-
-		pxSpwcCh->xSpwcLinkStatus = vpxCommChannel->xSpacewire.xSpwcLinkStatus;
+		if (uliReg & COMM_SPW_LNKSTAT_STARTED_MSK) {
+			pxSpwcCh->xLinkStatus.bStarted = TRUE;
+		} else {
+			pxSpwcCh->xLinkStatus.bStarted = FALSE;
+		}
+		if (uliReg & COMM_SPW_LNKSTAT_CONNECTING_MSK) {
+			pxSpwcCh->xLinkStatus.bConnecting = TRUE;
+		} else {
+			pxSpwcCh->xLinkStatus.bConnecting = FALSE;
+		}
+		if (uliReg & COMM_SPW_LNKSTAT_RUNNING_MSK) {
+			pxSpwcCh->xLinkStatus.bRunning = TRUE;
+		} else {
+			pxSpwcCh->xLinkStatus.bRunning = FALSE;
+		}
 
 		bStatus = TRUE;
-
 	}
 
 	return bStatus;
@@ -93,16 +160,18 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_TIMECODE_REG_OFST);
 
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
-
-		pxSpwcCh->xSpwcTimecodeStatus = vpxCommChannel->xSpacewire.xSpwcTimecodeStatus;
+		pxSpwcCh->xTimecode.ucControl= (alt_u8)(
+				(uliReg & COMM_TIMECODE_CONTROL_MSK) >> 6);
+		pxSpwcCh->xTimecode.ucCounter= (alt_u8)(
+				(uliReg & COMM_TIMECODE_TIME_MSK) >> 0);
 
 		bStatus = TRUE;
-
 	}
 
 	return bStatus;
@@ -110,33 +179,16 @@ bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_TIMECODE_REG_OFST);
 
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
+		uliReg |= COMM_TIMECODE_CLR_MSK;
 
-		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig.bClear = TRUE;
-
+		vSpwcWriteReg(pxSpwcCh->puliSpwcChAddr, COMM_TIMECODE_REG_OFST, uliReg);
 		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxSpwcCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
-
-		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig.bEnable = bEnable;
-
-		bStatus = TRUE;
-
 	}
 
 	return bStatus;
@@ -146,57 +198,40 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	bool bValidCh = FALSE;
 	bool bInitFail = FALSE;
-	volatile TCommChannel *vpxCommChannel;
 
 	if (pxSpwcCh != NULL) {
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		default:
@@ -225,20 +260,19 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 	}
 	return bStatus;
 }
-
-alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed){
-	alt_u8 ucLinkDiv;
-
-	if (ucLinkSpeed < 100) {
-		ucLinkDiv = (alt_u8)(round(200.0/((float)ucLinkSpeed))) - 1;
-	} else {
-		ucLinkDiv = 1;
-	}
-
-	return (ucLinkDiv);
-}
 //! [public functions]
 
 //! [private functions]
+static void vSpwcWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
+		alt_u32 uliValue) {
+	*(puliAddr + uliOffset) = uliValue;
+}
+
+static alt_u32 uliSpwcReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
+	volatile alt_u32 uliValue;
+
+	uliValue = *(puliAddr + uliOffset);
+	return uliValue;
+}
 //! [private functions]
 
