@@ -8,7 +8,7 @@ use IEEE.numeric_std.all;
 
 entity mebx_qsys_project_rst_controller_001 is
 	generic (
-		NUM_RESET_INPUTS          : integer := 3;
+		NUM_RESET_INPUTS          : integer := 2;
 		OUTPUT_RESET_SYNC_EDGES   : string  := "deassert";
 		SYNC_DEPTH                : integer := 2;
 		RESET_REQUEST_PRESENT     : integer := 0;
@@ -36,7 +36,6 @@ entity mebx_qsys_project_rst_controller_001 is
 	port (
 		reset_in0      : in  std_logic := '0'; -- reset_in0.reset
 		reset_in1      : in  std_logic := '0'; -- reset_in1.reset
-		reset_in2      : in  std_logic := '0'; -- reset_in2.reset
 		clk            : in  std_logic := '0'; --       clk.clk
 		reset_out      : out std_logic;        -- reset_out.reset
 		reset_in10     : in  std_logic := '0';
@@ -45,6 +44,7 @@ entity mebx_qsys_project_rst_controller_001 is
 		reset_in13     : in  std_logic := '0';
 		reset_in14     : in  std_logic := '0';
 		reset_in15     : in  std_logic := '0';
+		reset_in2      : in  std_logic := '0';
 		reset_in3      : in  std_logic := '0';
 		reset_in4      : in  std_logic := '0';
 		reset_in5      : in  std_logic := '0';
@@ -103,12 +103,12 @@ architecture rtl of mebx_qsys_project_rst_controller_001 is
 		port (
 			reset_in0      : in  std_logic := 'X'; -- reset
 			reset_in1      : in  std_logic := 'X'; -- reset
-			reset_in2      : in  std_logic := 'X'; -- reset
 			clk            : in  std_logic := 'X'; -- clk
 			reset_out      : out std_logic;        -- reset
 			reset_req      : out std_logic;        -- reset_req
 			reset_req_in0  : in  std_logic := 'X'; -- reset_req
 			reset_req_in1  : in  std_logic := 'X'; -- reset_req
+			reset_in2      : in  std_logic := 'X'; -- reset
 			reset_req_in2  : in  std_logic := 'X'; -- reset_req
 			reset_in3      : in  std_logic := 'X'; -- reset
 			reset_req_in3  : in  std_logic := 'X'; -- reset_req
@@ -171,12 +171,12 @@ begin
 		port map (
 			reset_in0      => reset_in0, -- reset_in0.reset
 			reset_in1      => reset_in1, -- reset_in1.reset
-			reset_in2      => reset_in2, -- reset_in2.reset
 			clk            => clk,       --       clk.clk
 			reset_out      => reset_out, -- reset_out.reset
 			reset_req      => open,      -- (terminated)
 			reset_req_in0  => '0',       -- (terminated)
 			reset_req_in1  => '0',       -- (terminated)
+			reset_in2      => '0',       -- (terminated)
 			reset_req_in2  => '0',       -- (terminated)
 			reset_in3      => '0',       -- (terminated)
 			reset_req_in3  => '0',       -- (terminated)

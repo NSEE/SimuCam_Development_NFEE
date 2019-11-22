@@ -5,12 +5,12 @@ use ieee.numeric_std.all;
 package avalon_mm_rst_controller_registers_pkg is
 
 	--  SimuCam Reser Control Register                  (32 bits):
-	--    31-17 : Reserved                               [-/-]
-	--    16-16 : SimuCam Reset control bit              [R/W]
-	--    15- 0 : SimuCam Reset Timer value              [R/W]
+	--    31-31 : SimuCam Reset control bit              [R/W]
+	--    30- 0 : SimuCam Reset Timer value              [R/W]
 
 	--  Device Reset Control Register                  (32 bits):
-	--    31-11 : Reserved                               [-/-]
+	--    31-12 : Reserved                               [-/-]
+	--    11-11 : FTDI Module Reset control bit          [R/W]
 	--    10-10 : Sync Module Reset control bit          [R/W]
 	--     9- 9 : RS232 Module Reset control bit         [R/W]
 	--     8- 8 : SD Card Module Reset control bit       [R/W]
@@ -28,11 +28,12 @@ package avalon_mm_rst_controller_registers_pkg is
 	constant c_RSTC_DEVICE_RESET_MM_REG_ADDRESS  : natural := 1;
 
 	type t_rstc_simucam_reset_register is record
-		simucam_timer : std_logic_vector(15 downto 0);
 		simucam_reset : std_logic;
+		simucam_timer : std_logic_vector(30 downto 0);
 	end record t_rstc_simucam_reset_register;
 
 	type t_rstc_device_reset_register is record
+		ftdi_reset     : std_logic;
 		sync_reset     : std_logic;
 		rs232_reset    : std_logic;
 		sd_card_reset  : std_logic;
