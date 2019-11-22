@@ -244,7 +244,7 @@ begin
 	rst_n <= not a_reset;
 
 	-- sync_in polarity fix (timing issues, need to be improved!!!) 
-	s_sync_channel_n <= not sync_channel;
+	s_sync_channel_n <= sync_channel;
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
@@ -416,6 +416,13 @@ begin
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
+			errinj_tx_disabled_i               => s_spacewire_write_registers.error_injection_control_reg.errinj_tx_disabled,
+			errinj_missing_pkts_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_pkts,
+			errinj_missing_data_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_data,
+			errinj_frame_num_i                 => s_spacewire_write_registers.error_injection_control_reg.errinj_frame_num,
+			errinj_sequence_cnt_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_sequence_cnt,
+			errinj_data_cnt_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_data_cnt,
+			errinj_n_repeat_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_n_repeat,
 			fee_machine_busy_o                 => s_spacewire_read_registers.fee_buffers_status_reg.fee_right_machine_busy,
 			fee_slave_imgdata_start_o          => open,
 			fee_slave_frame_counter_o          => open,
@@ -469,6 +476,13 @@ begin
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
+			errinj_tx_disabled_i               => s_spacewire_write_registers.error_injection_control_reg.errinj_tx_disabled,
+			errinj_missing_pkts_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_pkts,
+			errinj_missing_data_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_data,
+			errinj_frame_num_i                 => s_spacewire_write_registers.error_injection_control_reg.errinj_frame_num,
+			errinj_sequence_cnt_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_sequence_cnt,
+			errinj_data_cnt_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_data_cnt,
+			errinj_n_repeat_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_n_repeat,
 			fee_machine_busy_o                 => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy,
 			fee_slave_imgdata_start_o          => s_fee_slave_imgdata_start,
 			fee_slave_frame_counter_o          => s_fee_slave_frame_counter,

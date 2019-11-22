@@ -22,51 +22,14 @@ bool bInitSync( void ) {
 	}
 	#endif
 
-	// Configura um padrão de sync interno
-	// MBT => 400 ms @ 20 ns (50 MHz)
-	bSuccess = bSyncSetMbt(MBT);
-	if ( bSuccess == FALSE ) {
-		return bSuccess;
-	}
-
-	// BT => 200 ms @ 20 ns (50 MHz)
-	bSuccess = bSyncSetBt(BT);
-	if ( bSuccess == FALSE ) {
-		return bSuccess;
-	}
-
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		fprintf(fp,"xDefaults.usiPreBtSync = %hu\n", xDefaults.usiPreBtSync);
 	}
 	#endif
 
-	bSuccess = bSyncSetPreBt( uliPerCalcPeriodMs( xDefaults.usiPreBtSync ) );
-	if ( bSuccess == FALSE ) {
-		return bSuccess;
-	}
-
-	// PER => 6,25s @ 20 ns (50 MHz)
-	bSuccess = bSyncSetPer(  uliPerCalcPeriodMs( xDefaults.usiSyncPeriod ) );
-	if ( bSuccess == FALSE ) {
-		return bSuccess;
-	}
-
-	// OST => 500 ms @ 20 ns (50 MHz)
-	bSuccess = bSyncSetOst(OST);
-	if ( bSuccess == FALSE ) {
-		return bSuccess;
-	}
-
-
-	// Polaridade
-	bSuccess = bSyncSetPolarity(POL);
-	if ( bSuccess == FALSE ) {
-		return bSuccess;
-	}
-
-	// N. de ciclos
-	bSuccess = bSyncSetNCycles(N_CICLOS);
+	// Configura um padrão de sync interno, periodo padrao = 25 s
+	bSuccess = bSyncConfigNFeeSyncPeriod( cusiSyncNFeeSyncPeriodMs );
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
@@ -82,7 +45,6 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
-
 
 	// Habilita sync_out_ch1 enable (libera sync para o Ch 1)
 	bSuccess = bSyncCtrCh1OutEnable(TRUE);
@@ -120,16 +82,14 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
-
-
 	bSuccess = bSyncCtrStart();
 	bSyncCtrReset();
+
 	bSyncIrqEnableMasterPulse(TRUE);
 	bSyncIrqEnableNormalPulse(TRUE);
 	bSyncIrqEnableLastPulse(TRUE);
 
 	bSyncPreIrqEnableBlankPulse(TRUE);
-
 
 	return bSuccess;
 }

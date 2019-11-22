@@ -24,7 +24,12 @@
 #define SYNC_BIT_OFF                    FALSE
 
 //! [constants definition]
-const alt_u8 ucSyncIrqFlagsQtd;
+extern const alt_u16 cusiSyncNFeeMasterBlankTimeMs;
+extern const alt_u16 cusiSyncNFeeNormalBlankTimeMs;
+extern const alt_u16 cusiSyncNFeeSyncPeriodMs;
+extern const alt_u16 cusiSyncNFeeOneShotTimeMs;
+extern const bool cbSyncNFeePulsePolarity;
+extern const alt_u8 cusiSyncNFeeNumberOfPulses;
 
 //! [public module structs definition]
 typedef struct SyncStatus {
@@ -208,6 +213,8 @@ bool bSyncCtrCh5OutEnable(bool bValue);
 bool bSyncCtrCh6OutEnable(bool bValue);
 bool bSyncCtrCh7OutEnable(bool bValue);
 bool bSyncCtrCh8OutEnable(bool bValue);
+
+bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs);
 
 //! [private function prototypes]
 alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs);

@@ -310,11 +310,15 @@ alt_u32 uliRmapCh8WriteCmdAddress(void) {
 bool vRmapInitIrq(alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	void* pvHoldContext;
+	volatile TCommChannel *vpxCommChannel;
 	switch (ucCommCh) {
 	case eCommSpwCh1:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh1HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_1_RMAP_IRQ, pvHoldContext, vRmapCh1HandleIrq);
 		bStatus = TRUE;
@@ -323,6 +327,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh2HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_2_RMAP_IRQ, pvHoldContext, vRmapCh2HandleIrq);
 		bStatus = TRUE;
@@ -331,6 +338,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh3HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_3_RMAP_IRQ, pvHoldContext, vRmapCh3HandleIrq);
 		bStatus = TRUE;
@@ -339,6 +349,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh4HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_4_RMAP_IRQ, pvHoldContext, vRmapCh4HandleIrq);
 		bStatus = TRUE;
@@ -347,6 +360,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh5HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_5_RMAP_IRQ, pvHoldContext, vRmapCh5HandleIrq);
 		bStatus = TRUE;
@@ -355,6 +371,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh6HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_6_RMAP_IRQ, pvHoldContext, vRmapCh6HandleIrq);
 		bStatus = TRUE;
@@ -363,6 +382,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh7HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_7_RMAP_IRQ, pvHoldContext, vRmapCh7HandleIrq);
 		bStatus = TRUE;
@@ -371,6 +393,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh8HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_8_RMAP_IRQ, pvHoldContext, vRmapCh8HandleIrq);
 		bStatus = TRUE;

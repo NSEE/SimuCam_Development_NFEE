@@ -13,6 +13,20 @@ volatile alt_u8 vucN;
 //! [data memory public global variables]
 
 //! [program memory public global variables]
+
+/* Master blank time = 400 ms */
+const alt_u16 cusiSyncNFeeMasterBlankTimeMs = 400;
+/* Normal blank time = 200 ms */
+const alt_u16 cusiSyncNFeeNormalBlankTimeMs = 200;
+/* Sync Period = 25 s */
+const alt_u16 cusiSyncNFeeSyncPeriodMs = 25000;
+/* One shot time = 500 ms */
+const alt_u16 cusiSyncNFeeOneShotTimeMs = 500;
+/* Blank level polarity = '1' */
+const bool cbSyncNFeePulsePolarity = TRUE;
+/* Number of pulses = 4 */
+const alt_u8 cusiSyncNFeeNumberOfPulses = 4;
+
 //! [program memory public global variables]
 
 //! [data memory private global variables]
@@ -198,8 +212,13 @@ void vSyncInitIrq(void) {
 	// Recast the viSyncHoldContext pointer to match the alt_irq_register() function
 	// prototype.
 	void* hold_context_ptr = (void*) &viSyncHoldContext;
-	// Register the interrupt handler
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	// Clear all flags
+	vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
+	vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = TRUE;
+	vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
+	vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = TRUE;
+	// Register the interrupt handler
 	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliSyncIrqNumber, hold_context_ptr, vSyncHandleIrq);
 }
 
@@ -218,8 +237,13 @@ void vSyncPreInitIrq(void) {
 	// Recast the viPreSyncHoldContext pointer to match the alt_irq_register() function
 	// prototype.
 	void* hold_context_ptr = (void*) &viPreSyncHoldContext;
-	// Register the interrupt handler
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	// Clear all flags
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreNormalPulseIrqFlagClr = TRUE;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreLastPulseIrqFlagClr = TRUE;
+	// Register the interrupt handler
 	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliPreSyncIrqNumber, hold_context_ptr, vSyncPreHandleIrq);
 }
 
@@ -1227,6 +1251,24 @@ bool bSyncPreIrqFlagLastPulse(void) {
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreLastPulseIrqFlag;
 	return bResult;
+}
+
+/* Configure the entire Sync Period for a N-FEE (default: 25.0 s) */
+bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
+	bool bSuccess;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+
+	const alt_u16 cusiPulsePeriodMs = usiSyncPeriodMs / cusiSyncNFeeNumberOfPulses;
+	vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs( 100 );
+	vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs( cusiPulsePeriodMs - cusiSyncNFeeMasterBlankTimeMs );
+	vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs( cusiPulsePeriodMs - cusiSyncNFeeNormalBlankTimeMs );
+	vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs( cusiPulsePeriodMs );
+	vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs( cusiSyncNFeeOneShotTimeMs );
+	vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncNFeePulsePolarity;
+	vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncNFeeNumberOfPulses;
+	bSuccess = TRUE;
+
+	return bSuccess;
 }
 
 //! [private functions]

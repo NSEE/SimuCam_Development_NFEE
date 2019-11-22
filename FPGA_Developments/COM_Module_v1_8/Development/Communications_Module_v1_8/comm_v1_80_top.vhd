@@ -244,7 +244,7 @@ begin
 	rst_n <= not a_reset;
 
 	-- sync_in polarity fix (timing issues, need to be improved!!!) 
-	s_sync_channel_n <= not sync_channel;
+	s_sync_channel_n <= sync_channel;
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent

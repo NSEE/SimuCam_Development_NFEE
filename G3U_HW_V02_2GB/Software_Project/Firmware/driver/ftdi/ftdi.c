@@ -229,6 +229,13 @@ bool bFTDIIrqRxBuffInit(void) {
     // Recast the hold_context pointer to match the alt_irq_register() function
     // prototype.
     pvHoldContext = (void*) &viRxBuffHoldContext;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+	// Clear all flags
+    vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
+    vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
+    vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr = TRUE;
+    vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr = TRUE;
+    vpxFtdiModule->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr = TRUE;
     // Register the interrupt handler
     if (0 == alt_irq_register(FTDI_RX_BUFFER_IRQ, pvHoldContext, vFTDIRxBufferIRQHandler)){
         bStatus = TRUE;
