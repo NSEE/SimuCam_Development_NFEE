@@ -47,7 +47,7 @@ module MebX_Qsys_Project_mm_interconnect_1_router_007_default_decode
      parameter DEFAULT_CHANNEL = 0,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 3 
+               DEFAULT_DESTID = 4 
    )
   (output [356 - 354 : 0] default_destination_id,
    output [5-1 : 0] default_wr_channel,
@@ -168,8 +168,6 @@ module MebX_Qsys_Project_mm_interconnect_1_router_007
     // -------------------------------------------------------
     wire write_transaction;
     assign write_transaction = sink_data[PKT_TRANS_WRITE];
-    wire read_transaction;
-    assign read_transaction  = sink_data[PKT_TRANS_READ];
 
 
     MebX_Qsys_Project_mm_interconnect_1_router_007_default_decode the_default_decode(
@@ -191,20 +189,12 @@ module MebX_Qsys_Project_mm_interconnect_1_router_007
 
 
 
-        if (destid == 3  && read_transaction) begin
-            src_channel = 5'b0001;
-        end
-
         if (destid == 4  && write_transaction) begin
-            src_channel = 5'b0010;
-        end
-
-        if (destid == 1  && read_transaction) begin
-            src_channel = 5'b0100;
+            src_channel = 5'b01;
         end
 
         if (destid == 2  && write_transaction) begin
-            src_channel = 5'b1000;
+            src_channel = 5'b10;
         end
 
 

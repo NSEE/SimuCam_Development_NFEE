@@ -2,6 +2,12 @@
 module MebX_Qsys_Project (
 	button_export,
 	clk50_clk,
+	comm_a_conduit_end_data_in_signal,
+	comm_a_conduit_end_data_out_signal,
+	comm_a_conduit_end_strobe_in_signal,
+	comm_a_conduit_end_strobe_out_signal,
+	comm_a_measurements_conduit_end_measurements_channel_signal,
+	comm_a_sync_end_sync_channel_signal,
 	csense_adc_fo_export,
 	csense_cs_n_export,
 	csense_sck_export,
@@ -110,11 +116,16 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	rst_controller_reset_source_simucam_reset);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
+	input		comm_a_conduit_end_data_in_signal;
+	output		comm_a_conduit_end_data_out_signal;
+	input		comm_a_conduit_end_strobe_in_signal;
+	output		comm_a_conduit_end_strobe_out_signal;
+	output	[7:0]	comm_a_measurements_conduit_end_measurements_channel_signal;
+	input		comm_a_sync_end_sync_channel_signal;
 	output		csense_adc_fo_export;
 	output	[1:0]	csense_cs_n_export;
 	output		csense_sck_export;
@@ -224,5 +235,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	output		rst_controller_reset_source_simucam_reset;
 endmodule

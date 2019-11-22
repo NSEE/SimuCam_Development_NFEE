@@ -66,35 +66,36 @@ begin
 			s_counter             <= s_counter + 1;
 
 			case s_counter is
+
 				when 100 to 101 =>
 					-- Register write
 					-- Sync config registers
-					-- MBT - address: 16#1E#
-					v_address				:= 16#1E#;
+					-- MBT - address: 16#1D#
+					v_address				:= 16#1D#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- MBT = 20 (400 ns @ 20 ns)
-					v_value					:= 20;
+					v_value					:= 312 - 20;
 					a_wr_reg				<= std_logic_vector(to_unsigned(v_value,32));
 					avalon_mm_write_o   	<= '1';
 
 				when 150 to 151 =>
 					-- Register write
 					-- Sync config registers
-					-- BT - address: 16#1F#
-					v_address				:= 16#1F#;
+					-- BT - address: 16#1E#
+					v_address				:= 16#1E#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- BT = 10 (200 ns @ 20 ns)
-					v_value					:= 10;
+					v_value					:= 312 - 10;
 					a_wr_reg				<= std_logic_vector(to_unsigned(v_value,32));
 					avalon_mm_write_o   	<= '1';
 
 				when 200 to 201 =>
 					-- Register write
 					-- Sync config registers
-					-- PBT - address: 16#20#
-					v_address				:= 16#20#;
+					-- PBT - address: 16#1F#
+					v_address				:= 16#1F#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- PBT = 10 (200 ns @ 20 ns)
@@ -105,8 +106,8 @@ begin
 				when 250 to 251 =>
 					-- Register write
 					-- Sync config registers
-					-- PER - address: 16#21#
-					v_address				:= 16#21#;
+					-- PER - address: 16#20#
+					v_address				:= 16#20#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- PER = 312 (6,25 us @ 20 ns)
@@ -117,8 +118,8 @@ begin
 				when 300 to 301 =>
 					-- Register write
 					-- Sync config registers
-					-- OST - address: 16#22#
-					v_address				:= 16#22#;
+					-- OST - address: 16#21#
+					v_address				:= 16#21#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- OST = 5 (100 ns @ 20 ns)
@@ -129,19 +130,21 @@ begin
 				when 350 to 351 =>
 					-- Register write
 					-- Sync config registers
-					-- General.signal_polarity - address: 16#23#
-					v_address				:= 16#23#;
+					-- General.signal_polarity - address: 16#22#
+					v_address				:= 16#22#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
-					-- Signal polarity = '0'
-					a_wr_reg_bit0			<= '0';
+--					-- Signal polarity = '0'
+--					a_wr_reg_bit0			<= '0';
+					-- Signal polarity = '1'
+					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 					
 				when 400 to 401 =>
 					-- Register write
 					-- Sync config registers
-					-- General.number_of_cycles - address: 16#24#
-					v_address				:= 16#24#;
+					-- General.number_of_cycles - address: 16#23#
+					v_address				:= 16#23#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- Number of cycles = 4
@@ -161,12 +164,22 @@ begin
 
 				when 800 to 801 =>
 					-- Register write
-					-- Sync control register - address: 16#26#
-					v_address				:= 16#26#;
+					-- Sync control register - address: 16#25#
+					v_address				:= 16#25#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- Switch to internal sync gen
 					a_wr_reg_bit0			<= '1'; 
+					avalon_mm_write_o   	<= '1';
+					
+				when 850 to 851 =>
+					-- Register write
+					-- Sync config registers
+					-- Sync_out enable - address: 16#2A#
+					v_address				:= 16#2A#;
+					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
+					avalon_mm_read_o    	<= '0';
+					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 
 --				when 900 to 901 =>
@@ -400,8 +413,8 @@ begin
 				when 4600 to 4601 =>
 					-- Register write
 					-- Sync config registers
-					-- Interrupt enable register - address: 16#04#
-					v_address				:= 16#04#;
+					-- Interrupt enable register - address: 16#03#
+					v_address				:= 16#03#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					a_wr_reg_bit0			<= '1';
@@ -410,8 +423,8 @@ begin
 				when 4650 to 4651 =>
 					-- Register write
 					-- Sync config registers
-					-- Interrupt enable register - address: 16#05#
-					v_address				:= 16#05#;
+					-- Interrupt enable register - address: 16#04#
+					v_address				:= 16#04#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					a_wr_reg_bit0			<= '1';
@@ -420,8 +433,8 @@ begin
 				when 4700 to 4701 =>
 					-- Register write
 					-- Sync config registers
-					-- Interrupt enable register - address: 16#06#
-					v_address				:= 16#06#;
+					-- Interrupt enable register - address: 16#05#
+					v_address				:= 16#05#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					a_wr_reg_bit0			<= '1';
@@ -430,14 +443,24 @@ begin
 				when 4750 to 4751 =>
 					-- Register write
 					-- Sync config registers
-					-- Interrupt enable register - address: 16#07#
-					v_address				:= 16#07#;
+					-- Interrupt enable register - address: 16#06#
+					v_address				:= 16#06#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 					
 				when 4800 to 4801 =>
+					-- Register write
+					-- Sync config registers
+					-- Interrupt enable register - address: 16#11#
+					v_address				:= 16#11#;
+					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
+					avalon_mm_read_o    	<= '0';
+					a_wr_reg_bit0			<= '1';
+					avalon_mm_write_o   	<= '1';
+					
+				when 4850 to 4851 =>
 					-- Register write
 					-- Sync config registers
 					-- Interrupt enable register - address: 16#12#
@@ -447,7 +470,7 @@ begin
 					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 					
-				when 4850 to 4851 =>
+				when 4900 to 4901 =>
 					-- Register write
 					-- Sync config registers
 					-- Interrupt enable register - address: 16#13#
@@ -457,7 +480,7 @@ begin
 					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 					
-				when 4900 to 4901 =>
+				when 4950 to 4951 =>
 					-- Register write
 					-- Sync config registers
 					-- Interrupt enable register - address: 16#14#
@@ -467,20 +490,10 @@ begin
 					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 					
-				when 4950 to 4951 =>
-					-- Register write
-					-- Sync config registers
-					-- Interrupt enable register - address: 16#15#
-					v_address				:= 16#15#;
-					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
-					avalon_mm_read_o    	<= '0';
-					a_wr_reg_bit0			<= '1';
-					avalon_mm_write_o   	<= '1';
-					
 				when 5000 to 5001 =>
 					-- Register write
 					-- Sync control register - address: 16#27#
-					v_address				:= 16#27#;
+					v_address				:= 16#26#;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- Start gen
