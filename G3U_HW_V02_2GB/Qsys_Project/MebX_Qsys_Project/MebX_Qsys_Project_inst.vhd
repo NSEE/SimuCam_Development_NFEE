@@ -104,6 +104,7 @@
 			rs232_uart_rxd                                              : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                              : out   std_logic;                                        -- txd
 			rst_reset_n                                                 : in    std_logic                     := 'X';             -- reset_n
+			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- t_simucam_reset_signal
 			rtcc_alarm_export                                           : in    std_logic                     := 'X';             -- export
 			rtcc_cs_n_export                                            : out   std_logic;                                        -- export
 			rtcc_sck_export                                             : out   std_logic;                                        -- export
@@ -146,8 +147,7 @@
 			umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            : out   std_logic;                                        -- umft_siwu_n_signal
-			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic                                         -- t_simucam_reset_signal
+			umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -257,6 +257,7 @@
 			rs232_uart_rxd                                              => CONNECTED_TO_rs232_uart_rxd,                                              --                           rs232_uart.rxd
 			rs232_uart_txd                                              => CONNECTED_TO_rs232_uart_txd,                                              --                                     .txd
 			rst_reset_n                                                 => CONNECTED_TO_rst_reset_n,                                                 --                                  rst.reset_n
+			rst_controller_conduit_simucam_reset_t_simucam_reset_signal => CONNECTED_TO_rst_controller_conduit_simucam_reset_t_simucam_reset_signal, -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
 			rtcc_alarm_export                                           => CONNECTED_TO_rtcc_alarm_export,                                           --                           rtcc_alarm.export
 			rtcc_cs_n_export                                            => CONNECTED_TO_rtcc_cs_n_export,                                            --                            rtcc_cs_n.export
 			rtcc_sck_export                                             => CONNECTED_TO_rtcc_sck_export,                                             --                             rtcc_sck.export
@@ -299,7 +300,6 @@
 			umft601a_pins_umft_wr_n_signal                              => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                              --                                     .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                              --                                     .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                              --                                     .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                            --                                     .umft_siwu_n_signal
-			rst_controller_conduit_simucam_reset_t_simucam_reset_signal => CONNECTED_TO_rst_controller_conduit_simucam_reset_t_simucam_reset_signal  -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
+			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                             --                                     .umft_siwu_n_signal
 		);
 
