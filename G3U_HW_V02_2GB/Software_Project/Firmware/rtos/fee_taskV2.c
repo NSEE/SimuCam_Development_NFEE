@@ -52,7 +52,7 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xMemMap.xCommon.ulVStart = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 				pxNFee->xMemMap.xCommon.ulVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 				/*0..2294*/
-				pxNFee->xMemMap.xCommon.ulHStart = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+				pxNFee->xMemMap.xCommon.ulHStart = 0;
 				pxNFee->xMemMap.xCommon.ulHEnd = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
 
 
@@ -3089,7 +3089,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3286,7 +3286,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3491,7 +3491,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3696,7 +3696,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3916,7 +3916,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4080,7 +4080,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4288,7 +4288,7 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4483,7 +4483,7 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
