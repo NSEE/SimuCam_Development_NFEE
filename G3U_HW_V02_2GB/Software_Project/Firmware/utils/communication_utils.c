@@ -371,6 +371,30 @@ void vSendTurnOff ( void ) {
 	}
 }
 
+void vSendBufferChar128( const char * cDataIn ) {
+    char cBufferL[128] = "";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+    usiIdCMDLocal = usiGetIdCMD();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBufferL, cDataIn, usiIdCMDLocal);
+    crc = ucCrc8wInit( cBufferL , strlen(cBufferL));
+    sprintf(cBufferL, "%s|%hhu;", cBufferL, crc );
+
+	bSuccees = bSendUART128v2(cBufferL, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+		vCouldNotSendGenericMessageInternalCMD();
+	}
+}
+
+
 void vSendReset ( void ) {
     char cBufferTurnOff[32] = "";
     unsigned char crc = 0;

@@ -240,7 +240,7 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
     short int siStrLen, siTeminador, siIni, siCRC;
     unsigned char i;
 	char c, *p_inteiro;
-	char inteiro[6]; /* Max size of parsed value is 6 digits, for now */
+	char inteiro[10]; /* Max size of parsed value is 6 digits, for now */
 
 
     bSuccess = FALSE;

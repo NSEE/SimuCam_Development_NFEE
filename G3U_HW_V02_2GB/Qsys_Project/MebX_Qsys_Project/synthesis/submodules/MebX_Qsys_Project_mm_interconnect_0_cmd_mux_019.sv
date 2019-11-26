@@ -1,10 +1,10 @@
-// (C) 2001-2016 Intel Corporation. All rights reserved.
+// (C) 2001-2018 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
-// files any of the foregoing (including device programming or simulation 
+// files from any of the foregoing (including device programming or simulation 
 // files), and any associated documentation or information are expressly subject 
 // to the terms and conditions of the Intel Program License Subscription 
-// Agreement, Intel MegaCore Function License Agreement, or other applicable 
+// Agreement, Intel FPGA IP License Agreement, or other applicable 
 // license agreement, including, without limitation, that your use is for the 
 // sole purpose of programming logic devices manufactured by Intel and sold by 
 // Intel or its authorized distributors.  Please refer to the applicable 
@@ -24,10 +24,10 @@
 // agreement for further details.
 
 
-// $Id: //acds/rel/16.1/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
+// $Id: //acds/rel/18.1std/ip/merlin/altera_merlin_multiplexer/altera_merlin_multiplexer.sv.terp#1 $
 // $Revision: #1 $
-// $Date: 2016/08/07 $
-// $Author: swbranch $
+// $Date: 2018/07/18 $
+// $Author: psgswbuild $
 
 // ------------------------------------------
 // Merlin Multiplexer
@@ -43,9 +43,9 @@
 //   ARBITRATION_SHARES:  1 1 1 1
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
-//   PKT_TRANS_LOCK:      72 (arbitration locking enabled)
-//   ST_DATA_W:           122
-//   ST_CHANNEL_W:        23
+//   PKT_TRANS_LOCK:      326 (arbitration locking enabled)
+//   ST_DATA_W:           381
+//   ST_CHANNEL_W:        34
 // ------------------------------------------
 
 module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_019
@@ -54,29 +54,29 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_019
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [122-1   : 0]  sink0_data,
-    input [23-1: 0]  sink0_channel,
+    input [381-1   : 0]  sink0_data,
+    input [34-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [122-1   : 0]  sink1_data,
-    input [23-1: 0]  sink1_channel,
+    input [381-1   : 0]  sink1_data,
+    input [34-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
 
     input                       sink2_valid,
-    input [122-1   : 0]  sink2_data,
-    input [23-1: 0]  sink2_channel,
+    input [381-1   : 0]  sink2_data,
+    input [34-1: 0]  sink2_channel,
     input                       sink2_startofpacket,
     input                       sink2_endofpacket,
     output                      sink2_ready,
 
     input                       sink3_valid,
-    input [122-1   : 0]  sink3_data,
-    input [23-1: 0]  sink3_channel,
+    input [381-1   : 0]  sink3_data,
+    input [34-1: 0]  sink3_channel,
     input                       sink3_startofpacket,
     input                       sink3_endofpacket,
     output                      sink3_ready,
@@ -86,8 +86,8 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_019
     // Source
     // ----------------------
     output                      src_valid,
-    output [122-1    : 0] src_data,
-    output [23-1 : 0] src_channel,
+    output [381-1    : 0] src_data,
+    output [34-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -98,13 +98,13 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_019
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 122 + 23 + 2;
+    localparam PAYLOAD_W        = 381 + 34 + 2;
     localparam NUM_INPUTS       = 4;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 1;
-    localparam ST_DATA_W        = 122;
-    localparam ST_CHANNEL_W     = 23;
-    localparam PKT_TRANS_LOCK   = 72;
+    localparam ST_DATA_W        = 381;
+    localparam ST_CHANNEL_W     = 34;
+    localparam PKT_TRANS_LOCK   = 326;
 
     // ------------------------------------------
     // Signals
@@ -142,10 +142,10 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_019
     // ------------------------------------------
     reg [NUM_INPUTS - 1 : 0] lock;
     always @* begin
-      lock[0] = sink0_data[72];
-      lock[1] = sink1_data[72];
-      lock[2] = sink2_data[72];
-      lock[3] = sink3_data[72];
+      lock[0] = sink0_data[326];
+      lock[1] = sink1_data[326];
+      lock[2] = sink2_data[326];
+      lock[3] = sink3_data[326];
     end
     reg [NUM_INPUTS - 1 : 0] locked = '0;
     always @(posedge clk or posedge reset) begin

@@ -62,6 +62,14 @@ void vParserCommTask(void *task_data) {
 				{
 					case ETH_CMD: /*NUC requested the ETH Configuration*/
 						vSendEthConf();
+
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"\n__________ Load Completed, Simucam is ready to be used _________ \n\n");
+						}
+						#endif
+
+
 						eParserMode = sWaitingMessage;
 						break;
 
@@ -129,6 +137,56 @@ void vParserCommTask(void *task_data) {
 
                     case 250: /* srv-Type = 250 */
 						switch ( xTcPusL.usiSubType ) {
+							case 29: /* TC_SYNCH_SOURCE */
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									fprintf(fp,"Parser Task: TC_SYNCH_SOURCE\n");
+								#endif
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
+
+
+							case 31: /* TC_SYNCH_RESET [bndky]*/
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									fprintf(fp,"Parser Task: TC_SYNCH_RESET\n");
+								#endif
+								/* Get the value */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
+
+							case 58: /* Update HK [bndky] */
+
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL > N_OF_NFEE ) {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+									fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+								#endif
+								/* todo: Enviar mensagem de erro se aplicavel */
+								} else {
+									
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+								xTcPusL.ucNofValues++;
+								/* HK ID */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+								xTcPusL.ucNofValues++;
+								/* HK Value */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+								xTcPusL.ucNofValues++;
+
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								}
+							break;
+
 							case 59: /* TC_SCAM_RESET */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -137,9 +195,8 @@ void vParserCommTask(void *task_data) {
 								/*Send the command to NUC in order to reset the NUC*/
 								vSendReset();
 								
-								/*todo:Reset of the Simucam not working yet, need to check with França*/
-								//OSTimeDlyHMSM(0,0,3,0);
-								//vRstcSimucamReset( 5000 );
+								OSTimeDlyHMSM(0,0,3,0);
+								vRstcHoldSimucamReset(0);
 								break;
 
 							case 60: /* TC_SCAM_CONFIG */
@@ -211,16 +268,78 @@ void vParserCommTask(void *task_data) {
 									/*Send the command to the MEB task*/
 									bSendMessagePUStoMebTask(&xTcPusL);
 									break;
-
-								case 5: /* TC_SCAM_FEE_CALIBRATION_TEST_ENTER */
+								case 3: /* NFEE_RUNNING_FULLIMAGE  */
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
-										fprintf(fp, "Parser Task: TC_SCAM_FEE_CALIBRATION_TEST_ENTER (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+										fprintf(fp, "Parser Task: NFEE_RUNNING_FULLIMAGE (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
 									bSendMessagePUStoMebTask(&xTcPusL);
 									break;
-
+								case 4: /* NFEE_RUNNING_WINDOWING  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_WINDOWING (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
+								case 5: /* NFEE_RUNNING_FULLIMAGE_PATTERN */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_FULLIMAGE_PATTERN (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
+								case 6: /* NFEE_RUNNING_WINDOWING_PATTERN  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_WINDOWING_PATTERN (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
+								case 11: /* NFEE_RUNNING_ON  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_ON (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
+								case 12: /* NFEE_RUNNING_PARALLEL_TRAP_PUMP_1  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_PARALLEL_TRAP_PUMP_1 (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
+								case 13: /* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_PARALLEL_TRAP_PUMP_2 (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
+								case 14: /* NFEE_RUNNING_SERIAL_TRAP_PUMP_1  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_SERIAL_TRAP_PUMP_1 (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
+								case 15: /* NFEE_RUNNING_SERIAL_TRAP_PUMP_2  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: NFEE_RUNNING_SERIAL_TRAP_PUMP_2 (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
 								default:
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -283,6 +402,8 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp, "- RMAP_KEY: 0x%02X;\n", PreParsedLocal.usiValues[12] );
 								}
 								#endif
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
 							default:
@@ -330,6 +451,7 @@ bool getPreParsedPacket( tPreParsed *xPreParsedParser ) {
 	}
 	return bSuccess;
 }
+
 
 /* Search for some free location in the xPus array to put the full command to send to the meb task */
 bool bSendMessagePUStoMebTask( tTMPus *xPusL ) {

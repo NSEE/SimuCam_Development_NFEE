@@ -58,6 +58,10 @@ typedef union qMask{
 /* General command to sync */
 #define M_MASTER_SYNC               0xE0    /* Command send byt the Sync Interrupt */
 #define M_SYNC                      0xE1    /* Command send byt the Sync Interrupt */
+#define M_PRE_MASTER                0xE2    /* Command send byt the Sync Interrupt */
+
+#define M_BEFORE_SYNC               0xE4    /* Indicate that a sync will occours soon, will be used to prepare the double buffer */
+
 
 
 /*=====================================================================================================================*/
@@ -66,6 +70,12 @@ typedef union qMask{
 /* These list of commands is used in the xMebQ to send message the Meb task */
 #define Q_MEB_PUS 		0x01 /* Indicates that income a PUS command and it should check the xPus array */
 
+#define Q_MEB_DATA_MEM_IN_USE   		 0x11 	/* DTC Updating memory*/
+#define Q_MEB_DATA_MEM_UPD_FIN   		 0x12 	/* DTC Indicates That finish the load of the data in the RAM memory Q_MEB_DATA_MEM_UPDATE_FINISHED*/
+
+#define Q_MEB_FEE_MEM_IN_USE				0x21 	/* FEE Using memory */
+#define Q_MEB_FEE_MEM_TRAN_FIN 				0x22 	/* FEE CCD transmitted Q_MEB_FEE_MEM_TRANSMISSION_FINISHED*/
+#define Q_MEB_FEE_DIS                       0x24 	/* FEE Instance Inactive todo: decide if will be used*/
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
@@ -80,6 +90,7 @@ typedef union qMask{
 #define M_NFC_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_NFC_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
 
+#define M_NFC_CONFIG_RESET    0xA3 /* Indicates that should go to Run Mode - Forced */
 
 #define M_NFC_DMA_GIVEBACK  0x81
 #define M_NFC_DMA_REQUEST   0x80 /* DO NOT ATTRIBUTE 0x80 TO ANY OTHER COMMAND */
@@ -95,9 +106,15 @@ typedef union qMask{
 /* FORMAT: 32 bits MASK ()    0x BB BB */
 #define M_DATA_CONFIG 		0x01 /* Indicates that should go to Config Mode */
 #define M_DATA_RUN 		    0x02 /* Indicates that should go to Run Mode */
-
 #define M_DATA_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_DATA_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
+
+#define M_DATA_FTDI_BUFFER_FULL    0xB1 /* Indicates IRQ ftdi buffer full */
+#define M_DATA_FTDI_BUFFER_LAST    0xB2 /* Indicates IRQ last packet */
+#define M_DATA_FTDI_BUFFER_EMPTY   0xB4 /* Indicates IRQ buffer empty */
+
+#define M_DATA_FTDI_ERROR   0xC1 	/* Indicates IRQ Communication error */
+
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
@@ -109,23 +126,37 @@ typedef union qMask{
 /* FORMAT: 32 bits MASK ()    0x BB BB */
 #define M_FEE_CONFIG 		0x01 /* Indicates that should go to Config Mode */
 #define M_FEE_RUN 		    0x02 /* Indicates that should go to Run Mode - Mode On -> StandBy */
+#define M_FEE_ON            0x03
 #define M_FEE_STANDBY	    0x04
-#define M_FEE_FULL_PATTERN  0x08
+#define M_FEE_FULL_PATTERN  0x05
+#define M_FEE_WIN_PATTERN   0x06
+#define M_FEE_FULL          0x07
+#define M_FEE_WIN           0x08
+#define M_FEE_PAR_TRAP_1    0x09
+#define M_FEE_PAR_TRAP_2    0x0A
+#define M_FEE_SERIAL_TRAP_1 0x0B
+#define M_FEE_SERIAL_TRAP_2 0x0C
 
 #define M_FEE_DMA_ACCESS    0x8F    /* This Command should be sent by the ISR of the Empty Buffer */
 
 #define M_FEE_CONFIG_FORCED		    0xA1 /* Indicates that should go to Config Mode */
 #define M_FEE_RUN_FORCED            0xA2 /* Indicates that should go to Run Mode - Mode On -> StandBy */
+#define M_FEE_ON_FORCED             0xA3
 #define M_FEE_STANDBY_FORCED        0xA4
-#define M_FEE_FULL_PATTERN_FORCED   0xA8
-
+#define M_FEE_FULL_PATTERN_FORCED   0xA5
+#define M_FEE_WIN_PATTERN_FORCED    0xA6
+#define M_FEE_FULL_FORCED           0xA7
+#define M_FEE_WIN_FORCED            0xA8
+#define M_FEE_PAR_TRAP_1_FORCED     0xA9
+#define M_FEE_PAR_TRAP_2_FORCED     0xAA
+#define M_FEE_SERIAL_TRAP_1_FORCED  0xAB
+#define M_FEE_SERIAL_TRAP_2_FORCED  0xAC
 
 #define M_FEE_RMAP                  0xF0 /* RMAP command received */
 
+#define M_FEE_CAN_ACCESS_NEXT_MEM   0x71 /* Meb send this message to inform FEE instances that already can access the data in the memory that DTC is updating, after DTC finishes the job */
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
-
-
 
 
 

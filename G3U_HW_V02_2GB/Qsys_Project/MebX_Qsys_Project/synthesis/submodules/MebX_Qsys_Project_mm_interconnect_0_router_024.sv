@@ -47,23 +47,23 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024_default_decode
      parameter DEFAULT_CHANNEL = 0,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 2 
+               DEFAULT_DESTID = 5 
    )
-  (output [148 - 144 : 0] default_destination_id,
-   output [26-1 : 0] default_wr_channel,
-   output [26-1 : 0] default_rd_channel,
-   output [26-1 : 0] default_src_channel
+  (output [97 - 92 : 0] default_destination_id,
+   output [34-1 : 0] default_wr_channel,
+   output [34-1 : 0] default_rd_channel,
+   output [34-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[148 - 144 : 0];
+    DEFAULT_DESTID[97 - 92 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 26'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 34'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 26'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 26'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 34'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 34'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [162-1 : 0]    sink_data,
+    input  [111-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [162-1    : 0] src_data,
-    output reg [26-1 : 0] src_channel,
+    output reg [111-1    : 0] src_data,
+    output reg [34-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -112,18 +112,18 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 104;
-    localparam PKT_ADDR_L = 72;
-    localparam PKT_DEST_ID_H = 148;
-    localparam PKT_DEST_ID_L = 144;
-    localparam PKT_PROTECTION_H = 152;
-    localparam PKT_PROTECTION_L = 150;
-    localparam ST_DATA_W = 162;
-    localparam ST_CHANNEL_W = 26;
+    localparam PKT_ADDR_H = 51;
+    localparam PKT_ADDR_L = 18;
+    localparam PKT_DEST_ID_H = 97;
+    localparam PKT_DEST_ID_L = 92;
+    localparam PKT_PROTECTION_H = 101;
+    localparam PKT_PROTECTION_L = 99;
+    localparam ST_DATA_W = 111;
+    localparam ST_CHANNEL_W = 34;
     localparam DECODER_TYPE = 1;
 
-    localparam PKT_TRANS_WRITE = 107;
-    localparam PKT_TRANS_READ  = 108;
+    localparam PKT_TRANS_WRITE = 54;
+    localparam PKT_TRANS_READ  = 55;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
@@ -158,7 +158,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024
     assign src_valid         = sink_valid;
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
-    wire [26-1 : 0] default_src_channel;
+    wire [34-1 : 0] default_src_channel;
 
 
 
@@ -166,8 +166,8 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024
     // -------------------------------------------------------
     // Write and read transaction signals
     // -------------------------------------------------------
-    wire write_transaction;
-    assign write_transaction = sink_data[PKT_TRANS_WRITE];
+    wire read_transaction;
+    assign read_transaction  = sink_data[PKT_TRANS_READ];
 
 
     MebX_Qsys_Project_mm_interconnect_0_router_024_default_decode the_default_decode(
@@ -189,12 +189,12 @@ module MebX_Qsys_Project_mm_interconnect_0_router_024
 
 
 
-        if (destid == 2  && write_transaction) begin
-            src_channel = 26'b01;
+        if (destid == 5 ) begin
+            src_channel = 34'b01;
         end
 
-        if (destid == 4  && write_transaction) begin
-            src_channel = 26'b10;
+        if (destid == 6  && read_transaction) begin
+            src_channel = 34'b10;
         end
 
 

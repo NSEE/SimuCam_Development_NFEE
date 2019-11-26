@@ -23,6 +23,85 @@ void vCriticalErrorLedPanel( void ) {
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );
 }
 
+void vFailSendSemaphoreFromDTC( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailSendSemaphoreFromDTC. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailInitRTOSResources( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailInitRTOSResources. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vCriticalFailUpdateMemoreDTController( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vCriticalFailUpdateMemoreDTController. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vCommunicationErrorUSB3DTController( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vCommunicationErrorUSB3DTController. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vFailSendRequestDTController( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"bFTDIRequestFullImage returned FALSE. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vFailFTDIDMASchedule( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailFTDIDMASchedule. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+
 void vFailCreateMutexSResources( INT8U error_code )
 {
 	#if DEBUG_ON
@@ -32,8 +111,8 @@ void vFailCreateMutexSResources( INT8U error_code )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -46,8 +125,8 @@ void vFailCreateMutexDMA( void )
 	#endif
 
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -60,8 +139,8 @@ void vFailReadETHConf( void )
 	#endif
 
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -74,8 +153,8 @@ void vFailCreateSemaphoreResources( void )
 	#endif
 
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -90,8 +169,8 @@ void vFailTestCriticasParts( void )
 
 	vCriticalErrorLedPanel();
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -105,8 +184,8 @@ void vFailSDCard( void )
 
 	vCriticalErrorLedPanel();
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -119,8 +198,8 @@ void vFailSendxSemCommInit( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -132,8 +211,8 @@ void vFailSendPreParsedSemaphore( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -145,8 +224,8 @@ void vFailSendPreAckReceiverSemaphore( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -159,8 +238,8 @@ void vFailSendPreAckSenderSemaphore( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -174,8 +253,8 @@ void vFailGetCountSemaphoreSenderTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -188,8 +267,8 @@ void vFailGetMutexSenderTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -203,8 +282,8 @@ void vFailGetCountSemaphoreReceiverTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -217,8 +296,8 @@ void vFailGetMutexReceiverTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -232,8 +311,8 @@ void vFailGetMutexTxUARTSenderTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -246,8 +325,8 @@ void vFailGetMacRTC( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -262,8 +341,8 @@ void vFailInitialization( void )
 
 	vCriticalErrorLedPanel();
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -276,8 +355,8 @@ void vFailReceiverCreate( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -290,8 +369,8 @@ void vFailSenderCreate( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -304,8 +383,8 @@ void vFailDeleteInitialization( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -319,8 +398,8 @@ void vFailSetCountSemaphorexBuffer32( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -333,8 +412,8 @@ void vFailSetCountSemaphorexBuffer64( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -348,8 +427,8 @@ void vFailSetCountSemaphorexBuffer128( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -362,8 +441,8 @@ void vFailGetCountSemaphorexBuffer128( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -376,8 +455,8 @@ void vFailGetCountSemaphorexBuffer64( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -390,8 +469,8 @@ void vFailGetCountSemaphorexBuffer32( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -404,11 +483,24 @@ void vFailFoundBufferRetransmission( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
+void vFailGetCountSemaphoreSenderBuffer( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailGetCountSemaphoreSenderBuffer. (exit)\n");
+		debug(fp,"Could not get the semaphore and some error happens.(Sender task)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
 
 void vFailGetCountSemaphorePreParsedBuffer( void )
 {
@@ -419,8 +511,8 @@ void vFailGetCountSemaphorePreParsedBuffer( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -434,11 +526,24 @@ void vFailGetxMutexPreParsedParserRxTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
+void vFailGetxMutexSenderBuffer128( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailGetxMutexSenderBuffer128. (exit)\n");
+		debug(fp,"Could not get the mutex and some error happens.(vSender)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
 
 void vNoContentInPreParsedBuffer( void )
 {
@@ -449,8 +554,22 @@ void vNoContentInPreParsedBuffer( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vNoContentInSenderBuffer( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vNoContentInSenderBuffer. (exit)\n");
+		debug(fp,"Semaphore was post by some task but has no message.(Sender)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -464,8 +583,8 @@ void vCouldNotSendEthConfUART( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -478,8 +597,8 @@ void vFailSendNack( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -492,8 +611,8 @@ void vFailSetPreAckSenderBuffer( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -506,8 +625,8 @@ void vFailSetPreParsedBuffer( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -521,8 +640,8 @@ void vFailSetPreAckReceiverBuffer( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -535,8 +654,8 @@ void vFailParserCommTaskCreate( void )
 	}
 	#endif
 	/*
-	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
-	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 * ImplementaÃ¯Â¿Â½Ã¯Â¿Â½o de indicaÃ¯Â¿Â½Ã¯Â¿Â½o de falha antes de finalizar a execuÃ¯Â¿Â½Ã¯Â¿Â½o
+	 * Indicar falha com LEDs pois Ã¯Â¿Â½ o unico HW inicializada atÃ¯Â¿Â½ o momento
 	 */
 }
 
@@ -548,8 +667,8 @@ void vFailInAckHandlerTaskCreate( void )
 	}
 	#endif
 	/*
-	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
-	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 * ImplementaÃ¯Â¿Â½Ã¯Â¿Â½o de indicaÃ¯Â¿Â½Ã¯Â¿Â½o de falha antes de finalizar a execuÃ¯Â¿Â½Ã¯Â¿Â½o
+	 * Indicar falha com LEDs pois Ã¯Â¿Â½ o unico HW inicializada atÃ¯Â¿Â½ o momento
 	 */
 }
 
@@ -561,8 +680,8 @@ void vFailOutAckHandlerTaskCreate( void )
 	}
 	#endif
 	/*
-	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
-	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 * ImplementaÃ¯Â¿Â½Ã¯Â¿Â½o de indicaÃ¯Â¿Â½Ã¯Â¿Â½o de falha antes de finalizar a execuÃ¯Â¿Â½Ã¯Â¿Â½o
+	 * Indicar falha com LEDs pois Ã¯Â¿Â½ o unico HW inicializada atÃ¯Â¿Â½ o momento
 	 */
 }
 
@@ -575,8 +694,8 @@ void vFailCreateTimerRetransmisison( void )
 	}
 	#endif
 	/*
-	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
-	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 * ImplementaÃ¯Â¿Â½Ã¯Â¿Â½o de indicaÃ¯Â¿Â½Ã¯Â¿Â½o de falha antes de finalizar a execuÃ¯Â¿Â½Ã¯Â¿Â½o
+	 * Indicar falha com LEDs pois Ã¯Â¿Â½ o unico HW inicializada atÃ¯Â¿Â½ o momento
 	 */
 }
 
@@ -589,8 +708,8 @@ void vCouldNotCheckBufferTimeOutFunction( void )
 	}
 	#endif
 	/*
-	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
-	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 * ImplementaÃ¯Â¿Â½Ã¯Â¿Â½o de indicaÃ¯Â¿Â½Ã¯Â¿Â½o de falha antes de finalizar a execuÃ¯Â¿Â½Ã¯Â¿Â½o
+	 * Indicar falha com LEDs pois Ã¯Â¿Â½ o unico HW inicializada atÃ¯Â¿Â½ o momento
 	 */
 }
 
@@ -603,8 +722,8 @@ void vFailTimeoutCheckerTaskCreate( void )
 	}
 	#endif
 	/*
-	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
-	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 * ImplementaÃ¯Â¿Â½Ã¯Â¿Â½o de indicaÃ¯Â¿Â½Ã¯Â¿Â½o de falha antes de finalizar a execuÃ¯Â¿Â½Ã¯Â¿Â½o
+	 * Indicar falha com LEDs pois Ã¯Â¿Â½ o unico HW inicializada atÃ¯Â¿Â½ o momento
 	 */
 }
 
@@ -618,8 +737,8 @@ void vFailGetBlockingSemTimeoutTask( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -632,8 +751,8 @@ void vFailPostBlockingSemTimeoutTask( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -647,8 +766,8 @@ void vFailCouldNotRetransmitTimeoutTask( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -662,8 +781,8 @@ void vCouldNotRetransmitB32TimeoutTask( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -676,8 +795,8 @@ void vCouldNotRetransmitB64TimeoutTask( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -690,8 +809,8 @@ void vCouldNotRetransmitB128TimeoutTask( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -705,8 +824,8 @@ void vFailStartTimerRetransmission( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -720,8 +839,21 @@ void vCouldNotSendTurnOff( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vCouldNotSendGenericMessageInternalCMD( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vCouldNotSendGenericMessageInternalCMD. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -734,8 +866,8 @@ void vCouldNotSendReset( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -748,8 +880,8 @@ void vCouldNotSendLog( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -764,8 +896,8 @@ void vCouldNotSendTMPusCommand( const char *cData )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -779,8 +911,8 @@ void vWarnCouldNotgetMutexRetrans128( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -795,8 +927,8 @@ void vFailCreateScheduleQueue( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -810,8 +942,8 @@ void vFailCreateNFEEQueue( unsigned char ucID )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -825,8 +957,8 @@ void vFailCreateNFEESyncQueue( unsigned char ucID )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -839,8 +971,8 @@ void vCoudlNotCreateNFee0Task( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -854,8 +986,8 @@ void vCoudlNotCreateNFee1Task( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -868,8 +1000,8 @@ void vCoudlNotCreateNFee2Task( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -882,8 +1014,8 @@ void vCoudlNotCreateNFee3Task( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -896,8 +1028,8 @@ void vCoudlNotCreateNFee4Task( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -910,8 +1042,8 @@ void vCoudlNotCreateNFee5Task( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -925,8 +1057,8 @@ void vCoudlNotCreateNFeeControllerTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -940,8 +1072,8 @@ void vCoudlNotCreateDataControllerTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -955,8 +1087,8 @@ void vCoudlNotCreateMebTask( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -970,8 +1102,8 @@ void vFailCreateMutexSPUSQueueMeb( INT8U error_code )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -983,8 +1115,8 @@ void vFailSendPUStoMebTask( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -997,8 +1129,8 @@ void vCouldNotGetCmdQueueMeb( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1012,8 +1144,8 @@ void vCouldNotGetMutexMebPus( void )
 	#endif
 	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1026,8 +1158,8 @@ void vCouldNotCreateQueueMaskNfeeCtrl( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1040,8 +1172,8 @@ void vCouldNotCreateQueueMaskDataCtrl( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1054,8 +1186,8 @@ void vCouldNotGetQueueMaskNfeeCtrl( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1068,8 +1200,8 @@ void vCouldNotGetQueueMaskDataCtrl( void )
 	}
 	#endif	
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1082,8 +1214,8 @@ void vFailSendMsgAccessDMA( unsigned char ucTemp)
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1095,10 +1227,59 @@ void vFailRequestDMA( unsigned char ucTemp)
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
+
+void vFailFromFEE ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMSGMebTaskfromFEE \n");
+	}
+	#endif
+}
+
+void vFailSendMSGMebTask ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMSGMebTask \n");
+	}
+	#endif
+}
+
+void vFailSendBufferFullIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailSendBufferLastIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailFtdiErrorIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailSendBufferEmptyIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
 
 void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 {
@@ -1108,8 +1289,8 @@ void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1122,8 +1303,8 @@ void vFailSendRMAPFromIRQ( unsigned char ucTemp)
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1136,8 +1317,8 @@ void vFailSendMsgSync( unsigned char ucTemp)
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1149,8 +1330,22 @@ void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp)
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+
+void vFailSendMsgMasterSyncDTC( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMsgMasterSyncDTC \n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1162,8 +1357,8 @@ void vFailSendMsgMasterSyncMeb( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1175,8 +1370,8 @@ void vFailSendMsgFeeCTRL( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1188,8 +1383,8 @@ void vFailSendMsgDataCTRL( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1201,8 +1396,8 @@ void vFailFlushQueue( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1214,8 +1409,8 @@ void vFailFlushQueueData( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1228,8 +1423,8 @@ void vFailFlushMEBQueue( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
 
@@ -1241,7 +1436,20 @@ void vFailFlushNFEEQueue( void )
 	}
 	#endif
 	/*
-	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
-	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
+}
+
+/* [bndky] */
+void vFailSyncResetCreate( void ){
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vSyncResetTask\n");
+	}
+	#endif
+	/*
+	*	TODO:
+	*	Implement some other form of advice?
+	*/
 }

@@ -81,9 +81,22 @@ typedef struct {
 } tTMPus;
 
 
+typedef struct {
+    bool bPUS;
+    bool bInUse;
+    unsigned short int usiPid;
+    unsigned short int usiCat;
+    unsigned short int usiType;
+    unsigned short int usiSubType;
+    unsigned short int usiPusId;
+    unsigned char ucNofValues;
+    unsigned char buffer_128[128];
+    unsigned short int usiValues[SIZE_TM_PUS_VALUES];
+} tTMPusChar_Sender;
 
 
-#define N_OF_MEB_MSG_QUEUE      16
+
+#define N_OF_MEB_MSG_QUEUE      32
 /* This Queue will synchronize the MEB task for any action that it should be aware (PUS, CHANGES in the FEE) */
 extern void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
 extern OS_EVENT *xMebQ;	
@@ -129,6 +142,7 @@ typedef struct {
 
 extern OS_EVENT *xSemCountSenderACK;
 extern OS_EVENT *xMutexSenderACK;
+extern OS_EVENT *xMutexTranferBuffer;
 extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 
 
@@ -201,6 +215,9 @@ extern volatile unsigned char SemCount32;
 extern OS_EVENT *xSemCountBuffer32;
 extern OS_EVENT *xMutexBuffer32;
 extern txBuffer32 xBuffer32[N_32];
+
+#define N_128_SENDER   24
+extern tTMPusChar_Sender xBuffer128_Sender[N_128_SENDER];
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
 extern tInUseRetransBuffer xInUseRetrans;

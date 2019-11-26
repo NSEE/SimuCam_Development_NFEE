@@ -50,15 +50,15 @@ architecture RTL of testbench_top is
 
 	-- avalon_buffer_R_stimuli signals
 	signal s_avalon_buffer_R_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(9 downto 0); --          .address
+	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(7 downto 0); --          .address
 	signal s_avalon_buffer_R_stimuli_mm_write       : std_logic; --                                     --          .write
-	signal s_avalon_buffer_R_stimuli_mm_writedata   : std_logic_vector(63 downto 0); -- --          .writedata
+	signal s_avalon_buffer_R_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
 
 	-- avalon_buffer_L_stimuli signals
 	signal s_avalon_buffer_L_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(9 downto 0); --          .address
+	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(7 downto 0); --          .address
 	signal s_avalon_buffer_L_stimuli_mm_write       : std_logic; --                                     --          .write
-	signal s_avalon_buffer_L_stimuli_mm_writedata   : std_logic_vector(63 downto 0); -- --          .writedata
+	signal s_avalon_buffer_L_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
 
 	--dummy
 	signal s_dummy_spw_tx_flag    : t_rmap_target_spw_tx_flag;
@@ -99,8 +99,8 @@ begin
 
 	avalon_buffer_R_stimuli_inst : entity work.avalon_buffer_R_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
-			g_DATA_WIDTH    => 64
+			g_ADDRESS_WIDTH => 8,
+			g_DATA_WIDTH    => 256
 		)
 		port map(
 			clk_i                   => clk200,
@@ -113,8 +113,8 @@ begin
 
 	avalon_buffer_L_stimuli_inst : entity work.avalon_buffer_L_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
-			g_DATA_WIDTH    => 64
+			g_ADDRESS_WIDTH => 8,
+			g_DATA_WIDTH    => 256
 		)
 		port map(
 			clk_i                   => clk200,
@@ -143,6 +143,7 @@ begin
 			avalon_slave_windowing_readdata    => s_config_avalon_stimuli_mm_readdata,
 			avalon_slave_windowing_writedata   => s_config_avalon_stimuli_mm_writedata,
 			avalon_slave_windowing_waitrequest => s_config_avalon_stimuli_mm_waitrequest,
+			avalon_slave_windowing_byteenable  => "1111",
 			avalon_slave_L_buffer_address      => s_avalon_buffer_L_stimuli_mm_address,
 			avalon_slave_L_buffer_waitrequest  => s_avalon_buffer_L_stimuli_mm_waitrequest,
 			avalon_slave_L_buffer_write        => s_avalon_buffer_L_stimuli_mm_write,
@@ -167,13 +168,13 @@ begin
 		elsif rising_edge(clk100) then
 			if (v_sync_div_cnt = 10000) then
 				if (s_sync = '0') then
-					s_sync <= '1';
+					s_sync         <= '1';
 					v_sync_div_cnt := 0;
 				else
-					s_sync <= '0';
+					s_sync         <= '0';
 					v_sync_div_cnt := 10001;
 				end if;
---				v_sync_div_cnt := 0;
+				--				v_sync_div_cnt := 0;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;
 			--			s_sync         <= '0';
@@ -271,12 +272,13 @@ begin
 
 	delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(1, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(1, 16)),
 			g_TIMER_WIDTH => s_delay_timer'length
 		)
 		port map(
 			clk_i            => clk200,
 			rst_i            => rst,
+			clr_i            => '0',
 			delay_trigger_i  => s_delay_trigger,
 			delay_timer_i    => s_delay_timer,
 			delay_busy_o     => s_delay_busy,

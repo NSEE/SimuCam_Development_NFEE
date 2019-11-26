@@ -4,12 +4,13 @@ use ieee.numeric_std.all;
 
 entity delay_block_ent is
 	generic(
-		g_CLKDIV      : std_logic_vector(7 downto 0);
+		g_CLKDIV      : std_logic_vector(15 downto 0);
 		g_TIMER_WIDTH : natural range 8 to 32
 	);
 	port(
 		clk_i            : in  std_logic;
 		rst_i            : in  std_logic;
+		clr_i            : in  std_logic;
 		delay_trigger_i  : in  std_logic;
 		delay_timer_i    : in  std_logic_vector((g_TIMER_WIDTH - 1) downto 0);
 		delay_busy_o     : out std_logic;
@@ -61,6 +62,13 @@ begin
 						s_clkdiv_cnt <= std_logic_vector(to_unsigned(1, g_CLKDIV'length));
 					end if;
 				end if;
+			elsif (clr_i = '1') then
+				s_timer_cnt      <= std_logic_vector(to_unsigned(0, g_TIMER_WIDTH));
+				s_clkdiv_cnt     <= std_logic_vector(to_unsigned(0, g_CLKDIV'length));
+				s_clkdiv_evt     <= '0';
+				s_idle           <= '1';
+				delay_busy_o     <= '0';
+				delay_finished_o <= '0';
 			else
 				-- module in middle of delay
 				s_idle           <= '0';
@@ -94,7 +102,7 @@ begin
 	end process p_delay_block;
 
 	s_clk_evt <= ('0') when (rst_i = '1')
-		else (s_clk_n) when (g_CLKDIV = x"00")
+		else (s_clk_n) when (g_CLKDIV = x"0000")
 		else (s_clkdiv_evt);
 
 	s_clk_n <= not clk_i;

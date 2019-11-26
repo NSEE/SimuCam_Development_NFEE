@@ -11,7 +11,7 @@
 #include "../simucam_definitions.h"
 #include "../utils/communication_configs.h"
 #include "../utils/queue_commands_list.h"
-#include "../utils/fee.h"
+#include "../utils/feeV2.h"
 #include "../utils/ccd.h"
 #include "../utils/meb.h"
 #include "../utils/events_handler.h"
@@ -20,9 +20,12 @@
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/comm/comm_channel.h"
 #include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
+#include "fee_taskV2.h"
 
 
 void vSimMebTask(void *task_data);
+
+void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal );
 
 void vPusMebTask( TSimucam_MEB *pxMebCLocal );
 
@@ -41,19 +44,25 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 
 
-void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-
 void vMebChangeToConfig( TSimucam_MEB *pxMebCLocal );
 void vMebChangeToRunning( TSimucam_MEB *pxMebCLocal );
-void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 void vMebInit(TSimucam_MEB *pxMebCLocal);
 //void vReleaseSyncMessages(void);
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal);
-void vEnterConfigRoutine( void );
+void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal );
+void vSendMessageNUCModeMEBChange(  unsigned short int mode  );
 
+void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
+void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
+
+void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL); /* [bndky] */
+
+/* Float consuption for HK update [bndky] */
+union HkValue
+{
+    unsigned short int  usiValues[2];
+    alt_u32             uliValue;
+};
 
 #endif /* SIM_MEB_TASK_H_ */

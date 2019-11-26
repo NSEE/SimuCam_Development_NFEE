@@ -10,9 +10,9 @@
 
 #include <ucos_ii.h>
 #include "tasks_configurations.h"
-#include "nfee_control_task.h"
+#include "nfee_control_taskV2.h"
 #include "data_control_task.h"
-#include "fee_task.h"
+#include "fee_taskV2.h"
 #include "sim_meb_task.h"
 #include "sender_com_task.h"
 #include "receiver_uart_task.h"
@@ -23,6 +23,7 @@
 #include "stack_monitor_task.h"
 #include "../utils/meb.h"
 #include "../utils/error_handler_simucam.h"
+#include "sync_reset_task.h"    /* bndky */
 
 void vInitialTask(void *task_data);
 

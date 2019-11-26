@@ -20,6 +20,8 @@ entity fee_slave_data_controller_top is
 		fee_machine_clear_i        : in  std_logic;
 		fee_machine_stop_i         : in  std_logic;
 		fee_machine_start_i        : in  std_logic;
+		fee_digitalise_en_i        : in  std_logic;
+		fee_windowing_en_i         : in  std_logic;
 		-- fee windowing buffer status
 		fee_window_data_i          : in  std_logic_vector(63 downto 0);
 		fee_window_mask_i          : in  std_logic_vector(63 downto 0);
@@ -113,6 +115,9 @@ architecture RTL of fee_slave_data_controller_top is
 	signal s_registered_fee_packet_length_i     : std_logic_vector(15 downto 0);
 	signal s_registered_fee_fee_mode_i          : std_logic_vector(2 downto 0);
 	signal s_registered_fee_ccd_number_i        : std_logic_vector(1 downto 0);
+	-- registered masking settings signals (for the entire read-out)
+	signal s_registered_fee_digitalise_en       : std_logic;
+	signal s_registered_fee_windowing_en        : std_logic;
 
 begin
 
@@ -130,6 +135,9 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
+			fee_digitalise_en_i           => s_registered_fee_digitalise_en,
+			fee_windowing_en_i            => s_registered_fee_windowing_en,
+			fee_pattern_en_i              => '1',
 			fee_start_masking_i           => fee_slave_imgdata_start_i,
 			masking_machine_hold_i        => s_masking_machine_hold,
 			fee_ccd_x_size_i              => data_pkt_ccd_x_size_i,
@@ -138,6 +146,8 @@ begin
 			fee_column_delay_i            => data_pkt_column_delay_i,
 			fee_adc_delay_i               => data_pkt_adc_delay_i,
 			current_timecode_i            => fee_current_timecode_i,
+			current_ccd_i                 => s_registered_fee_ccd_number_i,
+			current_side_i                => g_FEE_CCD_SIDE,
 			window_data_i                 => fee_window_data_i,
 			window_mask_i                 => fee_window_mask_i,
 			window_data_ready_i           => fee_window_data_ready_i,
@@ -193,31 +203,32 @@ begin
 	-- data packet header generator instantiation
 	data_packet_header_gen_ent_inst : entity work.data_packet_header_gen_ent
 		port map(
-			clk_i                                => clk_i,
-			rst_i                                => rst_i,
-			fee_clear_signal_i                   => fee_machine_clear_i,
-			fee_stop_signal_i                    => fee_machine_stop_i,
-			fee_start_signal_i                   => fee_machine_start_i,
-			header_gen_send_i                    => s_header_gen_send,
-			header_gen_reset_i                   => s_header_gen_reset,
-			headerdata_logical_address_i         => s_headerdata_logical_address,
-			headerdata_protocol_id_i             => x"F0",
-			headerdata_length_field_i            => s_headerdata_length_field,
-			headerdata_type_field_mode_i         => s_headerdata_type_field_mode,
-			headerdata_type_field_last_packet_i  => s_headerdata_type_field_last_packet,
-			headerdata_type_field_ccd_side_i     => s_headerdata_type_field_ccd_side,
-			headerdata_type_field_ccd_number_i   => s_headerdata_type_field_ccd_number,
-			headerdata_type_field_frame_number_i => s_headerdata_type_field_frame_number,
-			headerdata_type_field_packet_type_i  => s_headerdata_type_field_packet_type,
-			headerdata_frame_counter_i           => s_headerdata_frame_counter,
-			headerdata_sequence_counter_i        => s_headerdata_sequence_counter,
-			send_buffer_stat_almost_full_i       => s_send_buffer_stat_almost_full,
-			send_buffer_stat_full_i              => s_send_buffer_stat_full,
-			send_buffer_wrready_i                => s_send_buffer_wrready,
-			header_gen_busy_o                    => s_header_gen_busy,
-			header_gen_finished_o                => s_header_gen_finished,
-			send_buffer_wrdata_o                 => s_send_buffer_header_gen_wrdata,
-			send_buffer_wrreq_o                  => s_send_buffer_header_gen_wrreq
+			clk_i                                    => clk_i,
+			rst_i                                    => rst_i,
+			fee_clear_signal_i                       => fee_machine_clear_i,
+			fee_stop_signal_i                        => fee_machine_stop_i,
+			fee_start_signal_i                       => fee_machine_start_i,
+			header_gen_send_i                        => s_header_gen_send,
+			header_gen_reset_i                       => s_header_gen_reset,
+			headerdata_logical_address_i             => s_headerdata_logical_address,
+			headerdata_protocol_id_i                 => x"F0",
+			headerdata_length_field_i                => s_headerdata_length_field,
+			headerdata_type_field_mode_i(3)          => '0',
+			headerdata_type_field_mode_i(2 downto 0) => s_headerdata_type_field_mode,
+			headerdata_type_field_last_packet_i      => s_headerdata_type_field_last_packet,
+			headerdata_type_field_ccd_side_i         => s_headerdata_type_field_ccd_side,
+			headerdata_type_field_ccd_number_i       => s_headerdata_type_field_ccd_number,
+			headerdata_type_field_frame_number_i     => s_headerdata_type_field_frame_number,
+			headerdata_type_field_packet_type_i      => s_headerdata_type_field_packet_type,
+			headerdata_frame_counter_i               => s_headerdata_frame_counter,
+			headerdata_sequence_counter_i            => s_headerdata_sequence_counter,
+			send_buffer_stat_almost_full_i           => s_send_buffer_stat_almost_full,
+			send_buffer_stat_full_i                  => s_send_buffer_stat_full,
+			send_buffer_wrready_i                    => s_send_buffer_wrready,
+			header_gen_busy_o                        => s_header_gen_busy,
+			header_gen_finished_o                    => s_header_gen_finished,
+			send_buffer_wrdata_o                     => s_send_buffer_header_gen_wrdata,
+			send_buffer_wrreq_o                      => s_send_buffer_header_gen_wrreq
 		);
 
 	-- data packet data writer instantiation
@@ -301,6 +312,8 @@ begin
 			s_registered_fee_packet_length_i   <= std_logic_vector(to_unsigned(32768, 16));
 			s_registered_fee_fee_mode_i        <= std_logic_vector(to_unsigned(1, 3));
 			s_registered_fee_ccd_number_i      <= std_logic_vector(to_unsigned(0, 2));
+			s_registered_fee_digitalise_en     <= '0';
+			s_registered_fee_windowing_en      <= '1';
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
@@ -311,6 +324,8 @@ begin
 				s_registered_fee_packet_length_i   <= data_pkt_packet_length_i;
 				s_registered_fee_fee_mode_i        <= data_pkt_fee_mode_i;
 				s_registered_fee_ccd_number_i      <= data_pkt_ccd_number_i;
+				s_registered_fee_digitalise_en     <= fee_digitalise_en_i;
+				s_registered_fee_windowing_en      <= fee_windowing_en_i;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;

@@ -33,6 +33,9 @@ txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
 
+//todo: Tiago Verificar se necessita ser volatil
+tTMPusChar_Sender xBuffer128_Sender[N_128_SENDER];
+
 volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 volatile txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
 
@@ -72,6 +75,7 @@ OS_EVENT *xSemTimeoutChecker;
 
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
+OS_EVENT *xMutexTranferBuffer;
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -102,6 +106,10 @@ OS_EVENT *xQMaskDataCtrl;
 /* Comunication and syncronization of the Meb Task */
 void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
 OS_EVENT *xMebQ;
+
+/* Sync Reset comm queue [bndky] */
+void *xQueueSyncResetTBL[N_MESG_SYNCRST];
+OS_EVENT *xQueueSyncReset;
 /* -------------- Definition of Queues -------------- */
 
 
@@ -118,6 +126,7 @@ OS_STK    vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE];
 OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 OS_STK    vStackMonitor_stk[STACK_MONITOR_SIZE];
 
+OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
 
 /* Main application Tasks */
 OS_STK    vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
@@ -252,6 +261,12 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
+	xMutexTranferBuffer = OSMutexCreate(PCP_MUTEX_B128_PRIO_SENDER, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateMutexSResources(err);
+		bSuccess = FALSE;
+	}
+
 	xSemTimeoutChecker = OSSemCreate(0);
 	if (!xSemTimeoutChecker) {
 		vFailCreateSemaphoreResources();
@@ -356,6 +371,13 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}	
 
+	/* Create the sync reset control comm queue [bndky] */
+	xQueueSyncReset = OSQCreate(&xQueueSyncResetTBL[0], N_MESG_SYNCRST);		//TODO Change to define
+	if (!xQueueSyncReset) {
+		//vFailCreateSemaphoreResources(); TODO create error msg
+		bSuccess = FALSE;
+	}
+
 	return bSuccess;
 }
 
@@ -369,6 +391,20 @@ void vVariablesInitialization ( void ) {
 	memset( (void *)xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
 	memset( (void *)xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
 	
+
+
+	for( ucIL = 0; ucIL < N_128_SENDER; ucIL++)
+	{
+		xBuffer128_Sender[ucIL].bInUse = FALSE;
+		xBuffer128_Sender[ucIL].bPUS = FALSE;
+		xBuffer128_Sender[ucIL].ucNofValues = 0;
+		xBuffer128_Sender[ucIL].usiCat = 0;
+		xBuffer128_Sender[ucIL].usiPid = 0;
+		xBuffer128_Sender[ucIL].usiSubType = 0;
+		xBuffer128_Sender[ucIL].usiType = 0;
+		memset( (void *)xBuffer128_Sender[ucIL].buffer_128, 0, 128);
+	}
+
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
 		memset( (void *)xBuffer128[ucIL].buffer, 0, 128);
@@ -431,7 +467,7 @@ void vVariablesInitialization ( void ) {
 }
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
-
+void bInitFTDI(void);
 
 /* Entry point */
 int main(void)
@@ -439,7 +475,6 @@ int main(void)
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
 	
-
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
@@ -571,7 +606,7 @@ int main(void)
 			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 		}
 		#endif
-		vCriticalErrorLedPanel();
+		vFailInitRTOSResources();
 		return -1;
 	}
 
@@ -580,11 +615,16 @@ int main(void)
 	/* Start the structure of control of the Simucam Application, including all FEEs instances */
 	vSimucamStructureInit( &xSimMeb );
 
+
 	bInitSync();
 
-	vFillMemmoryPattern( &xSimMeb );
+	bInitFTDI();
+
+
+	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 
+	xGlobal.bSyncReset = FALSE;
 
 	/* Creating the initialization task*/
 	#if STACK_MONITOR
@@ -640,7 +680,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 #endif
 
 	/* memory 0 and 1*/
-	for ( mem_number = 0; mem_number < 2; mem_number++ ){
+	for ( mem_number = 0; mem_number < 1; mem_number++ ){
 		/* n NFEE */
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -693,5 +733,17 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	debug(fp, "\nMemory Filled\n");
 	}
 #endif
+
+}
+
+void bInitFTDI(void){
+
+	vFTDIIrqRxBuff0RdableEn(TRUE);
+	vFTDIIrqRxBuff1RdableEn(TRUE);
+	vFTDIIrqRxBuffLastRdableEn(TRUE);
+	vFTDIIrqRxBuffLastEmptyEn(TRUE);
+	vFTDIIrqRxCommErrEn(TRUE);
+	vFTDIIrqGlobalEn(TRUE);
+	bFTDIIrqRxBuffInit();
 
 }
