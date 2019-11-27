@@ -147,7 +147,8 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal);	
+	umft601a_pins_umft_siwu_n_signal,
+	rst_controller_conduit_reset_input_t_reset_input_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -297,4 +298,5 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
+	input		rst_controller_conduit_reset_input_t_reset_input_signal;
 endmodule

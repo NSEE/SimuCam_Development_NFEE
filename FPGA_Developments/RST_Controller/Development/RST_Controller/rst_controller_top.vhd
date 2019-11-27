@@ -25,6 +25,7 @@ entity rst_controller_top is
 		avalon_slave_rst_controller_waitrequest : out std_logic; --                                     --                            .waitrequest
 		clock_sink_clk                          : in  std_logic                     := '0'; --          --                  clock_sink.clk
 		reset_sink_reset                        : in  std_logic                     := '0'; --          --                  reset_sink.reset
+		reset_input_signal                      : in  std_logic                     := '0'; --          --         conduit_reset_input.t_reset_input_signal
 		simucam_reset_signal                    : out std_logic; --                                     --       conduit_simucam_reset.t_simucam_reset_signal
 		reset_source_ftdi_reset                 : out std_logic; --                                     --           reset_source_ftdi.reset
 		reset_source_sync_reset                 : out std_logic; --                                     --           reset_source_sync.reset     
@@ -95,15 +96,15 @@ begin
 	avalon_slave_rst_controller_waitrequest <= ((s_avalon_mm_rst_controller_read_waitrequest) and (s_avalon_mm_rst_controller_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- simucam reset
-	p_simucam_reset : process(a_clock, a_reset) is
+	p_simucam_reset : process(a_clock, reset_input_signal) is
 	begin
-		if (a_reset = '1') then
+		if (reset_input_signal = '1') then
 			s_simucam_delay      <= '0';
 			s_simucam_reset      <= '0';
 			s_simucam_start      <= '0';
 			s_simucam_stop       <= '0';
 			s_reset_counter      <= (others => '0');
-			simucam_reset_signal <= '0';
+			simucam_reset_signal <= '1';
 		elsif (rising_edge(a_clock)) then
 
 			-- manage start/stop commands
@@ -138,7 +139,7 @@ begin
 						-- current state is a delay
 						-- go to a reset state
 						s_simucam_delay      <= '0';
-						s_reset_counter      <= std_logic_vector(to_unsigned(500000 - 1, 31));
+						s_reset_counter      <= std_logic_vector(to_unsigned(49500000 - 1, 31)); -- 990 ms of delay
 						simucam_reset_signal <= '0';
 					else
 						-- current state is a reset

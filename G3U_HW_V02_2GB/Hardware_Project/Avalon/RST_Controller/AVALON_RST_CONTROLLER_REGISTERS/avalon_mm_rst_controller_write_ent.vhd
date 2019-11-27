@@ -23,7 +23,7 @@ begin
 		procedure p_reset_registers is
 		begin
 			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '1';
-			rst_controller_write_registers_o.simucam_reset.simucam_timer <= std_logic_vector(to_unsigned(50000000, 31));
+			rst_controller_write_registers_o.simucam_reset.simucam_timer <= std_logic_vector(to_unsigned(500000, 31)); -- 10 ms of reset
 			rst_controller_write_registers_o.device_reset.ftdi_reset     <= '0';
 			rst_controller_write_registers_o.device_reset.sync_reset     <= '0';
 			rst_controller_write_registers_o.device_reset.rs232_reset    <= '0';

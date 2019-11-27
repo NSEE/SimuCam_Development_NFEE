@@ -146,6 +146,7 @@
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                     .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                     .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                     .umft_oe_n_signal
-		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                     .umft_siwu_n_signal
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                     .umft_siwu_n_signal
+		.rst_controller_conduit_reset_input_t_reset_input_signal     (<connected-to-rst_controller_conduit_reset_input_t_reset_input_signal>)      //   rst_controller_conduit_reset_input.t_reset_input_signal
 	);
 

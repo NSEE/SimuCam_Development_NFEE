@@ -112,6 +112,7 @@ entity MebX_Qsys_Project is
 		rs232_uart_rxd                                              : in    std_logic                     := '0';             --                           rs232_uart.rxd
 		rs232_uart_txd                                              : out   std_logic;                                        --                                     .txd
 		rst_reset_n                                                 : in    std_logic                     := '0';             --                                  rst.reset_n
+		rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := '0';             --   rst_controller_conduit_reset_input.t_reset_input_signal
 		rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
 		rtcc_alarm_export                                           : in    std_logic                     := '0';             --                           rtcc_alarm.export
 		rtcc_cs_n_export                                            : out   std_logic;                                        --                            rtcc_cs_n.export
@@ -736,7 +737,8 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_slave_rst_controller_writedata   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			avalon_slave_rst_controller_readdata    : out std_logic_vector(31 downto 0);                    -- readdata
 			avalon_slave_rst_controller_waitrequest : out std_logic;                                        -- waitrequest
-			simucam_reset_signal                    : out std_logic                                         -- t_simucam_reset_signal
+			simucam_reset_signal                    : out std_logic;                                        -- t_simucam_reset_signal
+			reset_input_signal                      : in  std_logic                     := 'X'              -- t_reset_input_signal
 		);
 	end component rst_controller_top;
 
@@ -2972,7 +2974,8 @@ begin
 			avalon_slave_rst_controller_writedata   => mm_interconnect_2_rst_controller_avalon_rst_controller_slave_writedata,   --                            .writedata
 			avalon_slave_rst_controller_readdata    => mm_interconnect_2_rst_controller_avalon_rst_controller_slave_readdata,    --                            .readdata
 			avalon_slave_rst_controller_waitrequest => mm_interconnect_2_rst_controller_avalon_rst_controller_slave_waitrequest, --                            .waitrequest
-			simucam_reset_signal                    => rst_controller_conduit_simucam_reset_t_simucam_reset_signal               --       conduit_simucam_reset.t_simucam_reset_signal
+			simucam_reset_signal                    => rst_controller_conduit_simucam_reset_t_simucam_reset_signal,              --       conduit_simucam_reset.t_simucam_reset_signal
+			reset_input_signal                      => rst_controller_conduit_reset_input_t_reset_input_signal                   --         conduit_reset_input.t_reset_input_signal
 		);
 
 	rtcc_alarm : component MebX_Qsys_Project_csense_sdo

@@ -433,6 +433,14 @@
          type = "String";
       }
    }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
    element SEVEN_SEGMENT_CONTROLLER_0
    {
       datum _sortIndex
@@ -1794,6 +1802,11 @@
    dir="end" />
  <interface name="rst" internal="clk_50.clk_in_reset" type="reset" dir="end" />
  <interface
+   name="rst_controller_conduit_reset_input"
+   internal="rst_controller.conduit_reset_input"
+   type="conduit"
+   dir="end" />
+ <interface
    name="rst_controller_conduit_simucam_reset"
    internal="rst_controller.conduit_simucam_reset"
    type="conduit"
@@ -3147,7 +3160,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">MebX_Qsys_Project_onchip_memory</parameter>
+  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory</parameter>
   <parameter name="blockType" value="M9K" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
