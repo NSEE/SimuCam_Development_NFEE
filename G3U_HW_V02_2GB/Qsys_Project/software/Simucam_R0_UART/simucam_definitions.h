@@ -21,6 +21,10 @@
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
 #endif
 
+/* HW and FW release version */
+#define SIMUCAM_RELEASE                 "LR1+"
+#define SIMUCAM_HW_VERSION              "0.0"
+#define SIMUCAM_FW_VERSION              "0.0"
 
 #define N_OF_NFEE       6	/* ONLY for tests */
 #define N_OF_FastFEE    2

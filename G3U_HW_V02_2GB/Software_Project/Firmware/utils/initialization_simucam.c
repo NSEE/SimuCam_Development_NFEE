@@ -7,11 +7,25 @@
 
 #include "initialization_simucam.h"
 
+bool bInitSimucamCoreHW ( void )
+{
+	bool bSuccess = FALSE;
+
+	/* Release SimuCam Reset Signal */
+	vRstcReleaseSimucamReset(0);
+
+	/* Check System ID and Timestamp */
+	TSidpRegisters *pxSidpRegisters = (TSidpRegisters *)(SYSID_QSYS_BASE);
+
+	if ( ( SYSID_QSYS_ID == pxSidpRegisters->uliId ) && ( SYSID_QSYS_TIMESTAMP == pxSidpRegisters->uliTimestamp ) ) {
+		bSuccess = TRUE;
+	}
+
+	return (bSuccess);
+}
 
 void vInitSimucamBasicHW(void)
 {
-
-	vRstcReleaseSimucamReset(0);
 
 	/* Turn Off all LEDs */
 	bSetBoardLeds(LEDS_OFF, LEDS_BOARD_ALL_MASK);

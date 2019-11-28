@@ -13,9 +13,6 @@
 bool bInitSync( void ) {
 	bool	bSuccess;
 
-	vSyncInitIrq();
-	vSyncPreInitIrq();
-
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 		debug(fp, "Initializing Sync Module.\n");
@@ -84,6 +81,9 @@ bool bInitSync( void ) {
 
 	bSuccess = bSyncCtrStart();
 	bSyncCtrReset();
+
+	vSyncInitIrq();
+	vSyncPreInitIrq();
 
 	bSyncIrqEnableMasterPulse(TRUE);
 	bSyncIrqEnableNormalPulse(TRUE);

@@ -18,6 +18,8 @@
 //! [constants definition]
 // address
 #define SYNC_BASE_ADDR                  SYNC_BASE
+#define SYNC_SYNC_IRQ                   11
+#define SYNC_PRE_SYNC_IRQ               12
 
 // bit states
 #define SYNC_BIT_ON                     TRUE
@@ -218,6 +220,7 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs);
 
 //! [private function prototypes]
 alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs);
+alt_u16 usiRegCalcTimeMs(alt_u32 uliSyncReg);
 //! [private function prototypes]
 
 void vSyncClearCounter(void);
