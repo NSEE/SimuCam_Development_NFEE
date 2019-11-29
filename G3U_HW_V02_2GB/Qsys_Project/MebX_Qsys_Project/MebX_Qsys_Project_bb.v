@@ -104,6 +104,8 @@ module MebX_Qsys_Project (
 	rs232_uart_rxd,
 	rs232_uart_txd,
 	rst_reset_n,
+	rst_controller_conduit_reset_input_t_reset_input_signal,
+	rst_controller_conduit_simucam_reset_t_simucam_reset_signal,
 	rtcc_alarm_export,
 	rtcc_cs_n_export,
 	rtcc_sck_export,
@@ -252,6 +254,8 @@ module MebX_Qsys_Project (
 	input		rs232_uart_rxd;
 	output		rs232_uart_txd;
 	input		rst_reset_n;
+	input		rst_controller_conduit_reset_input_t_reset_input_signal;
+	output		rst_controller_conduit_simucam_reset_t_simucam_reset_signal;
 	input		rtcc_alarm_export;
 	output		rtcc_cs_n_export;
 	output		rtcc_sck_export;

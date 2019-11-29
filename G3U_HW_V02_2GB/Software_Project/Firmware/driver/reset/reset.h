@@ -8,7 +8,9 @@
 #ifndef RESET_H_
 #define RESET_H_
 
-#include "../../simucam_definitions.h"
+#include "system.h"
+#include <altera_avalon_pio_regs.h>
+#include <stdio.h>
 
 //! [constants definition]
 // address
@@ -17,9 +19,10 @@
 #define RSTC_DEVICE_RESET_REG_OFFSET    1
 
 // bit masks
-#define RSTC_SIMUCAM_RST_CTRL_MSK       (1 << 16)
-#define RSTC_SIMUCAM_RST_TMR_MSK        (0xFFFF << 0)
+#define RSTC_SIMUCAM_RST_CTRL_MSK       (1 << 31)
+#define RSTC_SIMUCAM_RST_TMR_MSK        (0x7FFFFFFF << 0)
 
+#define RSTC_DEV_FTDI_RST_CTRL_MSK      (1 << 11)
 #define RSTC_DEV_SYNC_RST_CTRL_MSK      (1 << 10)
 #define RSTC_DEV_RS232_RST_CTRL_MSK     (1 << 9)
 #define RSTC_DEV_SD_CARD_RST_CTRL_MSK   (1 << 8)
@@ -32,14 +35,15 @@
 #define RSTC_DEV_COMM_CH2_RST_CTRL_MSK  (1 << 1)
 #define RSTC_DEV_COMM_CH1_RST_CTRL_MSK  (1 << 0)
 
-#define RSTC_DEV_ALL_MSK                (0x07FF)
+#define RSTC_DEV_ALL_MSK                (0x0FFF)
 //! [constants definition]
 
 //! [public module structs definition]
 //! [public module structs definition]
 
 //! [public function prototypes]
-void vRstcSimucamReset(alt_u16 usiRstCnt);
+void vRstcReleaseSimucamReset(alt_u32 uliRstCnt);
+void vRstcHoldSimucamReset(alt_u32 uliRstCnt);
 
 void vRstcReleaseDeviceReset(alt_u32 usiRstMask);
 void vRstcHoldDeviceReset(alt_u32 usiRstMask);

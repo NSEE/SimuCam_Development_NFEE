@@ -787,78 +787,118 @@ bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool vFeebInitIrq(alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	void* pvHoldContext;
+	volatile TCommChannel *vpxCommChannel;
 	switch (ucCommCh) {
 	case eCommSpwCh1:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh1HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_1_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh1HandleIrq);
-
+		alt_irq_register(COMM_CH_1_BUFFERS_IRQ, pvHoldContext, vFeebCh1HandleIrq);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh2:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh2HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_2_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh2HandleIrq);
+		alt_irq_register(COMM_CH_2_BUFFERS_IRQ, pvHoldContext, vFeebCh2HandleIrq);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh3:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh3HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_3_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh3HandleIrq);
+		alt_irq_register(COMM_CH_3_BUFFERS_IRQ, pvHoldContext, vFeebCh3HandleIrq);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh4:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh4HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_4_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh4HandleIrq);
+		alt_irq_register(COMM_CH_4_BUFFERS_IRQ, pvHoldContext, vFeebCh4HandleIrq);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh5:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh5HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_5_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh5HandleIrq);
+		alt_irq_register(COMM_CH_5_BUFFERS_IRQ, pvHoldContext, vFeebCh5HandleIrq);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh6:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh6HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_6_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh6HandleIrq);
+		alt_irq_register(COMM_CH_6_BUFFERS_IRQ, pvHoldContext, vFeebCh6HandleIrq);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh7:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh7HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_7_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh7HandleIrq);
+		alt_irq_register(COMM_CH_7_BUFFERS_IRQ, pvHoldContext, vFeebCh7HandleIrq);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh8:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh8HoldContext;
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
+		// Clear all flags
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
-		alt_irq_register(COMM_CH_8_BUFFERS_IRQ, pvHoldContext,
-				vFeebCh8HandleIrq);
+		alt_irq_register(COMM_CH_8_BUFFERS_IRQ, pvHoldContext, vFeebCh8HandleIrq);
 		bStatus = TRUE;
 		break;
 	default:

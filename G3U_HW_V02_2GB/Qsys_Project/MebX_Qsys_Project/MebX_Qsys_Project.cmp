@@ -104,6 +104,8 @@
 			rs232_uart_rxd                                              : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                              : out   std_logic;                                        -- txd
 			rst_reset_n                                                 : in    std_logic                     := 'X';             -- reset_n
+			rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := 'X';             -- t_reset_input_signal
+			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- t_simucam_reset_signal
 			rtcc_alarm_export                                           : in    std_logic                     := 'X';             -- export
 			rtcc_cs_n_export                                            : out   std_logic;                                        -- export
 			rtcc_sck_export                                             : out   std_logic;                                        -- export

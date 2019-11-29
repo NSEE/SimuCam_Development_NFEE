@@ -244,7 +244,7 @@ begin
 	rst_n <= not a_reset;
 
 	-- sync_in polarity fix (timing issues, need to be improved!!!) 
-	s_sync_channel_n <= not sync_channel;
+	s_sync_channel_n <= sync_channel;
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
@@ -416,6 +416,13 @@ begin
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
+			errinj_tx_disabled_i               => s_spacewire_write_registers.error_injection_control_reg.errinj_tx_disabled,
+			errinj_missing_pkts_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_pkts,
+			errinj_missing_data_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_data,
+			errinj_frame_num_i                 => s_spacewire_write_registers.error_injection_control_reg.errinj_frame_num,
+			errinj_sequence_cnt_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_sequence_cnt,
+			errinj_data_cnt_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_data_cnt,
+			errinj_n_repeat_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_n_repeat,
 			fee_machine_busy_o                 => s_spacewire_read_registers.fee_buffers_status_reg.fee_right_machine_busy,
 			fee_slave_imgdata_start_o          => open,
 			fee_slave_frame_counter_o          => open,
@@ -469,6 +476,13 @@ begin
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
+			errinj_tx_disabled_i               => s_spacewire_write_registers.error_injection_control_reg.errinj_tx_disabled,
+			errinj_missing_pkts_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_pkts,
+			errinj_missing_data_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_data,
+			errinj_frame_num_i                 => s_spacewire_write_registers.error_injection_control_reg.errinj_frame_num,
+			errinj_sequence_cnt_i              => s_spacewire_write_registers.error_injection_control_reg.errinj_sequence_cnt,
+			errinj_data_cnt_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_data_cnt,
+			errinj_n_repeat_i                  => s_spacewire_write_registers.error_injection_control_reg.errinj_n_repeat,
 			fee_machine_busy_o                 => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy,
 			fee_slave_imgdata_start_o          => s_fee_slave_imgdata_start,
 			fee_slave_frame_counter_o          => s_fee_slave_frame_counter,
@@ -908,33 +922,21 @@ begin
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error                                  <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error                                  <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error                                  <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
 		elsif rising_edge(a_avs_clock) then
 			-- get error values to the rmap memory area
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-			if (s_spacewire_read_registers.spw_link_status_reg.spw_err_parity = '1') then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error <= '1';
-			end if;
-			if (s_spacewire_read_registers.spw_link_status_reg.spw_err_credit = '1') then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error <= '1';
-			end if;
-			if (s_spacewire_read_registers.spw_link_status_reg.spw_err_escape = '1') then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error <= '1';
-			end if;
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
 			-- check if a error clear was requested
 			if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error                                  <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error                                  <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error                                  <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
 			end if;
 		end if;
 	end process p_rmap_error_clear_manager;

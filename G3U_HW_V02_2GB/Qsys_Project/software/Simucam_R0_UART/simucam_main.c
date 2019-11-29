@@ -484,6 +484,26 @@ int main(void)
 		debug(fp, "Main entry point.\n");
 	#endif
 
+	/* Initialization of core HW */
+	if (bInitSimucamCoreHW()){
+#if DEBUG_ON
+		fprintf(fp, "\n");
+		fprintf(fp, "SimuCam Release: %s\n", SIMUCAM_RELEASE);
+		fprintf(fp, "SimuCam HW Version: %s.%s\n", SIMUCAM_RELEASE, SIMUCAM_HW_VERSION);
+		fprintf(fp, "SimuCam FW Version: %s.%s.%s\n", SIMUCAM_RELEASE, SIMUCAM_HW_VERSION, SIMUCAM_FW_VERSION);
+		fprintf(fp, "\n");
+#endif
+	} else {
+#if DEBUG_ON
+		fprintf(fp, "\n");
+		fprintf(fp, "CRITICAL HW FAILURE: Hardware TimeStamp or System ID does not match the expected! SimuCam will be halted.\n");
+		fprintf(fp, "CRITICAL HW FAILURE: Expected HW release: %s.%s\n", SIMUCAM_RELEASE, SIMUCAM_HW_VERSION);
+		fprintf(fp, "CRITICAL HW FAILURE: SimuCam will be halted.\n");
+		fprintf(fp, "\n");
+#endif
+		while (1) {}
+	}
+
 	OSInit();
 
 	/* Initialization of basic HW */
@@ -495,7 +515,6 @@ int main(void)
 		vFailTestCriticasParts();
 		return -1;
 	}
-
 
 	/* Log file Initialization in the SDCard */
 	bIniSimucamStatus = bInitializeSDCard();
@@ -615,11 +634,9 @@ int main(void)
 	/* Start the structure of control of the Simucam Application, including all FEEs instances */
 	vSimucamStructureInit( &xSimMeb );
 
-
 	bInitSync();
 
 	bInitFTDI();
-
 
 	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );

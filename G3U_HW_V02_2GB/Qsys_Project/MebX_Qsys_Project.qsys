@@ -417,6 +417,30 @@
          type = "String";
       }
    }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
    element SEVEN_SEGMENT_CONTROLLER_0
    {
       datum _sortIndex
@@ -1778,6 +1802,16 @@
    dir="end" />
  <interface name="rst" internal="clk_50.clk_in_reset" type="reset" dir="end" />
  <interface
+   name="rst_controller_conduit_reset_input"
+   internal="rst_controller.conduit_reset_input"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="rst_controller_conduit_simucam_reset"
+   internal="rst_controller.conduit_simucam_reset"
+   type="conduit"
+   dir="end" />
+ <interface
    name="rtcc_alarm"
    internal="rtcc_alarm.external_connection"
    type="conduit"
@@ -3126,7 +3160,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">MebX_Qsys_Project_onchip_memory</parameter>
+  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory</parameter>
   <parameter name="blockType" value="M9K" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -3264,7 +3298,7 @@
   <parameter name="useEopRegister" value="false" />
   <parameter name="useRelativePathForSimFile" value="false" />
  </module>
- <module name="rst_controller" kind="rst_controller" version="1.4" enabled="1" />
+ <module name="rst_controller" kind="rst_controller" version="1.5" enabled="1" />
  <module name="rtcc_alarm" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -3353,7 +3387,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="sync" kind="Sync" version="1.4" enabled="1">
+ <module name="sync" kind="Sync" version="1.5" enabled="1">
   <parameter name="g_PRE_SYNC_IRQ_NUMBER" value="12" />
   <parameter name="g_SYNC_IRQ_NUMBER" value="11" />
  </module>
@@ -5060,281 +5094,6 @@
    version="18.1"
    start="rst_controller.reset_source_sd_card"
    end="Altera_UP_SD_Card_Avalon_Interface_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="SEVEN_SEGMENT_CONTROLLER_0.SSDP_RST" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m2_ddr2_memory.global_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m1_ddr2_memory.global_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="clock_bridge_afi_50.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m1_clock_bridge.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="sync.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="pio_ctrl_io_lvds.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="rs232_uart.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="rtcc_sdo.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="rtcc_sdi.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="rtcc_sck.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="rtcc_cs_n.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="rtcc_alarm.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="csense_sdo.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="csense_sdi.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="csense_sck.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="csense_cs_n.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="csense_adc_fo.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="temp_sda.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="temp_scl.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="Altera_UP_SD_Card_Avalon_Interface_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="sd_card_wp_n.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m2_ddr2_i2c_sda.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m2_ddr2_i2c_scl.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m1_ddr2_i2c_sda.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m1_ddr2_i2c_scl.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="pio_LED_painel.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="pio_LED.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="pio_EXT.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="pio_DIP.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="pio_BUTTON.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="timer_1us.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="timer_1ms.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="sysid_qsys.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="ddr2_address_span_extender.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="jtag_uart_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="ext_flash.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="nios2_gen2_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="tristate_conduit_bridge_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="onchip_memory.reset1" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="dma_DDR_M2.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="dma_DDR_M1.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_H.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_G.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_A.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_B.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_C.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_D.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_E.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="COMM_Pedreiro_v1_01_F.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="FTDI_USB3_0.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="clock_bridge_afi_50.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m1_clock_bridge.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m2_ddr2_memory.soft_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_simucam"
-   end="m1_ddr2_memory.soft_reset" />
  <connection
    kind="reset"
    version="18.1"

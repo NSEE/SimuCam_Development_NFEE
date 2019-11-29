@@ -18,13 +18,20 @@
 //! [constants definition]
 // address
 #define SYNC_BASE_ADDR                  SYNC_BASE
+#define SYNC_SYNC_IRQ                   11
+#define SYNC_PRE_SYNC_IRQ               12
 
 // bit states
 #define SYNC_BIT_ON                     TRUE
 #define SYNC_BIT_OFF                    FALSE
 
 //! [constants definition]
-const alt_u8 ucSyncIrqFlagsQtd;
+extern const alt_u16 cusiSyncNFeeMasterBlankTimeMs;
+extern const alt_u16 cusiSyncNFeeNormalBlankTimeMs;
+extern const alt_u16 cusiSyncNFeeSyncPeriodMs;
+extern const alt_u16 cusiSyncNFeeOneShotTimeMs;
+extern const bool cbSyncNFeePulsePolarity;
+extern const alt_u8 cusiSyncNFeeNumberOfPulses;
 
 //! [public module structs definition]
 typedef struct SyncStatus {
@@ -209,8 +216,11 @@ bool bSyncCtrCh6OutEnable(bool bValue);
 bool bSyncCtrCh7OutEnable(bool bValue);
 bool bSyncCtrCh8OutEnable(bool bValue);
 
+bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs);
+
 //! [private function prototypes]
 alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs);
+alt_u16 usiRegCalcTimeMs(alt_u32 uliSyncReg);
 //! [private function prototypes]
 
 void vSyncClearCounter(void);

@@ -22,8 +22,9 @@ begin
 	p_avalon_mm_rst_controller_write : process(clk_i, rst_i) is
 		procedure p_reset_registers is
 		begin
-			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '0';
-			rst_controller_write_registers_o.simucam_reset.simucam_timer <= (others => '0');
+			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '1';
+			rst_controller_write_registers_o.simucam_reset.simucam_timer <= std_logic_vector(to_unsigned(5000000, 31)); -- 100 ms of reset
+			rst_controller_write_registers_o.device_reset.ftdi_reset     <= '0';
 			rst_controller_write_registers_o.device_reset.sync_reset     <= '0';
 			rst_controller_write_registers_o.device_reset.rs232_reset    <= '0';
 			rst_controller_write_registers_o.device_reset.sd_card_reset  <= '0';
@@ -39,7 +40,7 @@ begin
 
 		procedure p_control_triggers is
 		begin
-			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '0';
+			--			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '0';
 		end procedure p_control_triggers;
 
 		procedure p_writedata(write_address_i : t_avalon_mm_rst_controller_address) is
@@ -50,15 +51,16 @@ begin
 
 				--  SimuCam Reser Control Register                  (32 bits):
 				when (c_RSTC_SIMUCAM_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
-					--    31-17 : Reserved                               [-/-]
-					--    16-16 : SimuCam Reset control bit              [R/W]
-					rst_controller_write_registers_o.simucam_reset.simucam_reset <= avalon_mm_spacewire_i.writedata(16);
-					--    15- 0 : SimuCam Reset Timer value              [R/W]
-					rst_controller_write_registers_o.simucam_reset.simucam_timer <= avalon_mm_spacewire_i.writedata(15 downto 0);
+					--    31-31 : SimuCam Reset control bit              [R/W]
+					rst_controller_write_registers_o.simucam_reset.simucam_reset <= avalon_mm_spacewire_i.writedata(31);
+					--    30- 0 : SimuCam Reset Timer value              [R/W]
+					rst_controller_write_registers_o.simucam_reset.simucam_timer <= avalon_mm_spacewire_i.writedata(30 downto 0);
 
 				--  Device Reset Control Register                  (32 bits):
 				when (c_RSTC_DEVICE_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
-					--    31-11 : Reserved                               [-/-]
+					--    31-12 : Reserved                               [-/-]
+					--    11-11 : FTDI Module Reset control bit          [R/W]
+					rst_controller_write_registers_o.device_reset.ftdi_reset     <= avalon_mm_spacewire_i.writedata(11);
 					--    10-10 : Sync Module Reset control bit          [R/W]
 					rst_controller_write_registers_o.device_reset.sync_reset     <= avalon_mm_spacewire_i.writedata(10);
 					--     9- 9 : RS232 Module Reset control bit         [R/W]
