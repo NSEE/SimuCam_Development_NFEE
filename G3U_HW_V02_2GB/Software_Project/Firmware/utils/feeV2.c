@@ -85,7 +85,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 
 
 
-    bDpktGetErrorInjection(&pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection);
+    bDpktGetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts;
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled;
@@ -93,7 +93,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt;
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat;
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
-    bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection);
+    bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
 
 }
 

@@ -384,6 +384,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
 	unsigned short int param1 =0;
+	unsigned short int usiFeeInstL;
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -437,6 +438,16 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Sinalize that can safely shutdown the Simucam */
 			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
+			break;
+
+		/* TC_SCAM_FEE_TIME_CONFIG */
+		case 64:
+			/*Configure EP*/
+			bSyncConfigNFeeSyncPeriod( xPusL->usiValues[0] );
+
+			/*We don't have how to change readout time yet*/
+
+
 			break;
 
 		/* TC_SCAM_CONFIG */
@@ -585,6 +596,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = (unsigned char)xPusL->usiValues[2];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = (unsigned char)xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = 0;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
 			break;
@@ -616,7 +628,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = (unsigned char)xPusL->usiValues[2];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = (unsigned char)xPusL->usiValues[3];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = (unsigned char)xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = 0;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
 			break;
@@ -647,7 +659,14 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
 			break;
 
-		/* TC_SCAM_RUN */
+		/* TC_SCAM_FEE_TIME_CONFIG */
+		case 64:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n" );
+			#endif
+			break;
+
 		case 61:
 		default:
 			#if DEBUG_ON

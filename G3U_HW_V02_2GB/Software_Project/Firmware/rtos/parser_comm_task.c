@@ -313,6 +313,20 @@ void vParserCommTask(void *task_data) {
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
+							case 64: /* TC_SCAM_FEE_TIME_CONFIG */
+
+								/* EP */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
+								/* RT */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+								xTcPusL.ucNofValues++;
+
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+
+								break;
+
 							default:
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )

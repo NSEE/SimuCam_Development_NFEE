@@ -583,7 +583,7 @@ void vFeeTaskV2(void *task_data) {
 						bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
 						if ( bErrorInj == TRUE ) {
 
-							bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket.xDpktErrorInjection);
+							bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket);
 							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNFee->xControl.xErrorSWCtrl.bMissingData;
 							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
 							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
@@ -591,7 +591,7 @@ void vFeeTaskV2(void *task_data) {
 							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
 							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
 							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
-							bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket.xDpktErrorInjection);
+							bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
 
 							/*Get back all variables in order to change the error config in the HW only if receive another PUS command*/
 							pxNFee->xControl.xErrorSWCtrl.bEnabled = FALSE;
