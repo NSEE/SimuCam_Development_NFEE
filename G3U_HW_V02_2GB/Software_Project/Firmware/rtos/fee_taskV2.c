@@ -12,6 +12,7 @@
 
 void vFeeTaskV2(void *task_data) {
 	TNFee *pxNFee;
+	bool bErrorInj = FALSE;
 	INT8U error_code;
 	volatile INT8U ucRetries;
 	tQMask uiCmdFEE;
@@ -573,9 +574,40 @@ void vFeeTaskV2(void *task_data) {
 //				}
 //				#endif
 
+
+				/*If is master sync, check if need to configure error*/
+				if ( xGlobal.bPreMaster == TRUE ) {
+					/*Check if this FEE is in Full*/
+					if ( (pxNFee->xControl.eMode == sFullPattern) || (pxNFee->xControl.eMode == sFullImage)) {
+						/*Check if there is any type of error enabled*/
+						bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
+						if ( bErrorInj == TRUE ) {
+
+							bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket.xDpktErrorInjection);
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNFee->xControl.xErrorSWCtrl.bMissingData;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
+							bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket.xDpktErrorInjection);
+
+							/*Get back all variables in order to change the error config in the HW only if receive another PUS command*/
+							pxNFee->xControl.xErrorSWCtrl.bEnabled = FALSE;
+							pxNFee->xControl.xErrorSWCtrl.bMissingData = FALSE;
+							pxNFee->xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+							pxNFee->xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+							pxNFee->xControl.xErrorSWCtrl.ucFrameNum = 0;
+						    pxNFee->xControl.xErrorSWCtrl.usiDataCnt = 0;
+						    pxNFee->xControl.xErrorSWCtrl.usiNRepeat = 0;
+						    pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt = 0;
+						}
+					}
+				}
+
 				/* Reset the memory control variables thats is used in the transmission*/
 				vResetMemCCDFEE( pxNFee );
-
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 				/*Since the default value of SensorSel Reg is both, need check if is some of Windowing Mode, otherwise overwrite with left*/

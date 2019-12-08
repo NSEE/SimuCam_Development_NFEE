@@ -72,6 +72,29 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiLineDelay = usiLineTrDelayCalcPeriodNs(xDefaults.ulLineDelay);
     bDpktSetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
 
+
+    /*Copy to control what should be applied in the master Sync*/
+    pxNfeeL->xControl.xErrorSWCtrl.bEnabled = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrl.bMissingData = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum = 0;
+    pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt = 0;
+    pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat = 0;
+    pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt = 0;
+
+
+
+    bDpktGetErrorInjection(&pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection);
+    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
+    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts;
+    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled;
+    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum;
+    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt;
+    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat;
+    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
+    bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection);
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */

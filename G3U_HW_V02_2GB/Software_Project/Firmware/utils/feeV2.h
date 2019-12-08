@@ -55,6 +55,19 @@ typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFu
 	redoutTransmission, redoutEndSch} tFEEStates;
 
 
+ /* Error Injection Control Register Struct */
+typedef struct DpktErrorCopy {
+	bool bEnabled;		/*Is error injection Enabled?*/
+	bool bTxDisabled; /* Error Injection Tx Disabled Enable */
+	bool bMissingPkts; /* Error Injection Missing Packets Enable */
+	bool bMissingData; /* Error Injection Missing Data Enable */
+	alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
+	alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
+	alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
+	alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
+} TDpktErrorCopy;
+
+
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/
     unsigned long ulTotalBytes;     /* Total of bytes of the FEE in the memory */
@@ -81,6 +94,8 @@ typedef struct FeeControl{
     tFEEStates eLastMode;
     tFEEStates eMode;
     tFEEStates eNextMode;
+
+    TDpktErrorCopy	xErrorSWCtrl;
 
 } TFeeControl;
 
