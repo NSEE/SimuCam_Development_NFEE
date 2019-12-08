@@ -165,30 +165,27 @@ void vSyncPreHandleIrq(void* pvContext) {
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = TRUE;
 
-	// Check Sync Irq Flags
-	if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
-		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
 
-		/* Pre-Sync Blank Pulse IRQ routine */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			fprintf(fp,"Pre-Sync Signal\n");
-		}
-		#endif
-
-		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
-	} else if (vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr) {
+	if (vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag) {
 		vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
 		/* Sync Master Pulse IRQ routine */
-
 		/* Pre-Sync Blank Pulse IRQ routine */
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 			fprintf(fp,"Pre-Master Sync Signal\n");
 		}
 		#endif
-
 		uiCmdtoSend.ucByte[2] = M_BEFORE_MASTER;
+	} else if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
+		// Check Sync Irq Flags
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
+		/* Pre-Sync Blank Pulse IRQ routine */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			fprintf(fp,"Pre-Sync Signal\n");
+		}
+		#endif
+		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
 	}
 	
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
