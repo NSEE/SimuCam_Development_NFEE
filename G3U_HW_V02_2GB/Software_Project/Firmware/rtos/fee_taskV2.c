@@ -53,7 +53,7 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xMemMap.xCommon.ulVStart = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 				pxNFee->xMemMap.xCommon.ulVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 				/*0..2294*/
-				pxNFee->xMemMap.xCommon.ulHStart = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+				pxNFee->xMemMap.xCommon.ulHStart = 0;
 				pxNFee->xMemMap.xCommon.ulHEnd = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
 
 
@@ -3121,17 +3121,17 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
+				case eRmapModeOn: /*Mode On*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Already in this mode. (Mode On)\n\n");
 					}
 					#endif
 					break;
-				case 0x01: /*Full Image Pattern Mode*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
 					pxNFeeP->xControl.bWatingSync = TRUE;
 
 					/* Real Fee State (graph) */
@@ -3140,7 +3140,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					/* Real State */
 					pxNFeeP->xControl.eState = sFullPattern_Enter;
 					break;
-				case 0x02: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					pxNFeeP->xControl.bWatingSync = TRUE;
 
 					/* Real Fee State (graph) */
@@ -3149,7 +3149,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					/* Real State */
 					pxNFeeP->xControl.eState = sWinPattern_Enter;
 					break;
-				case 0x04: /*Stand-By-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					pxNFeeP->xControl.bWatingSync = TRUE;
 
 					/* Real Fee State (graph) */
@@ -3165,53 +3165,47 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					break;
-				case 0x05: /*Windowing-Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
 					}
 					#endif
 					break;
-				case 0x06: /*Full Image Mode*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
 					}
 					#endif
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
-					}
-					#endif
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Already in this mode. (Mode On)\n\n");
 					}
 					#endif
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
+					}
+					#endif
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3324,10 +3318,10 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
+				case eRmapModeOn: /*Mode On*/
 					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
 
 						pxNFeeP->xControl.bWatingSync = TRUE;
@@ -3348,15 +3342,15 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x01: /*Full Image Pattern Mode*/
-				case 0x02: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x04: /*Stand-By-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
 						pxNFeeP->xControl.bWatingSync = TRUE;
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
@@ -3372,39 +3366,22 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x05: /*Windowing-Mode*/
-				case 0x06: /*Full Image Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
-					}
-					#endif
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					pxNFeeP->xControl.bWatingSync = FALSE;
 					pxNFeeP->xControl.eLastMode = sConfig_Enter;
 					pxNFeeP->xControl.eMode = sOn;
@@ -3419,8 +3396,19 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3535,10 +3523,10 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
+				case eRmapModeOn: /*Mode On*/
 					/*BEfore sync, so it need to end the transmission/double buffer and wait for the sync*/
 					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
 
@@ -3558,15 +3546,15 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x01: /*Full Image Pattern Mode*/
-				case 0x02: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x04: /*Stand-By-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
 						pxNFeeP->xControl.bWatingSync = TRUE;
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
@@ -3583,39 +3571,22 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x05: /*Windowing-Mode*/
-				case 0x06: /*Full Image Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
-					}
-					#endif
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					pxNFeeP->xControl.bWatingSync = FALSE;
 					pxNFeeP->xControl.eLastMode = sConfig_Enter;
 					pxNFeeP->xControl.eMode = sOn;
@@ -3630,8 +3601,19 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3746,10 +3728,10 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
+				case eRmapModeOn: /*Mode On*/
 					pxNFeeP->xControl.bWatingSync = TRUE;
 
 					/* Real Fee State (graph) */
@@ -3765,30 +3747,22 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					break;
-				case 0x01: /*Full Image Pattern Mode*/
-				case 0x02: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Stand-By Mode)\n\n");
 					}
 					#endif
 					break;
-				case 0x04: /*Stand-By-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Already in this mode. (Stand-By Mode)\n\n");
 					}
 					#endif
 					break;
-				case 0x05: /*Windowing-Mode*/
-					pxNFeeP->xControl.bWatingSync = TRUE;
-					/* Real Fee State (graph) */
-					pxNFeeP->xControl.eLastMode = sStandby_Enter;
-					pxNFeeP->xControl.eMode = sWindowing;
-					/* Real State */
-					pxNFeeP->xControl.eState = sWindowing_Enter;
-					break;
-				case 0x06: /*Full Image Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
 					pxNFeeP->xControl.bWatingSync = TRUE;
 					/* Real Fee State (graph) */
 					pxNFeeP->xControl.eLastMode = sStandby_Enter;
@@ -3796,53 +3770,22 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					/* Real State */
 					pxNFeeP->xControl.eState = sFullImage_Enter;
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sWindowing;
+					/* Real State */
+					pxNFeeP->xControl.eState = sWindowing_Enter;
+					break;
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-					pxNFeeP->xControl.bWatingSync = TRUE;
-					/* Real Fee State (graph) */
-					pxNFeeP->xControl.eLastMode = sStandby_Enter;
-					pxNFeeP->xControl.eMode = sParTrap1;
-					/* Real State */
-					pxNFeeP->xControl.eState = sParTrap1_Enter;
-					break;
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-					pxNFeeP->xControl.bWatingSync = TRUE;
-					/* Real Fee State (graph) */
-					pxNFeeP->xControl.eLastMode = sStandby_Enter;
-					pxNFeeP->xControl.eMode = sParTrap2;
-					/* Real State */
-					pxNFeeP->xControl.eState = sParTrap2_Enter;
-					break;
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-					pxNFeeP->xControl.bWatingSync = TRUE;
-					/* Real Fee State (graph) */
-					pxNFeeP->xControl.eLastMode = sStandby_Enter;
-					pxNFeeP->xControl.eMode = sSerialTrap1;
-					/* Real State */
-					pxNFeeP->xControl.eState = sSerialTrap1_Enter;
-					break;
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					pxNFeeP->xControl.bWatingSync = TRUE;
-					/* Real Fee State (graph) */
-					pxNFeeP->xControl.eLastMode = sStandby_Enter;
-					pxNFeeP->xControl.eMode = sSerialTrap2;
-					/* Real State */
-					pxNFeeP->xControl.eState = sSerialTrap2_Enter;
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					pxNFeeP->xControl.bWatingSync = FALSE;
 					pxNFeeP->xControl.eLastMode = sStandby_Enter;
 					pxNFeeP->xControl.eMode = sOn;
@@ -3856,8 +3799,41 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sParTrap1;
+					/* Real State */
+					pxNFeeP->xControl.eState = sParTrap1_Enter;
+					break;
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sParTrap2;
+					/* Real State */
+					pxNFeeP->xControl.eState = sParTrap2_Enter;
+					break;
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sSerialTrap1;
+					/* Real State */
+					pxNFeeP->xControl.eState = sSerialTrap1_Enter;
+					break;
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sSerialTrap2;
+					/* Real State */
+					pxNFeeP->xControl.eState = sSerialTrap2_Enter;
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3972,46 +3948,29 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
-				case 0x01: /*Full Image Pattern Mode*/
-				case 0x02: /*Windowing-Pattern-Mode*/
-				case 0x04: /*Stand-By-Mode*/
-				case 0x05: /*Windowing-Mode*/
-				case 0x06: /*Full Image Mode*/
+				case eRmapModeOn: /*Mode On*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Can't perform this command, already processing a changing action.\n\n");
 					}
 					#endif
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Can't perform this command, already processing a changing action.\n\n");
-					}
-					#endif
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					pxNFeeP->xControl.bWatingSync = FALSE;
 					pxNFeeP->xControl.eLastMode = sConfig_Enter;
 					pxNFeeP->xControl.eMode = sOn;
@@ -4026,8 +3985,19 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Can't perform this command, already processing a changing action.\n\n");
+					}
+					#endif
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -4142,10 +4112,10 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
+				case eRmapModeOn: /*Mode On*/
 					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
 
 						pxNFeeP->xControl.bWatingSync = TRUE;
@@ -4166,15 +4136,15 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x01: /*Full Image Pattern Mode*/
-				case 0x02: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x04: /*Stand-By-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
 						pxNFeeP->xControl.bWatingSync = TRUE;
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
@@ -4191,39 +4161,22 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x05: /*Windowing-Mode*/
-				case 0x06: /*Full Image Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
-					}
-					#endif
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					pxNFeeP->xControl.bWatingSync = FALSE;
 					pxNFeeP->xControl.eLastMode = sConfig_Enter;
 					pxNFeeP->xControl.eMode = sOn;
@@ -4238,8 +4191,19 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -4356,10 +4320,10 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
+				case eRmapModeOn: /*Mode On*/
 					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
 
 						pxNFeeP->xControl.bWatingSync = TRUE;
@@ -4373,15 +4337,15 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x01: /*Full Image Pattern Mode*/
-				case 0x02: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x04: /*Stand-By-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
 						pxNFeeP->xControl.bWatingSync = TRUE;
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
@@ -4394,39 +4358,22 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x05: /*Windowing-Mode*/
-				case 0x06: /*Full Image Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
-					}
-					#endif
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					pxNFeeP->xControl.bWatingSync = FALSE;
 					pxNFeeP->xControl.eLastMode = sConfig_Enter;
 					pxNFeeP->xControl.eMode = sOn;
@@ -4441,8 +4388,19 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -4557,10 +4515,10 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
-			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
-				case 0x00: /*Mode On*/
+				case eRmapModeOn: /*Mode On*/
 					/*BEfore sync, so it need to end the transmission/double buffer and wait for the sync*/
 					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
 
@@ -4580,15 +4538,15 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x01: /*Full Image Pattern Mode*/
-				case 0x02: /*Windowing-Pattern-Mode*/
+				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
+				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x04: /*Stand-By-Mode*/
+				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
 						pxNFeeP->xControl.bWatingSync = TRUE;
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
@@ -4605,39 +4563,22 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 						#endif
 					}
 					break;
-				case 0x05: /*Windowing-Mode*/
-				case 0x06: /*Full Image Mode*/
+				case eRmapCcdModeFullImg: /*Full Image Mode*/
+				case eRmapCcdModeWindowing: /*Windowing-Mode*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
 					}
 					#endif
 					break;
-				case 0x07: /*Performance test mode -windowing*/
+				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
 					}
 					#endif
 					break;
-				case 0x08: /*Slow Readout-Windowing*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
-					}
-					#endif
-					break;
-				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
-				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
-				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
-				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
-					}
-					#endif
-					break;
-				case 0x0D: /*Immediate On-Mode*/
+				case eRmapCcdModeImmediateOn: /*Immediate On-Mode*/
 					pxNFeeP->xControl.bWatingSync = FALSE;
 					pxNFeeP->xControl.eLastMode = sConfig_Enter;
 					pxNFeeP->xControl.eMode = sOn;
@@ -4652,8 +4593,19 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					/*don't need side*/
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
-				case 0x0E: /*Reserved*/
-				case 0x0F: /*Reserved*/
+				case eRmapCcdModeParallelTrap1: /*Parallel trap pumping mode 1 - Full-Image*/
+				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
+				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
+				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case eRmapCcdModeReserved0: /*Reserved*/
+				case eRmapCcdModeReserved1: /*Reserved*/
+				case eRmapCcdModeReserved2: /*Reserved*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");

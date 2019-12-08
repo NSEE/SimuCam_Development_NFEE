@@ -44,17 +44,17 @@ enum RmapCcdMode {
 	eRmapCcdModeFullPatt = 0x1,
 	eRmapCcdModeWindPatt = 0x2,
 	eRmapCcdModeStandby = 0x4,
-	eRmapCcdModeWindowing = 0x5,
-	eRmapCcdModeFullImg = 0x6,
+	eRmapCcdModeFullImg = 0x5,
+	eRmapCcdModeWindowing = 0x6,
 	eRmapCcdModePerformance = 0x7,
-	eRmapCcdModeSlowReadout = 0x8,
+	eRmapCcdModeImmediateOn = 0x8,
 	eRmapCcdModeParallelTrap1 = 0x9,
 	eRmapCcdModeParallelTrap2 = 0xA,
 	eRmapCcdModeSerialTrap1 = 0xB,
 	eRmapCcdModeSerialTrap2 = 0xC,
-	eRmapCcdModeImmediateOn = 0xD,
-	eRmapCcdModeReserved0 = 0xE,
-	eRmapCcdModeReserved1 = 0xF
+	eRmapCcdModeReserved0 = 0xD,
+	eRmapCcdModeReserved1 = 0xE,
+	eRmapCcdModeReserved2 = 0xF
 } ERmapCcdMode;
 
 extern OS_EVENT *xFeeQ[N_OF_NFEE];

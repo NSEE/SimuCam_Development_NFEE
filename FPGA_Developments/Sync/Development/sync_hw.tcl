@@ -84,7 +84,7 @@ set_parameter_property g_SYNC_IRQ_NUMBER UNITS None
 set_parameter_property g_SYNC_IRQ_NUMBER ALLOWED_RANGES 0:2147483647
 set_parameter_property g_SYNC_IRQ_NUMBER HDL_PARAMETER true
 set_parameter_property g_SYNC_IRQ_NUMBER DESCRIPTION "Sync IRQ Number associated with NIOS II"
-set_parameter_property g_SYNC_IRQ_NUMBER AFFECTS_GENERATION false
+set_parameter_property g_SYNC_IRQ_NUMBER AFFECTS_GENERATION true
 add_parameter g_PRE_SYNC_IRQ_NUMBER NATURAL 0 "Pre-Sync IRQ Number associated with NIOS II"
 set_parameter_property g_PRE_SYNC_IRQ_NUMBER DEFAULT_VALUE 0
 set_parameter_property g_PRE_SYNC_IRQ_NUMBER DISPLAY_NAME g_PRE_SYNC_IRQ_NUMBER
@@ -94,7 +94,7 @@ set_parameter_property g_PRE_SYNC_IRQ_NUMBER UNITS None
 set_parameter_property g_PRE_SYNC_IRQ_NUMBER ALLOWED_RANGES 0:2147483647
 set_parameter_property g_PRE_SYNC_IRQ_NUMBER HDL_PARAMETER true
 set_parameter_property g_PRE_SYNC_IRQ_NUMBER DESCRIPTION "Pre-Sync IRQ Number associated with NIOS II"
-set_parameter_property g_PRE_SYNC_IRQ_NUMBER AFFECTS_GENERATION false
+set_parameter_property g_PRE_SYNC_IRQ_NUMBER AFFECTS_GENERATION true
 
 
 # 

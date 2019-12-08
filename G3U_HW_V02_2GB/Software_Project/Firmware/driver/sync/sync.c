@@ -219,7 +219,7 @@ void vSyncInitIrq(void) {
 	vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
 	vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = TRUE;
 	// Register the interrupt handler
-	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliSyncIrqNumber, hold_context_ptr, vSyncHandleIrq);
+	alt_irq_register(SYNC_SYNC_IRQ, hold_context_ptr, vSyncHandleIrq);
 }
 
 /**
@@ -244,7 +244,7 @@ void vSyncPreInitIrq(void) {
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreLastPulseIrqFlagClr = TRUE;
 	// Register the interrupt handler
-	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliPreSyncIrqNumber, hold_context_ptr, vSyncPreHandleIrq);
+	alt_irq_register(SYNC_PRE_SYNC_IRQ, hold_context_ptr, vSyncPreHandleIrq);
 }
 
 // Status reg
@@ -1259,13 +1259,28 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 
 	const alt_u16 cusiPulsePeriodMs = usiSyncPeriodMs / cusiSyncNFeeNumberOfPulses;
+	vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncNFeeNumberOfPulses;
+	vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncNFeePulsePolarity;
 	vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs( 100 );
 	vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs( cusiPulsePeriodMs - cusiSyncNFeeMasterBlankTimeMs );
 	vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs( cusiPulsePeriodMs - cusiSyncNFeeNormalBlankTimeMs );
 	vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs( cusiPulsePeriodMs );
 	vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs( cusiSyncNFeeOneShotTimeMs );
-	vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncNFeePulsePolarity;
-	vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncNFeeNumberOfPulses;
+
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	fprintf(fp, "\nSync Module Configuration:\n");
+	fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
+	fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
+	fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPreBlankTime ));
+	fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime ));
+	fprintf(fp, "xSyncModule.uliBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliBlankTime ));
+	fprintf(fp, "xSyncModule.uliPeriod = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod ));
+	fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliOneShotTime ));
+	fprintf(fp, "\n");
+}
+#endif
+
 	bSuccess = TRUE;
 
 	return bSuccess;
@@ -1293,4 +1308,23 @@ alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs) {
 	uliPer = usiPeriodMs * 5e+4;
 
 	return uliPer;
+}
+
+/*
+ * Return the time value, in ms, for a Sync register.
+ */
+alt_u16 usiRegCalcTimeMs(alt_u32 uliSyncReg) {
+
+	/*
+	 * Time = Register * ClkCycles@50MHz
+	 *
+	 * ClkCycles@50MHz = 20 ns = 20e-6 ms
+	 *
+	 * Time[ms] = Register[-] * 20e-6
+	 */
+
+	alt_u16 usiTimeMs;
+	usiTimeMs = uliSyncReg * 20e-6;
+
+	return usiTimeMs;
 }

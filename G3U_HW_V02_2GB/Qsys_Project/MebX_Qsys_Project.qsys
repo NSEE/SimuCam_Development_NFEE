@@ -425,6 +425,22 @@
          type = "String";
       }
    }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
    element SEVEN_SEGMENT_CONTROLLER_0
    {
       datum _sortIndex
@@ -1785,6 +1801,11 @@
    type="conduit"
    dir="end" />
  <interface name="rst" internal="clk_50.clk_in_reset" type="reset" dir="end" />
+ <interface
+   name="rst_controller_conduit_reset_input"
+   internal="rst_controller.conduit_reset_input"
+   type="conduit"
+   dir="end" />
  <interface
    name="rst_controller_conduit_simucam_reset"
    internal="rst_controller.conduit_simucam_reset"
@@ -3366,7 +3387,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="sync" kind="Sync" version="1.4" enabled="1">
+ <module name="sync" kind="Sync" version="1.5" enabled="1">
   <parameter name="g_PRE_SYNC_IRQ_NUMBER" value="12" />
   <parameter name="g_SYNC_IRQ_NUMBER" value="11" />
  </module>

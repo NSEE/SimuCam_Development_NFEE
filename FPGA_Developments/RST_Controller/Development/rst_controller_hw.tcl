@@ -351,3 +351,17 @@ set_interface_property conduit_simucam_reset SVD_ADDRESS_GROUP ""
 
 add_interface_port conduit_simucam_reset simucam_reset_signal t_simucam_reset_signal Output 1
 
+
+# 
+# connection point conduit_reset_input
+# 
+add_interface conduit_reset_input conduit end
+set_interface_property conduit_reset_input associatedClock clock_sink
+set_interface_property conduit_reset_input associatedReset reset_sink
+set_interface_property conduit_reset_input ENABLED true
+set_interface_property conduit_reset_input EXPORT_OF ""
+set_interface_property conduit_reset_input PORT_NAME_MAP ""
+set_interface_property conduit_reset_input CMSIS_SVD_VARIABLES ""
+set_interface_property conduit_reset_input SVD_ADDRESS_GROUP ""
+
+add_interface_port conduit_reset_input reset_input_signal t_reset_input_signal Input 1

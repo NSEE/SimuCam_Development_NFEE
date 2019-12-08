@@ -23,7 +23,7 @@ begin
 		procedure p_reset_registers is
 		begin
 			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '1';
-			rst_controller_write_registers_o.simucam_reset.simucam_timer <= std_logic_vector(to_unsigned(50000000, 31));
+			rst_controller_write_registers_o.simucam_reset.simucam_timer <= std_logic_vector(to_unsigned(5000000, 31)); -- 100 ms of reset
 			rst_controller_write_registers_o.device_reset.ftdi_reset     <= '0';
 			rst_controller_write_registers_o.device_reset.sync_reset     <= '0';
 			rst_controller_write_registers_o.device_reset.rs232_reset    <= '0';
@@ -40,7 +40,7 @@ begin
 
 		procedure p_control_triggers is
 		begin
---			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '0';
+			--			rst_controller_write_registers_o.simucam_reset.simucam_reset <= '0';
 		end procedure p_control_triggers;
 
 		procedure p_writedata(write_address_i : t_avalon_mm_rst_controller_address) is

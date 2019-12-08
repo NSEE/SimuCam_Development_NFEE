@@ -25,6 +25,7 @@ entity rst_controller_top is
 		avalon_slave_rst_controller_waitrequest : out std_logic; --                                     --                            .waitrequest
 		clock_sink_clk                          : in  std_logic                     := '0'; --          --                  clock_sink.clk
 		reset_sink_reset                        : in  std_logic                     := '0'; --          --                  reset_sink.reset
+		reset_input_signal                      : in  std_logic                     := '0'; --          --         conduit_reset_input.t_reset_input_signal
 		simucam_reset_signal                    : out std_logic; --                                     --       conduit_simucam_reset.t_simucam_reset_signal
 		reset_source_ftdi_reset                 : out std_logic; --                                     --           reset_source_ftdi.reset
 		reset_source_sync_reset                 : out std_logic; --                                     --           reset_source_sync.reset     
@@ -44,7 +45,7 @@ end entity rst_controller_top;
 architecture rtl of rst_controller_top is
 
 	alias a_clock is clock_sink_clk;
-	alias a_reset is reset_sink_reset;
+	alias a_reset is reset_input_signal;
 
 	-- constants
 
@@ -60,11 +61,12 @@ architecture rtl of rst_controller_top is
 	signal s_rst_controller_write_registers : t_rst_controller_write_registers;
 
 	-- simucam reset signals
-	signal s_simucam_delay : std_logic;
-	signal s_simucam_reset : std_logic;
-	signal s_simucam_start : std_logic;
-	signal s_simucam_stop  : std_logic;
-	signal s_reset_counter : std_logic_vector(30 downto 0);
+	signal s_simucam_delay             : std_logic;
+	signal s_simucam_reset             : std_logic;
+	signal s_simucam_start             : std_logic;
+	signal s_simucam_stop              : std_logic;
+	signal s_reset_counter             : std_logic_vector(30 downto 0);
+	signal s_simucam_reset_cmd_delayed : std_logic;
 
 begin
 
@@ -98,24 +100,27 @@ begin
 	p_simucam_reset : process(a_clock, a_reset) is
 	begin
 		if (a_reset = '1') then
-			s_simucam_delay      <= '0';
-			s_simucam_reset      <= '0';
-			s_simucam_start      <= '0';
-			s_simucam_stop       <= '0';
-			s_reset_counter      <= (others => '0');
-			simucam_reset_signal <= '0';
+			s_simucam_delay             <= '1';
+			s_simucam_reset             <= '0';
+			s_simucam_start             <= '0';
+			s_simucam_stop              <= '0';
+			s_reset_counter             <= (others => '0');
+			simucam_reset_signal        <= '1';
+			s_simucam_reset_cmd_delayed <= '0';
 		elsif (rising_edge(a_clock)) then
 
 			-- manage start/stop commands
-			if (s_rst_controller_write_registers.simucam_reset.simucam_reset = '1') then
+			if ((s_rst_controller_write_registers.simucam_reset.simucam_reset = '1') and (s_simucam_reset_cmd_delayed = '0')) then
+				-- a rising edge ocurred, issue start command
 				s_simucam_start <= '1';
-			else
+			elsif ((s_rst_controller_write_registers.simucam_reset.simucam_reset = '0') and (s_simucam_reset_cmd_delayed = '1')) then
+				-- a falling edge ocurred, issue stop command
 				s_simucam_stop <= '1';
 			end if;
 
 			-- check if start or stop command was received
 			if (s_simucam_start = '1') then
-				s_simucam_delay <= '0';
+				s_simucam_delay <= '1';
 				s_simucam_reset <= '1';
 				s_simucam_start <= '0';
 				s_simucam_stop  <= '0';
@@ -138,7 +143,7 @@ begin
 						-- current state is a delay
 						-- go to a reset state
 						s_simucam_delay      <= '0';
-						s_reset_counter      <= std_logic_vector(to_unsigned(500000 - 1, 31));
+						s_reset_counter      <= std_logic_vector(to_unsigned(45000000 - 1, 31)); -- 900 ms of delay
 						simucam_reset_signal <= '0';
 					else
 						-- current state is a reset
@@ -147,12 +152,14 @@ begin
 						s_reset_counter      <= std_logic_vector(unsigned(s_rst_controller_write_registers.simucam_reset.simucam_timer) - 1);
 						simucam_reset_signal <= '1';
 					end if;
-
 				else
 					-- timer is not zero
 					s_reset_counter <= std_logic_vector(unsigned(s_reset_counter) - 1);
 				end if;
 			end if;
+
+			-- update delayed signals
+			s_simucam_reset_cmd_delayed <= s_rst_controller_write_registers.simucam_reset.simucam_reset;
 
 		end if;
 

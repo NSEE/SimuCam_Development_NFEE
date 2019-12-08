@@ -302,7 +302,8 @@ architecture bhv of MebX_TopLevel is
 
 	signal forceIntRst_n : std_logic := '0';
 	
-	signal simucam_rst : std_logic := '0';
+	signal rst_ctrl_input : std_logic := '0';
+	signal simucam_rst    : std_logic := '0';
 
 	attribute KEEP : boolean;
 	attribute KEEP of clk100 : signal is true;
@@ -336,7 +337,7 @@ architecture bhv of MebX_TopLevel is
 	-----------------------------------------
 	-- RST CPU
 	-----------------------------------------
-	signal rst : std_logic;
+	signal rst_n : std_logic;
 
 	signal pll_locked : std_logic;
 
@@ -408,7 +409,8 @@ architecture bhv of MebX_TopLevel is
 		port(
 			rst_reset_n                                                 : in    std_logic;
 			--
-			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                         -- reset
+			rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := 'X'; --          -- t_reset_input_signal
+			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic; --                                     -- t_simucam_reset_signal
 			--
 			m2_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);
 			m2_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);
@@ -604,9 +606,10 @@ begin
 		port map(
 			clk50_clk                                                   => OSC_50_Bank4,
 			--
-			rst_reset_n                                                 => rst,
+			rst_reset_n                                                 => rst_n,
 			--
-			rst_controller_conduit_simucam_reset_t_simucam_reset_signal => simucam_rst,                    -- rst_controller_reset_source_simucam.reset
+			rst_controller_conduit_reset_input_t_reset_input_signal     => rst_ctrl_input, --              --   rst_controller_conduit_reset_input.t_reset_input_signal
+			rst_controller_conduit_simucam_reset_t_simucam_reset_signal => simucam_rst, --                 -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
 			--
 			led_de4_export                                              => leds_b,
 			led_painel_export                                           => leds_p,
@@ -778,8 +781,9 @@ begin
 	-- rst
 	--==========--
 
-	rst          <= CPU_RESET_n and RESET_PAINEL_n and (not (simucam_rst));
-	FTDI_RESET_N <= rst;
+	rst_ctrl_input <= not (CPU_RESET_n and RESET_PAINEL_n);
+	rst_n          <= not (simucam_rst);
+	FTDI_RESET_N   <= rst_n;
 
 	--==========--
 	-- I/Os
@@ -795,36 +799,36 @@ begin
 
 	-- LEDs assumem estado diferente no rst.
 
-	LED_DE4(0) <= ('1') when (rst = '0') else (leds_b(0));
-	LED_DE4(1) <= ('1') when (rst = '0') else (leds_b(1));
-	LED_DE4(2) <= ('1') when (rst = '0') else (leds_b(2));
-	LED_DE4(3) <= ('1') when (rst = '0') else (leds_b(3));
-	LED_DE4(4) <= ('1') when (rst = '0') else (leds_b(4));
-	LED_DE4(5) <= ('1') when (rst = '0') else (leds_b(5));
-	LED_DE4(6) <= ('1') when (rst = '0') else (leds_b(6));
-	LED_DE4(7) <= ('1') when (rst = '0') else (leds_b(7));
+	LED_DE4(0) <= ('1') when (rst_n = '0') else (leds_b(0));
+	LED_DE4(1) <= ('1') when (rst_n = '0') else (leds_b(1));
+	LED_DE4(2) <= ('1') when (rst_n = '0') else (leds_b(2));
+	LED_DE4(3) <= ('1') when (rst_n = '0') else (leds_b(3));
+	LED_DE4(4) <= ('1') when (rst_n = '0') else (leds_b(4));
+	LED_DE4(5) <= ('1') when (rst_n = '0') else (leds_b(5));
+	LED_DE4(6) <= ('1') when (rst_n = '0') else (leds_b(6));
+	LED_DE4(7) <= ('1') when (rst_n = '0') else (leds_b(7));
 
-	LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
-	LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
-	LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
-	LED_PAINEL_LED_2R    <= ('1') when (rst = '0') else (leds_p(3));
-	LED_PAINEL_LED_3G    <= ('1') when (rst = '0') else (leds_p(4));
-	LED_PAINEL_LED_3R    <= ('1') when (rst = '0') else (leds_p(5));
-	LED_PAINEL_LED_4G    <= ('1') when (rst = '0') else (leds_p(6));
-	LED_PAINEL_LED_4R    <= ('1') when (rst = '0') else (leds_p(7));
-	LED_PAINEL_LED_5G    <= ('1') when (rst = '0') else (leds_p(8));
-	LED_PAINEL_LED_5R    <= ('1') when (rst = '0') else (leds_p(9));
-	LED_PAINEL_LED_6G    <= ('1') when (rst = '0') else (leds_p(10));
-	LED_PAINEL_LED_6R    <= ('1') when (rst = '0') else (leds_p(11));
-	LED_PAINEL_LED_7G    <= ('1') when (rst = '0') else (leds_p(12));
-	LED_PAINEL_LED_7R    <= ('1') when (rst = '0') else (leds_p(13));
-	LED_PAINEL_LED_8G    <= ('1') when (rst = '0') else (leds_p(14));
-	LED_PAINEL_LED_8R    <= ('1') when (rst = '0') else (leds_p(15));
-	LED_PAINEL_LED_POWER <= ('1') when (rst = '0') else (leds_p(16));
-	LED_PAINEL_LED_ST1   <= ('1') when (rst = '0') else (leds_p(17));
-	LED_PAINEL_LED_ST2   <= ('1') when (rst = '0') else (leds_p(18));
-	LED_PAINEL_LED_ST3   <= ('1') when (rst = '0') else (leds_p(19));
-	LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
+	LED_PAINEL_LED_1G    <= ('1') when (rst_n = '0') else (leds_p(0));
+	LED_PAINEL_LED_1R    <= ('1') when (rst_n = '0') else (leds_p(1));
+	LED_PAINEL_LED_2G    <= ('1') when (rst_n = '0') else (leds_p(2));
+	LED_PAINEL_LED_2R    <= ('1') when (rst_n = '0') else (leds_p(3));
+	LED_PAINEL_LED_3G    <= ('1') when (rst_n = '0') else (leds_p(4));
+	LED_PAINEL_LED_3R    <= ('1') when (rst_n = '0') else (leds_p(5));
+	LED_PAINEL_LED_4G    <= ('1') when (rst_n = '0') else (leds_p(6));
+	LED_PAINEL_LED_4R    <= ('1') when (rst_n = '0') else (leds_p(7));
+	LED_PAINEL_LED_5G    <= ('1') when (rst_n = '0') else (leds_p(8));
+	LED_PAINEL_LED_5R    <= ('1') when (rst_n = '0') else (leds_p(9));
+	LED_PAINEL_LED_6G    <= ('1') when (rst_n = '0') else (leds_p(10));
+	LED_PAINEL_LED_6R    <= ('1') when (rst_n = '0') else (leds_p(11));
+	LED_PAINEL_LED_7G    <= ('1') when (rst_n = '0') else (leds_p(12));
+	LED_PAINEL_LED_7R    <= ('1') when (rst_n = '0') else (leds_p(13));
+	LED_PAINEL_LED_8G    <= ('1') when (rst_n = '0') else (leds_p(14));
+	LED_PAINEL_LED_8R    <= ('1') when (rst_n = '0') else (leds_p(15));
+	LED_PAINEL_LED_POWER <= ('1') when (rst_n = '0') else (leds_p(16));
+	LED_PAINEL_LED_ST1   <= ('1') when (rst_n = '0') else (leds_p(17));
+	LED_PAINEL_LED_ST2   <= ('1') when (rst_n = '0') else (leds_p(18));
+	LED_PAINEL_LED_ST3   <= ('1') when (rst_n = '0') else (leds_p(19));
+	LED_PAINEL_LED_ST4   <= ('1') when (rst_n = '0') else (leds_p(20));
 
 	-- SpW Channel Measurements
 	JP3_GPIO0_D22_IO <= spw_a_measure(4); -- measurement 4 : right fee busy signal
@@ -886,7 +890,7 @@ begin
 	-- Flash
 	--==========--
 
-	FLASH_RESET_n <= rst;
+	FLASH_RESET_n <= rst_n;
 	FLASH_CLK     <= '0';
 	FLASH_ADV_n   <= '0';
 

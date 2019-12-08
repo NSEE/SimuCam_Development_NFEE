@@ -49,8 +49,8 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
-bool bDpktSetErrInjection(TDpktChannel *pxDpktCh);
-bool bDpktGetErrInjection(TDpktChannel *pxDpktCh);
+bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh);
+bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh);
 
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh);
 alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs);
