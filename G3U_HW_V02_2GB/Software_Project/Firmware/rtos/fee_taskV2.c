@@ -109,6 +109,7 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.bWatingSync = FALSE;
 				pxNFee->xControl.bSimulating = FALSE;
 				pxNFee->xControl.bUsingDMA = FALSE;
+				pxNFee->xControl.bTransientMode = TRUE;
 
 				/*Clear all control variables that control the data in the RAM for this FEE*/
 				vResetMemCCDFEE(pxNFee);
@@ -476,6 +477,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Indicates that this FEE will now need to use DMA*/
 				pxNFee->xControl.bUsingDMA = TRUE;
 				xTrans.bFirstT = TRUE;
+				pxNFee->xControl.bTransientMode = TRUE;
 
 				if (xGlobal.bJustBeforSync == FALSE)
 					pxNFee->xControl.eState = redoutWaitBeforeSyncSignal;
@@ -2192,11 +2194,22 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPBeforeSync( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
 				break;
 
-			case M_BEFORE_SYNC:
+			case M_BEFORE_MASTER:
 				if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eLastMode )
 					pxNFeeP->xControl.eState = redoutCheckDTCUpdate; /*Is time to start the preparation of the double buffer in order to transmit data just after sync arrives*/
 				else
 					pxNFeeP->xControl.eState = redoutWaitSync; /*Received some command to change the mode, just go wait sync to change*/
+				pxNFeeP->xControl.bTransientMode = FALSE;
+				break;
+
+			case M_BEFORE_SYNC:
+				/*Check if need to wait the pre master sync signal in order to change the state */
+				if ( pxNFeeP->xControl.bTransientMode ==  FALSE ) {
+					if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eLastMode )
+						pxNFeeP->xControl.eState = redoutCheckDTCUpdate; /*Is time to start the preparation of the double buffer in order to transmit data just after sync arrives*/
+					else
+						pxNFeeP->xControl.eState = redoutWaitSync; /*Received some command to change the mode, just go wait sync to change*/
+				}
 				break;
 
 			case M_SYNC:

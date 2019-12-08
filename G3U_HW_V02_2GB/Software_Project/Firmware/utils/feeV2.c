@@ -28,6 +28,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.bWatingSync = FALSE;
     pxNfeeL->xControl.bEchoing = FALSE;
     pxNfeeL->xControl.bLogging = FALSE;
+    pxNfeeL->xControl.bTransientMode = FALSE;
     /* The default side is left */
     pxNfeeL->xControl.eSide = sLeft;
     pxNfeeL->xControl.ucTimeCode = 0;

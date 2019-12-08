@@ -85,6 +85,7 @@ typedef struct FeeControl{
     bool bChannelEnable;                /* SPW Channel is enable? */
     bool bSimulating;                   /* Start at any running mode - needs sync */
     bool bWatingSync;
+    bool bTransientMode;
     unsigned char *pActualMem;				/* Point to the actual memory in simulation */
     unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/

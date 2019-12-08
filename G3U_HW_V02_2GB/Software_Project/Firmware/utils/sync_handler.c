@@ -90,6 +90,7 @@ bool bInitSync( void ) {
 	bSyncIrqEnableLastPulse(TRUE);
 
 	bSyncPreIrqEnableBlankPulse(TRUE);
+	bPreSyncIrqEnableMasterPulse(TRUE);
 
 	return bSuccess;
 }
