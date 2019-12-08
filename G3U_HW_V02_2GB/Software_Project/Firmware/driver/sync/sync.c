@@ -177,6 +177,18 @@ void vSyncPreHandleIrq(void* pvContext) {
 		#endif
 
 		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
+	} else if (vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr) {
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
+		/* Sync Master Pulse IRQ routine */
+
+		/* Pre-Sync Blank Pulse IRQ routine */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			fprintf(fp,"Pre-Master Sync Signal\n");
+		}
+		#endif
+
+		uiCmdtoSend.ucByte[2] = M_BEFORE_MASTER;
 	}
 	
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){

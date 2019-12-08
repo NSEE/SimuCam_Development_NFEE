@@ -1539,7 +1539,9 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case M_SYNC:
 			case M_PRE_MASTER:
+				break;
 			case M_MASTER_SYNC:
+				/*This block of code is used only for the On-Standby transitions, that will be done only in the master sync*/
 				/* Warning */
 					pxNFeeP->xControl.bWatingSync = TRUE;
 					/* Real State */

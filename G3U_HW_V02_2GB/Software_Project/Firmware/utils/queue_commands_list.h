@@ -61,7 +61,7 @@ typedef union qMask{
 #define M_PRE_MASTER                0xE2    /* Command send byt the Sync Interrupt */
 
 #define M_BEFORE_SYNC               0xE4    /* Indicate that a sync will occours soon, will be used to prepare the double buffer */
-
+#define M_BEFORE_MASTER             0xE8
 
 
 /*=====================================================================================================================*/
