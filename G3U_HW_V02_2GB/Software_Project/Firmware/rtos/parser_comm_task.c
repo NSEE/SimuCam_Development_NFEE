@@ -142,6 +142,9 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SYNCH_SOURCE\n");
 								#endif
+								/*source*/
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
