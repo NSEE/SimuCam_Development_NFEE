@@ -203,6 +203,9 @@ void vParserCommTask(void *task_data) {
 									/* N repeat */
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
 									xTcPusL.ucNofValues++;
+									/* StartByte */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
 
 									/*Send the command to the MEB task*/
 									bSendMessagePUStoMebTask(&xTcPusL);
@@ -219,6 +222,11 @@ void vParserCommTask(void *task_data) {
 								/* Verify valid FEE */
 								if ( usiFeeInstL <= N_OF_NFEE ) {
 
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* FN */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
 									/*Send the command to the MEB task*/
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
@@ -234,6 +242,8 @@ void vParserCommTask(void *task_data) {
 								/* Verify valid FEE */
 								if ( usiFeeInstL <= N_OF_NFEE ) {
 
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
 									/*Send the command to the MEB task*/
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
