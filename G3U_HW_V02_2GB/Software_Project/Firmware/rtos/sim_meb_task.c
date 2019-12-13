@@ -385,17 +385,18 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
 	unsigned short int param1 =0;
 	unsigned short int usiFeeInstL;
+	alt_u32 ulEP, ulStart, ulPx, ulLine;
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 		fprintf(fp,"MEB Task: vPusType250conf - Command: %hhu.", xPusL->usiSubType);
 	#endif
 
-	param1 = xPusL->usiValues[0];
 
 	switch (xPusL->usiSubType) {
 		/* TC_SYNCH_SOURCE */
 		case 29:
+			param1 = xPusL->usiValues[0];
 			bSyncCtrIntern(param1 == 0); /*True = Internal*/
 			break;
 
@@ -442,10 +443,28 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_FEE_TIME_CONFIG */
 		case 64:
-			/*Configure EP*/
-			bSyncConfigNFeeSyncPeriod( xPusL->usiValues[0] );
+			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x00ff) );
+			ulStart= (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x00ff) );
+			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x00ff) );
+			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x00ff) );
 
-			/*We don't have how to change readout time yet*/
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "---TIME_CONFIG: EP: %lu (ms)\n", ulEP);
+				fprintf(fp, "---TIME_CONFIG: Start Delay: %lu (ms)\n", ulStart);
+				fprintf(fp, "---TIME_CONFIG: Px Delay: %lu (ns)\n", ulPx);
+				fprintf(fp, "---TIME_CONFIG: Line Delay: %lu (ns)\n", ulLine);
+			}
+			#endif
+			break;
+
+			/*Configure EP*/
+			bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP );
+
+			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.usiAdcDelay = usiAdcPxDelayCalcPeriodNs( ulPx );
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.usiLineDelay = usiLineTrDelayCalcPeriodNs( ulLine );
+			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 
 
 			break;
@@ -516,10 +535,11 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[2] );
 
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
-
 			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
+			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
+			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 
 			/* Enable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
@@ -591,6 +611,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
+
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = TRUE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
@@ -612,6 +633,12 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_ERR_OFF */
 		case 53:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"TC_SCAM_ERR_OFF\n");
+			#endif
+			break;
+
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
@@ -876,6 +903,8 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 
 /*This sequence is used more than one place, so it becomes a function*/
 void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
+	unsigned short int usiFeeInstL;
+
 
 	/* Stop the Sync (Stopping the simulation) */
 	bStopSync();
@@ -895,6 +924,18 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);
+
+	for (usiFeeInstL=0; usiFeeInstL<N_OF_NFEE; usiFeeInstL++) {
+		bDpktGetErrorInjection(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
+		bDpktSetErrorInjection(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+	}
 
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();

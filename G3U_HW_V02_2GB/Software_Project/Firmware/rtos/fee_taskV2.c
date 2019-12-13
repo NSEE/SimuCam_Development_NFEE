@@ -604,6 +604,16 @@ void vFeeTaskV2(void *task_data) {
 						    pxNFee->xControl.xErrorSWCtrl.usiDataCnt = 0;
 						    pxNFee->xControl.xErrorSWCtrl.usiNRepeat = 0;
 						    pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt = 0;
+						} else {
+							bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket);
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
+							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
+							bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
 						}
 					}
 				}
