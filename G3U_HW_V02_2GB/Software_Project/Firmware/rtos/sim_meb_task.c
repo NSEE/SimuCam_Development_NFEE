@@ -443,10 +443,10 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_FEE_TIME_CONFIG */
 		case 64:
-			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x00ff) );
-			ulStart= (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x00ff) );
-			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x00ff) );
-			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x00ff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x00ff) );
+			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
+			ulStart= (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
+			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -456,16 +456,16 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				fprintf(fp, "---TIME_CONFIG: Line Delay: %lu (ns)\n", ulLine);
 			}
 			#endif
-			break;
 
 			/*Configure EP*/
 			bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP );
 
-			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.usiAdcDelay = usiAdcPxDelayCalcPeriodNs( ulPx );
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.usiLineDelay = usiLineTrDelayCalcPeriodNs( ulLine );
-			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-
+			for (usiFeeInstL=0; usiFeeInstL < N_OF_NFEE; usiFeeInstL++) {
+				bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.usiAdcDelay = usiAdcPxDelayCalcPeriodNs( ulPx );
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.usiLineDelay = usiLineTrDelayCalcPeriodNs( ulLine );
+				bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			}
 
 			break;
 

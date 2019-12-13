@@ -576,45 +576,24 @@ void vFeeTaskV2(void *task_data) {
 //				}
 //				#endif
 
-
 				/*If is master sync, check if need to configure error*/
 				if ( xGlobal.bPreMaster == TRUE ) {
 					/*Check if this FEE is in Full*/
 					if ( (pxNFee->xControl.eMode == sFullPattern) || (pxNFee->xControl.eMode == sFullImage)) {
 						/*Check if there is any type of error enabled*/
-						bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-						if ( bErrorInj == TRUE ) {
+						//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
 
-							bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket);
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNFee->xControl.xErrorSWCtrl.bMissingData;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
-							bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
+						bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket);
+						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNFee->xControl.xErrorSWCtrl.bMissingData;
+						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
+						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
+						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
+						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
+						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
+						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
+						bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
 
-							/*Get back all variables in order to change the error config in the HW only if receive another PUS command*/
-							pxNFee->xControl.xErrorSWCtrl.bEnabled = FALSE;
-							pxNFee->xControl.xErrorSWCtrl.bMissingData = FALSE;
-							pxNFee->xControl.xErrorSWCtrl.bMissingPkts = FALSE;
-							pxNFee->xControl.xErrorSWCtrl.bTxDisabled = FALSE;
-							pxNFee->xControl.xErrorSWCtrl.ucFrameNum = 0;
-						    pxNFee->xControl.xErrorSWCtrl.usiDataCnt = 0;
-						    pxNFee->xControl.xErrorSWCtrl.usiNRepeat = 0;
-						    pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt = 0;
-						} else {
-							bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket);
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
-							pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
-							bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
-						}
+
 					}
 				}
 

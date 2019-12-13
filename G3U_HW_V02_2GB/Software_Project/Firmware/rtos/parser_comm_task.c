@@ -329,24 +329,24 @@ void vParserCommTask(void *task_data) {
 							case 64: /* TC_SCAM_FEE_TIME_CONFIG */
 
 								/* EP */
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6+1];
 								xTcPusL.ucNofValues++;
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7+1];
 								xTcPusL.ucNofValues++;
 								/* DELTA_START */
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8+1];
 								xTcPusL.ucNofValues++;
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9+1];
 								xTcPusL.ucNofValues++;
 								/* DELTA_PX  */
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10+1];
 								xTcPusL.ucNofValues++;
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[11];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[11+1];
 								xTcPusL.ucNofValues++;
 								/* DELTA_LINE  */
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[12];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[12+1];
 								xTcPusL.ucNofValues++;
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[13];
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[13+1];
 								xTcPusL.ucNofValues++;
 
 								/*Send the command to the MEB task*/
