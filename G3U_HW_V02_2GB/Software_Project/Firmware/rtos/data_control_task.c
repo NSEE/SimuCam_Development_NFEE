@@ -484,6 +484,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 		case M_PRE_MASTER:
 			break;
 
+		case M_BEFORE_MASTER:
 		case M_BEFORE_SYNC:
 
 			if ( xGlobal.bPreMaster == TRUE ) {
@@ -600,6 +601,7 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 			#endif
 			/* Do nothing for now */
 			break;
+		case M_BEFORE_MASTER:
 		case M_PRE_MASTER:
 		case M_BEFORE_SYNC:
 

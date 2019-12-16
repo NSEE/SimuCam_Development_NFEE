@@ -189,13 +189,13 @@ void vSyncPreHandleIrq(void* pvContext) {
 	}
 	
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
+		//if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
 			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
 			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
 			if ( error_codel != OS_ERR_NONE ) {
 				vFailSendMsgSync( ucIL );
 			}
-		}
+		//}
 	}
 
 }

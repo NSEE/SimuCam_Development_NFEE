@@ -57,14 +57,14 @@ typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFu
 
  /* Error Injection Control Register Struct */
 typedef struct DpktErrorCopy {
-	bool bEnabled;		/*Is error injection Enabled?*/
-	bool bTxDisabled; /* Error Injection Tx Disabled Enable */
-	bool bMissingPkts; /* Error Injection Missing Packets Enable */
-	bool bMissingData; /* Error Injection Missing Data Enable */
-	alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
-	alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
-	alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
-	alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
+	volatile bool bEnabled;		/*Is error injection Enabled?*/
+	volatile bool bTxDisabled; /* Error Injection Tx Disabled Enable */
+	volatile bool bMissingPkts; /* Error Injection Missing Packets Enable */
+	volatile bool bMissingData; /* Error Injection Missing Data Enable */
+	volatile alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
+	volatile alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
+	volatile alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
+	volatile alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
 } TDpktErrorCopy;
 
 

@@ -24,7 +24,6 @@ void vNFeeControlTaskV2(void *task_data) {
 	tQMask uiCmdNFC;
 	INT8U error_codeCtrl;
 	unsigned char ucFeeInstL = 0, ucSide = 0;
-	unsigned char ucIL;
 	unsigned char ucCmd;
 
 	pxFeeC = (TNFee_Control *) task_data;
