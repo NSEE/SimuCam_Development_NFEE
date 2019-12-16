@@ -3165,33 +3165,30 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 					/* Real Fee State (graph) */
 					pxNFeeP->xControl.eLastMode = sOn_Enter;
-					pxNFeeP->xControl.eMode = sFullPattern;
-					/* Real State */
-					pxNFeeP->xControl.eState = sFullPattern_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sFullPattern_Enter;
+					/* Real State - only change on master*/
+					pxNFeeP->xControl.eState = sOn;
 					break;
 				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
 					pxNFeeP->xControl.bWatingSync = TRUE;
 
 					/* Real Fee State (graph) */
 					pxNFeeP->xControl.eLastMode = sOn_Enter;
-					pxNFeeP->xControl.eMode = sWinPattern;
-					/* Real State */
-					pxNFeeP->xControl.eState = sWinPattern_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sWinPattern_Enter;
+					/* Real State - only change on master*/
+					pxNFeeP->xControl.eState = sOn;
 					break;
 				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 					pxNFeeP->xControl.bWatingSync = TRUE;
 
 					/* Real Fee State (graph) */
 					pxNFeeP->xControl.eLastMode = sOn_Enter;
-					pxNFeeP->xControl.eMode = sStandBy;
+					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sStandby_Enter;
-					/* Real State */
-					pxNFeeP->xControl.eState = sWaitSync;
-
-					/* [rfranca] */
-					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
-					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					/* Real State - only change on master */
+					pxNFeeP->xControl.eState = sOn;
 
 					break;
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
