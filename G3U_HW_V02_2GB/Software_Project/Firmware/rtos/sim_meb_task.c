@@ -606,12 +606,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
 			vSendHKUpdate(pxMebCLocal, xPusL);
-
 			break;
 
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
-
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = TRUE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
@@ -637,7 +635,6 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"TC_SCAM_ERR_OFF\n");
 			#endif
-			break;
 
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
