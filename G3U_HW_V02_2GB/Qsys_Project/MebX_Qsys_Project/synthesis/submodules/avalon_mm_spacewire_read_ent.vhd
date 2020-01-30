@@ -563,6 +563,22 @@ begin
 					end if;
 
 				when (16#43#) =>
+					-- Data Packet Config Register : Data Packet CCD V-Start
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_ccd_v_start(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_ccd_v_start(15 downto 8);
+					end if;
+					-- Data Packet Config Register : Data Packet CCD V-End
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_ccd_v_end(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_ccd_v_end(15 downto 8);
+					end if;
+
+				when (16#44#) =>
 					-- Data Packet Config Register : Data Packet Packet Length
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_packet_length(7 downto 0);
@@ -579,7 +595,7 @@ begin
 						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_protocol_id;
 					end if;
 
-				when (16#44#) =>
+				when (16#45#) =>
 					-- Data Packet Config Register : Data Packet FEE Mode
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(3 downto 0) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_fee_mode;
@@ -596,7 +612,7 @@ begin
 						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_read_registers_i.data_packet_header_reg.data_pkt_header_length(15 downto 8);
 					end if;
 
-				when (16#45#) =>
+				when (16#46#) =>
 					-- Data Packet Header Register : Data Packet Header Type
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_read_registers_i.data_packet_header_reg.data_pkt_header_type(7 downto 0);
@@ -612,7 +628,7 @@ begin
 						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_read_registers_i.data_packet_header_reg.data_pkt_header_frame_counter(15 downto 8);
 					end if;
 
-				when (16#46#) =>
+				when (16#47#) =>
 					-- Data Packet Header Register : Data Packet Header Sequence Counter
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_read_registers_i.data_packet_header_reg.data_pkt_header_sequence_counter(7 downto 0);
@@ -620,49 +636,86 @@ begin
 					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
 						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_read_registers_i.data_packet_header_reg.data_pkt_header_sequence_counter(15 downto 8);
 					end if;
-					-- Data Packet Pixel Delay Register : Data Packet Line Delay
-					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
-						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_line_delay(7 downto 0);
-					end if;
-					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
-						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_line_delay(15 downto 8);
-					end if;
-
-				when (16#47#) =>
-					-- Data Packet Pixel Delay Register : Data Packet Column Delay
-					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
-						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_column_delay(7 downto 0);
-					end if;
-					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
-						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_column_delay(15 downto 8);
-					end if;
-					-- Data Packet Pixel Delay Register : Data Packet ADC Delay
-					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
-						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_adc_delay(7 downto 0);
-					end if;
-					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
-						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_adc_delay(15 downto 8);
-					end if;
 
 				when (16#48#) =>
+					-- Data Packet Pixel Delay Register : Data Packet Start Delay
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_start_delay(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_start_delay(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_start_delay(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_start_delay(31 downto 24);
+					end if;
+
+				when (16#49#) =>
+					-- Data Packet Pixel Delay Register : Data Packet Skip Delay
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_skip_delay(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_skip_delay(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_skip_delay(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_skip_delay(31 downto 24);
+					end if;
+
+				when (16#4A#) =>
+					-- Data Packet Pixel Delay Register : Data Packet Line Delay
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_line_delay(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_line_delay(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_line_delay(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_line_delay(31 downto 24);
+					end if;
+
+				when (16#4B#) =>
+					-- Data Packet Pixel Delay Register : Data Packet ADC Delay
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_adc_delay(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_adc_delay(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_adc_delay(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.data_packet_pixel_delay_reg.data_pkt_adc_delay(31 downto 24);
+					end if;
+
+				when (16#4C#) =>
 					-- Error Injection Control Register : Error Injection Tx Disabled Enable
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_tx_disabled;
 					end if;
 
-				when (16#49#) =>
+				when (16#4D#) =>
 					-- Error Injection Control Register : Error Injection Missing Packets Enable
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_missing_pkts;
 					end if;
 
-				when (16#4A#) =>
+				when (16#4E#) =>
 					-- Error Injection Control Register : Error Injection Missing Data Enable
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_missing_data;
 					end if;
 
-				when (16#4B#) =>
+				when (16#4F#) =>
 					-- Error Injection Control Register : Error Injection Frame Number of Error
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(1 downto 0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_frame_num;
@@ -675,7 +728,7 @@ begin
 						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.error_injection_control_reg.errinj_sequence_cnt(15 downto 8);
 					end if;
 
-				when (16#4C#) =>
+				when (16#50#) =>
 					-- Error Injection Control Register : Error Injection Data Counter of Error
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.error_injection_control_reg.errinj_data_cnt(7 downto 0);
@@ -689,6 +742,264 @@ begin
 					end if;
 					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
 						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.error_injection_control_reg.errinj_n_repeat(15 downto 8);
+					end if;
+
+				when (16#51#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 15
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_15(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_15(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_15(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_15(31 downto 24);
+					end if;
+
+				when (16#52#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 14
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_14(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_14(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_14(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_14(31 downto 24);
+					end if;
+
+				when (16#53#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 13
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_13(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_13(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_13(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_13(31 downto 24);
+					end if;
+
+				when (16#54#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 12
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_12(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_12(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_12(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_12(31 downto 24);
+					end if;
+
+				when (16#55#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 11
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_11(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_11(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_11(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_11(31 downto 24);
+					end if;
+
+				when (16#56#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 10
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_10(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_10(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_10(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_10(31 downto 24);
+					end if;
+
+				when (16#57#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 9
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_9(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_9(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_9(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_9(31 downto 24);
+					end if;
+
+				when (16#58#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 8
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_8(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_8(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_8(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_8(31 downto 24);
+					end if;
+
+				when (16#59#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 7
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_7(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_7(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_7(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_7(31 downto 24);
+					end if;
+
+				when (16#5A#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 6
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_6(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_6(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_6(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_6(31 downto 24);
+					end if;
+
+				when (16#5B#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 5
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_5(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_5(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_5(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_5(31 downto 24);
+					end if;
+
+				when (16#5C#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 4
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_4(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_4(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_4(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_4(31 downto 24);
+					end if;
+
+				when (16#5D#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 3
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_3(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_3(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_3(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_3(31 downto 24);
+					end if;
+
+				when (16#5E#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 2
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_2(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_2(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_2(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_2(31 downto 24);
+					end if;
+
+				when (16#5F#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 1
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_1(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_1(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_1(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_1(31 downto 24);
+					end if;
+
+				when (16#60#) =>
+					-- Windowing Parameters Register : Windowing Packet Order List Dword 0
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_0(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(15 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_0(15 downto 8);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						avalon_mm_spacewire_o.readdata(23 downto 16) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_0(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						avalon_mm_spacewire_o.readdata(31 downto 24) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_packet_order_list_0(31 downto 24);
+					end if;
+
+				when (16#61#) =>
+					-- Windowing Parameters Register : Windowing Last E Packet
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_last_e_packet(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(9 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_last_e_packet(9 downto 8);
+					end if;
+
+				when (16#62#) =>
+					-- Windowing Parameters Register : Windowing Last F Packet
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						avalon_mm_spacewire_o.readdata(7 downto 0) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_last_f_packet(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						avalon_mm_spacewire_o.readdata(9 downto 8) <= spacewire_write_registers_i.windowing_parameters_reg.windowing_last_f_packet(9 downto 8);
 					end if;
 
 				when others =>
