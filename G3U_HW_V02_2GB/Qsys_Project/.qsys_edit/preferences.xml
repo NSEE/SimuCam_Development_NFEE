@@ -3,16 +3,16 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="687" />
+   <connections preferredWidth="1039" />
    <irq preferredWidth="34" />
-   <name preferredWidth="228" />
-   <inputclock preferredWidth="101" />
+   <name preferredWidth="265" />
+   <inputclock preferredWidth="128" />
    <export preferredWidth="211" />
    <description preferredWidth="325" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
- <window width="1936" height="1056" x="-8" y="-8" />
+ <library expandedCategories="Project,Library" />
+ <window width="1920" height="1030" x="-9" y="-9" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />
 </preferences>

@@ -38,7 +38,8 @@ architecture RTL of testbench_top is
 	signal s_irq_buffers : std_logic;
 
 	-- sync signal
-	signal s_sync : std_logic;
+	signal s_sync   : std_logic;
+	signal s_sync_n : std_logic;
 
 	-- config_avalon_stimuli signals
 	signal s_config_avalon_stimuli_mm_readdata    : std_logic_vector(31 downto 0); -- -- avalon_mm.readdata
@@ -50,13 +51,13 @@ architecture RTL of testbench_top is
 
 	-- avalon_buffer_R_stimuli signals
 	signal s_avalon_buffer_R_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(7 downto 0); --          .address
+	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(20 downto 0); --          .address
 	signal s_avalon_buffer_R_stimuli_mm_write       : std_logic; --                                     --          .write
 	signal s_avalon_buffer_R_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
 
 	-- avalon_buffer_L_stimuli signals
 	signal s_avalon_buffer_L_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(7 downto 0); --          .address
+	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(20 downto 0); --          .address
 	signal s_avalon_buffer_L_stimuli_mm_write       : std_logic; --                                     --          .write
 	signal s_avalon_buffer_L_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
 
@@ -99,7 +100,7 @@ begin
 
 	avalon_buffer_R_stimuli_inst : entity work.avalon_buffer_R_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 8,
+			g_ADDRESS_WIDTH => 21,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
@@ -113,7 +114,7 @@ begin
 
 	avalon_buffer_L_stimuli_inst : entity work.avalon_buffer_L_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 8,
+			g_ADDRESS_WIDTH => 21,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
@@ -153,6 +154,7 @@ begin
 			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
 			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest
 		);
+	s_sync_n <= not (s_sync);
 
 	--	s_spw_codec_comm_di <= s_spw_codec_comm_do;
 	--	s_spw_codec_comm_si <= s_spw_codec_comm_so;
@@ -160,24 +162,29 @@ begin
 	s_spw_clock <= (s_spw_codec_comm_so) xor (s_spw_codec_comm_do);
 
 	p_sync_generator : process(clk200, rst) is
-		variable v_sync_div_cnt : natural := 0;
+		variable v_sync_div_cnt  : natural   := 0;
+		variable v_sync_high     : std_logic := '0';
+		variable v_sync_one_shot : std_logic := '0';
 	begin
 		if (rst = '1') then
-			s_sync         <= '0';
-			v_sync_div_cnt := 0;
+			s_sync          <= '0';
+			v_sync_div_cnt  := 0;
+			v_sync_high     := '0';
+			v_sync_one_shot := '0';
 		elsif rising_edge(clk100) then
-			if (v_sync_div_cnt = 10000) then
-				if (s_sync = '0') then
+			if (v_sync_one_shot = '0') then
+				if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
 					s_sync         <= '1';
+					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
-				else
-					s_sync         <= '0';
-					v_sync_div_cnt := 10001;
+				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 25000)) then
+					s_sync          <= '0';
+					v_sync_high     := '0';
+--					v_sync_one_shot := '1'; -- comment this line to remove one-shot
+					v_sync_div_cnt  := 0;
 				end if;
-				--				v_sync_div_cnt := 0;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;
-			--			s_sync         <= '0';
 		end if;
 	end process p_sync_generator;
 
@@ -247,7 +254,7 @@ begin
 
 				-- check incoming data
 				if (s_dummy_spw_rxdata = x"00") then
-					--assert false report "Wrong Spw Rx Data" severity error;
+					-- assert false report "Wrong Spw Rx Data" severity error;
 				end if;
 			end if;
 

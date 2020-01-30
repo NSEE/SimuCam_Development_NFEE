@@ -15,15 +15,15 @@ entity ftdi_rx_data_avalon_mm_read_ent is
 		buffer_rddata_i          : in  std_logic_vector(255 downto 0);
 		buffer_rdready_i         : in  std_logic;
 		ftdi_rx_data_avalon_mm_o : out t_ftdi_rx_data_avalon_mm_read_out;
-		buffer_rdreq_o           : out std_logic;
-		buffer_change_o          : out std_logic
+		buffer_rdreq_o           : out std_logic
 	);
 end entity ftdi_rx_data_avalon_mm_read_ent;
 
 architecture rtl of ftdi_rx_data_avalon_mm_read_ent is
 
 	signal s_readdata_fetched : std_logic;
-	signal s_first_fetch : std_logic;
+	signal s_first_fetch      : std_logic;
+	signal s_fetch_delay      : std_logic;
 	--	signal s_data_acquired    : std_logic;
 
 	type t_ftdi_rx_data_avalon_mm_read_fsm is (
@@ -39,9 +39,9 @@ begin
 		procedure p_reset_registers is
 		begin
 			buffer_rdreq_o     <= '0';
-			buffer_change_o    <= '0';
 			s_readdata_fetched <= '0';
-			s_first_fetch <= '0';
+			s_first_fetch      <= '0';
+			s_fetch_delay      <= '0';
 		end procedure p_reset_registers;
 
 		procedure p_flags_hold is
@@ -51,20 +51,10 @@ begin
 
 		procedure p_buffer_control is
 		begin
-			buffer_rdreq_o  <= '0';
-			buffer_change_o <= '0';
-			--			-- check if there is no data fetched and if the tx data buffer is ready and not empty
-			--			if ((s_readdata_fetched = '0') and (buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
-			--				s_readdata_fetched <= '1';
-			--				buffer_rdreq_o     <= '1';
-			--			end if;
-			-- check if the tx data buffer is ready and empty
---			if ((buffer_rdready_i = '1') and (buffer_stat_empty_i = '1')) then
---				buffer_change_o <= '1';
---			end if;
+			buffer_rdreq_o <= '0';
 			if ((buffer_stat_empty_i = '1') and (s_readdata_fetched = '0')) then
 				s_first_fetch <= '1';
-			end if;			
+			end if;
 		end procedure p_buffer_control;
 
 		procedure p_readdata(read_address_i : t_ftdi_data_avalon_mm_address) is
@@ -75,14 +65,13 @@ begin
 			case (read_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 1023 =>
+				when 0 to t_ftdi_data_avalon_mm_address'high =>
 
 					-- check if the readdata is fetched
 					if (s_readdata_fetched = '1') then
 						if (s_first_fetch = '1') then
-							s_first_fetch <= '0';
+							s_first_fetch                        <= '0';
 							buffer_rdreq_o                       <= '0';
-							buffer_change_o                      <= '0';
 							s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
 							ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 							ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
@@ -90,10 +79,8 @@ begin
 							s_readdata_fetched                <= '0';
 							ftdi_rx_data_avalon_mm_o.readdata <= buffer_rddata_i;
 							buffer_rdreq_o                    <= '0';
-							buffer_change_o                   <= '0';
 							-- check if the tx data buffer is empty
 							if (buffer_stat_empty_i = '1') then
-								buffer_change_o <= '1';
 							-- check if the tx data buffer is ready and not empty
 							elsif ((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
 								s_readdata_fetched <= '1';
@@ -103,16 +90,19 @@ begin
 					else
 						-- readdata not fetch
 						buffer_rdreq_o                       <= '0';
-						buffer_change_o                      <= '0';
 						s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
 						ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 						ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
-						if (buffer_stat_empty_i = '1') then
-							buffer_change_o <= '1';
+						-- check if a fetch is in progress
+						if (s_fetch_delay = '1') then
+							s_readdata_fetched <= '1';
+							buffer_rdreq_o     <= '0';
+							s_fetch_delay      <= '0';
 						-- check if the tx data buffer is ready and not empty
 						elsif ((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
-							s_readdata_fetched <= '1';
+							s_readdata_fetched <= '0';
 							buffer_rdreq_o     <= '1';
+							s_fetch_delay      <= '1';
 						end if;
 					end if;
 
@@ -128,7 +118,6 @@ begin
 			ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 			ftdi_rx_data_avalon_mm_o.waitrequest <= '0';
 			s_ftdi_rx_data_avalon_mm_read_state  <= STOPPED;
-			--			s_data_acquired                      <= '0';
 			v_read_address                       := 0;
 			p_reset_registers;
 		elsif (rising_edge(clk_i)) then
@@ -138,10 +127,10 @@ begin
 				when STOPPED =>
 					s_ftdi_rx_data_avalon_mm_read_state  <= STOPPED;
 					s_readdata_fetched                   <= '0';
+					s_fetch_delay                        <= '0';
 					ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 					ftdi_rx_data_avalon_mm_o.waitrequest <= '0';
 					buffer_rdreq_o                       <= '0';
-					buffer_change_o                      <= '0';
 					if (data_rx_start_i = '1') then
 						s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
 						ftdi_rx_data_avalon_mm_o.waitrequest <= '1';

@@ -17,7 +17,7 @@ FUNCTION windowing_data_sc_fifo
 (
 	aclr,
 	clock,
-	data[63..0],
+	data[15..0],
 	rdreq,
 	sclr,
 	wrreq
@@ -26,6 +26,6 @@ FUNCTION windowing_data_sc_fifo
 RETURNS (
 	empty,
 	full,
-	q[63..0],
+	q[15..0],
 	usedw[7..0]
 );

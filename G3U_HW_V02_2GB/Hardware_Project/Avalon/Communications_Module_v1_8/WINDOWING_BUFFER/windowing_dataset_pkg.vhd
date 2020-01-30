@@ -10,34 +10,16 @@ package windowing_dataset_pkg is
 		4, 8, 12, 16, 21, 25, 29, 33, 38, 42, 46, 50, 55, 59, 63, 67
 	);
 
-	-- windowing buffer data buffer
-	type t_windowing_data_buffer is array (0 to 271) of std_logic_vector(63 downto 0);
-
-	-- windowing buffer
-	--	type t_windowing_buffer is record
-	--		dbuffer : t_windowing_data_buffer;
-	--		full    : std_logic;
-	--		size    : std_logic_vector(3 downto 0);
-	--	end record t_windowing_buffer;
-
 	-- windowing buffer
 	type t_windowing_buffer is record
-		large_wrdata : std_logic_vector(255 downto 0);
-		large_wrreq  : std_logic;
-		small_wrdata : std_logic_vector(255 downto 0);
-		small_wrreq  : std_logic;
-		sclr         : std_logic;
-		full         : std_logic;
-		size         : std_logic_vector(3 downto 0);
+		wrdata : std_logic_vector(255 downto 0);
+		wrreq  : std_logic;
+		sclr   : std_logic;
 	end record t_windowing_buffer;
-
-	-- windowing double buffer
-	type t_windowing_double_buffer is array (0 to 1) of t_windowing_buffer;
 
 	-- windowing buffer control
 	type t_windowing_buffer_control is record
-		locked   : std_logic;
-		selected : natural range 0 to 1;
+		locked : std_logic;
 	end record t_windowing_buffer_control;
 
 	-- windowing buffer dataset data
@@ -52,44 +34,27 @@ package windowing_dataset_pkg is
 	-- windowing buffer dataset buffer
 	type t_windowing_dataset_buffer is array (0 to 15) of t_windowing_dataset;
 
-	-- windowing buffer dataset double buffer
-	type t_windowing_dataset_double_buffer is array (0 to 1) of t_windowing_dataset_buffer;
-
-	-- windowing large avsbuff sc fifo
-	type t_windowing_large_avsbuff_sc_fifo is record
+	-- windowing avsbuff sc fifo
+	type t_windowing_avsbuff_sc_fifo is record
 		rdreq  : std_logic;
 		empty  : std_logic;
 		full   : std_logic;
 		rddata : std_logic_vector(255 downto 0);
-		usedw  : std_logic_vector(5 downto 0);
-	end record t_windowing_large_avsbuff_sc_fifo;
-
-	-- windowing large avsbuff sc double fifo
-	type t_windowing_large_avsbuff_sc_double_fifo is array (0 to 1) of t_windowing_large_avsbuff_sc_fifo;
-
-	-- windowing small avsbuff sc fifo
-	type t_windowing_small_avsbuff_sc_fifo is record
-		rdreq  : std_logic;
-		empty  : std_logic;
-		full   : std_logic;
-		rddata : std_logic_vector(255 downto 0);
-		usedw  : std_logic_vector(1 downto 0);
-	end record t_windowing_small_avsbuff_sc_fifo;
-
-	-- windowing small avsbuff sc double fifo
-	type t_windowing_small_avsbuff_sc_double_fifo is array (0 to 1) of t_windowing_small_avsbuff_sc_fifo;
+		usedw  : std_logic_vector(4 downto 0);
+	end record t_windowing_avsbuff_sc_fifo;
 
 	-- windowing avsbuff qword data
 	type t_windowing_avsbuff_qword_data is array (0 to 3) of std_logic_vector(63 downto 0);
 
-	-- windowing avsbuff qword double data
-	type t_windowing_avsbuff_qword_double_data is array (0 to 1) of t_windowing_avsbuff_qword_data;
-
 	--	function f_pattern_pixels_change_timecode(pattern_pixel_data_i : in std_logic_vector; timecode_i : in std_logic_vector) return std_logic_vector;
 
-	function f_pixels_data_little_to_big_endian(little_endian_pixel_data_i : in std_logic_vector) return std_logic_vector;
+	function f_pixels_data_little_to_big_endian(little_endian_pixel_data_i : std_logic_vector) return std_logic_vector;
 
-	function f_mask_conv(old_mask_i : in std_logic_vector) return std_logic_vector;
+	function f_pixels_data_little_to_big_endian_single(little_endian_pixel_data_i : std_logic_vector; pixel_index_i : in natural) return std_logic_vector;
+
+	function f_mask_conv(old_mask_i : std_logic_vector) return std_logic_vector;
+
+	function f_mask_conv_single(old_mask_i : std_logic_vector; mask_index_i : natural) return std_logic;
 
 end package windowing_dataset_pkg;
 
@@ -150,7 +115,7 @@ package body windowing_dataset_pkg is
 	--		return v_new_pattern_pixel_data;
 	--	end function f_pattern_pixels_change_timecode;
 
-	function f_pixels_data_little_to_big_endian(little_endian_pixel_data_i : in std_logic_vector) return std_logic_vector is
+	function f_pixels_data_little_to_big_endian(little_endian_pixel_data_i : std_logic_vector) return std_logic_vector is
 		variable v_big_endian_pixel_data : std_logic_vector(63 downto 0);
 	begin
 
@@ -193,7 +158,50 @@ package body windowing_dataset_pkg is
 		return v_big_endian_pixel_data;
 	end function f_pixels_data_little_to_big_endian;
 
-	function f_mask_conv(old_mask_i : in std_logic_vector) return std_logic_vector is
+	function f_pixels_data_little_to_big_endian_single(little_endian_pixel_data_i : std_logic_vector; pixel_index_i : natural) return std_logic_vector is
+		variable v_big_endian_pixel_data_single : std_logic_vector(15 downto 0);
+	begin
+
+		-- pixels arrangement for little endian (avalon standart and real memory organization):
+		-- |  pixel_3_msb |  pixel_3_lsb |  pixel_2_msb |  pixel_2_lsb |  pixel_1_msb |  pixel_1_lsb |  pixel_0_msb |  pixel_0_lsb | 
+		-- | 63 downto 56 | 55 downto 48 | 47 downto 40 | 39 downto 32 | 31 downto 24 | 23 downto 16 | 15 downto  8 |  7 downto  0 |
+		--
+		-- pixels arrangement for big endian (for spacewire transmission):
+		-- |  pixel_3_lsb |  pixel_3_msb |  pixel_2_lsb |  pixel_2_msb |  pixel_1_lsb |  pixel_1_msb |  pixel_0_lsb |  pixel_0_msb | 
+		-- | 55 downto 48 | 63 downto 56 | 39 downto 32 | 47 downto 40 | 23 downto 16 | 31 downto 24 |  7 downto  0 | 15 downto  8 |
+		--
+		-- little endian to big endian conversion:
+		-- s_big_endian(55 downto 48) <= s_little_endian(63 downto 56);
+		-- s_big_endian(63 downto 56) <= s_little_endian(55 downto 48);
+		-- s_big_endian(39 downto 32) <= s_little_endian(47 downto 40);
+		-- s_big_endian(47 downto 40) <= s_little_endian(39 downto 32);
+		-- s_big_endian(23 downto 16) <= s_little_endian(31 downto 24);
+		-- s_big_endian(31 downto 24) <= s_little_endian(23 downto 16);
+		-- s_big_endian( 7 downto  0) <= s_little_endian(15 downto  8);
+		-- s_big_endian(15 downto  8) <= s_little_endian( 7 downto  0);
+
+		-- little endian to big endian conversion:
+		-- pixel n lsb
+		if (pixel_index_i = 0) then
+			v_big_endian_pixel_data_single(7 downto 0)  := little_endian_pixel_data_i(((0 * 16) + 15) downto ((0 * 16) + 8));
+			v_big_endian_pixel_data_single(15 downto 8) := little_endian_pixel_data_i(((0 * 16) + 7) downto (0 * 16));
+		elsif (pixel_index_i = 1) then
+			v_big_endian_pixel_data_single(7 downto 0)  := little_endian_pixel_data_i(((1 * 16) + 15) downto ((1 * 16) + 8));
+			v_big_endian_pixel_data_single(15 downto 8) := little_endian_pixel_data_i(((1 * 16) + 7) downto (1 * 16));
+		elsif (pixel_index_i = 2) then
+			v_big_endian_pixel_data_single(7 downto 0)  := little_endian_pixel_data_i(((2 * 16) + 15) downto ((2 * 16) + 8));
+			v_big_endian_pixel_data_single(15 downto 8) := little_endian_pixel_data_i(((2 * 16) + 7) downto (2 * 16));
+		elsif (pixel_index_i = 3) then
+			v_big_endian_pixel_data_single(7 downto 0)  := little_endian_pixel_data_i(((3 * 16) + 15) downto ((3 * 16) + 8));
+			v_big_endian_pixel_data_single(15 downto 8) := little_endian_pixel_data_i(((3 * 16) + 7) downto (3 * 16));
+		else
+			v_big_endian_pixel_data_single := (others => '0');
+		end if;
+
+		return v_big_endian_pixel_data_single;
+	end function f_pixels_data_little_to_big_endian_single;
+
+	function f_mask_conv(old_mask_i : std_logic_vector) return std_logic_vector is
 		variable v_new_mask : std_logic_vector(63 downto 0);
 	begin
 
@@ -267,5 +275,17 @@ package body windowing_dataset_pkg is
 
 		return v_new_mask;
 	end function f_mask_conv;
+
+	function f_mask_conv_single(old_mask_i : std_logic_vector; mask_index_i : natural) return std_logic is
+		variable v_new_mask_single : std_logic;
+	begin
+
+		-- mask bits correction:
+		-- new_mask(63 downto 0) <= old_mask(0 to 63)
+
+		v_new_mask_single := old_mask_i(63 - mask_index_i);
+
+		return v_new_mask_single;
+	end function f_mask_conv_single;
 
 end package body windowing_dataset_pkg;

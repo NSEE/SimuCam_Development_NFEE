@@ -199,11 +199,11 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_slave_windowing_byteenable  : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
 			avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0);                     -- readdata
 			avalon_slave_windowing_waitrequest : out std_logic;                                         -- waitrequest
-			avalon_slave_L_buffer_address      : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- address
+			avalon_slave_L_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => 'X'); -- address
 			avalon_slave_L_buffer_waitrequest  : out std_logic;                                         -- waitrequest
 			avalon_slave_L_buffer_write        : in  std_logic                      := 'X';             -- write
 			avalon_slave_L_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			avalon_slave_R_buffer_address      : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- address
+			avalon_slave_R_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => 'X'); -- address
 			avalon_slave_R_buffer_write        : in  std_logic                      := 'X';             -- write
 			avalon_slave_R_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
 			avalon_slave_R_buffer_waitrequest  : out std_logic;                                         -- waitrequest
@@ -235,7 +235,7 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
 			avalon_slave_config_waitrequest : out   std_logic;                                         -- waitrequest
 			avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
-			avalon_slave_data_address       : in    std_logic_vector(9 downto 0)   := (others => 'X'); -- address
+			avalon_slave_data_address       : in    std_logic_vector(20 downto 0)  := (others => 'X'); -- address
 			avalon_slave_data_write         : in    std_logic                      := 'X';             -- write
 			avalon_slave_data_read          : in    std_logic                      := 'X';             -- read
 			avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
@@ -335,15 +335,15 @@ architecture rtl of MebX_Qsys_Project is
 		);
 	end component altera_address_span_extender;
 
-	component MebX_Qsys_Project_dma_DDR_M1 is
+	component MebX_Qsys_Project_dma_comm_1_left is
 		port (
-			mm_read_address              : out std_logic_vector(33 downto 0);                     -- address
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
 			mm_read_read                 : out std_logic;                                         -- read
 			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
 			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
 			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
 			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
-			mm_write_address             : out std_logic_vector(33 downto 0);                     -- address
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
 			mm_write_write               : out std_logic;                                         -- write
 			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
 			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
@@ -362,17 +362,17 @@ architecture rtl of MebX_Qsys_Project is
 			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
 			csr_irq_irq                  : out std_logic                                          -- irq
 		);
-	end component MebX_Qsys_Project_dma_DDR_M1;
+	end component MebX_Qsys_Project_dma_comm_1_left;
 
-	component MebX_Qsys_Project_dma_DDR_M2 is
+	component MebX_Qsys_Project_dma_comm_1_right is
 		port (
-			mm_read_address              : out std_logic_vector(33 downto 0);                     -- address
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
 			mm_read_read                 : out std_logic;                                         -- read
 			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
 			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
 			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
 			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
-			mm_write_address             : out std_logic_vector(33 downto 0);                     -- address
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
 			mm_write_write               : out std_logic;                                         -- write
 			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
 			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
@@ -391,7 +391,326 @@ architecture rtl of MebX_Qsys_Project is
 			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
 			csr_irq_irq                  : out std_logic                                          -- irq
 		);
-	end component MebX_Qsys_Project_dma_DDR_M2;
+	end component MebX_Qsys_Project_dma_comm_1_right;
+
+	component MebX_Qsys_Project_dma_comm_2_left is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_2_left;
+
+	component MebX_Qsys_Project_dma_comm_2_right is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_2_right;
+
+	component MebX_Qsys_Project_dma_comm_3_left is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_3_left;
+
+	component MebX_Qsys_Project_dma_comm_3_right is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_3_right;
+
+	component MebX_Qsys_Project_dma_comm_4_left is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_4_left;
+
+	component MebX_Qsys_Project_dma_comm_4_right is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_4_right;
+
+	component MebX_Qsys_Project_dma_comm_5_left is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_5_left;
+
+	component MebX_Qsys_Project_dma_comm_5_right is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_5_right;
+
+	component MebX_Qsys_Project_dma_comm_6_left is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_6_left;
+
+	component MebX_Qsys_Project_dma_comm_6_right is
+		port (
+			mm_read_address              : out std_logic_vector(31 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_comm_6_right;
+
+	component MebX_Qsys_Project_dma_ftdi_usb3 is
+		port (
+			mm_read_address              : out std_logic_vector(33 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_write_address             : out std_logic_vector(31 downto 0);                     -- address
+			mm_write_write               : out std_logic;                                         -- write
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic                                          -- irq
+		);
+	end component MebX_Qsys_Project_dma_ftdi_usb3;
 
 	component MebX_Qsys_Project_ext_flash is
 		generic (
@@ -647,15 +966,11 @@ architecture rtl of MebX_Qsys_Project is
 
 	component MebX_Qsys_Project_pio_EXT is
 		port (
-			clk        : in  std_logic                     := 'X';             -- clk
-			reset_n    : in  std_logic                     := 'X';             -- reset_n
-			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
-			write_n    : in  std_logic                     := 'X';             -- write_n
-			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			chipselect : in  std_logic                     := 'X';             -- chipselect
-			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			in_port    : in  std_logic                     := 'X';             -- export
-			irq        : out std_logic                                         -- irq
+			clk      : in  std_logic                     := 'X';             -- clk
+			reset_n  : in  std_logic                     := 'X';             -- reset_n
+			address  : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			readdata : out std_logic_vector(31 downto 0);                    -- readdata
+			in_port  : in  std_logic                     := 'X'              -- export
 		);
 	end component MebX_Qsys_Project_pio_EXT;
 
@@ -922,26 +1237,136 @@ architecture rtl of MebX_Qsys_Project is
 			ddr2_address_span_extender_windowed_slave_byteenable         : out std_logic_vector(3 downto 0);                      -- byteenable
 			ddr2_address_span_extender_windowed_slave_readdatavalid      : in  std_logic                      := 'X';             -- readdatavalid
 			ddr2_address_span_extender_windowed_slave_waitrequest        : in  std_logic                      := 'X';             -- waitrequest
-			dma_DDR_M1_csr_address                                       : out std_logic_vector(2 downto 0);                      -- address
-			dma_DDR_M1_csr_write                                         : out std_logic;                                         -- write
-			dma_DDR_M1_csr_read                                          : out std_logic;                                         -- read
-			dma_DDR_M1_csr_readdata                                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
-			dma_DDR_M1_csr_writedata                                     : out std_logic_vector(31 downto 0);                     -- writedata
-			dma_DDR_M1_csr_byteenable                                    : out std_logic_vector(3 downto 0);                      -- byteenable
-			dma_DDR_M1_descriptor_slave_write                            : out std_logic;                                         -- write
-			dma_DDR_M1_descriptor_slave_writedata                        : out std_logic_vector(255 downto 0);                    -- writedata
-			dma_DDR_M1_descriptor_slave_byteenable                       : out std_logic_vector(31 downto 0);                     -- byteenable
-			dma_DDR_M1_descriptor_slave_waitrequest                      : in  std_logic                      := 'X';             -- waitrequest
-			dma_DDR_M2_csr_address                                       : out std_logic_vector(2 downto 0);                      -- address
-			dma_DDR_M2_csr_write                                         : out std_logic;                                         -- write
-			dma_DDR_M2_csr_read                                          : out std_logic;                                         -- read
-			dma_DDR_M2_csr_readdata                                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
-			dma_DDR_M2_csr_writedata                                     : out std_logic_vector(31 downto 0);                     -- writedata
-			dma_DDR_M2_csr_byteenable                                    : out std_logic_vector(3 downto 0);                      -- byteenable
-			dma_DDR_M2_descriptor_slave_write                            : out std_logic;                                         -- write
-			dma_DDR_M2_descriptor_slave_writedata                        : out std_logic_vector(255 downto 0);                    -- writedata
-			dma_DDR_M2_descriptor_slave_byteenable                       : out std_logic_vector(31 downto 0);                     -- byteenable
-			dma_DDR_M2_descriptor_slave_waitrequest                      : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_1_left_csr_address                                  : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_1_left_csr_write                                    : out std_logic;                                         -- write
+			dma_comm_1_left_csr_read                                     : out std_logic;                                         -- read
+			dma_comm_1_left_csr_readdata                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_1_left_csr_writedata                                : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_1_left_csr_byteenable                               : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_1_left_descriptor_slave_write                       : out std_logic;                                         -- write
+			dma_comm_1_left_descriptor_slave_writedata                   : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_1_left_descriptor_slave_byteenable                  : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_1_left_descriptor_slave_waitrequest                 : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_1_right_csr_address                                 : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_1_right_csr_write                                   : out std_logic;                                         -- write
+			dma_comm_1_right_csr_read                                    : out std_logic;                                         -- read
+			dma_comm_1_right_csr_readdata                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_1_right_csr_writedata                               : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_1_right_csr_byteenable                              : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_1_right_descriptor_slave_write                      : out std_logic;                                         -- write
+			dma_comm_1_right_descriptor_slave_writedata                  : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_1_right_descriptor_slave_byteenable                 : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_1_right_descriptor_slave_waitrequest                : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_2_left_csr_address                                  : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_2_left_csr_write                                    : out std_logic;                                         -- write
+			dma_comm_2_left_csr_read                                     : out std_logic;                                         -- read
+			dma_comm_2_left_csr_readdata                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_2_left_csr_writedata                                : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_2_left_csr_byteenable                               : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_2_left_descriptor_slave_write                       : out std_logic;                                         -- write
+			dma_comm_2_left_descriptor_slave_writedata                   : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_2_left_descriptor_slave_byteenable                  : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_2_left_descriptor_slave_waitrequest                 : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_2_right_csr_address                                 : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_2_right_csr_write                                   : out std_logic;                                         -- write
+			dma_comm_2_right_csr_read                                    : out std_logic;                                         -- read
+			dma_comm_2_right_csr_readdata                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_2_right_csr_writedata                               : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_2_right_csr_byteenable                              : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_2_right_descriptor_slave_write                      : out std_logic;                                         -- write
+			dma_comm_2_right_descriptor_slave_writedata                  : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_2_right_descriptor_slave_byteenable                 : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_2_right_descriptor_slave_waitrequest                : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_3_left_csr_address                                  : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_3_left_csr_write                                    : out std_logic;                                         -- write
+			dma_comm_3_left_csr_read                                     : out std_logic;                                         -- read
+			dma_comm_3_left_csr_readdata                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_3_left_csr_writedata                                : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_3_left_csr_byteenable                               : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_3_left_descriptor_slave_write                       : out std_logic;                                         -- write
+			dma_comm_3_left_descriptor_slave_writedata                   : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_3_left_descriptor_slave_byteenable                  : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_3_left_descriptor_slave_waitrequest                 : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_3_right_csr_address                                 : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_3_right_csr_write                                   : out std_logic;                                         -- write
+			dma_comm_3_right_csr_read                                    : out std_logic;                                         -- read
+			dma_comm_3_right_csr_readdata                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_3_right_csr_writedata                               : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_3_right_csr_byteenable                              : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_3_right_descriptor_slave_write                      : out std_logic;                                         -- write
+			dma_comm_3_right_descriptor_slave_writedata                  : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_3_right_descriptor_slave_byteenable                 : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_3_right_descriptor_slave_waitrequest                : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_4_left_csr_address                                  : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_4_left_csr_write                                    : out std_logic;                                         -- write
+			dma_comm_4_left_csr_read                                     : out std_logic;                                         -- read
+			dma_comm_4_left_csr_readdata                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_4_left_csr_writedata                                : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_4_left_csr_byteenable                               : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_4_left_descriptor_slave_write                       : out std_logic;                                         -- write
+			dma_comm_4_left_descriptor_slave_writedata                   : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_4_left_descriptor_slave_byteenable                  : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_4_left_descriptor_slave_waitrequest                 : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_4_right_csr_address                                 : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_4_right_csr_write                                   : out std_logic;                                         -- write
+			dma_comm_4_right_csr_read                                    : out std_logic;                                         -- read
+			dma_comm_4_right_csr_readdata                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_4_right_csr_writedata                               : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_4_right_csr_byteenable                              : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_4_right_descriptor_slave_write                      : out std_logic;                                         -- write
+			dma_comm_4_right_descriptor_slave_writedata                  : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_4_right_descriptor_slave_byteenable                 : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_4_right_descriptor_slave_waitrequest                : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_5_left_csr_address                                  : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_5_left_csr_write                                    : out std_logic;                                         -- write
+			dma_comm_5_left_csr_read                                     : out std_logic;                                         -- read
+			dma_comm_5_left_csr_readdata                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_5_left_csr_writedata                                : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_5_left_csr_byteenable                               : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_5_left_descriptor_slave_write                       : out std_logic;                                         -- write
+			dma_comm_5_left_descriptor_slave_writedata                   : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_5_left_descriptor_slave_byteenable                  : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_5_left_descriptor_slave_waitrequest                 : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_5_right_csr_address                                 : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_5_right_csr_write                                   : out std_logic;                                         -- write
+			dma_comm_5_right_csr_read                                    : out std_logic;                                         -- read
+			dma_comm_5_right_csr_readdata                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_5_right_csr_writedata                               : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_5_right_csr_byteenable                              : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_5_right_descriptor_slave_write                      : out std_logic;                                         -- write
+			dma_comm_5_right_descriptor_slave_writedata                  : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_5_right_descriptor_slave_byteenable                 : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_5_right_descriptor_slave_waitrequest                : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_6_left_csr_address                                  : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_6_left_csr_write                                    : out std_logic;                                         -- write
+			dma_comm_6_left_csr_read                                     : out std_logic;                                         -- read
+			dma_comm_6_left_csr_readdata                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_6_left_csr_writedata                                : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_6_left_csr_byteenable                               : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_6_left_descriptor_slave_write                       : out std_logic;                                         -- write
+			dma_comm_6_left_descriptor_slave_writedata                   : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_6_left_descriptor_slave_byteenable                  : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_6_left_descriptor_slave_waitrequest                 : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_6_right_csr_address                                 : out std_logic_vector(2 downto 0);                      -- address
+			dma_comm_6_right_csr_write                                   : out std_logic;                                         -- write
+			dma_comm_6_right_csr_read                                    : out std_logic;                                         -- read
+			dma_comm_6_right_csr_readdata                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_comm_6_right_csr_writedata                               : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_comm_6_right_csr_byteenable                              : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_comm_6_right_descriptor_slave_write                      : out std_logic;                                         -- write
+			dma_comm_6_right_descriptor_slave_writedata                  : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_comm_6_right_descriptor_slave_byteenable                 : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_comm_6_right_descriptor_slave_waitrequest                : in  std_logic                      := 'X';             -- waitrequest
+			dma_ftdi_usb3_csr_address                                    : out std_logic_vector(2 downto 0);                      -- address
+			dma_ftdi_usb3_csr_write                                      : out std_logic;                                         -- write
+			dma_ftdi_usb3_csr_read                                       : out std_logic;                                         -- read
+			dma_ftdi_usb3_csr_readdata                                   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			dma_ftdi_usb3_csr_writedata                                  : out std_logic_vector(31 downto 0);                     -- writedata
+			dma_ftdi_usb3_csr_byteenable                                 : out std_logic_vector(3 downto 0);                      -- byteenable
+			dma_ftdi_usb3_descriptor_slave_write                         : out std_logic;                                         -- write
+			dma_ftdi_usb3_descriptor_slave_writedata                     : out std_logic_vector(255 downto 0);                    -- writedata
+			dma_ftdi_usb3_descriptor_slave_byteenable                    : out std_logic_vector(31 downto 0);                     -- byteenable
+			dma_ftdi_usb3_descriptor_slave_waitrequest                   : in  std_logic                      := 'X';             -- waitrequest
 			ext_flash_uas_address                                        : out std_logic_vector(25 downto 0);                     -- address
 			ext_flash_uas_write                                          : out std_logic;                                         -- write
 			ext_flash_uas_read                                           : out std_logic;                                         -- read
@@ -992,12 +1417,6 @@ architecture rtl of MebX_Qsys_Project is
 			clk_100_clk_clk                                                 : in  std_logic                      := 'X';             -- clk
 			m2_ddr2_memory_afi_clk_clk                                      : in  std_logic                      := 'X';             -- clk
 			m2_ddr2_memory_afi_half_clk_clk                                 : in  std_logic                      := 'X';             -- clk
-			COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
-			COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
-			COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
-			COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
-			COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
-			COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
 			ddr2_address_span_extender_reset_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
 			m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset            : in  std_logic                      := 'X';             -- reset
 			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
@@ -1011,82 +1430,83 @@ architecture rtl of MebX_Qsys_Project is
 			ddr2_address_span_extender_expanded_master_readdatavalid        : out std_logic;                                         -- readdatavalid
 			ddr2_address_span_extender_expanded_master_write                : in  std_logic                      := 'X';             -- write
 			ddr2_address_span_extender_expanded_master_writedata            : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
-			dma_DDR_M1_mm_read_address                                      : in  std_logic_vector(33 downto 0)  := (others => 'X'); -- address
-			dma_DDR_M1_mm_read_waitrequest                                  : out std_logic;                                         -- waitrequest
-			dma_DDR_M1_mm_read_byteenable                                   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			dma_DDR_M1_mm_read_read                                         : in  std_logic                      := 'X';             -- read
-			dma_DDR_M1_mm_read_readdata                                     : out std_logic_vector(255 downto 0);                    -- readdata
-			dma_DDR_M1_mm_read_readdatavalid                                : out std_logic;                                         -- readdatavalid
-			dma_DDR_M1_mm_write_address                                     : in  std_logic_vector(33 downto 0)  := (others => 'X'); -- address
-			dma_DDR_M1_mm_write_waitrequest                                 : out std_logic;                                         -- waitrequest
-			dma_DDR_M1_mm_write_byteenable                                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			dma_DDR_M1_mm_write_write                                       : in  std_logic                      := 'X';             -- write
-			dma_DDR_M1_mm_write_writedata                                   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			dma_DDR_M2_mm_read_address                                      : in  std_logic_vector(33 downto 0)  := (others => 'X'); -- address
-			dma_DDR_M2_mm_read_waitrequest                                  : out std_logic;                                         -- waitrequest
-			dma_DDR_M2_mm_read_byteenable                                   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			dma_DDR_M2_mm_read_read                                         : in  std_logic                      := 'X';             -- read
-			dma_DDR_M2_mm_read_readdata                                     : out std_logic_vector(255 downto 0);                    -- readdata
-			dma_DDR_M2_mm_read_readdatavalid                                : out std_logic;                                         -- readdatavalid
-			dma_DDR_M2_mm_write_address                                     : in  std_logic_vector(33 downto 0)  := (others => 'X'); -- address
-			dma_DDR_M2_mm_write_waitrequest                                 : out std_logic;                                         -- waitrequest
-			dma_DDR_M2_mm_write_byteenable                                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			dma_DDR_M2_mm_write_write                                       : in  std_logic                      := 'X';             -- write
-			dma_DDR_M2_mm_write_writedata                                   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_write               : out std_logic;                                         -- write
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
-			FTDI_USB3_0_avalon_slave_data_address                           : out std_logic_vector(9 downto 0);                      -- address
-			FTDI_USB3_0_avalon_slave_data_write                             : out std_logic;                                         -- write
-			FTDI_USB3_0_avalon_slave_data_read                              : out std_logic;                                         -- read
-			FTDI_USB3_0_avalon_slave_data_readdata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			FTDI_USB3_0_avalon_slave_data_writedata                         : out std_logic_vector(255 downto 0);                    -- writedata
-			FTDI_USB3_0_avalon_slave_data_waitrequest                       : in  std_logic                      := 'X';             -- waitrequest
+			dma_comm_1_left_mm_read_address                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_1_left_mm_read_waitrequest                             : out std_logic;                                         -- waitrequest
+			dma_comm_1_left_mm_read_byteenable                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_1_left_mm_read_read                                    : in  std_logic                      := 'X';             -- read
+			dma_comm_1_left_mm_read_readdata                                : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_1_left_mm_read_readdatavalid                           : out std_logic;                                         -- readdatavalid
+			dma_comm_1_right_mm_read_address                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_1_right_mm_read_waitrequest                            : out std_logic;                                         -- waitrequest
+			dma_comm_1_right_mm_read_byteenable                             : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_1_right_mm_read_read                                   : in  std_logic                      := 'X';             -- read
+			dma_comm_1_right_mm_read_readdata                               : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_1_right_mm_read_readdatavalid                          : out std_logic;                                         -- readdatavalid
+			dma_comm_2_left_mm_read_address                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_2_left_mm_read_waitrequest                             : out std_logic;                                         -- waitrequest
+			dma_comm_2_left_mm_read_byteenable                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_2_left_mm_read_read                                    : in  std_logic                      := 'X';             -- read
+			dma_comm_2_left_mm_read_readdata                                : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_2_left_mm_read_readdatavalid                           : out std_logic;                                         -- readdatavalid
+			dma_comm_2_right_mm_read_address                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_2_right_mm_read_waitrequest                            : out std_logic;                                         -- waitrequest
+			dma_comm_2_right_mm_read_byteenable                             : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_2_right_mm_read_read                                   : in  std_logic                      := 'X';             -- read
+			dma_comm_2_right_mm_read_readdata                               : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_2_right_mm_read_readdatavalid                          : out std_logic;                                         -- readdatavalid
+			dma_comm_3_left_mm_read_address                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_3_left_mm_read_waitrequest                             : out std_logic;                                         -- waitrequest
+			dma_comm_3_left_mm_read_byteenable                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_3_left_mm_read_read                                    : in  std_logic                      := 'X';             -- read
+			dma_comm_3_left_mm_read_readdata                                : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_3_left_mm_read_readdatavalid                           : out std_logic;                                         -- readdatavalid
+			dma_comm_3_right_mm_read_address                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_3_right_mm_read_waitrequest                            : out std_logic;                                         -- waitrequest
+			dma_comm_3_right_mm_read_byteenable                             : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_3_right_mm_read_read                                   : in  std_logic                      := 'X';             -- read
+			dma_comm_3_right_mm_read_readdata                               : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_3_right_mm_read_readdatavalid                          : out std_logic;                                         -- readdatavalid
+			dma_comm_4_left_mm_read_address                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_4_left_mm_read_waitrequest                             : out std_logic;                                         -- waitrequest
+			dma_comm_4_left_mm_read_byteenable                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_4_left_mm_read_read                                    : in  std_logic                      := 'X';             -- read
+			dma_comm_4_left_mm_read_readdata                                : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_4_left_mm_read_readdatavalid                           : out std_logic;                                         -- readdatavalid
+			dma_comm_4_right_mm_read_address                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_4_right_mm_read_waitrequest                            : out std_logic;                                         -- waitrequest
+			dma_comm_4_right_mm_read_byteenable                             : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_4_right_mm_read_read                                   : in  std_logic                      := 'X';             -- read
+			dma_comm_4_right_mm_read_readdata                               : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_4_right_mm_read_readdatavalid                          : out std_logic;                                         -- readdatavalid
+			dma_comm_5_left_mm_read_address                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_5_left_mm_read_waitrequest                             : out std_logic;                                         -- waitrequest
+			dma_comm_5_left_mm_read_byteenable                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_5_left_mm_read_read                                    : in  std_logic                      := 'X';             -- read
+			dma_comm_5_left_mm_read_readdata                                : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_5_left_mm_read_readdatavalid                           : out std_logic;                                         -- readdatavalid
+			dma_comm_5_right_mm_read_address                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_5_right_mm_read_waitrequest                            : out std_logic;                                         -- waitrequest
+			dma_comm_5_right_mm_read_byteenable                             : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_5_right_mm_read_read                                   : in  std_logic                      := 'X';             -- read
+			dma_comm_5_right_mm_read_readdata                               : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_5_right_mm_read_readdatavalid                          : out std_logic;                                         -- readdatavalid
+			dma_comm_6_left_mm_read_address                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_6_left_mm_read_waitrequest                             : out std_logic;                                         -- waitrequest
+			dma_comm_6_left_mm_read_byteenable                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_6_left_mm_read_read                                    : in  std_logic                      := 'X';             -- read
+			dma_comm_6_left_mm_read_readdata                                : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_6_left_mm_read_readdatavalid                           : out std_logic;                                         -- readdatavalid
+			dma_comm_6_right_mm_read_address                                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_comm_6_right_mm_read_waitrequest                            : out std_logic;                                         -- waitrequest
+			dma_comm_6_right_mm_read_byteenable                             : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_6_right_mm_read_read                                   : in  std_logic                      := 'X';             -- read
+			dma_comm_6_right_mm_read_readdata                               : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_comm_6_right_mm_read_readdatavalid                          : out std_logic;                                         -- readdatavalid
+			dma_ftdi_usb3_mm_write_address                                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			dma_ftdi_usb3_mm_write_waitrequest                              : out std_logic;                                         -- waitrequest
+			dma_ftdi_usb3_mm_write_byteenable                               : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_ftdi_usb3_mm_write_write                                    : in  std_logic                      := 'X';             -- write
+			dma_ftdi_usb3_mm_write_writedata                                : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
 			m1_clock_bridge_s0_address                                      : out std_logic_vector(30 downto 0);                     -- address
 			m1_clock_bridge_s0_write                                        : out std_logic;                                         -- write
 			m1_clock_bridge_s0_read                                         : out std_logic;                                         -- read
@@ -1187,10 +1607,7 @@ architecture rtl of MebX_Qsys_Project is
 			pio_DIP_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
 			pio_DIP_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			pio_EXT_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
-			pio_EXT_s1_write                                                       : out std_logic;                                        -- write
 			pio_EXT_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			pio_EXT_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
-			pio_EXT_s1_chipselect                                                  : out std_logic;                                        -- chipselect
 			pio_LED_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
 			pio_LED_s1_write                                                       : out std_logic;                                        -- write
 			pio_LED_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
@@ -1298,6 +1715,229 @@ architecture rtl of MebX_Qsys_Project is
 		);
 	end component MebX_Qsys_Project_mm_interconnect_3;
 
+	component MebX_Qsys_Project_mm_interconnect_4 is
+		port (
+			clk_100_clk_clk                                   : in  std_logic                      := 'X';             -- clk
+			dma_ftdi_usb3_reset_n_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_ftdi_usb3_mm_read_address                     : in  std_logic_vector(33 downto 0)  := (others => 'X'); -- address
+			dma_ftdi_usb3_mm_read_waitrequest                 : out std_logic;                                         -- waitrequest
+			dma_ftdi_usb3_mm_read_byteenable                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_ftdi_usb3_mm_read_read                        : in  std_logic                      := 'X';             -- read
+			dma_ftdi_usb3_mm_read_readdata                    : out std_logic_vector(255 downto 0);                    -- readdata
+			dma_ftdi_usb3_mm_read_readdatavalid               : out std_logic;                                         -- readdatavalid
+			FTDI_USB3_0_avalon_slave_data_address             : out std_logic_vector(20 downto 0);                     -- address
+			FTDI_USB3_0_avalon_slave_data_write               : out std_logic;                                         -- write
+			FTDI_USB3_0_avalon_slave_data_read                : out std_logic;                                         -- read
+			FTDI_USB3_0_avalon_slave_data_readdata            : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			FTDI_USB3_0_avalon_slave_data_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
+			FTDI_USB3_0_avalon_slave_data_waitrequest         : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_4;
+
+	component MebX_Qsys_Project_mm_interconnect_5 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_1_left_reset_n_reset_bridge_in_reset_reset          : in  std_logic                      := 'X';             -- reset
+			dma_comm_1_left_mm_write_address                             : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_1_left_mm_write_waitrequest                         : out std_logic;                                         -- waitrequest
+			dma_comm_1_left_mm_write_byteenable                          : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_1_left_mm_write_write                               : in  std_logic                      := 'X';             -- write
+			dma_comm_1_left_mm_write_writedata                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_5;
+
+	component MebX_Qsys_Project_mm_interconnect_6 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_2_left_reset_n_reset_bridge_in_reset_reset          : in  std_logic                      := 'X';             -- reset
+			dma_comm_2_left_mm_write_address                             : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_2_left_mm_write_waitrequest                         : out std_logic;                                         -- waitrequest
+			dma_comm_2_left_mm_write_byteenable                          : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_2_left_mm_write_write                               : in  std_logic                      := 'X';             -- write
+			dma_comm_2_left_mm_write_writedata                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_6;
+
+	component MebX_Qsys_Project_mm_interconnect_7 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_3_left_reset_n_reset_bridge_in_reset_reset          : in  std_logic                      := 'X';             -- reset
+			dma_comm_3_left_mm_write_address                             : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_3_left_mm_write_waitrequest                         : out std_logic;                                         -- waitrequest
+			dma_comm_3_left_mm_write_byteenable                          : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_3_left_mm_write_write                               : in  std_logic                      := 'X';             -- write
+			dma_comm_3_left_mm_write_writedata                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_7;
+
+	component MebX_Qsys_Project_mm_interconnect_8 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_4_left_reset_n_reset_bridge_in_reset_reset          : in  std_logic                      := 'X';             -- reset
+			dma_comm_4_left_mm_write_address                             : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_4_left_mm_write_waitrequest                         : out std_logic;                                         -- waitrequest
+			dma_comm_4_left_mm_write_byteenable                          : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_4_left_mm_write_write                               : in  std_logic                      := 'X';             -- write
+			dma_comm_4_left_mm_write_writedata                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_8;
+
+	component MebX_Qsys_Project_mm_interconnect_9 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_5_left_reset_n_reset_bridge_in_reset_reset          : in  std_logic                      := 'X';             -- reset
+			dma_comm_5_left_mm_write_address                             : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_5_left_mm_write_waitrequest                         : out std_logic;                                         -- waitrequest
+			dma_comm_5_left_mm_write_byteenable                          : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_5_left_mm_write_write                               : in  std_logic                      := 'X';             -- write
+			dma_comm_5_left_mm_write_writedata                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_9;
+
+	component MebX_Qsys_Project_mm_interconnect_10 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_6_left_reset_n_reset_bridge_in_reset_reset          : in  std_logic                      := 'X';             -- reset
+			dma_comm_6_left_mm_write_address                             : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_6_left_mm_write_waitrequest                         : out std_logic;                                         -- waitrequest
+			dma_comm_6_left_mm_write_byteenable                          : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_6_left_mm_write_write                               : in  std_logic                      := 'X';             -- write
+			dma_comm_6_left_mm_write_writedata                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_10;
+
+	component MebX_Qsys_Project_mm_interconnect_11 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_1_right_reset_n_reset_bridge_in_reset_reset         : in  std_logic                      := 'X';             -- reset
+			dma_comm_1_right_mm_write_address                            : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_1_right_mm_write_waitrequest                        : out std_logic;                                         -- waitrequest
+			dma_comm_1_right_mm_write_byteenable                         : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_1_right_mm_write_write                              : in  std_logic                      := 'X';             -- write
+			dma_comm_1_right_mm_write_writedata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_11;
+
+	component MebX_Qsys_Project_mm_interconnect_12 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_2_right_reset_n_reset_bridge_in_reset_reset         : in  std_logic                      := 'X';             -- reset
+			dma_comm_2_right_mm_write_address                            : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_2_right_mm_write_waitrequest                        : out std_logic;                                         -- waitrequest
+			dma_comm_2_right_mm_write_byteenable                         : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_2_right_mm_write_write                              : in  std_logic                      := 'X';             -- write
+			dma_comm_2_right_mm_write_writedata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_12;
+
+	component MebX_Qsys_Project_mm_interconnect_13 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_3_right_reset_n_reset_bridge_in_reset_reset         : in  std_logic                      := 'X';             -- reset
+			dma_comm_3_right_mm_write_address                            : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_3_right_mm_write_waitrequest                        : out std_logic;                                         -- waitrequest
+			dma_comm_3_right_mm_write_byteenable                         : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_3_right_mm_write_write                              : in  std_logic                      := 'X';             -- write
+			dma_comm_3_right_mm_write_writedata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_13;
+
+	component MebX_Qsys_Project_mm_interconnect_14 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_4_right_reset_n_reset_bridge_in_reset_reset         : in  std_logic                      := 'X';             -- reset
+			dma_comm_4_right_mm_write_address                            : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_4_right_mm_write_waitrequest                        : out std_logic;                                         -- waitrequest
+			dma_comm_4_right_mm_write_byteenable                         : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_4_right_mm_write_write                              : in  std_logic                      := 'X';             -- write
+			dma_comm_4_right_mm_write_writedata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_14;
+
+	component MebX_Qsys_Project_mm_interconnect_15 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_5_right_reset_n_reset_bridge_in_reset_reset         : in  std_logic                      := 'X';             -- reset
+			dma_comm_5_right_mm_write_address                            : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_5_right_mm_write_waitrequest                        : out std_logic;                                         -- waitrequest
+			dma_comm_5_right_mm_write_byteenable                         : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_5_right_mm_write_write                              : in  std_logic                      := 'X';             -- write
+			dma_comm_5_right_mm_write_writedata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_15;
+
+	component MebX_Qsys_Project_mm_interconnect_16 is
+		port (
+			clk_100_clk_clk                                              : in  std_logic                      := 'X';             -- clk
+			COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			dma_comm_6_right_reset_n_reset_bridge_in_reset_reset         : in  std_logic                      := 'X';             -- reset
+			dma_comm_6_right_mm_write_address                            : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
+			dma_comm_6_right_mm_write_waitrequest                        : out std_logic;                                         -- waitrequest
+			dma_comm_6_right_mm_write_byteenable                         : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
+			dma_comm_6_right_mm_write_write                              : in  std_logic                      := 'X';             -- write
+			dma_comm_6_right_mm_write_writedata                          : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_address          : out std_logic_vector(20 downto 0);                     -- address
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_write            : out std_logic;                                         -- write
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_writedata        : out std_logic_vector(255 downto 0);                    -- writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_waitrequest      : in  std_logic                      := 'X'              -- waitrequest
+		);
+	end component MebX_Qsys_Project_mm_interconnect_16;
+
 	component MebX_Qsys_Project_irq_mapper is
 		port (
 			clk            : in  std_logic                     := 'X'; -- clk
@@ -1324,6 +1964,16 @@ architecture rtl of MebX_Qsys_Project is
 			receiver19_irq : in  std_logic                     := 'X'; -- irq
 			receiver20_irq : in  std_logic                     := 'X'; -- irq
 			receiver21_irq : in  std_logic                     := 'X'; -- irq
+			receiver22_irq : in  std_logic                     := 'X'; -- irq
+			receiver23_irq : in  std_logic                     := 'X'; -- irq
+			receiver24_irq : in  std_logic                     := 'X'; -- irq
+			receiver25_irq : in  std_logic                     := 'X'; -- irq
+			receiver26_irq : in  std_logic                     := 'X'; -- irq
+			receiver27_irq : in  std_logic                     := 'X'; -- irq
+			receiver28_irq : in  std_logic                     := 'X'; -- irq
+			receiver29_irq : in  std_logic                     := 'X'; -- irq
+			receiver30_irq : in  std_logic                     := 'X'; -- irq
+			receiver31_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq     : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component MebX_Qsys_Project_irq_mapper;
@@ -1619,7 +2269,7 @@ architecture rtl of MebX_Qsys_Project is
 	end component mebx_qsys_project_m1_clock_bridge;
 
 	signal m2_ddr2_memory_afi_clk_clk                                                             : std_logic;                      -- m2_ddr2_memory:afi_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_200_clk, COMM_Pedreiro_v1_01_B:clock_sink_200_clk, COMM_Pedreiro_v1_01_C:clock_sink_200_clk, COMM_Pedreiro_v1_01_D:clock_sink_200_clk, COMM_Pedreiro_v1_01_E:clock_sink_200_clk, COMM_Pedreiro_v1_01_F:clock_sink_200_clk, mm_interconnect_1:m2_ddr2_memory_afi_clk_clk, rst_controller_015:clk]
-	signal m2_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_100_clk, COMM_Pedreiro_v1_01_B:clock_sink_100_clk, COMM_Pedreiro_v1_01_C:clock_sink_100_clk, COMM_Pedreiro_v1_01_D:clock_sink_100_clk, COMM_Pedreiro_v1_01_E:clock_sink_100_clk, COMM_Pedreiro_v1_01_F:clock_sink_100_clk, FTDI_USB3_0:clock_sink_clk, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, dma_DDR_M1:clock_clk, dma_DDR_M2:clock_clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, irq_synchronizer_005:sender_clk, jtag_uart_0:clk, m1_clock_bridge:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_1:clk_100_clk_clk, mm_interconnect_1:m2_ddr2_memory_afi_half_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rst_controller_002:clk, rst_controller_003:clk, rst_controller_004:clk, rst_controller_005:clk, rst_controller_006:clk, rst_controller_007:clk, rst_controller_008:clk, rst_controller_010:clk, rst_controller_012:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
+	signal m2_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_100_clk, COMM_Pedreiro_v1_01_B:clock_sink_100_clk, COMM_Pedreiro_v1_01_C:clock_sink_100_clk, COMM_Pedreiro_v1_01_D:clock_sink_100_clk, COMM_Pedreiro_v1_01_E:clock_sink_100_clk, COMM_Pedreiro_v1_01_F:clock_sink_100_clk, FTDI_USB3_0:clock_sink_clk, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, dma_comm_1_left:clock_clk, dma_comm_1_right:clock_clk, dma_comm_2_left:clock_clk, dma_comm_2_right:clock_clk, dma_comm_3_left:clock_clk, dma_comm_3_right:clock_clk, dma_comm_4_left:clock_clk, dma_comm_4_right:clock_clk, dma_comm_5_left:clock_clk, dma_comm_5_right:clock_clk, dma_comm_6_left:clock_clk, dma_comm_6_right:clock_clk, dma_ftdi_usb3:clock_clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, jtag_uart_0:clk, m1_clock_bridge:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_10:clk_100_clk_clk, mm_interconnect_11:clk_100_clk_clk, mm_interconnect_12:clk_100_clk_clk, mm_interconnect_13:clk_100_clk_clk, mm_interconnect_14:clk_100_clk_clk, mm_interconnect_15:clk_100_clk_clk, mm_interconnect_16:clk_100_clk_clk, mm_interconnect_1:clk_100_clk_clk, mm_interconnect_1:m2_ddr2_memory_afi_half_clk_clk, mm_interconnect_4:clk_100_clk_clk, mm_interconnect_5:clk_100_clk_clk, mm_interconnect_6:clk_100_clk_clk, mm_interconnect_7:clk_100_clk_clk, mm_interconnect_8:clk_100_clk_clk, mm_interconnect_9:clk_100_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rst_controller_002:clk, rst_controller_003:clk, rst_controller_004:clk, rst_controller_005:clk, rst_controller_006:clk, rst_controller_007:clk, rst_controller_008:clk, rst_controller_010:clk, rst_controller_012:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
 	signal m1_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m1_ddr2_memory:afi_half_clk -> [m1_clock_bridge:m0_clk, mm_interconnect_3:m1_ddr2_memory_afi_half_clk_clk, rst_controller_011:clk]
 	signal ext_flash_tcm_data_outen                                                               : std_logic;                      -- ext_flash:tcm_data_outen -> tristate_conduit_bridge_0:tcs_tcm_data_outen
 	signal ext_flash_tcm_request                                                                  : std_logic;                      -- ext_flash:tcm_request -> tristate_conduit_bridge_0:request
@@ -1707,18 +2357,84 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_ddr2_address_span_extender_cntl_writedata                            : std_logic_vector(63 downto 0);  -- mm_interconnect_0:ddr2_address_span_extender_cntl_writedata -> ddr2_address_span_extender:avs_cntl_writedata
 	signal mm_interconnect_0_sysid_qsys_control_slave_readdata                                    : std_logic_vector(31 downto 0);  -- sysid_qsys:readdata -> mm_interconnect_0:sysid_qsys_control_slave_readdata
 	signal mm_interconnect_0_sysid_qsys_control_slave_address                                     : std_logic_vector(0 downto 0);   -- mm_interconnect_0:sysid_qsys_control_slave_address -> sysid_qsys:address
-	signal mm_interconnect_0_dma_ddr_m1_csr_readdata                                              : std_logic_vector(31 downto 0);  -- dma_DDR_M1:csr_readdata -> mm_interconnect_0:dma_DDR_M1_csr_readdata
-	signal mm_interconnect_0_dma_ddr_m1_csr_address                                               : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_DDR_M1_csr_address -> dma_DDR_M1:csr_address
-	signal mm_interconnect_0_dma_ddr_m1_csr_read                                                  : std_logic;                      -- mm_interconnect_0:dma_DDR_M1_csr_read -> dma_DDR_M1:csr_read
-	signal mm_interconnect_0_dma_ddr_m1_csr_byteenable                                            : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_DDR_M1_csr_byteenable -> dma_DDR_M1:csr_byteenable
-	signal mm_interconnect_0_dma_ddr_m1_csr_write                                                 : std_logic;                      -- mm_interconnect_0:dma_DDR_M1_csr_write -> dma_DDR_M1:csr_write
-	signal mm_interconnect_0_dma_ddr_m1_csr_writedata                                             : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_DDR_M1_csr_writedata -> dma_DDR_M1:csr_writedata
-	signal mm_interconnect_0_dma_ddr_m2_csr_readdata                                              : std_logic_vector(31 downto 0);  -- dma_DDR_M2:csr_readdata -> mm_interconnect_0:dma_DDR_M2_csr_readdata
-	signal mm_interconnect_0_dma_ddr_m2_csr_address                                               : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_DDR_M2_csr_address -> dma_DDR_M2:csr_address
-	signal mm_interconnect_0_dma_ddr_m2_csr_read                                                  : std_logic;                      -- mm_interconnect_0:dma_DDR_M2_csr_read -> dma_DDR_M2:csr_read
-	signal mm_interconnect_0_dma_ddr_m2_csr_byteenable                                            : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_DDR_M2_csr_byteenable -> dma_DDR_M2:csr_byteenable
-	signal mm_interconnect_0_dma_ddr_m2_csr_write                                                 : std_logic;                      -- mm_interconnect_0:dma_DDR_M2_csr_write -> dma_DDR_M2:csr_write
-	signal mm_interconnect_0_dma_ddr_m2_csr_writedata                                             : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_DDR_M2_csr_writedata -> dma_DDR_M2:csr_writedata
+	signal mm_interconnect_0_dma_comm_1_left_csr_readdata                                         : std_logic_vector(31 downto 0);  -- dma_comm_1_left:csr_readdata -> mm_interconnect_0:dma_comm_1_left_csr_readdata
+	signal mm_interconnect_0_dma_comm_1_left_csr_address                                          : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_1_left_csr_address -> dma_comm_1_left:csr_address
+	signal mm_interconnect_0_dma_comm_1_left_csr_read                                             : std_logic;                      -- mm_interconnect_0:dma_comm_1_left_csr_read -> dma_comm_1_left:csr_read
+	signal mm_interconnect_0_dma_comm_1_left_csr_byteenable                                       : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_1_left_csr_byteenable -> dma_comm_1_left:csr_byteenable
+	signal mm_interconnect_0_dma_comm_1_left_csr_write                                            : std_logic;                      -- mm_interconnect_0:dma_comm_1_left_csr_write -> dma_comm_1_left:csr_write
+	signal mm_interconnect_0_dma_comm_1_left_csr_writedata                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_1_left_csr_writedata -> dma_comm_1_left:csr_writedata
+	signal mm_interconnect_0_dma_comm_1_right_csr_readdata                                        : std_logic_vector(31 downto 0);  -- dma_comm_1_right:csr_readdata -> mm_interconnect_0:dma_comm_1_right_csr_readdata
+	signal mm_interconnect_0_dma_comm_1_right_csr_address                                         : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_1_right_csr_address -> dma_comm_1_right:csr_address
+	signal mm_interconnect_0_dma_comm_1_right_csr_read                                            : std_logic;                      -- mm_interconnect_0:dma_comm_1_right_csr_read -> dma_comm_1_right:csr_read
+	signal mm_interconnect_0_dma_comm_1_right_csr_byteenable                                      : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_1_right_csr_byteenable -> dma_comm_1_right:csr_byteenable
+	signal mm_interconnect_0_dma_comm_1_right_csr_write                                           : std_logic;                      -- mm_interconnect_0:dma_comm_1_right_csr_write -> dma_comm_1_right:csr_write
+	signal mm_interconnect_0_dma_comm_1_right_csr_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_1_right_csr_writedata -> dma_comm_1_right:csr_writedata
+	signal mm_interconnect_0_dma_comm_2_left_csr_readdata                                         : std_logic_vector(31 downto 0);  -- dma_comm_2_left:csr_readdata -> mm_interconnect_0:dma_comm_2_left_csr_readdata
+	signal mm_interconnect_0_dma_comm_2_left_csr_address                                          : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_2_left_csr_address -> dma_comm_2_left:csr_address
+	signal mm_interconnect_0_dma_comm_2_left_csr_read                                             : std_logic;                      -- mm_interconnect_0:dma_comm_2_left_csr_read -> dma_comm_2_left:csr_read
+	signal mm_interconnect_0_dma_comm_2_left_csr_byteenable                                       : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_2_left_csr_byteenable -> dma_comm_2_left:csr_byteenable
+	signal mm_interconnect_0_dma_comm_2_left_csr_write                                            : std_logic;                      -- mm_interconnect_0:dma_comm_2_left_csr_write -> dma_comm_2_left:csr_write
+	signal mm_interconnect_0_dma_comm_2_left_csr_writedata                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_2_left_csr_writedata -> dma_comm_2_left:csr_writedata
+	signal mm_interconnect_0_dma_comm_2_right_csr_readdata                                        : std_logic_vector(31 downto 0);  -- dma_comm_2_right:csr_readdata -> mm_interconnect_0:dma_comm_2_right_csr_readdata
+	signal mm_interconnect_0_dma_comm_2_right_csr_address                                         : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_2_right_csr_address -> dma_comm_2_right:csr_address
+	signal mm_interconnect_0_dma_comm_2_right_csr_read                                            : std_logic;                      -- mm_interconnect_0:dma_comm_2_right_csr_read -> dma_comm_2_right:csr_read
+	signal mm_interconnect_0_dma_comm_2_right_csr_byteenable                                      : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_2_right_csr_byteenable -> dma_comm_2_right:csr_byteenable
+	signal mm_interconnect_0_dma_comm_2_right_csr_write                                           : std_logic;                      -- mm_interconnect_0:dma_comm_2_right_csr_write -> dma_comm_2_right:csr_write
+	signal mm_interconnect_0_dma_comm_2_right_csr_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_2_right_csr_writedata -> dma_comm_2_right:csr_writedata
+	signal mm_interconnect_0_dma_comm_3_left_csr_readdata                                         : std_logic_vector(31 downto 0);  -- dma_comm_3_left:csr_readdata -> mm_interconnect_0:dma_comm_3_left_csr_readdata
+	signal mm_interconnect_0_dma_comm_3_left_csr_address                                          : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_3_left_csr_address -> dma_comm_3_left:csr_address
+	signal mm_interconnect_0_dma_comm_3_left_csr_read                                             : std_logic;                      -- mm_interconnect_0:dma_comm_3_left_csr_read -> dma_comm_3_left:csr_read
+	signal mm_interconnect_0_dma_comm_3_left_csr_byteenable                                       : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_3_left_csr_byteenable -> dma_comm_3_left:csr_byteenable
+	signal mm_interconnect_0_dma_comm_3_left_csr_write                                            : std_logic;                      -- mm_interconnect_0:dma_comm_3_left_csr_write -> dma_comm_3_left:csr_write
+	signal mm_interconnect_0_dma_comm_3_left_csr_writedata                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_3_left_csr_writedata -> dma_comm_3_left:csr_writedata
+	signal mm_interconnect_0_dma_comm_3_right_csr_readdata                                        : std_logic_vector(31 downto 0);  -- dma_comm_3_right:csr_readdata -> mm_interconnect_0:dma_comm_3_right_csr_readdata
+	signal mm_interconnect_0_dma_comm_3_right_csr_address                                         : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_3_right_csr_address -> dma_comm_3_right:csr_address
+	signal mm_interconnect_0_dma_comm_3_right_csr_read                                            : std_logic;                      -- mm_interconnect_0:dma_comm_3_right_csr_read -> dma_comm_3_right:csr_read
+	signal mm_interconnect_0_dma_comm_3_right_csr_byteenable                                      : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_3_right_csr_byteenable -> dma_comm_3_right:csr_byteenable
+	signal mm_interconnect_0_dma_comm_3_right_csr_write                                           : std_logic;                      -- mm_interconnect_0:dma_comm_3_right_csr_write -> dma_comm_3_right:csr_write
+	signal mm_interconnect_0_dma_comm_3_right_csr_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_3_right_csr_writedata -> dma_comm_3_right:csr_writedata
+	signal mm_interconnect_0_dma_comm_4_left_csr_readdata                                         : std_logic_vector(31 downto 0);  -- dma_comm_4_left:csr_readdata -> mm_interconnect_0:dma_comm_4_left_csr_readdata
+	signal mm_interconnect_0_dma_comm_4_left_csr_address                                          : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_4_left_csr_address -> dma_comm_4_left:csr_address
+	signal mm_interconnect_0_dma_comm_4_left_csr_read                                             : std_logic;                      -- mm_interconnect_0:dma_comm_4_left_csr_read -> dma_comm_4_left:csr_read
+	signal mm_interconnect_0_dma_comm_4_left_csr_byteenable                                       : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_4_left_csr_byteenable -> dma_comm_4_left:csr_byteenable
+	signal mm_interconnect_0_dma_comm_4_left_csr_write                                            : std_logic;                      -- mm_interconnect_0:dma_comm_4_left_csr_write -> dma_comm_4_left:csr_write
+	signal mm_interconnect_0_dma_comm_4_left_csr_writedata                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_4_left_csr_writedata -> dma_comm_4_left:csr_writedata
+	signal mm_interconnect_0_dma_comm_4_right_csr_readdata                                        : std_logic_vector(31 downto 0);  -- dma_comm_4_right:csr_readdata -> mm_interconnect_0:dma_comm_4_right_csr_readdata
+	signal mm_interconnect_0_dma_comm_4_right_csr_address                                         : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_4_right_csr_address -> dma_comm_4_right:csr_address
+	signal mm_interconnect_0_dma_comm_4_right_csr_read                                            : std_logic;                      -- mm_interconnect_0:dma_comm_4_right_csr_read -> dma_comm_4_right:csr_read
+	signal mm_interconnect_0_dma_comm_4_right_csr_byteenable                                      : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_4_right_csr_byteenable -> dma_comm_4_right:csr_byteenable
+	signal mm_interconnect_0_dma_comm_4_right_csr_write                                           : std_logic;                      -- mm_interconnect_0:dma_comm_4_right_csr_write -> dma_comm_4_right:csr_write
+	signal mm_interconnect_0_dma_comm_4_right_csr_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_4_right_csr_writedata -> dma_comm_4_right:csr_writedata
+	signal mm_interconnect_0_dma_comm_5_left_csr_readdata                                         : std_logic_vector(31 downto 0);  -- dma_comm_5_left:csr_readdata -> mm_interconnect_0:dma_comm_5_left_csr_readdata
+	signal mm_interconnect_0_dma_comm_5_left_csr_address                                          : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_5_left_csr_address -> dma_comm_5_left:csr_address
+	signal mm_interconnect_0_dma_comm_5_left_csr_read                                             : std_logic;                      -- mm_interconnect_0:dma_comm_5_left_csr_read -> dma_comm_5_left:csr_read
+	signal mm_interconnect_0_dma_comm_5_left_csr_byteenable                                       : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_5_left_csr_byteenable -> dma_comm_5_left:csr_byteenable
+	signal mm_interconnect_0_dma_comm_5_left_csr_write                                            : std_logic;                      -- mm_interconnect_0:dma_comm_5_left_csr_write -> dma_comm_5_left:csr_write
+	signal mm_interconnect_0_dma_comm_5_left_csr_writedata                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_5_left_csr_writedata -> dma_comm_5_left:csr_writedata
+	signal mm_interconnect_0_dma_comm_5_right_csr_readdata                                        : std_logic_vector(31 downto 0);  -- dma_comm_5_right:csr_readdata -> mm_interconnect_0:dma_comm_5_right_csr_readdata
+	signal mm_interconnect_0_dma_comm_5_right_csr_address                                         : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_5_right_csr_address -> dma_comm_5_right:csr_address
+	signal mm_interconnect_0_dma_comm_5_right_csr_read                                            : std_logic;                      -- mm_interconnect_0:dma_comm_5_right_csr_read -> dma_comm_5_right:csr_read
+	signal mm_interconnect_0_dma_comm_5_right_csr_byteenable                                      : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_5_right_csr_byteenable -> dma_comm_5_right:csr_byteenable
+	signal mm_interconnect_0_dma_comm_5_right_csr_write                                           : std_logic;                      -- mm_interconnect_0:dma_comm_5_right_csr_write -> dma_comm_5_right:csr_write
+	signal mm_interconnect_0_dma_comm_5_right_csr_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_5_right_csr_writedata -> dma_comm_5_right:csr_writedata
+	signal mm_interconnect_0_dma_comm_6_left_csr_readdata                                         : std_logic_vector(31 downto 0);  -- dma_comm_6_left:csr_readdata -> mm_interconnect_0:dma_comm_6_left_csr_readdata
+	signal mm_interconnect_0_dma_comm_6_left_csr_address                                          : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_6_left_csr_address -> dma_comm_6_left:csr_address
+	signal mm_interconnect_0_dma_comm_6_left_csr_read                                             : std_logic;                      -- mm_interconnect_0:dma_comm_6_left_csr_read -> dma_comm_6_left:csr_read
+	signal mm_interconnect_0_dma_comm_6_left_csr_byteenable                                       : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_6_left_csr_byteenable -> dma_comm_6_left:csr_byteenable
+	signal mm_interconnect_0_dma_comm_6_left_csr_write                                            : std_logic;                      -- mm_interconnect_0:dma_comm_6_left_csr_write -> dma_comm_6_left:csr_write
+	signal mm_interconnect_0_dma_comm_6_left_csr_writedata                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_6_left_csr_writedata -> dma_comm_6_left:csr_writedata
+	signal mm_interconnect_0_dma_comm_6_right_csr_readdata                                        : std_logic_vector(31 downto 0);  -- dma_comm_6_right:csr_readdata -> mm_interconnect_0:dma_comm_6_right_csr_readdata
+	signal mm_interconnect_0_dma_comm_6_right_csr_address                                         : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_comm_6_right_csr_address -> dma_comm_6_right:csr_address
+	signal mm_interconnect_0_dma_comm_6_right_csr_read                                            : std_logic;                      -- mm_interconnect_0:dma_comm_6_right_csr_read -> dma_comm_6_right:csr_read
+	signal mm_interconnect_0_dma_comm_6_right_csr_byteenable                                      : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_comm_6_right_csr_byteenable -> dma_comm_6_right:csr_byteenable
+	signal mm_interconnect_0_dma_comm_6_right_csr_write                                           : std_logic;                      -- mm_interconnect_0:dma_comm_6_right_csr_write -> dma_comm_6_right:csr_write
+	signal mm_interconnect_0_dma_comm_6_right_csr_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_6_right_csr_writedata -> dma_comm_6_right:csr_writedata
+	signal mm_interconnect_0_dma_ftdi_usb3_csr_readdata                                           : std_logic_vector(31 downto 0);  -- dma_ftdi_usb3:csr_readdata -> mm_interconnect_0:dma_ftdi_usb3_csr_readdata
+	signal mm_interconnect_0_dma_ftdi_usb3_csr_address                                            : std_logic_vector(2 downto 0);   -- mm_interconnect_0:dma_ftdi_usb3_csr_address -> dma_ftdi_usb3:csr_address
+	signal mm_interconnect_0_dma_ftdi_usb3_csr_read                                               : std_logic;                      -- mm_interconnect_0:dma_ftdi_usb3_csr_read -> dma_ftdi_usb3:csr_read
+	signal mm_interconnect_0_dma_ftdi_usb3_csr_byteenable                                         : std_logic_vector(3 downto 0);   -- mm_interconnect_0:dma_ftdi_usb3_csr_byteenable -> dma_ftdi_usb3:csr_byteenable
+	signal mm_interconnect_0_dma_ftdi_usb3_csr_write                                              : std_logic;                      -- mm_interconnect_0:dma_ftdi_usb3_csr_write -> dma_ftdi_usb3:csr_write
+	signal mm_interconnect_0_dma_ftdi_usb3_csr_writedata                                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_ftdi_usb3_csr_writedata -> dma_ftdi_usb3:csr_writedata
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_readdata                                : std_logic_vector(31 downto 0);  -- nios2_gen2_0:debug_mem_slave_readdata -> mm_interconnect_0:nios2_gen2_0_debug_mem_slave_readdata
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_waitrequest                             : std_logic;                      -- nios2_gen2_0:debug_mem_slave_waitrequest -> mm_interconnect_0:nios2_gen2_0_debug_mem_slave_waitrequest
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_debugaccess                             : std_logic;                      -- mm_interconnect_0:nios2_gen2_0_debug_mem_slave_debugaccess -> nios2_gen2_0:debug_mem_slave_debugaccess
@@ -1727,14 +2443,58 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_byteenable                              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:nios2_gen2_0_debug_mem_slave_byteenable -> nios2_gen2_0:debug_mem_slave_byteenable
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_write                                   : std_logic;                      -- mm_interconnect_0:nios2_gen2_0_debug_mem_slave_write -> nios2_gen2_0:debug_mem_slave_write
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_writedata                               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:nios2_gen2_0_debug_mem_slave_writedata -> nios2_gen2_0:debug_mem_slave_writedata
-	signal mm_interconnect_0_dma_ddr_m1_descriptor_slave_waitrequest                              : std_logic;                      -- dma_DDR_M1:descriptor_slave_waitrequest -> mm_interconnect_0:dma_DDR_M1_descriptor_slave_waitrequest
-	signal mm_interconnect_0_dma_ddr_m1_descriptor_slave_byteenable                               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_DDR_M1_descriptor_slave_byteenable -> dma_DDR_M1:descriptor_slave_byteenable
-	signal mm_interconnect_0_dma_ddr_m1_descriptor_slave_write                                    : std_logic;                      -- mm_interconnect_0:dma_DDR_M1_descriptor_slave_write -> dma_DDR_M1:descriptor_slave_write
-	signal mm_interconnect_0_dma_ddr_m1_descriptor_slave_writedata                                : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_DDR_M1_descriptor_slave_writedata -> dma_DDR_M1:descriptor_slave_writedata
-	signal mm_interconnect_0_dma_ddr_m2_descriptor_slave_waitrequest                              : std_logic;                      -- dma_DDR_M2:descriptor_slave_waitrequest -> mm_interconnect_0:dma_DDR_M2_descriptor_slave_waitrequest
-	signal mm_interconnect_0_dma_ddr_m2_descriptor_slave_byteenable                               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_DDR_M2_descriptor_slave_byteenable -> dma_DDR_M2:descriptor_slave_byteenable
-	signal mm_interconnect_0_dma_ddr_m2_descriptor_slave_write                                    : std_logic;                      -- mm_interconnect_0:dma_DDR_M2_descriptor_slave_write -> dma_DDR_M2:descriptor_slave_write
-	signal mm_interconnect_0_dma_ddr_m2_descriptor_slave_writedata                                : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_DDR_M2_descriptor_slave_writedata -> dma_DDR_M2:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_1_left_descriptor_slave_waitrequest                         : std_logic;                      -- dma_comm_1_left:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_1_left_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_1_left_descriptor_slave_byteenable                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_1_left_descriptor_slave_byteenable -> dma_comm_1_left:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_1_left_descriptor_slave_write                               : std_logic;                      -- mm_interconnect_0:dma_comm_1_left_descriptor_slave_write -> dma_comm_1_left:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_1_left_descriptor_slave_writedata                           : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_1_left_descriptor_slave_writedata -> dma_comm_1_left:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_1_right_descriptor_slave_waitrequest                        : std_logic;                      -- dma_comm_1_right:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_1_right_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_1_right_descriptor_slave_byteenable                         : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_1_right_descriptor_slave_byteenable -> dma_comm_1_right:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_1_right_descriptor_slave_write                              : std_logic;                      -- mm_interconnect_0:dma_comm_1_right_descriptor_slave_write -> dma_comm_1_right:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_1_right_descriptor_slave_writedata                          : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_1_right_descriptor_slave_writedata -> dma_comm_1_right:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_2_left_descriptor_slave_waitrequest                         : std_logic;                      -- dma_comm_2_left:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_2_left_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_2_left_descriptor_slave_byteenable                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_2_left_descriptor_slave_byteenable -> dma_comm_2_left:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_2_left_descriptor_slave_write                               : std_logic;                      -- mm_interconnect_0:dma_comm_2_left_descriptor_slave_write -> dma_comm_2_left:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_2_left_descriptor_slave_writedata                           : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_2_left_descriptor_slave_writedata -> dma_comm_2_left:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_2_right_descriptor_slave_waitrequest                        : std_logic;                      -- dma_comm_2_right:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_2_right_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_2_right_descriptor_slave_byteenable                         : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_2_right_descriptor_slave_byteenable -> dma_comm_2_right:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_2_right_descriptor_slave_write                              : std_logic;                      -- mm_interconnect_0:dma_comm_2_right_descriptor_slave_write -> dma_comm_2_right:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_2_right_descriptor_slave_writedata                          : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_2_right_descriptor_slave_writedata -> dma_comm_2_right:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_3_left_descriptor_slave_waitrequest                         : std_logic;                      -- dma_comm_3_left:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_3_left_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_3_left_descriptor_slave_byteenable                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_3_left_descriptor_slave_byteenable -> dma_comm_3_left:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_3_left_descriptor_slave_write                               : std_logic;                      -- mm_interconnect_0:dma_comm_3_left_descriptor_slave_write -> dma_comm_3_left:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_3_left_descriptor_slave_writedata                           : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_3_left_descriptor_slave_writedata -> dma_comm_3_left:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_3_right_descriptor_slave_waitrequest                        : std_logic;                      -- dma_comm_3_right:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_3_right_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_3_right_descriptor_slave_byteenable                         : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_3_right_descriptor_slave_byteenable -> dma_comm_3_right:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_3_right_descriptor_slave_write                              : std_logic;                      -- mm_interconnect_0:dma_comm_3_right_descriptor_slave_write -> dma_comm_3_right:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_3_right_descriptor_slave_writedata                          : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_3_right_descriptor_slave_writedata -> dma_comm_3_right:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_4_left_descriptor_slave_waitrequest                         : std_logic;                      -- dma_comm_4_left:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_4_left_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_4_left_descriptor_slave_byteenable                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_4_left_descriptor_slave_byteenable -> dma_comm_4_left:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_4_left_descriptor_slave_write                               : std_logic;                      -- mm_interconnect_0:dma_comm_4_left_descriptor_slave_write -> dma_comm_4_left:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_4_left_descriptor_slave_writedata                           : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_4_left_descriptor_slave_writedata -> dma_comm_4_left:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_4_right_descriptor_slave_waitrequest                        : std_logic;                      -- dma_comm_4_right:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_4_right_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_4_right_descriptor_slave_byteenable                         : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_4_right_descriptor_slave_byteenable -> dma_comm_4_right:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_4_right_descriptor_slave_write                              : std_logic;                      -- mm_interconnect_0:dma_comm_4_right_descriptor_slave_write -> dma_comm_4_right:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_4_right_descriptor_slave_writedata                          : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_4_right_descriptor_slave_writedata -> dma_comm_4_right:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_5_left_descriptor_slave_waitrequest                         : std_logic;                      -- dma_comm_5_left:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_5_left_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_5_left_descriptor_slave_byteenable                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_5_left_descriptor_slave_byteenable -> dma_comm_5_left:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_5_left_descriptor_slave_write                               : std_logic;                      -- mm_interconnect_0:dma_comm_5_left_descriptor_slave_write -> dma_comm_5_left:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_5_left_descriptor_slave_writedata                           : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_5_left_descriptor_slave_writedata -> dma_comm_5_left:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_5_right_descriptor_slave_waitrequest                        : std_logic;                      -- dma_comm_5_right:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_5_right_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_5_right_descriptor_slave_byteenable                         : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_5_right_descriptor_slave_byteenable -> dma_comm_5_right:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_5_right_descriptor_slave_write                              : std_logic;                      -- mm_interconnect_0:dma_comm_5_right_descriptor_slave_write -> dma_comm_5_right:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_5_right_descriptor_slave_writedata                          : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_5_right_descriptor_slave_writedata -> dma_comm_5_right:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_6_left_descriptor_slave_waitrequest                         : std_logic;                      -- dma_comm_6_left:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_6_left_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_6_left_descriptor_slave_byteenable                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_6_left_descriptor_slave_byteenable -> dma_comm_6_left:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_6_left_descriptor_slave_write                               : std_logic;                      -- mm_interconnect_0:dma_comm_6_left_descriptor_slave_write -> dma_comm_6_left:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_6_left_descriptor_slave_writedata                           : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_6_left_descriptor_slave_writedata -> dma_comm_6_left:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_comm_6_right_descriptor_slave_waitrequest                        : std_logic;                      -- dma_comm_6_right:descriptor_slave_waitrequest -> mm_interconnect_0:dma_comm_6_right_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_comm_6_right_descriptor_slave_byteenable                         : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_comm_6_right_descriptor_slave_byteenable -> dma_comm_6_right:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_comm_6_right_descriptor_slave_write                              : std_logic;                      -- mm_interconnect_0:dma_comm_6_right_descriptor_slave_write -> dma_comm_6_right:descriptor_slave_write
+	signal mm_interconnect_0_dma_comm_6_right_descriptor_slave_writedata                          : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_comm_6_right_descriptor_slave_writedata -> dma_comm_6_right:descriptor_slave_writedata
+	signal mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_waitrequest                           : std_logic;                      -- dma_ftdi_usb3:descriptor_slave_waitrequest -> mm_interconnect_0:dma_ftdi_usb3_descriptor_slave_waitrequest
+	signal mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_byteenable                            : std_logic_vector(31 downto 0);  -- mm_interconnect_0:dma_ftdi_usb3_descriptor_slave_byteenable -> dma_ftdi_usb3:descriptor_slave_byteenable
+	signal mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_write                                 : std_logic;                      -- mm_interconnect_0:dma_ftdi_usb3_descriptor_slave_write -> dma_ftdi_usb3:descriptor_slave_write
+	signal mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_writedata                             : std_logic_vector(255 downto 0); -- mm_interconnect_0:dma_ftdi_usb3_descriptor_slave_writedata -> dma_ftdi_usb3:descriptor_slave_writedata
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_readdata                                      : std_logic_vector(31 downto 0);  -- clock_bridge_afi_50:s0_readdata -> mm_interconnect_0:clock_bridge_afi_50_s0_readdata
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_waitrequest                                   : std_logic;                      -- clock_bridge_afi_50:s0_waitrequest -> mm_interconnect_0:clock_bridge_afi_50_s0_waitrequest
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_debugaccess                                   : std_logic;                      -- mm_interconnect_0:clock_bridge_afi_50_s0_debugaccess -> clock_bridge_afi_50:s0_debugaccess
@@ -1781,28 +2541,83 @@ architecture rtl of MebX_Qsys_Project is
 	signal ddr2_address_span_extender_expanded_master_write                                       : std_logic;                      -- ddr2_address_span_extender:avm_m0_write -> mm_interconnect_1:ddr2_address_span_extender_expanded_master_write
 	signal ddr2_address_span_extender_expanded_master_writedata                                   : std_logic_vector(31 downto 0);  -- ddr2_address_span_extender:avm_m0_writedata -> mm_interconnect_1:ddr2_address_span_extender_expanded_master_writedata
 	signal ddr2_address_span_extender_expanded_master_burstcount                                  : std_logic_vector(7 downto 0);   -- ddr2_address_span_extender:avm_m0_burstcount -> mm_interconnect_1:ddr2_address_span_extender_expanded_master_burstcount
-	signal dma_ddr_m2_mm_read_readdata                                                            : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_DDR_M2_mm_read_readdata -> dma_DDR_M2:mm_read_readdata
-	signal dma_ddr_m2_mm_read_waitrequest                                                         : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_read_waitrequest -> dma_DDR_M2:mm_read_waitrequest
-	signal dma_ddr_m2_mm_read_address                                                             : std_logic_vector(33 downto 0);  -- dma_DDR_M2:mm_read_address -> mm_interconnect_1:dma_DDR_M2_mm_read_address
-	signal dma_ddr_m2_mm_read_read                                                                : std_logic;                      -- dma_DDR_M2:mm_read_read -> mm_interconnect_1:dma_DDR_M2_mm_read_read
-	signal dma_ddr_m2_mm_read_byteenable                                                          : std_logic_vector(31 downto 0);  -- dma_DDR_M2:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_read_byteenable
-	signal dma_ddr_m2_mm_read_readdatavalid                                                       : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_read_readdatavalid -> dma_DDR_M2:mm_read_readdatavalid
-	signal dma_ddr_m2_mm_write_waitrequest                                                        : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_write_waitrequest -> dma_DDR_M2:mm_write_waitrequest
-	signal dma_ddr_m2_mm_write_address                                                            : std_logic_vector(33 downto 0);  -- dma_DDR_M2:mm_write_address -> mm_interconnect_1:dma_DDR_M2_mm_write_address
-	signal dma_ddr_m2_mm_write_byteenable                                                         : std_logic_vector(31 downto 0);  -- dma_DDR_M2:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_write_byteenable
-	signal dma_ddr_m2_mm_write_write                                                              : std_logic;                      -- dma_DDR_M2:mm_write_write -> mm_interconnect_1:dma_DDR_M2_mm_write_write
-	signal dma_ddr_m2_mm_write_writedata                                                          : std_logic_vector(255 downto 0); -- dma_DDR_M2:mm_write_writedata -> mm_interconnect_1:dma_DDR_M2_mm_write_writedata
-	signal dma_ddr_m1_mm_read_readdata                                                            : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_DDR_M1_mm_read_readdata -> dma_DDR_M1:mm_read_readdata
-	signal dma_ddr_m1_mm_read_waitrequest                                                         : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_read_waitrequest -> dma_DDR_M1:mm_read_waitrequest
-	signal dma_ddr_m1_mm_read_address                                                             : std_logic_vector(33 downto 0);  -- dma_DDR_M1:mm_read_address -> mm_interconnect_1:dma_DDR_M1_mm_read_address
-	signal dma_ddr_m1_mm_read_read                                                                : std_logic;                      -- dma_DDR_M1:mm_read_read -> mm_interconnect_1:dma_DDR_M1_mm_read_read
-	signal dma_ddr_m1_mm_read_byteenable                                                          : std_logic_vector(31 downto 0);  -- dma_DDR_M1:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_read_byteenable
-	signal dma_ddr_m1_mm_read_readdatavalid                                                       : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_read_readdatavalid -> dma_DDR_M1:mm_read_readdatavalid
-	signal dma_ddr_m1_mm_write_waitrequest                                                        : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_write_waitrequest -> dma_DDR_M1:mm_write_waitrequest
-	signal dma_ddr_m1_mm_write_address                                                            : std_logic_vector(33 downto 0);  -- dma_DDR_M1:mm_write_address -> mm_interconnect_1:dma_DDR_M1_mm_write_address
-	signal dma_ddr_m1_mm_write_byteenable                                                         : std_logic_vector(31 downto 0);  -- dma_DDR_M1:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_write_byteenable
-	signal dma_ddr_m1_mm_write_write                                                              : std_logic;                      -- dma_DDR_M1:mm_write_write -> mm_interconnect_1:dma_DDR_M1_mm_write_write
-	signal dma_ddr_m1_mm_write_writedata                                                          : std_logic_vector(255 downto 0); -- dma_DDR_M1:mm_write_writedata -> mm_interconnect_1:dma_DDR_M1_mm_write_writedata
+	signal dma_comm_1_left_mm_read_readdata                                                       : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_1_left_mm_read_readdata -> dma_comm_1_left:mm_read_readdata
+	signal dma_comm_1_left_mm_read_waitrequest                                                    : std_logic;                      -- mm_interconnect_1:dma_comm_1_left_mm_read_waitrequest -> dma_comm_1_left:mm_read_waitrequest
+	signal dma_comm_1_left_mm_read_address                                                        : std_logic_vector(31 downto 0);  -- dma_comm_1_left:mm_read_address -> mm_interconnect_1:dma_comm_1_left_mm_read_address
+	signal dma_comm_1_left_mm_read_read                                                           : std_logic;                      -- dma_comm_1_left:mm_read_read -> mm_interconnect_1:dma_comm_1_left_mm_read_read
+	signal dma_comm_1_left_mm_read_byteenable                                                     : std_logic_vector(31 downto 0);  -- dma_comm_1_left:mm_read_byteenable -> mm_interconnect_1:dma_comm_1_left_mm_read_byteenable
+	signal dma_comm_1_left_mm_read_readdatavalid                                                  : std_logic;                      -- mm_interconnect_1:dma_comm_1_left_mm_read_readdatavalid -> dma_comm_1_left:mm_read_readdatavalid
+	signal dma_comm_6_right_mm_read_readdata                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_6_right_mm_read_readdata -> dma_comm_6_right:mm_read_readdata
+	signal dma_comm_6_right_mm_read_waitrequest                                                   : std_logic;                      -- mm_interconnect_1:dma_comm_6_right_mm_read_waitrequest -> dma_comm_6_right:mm_read_waitrequest
+	signal dma_comm_6_right_mm_read_address                                                       : std_logic_vector(31 downto 0);  -- dma_comm_6_right:mm_read_address -> mm_interconnect_1:dma_comm_6_right_mm_read_address
+	signal dma_comm_6_right_mm_read_read                                                          : std_logic;                      -- dma_comm_6_right:mm_read_read -> mm_interconnect_1:dma_comm_6_right_mm_read_read
+	signal dma_comm_6_right_mm_read_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_6_right:mm_read_byteenable -> mm_interconnect_1:dma_comm_6_right_mm_read_byteenable
+	signal dma_comm_6_right_mm_read_readdatavalid                                                 : std_logic;                      -- mm_interconnect_1:dma_comm_6_right_mm_read_readdatavalid -> dma_comm_6_right:mm_read_readdatavalid
+	signal dma_comm_6_left_mm_read_readdata                                                       : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_6_left_mm_read_readdata -> dma_comm_6_left:mm_read_readdata
+	signal dma_comm_6_left_mm_read_waitrequest                                                    : std_logic;                      -- mm_interconnect_1:dma_comm_6_left_mm_read_waitrequest -> dma_comm_6_left:mm_read_waitrequest
+	signal dma_comm_6_left_mm_read_address                                                        : std_logic_vector(31 downto 0);  -- dma_comm_6_left:mm_read_address -> mm_interconnect_1:dma_comm_6_left_mm_read_address
+	signal dma_comm_6_left_mm_read_read                                                           : std_logic;                      -- dma_comm_6_left:mm_read_read -> mm_interconnect_1:dma_comm_6_left_mm_read_read
+	signal dma_comm_6_left_mm_read_byteenable                                                     : std_logic_vector(31 downto 0);  -- dma_comm_6_left:mm_read_byteenable -> mm_interconnect_1:dma_comm_6_left_mm_read_byteenable
+	signal dma_comm_6_left_mm_read_readdatavalid                                                  : std_logic;                      -- mm_interconnect_1:dma_comm_6_left_mm_read_readdatavalid -> dma_comm_6_left:mm_read_readdatavalid
+	signal dma_comm_5_right_mm_read_readdata                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_5_right_mm_read_readdata -> dma_comm_5_right:mm_read_readdata
+	signal dma_comm_5_right_mm_read_waitrequest                                                   : std_logic;                      -- mm_interconnect_1:dma_comm_5_right_mm_read_waitrequest -> dma_comm_5_right:mm_read_waitrequest
+	signal dma_comm_5_right_mm_read_address                                                       : std_logic_vector(31 downto 0);  -- dma_comm_5_right:mm_read_address -> mm_interconnect_1:dma_comm_5_right_mm_read_address
+	signal dma_comm_5_right_mm_read_read                                                          : std_logic;                      -- dma_comm_5_right:mm_read_read -> mm_interconnect_1:dma_comm_5_right_mm_read_read
+	signal dma_comm_5_right_mm_read_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_5_right:mm_read_byteenable -> mm_interconnect_1:dma_comm_5_right_mm_read_byteenable
+	signal dma_comm_5_right_mm_read_readdatavalid                                                 : std_logic;                      -- mm_interconnect_1:dma_comm_5_right_mm_read_readdatavalid -> dma_comm_5_right:mm_read_readdatavalid
+	signal dma_comm_5_left_mm_read_readdata                                                       : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_5_left_mm_read_readdata -> dma_comm_5_left:mm_read_readdata
+	signal dma_comm_5_left_mm_read_waitrequest                                                    : std_logic;                      -- mm_interconnect_1:dma_comm_5_left_mm_read_waitrequest -> dma_comm_5_left:mm_read_waitrequest
+	signal dma_comm_5_left_mm_read_address                                                        : std_logic_vector(31 downto 0);  -- dma_comm_5_left:mm_read_address -> mm_interconnect_1:dma_comm_5_left_mm_read_address
+	signal dma_comm_5_left_mm_read_read                                                           : std_logic;                      -- dma_comm_5_left:mm_read_read -> mm_interconnect_1:dma_comm_5_left_mm_read_read
+	signal dma_comm_5_left_mm_read_byteenable                                                     : std_logic_vector(31 downto 0);  -- dma_comm_5_left:mm_read_byteenable -> mm_interconnect_1:dma_comm_5_left_mm_read_byteenable
+	signal dma_comm_5_left_mm_read_readdatavalid                                                  : std_logic;                      -- mm_interconnect_1:dma_comm_5_left_mm_read_readdatavalid -> dma_comm_5_left:mm_read_readdatavalid
+	signal dma_comm_4_right_mm_read_readdata                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_4_right_mm_read_readdata -> dma_comm_4_right:mm_read_readdata
+	signal dma_comm_4_right_mm_read_waitrequest                                                   : std_logic;                      -- mm_interconnect_1:dma_comm_4_right_mm_read_waitrequest -> dma_comm_4_right:mm_read_waitrequest
+	signal dma_comm_4_right_mm_read_address                                                       : std_logic_vector(31 downto 0);  -- dma_comm_4_right:mm_read_address -> mm_interconnect_1:dma_comm_4_right_mm_read_address
+	signal dma_comm_4_right_mm_read_read                                                          : std_logic;                      -- dma_comm_4_right:mm_read_read -> mm_interconnect_1:dma_comm_4_right_mm_read_read
+	signal dma_comm_4_right_mm_read_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_4_right:mm_read_byteenable -> mm_interconnect_1:dma_comm_4_right_mm_read_byteenable
+	signal dma_comm_4_right_mm_read_readdatavalid                                                 : std_logic;                      -- mm_interconnect_1:dma_comm_4_right_mm_read_readdatavalid -> dma_comm_4_right:mm_read_readdatavalid
+	signal dma_comm_4_left_mm_read_readdata                                                       : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_4_left_mm_read_readdata -> dma_comm_4_left:mm_read_readdata
+	signal dma_comm_4_left_mm_read_waitrequest                                                    : std_logic;                      -- mm_interconnect_1:dma_comm_4_left_mm_read_waitrequest -> dma_comm_4_left:mm_read_waitrequest
+	signal dma_comm_4_left_mm_read_address                                                        : std_logic_vector(31 downto 0);  -- dma_comm_4_left:mm_read_address -> mm_interconnect_1:dma_comm_4_left_mm_read_address
+	signal dma_comm_4_left_mm_read_read                                                           : std_logic;                      -- dma_comm_4_left:mm_read_read -> mm_interconnect_1:dma_comm_4_left_mm_read_read
+	signal dma_comm_4_left_mm_read_byteenable                                                     : std_logic_vector(31 downto 0);  -- dma_comm_4_left:mm_read_byteenable -> mm_interconnect_1:dma_comm_4_left_mm_read_byteenable
+	signal dma_comm_4_left_mm_read_readdatavalid                                                  : std_logic;                      -- mm_interconnect_1:dma_comm_4_left_mm_read_readdatavalid -> dma_comm_4_left:mm_read_readdatavalid
+	signal dma_comm_3_right_mm_read_readdata                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_3_right_mm_read_readdata -> dma_comm_3_right:mm_read_readdata
+	signal dma_comm_3_right_mm_read_waitrequest                                                   : std_logic;                      -- mm_interconnect_1:dma_comm_3_right_mm_read_waitrequest -> dma_comm_3_right:mm_read_waitrequest
+	signal dma_comm_3_right_mm_read_address                                                       : std_logic_vector(31 downto 0);  -- dma_comm_3_right:mm_read_address -> mm_interconnect_1:dma_comm_3_right_mm_read_address
+	signal dma_comm_3_right_mm_read_read                                                          : std_logic;                      -- dma_comm_3_right:mm_read_read -> mm_interconnect_1:dma_comm_3_right_mm_read_read
+	signal dma_comm_3_right_mm_read_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_3_right:mm_read_byteenable -> mm_interconnect_1:dma_comm_3_right_mm_read_byteenable
+	signal dma_comm_3_right_mm_read_readdatavalid                                                 : std_logic;                      -- mm_interconnect_1:dma_comm_3_right_mm_read_readdatavalid -> dma_comm_3_right:mm_read_readdatavalid
+	signal dma_comm_3_left_mm_read_readdata                                                       : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_3_left_mm_read_readdata -> dma_comm_3_left:mm_read_readdata
+	signal dma_comm_3_left_mm_read_waitrequest                                                    : std_logic;                      -- mm_interconnect_1:dma_comm_3_left_mm_read_waitrequest -> dma_comm_3_left:mm_read_waitrequest
+	signal dma_comm_3_left_mm_read_address                                                        : std_logic_vector(31 downto 0);  -- dma_comm_3_left:mm_read_address -> mm_interconnect_1:dma_comm_3_left_mm_read_address
+	signal dma_comm_3_left_mm_read_read                                                           : std_logic;                      -- dma_comm_3_left:mm_read_read -> mm_interconnect_1:dma_comm_3_left_mm_read_read
+	signal dma_comm_3_left_mm_read_byteenable                                                     : std_logic_vector(31 downto 0);  -- dma_comm_3_left:mm_read_byteenable -> mm_interconnect_1:dma_comm_3_left_mm_read_byteenable
+	signal dma_comm_3_left_mm_read_readdatavalid                                                  : std_logic;                      -- mm_interconnect_1:dma_comm_3_left_mm_read_readdatavalid -> dma_comm_3_left:mm_read_readdatavalid
+	signal dma_comm_2_right_mm_read_readdata                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_2_right_mm_read_readdata -> dma_comm_2_right:mm_read_readdata
+	signal dma_comm_2_right_mm_read_waitrequest                                                   : std_logic;                      -- mm_interconnect_1:dma_comm_2_right_mm_read_waitrequest -> dma_comm_2_right:mm_read_waitrequest
+	signal dma_comm_2_right_mm_read_address                                                       : std_logic_vector(31 downto 0);  -- dma_comm_2_right:mm_read_address -> mm_interconnect_1:dma_comm_2_right_mm_read_address
+	signal dma_comm_2_right_mm_read_read                                                          : std_logic;                      -- dma_comm_2_right:mm_read_read -> mm_interconnect_1:dma_comm_2_right_mm_read_read
+	signal dma_comm_2_right_mm_read_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_2_right:mm_read_byteenable -> mm_interconnect_1:dma_comm_2_right_mm_read_byteenable
+	signal dma_comm_2_right_mm_read_readdatavalid                                                 : std_logic;                      -- mm_interconnect_1:dma_comm_2_right_mm_read_readdatavalid -> dma_comm_2_right:mm_read_readdatavalid
+	signal dma_comm_2_left_mm_read_readdata                                                       : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_2_left_mm_read_readdata -> dma_comm_2_left:mm_read_readdata
+	signal dma_comm_2_left_mm_read_waitrequest                                                    : std_logic;                      -- mm_interconnect_1:dma_comm_2_left_mm_read_waitrequest -> dma_comm_2_left:mm_read_waitrequest
+	signal dma_comm_2_left_mm_read_address                                                        : std_logic_vector(31 downto 0);  -- dma_comm_2_left:mm_read_address -> mm_interconnect_1:dma_comm_2_left_mm_read_address
+	signal dma_comm_2_left_mm_read_read                                                           : std_logic;                      -- dma_comm_2_left:mm_read_read -> mm_interconnect_1:dma_comm_2_left_mm_read_read
+	signal dma_comm_2_left_mm_read_byteenable                                                     : std_logic_vector(31 downto 0);  -- dma_comm_2_left:mm_read_byteenable -> mm_interconnect_1:dma_comm_2_left_mm_read_byteenable
+	signal dma_comm_2_left_mm_read_readdatavalid                                                  : std_logic;                      -- mm_interconnect_1:dma_comm_2_left_mm_read_readdatavalid -> dma_comm_2_left:mm_read_readdatavalid
+	signal dma_comm_1_right_mm_read_readdata                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_comm_1_right_mm_read_readdata -> dma_comm_1_right:mm_read_readdata
+	signal dma_comm_1_right_mm_read_waitrequest                                                   : std_logic;                      -- mm_interconnect_1:dma_comm_1_right_mm_read_waitrequest -> dma_comm_1_right:mm_read_waitrequest
+	signal dma_comm_1_right_mm_read_address                                                       : std_logic_vector(31 downto 0);  -- dma_comm_1_right:mm_read_address -> mm_interconnect_1:dma_comm_1_right_mm_read_address
+	signal dma_comm_1_right_mm_read_read                                                          : std_logic;                      -- dma_comm_1_right:mm_read_read -> mm_interconnect_1:dma_comm_1_right_mm_read_read
+	signal dma_comm_1_right_mm_read_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_1_right:mm_read_byteenable -> mm_interconnect_1:dma_comm_1_right_mm_read_byteenable
+	signal dma_comm_1_right_mm_read_readdatavalid                                                 : std_logic;                      -- mm_interconnect_1:dma_comm_1_right_mm_read_readdatavalid -> dma_comm_1_right:mm_read_readdatavalid
+	signal dma_ftdi_usb3_mm_write_waitrequest                                                     : std_logic;                      -- mm_interconnect_1:dma_ftdi_usb3_mm_write_waitrequest -> dma_ftdi_usb3:mm_write_waitrequest
+	signal dma_ftdi_usb3_mm_write_address                                                         : std_logic_vector(31 downto 0);  -- dma_ftdi_usb3:mm_write_address -> mm_interconnect_1:dma_ftdi_usb3_mm_write_address
+	signal dma_ftdi_usb3_mm_write_byteenable                                                      : std_logic_vector(31 downto 0);  -- dma_ftdi_usb3:mm_write_byteenable -> mm_interconnect_1:dma_ftdi_usb3_mm_write_byteenable
+	signal dma_ftdi_usb3_mm_write_write                                                           : std_logic;                      -- dma_ftdi_usb3:mm_write_write -> mm_interconnect_1:dma_ftdi_usb3_mm_write_write
+	signal dma_ftdi_usb3_mm_write_writedata                                                       : std_logic_vector(255 downto 0); -- dma_ftdi_usb3:mm_write_writedata -> mm_interconnect_1:dma_ftdi_usb3_mm_write_writedata
 	signal mm_interconnect_1_m2_ddr2_memory_avl_beginbursttransfer                                : std_logic;                      -- mm_interconnect_1:m2_ddr2_memory_avl_beginbursttransfer -> m2_ddr2_memory:avl_burstbegin
 	signal mm_interconnect_1_m2_ddr2_memory_avl_readdata                                          : std_logic_vector(255 downto 0); -- m2_ddr2_memory:avl_rdata -> mm_interconnect_1:m2_ddr2_memory_avl_readdata
 	signal m2_ddr2_memory_avl_waitrequest                                                         : std_logic;                      -- m2_ddr2_memory:avl_ready -> m2_ddr2_memory_avl_waitrequest:in
@@ -1823,60 +2638,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_1_m1_clock_bridge_s0_write                                             : std_logic;                      -- mm_interconnect_1:m1_clock_bridge_s0_write -> m1_clock_bridge:s0_write
 	signal mm_interconnect_1_m1_clock_bridge_s0_writedata                                         : std_logic_vector(255 downto 0); -- mm_interconnect_1:m1_clock_bridge_s0_writedata -> m1_clock_bridge:s0_writedata
 	signal mm_interconnect_1_m1_clock_bridge_s0_burstcount                                        : std_logic_vector(2 downto 0);   -- mm_interconnect_1:m1_clock_bridge_s0_burstcount -> m1_clock_bridge:s0_burstcount
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_writedata
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_waitrequest -> mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_waitrequest
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_address                  : std_logic_vector(7 downto 0);   -- mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_address
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_write                    : std_logic;                      -- mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_write
-	signal mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_1:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_writedata
-	signal mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_readdata                               : std_logic_vector(255 downto 0); -- FTDI_USB3_0:avalon_slave_data_readdata -> mm_interconnect_1:FTDI_USB3_0_avalon_slave_data_readdata
-	signal mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_waitrequest                            : std_logic;                      -- FTDI_USB3_0:avalon_slave_data_waitrequest -> mm_interconnect_1:FTDI_USB3_0_avalon_slave_data_waitrequest
-	signal mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_address                                : std_logic_vector(9 downto 0);   -- mm_interconnect_1:FTDI_USB3_0_avalon_slave_data_address -> FTDI_USB3_0:avalon_slave_data_address
-	signal mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_read                                   : std_logic;                      -- mm_interconnect_1:FTDI_USB3_0_avalon_slave_data_read -> FTDI_USB3_0:avalon_slave_data_read
-	signal mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_write                                  : std_logic;                      -- mm_interconnect_1:FTDI_USB3_0_avalon_slave_data_write -> FTDI_USB3_0:avalon_slave_data_write
-	signal mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_writedata                              : std_logic_vector(255 downto 0); -- mm_interconnect_1:FTDI_USB3_0_avalon_slave_data_writedata -> FTDI_USB3_0:avalon_slave_data_writedata
 	signal clock_bridge_afi_50_m0_waitrequest                                                     : std_logic;                      -- mm_interconnect_2:clock_bridge_afi_50_m0_waitrequest -> clock_bridge_afi_50:m0_waitrequest
 	signal clock_bridge_afi_50_m0_readdata                                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_2:clock_bridge_afi_50_m0_readdata -> clock_bridge_afi_50:m0_readdata
 	signal clock_bridge_afi_50_m0_debugaccess                                                     : std_logic;                      -- clock_bridge_afi_50:m0_debugaccess -> mm_interconnect_2:clock_bridge_afi_50_m0_debugaccess
@@ -1940,11 +2701,8 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_timer_1us_s1_address                                                 : std_logic_vector(2 downto 0);   -- mm_interconnect_2:timer_1us_s1_address -> timer_1us:address
 	signal mm_interconnect_2_timer_1us_s1_write                                                   : std_logic;                      -- mm_interconnect_2:timer_1us_s1_write -> mm_interconnect_2_timer_1us_s1_write:in
 	signal mm_interconnect_2_timer_1us_s1_writedata                                               : std_logic_vector(15 downto 0);  -- mm_interconnect_2:timer_1us_s1_writedata -> timer_1us:writedata
-	signal mm_interconnect_2_pio_ext_s1_chipselect                                                : std_logic;                      -- mm_interconnect_2:pio_EXT_s1_chipselect -> pio_EXT:chipselect
 	signal mm_interconnect_2_pio_ext_s1_readdata                                                  : std_logic_vector(31 downto 0);  -- pio_EXT:readdata -> mm_interconnect_2:pio_EXT_s1_readdata
 	signal mm_interconnect_2_pio_ext_s1_address                                                   : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_EXT_s1_address -> pio_EXT:address
-	signal mm_interconnect_2_pio_ext_s1_write                                                     : std_logic;                      -- mm_interconnect_2:pio_EXT_s1_write -> mm_interconnect_2_pio_ext_s1_write:in
-	signal mm_interconnect_2_pio_ext_s1_writedata                                                 : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_EXT_s1_writedata -> pio_EXT:writedata
 	signal mm_interconnect_2_sd_card_wp_n_s1_readdata                                             : std_logic_vector(31 downto 0);  -- sd_card_wp_n:readdata -> mm_interconnect_2:sd_card_wp_n_s1_readdata
 	signal mm_interconnect_2_sd_card_wp_n_s1_address                                              : std_logic_vector(1 downto 0);   -- mm_interconnect_2:sd_card_wp_n_s1_address -> sd_card_wp_n:address
 	signal mm_interconnect_2_temp_scl_s1_chipselect                                               : std_logic;                      -- mm_interconnect_2:temp_scl_s1_chipselect -> temp_scl:chipselect
@@ -2046,59 +2804,188 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_3_m1_ddr2_memory_avl_writedata                                         : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_ddr2_memory_avl_writedata -> m1_ddr2_memory:avl_wdata
 	signal mm_interconnect_3_m1_ddr2_memory_avl_burstcount                                        : std_logic_vector(7 downto 0);   -- mm_interconnect_3:m1_ddr2_memory_avl_burstcount -> m1_ddr2_memory:avl_size
 	signal m1_ddr2_memory_afi_clk_clk                                                             : std_logic;                      -- m1_ddr2_memory:afi_clk -> [mm_interconnect_3:m1_ddr2_memory_afi_clk_clk, rst_controller_016:clk]
+	signal dma_ftdi_usb3_mm_read_readdata                                                         : std_logic_vector(255 downto 0); -- mm_interconnect_4:dma_ftdi_usb3_mm_read_readdata -> dma_ftdi_usb3:mm_read_readdata
+	signal dma_ftdi_usb3_mm_read_waitrequest                                                      : std_logic;                      -- mm_interconnect_4:dma_ftdi_usb3_mm_read_waitrequest -> dma_ftdi_usb3:mm_read_waitrequest
+	signal dma_ftdi_usb3_mm_read_address                                                          : std_logic_vector(33 downto 0);  -- dma_ftdi_usb3:mm_read_address -> mm_interconnect_4:dma_ftdi_usb3_mm_read_address
+	signal dma_ftdi_usb3_mm_read_read                                                             : std_logic;                      -- dma_ftdi_usb3:mm_read_read -> mm_interconnect_4:dma_ftdi_usb3_mm_read_read
+	signal dma_ftdi_usb3_mm_read_byteenable                                                       : std_logic_vector(31 downto 0);  -- dma_ftdi_usb3:mm_read_byteenable -> mm_interconnect_4:dma_ftdi_usb3_mm_read_byteenable
+	signal dma_ftdi_usb3_mm_read_readdatavalid                                                    : std_logic;                      -- mm_interconnect_4:dma_ftdi_usb3_mm_read_readdatavalid -> dma_ftdi_usb3:mm_read_readdatavalid
+	signal mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_readdata                               : std_logic_vector(255 downto 0); -- FTDI_USB3_0:avalon_slave_data_readdata -> mm_interconnect_4:FTDI_USB3_0_avalon_slave_data_readdata
+	signal mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_waitrequest                            : std_logic;                      -- FTDI_USB3_0:avalon_slave_data_waitrequest -> mm_interconnect_4:FTDI_USB3_0_avalon_slave_data_waitrequest
+	signal mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_address                                : std_logic_vector(20 downto 0);  -- mm_interconnect_4:FTDI_USB3_0_avalon_slave_data_address -> FTDI_USB3_0:avalon_slave_data_address
+	signal mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_read                                   : std_logic;                      -- mm_interconnect_4:FTDI_USB3_0_avalon_slave_data_read -> FTDI_USB3_0:avalon_slave_data_read
+	signal mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_write                                  : std_logic;                      -- mm_interconnect_4:FTDI_USB3_0_avalon_slave_data_write -> FTDI_USB3_0:avalon_slave_data_write
+	signal mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_writedata                              : std_logic_vector(255 downto 0); -- mm_interconnect_4:FTDI_USB3_0_avalon_slave_data_writedata -> FTDI_USB3_0:avalon_slave_data_writedata
+	signal dma_comm_1_left_mm_write_waitrequest                                                   : std_logic;                      -- mm_interconnect_5:dma_comm_1_left_mm_write_waitrequest -> dma_comm_1_left:mm_write_waitrequest
+	signal dma_comm_1_left_mm_write_address                                                       : std_logic_vector(32 downto 0);  -- dma_comm_1_left:mm_write_address -> mm_interconnect_5:dma_comm_1_left_mm_write_address
+	signal dma_comm_1_left_mm_write_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_1_left:mm_write_byteenable -> mm_interconnect_5:dma_comm_1_left_mm_write_byteenable
+	signal dma_comm_1_left_mm_write_write                                                         : std_logic;                      -- dma_comm_1_left:mm_write_write -> mm_interconnect_5:dma_comm_1_left_mm_write_write
+	signal dma_comm_1_left_mm_write_writedata                                                     : std_logic_vector(255 downto 0); -- dma_comm_1_left:mm_write_writedata -> mm_interconnect_5:dma_comm_1_left_mm_write_writedata
+	signal mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_waitrequest -> mm_interconnect_5:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest
+	signal mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_address                  : std_logic_vector(20 downto 0);  -- mm_interconnect_5:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_address
+	signal mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_5:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_write
+	signal mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_5:COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_A:avalon_slave_L_buffer_writedata
+	signal dma_comm_2_left_mm_write_waitrequest                                                   : std_logic;                      -- mm_interconnect_6:dma_comm_2_left_mm_write_waitrequest -> dma_comm_2_left:mm_write_waitrequest
+	signal dma_comm_2_left_mm_write_address                                                       : std_logic_vector(32 downto 0);  -- dma_comm_2_left:mm_write_address -> mm_interconnect_6:dma_comm_2_left_mm_write_address
+	signal dma_comm_2_left_mm_write_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_2_left:mm_write_byteenable -> mm_interconnect_6:dma_comm_2_left_mm_write_byteenable
+	signal dma_comm_2_left_mm_write_write                                                         : std_logic;                      -- dma_comm_2_left:mm_write_write -> mm_interconnect_6:dma_comm_2_left_mm_write_write
+	signal dma_comm_2_left_mm_write_writedata                                                     : std_logic_vector(255 downto 0); -- dma_comm_2_left:mm_write_writedata -> mm_interconnect_6:dma_comm_2_left_mm_write_writedata
+	signal mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_waitrequest -> mm_interconnect_6:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest
+	signal mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address                  : std_logic_vector(20 downto 0);  -- mm_interconnect_6:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_address
+	signal mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_6:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_write
+	signal mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_6:COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_B:avalon_slave_L_buffer_writedata
+	signal dma_comm_3_left_mm_write_waitrequest                                                   : std_logic;                      -- mm_interconnect_7:dma_comm_3_left_mm_write_waitrequest -> dma_comm_3_left:mm_write_waitrequest
+	signal dma_comm_3_left_mm_write_address                                                       : std_logic_vector(32 downto 0);  -- dma_comm_3_left:mm_write_address -> mm_interconnect_7:dma_comm_3_left_mm_write_address
+	signal dma_comm_3_left_mm_write_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_3_left:mm_write_byteenable -> mm_interconnect_7:dma_comm_3_left_mm_write_byteenable
+	signal dma_comm_3_left_mm_write_write                                                         : std_logic;                      -- dma_comm_3_left:mm_write_write -> mm_interconnect_7:dma_comm_3_left_mm_write_write
+	signal dma_comm_3_left_mm_write_writedata                                                     : std_logic_vector(255 downto 0); -- dma_comm_3_left:mm_write_writedata -> mm_interconnect_7:dma_comm_3_left_mm_write_writedata
+	signal mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_waitrequest -> mm_interconnect_7:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest
+	signal mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address                  : std_logic_vector(20 downto 0);  -- mm_interconnect_7:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_address
+	signal mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_7:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_write
+	signal mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_7:COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_C:avalon_slave_L_buffer_writedata
+	signal dma_comm_4_left_mm_write_waitrequest                                                   : std_logic;                      -- mm_interconnect_8:dma_comm_4_left_mm_write_waitrequest -> dma_comm_4_left:mm_write_waitrequest
+	signal dma_comm_4_left_mm_write_address                                                       : std_logic_vector(32 downto 0);  -- dma_comm_4_left:mm_write_address -> mm_interconnect_8:dma_comm_4_left_mm_write_address
+	signal dma_comm_4_left_mm_write_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_4_left:mm_write_byteenable -> mm_interconnect_8:dma_comm_4_left_mm_write_byteenable
+	signal dma_comm_4_left_mm_write_write                                                         : std_logic;                      -- dma_comm_4_left:mm_write_write -> mm_interconnect_8:dma_comm_4_left_mm_write_write
+	signal dma_comm_4_left_mm_write_writedata                                                     : std_logic_vector(255 downto 0); -- dma_comm_4_left:mm_write_writedata -> mm_interconnect_8:dma_comm_4_left_mm_write_writedata
+	signal mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_waitrequest -> mm_interconnect_8:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest
+	signal mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address                  : std_logic_vector(20 downto 0);  -- mm_interconnect_8:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_address
+	signal mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_8:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_write
+	signal mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_8:COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_D:avalon_slave_L_buffer_writedata
+	signal dma_comm_5_left_mm_write_waitrequest                                                   : std_logic;                      -- mm_interconnect_9:dma_comm_5_left_mm_write_waitrequest -> dma_comm_5_left:mm_write_waitrequest
+	signal dma_comm_5_left_mm_write_address                                                       : std_logic_vector(32 downto 0);  -- dma_comm_5_left:mm_write_address -> mm_interconnect_9:dma_comm_5_left_mm_write_address
+	signal dma_comm_5_left_mm_write_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_5_left:mm_write_byteenable -> mm_interconnect_9:dma_comm_5_left_mm_write_byteenable
+	signal dma_comm_5_left_mm_write_write                                                         : std_logic;                      -- dma_comm_5_left:mm_write_write -> mm_interconnect_9:dma_comm_5_left_mm_write_write
+	signal dma_comm_5_left_mm_write_writedata                                                     : std_logic_vector(255 downto 0); -- dma_comm_5_left:mm_write_writedata -> mm_interconnect_9:dma_comm_5_left_mm_write_writedata
+	signal mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_waitrequest              : std_logic;                      -- COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_waitrequest -> mm_interconnect_9:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_waitrequest
+	signal mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address                  : std_logic_vector(20 downto 0);  -- mm_interconnect_9:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_address
+	signal mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_write                    : std_logic;                      -- mm_interconnect_9:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_write
+	signal mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_writedata                : std_logic_vector(255 downto 0); -- mm_interconnect_9:COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_E:avalon_slave_L_buffer_writedata
+	signal dma_comm_6_left_mm_write_waitrequest                                                   : std_logic;                      -- mm_interconnect_10:dma_comm_6_left_mm_write_waitrequest -> dma_comm_6_left:mm_write_waitrequest
+	signal dma_comm_6_left_mm_write_address                                                       : std_logic_vector(32 downto 0);  -- dma_comm_6_left:mm_write_address -> mm_interconnect_10:dma_comm_6_left_mm_write_address
+	signal dma_comm_6_left_mm_write_byteenable                                                    : std_logic_vector(31 downto 0);  -- dma_comm_6_left:mm_write_byteenable -> mm_interconnect_10:dma_comm_6_left_mm_write_byteenable
+	signal dma_comm_6_left_mm_write_write                                                         : std_logic;                      -- dma_comm_6_left:mm_write_write -> mm_interconnect_10:dma_comm_6_left_mm_write_write
+	signal dma_comm_6_left_mm_write_writedata                                                     : std_logic_vector(255 downto 0); -- dma_comm_6_left:mm_write_writedata -> mm_interconnect_10:dma_comm_6_left_mm_write_writedata
+	signal mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_waitrequest -> mm_interconnect_10:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_waitrequest
+	signal mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address                 : std_logic_vector(20 downto 0);  -- mm_interconnect_10:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address -> COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_address
+	signal mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_write                   : std_logic;                      -- mm_interconnect_10:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write -> COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_write
+	signal mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_writedata               : std_logic_vector(255 downto 0); -- mm_interconnect_10:COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_writedata -> COMM_Pedreiro_v1_01_F:avalon_slave_L_buffer_writedata
+	signal dma_comm_1_right_mm_write_waitrequest                                                  : std_logic;                      -- mm_interconnect_11:dma_comm_1_right_mm_write_waitrequest -> dma_comm_1_right:mm_write_waitrequest
+	signal dma_comm_1_right_mm_write_address                                                      : std_logic_vector(32 downto 0);  -- dma_comm_1_right:mm_write_address -> mm_interconnect_11:dma_comm_1_right_mm_write_address
+	signal dma_comm_1_right_mm_write_byteenable                                                   : std_logic_vector(31 downto 0);  -- dma_comm_1_right:mm_write_byteenable -> mm_interconnect_11:dma_comm_1_right_mm_write_byteenable
+	signal dma_comm_1_right_mm_write_write                                                        : std_logic;                      -- dma_comm_1_right:mm_write_write -> mm_interconnect_11:dma_comm_1_right_mm_write_write
+	signal dma_comm_1_right_mm_write_writedata                                                    : std_logic_vector(255 downto 0); -- dma_comm_1_right:mm_write_writedata -> mm_interconnect_11:dma_comm_1_right_mm_write_writedata
+	signal mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_waitrequest -> mm_interconnect_11:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest
+	signal mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_address                 : std_logic_vector(20 downto 0);  -- mm_interconnect_11:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_address
+	signal mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_write                   : std_logic;                      -- mm_interconnect_11:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_write
+	signal mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_writedata               : std_logic_vector(255 downto 0); -- mm_interconnect_11:COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_A:avalon_slave_R_buffer_writedata
+	signal dma_comm_2_right_mm_write_waitrequest                                                  : std_logic;                      -- mm_interconnect_12:dma_comm_2_right_mm_write_waitrequest -> dma_comm_2_right:mm_write_waitrequest
+	signal dma_comm_2_right_mm_write_address                                                      : std_logic_vector(32 downto 0);  -- dma_comm_2_right:mm_write_address -> mm_interconnect_12:dma_comm_2_right_mm_write_address
+	signal dma_comm_2_right_mm_write_byteenable                                                   : std_logic_vector(31 downto 0);  -- dma_comm_2_right:mm_write_byteenable -> mm_interconnect_12:dma_comm_2_right_mm_write_byteenable
+	signal dma_comm_2_right_mm_write_write                                                        : std_logic;                      -- dma_comm_2_right:mm_write_write -> mm_interconnect_12:dma_comm_2_right_mm_write_write
+	signal dma_comm_2_right_mm_write_writedata                                                    : std_logic_vector(255 downto 0); -- dma_comm_2_right:mm_write_writedata -> mm_interconnect_12:dma_comm_2_right_mm_write_writedata
+	signal mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_waitrequest -> mm_interconnect_12:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest
+	signal mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_address                 : std_logic_vector(20 downto 0);  -- mm_interconnect_12:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_address
+	signal mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_write                   : std_logic;                      -- mm_interconnect_12:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_write
+	signal mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_writedata               : std_logic_vector(255 downto 0); -- mm_interconnect_12:COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_B:avalon_slave_R_buffer_writedata
+	signal dma_comm_3_right_mm_write_waitrequest                                                  : std_logic;                      -- mm_interconnect_13:dma_comm_3_right_mm_write_waitrequest -> dma_comm_3_right:mm_write_waitrequest
+	signal dma_comm_3_right_mm_write_address                                                      : std_logic_vector(32 downto 0);  -- dma_comm_3_right:mm_write_address -> mm_interconnect_13:dma_comm_3_right_mm_write_address
+	signal dma_comm_3_right_mm_write_byteenable                                                   : std_logic_vector(31 downto 0);  -- dma_comm_3_right:mm_write_byteenable -> mm_interconnect_13:dma_comm_3_right_mm_write_byteenable
+	signal dma_comm_3_right_mm_write_write                                                        : std_logic;                      -- dma_comm_3_right:mm_write_write -> mm_interconnect_13:dma_comm_3_right_mm_write_write
+	signal dma_comm_3_right_mm_write_writedata                                                    : std_logic_vector(255 downto 0); -- dma_comm_3_right:mm_write_writedata -> mm_interconnect_13:dma_comm_3_right_mm_write_writedata
+	signal mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_waitrequest -> mm_interconnect_13:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest
+	signal mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_address                 : std_logic_vector(20 downto 0);  -- mm_interconnect_13:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_address
+	signal mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_write                   : std_logic;                      -- mm_interconnect_13:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_write
+	signal mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_writedata               : std_logic_vector(255 downto 0); -- mm_interconnect_13:COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_C:avalon_slave_R_buffer_writedata
+	signal dma_comm_4_right_mm_write_waitrequest                                                  : std_logic;                      -- mm_interconnect_14:dma_comm_4_right_mm_write_waitrequest -> dma_comm_4_right:mm_write_waitrequest
+	signal dma_comm_4_right_mm_write_address                                                      : std_logic_vector(32 downto 0);  -- dma_comm_4_right:mm_write_address -> mm_interconnect_14:dma_comm_4_right_mm_write_address
+	signal dma_comm_4_right_mm_write_byteenable                                                   : std_logic_vector(31 downto 0);  -- dma_comm_4_right:mm_write_byteenable -> mm_interconnect_14:dma_comm_4_right_mm_write_byteenable
+	signal dma_comm_4_right_mm_write_write                                                        : std_logic;                      -- dma_comm_4_right:mm_write_write -> mm_interconnect_14:dma_comm_4_right_mm_write_write
+	signal dma_comm_4_right_mm_write_writedata                                                    : std_logic_vector(255 downto 0); -- dma_comm_4_right:mm_write_writedata -> mm_interconnect_14:dma_comm_4_right_mm_write_writedata
+	signal mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_waitrequest -> mm_interconnect_14:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest
+	signal mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_address                 : std_logic_vector(20 downto 0);  -- mm_interconnect_14:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_address
+	signal mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_write                   : std_logic;                      -- mm_interconnect_14:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_write
+	signal mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_writedata               : std_logic_vector(255 downto 0); -- mm_interconnect_14:COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_D:avalon_slave_R_buffer_writedata
+	signal dma_comm_5_right_mm_write_waitrequest                                                  : std_logic;                      -- mm_interconnect_15:dma_comm_5_right_mm_write_waitrequest -> dma_comm_5_right:mm_write_waitrequest
+	signal dma_comm_5_right_mm_write_address                                                      : std_logic_vector(32 downto 0);  -- dma_comm_5_right:mm_write_address -> mm_interconnect_15:dma_comm_5_right_mm_write_address
+	signal dma_comm_5_right_mm_write_byteenable                                                   : std_logic_vector(31 downto 0);  -- dma_comm_5_right:mm_write_byteenable -> mm_interconnect_15:dma_comm_5_right_mm_write_byteenable
+	signal dma_comm_5_right_mm_write_write                                                        : std_logic;                      -- dma_comm_5_right:mm_write_write -> mm_interconnect_15:dma_comm_5_right_mm_write_write
+	signal dma_comm_5_right_mm_write_writedata                                                    : std_logic_vector(255 downto 0); -- dma_comm_5_right:mm_write_writedata -> mm_interconnect_15:dma_comm_5_right_mm_write_writedata
+	signal mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_waitrequest -> mm_interconnect_15:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_waitrequest
+	signal mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_address                 : std_logic_vector(20 downto 0);  -- mm_interconnect_15:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_address
+	signal mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_write                   : std_logic;                      -- mm_interconnect_15:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_write
+	signal mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_writedata               : std_logic_vector(255 downto 0); -- mm_interconnect_15:COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_E:avalon_slave_R_buffer_writedata
+	signal dma_comm_6_right_mm_write_waitrequest                                                  : std_logic;                      -- mm_interconnect_16:dma_comm_6_right_mm_write_waitrequest -> dma_comm_6_right:mm_write_waitrequest
+	signal dma_comm_6_right_mm_write_address                                                      : std_logic_vector(32 downto 0);  -- dma_comm_6_right:mm_write_address -> mm_interconnect_16:dma_comm_6_right_mm_write_address
+	signal dma_comm_6_right_mm_write_byteenable                                                   : std_logic_vector(31 downto 0);  -- dma_comm_6_right:mm_write_byteenable -> mm_interconnect_16:dma_comm_6_right_mm_write_byteenable
+	signal dma_comm_6_right_mm_write_write                                                        : std_logic;                      -- dma_comm_6_right:mm_write_write -> mm_interconnect_16:dma_comm_6_right_mm_write_write
+	signal dma_comm_6_right_mm_write_writedata                                                    : std_logic_vector(255 downto 0); -- dma_comm_6_right:mm_write_writedata -> mm_interconnect_16:dma_comm_6_right_mm_write_writedata
+	signal mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_waitrequest -> mm_interconnect_16:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_waitrequest
+	signal mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_address                 : std_logic_vector(20 downto 0);  -- mm_interconnect_16:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_address -> COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_address
+	signal mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_write                   : std_logic;                      -- mm_interconnect_16:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_write -> COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_write
+	signal mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_writedata               : std_logic_vector(255 downto 0); -- mm_interconnect_16:COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_writedata -> COMM_Pedreiro_v1_01_F:avalon_slave_R_buffer_writedata
 	signal irq_mapper_receiver0_irq                                                               : std_logic;                      -- COMM_Pedreiro_v1_01_A:buffers_interrupt_sender_irq -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                                               : std_logic;                      -- COMM_Pedreiro_v1_01_B:buffers_interrupt_sender_irq -> irq_mapper:receiver1_irq
 	signal irq_mapper_receiver2_irq                                                               : std_logic;                      -- COMM_Pedreiro_v1_01_C:buffers_interrupt_sender_irq -> irq_mapper:receiver2_irq
 	signal irq_mapper_receiver3_irq                                                               : std_logic;                      -- COMM_Pedreiro_v1_01_D:buffers_interrupt_sender_irq -> irq_mapper:receiver3_irq
 	signal irq_mapper_receiver4_irq                                                               : std_logic;                      -- COMM_Pedreiro_v1_01_E:buffers_interrupt_sender_irq -> irq_mapper:receiver4_irq
 	signal irq_mapper_receiver5_irq                                                               : std_logic;                      -- COMM_Pedreiro_v1_01_F:buffers_interrupt_sender_irq -> irq_mapper:receiver5_irq
-	signal irq_mapper_receiver6_irq                                                               : std_logic;                      -- dma_DDR_M1:csr_irq_irq -> irq_mapper:receiver6_irq
-	signal irq_mapper_receiver7_irq                                                               : std_logic;                      -- dma_DDR_M2:csr_irq_irq -> irq_mapper:receiver7_irq
-	signal irq_mapper_receiver8_irq                                                               : std_logic;                      -- FTDI_USB3_0:ftdi_interrupt_sender_irq -> irq_mapper:receiver8_irq
-	signal irq_mapper_receiver9_irq                                                               : std_logic;                      -- jtag_uart_0:av_irq -> irq_mapper:receiver9_irq
-	signal irq_mapper_receiver15_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_A:rmap_interrupt_sender_irq -> irq_mapper:receiver15_irq
-	signal irq_mapper_receiver16_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_B:rmap_interrupt_sender_irq -> irq_mapper:receiver16_irq
-	signal irq_mapper_receiver17_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_C:rmap_interrupt_sender_irq -> irq_mapper:receiver17_irq
-	signal irq_mapper_receiver18_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_D:rmap_interrupt_sender_irq -> irq_mapper:receiver18_irq
-	signal irq_mapper_receiver19_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_E:rmap_interrupt_sender_irq -> irq_mapper:receiver19_irq
-	signal irq_mapper_receiver20_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_F:rmap_interrupt_sender_irq -> irq_mapper:receiver20_irq
+	signal irq_mapper_receiver6_irq                                                               : std_logic;                      -- dma_comm_1_left:csr_irq_irq -> irq_mapper:receiver6_irq
+	signal irq_mapper_receiver7_irq                                                               : std_logic;                      -- dma_comm_1_right:csr_irq_irq -> irq_mapper:receiver7_irq
+	signal irq_mapper_receiver8_irq                                                               : std_logic;                      -- dma_comm_2_left:csr_irq_irq -> irq_mapper:receiver8_irq
+	signal irq_mapper_receiver9_irq                                                               : std_logic;                      -- dma_comm_2_right:csr_irq_irq -> irq_mapper:receiver9_irq
+	signal irq_mapper_receiver10_irq                                                              : std_logic;                      -- dma_comm_3_left:csr_irq_irq -> irq_mapper:receiver10_irq
+	signal irq_mapper_receiver11_irq                                                              : std_logic;                      -- dma_comm_3_right:csr_irq_irq -> irq_mapper:receiver11_irq
+	signal irq_mapper_receiver12_irq                                                              : std_logic;                      -- dma_comm_4_left:csr_irq_irq -> irq_mapper:receiver12_irq
+	signal irq_mapper_receiver13_irq                                                              : std_logic;                      -- dma_comm_4_right:csr_irq_irq -> irq_mapper:receiver13_irq
+	signal irq_mapper_receiver14_irq                                                              : std_logic;                      -- dma_comm_6_right:csr_irq_irq -> irq_mapper:receiver14_irq
+	signal irq_mapper_receiver15_irq                                                              : std_logic;                      -- dma_comm_6_left:csr_irq_irq -> irq_mapper:receiver15_irq
+	signal irq_mapper_receiver16_irq                                                              : std_logic;                      -- dma_comm_5_right:csr_irq_irq -> irq_mapper:receiver16_irq
+	signal irq_mapper_receiver17_irq                                                              : std_logic;                      -- dma_comm_5_left:csr_irq_irq -> irq_mapper:receiver17_irq
+	signal irq_mapper_receiver18_irq                                                              : std_logic;                      -- dma_ftdi_usb3:csr_irq_irq -> irq_mapper:receiver18_irq
+	signal irq_mapper_receiver19_irq                                                              : std_logic;                      -- FTDI_USB3_0:ftdi_interrupt_sender_irq -> irq_mapper:receiver19_irq
+	signal irq_mapper_receiver20_irq                                                              : std_logic;                      -- jtag_uart_0:av_irq -> irq_mapper:receiver20_irq
+	signal irq_mapper_receiver25_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_A:rmap_interrupt_sender_irq -> irq_mapper:receiver25_irq
+	signal irq_mapper_receiver26_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_B:rmap_interrupt_sender_irq -> irq_mapper:receiver26_irq
+	signal irq_mapper_receiver27_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_C:rmap_interrupt_sender_irq -> irq_mapper:receiver27_irq
+	signal irq_mapper_receiver28_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_D:rmap_interrupt_sender_irq -> irq_mapper:receiver28_irq
+	signal irq_mapper_receiver29_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_E:rmap_interrupt_sender_irq -> irq_mapper:receiver29_irq
+	signal irq_mapper_receiver30_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_F:rmap_interrupt_sender_irq -> irq_mapper:receiver30_irq
 	signal nios2_gen2_0_irq_irq                                                                   : std_logic_vector(31 downto 0);  -- irq_mapper:sender_irq -> nios2_gen2_0:irq
-	signal irq_mapper_receiver10_irq                                                              : std_logic;                      -- irq_synchronizer:sender_irq -> irq_mapper:receiver10_irq
+	signal irq_mapper_receiver21_irq                                                              : std_logic;                      -- irq_synchronizer:sender_irq -> irq_mapper:receiver21_irq
 	signal irq_synchronizer_receiver_irq                                                          : std_logic_vector(0 downto 0);   -- timer_1ms:irq -> irq_synchronizer:receiver_irq
-	signal irq_mapper_receiver11_irq                                                              : std_logic;                      -- irq_synchronizer_001:sender_irq -> irq_mapper:receiver11_irq
+	signal irq_mapper_receiver22_irq                                                              : std_logic;                      -- irq_synchronizer_001:sender_irq -> irq_mapper:receiver22_irq
 	signal irq_synchronizer_001_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- timer_1us:irq -> irq_synchronizer_001:receiver_irq
-	signal irq_mapper_receiver12_irq                                                              : std_logic;                      -- irq_synchronizer_002:sender_irq -> irq_mapper:receiver12_irq
-	signal irq_synchronizer_002_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- pio_EXT:irq -> irq_synchronizer_002:receiver_irq
-	signal irq_mapper_receiver13_irq                                                              : std_logic;                      -- irq_synchronizer_003:sender_irq -> irq_mapper:receiver13_irq
-	signal irq_synchronizer_003_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- rs232_uart:irq -> irq_synchronizer_003:receiver_irq
-	signal irq_mapper_receiver14_irq                                                              : std_logic;                      -- irq_synchronizer_004:sender_irq -> irq_mapper:receiver14_irq
-	signal irq_synchronizer_004_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- sync:pre_sync_interrupt_sender_irq_o -> irq_synchronizer_004:receiver_irq
-	signal irq_mapper_receiver21_irq                                                              : std_logic;                      -- irq_synchronizer_005:sender_irq -> irq_mapper:receiver21_irq
-	signal irq_synchronizer_005_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- sync:sync_interrupt_sender_irq_o -> irq_synchronizer_005:receiver_irq
+	signal irq_mapper_receiver23_irq                                                              : std_logic;                      -- irq_synchronizer_002:sender_irq -> irq_mapper:receiver23_irq
+	signal irq_synchronizer_002_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- rs232_uart:irq -> irq_synchronizer_002:receiver_irq
+	signal irq_mapper_receiver24_irq                                                              : std_logic;                      -- irq_synchronizer_003:sender_irq -> irq_mapper:receiver24_irq
+	signal irq_synchronizer_003_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- sync:pre_sync_interrupt_sender_irq_o -> irq_synchronizer_003:receiver_irq
+	signal irq_mapper_receiver31_irq                                                              : std_logic;                      -- irq_synchronizer_004:sender_irq -> irq_mapper:receiver31_irq
+	signal irq_synchronizer_004_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- sync:sync_interrupt_sender_irq_o -> irq_synchronizer_004:receiver_irq
 	signal rst_controller_001_reset_out_reset                                                     : std_logic;                      -- rst_controller_001:reset_out -> [mm_interconnect_2:Altera_UP_SD_Card_Avalon_Interface_0_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
 	signal rst_controller_reset_source_sd_card_reset                                              : std_logic;                      -- rst_controller:reset_source_sd_card_reset -> rst_controller_001:reset_in1
-	signal rst_controller_002_reset_out_reset                                                     : std_logic;                      -- rst_controller_002:reset_out -> [COMM_Pedreiro_v1_01_A:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset]
+	signal rst_controller_002_reset_out_reset                                                     : std_logic;                      -- rst_controller_002:reset_out -> [COMM_Pedreiro_v1_01_A:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_11:COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_5:COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset]
 	signal rst_controller_reset_source_comm_ch1_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch1_reset -> rst_controller_002:reset_in1
-	signal rst_controller_003_reset_out_reset                                                     : std_logic;                      -- rst_controller_003:reset_out -> [COMM_Pedreiro_v1_01_B:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset]
+	signal rst_controller_003_reset_out_reset                                                     : std_logic;                      -- rst_controller_003:reset_out -> [COMM_Pedreiro_v1_01_B:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_12:COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_6:COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset]
 	signal rst_controller_reset_source_comm_ch2_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch2_reset -> rst_controller_003:reset_in1
-	signal rst_controller_004_reset_out_reset                                                     : std_logic;                      -- rst_controller_004:reset_out -> [COMM_Pedreiro_v1_01_C:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset]
+	signal rst_controller_004_reset_out_reset                                                     : std_logic;                      -- rst_controller_004:reset_out -> [COMM_Pedreiro_v1_01_C:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_13:COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_7:COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset]
 	signal rst_controller_reset_source_comm_ch3_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch3_reset -> rst_controller_004:reset_in1
-	signal rst_controller_005_reset_out_reset                                                     : std_logic;                      -- rst_controller_005:reset_out -> [COMM_Pedreiro_v1_01_D:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset]
+	signal rst_controller_005_reset_out_reset                                                     : std_logic;                      -- rst_controller_005:reset_out -> [COMM_Pedreiro_v1_01_D:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_14:COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_8:COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset]
 	signal rst_controller_reset_source_comm_ch4_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch4_reset -> rst_controller_005:reset_in1
-	signal rst_controller_006_reset_out_reset                                                     : std_logic;                      -- rst_controller_006:reset_out -> [COMM_Pedreiro_v1_01_E:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset]
+	signal rst_controller_006_reset_out_reset                                                     : std_logic;                      -- rst_controller_006:reset_out -> [COMM_Pedreiro_v1_01_E:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_15:COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_9:COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset]
 	signal rst_controller_reset_source_comm_ch5_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch5_reset -> rst_controller_006:reset_in1
-	signal rst_controller_007_reset_out_reset                                                     : std_logic;                      -- rst_controller_007:reset_out -> [COMM_Pedreiro_v1_01_F:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset]
+	signal rst_controller_007_reset_out_reset                                                     : std_logic;                      -- rst_controller_007:reset_out -> [COMM_Pedreiro_v1_01_F:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_10:COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_16:COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset]
 	signal rst_controller_reset_source_comm_ch6_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch6_reset -> rst_controller_007:reset_in1
-	signal rst_controller_008_reset_out_reset                                                     : std_logic;                      -- rst_controller_008:reset_out -> [FTDI_USB3_0:reset_sink_reset, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, m1_clock_bridge:s0_reset, mm_interconnect_0:jtag_uart_0_reset_reset_bridge_in_reset_reset, mm_interconnect_1:ddr2_address_span_extender_reset_reset_bridge_in_reset_reset, mm_interconnect_1:m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_controller_008_reset_out_reset:in, rst_translator:in_reset]
+	signal rst_controller_008_reset_out_reset                                                     : std_logic;                      -- rst_controller_008:reset_out -> [FTDI_USB3_0:reset_sink_reset, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, m1_clock_bridge:s0_reset, mm_interconnect_0:jtag_uart_0_reset_reset_bridge_in_reset_reset, mm_interconnect_10:dma_comm_6_left_reset_n_reset_bridge_in_reset_reset, mm_interconnect_11:dma_comm_1_right_reset_n_reset_bridge_in_reset_reset, mm_interconnect_12:dma_comm_2_right_reset_n_reset_bridge_in_reset_reset, mm_interconnect_13:dma_comm_3_right_reset_n_reset_bridge_in_reset_reset, mm_interconnect_14:dma_comm_4_right_reset_n_reset_bridge_in_reset_reset, mm_interconnect_15:dma_comm_5_right_reset_n_reset_bridge_in_reset_reset, mm_interconnect_16:dma_comm_6_right_reset_n_reset_bridge_in_reset_reset, mm_interconnect_1:ddr2_address_span_extender_reset_reset_bridge_in_reset_reset, mm_interconnect_1:m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset, mm_interconnect_4:dma_ftdi_usb3_reset_n_reset_bridge_in_reset_reset, mm_interconnect_5:dma_comm_1_left_reset_n_reset_bridge_in_reset_reset, mm_interconnect_6:dma_comm_2_left_reset_n_reset_bridge_in_reset_reset, mm_interconnect_7:dma_comm_3_left_reset_n_reset_bridge_in_reset_reset, mm_interconnect_8:dma_comm_4_left_reset_n_reset_bridge_in_reset_reset, mm_interconnect_9:dma_comm_5_left_reset_n_reset_bridge_in_reset_reset, onchip_memory:reset, rst_controller_008_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_008_reset_out_reset_req                                                 : std_logic;                      -- rst_controller_008:reset_req -> [onchip_memory:reset_req, rst_translator:reset_req_in]
-	signal rst_controller_009_reset_out_reset                                                     : std_logic;                      -- rst_controller_009:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_002:receiver_reset, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset, rst_controller_009_reset_out_reset:in]
+	signal rst_controller_009_reset_out_reset                                                     : std_logic;                      -- rst_controller_009:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset, rst_controller_009_reset_out_reset:in]
 	signal rst_controller_010_reset_out_reset                                                     : std_logic;                      -- rst_controller_010:reset_out -> [ext_flash:reset_reset, mm_interconnect_0:ext_flash_reset_reset_bridge_in_reset_reset, tristate_conduit_bridge_0:reset]
 	signal rst_controller_011_reset_out_reset                                                     : std_logic;                      -- rst_controller_011:reset_out -> [m1_clock_bridge:m0_reset, mm_interconnect_3:m1_clock_bridge_m0_reset_reset_bridge_in_reset_reset]
-	signal rst_controller_012_reset_out_reset                                                     : std_logic;                      -- rst_controller_012:reset_out -> [irq_mapper:reset, irq_synchronizer:sender_reset, irq_synchronizer_001:sender_reset, irq_synchronizer_002:sender_reset, irq_synchronizer_003:sender_reset, irq_synchronizer_004:sender_reset, irq_synchronizer_005:sender_reset, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, rst_controller_012_reset_out_reset:in, rst_translator_001:in_reset]
+	signal rst_controller_012_reset_out_reset                                                     : std_logic;                      -- rst_controller_012:reset_out -> [irq_mapper:reset, irq_synchronizer:sender_reset, irq_synchronizer_001:sender_reset, irq_synchronizer_002:sender_reset, irq_synchronizer_003:sender_reset, irq_synchronizer_004:sender_reset, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, rst_controller_012_reset_out_reset:in, rst_translator_001:in_reset]
 	signal rst_controller_012_reset_out_reset_req                                                 : std_logic;                      -- rst_controller_012:reset_req -> [nios2_gen2_0:reset_req, rst_translator_001:reset_req_in]
-	signal rst_controller_013_reset_out_reset                                                     : std_logic;                      -- rst_controller_013:reset_out -> [irq_synchronizer_003:receiver_reset, mm_interconnect_2:rs232_uart_reset_reset_bridge_in_reset_reset, rst_controller_013_reset_out_reset:in]
+	signal rst_controller_013_reset_out_reset                                                     : std_logic;                      -- rst_controller_013:reset_out -> [irq_synchronizer_002:receiver_reset, mm_interconnect_2:rs232_uart_reset_reset_bridge_in_reset_reset, rst_controller_013_reset_out_reset:in]
 	signal rst_controller_reset_source_rs232_reset                                                : std_logic;                      -- rst_controller:reset_source_rs232_reset -> rst_controller_013:reset_in1
-	signal rst_controller_014_reset_out_reset                                                     : std_logic;                      -- rst_controller_014:reset_out -> [irq_synchronizer_004:receiver_reset, irq_synchronizer_005:receiver_reset, mm_interconnect_2:sync_reset_reset_bridge_in_reset_reset, sync:reset_sink_reset_i]
+	signal rst_controller_014_reset_out_reset                                                     : std_logic;                      -- rst_controller_014:reset_out -> [irq_synchronizer_003:receiver_reset, irq_synchronizer_004:receiver_reset, mm_interconnect_2:sync_reset_reset_bridge_in_reset_reset, sync:reset_sink_reset_i]
 	signal rst_controller_reset_source_sync_reset                                                 : std_logic;                      -- rst_controller:reset_source_sync_reset -> rst_controller_014:reset_in1
 	signal rst_controller_015_reset_out_reset                                                     : std_logic;                      -- rst_controller_015:reset_out -> [mm_interconnect_1:m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_1:m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
 	signal rst_controller_016_reset_out_reset                                                     : std_logic;                      -- rst_controller_016:reset_out -> [mm_interconnect_3:m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_3:m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
@@ -2111,7 +2998,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_led_s1_write_ports_inv                                           : std_logic;                      -- mm_interconnect_2_pio_led_s1_write:inv -> pio_LED:write_n
 	signal mm_interconnect_2_timer_1ms_s1_write_ports_inv                                         : std_logic;                      -- mm_interconnect_2_timer_1ms_s1_write:inv -> timer_1ms:write_n
 	signal mm_interconnect_2_timer_1us_s1_write_ports_inv                                         : std_logic;                      -- mm_interconnect_2_timer_1us_s1_write:inv -> timer_1us:write_n
-	signal mm_interconnect_2_pio_ext_s1_write_ports_inv                                           : std_logic;                      -- mm_interconnect_2_pio_ext_s1_write:inv -> pio_EXT:write_n
 	signal mm_interconnect_2_temp_scl_s1_write_ports_inv                                          : std_logic;                      -- mm_interconnect_2_temp_scl_s1_write:inv -> temp_scl:write_n
 	signal mm_interconnect_2_temp_sda_s1_write_ports_inv                                          : std_logic;                      -- mm_interconnect_2_temp_sda_s1_write:inv -> temp_sda:write_n
 	signal mm_interconnect_2_m2_ddr2_i2c_sda_s1_write_ports_inv                                   : std_logic;                      -- mm_interconnect_2_m2_ddr2_i2c_sda_s1_write:inv -> m2_ddr2_i2c_sda:write_n
@@ -2129,7 +3015,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_write_ports_inv                                  : std_logic;                      -- mm_interconnect_2_pio_ctrl_io_lvds_s1_write:inv -> pio_ctrl_io_lvds:write_n
 	signal mm_interconnect_3_m1_ddr2_memory_avl_inv                                               : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_3:m1_ddr2_memory_avl_waitrequest
 	signal rst_controller_001_reset_out_reset_ports_inv                                           : std_logic;                      -- rst_controller_001_reset_out_reset:inv -> Altera_UP_SD_Card_Avalon_Interface_0:i_reset_n
-	signal rst_controller_008_reset_out_reset_ports_inv                                           : std_logic;                      -- rst_controller_008_reset_out_reset:inv -> [dma_DDR_M1:reset_n_reset_n, dma_DDR_M2:reset_n_reset_n, jtag_uart_0:rst_n, sysid_qsys:reset_n]
+	signal rst_controller_008_reset_out_reset_ports_inv                                           : std_logic;                      -- rst_controller_008_reset_out_reset:inv -> [dma_comm_1_left:reset_n_reset_n, dma_comm_1_right:reset_n_reset_n, dma_comm_2_left:reset_n_reset_n, dma_comm_2_right:reset_n_reset_n, dma_comm_3_left:reset_n_reset_n, dma_comm_3_right:reset_n_reset_n, dma_comm_4_left:reset_n_reset_n, dma_comm_4_right:reset_n_reset_n, dma_comm_5_left:reset_n_reset_n, dma_comm_5_right:reset_n_reset_n, dma_comm_6_left:reset_n_reset_n, dma_comm_6_right:reset_n_reset_n, dma_ftdi_usb3:reset_n_reset_n, jtag_uart_0:rst_n, sysid_qsys:reset_n]
 	signal rst_controller_009_reset_out_reset_ports_inv                                           : std_logic;                      -- rst_controller_009_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
 	signal rst_controller_012_reset_out_reset_ports_inv                                           : std_logic;                      -- rst_controller_012_reset_out_reset:inv -> nios2_gen2_0:reset_n
 	signal rst_controller_013_reset_out_reset_ports_inv                                           : std_logic;                      -- rst_controller_013_reset_out_reset:inv -> rs232_uart:reset_n
@@ -2162,7 +3048,7 @@ begin
 			strobe_in                          => comm_a_conduit_end_strobe_in_signal,                                        --                         .strobe_in_signal
 			strobe_out                         => comm_a_conduit_end_strobe_out_signal,                                       --                         .strobe_out_signal
 			sync_channel                       => comm_a_sync_end_sync_channel_signal,                                        --         sync_conduit_end.sync_channel_signal
-			rmap_interrupt_sender_irq          => irq_mapper_receiver15_irq,                                                  --    rmap_interrupt_sender.irq
+			rmap_interrupt_sender_irq          => irq_mapper_receiver25_irq,                                                  --    rmap_interrupt_sender.irq
 			buffers_interrupt_sender_irq       => irq_mapper_receiver0_irq,                                                   -- buffers_interrupt_sender.irq
 			clock_sink_100_clk                 => m2_ddr2_memory_afi_half_clk_clk,                                            --           clock_sink_100.clk
 			clock_sink_200_clk                 => m2_ddr2_memory_afi_clk_clk,                                                 --           clock_sink_200.clk
@@ -2173,14 +3059,14 @@ begin
 			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_byteenable,  --                         .byteenable
 			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_waitrequest, --                         .waitrequest
-			avalon_slave_L_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
-			avalon_slave_L_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
-			avalon_slave_L_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_write,        --                         .write
-			avalon_slave_L_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_address,      --    avalon_slave_R_buffer.address
-			avalon_slave_R_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_write,        --                         .write
-			avalon_slave_R_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_address      => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
+			avalon_slave_L_buffer_waitrequest  => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_write        => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_write,        --                         .write
+			avalon_slave_L_buffer_writedata    => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_writedata,    --                         .writedata
+			avalon_slave_R_buffer_address      => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_address,     --    avalon_slave_R_buffer.address
+			avalon_slave_R_buffer_write        => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_write,       --                         .write
+			avalon_slave_R_buffer_writedata    => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_writedata,   --                         .writedata
+			avalon_slave_R_buffer_waitrequest  => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_waitrequest, --                         .waitrequest
 			measurements_channel               => comm_a_measurements_conduit_end_measurements_channel_signal                 -- measurements_conduit_end.measurements_channel_signal
 		);
 
@@ -2192,7 +3078,7 @@ begin
 			strobe_in                          => comm_b_conduit_end_strobe_in_signal,                                        --                         .strobe_in_signal
 			strobe_out                         => comm_b_conduit_end_strobe_out_signal,                                       --                         .strobe_out_signal
 			sync_channel                       => comm_b_sync_end_sync_channel_signal,                                        --         sync_conduit_end.sync_channel_signal
-			rmap_interrupt_sender_irq          => irq_mapper_receiver16_irq,                                                  --    rmap_interrupt_sender.irq
+			rmap_interrupt_sender_irq          => irq_mapper_receiver26_irq,                                                  --    rmap_interrupt_sender.irq
 			buffers_interrupt_sender_irq       => irq_mapper_receiver1_irq,                                                   -- buffers_interrupt_sender.irq
 			clock_sink_100_clk                 => m2_ddr2_memory_afi_half_clk_clk,                                            --           clock_sink_100.clk
 			clock_sink_200_clk                 => m2_ddr2_memory_afi_clk_clk,                                                 --           clock_sink_200.clk
@@ -2203,14 +3089,14 @@ begin
 			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_byteenable,  --                         .byteenable
 			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_waitrequest, --                         .waitrequest
-			avalon_slave_L_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
-			avalon_slave_L_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
-			avalon_slave_L_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_write,        --                         .write
-			avalon_slave_L_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_address,      --    avalon_slave_R_buffer.address
-			avalon_slave_R_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_write,        --                         .write
-			avalon_slave_R_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_address      => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
+			avalon_slave_L_buffer_waitrequest  => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_write        => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_write,        --                         .write
+			avalon_slave_L_buffer_writedata    => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_writedata,    --                         .writedata
+			avalon_slave_R_buffer_address      => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_address,     --    avalon_slave_R_buffer.address
+			avalon_slave_R_buffer_write        => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_write,       --                         .write
+			avalon_slave_R_buffer_writedata    => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_writedata,   --                         .writedata
+			avalon_slave_R_buffer_waitrequest  => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_waitrequest, --                         .waitrequest
 			measurements_channel               => comm_b_measurements_conduit_end_measurements_channel_signal                 -- measurements_conduit_end.measurements_channel_signal
 		);
 
@@ -2222,7 +3108,7 @@ begin
 			strobe_in                          => comm_c_conduit_end_strobe_in_signal,                                        --                         .strobe_in_signal
 			strobe_out                         => comm_c_conduit_end_strobe_out_signal,                                       --                         .strobe_out_signal
 			sync_channel                       => comm_c_sync_end_sync_channel_signal,                                        --         sync_conduit_end.sync_channel_signal
-			rmap_interrupt_sender_irq          => irq_mapper_receiver17_irq,                                                  --    rmap_interrupt_sender.irq
+			rmap_interrupt_sender_irq          => irq_mapper_receiver27_irq,                                                  --    rmap_interrupt_sender.irq
 			buffers_interrupt_sender_irq       => irq_mapper_receiver2_irq,                                                   -- buffers_interrupt_sender.irq
 			clock_sink_100_clk                 => m2_ddr2_memory_afi_half_clk_clk,                                            --           clock_sink_100.clk
 			clock_sink_200_clk                 => m2_ddr2_memory_afi_clk_clk,                                                 --           clock_sink_200.clk
@@ -2233,14 +3119,14 @@ begin
 			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_byteenable,  --                         .byteenable
 			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_waitrequest, --                         .waitrequest
-			avalon_slave_L_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
-			avalon_slave_L_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
-			avalon_slave_L_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_write,        --                         .write
-			avalon_slave_L_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_address,      --    avalon_slave_R_buffer.address
-			avalon_slave_R_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_write,        --                         .write
-			avalon_slave_R_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_address      => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
+			avalon_slave_L_buffer_waitrequest  => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_write        => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_write,        --                         .write
+			avalon_slave_L_buffer_writedata    => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_writedata,    --                         .writedata
+			avalon_slave_R_buffer_address      => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_address,     --    avalon_slave_R_buffer.address
+			avalon_slave_R_buffer_write        => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_write,       --                         .write
+			avalon_slave_R_buffer_writedata    => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_writedata,   --                         .writedata
+			avalon_slave_R_buffer_waitrequest  => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_waitrequest, --                         .waitrequest
 			measurements_channel               => comm_c_measurements_conduit_end_measurements_channel_signal                 -- measurements_conduit_end.measurements_channel_signal
 		);
 
@@ -2252,7 +3138,7 @@ begin
 			strobe_in                          => comm_d_conduit_end_strobe_in_signal,                                        --                         .strobe_in_signal
 			strobe_out                         => comm_d_conduit_end_strobe_out_signal,                                       --                         .strobe_out_signal
 			sync_channel                       => comm_d_sync_end_sync_channel_signal,                                        --         sync_conduit_end.sync_channel_signal
-			rmap_interrupt_sender_irq          => irq_mapper_receiver18_irq,                                                  --    rmap_interrupt_sender.irq
+			rmap_interrupt_sender_irq          => irq_mapper_receiver28_irq,                                                  --    rmap_interrupt_sender.irq
 			buffers_interrupt_sender_irq       => irq_mapper_receiver3_irq,                                                   -- buffers_interrupt_sender.irq
 			clock_sink_100_clk                 => m2_ddr2_memory_afi_half_clk_clk,                                            --           clock_sink_100.clk
 			clock_sink_200_clk                 => m2_ddr2_memory_afi_clk_clk,                                                 --           clock_sink_200.clk
@@ -2263,14 +3149,14 @@ begin
 			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_byteenable,  --                         .byteenable
 			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_waitrequest, --                         .waitrequest
-			avalon_slave_L_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
-			avalon_slave_L_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
-			avalon_slave_L_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_write,        --                         .write
-			avalon_slave_L_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_address,      --    avalon_slave_R_buffer.address
-			avalon_slave_R_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_write,        --                         .write
-			avalon_slave_R_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_address      => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
+			avalon_slave_L_buffer_waitrequest  => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_write        => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_write,        --                         .write
+			avalon_slave_L_buffer_writedata    => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_writedata,    --                         .writedata
+			avalon_slave_R_buffer_address      => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_address,     --    avalon_slave_R_buffer.address
+			avalon_slave_R_buffer_write        => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_write,       --                         .write
+			avalon_slave_R_buffer_writedata    => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_writedata,   --                         .writedata
+			avalon_slave_R_buffer_waitrequest  => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_waitrequest, --                         .waitrequest
 			measurements_channel               => comm_d_measurements_conduit_end_measurements_channel_signal                 -- measurements_conduit_end.measurements_channel_signal
 		);
 
@@ -2282,7 +3168,7 @@ begin
 			strobe_in                          => comm_e_conduit_end_strobe_in_signal,                                        --                         .strobe_in_signal
 			strobe_out                         => comm_e_conduit_end_strobe_out_signal,                                       --                         .strobe_out_signal
 			sync_channel                       => comm_e_sync_end_sync_channel_signal,                                        --         sync_conduit_end.sync_channel_signal
-			rmap_interrupt_sender_irq          => irq_mapper_receiver19_irq,                                                  --    rmap_interrupt_sender.irq
+			rmap_interrupt_sender_irq          => irq_mapper_receiver29_irq,                                                  --    rmap_interrupt_sender.irq
 			buffers_interrupt_sender_irq       => irq_mapper_receiver4_irq,                                                   -- buffers_interrupt_sender.irq
 			clock_sink_100_clk                 => m2_ddr2_memory_afi_half_clk_clk,                                            --           clock_sink_100.clk
 			clock_sink_200_clk                 => m2_ddr2_memory_afi_clk_clk,                                                 --           clock_sink_200.clk
@@ -2293,14 +3179,14 @@ begin
 			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_byteenable,  --                         .byteenable
 			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_waitrequest, --                         .waitrequest
-			avalon_slave_L_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
-			avalon_slave_L_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
-			avalon_slave_L_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_write,        --                         .write
-			avalon_slave_L_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_address,      --    avalon_slave_R_buffer.address
-			avalon_slave_R_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_write,        --                         .write
-			avalon_slave_R_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_address      => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
+			avalon_slave_L_buffer_waitrequest  => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_write        => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_write,        --                         .write
+			avalon_slave_L_buffer_writedata    => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_writedata,    --                         .writedata
+			avalon_slave_R_buffer_address      => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_address,     --    avalon_slave_R_buffer.address
+			avalon_slave_R_buffer_write        => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_write,       --                         .write
+			avalon_slave_R_buffer_writedata    => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_writedata,   --                         .writedata
+			avalon_slave_R_buffer_waitrequest  => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_waitrequest, --                         .waitrequest
 			measurements_channel               => comm_e_measurements_conduit_end_measurements_channel_signal                 -- measurements_conduit_end.measurements_channel_signal
 		);
 
@@ -2312,7 +3198,7 @@ begin
 			strobe_in                          => comm_f_conduit_end_strobe_in_signal,                                        --                         .strobe_in_signal
 			strobe_out                         => comm_f_conduit_end_strobe_out_signal,                                       --                         .strobe_out_signal
 			sync_channel                       => comm_f_sync_end_sync_channel_signal,                                        --         sync_conduit_end.sync_channel_signal
-			rmap_interrupt_sender_irq          => irq_mapper_receiver20_irq,                                                  --    rmap_interrupt_sender.irq
+			rmap_interrupt_sender_irq          => irq_mapper_receiver30_irq,                                                  --    rmap_interrupt_sender.irq
 			buffers_interrupt_sender_irq       => irq_mapper_receiver5_irq,                                                   -- buffers_interrupt_sender.irq
 			clock_sink_100_clk                 => m2_ddr2_memory_afi_half_clk_clk,                                            --           clock_sink_100.clk
 			clock_sink_200_clk                 => m2_ddr2_memory_afi_clk_clk,                                                 --           clock_sink_200.clk
@@ -2323,14 +3209,14 @@ begin
 			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_byteenable,  --                         .byteenable
 			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_waitrequest, --                         .waitrequest
-			avalon_slave_L_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
-			avalon_slave_L_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
-			avalon_slave_L_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_write,        --                         .write
-			avalon_slave_L_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_address      => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_address,      --    avalon_slave_R_buffer.address
-			avalon_slave_R_buffer_write        => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_write,        --                         .write
-			avalon_slave_R_buffer_writedata    => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_writedata,    --                         .writedata
-			avalon_slave_R_buffer_waitrequest  => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_waitrequest,  --                         .waitrequest
+			avalon_slave_L_buffer_address      => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address,     --    avalon_slave_L_buffer.address
+			avalon_slave_L_buffer_waitrequest  => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_waitrequest, --                         .waitrequest
+			avalon_slave_L_buffer_write        => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_write,       --                         .write
+			avalon_slave_L_buffer_writedata    => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_writedata,   --                         .writedata
+			avalon_slave_R_buffer_address      => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_address,     --    avalon_slave_R_buffer.address
+			avalon_slave_R_buffer_write        => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_write,       --                         .write
+			avalon_slave_R_buffer_writedata    => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_writedata,   --                         .writedata
+			avalon_slave_R_buffer_waitrequest  => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_waitrequest, --                         .waitrequest
 			measurements_channel               => comm_f_measurements_conduit_end_measurements_channel_signal                 -- measurements_conduit_end.measurements_channel_signal
 		);
 
@@ -2358,13 +3244,13 @@ begin
 			avalon_slave_config_writedata   => mm_interconnect_0_ftdi_usb3_0_avalon_slave_config_writedata,   --                      .writedata
 			avalon_slave_config_waitrequest => mm_interconnect_0_ftdi_usb3_0_avalon_slave_config_waitrequest, --                      .waitrequest
 			avalon_slave_config_byteenable  => mm_interconnect_0_ftdi_usb3_0_avalon_slave_config_byteenable,  --                      .byteenable
-			avalon_slave_data_address       => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_address,       --     avalon_slave_data.address
-			avalon_slave_data_write         => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_write,         --                      .write
-			avalon_slave_data_read          => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_read,          --                      .read
-			avalon_slave_data_writedata     => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_writedata,     --                      .writedata
-			avalon_slave_data_readdata      => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_readdata,      --                      .readdata
-			avalon_slave_data_waitrequest   => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_waitrequest,   --                      .waitrequest
-			ftdi_interrupt_sender_irq       => irq_mapper_receiver8_irq                                       -- ftdi_interrupt_sender.irq
+			avalon_slave_data_address       => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_address,       --     avalon_slave_data.address
+			avalon_slave_data_write         => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_write,         --                      .write
+			avalon_slave_data_read          => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_read,          --                      .read
+			avalon_slave_data_writedata     => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_writedata,     --                      .writedata
+			avalon_slave_data_readdata      => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_readdata,      --                      .readdata
+			avalon_slave_data_waitrequest   => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_waitrequest,   --                      .waitrequest
+			ftdi_interrupt_sender_irq       => irq_mapper_receiver19_irq                                      -- ftdi_interrupt_sender.irq
 		);
 
 	seven_segment_controller_0 : component SEVEN_SEG_TOP
@@ -2514,60 +3400,368 @@ begin
 			avs_cntl_address     => "0"                                                                        --     (terminated)
 		);
 
-	dma_ddr_m1 : component MebX_Qsys_Project_dma_DDR_M1
+	dma_comm_1_left : component MebX_Qsys_Project_dma_comm_1_left
 		port map (
-			mm_read_address              => dma_ddr_m1_mm_read_address,                                --          mm_read.address
-			mm_read_read                 => dma_ddr_m1_mm_read_read,                                   --                 .read
-			mm_read_byteenable           => dma_ddr_m1_mm_read_byteenable,                             --                 .byteenable
-			mm_read_readdata             => dma_ddr_m1_mm_read_readdata,                               --                 .readdata
-			mm_read_waitrequest          => dma_ddr_m1_mm_read_waitrequest,                            --                 .waitrequest
-			mm_read_readdatavalid        => dma_ddr_m1_mm_read_readdatavalid,                          --                 .readdatavalid
-			mm_write_address             => dma_ddr_m1_mm_write_address,                               --         mm_write.address
-			mm_write_write               => dma_ddr_m1_mm_write_write,                                 --                 .write
-			mm_write_byteenable          => dma_ddr_m1_mm_write_byteenable,                            --                 .byteenable
-			mm_write_writedata           => dma_ddr_m1_mm_write_writedata,                             --                 .writedata
-			mm_write_waitrequest         => dma_ddr_m1_mm_write_waitrequest,                           --                 .waitrequest
-			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                           --            clock.clk
-			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,              --          reset_n.reset_n
-			csr_writedata                => mm_interconnect_0_dma_ddr_m1_csr_writedata,                --              csr.writedata
-			csr_write                    => mm_interconnect_0_dma_ddr_m1_csr_write,                    --                 .write
-			csr_byteenable               => mm_interconnect_0_dma_ddr_m1_csr_byteenable,               --                 .byteenable
-			csr_readdata                 => mm_interconnect_0_dma_ddr_m1_csr_readdata,                 --                 .readdata
-			csr_read                     => mm_interconnect_0_dma_ddr_m1_csr_read,                     --                 .read
-			csr_address                  => mm_interconnect_0_dma_ddr_m1_csr_address,                  --                 .address
-			descriptor_slave_write       => mm_interconnect_0_dma_ddr_m1_descriptor_slave_write,       -- descriptor_slave.write
-			descriptor_slave_waitrequest => mm_interconnect_0_dma_ddr_m1_descriptor_slave_waitrequest, --                 .waitrequest
-			descriptor_slave_writedata   => mm_interconnect_0_dma_ddr_m1_descriptor_slave_writedata,   --                 .writedata
-			descriptor_slave_byteenable  => mm_interconnect_0_dma_ddr_m1_descriptor_slave_byteenable,  --                 .byteenable
-			csr_irq_irq                  => irq_mapper_receiver6_irq                                   --          csr_irq.irq
+			mm_read_address              => dma_comm_1_left_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_1_left_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_1_left_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_1_left_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_1_left_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_1_left_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_1_left_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_1_left_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_1_left_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_1_left_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_1_left_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                   --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_1_left_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_1_left_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_1_left_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_1_left_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_1_left_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_1_left_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_1_left_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_1_left_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_1_left_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_1_left_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver6_irq                                        --          csr_irq.irq
 		);
 
-	dma_ddr_m2 : component MebX_Qsys_Project_dma_DDR_M2
+	dma_comm_1_right : component MebX_Qsys_Project_dma_comm_1_right
 		port map (
-			mm_read_address              => dma_ddr_m2_mm_read_address,                                --          mm_read.address
-			mm_read_read                 => dma_ddr_m2_mm_read_read,                                   --                 .read
-			mm_read_byteenable           => dma_ddr_m2_mm_read_byteenable,                             --                 .byteenable
-			mm_read_readdata             => dma_ddr_m2_mm_read_readdata,                               --                 .readdata
-			mm_read_waitrequest          => dma_ddr_m2_mm_read_waitrequest,                            --                 .waitrequest
-			mm_read_readdatavalid        => dma_ddr_m2_mm_read_readdatavalid,                          --                 .readdatavalid
-			mm_write_address             => dma_ddr_m2_mm_write_address,                               --         mm_write.address
-			mm_write_write               => dma_ddr_m2_mm_write_write,                                 --                 .write
-			mm_write_byteenable          => dma_ddr_m2_mm_write_byteenable,                            --                 .byteenable
-			mm_write_writedata           => dma_ddr_m2_mm_write_writedata,                             --                 .writedata
-			mm_write_waitrequest         => dma_ddr_m2_mm_write_waitrequest,                           --                 .waitrequest
-			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                           --            clock.clk
-			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,              --          reset_n.reset_n
-			csr_writedata                => mm_interconnect_0_dma_ddr_m2_csr_writedata,                --              csr.writedata
-			csr_write                    => mm_interconnect_0_dma_ddr_m2_csr_write,                    --                 .write
-			csr_byteenable               => mm_interconnect_0_dma_ddr_m2_csr_byteenable,               --                 .byteenable
-			csr_readdata                 => mm_interconnect_0_dma_ddr_m2_csr_readdata,                 --                 .readdata
-			csr_read                     => mm_interconnect_0_dma_ddr_m2_csr_read,                     --                 .read
-			csr_address                  => mm_interconnect_0_dma_ddr_m2_csr_address,                  --                 .address
-			descriptor_slave_write       => mm_interconnect_0_dma_ddr_m2_descriptor_slave_write,       -- descriptor_slave.write
-			descriptor_slave_waitrequest => mm_interconnect_0_dma_ddr_m2_descriptor_slave_waitrequest, --                 .waitrequest
-			descriptor_slave_writedata   => mm_interconnect_0_dma_ddr_m2_descriptor_slave_writedata,   --                 .writedata
-			descriptor_slave_byteenable  => mm_interconnect_0_dma_ddr_m2_descriptor_slave_byteenable,  --                 .byteenable
-			csr_irq_irq                  => irq_mapper_receiver7_irq                                   --          csr_irq.irq
+			mm_read_address              => dma_comm_1_right_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_1_right_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_1_right_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_1_right_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_1_right_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_1_right_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_1_right_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_1_right_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_1_right_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_1_right_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_1_right_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                 --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                    --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_1_right_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_1_right_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_1_right_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_1_right_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_1_right_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_1_right_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_1_right_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_1_right_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_1_right_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_1_right_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver7_irq                                         --          csr_irq.irq
+		);
+
+	dma_comm_2_left : component MebX_Qsys_Project_dma_comm_2_left
+		port map (
+			mm_read_address              => dma_comm_2_left_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_2_left_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_2_left_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_2_left_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_2_left_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_2_left_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_2_left_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_2_left_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_2_left_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_2_left_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_2_left_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                   --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_2_left_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_2_left_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_2_left_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_2_left_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_2_left_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_2_left_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_2_left_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_2_left_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_2_left_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_2_left_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver8_irq                                        --          csr_irq.irq
+		);
+
+	dma_comm_2_right : component MebX_Qsys_Project_dma_comm_2_right
+		port map (
+			mm_read_address              => dma_comm_2_right_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_2_right_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_2_right_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_2_right_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_2_right_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_2_right_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_2_right_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_2_right_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_2_right_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_2_right_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_2_right_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                 --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                    --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_2_right_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_2_right_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_2_right_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_2_right_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_2_right_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_2_right_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_2_right_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_2_right_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_2_right_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_2_right_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver9_irq                                         --          csr_irq.irq
+		);
+
+	dma_comm_3_left : component MebX_Qsys_Project_dma_comm_3_left
+		port map (
+			mm_read_address              => dma_comm_3_left_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_3_left_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_3_left_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_3_left_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_3_left_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_3_left_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_3_left_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_3_left_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_3_left_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_3_left_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_3_left_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                   --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_3_left_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_3_left_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_3_left_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_3_left_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_3_left_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_3_left_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_3_left_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_3_left_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_3_left_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_3_left_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver10_irq                                       --          csr_irq.irq
+		);
+
+	dma_comm_3_right : component MebX_Qsys_Project_dma_comm_3_right
+		port map (
+			mm_read_address              => dma_comm_3_right_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_3_right_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_3_right_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_3_right_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_3_right_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_3_right_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_3_right_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_3_right_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_3_right_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_3_right_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_3_right_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                 --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                    --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_3_right_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_3_right_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_3_right_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_3_right_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_3_right_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_3_right_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_3_right_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_3_right_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_3_right_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_3_right_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver11_irq                                        --          csr_irq.irq
+		);
+
+	dma_comm_4_left : component MebX_Qsys_Project_dma_comm_4_left
+		port map (
+			mm_read_address              => dma_comm_4_left_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_4_left_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_4_left_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_4_left_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_4_left_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_4_left_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_4_left_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_4_left_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_4_left_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_4_left_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_4_left_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                   --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_4_left_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_4_left_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_4_left_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_4_left_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_4_left_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_4_left_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_4_left_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_4_left_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_4_left_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_4_left_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver12_irq                                       --          csr_irq.irq
+		);
+
+	dma_comm_4_right : component MebX_Qsys_Project_dma_comm_4_right
+		port map (
+			mm_read_address              => dma_comm_4_right_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_4_right_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_4_right_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_4_right_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_4_right_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_4_right_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_4_right_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_4_right_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_4_right_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_4_right_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_4_right_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                 --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                    --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_4_right_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_4_right_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_4_right_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_4_right_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_4_right_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_4_right_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_4_right_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_4_right_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_4_right_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_4_right_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver13_irq                                        --          csr_irq.irq
+		);
+
+	dma_comm_5_left : component MebX_Qsys_Project_dma_comm_5_left
+		port map (
+			mm_read_address              => dma_comm_5_left_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_5_left_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_5_left_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_5_left_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_5_left_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_5_left_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_5_left_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_5_left_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_5_left_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_5_left_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_5_left_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                   --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_5_left_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_5_left_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_5_left_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_5_left_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_5_left_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_5_left_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_5_left_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_5_left_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_5_left_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_5_left_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver17_irq                                       --          csr_irq.irq
+		);
+
+	dma_comm_5_right : component MebX_Qsys_Project_dma_comm_5_right
+		port map (
+			mm_read_address              => dma_comm_5_right_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_5_right_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_5_right_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_5_right_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_5_right_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_5_right_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_5_right_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_5_right_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_5_right_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_5_right_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_5_right_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                 --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                    --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_5_right_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_5_right_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_5_right_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_5_right_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_5_right_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_5_right_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_5_right_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_5_right_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_5_right_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_5_right_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver16_irq                                        --          csr_irq.irq
+		);
+
+	dma_comm_6_left : component MebX_Qsys_Project_dma_comm_6_left
+		port map (
+			mm_read_address              => dma_comm_6_left_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_6_left_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_6_left_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_6_left_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_6_left_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_6_left_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_6_left_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_6_left_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_6_left_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_6_left_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_6_left_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                   --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_6_left_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_6_left_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_6_left_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_6_left_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_6_left_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_6_left_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_6_left_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_6_left_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_6_left_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_6_left_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver15_irq                                       --          csr_irq.irq
+		);
+
+	dma_comm_6_right : component MebX_Qsys_Project_dma_comm_6_right
+		port map (
+			mm_read_address              => dma_comm_6_right_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_comm_6_right_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_comm_6_right_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_comm_6_right_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_comm_6_right_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_comm_6_right_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_comm_6_right_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_comm_6_right_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_comm_6_right_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_comm_6_right_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_comm_6_right_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                                 --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                    --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_comm_6_right_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_comm_6_right_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_comm_6_right_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_comm_6_right_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_comm_6_right_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_comm_6_right_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_comm_6_right_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_comm_6_right_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_comm_6_right_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_comm_6_right_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver14_irq                                        --          csr_irq.irq
+		);
+
+	dma_ftdi_usb3 : component MebX_Qsys_Project_dma_ftdi_usb3
+		port map (
+			mm_read_address              => dma_ftdi_usb3_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => dma_ftdi_usb3_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => dma_ftdi_usb3_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => dma_ftdi_usb3_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => dma_ftdi_usb3_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => dma_ftdi_usb3_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_write_address             => dma_ftdi_usb3_mm_write_address,                               --         mm_write.address
+			mm_write_write               => dma_ftdi_usb3_mm_write_write,                                 --                 .write
+			mm_write_byteenable          => dma_ftdi_usb3_mm_write_byteenable,                            --                 .byteenable
+			mm_write_writedata           => dma_ftdi_usb3_mm_write_writedata,                             --                 .writedata
+			mm_write_waitrequest         => dma_ftdi_usb3_mm_write_waitrequest,                           --                 .waitrequest
+			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                              --            clock.clk
+			reset_n_reset_n              => rst_controller_008_reset_out_reset_ports_inv,                 --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_dma_ftdi_usb3_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_dma_ftdi_usb3_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_dma_ftdi_usb3_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_dma_ftdi_usb3_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_dma_ftdi_usb3_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_dma_ftdi_usb3_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => irq_mapper_receiver18_irq                                     --          csr_irq.irq
 		);
 
 	ext_flash : component MebX_Qsys_Project_ext_flash
@@ -2644,7 +3838,7 @@ begin
 			av_write_n     => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write_ports_inv, --                  .write_n
 			av_writedata   => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_writedata,       --                  .writedata
 			av_waitrequest => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_waitrequest,     --                  .waitrequest
-			av_irq         => irq_mapper_receiver9_irq                                         --               irq.irq
+			av_irq         => irq_mapper_receiver20_irq                                        --               irq.irq
 		);
 
 	m1_clock_bridge : component mebx_qsys_project_m1_clock_bridge
@@ -2889,15 +4083,11 @@ begin
 
 	pio_ext : component MebX_Qsys_Project_pio_EXT
 		port map (
-			clk        => clk50_clk,                                    --                 clk.clk
-			reset_n    => rst_controller_009_reset_out_reset_ports_inv, --               reset.reset_n
-			address    => mm_interconnect_2_pio_ext_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_2_pio_ext_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_2_pio_ext_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_2_pio_ext_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_2_pio_ext_s1_readdata,        --                    .readdata
-			in_port    => ext_export,                                   -- external_connection.export
-			irq        => irq_synchronizer_002_receiver_irq(0)          --                 irq.irq
+			clk      => clk50_clk,                                    --                 clk.clk
+			reset_n  => rst_controller_009_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_2_pio_ext_s1_address,         --                  s1.address
+			readdata => mm_interconnect_2_pio_ext_s1_readdata,        --                    .readdata
+			in_port  => ext_export                                    -- external_connection.export
 		);
 
 	pio_led : component MebX_Qsys_Project_pio_LED
@@ -2949,7 +4139,7 @@ begin
 			readdata      => mm_interconnect_2_rs232_uart_s1_readdata,        --                    .readdata
 			rxd           => rs232_uart_rxd,                                  -- external_connection.export
 			txd           => rs232_uart_txd,                                  --                    .export
-			irq           => irq_synchronizer_003_receiver_irq(0)             --                 irq.irq
+			irq           => irq_synchronizer_002_receiver_irq(0)             --                 irq.irq
 		);
 
 	rst_controller : component rst_controller_top
@@ -3066,8 +4256,8 @@ begin
 			conduit_sync_signal_spw7_o      => sync_spw7_conduit,                                  --                 sync_spw7.conduit
 			conduit_sync_signal_spw8_o      => sync_spw8_conduit,                                  --                 sync_spw8.conduit
 			conduit_sync_signal_syncout_o   => sync_out_conduit,                                   --                  sync_out.conduit
-			sync_interrupt_sender_irq_o     => irq_synchronizer_005_receiver_irq(0),               --     sync_interrupt_sender.irq
-			pre_sync_interrupt_sender_irq_o => irq_synchronizer_004_receiver_irq(0)                -- pre_sync_interrupt_sender.irq
+			sync_interrupt_sender_irq_o     => irq_synchronizer_004_receiver_irq(0),               --     sync_interrupt_sender.irq
+			pre_sync_interrupt_sender_irq_o => irq_synchronizer_003_receiver_irq(0)                -- pre_sync_interrupt_sender.irq
 		);
 
 	sysid_qsys : component MebX_Qsys_Project_sysid_qsys
@@ -3240,26 +4430,136 @@ begin
 			ddr2_address_span_extender_windowed_slave_byteenable         => mm_interconnect_0_ddr2_address_span_extender_windowed_slave_byteenable,     --                                                       .byteenable
 			ddr2_address_span_extender_windowed_slave_readdatavalid      => mm_interconnect_0_ddr2_address_span_extender_windowed_slave_readdatavalid,  --                                                       .readdatavalid
 			ddr2_address_span_extender_windowed_slave_waitrequest        => mm_interconnect_0_ddr2_address_span_extender_windowed_slave_waitrequest,    --                                                       .waitrequest
-			dma_DDR_M1_csr_address                                       => mm_interconnect_0_dma_ddr_m1_csr_address,                                   --                                         dma_DDR_M1_csr.address
-			dma_DDR_M1_csr_write                                         => mm_interconnect_0_dma_ddr_m1_csr_write,                                     --                                                       .write
-			dma_DDR_M1_csr_read                                          => mm_interconnect_0_dma_ddr_m1_csr_read,                                      --                                                       .read
-			dma_DDR_M1_csr_readdata                                      => mm_interconnect_0_dma_ddr_m1_csr_readdata,                                  --                                                       .readdata
-			dma_DDR_M1_csr_writedata                                     => mm_interconnect_0_dma_ddr_m1_csr_writedata,                                 --                                                       .writedata
-			dma_DDR_M1_csr_byteenable                                    => mm_interconnect_0_dma_ddr_m1_csr_byteenable,                                --                                                       .byteenable
-			dma_DDR_M1_descriptor_slave_write                            => mm_interconnect_0_dma_ddr_m1_descriptor_slave_write,                        --                            dma_DDR_M1_descriptor_slave.write
-			dma_DDR_M1_descriptor_slave_writedata                        => mm_interconnect_0_dma_ddr_m1_descriptor_slave_writedata,                    --                                                       .writedata
-			dma_DDR_M1_descriptor_slave_byteenable                       => mm_interconnect_0_dma_ddr_m1_descriptor_slave_byteenable,                   --                                                       .byteenable
-			dma_DDR_M1_descriptor_slave_waitrequest                      => mm_interconnect_0_dma_ddr_m1_descriptor_slave_waitrequest,                  --                                                       .waitrequest
-			dma_DDR_M2_csr_address                                       => mm_interconnect_0_dma_ddr_m2_csr_address,                                   --                                         dma_DDR_M2_csr.address
-			dma_DDR_M2_csr_write                                         => mm_interconnect_0_dma_ddr_m2_csr_write,                                     --                                                       .write
-			dma_DDR_M2_csr_read                                          => mm_interconnect_0_dma_ddr_m2_csr_read,                                      --                                                       .read
-			dma_DDR_M2_csr_readdata                                      => mm_interconnect_0_dma_ddr_m2_csr_readdata,                                  --                                                       .readdata
-			dma_DDR_M2_csr_writedata                                     => mm_interconnect_0_dma_ddr_m2_csr_writedata,                                 --                                                       .writedata
-			dma_DDR_M2_csr_byteenable                                    => mm_interconnect_0_dma_ddr_m2_csr_byteenable,                                --                                                       .byteenable
-			dma_DDR_M2_descriptor_slave_write                            => mm_interconnect_0_dma_ddr_m2_descriptor_slave_write,                        --                            dma_DDR_M2_descriptor_slave.write
-			dma_DDR_M2_descriptor_slave_writedata                        => mm_interconnect_0_dma_ddr_m2_descriptor_slave_writedata,                    --                                                       .writedata
-			dma_DDR_M2_descriptor_slave_byteenable                       => mm_interconnect_0_dma_ddr_m2_descriptor_slave_byteenable,                   --                                                       .byteenable
-			dma_DDR_M2_descriptor_slave_waitrequest                      => mm_interconnect_0_dma_ddr_m2_descriptor_slave_waitrequest,                  --                                                       .waitrequest
+			dma_comm_1_left_csr_address                                  => mm_interconnect_0_dma_comm_1_left_csr_address,                              --                                    dma_comm_1_left_csr.address
+			dma_comm_1_left_csr_write                                    => mm_interconnect_0_dma_comm_1_left_csr_write,                                --                                                       .write
+			dma_comm_1_left_csr_read                                     => mm_interconnect_0_dma_comm_1_left_csr_read,                                 --                                                       .read
+			dma_comm_1_left_csr_readdata                                 => mm_interconnect_0_dma_comm_1_left_csr_readdata,                             --                                                       .readdata
+			dma_comm_1_left_csr_writedata                                => mm_interconnect_0_dma_comm_1_left_csr_writedata,                            --                                                       .writedata
+			dma_comm_1_left_csr_byteenable                               => mm_interconnect_0_dma_comm_1_left_csr_byteenable,                           --                                                       .byteenable
+			dma_comm_1_left_descriptor_slave_write                       => mm_interconnect_0_dma_comm_1_left_descriptor_slave_write,                   --                       dma_comm_1_left_descriptor_slave.write
+			dma_comm_1_left_descriptor_slave_writedata                   => mm_interconnect_0_dma_comm_1_left_descriptor_slave_writedata,               --                                                       .writedata
+			dma_comm_1_left_descriptor_slave_byteenable                  => mm_interconnect_0_dma_comm_1_left_descriptor_slave_byteenable,              --                                                       .byteenable
+			dma_comm_1_left_descriptor_slave_waitrequest                 => mm_interconnect_0_dma_comm_1_left_descriptor_slave_waitrequest,             --                                                       .waitrequest
+			dma_comm_1_right_csr_address                                 => mm_interconnect_0_dma_comm_1_right_csr_address,                             --                                   dma_comm_1_right_csr.address
+			dma_comm_1_right_csr_write                                   => mm_interconnect_0_dma_comm_1_right_csr_write,                               --                                                       .write
+			dma_comm_1_right_csr_read                                    => mm_interconnect_0_dma_comm_1_right_csr_read,                                --                                                       .read
+			dma_comm_1_right_csr_readdata                                => mm_interconnect_0_dma_comm_1_right_csr_readdata,                            --                                                       .readdata
+			dma_comm_1_right_csr_writedata                               => mm_interconnect_0_dma_comm_1_right_csr_writedata,                           --                                                       .writedata
+			dma_comm_1_right_csr_byteenable                              => mm_interconnect_0_dma_comm_1_right_csr_byteenable,                          --                                                       .byteenable
+			dma_comm_1_right_descriptor_slave_write                      => mm_interconnect_0_dma_comm_1_right_descriptor_slave_write,                  --                      dma_comm_1_right_descriptor_slave.write
+			dma_comm_1_right_descriptor_slave_writedata                  => mm_interconnect_0_dma_comm_1_right_descriptor_slave_writedata,              --                                                       .writedata
+			dma_comm_1_right_descriptor_slave_byteenable                 => mm_interconnect_0_dma_comm_1_right_descriptor_slave_byteenable,             --                                                       .byteenable
+			dma_comm_1_right_descriptor_slave_waitrequest                => mm_interconnect_0_dma_comm_1_right_descriptor_slave_waitrequest,            --                                                       .waitrequest
+			dma_comm_2_left_csr_address                                  => mm_interconnect_0_dma_comm_2_left_csr_address,                              --                                    dma_comm_2_left_csr.address
+			dma_comm_2_left_csr_write                                    => mm_interconnect_0_dma_comm_2_left_csr_write,                                --                                                       .write
+			dma_comm_2_left_csr_read                                     => mm_interconnect_0_dma_comm_2_left_csr_read,                                 --                                                       .read
+			dma_comm_2_left_csr_readdata                                 => mm_interconnect_0_dma_comm_2_left_csr_readdata,                             --                                                       .readdata
+			dma_comm_2_left_csr_writedata                                => mm_interconnect_0_dma_comm_2_left_csr_writedata,                            --                                                       .writedata
+			dma_comm_2_left_csr_byteenable                               => mm_interconnect_0_dma_comm_2_left_csr_byteenable,                           --                                                       .byteenable
+			dma_comm_2_left_descriptor_slave_write                       => mm_interconnect_0_dma_comm_2_left_descriptor_slave_write,                   --                       dma_comm_2_left_descriptor_slave.write
+			dma_comm_2_left_descriptor_slave_writedata                   => mm_interconnect_0_dma_comm_2_left_descriptor_slave_writedata,               --                                                       .writedata
+			dma_comm_2_left_descriptor_slave_byteenable                  => mm_interconnect_0_dma_comm_2_left_descriptor_slave_byteenable,              --                                                       .byteenable
+			dma_comm_2_left_descriptor_slave_waitrequest                 => mm_interconnect_0_dma_comm_2_left_descriptor_slave_waitrequest,             --                                                       .waitrequest
+			dma_comm_2_right_csr_address                                 => mm_interconnect_0_dma_comm_2_right_csr_address,                             --                                   dma_comm_2_right_csr.address
+			dma_comm_2_right_csr_write                                   => mm_interconnect_0_dma_comm_2_right_csr_write,                               --                                                       .write
+			dma_comm_2_right_csr_read                                    => mm_interconnect_0_dma_comm_2_right_csr_read,                                --                                                       .read
+			dma_comm_2_right_csr_readdata                                => mm_interconnect_0_dma_comm_2_right_csr_readdata,                            --                                                       .readdata
+			dma_comm_2_right_csr_writedata                               => mm_interconnect_0_dma_comm_2_right_csr_writedata,                           --                                                       .writedata
+			dma_comm_2_right_csr_byteenable                              => mm_interconnect_0_dma_comm_2_right_csr_byteenable,                          --                                                       .byteenable
+			dma_comm_2_right_descriptor_slave_write                      => mm_interconnect_0_dma_comm_2_right_descriptor_slave_write,                  --                      dma_comm_2_right_descriptor_slave.write
+			dma_comm_2_right_descriptor_slave_writedata                  => mm_interconnect_0_dma_comm_2_right_descriptor_slave_writedata,              --                                                       .writedata
+			dma_comm_2_right_descriptor_slave_byteenable                 => mm_interconnect_0_dma_comm_2_right_descriptor_slave_byteenable,             --                                                       .byteenable
+			dma_comm_2_right_descriptor_slave_waitrequest                => mm_interconnect_0_dma_comm_2_right_descriptor_slave_waitrequest,            --                                                       .waitrequest
+			dma_comm_3_left_csr_address                                  => mm_interconnect_0_dma_comm_3_left_csr_address,                              --                                    dma_comm_3_left_csr.address
+			dma_comm_3_left_csr_write                                    => mm_interconnect_0_dma_comm_3_left_csr_write,                                --                                                       .write
+			dma_comm_3_left_csr_read                                     => mm_interconnect_0_dma_comm_3_left_csr_read,                                 --                                                       .read
+			dma_comm_3_left_csr_readdata                                 => mm_interconnect_0_dma_comm_3_left_csr_readdata,                             --                                                       .readdata
+			dma_comm_3_left_csr_writedata                                => mm_interconnect_0_dma_comm_3_left_csr_writedata,                            --                                                       .writedata
+			dma_comm_3_left_csr_byteenable                               => mm_interconnect_0_dma_comm_3_left_csr_byteenable,                           --                                                       .byteenable
+			dma_comm_3_left_descriptor_slave_write                       => mm_interconnect_0_dma_comm_3_left_descriptor_slave_write,                   --                       dma_comm_3_left_descriptor_slave.write
+			dma_comm_3_left_descriptor_slave_writedata                   => mm_interconnect_0_dma_comm_3_left_descriptor_slave_writedata,               --                                                       .writedata
+			dma_comm_3_left_descriptor_slave_byteenable                  => mm_interconnect_0_dma_comm_3_left_descriptor_slave_byteenable,              --                                                       .byteenable
+			dma_comm_3_left_descriptor_slave_waitrequest                 => mm_interconnect_0_dma_comm_3_left_descriptor_slave_waitrequest,             --                                                       .waitrequest
+			dma_comm_3_right_csr_address                                 => mm_interconnect_0_dma_comm_3_right_csr_address,                             --                                   dma_comm_3_right_csr.address
+			dma_comm_3_right_csr_write                                   => mm_interconnect_0_dma_comm_3_right_csr_write,                               --                                                       .write
+			dma_comm_3_right_csr_read                                    => mm_interconnect_0_dma_comm_3_right_csr_read,                                --                                                       .read
+			dma_comm_3_right_csr_readdata                                => mm_interconnect_0_dma_comm_3_right_csr_readdata,                            --                                                       .readdata
+			dma_comm_3_right_csr_writedata                               => mm_interconnect_0_dma_comm_3_right_csr_writedata,                           --                                                       .writedata
+			dma_comm_3_right_csr_byteenable                              => mm_interconnect_0_dma_comm_3_right_csr_byteenable,                          --                                                       .byteenable
+			dma_comm_3_right_descriptor_slave_write                      => mm_interconnect_0_dma_comm_3_right_descriptor_slave_write,                  --                      dma_comm_3_right_descriptor_slave.write
+			dma_comm_3_right_descriptor_slave_writedata                  => mm_interconnect_0_dma_comm_3_right_descriptor_slave_writedata,              --                                                       .writedata
+			dma_comm_3_right_descriptor_slave_byteenable                 => mm_interconnect_0_dma_comm_3_right_descriptor_slave_byteenable,             --                                                       .byteenable
+			dma_comm_3_right_descriptor_slave_waitrequest                => mm_interconnect_0_dma_comm_3_right_descriptor_slave_waitrequest,            --                                                       .waitrequest
+			dma_comm_4_left_csr_address                                  => mm_interconnect_0_dma_comm_4_left_csr_address,                              --                                    dma_comm_4_left_csr.address
+			dma_comm_4_left_csr_write                                    => mm_interconnect_0_dma_comm_4_left_csr_write,                                --                                                       .write
+			dma_comm_4_left_csr_read                                     => mm_interconnect_0_dma_comm_4_left_csr_read,                                 --                                                       .read
+			dma_comm_4_left_csr_readdata                                 => mm_interconnect_0_dma_comm_4_left_csr_readdata,                             --                                                       .readdata
+			dma_comm_4_left_csr_writedata                                => mm_interconnect_0_dma_comm_4_left_csr_writedata,                            --                                                       .writedata
+			dma_comm_4_left_csr_byteenable                               => mm_interconnect_0_dma_comm_4_left_csr_byteenable,                           --                                                       .byteenable
+			dma_comm_4_left_descriptor_slave_write                       => mm_interconnect_0_dma_comm_4_left_descriptor_slave_write,                   --                       dma_comm_4_left_descriptor_slave.write
+			dma_comm_4_left_descriptor_slave_writedata                   => mm_interconnect_0_dma_comm_4_left_descriptor_slave_writedata,               --                                                       .writedata
+			dma_comm_4_left_descriptor_slave_byteenable                  => mm_interconnect_0_dma_comm_4_left_descriptor_slave_byteenable,              --                                                       .byteenable
+			dma_comm_4_left_descriptor_slave_waitrequest                 => mm_interconnect_0_dma_comm_4_left_descriptor_slave_waitrequest,             --                                                       .waitrequest
+			dma_comm_4_right_csr_address                                 => mm_interconnect_0_dma_comm_4_right_csr_address,                             --                                   dma_comm_4_right_csr.address
+			dma_comm_4_right_csr_write                                   => mm_interconnect_0_dma_comm_4_right_csr_write,                               --                                                       .write
+			dma_comm_4_right_csr_read                                    => mm_interconnect_0_dma_comm_4_right_csr_read,                                --                                                       .read
+			dma_comm_4_right_csr_readdata                                => mm_interconnect_0_dma_comm_4_right_csr_readdata,                            --                                                       .readdata
+			dma_comm_4_right_csr_writedata                               => mm_interconnect_0_dma_comm_4_right_csr_writedata,                           --                                                       .writedata
+			dma_comm_4_right_csr_byteenable                              => mm_interconnect_0_dma_comm_4_right_csr_byteenable,                          --                                                       .byteenable
+			dma_comm_4_right_descriptor_slave_write                      => mm_interconnect_0_dma_comm_4_right_descriptor_slave_write,                  --                      dma_comm_4_right_descriptor_slave.write
+			dma_comm_4_right_descriptor_slave_writedata                  => mm_interconnect_0_dma_comm_4_right_descriptor_slave_writedata,              --                                                       .writedata
+			dma_comm_4_right_descriptor_slave_byteenable                 => mm_interconnect_0_dma_comm_4_right_descriptor_slave_byteenable,             --                                                       .byteenable
+			dma_comm_4_right_descriptor_slave_waitrequest                => mm_interconnect_0_dma_comm_4_right_descriptor_slave_waitrequest,            --                                                       .waitrequest
+			dma_comm_5_left_csr_address                                  => mm_interconnect_0_dma_comm_5_left_csr_address,                              --                                    dma_comm_5_left_csr.address
+			dma_comm_5_left_csr_write                                    => mm_interconnect_0_dma_comm_5_left_csr_write,                                --                                                       .write
+			dma_comm_5_left_csr_read                                     => mm_interconnect_0_dma_comm_5_left_csr_read,                                 --                                                       .read
+			dma_comm_5_left_csr_readdata                                 => mm_interconnect_0_dma_comm_5_left_csr_readdata,                             --                                                       .readdata
+			dma_comm_5_left_csr_writedata                                => mm_interconnect_0_dma_comm_5_left_csr_writedata,                            --                                                       .writedata
+			dma_comm_5_left_csr_byteenable                               => mm_interconnect_0_dma_comm_5_left_csr_byteenable,                           --                                                       .byteenable
+			dma_comm_5_left_descriptor_slave_write                       => mm_interconnect_0_dma_comm_5_left_descriptor_slave_write,                   --                       dma_comm_5_left_descriptor_slave.write
+			dma_comm_5_left_descriptor_slave_writedata                   => mm_interconnect_0_dma_comm_5_left_descriptor_slave_writedata,               --                                                       .writedata
+			dma_comm_5_left_descriptor_slave_byteenable                  => mm_interconnect_0_dma_comm_5_left_descriptor_slave_byteenable,              --                                                       .byteenable
+			dma_comm_5_left_descriptor_slave_waitrequest                 => mm_interconnect_0_dma_comm_5_left_descriptor_slave_waitrequest,             --                                                       .waitrequest
+			dma_comm_5_right_csr_address                                 => mm_interconnect_0_dma_comm_5_right_csr_address,                             --                                   dma_comm_5_right_csr.address
+			dma_comm_5_right_csr_write                                   => mm_interconnect_0_dma_comm_5_right_csr_write,                               --                                                       .write
+			dma_comm_5_right_csr_read                                    => mm_interconnect_0_dma_comm_5_right_csr_read,                                --                                                       .read
+			dma_comm_5_right_csr_readdata                                => mm_interconnect_0_dma_comm_5_right_csr_readdata,                            --                                                       .readdata
+			dma_comm_5_right_csr_writedata                               => mm_interconnect_0_dma_comm_5_right_csr_writedata,                           --                                                       .writedata
+			dma_comm_5_right_csr_byteenable                              => mm_interconnect_0_dma_comm_5_right_csr_byteenable,                          --                                                       .byteenable
+			dma_comm_5_right_descriptor_slave_write                      => mm_interconnect_0_dma_comm_5_right_descriptor_slave_write,                  --                      dma_comm_5_right_descriptor_slave.write
+			dma_comm_5_right_descriptor_slave_writedata                  => mm_interconnect_0_dma_comm_5_right_descriptor_slave_writedata,              --                                                       .writedata
+			dma_comm_5_right_descriptor_slave_byteenable                 => mm_interconnect_0_dma_comm_5_right_descriptor_slave_byteenable,             --                                                       .byteenable
+			dma_comm_5_right_descriptor_slave_waitrequest                => mm_interconnect_0_dma_comm_5_right_descriptor_slave_waitrequest,            --                                                       .waitrequest
+			dma_comm_6_left_csr_address                                  => mm_interconnect_0_dma_comm_6_left_csr_address,                              --                                    dma_comm_6_left_csr.address
+			dma_comm_6_left_csr_write                                    => mm_interconnect_0_dma_comm_6_left_csr_write,                                --                                                       .write
+			dma_comm_6_left_csr_read                                     => mm_interconnect_0_dma_comm_6_left_csr_read,                                 --                                                       .read
+			dma_comm_6_left_csr_readdata                                 => mm_interconnect_0_dma_comm_6_left_csr_readdata,                             --                                                       .readdata
+			dma_comm_6_left_csr_writedata                                => mm_interconnect_0_dma_comm_6_left_csr_writedata,                            --                                                       .writedata
+			dma_comm_6_left_csr_byteenable                               => mm_interconnect_0_dma_comm_6_left_csr_byteenable,                           --                                                       .byteenable
+			dma_comm_6_left_descriptor_slave_write                       => mm_interconnect_0_dma_comm_6_left_descriptor_slave_write,                   --                       dma_comm_6_left_descriptor_slave.write
+			dma_comm_6_left_descriptor_slave_writedata                   => mm_interconnect_0_dma_comm_6_left_descriptor_slave_writedata,               --                                                       .writedata
+			dma_comm_6_left_descriptor_slave_byteenable                  => mm_interconnect_0_dma_comm_6_left_descriptor_slave_byteenable,              --                                                       .byteenable
+			dma_comm_6_left_descriptor_slave_waitrequest                 => mm_interconnect_0_dma_comm_6_left_descriptor_slave_waitrequest,             --                                                       .waitrequest
+			dma_comm_6_right_csr_address                                 => mm_interconnect_0_dma_comm_6_right_csr_address,                             --                                   dma_comm_6_right_csr.address
+			dma_comm_6_right_csr_write                                   => mm_interconnect_0_dma_comm_6_right_csr_write,                               --                                                       .write
+			dma_comm_6_right_csr_read                                    => mm_interconnect_0_dma_comm_6_right_csr_read,                                --                                                       .read
+			dma_comm_6_right_csr_readdata                                => mm_interconnect_0_dma_comm_6_right_csr_readdata,                            --                                                       .readdata
+			dma_comm_6_right_csr_writedata                               => mm_interconnect_0_dma_comm_6_right_csr_writedata,                           --                                                       .writedata
+			dma_comm_6_right_csr_byteenable                              => mm_interconnect_0_dma_comm_6_right_csr_byteenable,                          --                                                       .byteenable
+			dma_comm_6_right_descriptor_slave_write                      => mm_interconnect_0_dma_comm_6_right_descriptor_slave_write,                  --                      dma_comm_6_right_descriptor_slave.write
+			dma_comm_6_right_descriptor_slave_writedata                  => mm_interconnect_0_dma_comm_6_right_descriptor_slave_writedata,              --                                                       .writedata
+			dma_comm_6_right_descriptor_slave_byteenable                 => mm_interconnect_0_dma_comm_6_right_descriptor_slave_byteenable,             --                                                       .byteenable
+			dma_comm_6_right_descriptor_slave_waitrequest                => mm_interconnect_0_dma_comm_6_right_descriptor_slave_waitrequest,            --                                                       .waitrequest
+			dma_ftdi_usb3_csr_address                                    => mm_interconnect_0_dma_ftdi_usb3_csr_address,                                --                                      dma_ftdi_usb3_csr.address
+			dma_ftdi_usb3_csr_write                                      => mm_interconnect_0_dma_ftdi_usb3_csr_write,                                  --                                                       .write
+			dma_ftdi_usb3_csr_read                                       => mm_interconnect_0_dma_ftdi_usb3_csr_read,                                   --                                                       .read
+			dma_ftdi_usb3_csr_readdata                                   => mm_interconnect_0_dma_ftdi_usb3_csr_readdata,                               --                                                       .readdata
+			dma_ftdi_usb3_csr_writedata                                  => mm_interconnect_0_dma_ftdi_usb3_csr_writedata,                              --                                                       .writedata
+			dma_ftdi_usb3_csr_byteenable                                 => mm_interconnect_0_dma_ftdi_usb3_csr_byteenable,                             --                                                       .byteenable
+			dma_ftdi_usb3_descriptor_slave_write                         => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_write,                     --                         dma_ftdi_usb3_descriptor_slave.write
+			dma_ftdi_usb3_descriptor_slave_writedata                     => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_writedata,                 --                                                       .writedata
+			dma_ftdi_usb3_descriptor_slave_byteenable                    => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_byteenable,                --                                                       .byteenable
+			dma_ftdi_usb3_descriptor_slave_waitrequest                   => mm_interconnect_0_dma_ftdi_usb3_descriptor_slave_waitrequest,               --                                                       .waitrequest
 			ext_flash_uas_address                                        => mm_interconnect_0_ext_flash_uas_address,                                    --                                          ext_flash_uas.address
 			ext_flash_uas_write                                          => mm_interconnect_0_ext_flash_uas_write,                                      --                                                       .write
 			ext_flash_uas_read                                           => mm_interconnect_0_ext_flash_uas_read,                                       --                                                       .read
@@ -3306,124 +4606,119 @@ begin
 
 	mm_interconnect_1 : component MebX_Qsys_Project_mm_interconnect_1
 		port map (
-			clk_100_clk_clk                                                 => m2_ddr2_memory_afi_half_clk_clk,                                           --                                               clk_100_clk.clk
-			m2_ddr2_memory_afi_clk_clk                                      => m2_ddr2_memory_afi_clk_clk,                                                --                                    m2_ddr2_memory_afi_clk.clk
-			m2_ddr2_memory_afi_half_clk_clk                                 => m2_ddr2_memory_afi_half_clk_clk,                                           --                               m2_ddr2_memory_afi_half_clk.clk
-			COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset    => rst_controller_002_reset_out_reset,                                        --    COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset.reset
-			COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset    => rst_controller_003_reset_out_reset,                                        --    COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset.reset
-			COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset    => rst_controller_004_reset_out_reset,                                        --    COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset.reset
-			COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset    => rst_controller_005_reset_out_reset,                                        --    COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset.reset
-			COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset    => rst_controller_006_reset_out_reset,                                        --    COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset.reset
-			COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset    => rst_controller_007_reset_out_reset,                                        --    COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset.reset
-			ddr2_address_span_extender_reset_reset_bridge_in_reset_reset    => rst_controller_008_reset_out_reset,                                        --    ddr2_address_span_extender_reset_reset_bridge_in_reset.reset
-			m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset            => rst_controller_008_reset_out_reset,                                        --            m1_clock_bridge_s0_reset_reset_bridge_in_reset.reset
-			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset => rst_controller_015_reset_out_reset,                                        -- m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
-			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset           => rst_controller_015_reset_out_reset,                                        --           m2_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
-			ddr2_address_span_extender_expanded_master_address              => ddr2_address_span_extender_expanded_master_address,                        --                ddr2_address_span_extender_expanded_master.address
-			ddr2_address_span_extender_expanded_master_waitrequest          => ddr2_address_span_extender_expanded_master_waitrequest,                    --                                                          .waitrequest
-			ddr2_address_span_extender_expanded_master_burstcount           => ddr2_address_span_extender_expanded_master_burstcount,                     --                                                          .burstcount
-			ddr2_address_span_extender_expanded_master_byteenable           => ddr2_address_span_extender_expanded_master_byteenable,                     --                                                          .byteenable
-			ddr2_address_span_extender_expanded_master_read                 => ddr2_address_span_extender_expanded_master_read,                           --                                                          .read
-			ddr2_address_span_extender_expanded_master_readdata             => ddr2_address_span_extender_expanded_master_readdata,                       --                                                          .readdata
-			ddr2_address_span_extender_expanded_master_readdatavalid        => ddr2_address_span_extender_expanded_master_readdatavalid,                  --                                                          .readdatavalid
-			ddr2_address_span_extender_expanded_master_write                => ddr2_address_span_extender_expanded_master_write,                          --                                                          .write
-			ddr2_address_span_extender_expanded_master_writedata            => ddr2_address_span_extender_expanded_master_writedata,                      --                                                          .writedata
-			dma_DDR_M1_mm_read_address                                      => dma_ddr_m1_mm_read_address,                                                --                                        dma_DDR_M1_mm_read.address
-			dma_DDR_M1_mm_read_waitrequest                                  => dma_ddr_m1_mm_read_waitrequest,                                            --                                                          .waitrequest
-			dma_DDR_M1_mm_read_byteenable                                   => dma_ddr_m1_mm_read_byteenable,                                             --                                                          .byteenable
-			dma_DDR_M1_mm_read_read                                         => dma_ddr_m1_mm_read_read,                                                   --                                                          .read
-			dma_DDR_M1_mm_read_readdata                                     => dma_ddr_m1_mm_read_readdata,                                               --                                                          .readdata
-			dma_DDR_M1_mm_read_readdatavalid                                => dma_ddr_m1_mm_read_readdatavalid,                                          --                                                          .readdatavalid
-			dma_DDR_M1_mm_write_address                                     => dma_ddr_m1_mm_write_address,                                               --                                       dma_DDR_M1_mm_write.address
-			dma_DDR_M1_mm_write_waitrequest                                 => dma_ddr_m1_mm_write_waitrequest,                                           --                                                          .waitrequest
-			dma_DDR_M1_mm_write_byteenable                                  => dma_ddr_m1_mm_write_byteenable,                                            --                                                          .byteenable
-			dma_DDR_M1_mm_write_write                                       => dma_ddr_m1_mm_write_write,                                                 --                                                          .write
-			dma_DDR_M1_mm_write_writedata                                   => dma_ddr_m1_mm_write_writedata,                                             --                                                          .writedata
-			dma_DDR_M2_mm_read_address                                      => dma_ddr_m2_mm_read_address,                                                --                                        dma_DDR_M2_mm_read.address
-			dma_DDR_M2_mm_read_waitrequest                                  => dma_ddr_m2_mm_read_waitrequest,                                            --                                                          .waitrequest
-			dma_DDR_M2_mm_read_byteenable                                   => dma_ddr_m2_mm_read_byteenable,                                             --                                                          .byteenable
-			dma_DDR_M2_mm_read_read                                         => dma_ddr_m2_mm_read_read,                                                   --                                                          .read
-			dma_DDR_M2_mm_read_readdata                                     => dma_ddr_m2_mm_read_readdata,                                               --                                                          .readdata
-			dma_DDR_M2_mm_read_readdatavalid                                => dma_ddr_m2_mm_read_readdatavalid,                                          --                                                          .readdatavalid
-			dma_DDR_M2_mm_write_address                                     => dma_ddr_m2_mm_write_address,                                               --                                       dma_DDR_M2_mm_write.address
-			dma_DDR_M2_mm_write_waitrequest                                 => dma_ddr_m2_mm_write_waitrequest,                                           --                                                          .waitrequest
-			dma_DDR_M2_mm_write_byteenable                                  => dma_ddr_m2_mm_write_byteenable,                                            --                                                          .byteenable
-			dma_DDR_M2_mm_write_write                                       => dma_ddr_m2_mm_write_write,                                                 --                                                          .write
-			dma_DDR_M2_mm_write_writedata                                   => dma_ddr_m2_mm_write_writedata,                                             --                                                          .writedata
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_address,     --               COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer.address
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_address,     --               COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer.address
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address,     --               COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer.address
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_address,     --               COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer.address
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address,     --               COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer.address
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_address,     --               COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer.address
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address,     --               COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer.address
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_address,     --               COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer.address
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address,     --               COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer.address
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_address,     --               COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer.address
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address,     --               COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer.address
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_waitrequest, --                                                          .waitrequest
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_address             => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_address,     --               COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer.address
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_write               => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_write,       --                                                          .write
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_writedata           => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_writedata,   --                                                          .writedata
-			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_waitrequest         => mm_interconnect_1_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_waitrequest, --                                                          .waitrequest
-			FTDI_USB3_0_avalon_slave_data_address                           => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_address,                   --                             FTDI_USB3_0_avalon_slave_data.address
-			FTDI_USB3_0_avalon_slave_data_write                             => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_write,                     --                                                          .write
-			FTDI_USB3_0_avalon_slave_data_read                              => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_read,                      --                                                          .read
-			FTDI_USB3_0_avalon_slave_data_readdata                          => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_readdata,                  --                                                          .readdata
-			FTDI_USB3_0_avalon_slave_data_writedata                         => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_writedata,                 --                                                          .writedata
-			FTDI_USB3_0_avalon_slave_data_waitrequest                       => mm_interconnect_1_ftdi_usb3_0_avalon_slave_data_waitrequest,               --                                                          .waitrequest
-			m1_clock_bridge_s0_address                                      => mm_interconnect_1_m1_clock_bridge_s0_address,                              --                                        m1_clock_bridge_s0.address
-			m1_clock_bridge_s0_write                                        => mm_interconnect_1_m1_clock_bridge_s0_write,                                --                                                          .write
-			m1_clock_bridge_s0_read                                         => mm_interconnect_1_m1_clock_bridge_s0_read,                                 --                                                          .read
-			m1_clock_bridge_s0_readdata                                     => mm_interconnect_1_m1_clock_bridge_s0_readdata,                             --                                                          .readdata
-			m1_clock_bridge_s0_writedata                                    => mm_interconnect_1_m1_clock_bridge_s0_writedata,                            --                                                          .writedata
-			m1_clock_bridge_s0_burstcount                                   => mm_interconnect_1_m1_clock_bridge_s0_burstcount,                           --                                                          .burstcount
-			m1_clock_bridge_s0_byteenable                                   => mm_interconnect_1_m1_clock_bridge_s0_byteenable,                           --                                                          .byteenable
-			m1_clock_bridge_s0_readdatavalid                                => mm_interconnect_1_m1_clock_bridge_s0_readdatavalid,                        --                                                          .readdatavalid
-			m1_clock_bridge_s0_waitrequest                                  => mm_interconnect_1_m1_clock_bridge_s0_waitrequest,                          --                                                          .waitrequest
-			m1_clock_bridge_s0_debugaccess                                  => mm_interconnect_1_m1_clock_bridge_s0_debugaccess,                          --                                                          .debugaccess
-			m2_ddr2_memory_avl_address                                      => mm_interconnect_1_m2_ddr2_memory_avl_address,                              --                                        m2_ddr2_memory_avl.address
-			m2_ddr2_memory_avl_write                                        => mm_interconnect_1_m2_ddr2_memory_avl_write,                                --                                                          .write
-			m2_ddr2_memory_avl_read                                         => mm_interconnect_1_m2_ddr2_memory_avl_read,                                 --                                                          .read
-			m2_ddr2_memory_avl_readdata                                     => mm_interconnect_1_m2_ddr2_memory_avl_readdata,                             --                                                          .readdata
-			m2_ddr2_memory_avl_writedata                                    => mm_interconnect_1_m2_ddr2_memory_avl_writedata,                            --                                                          .writedata
-			m2_ddr2_memory_avl_beginbursttransfer                           => mm_interconnect_1_m2_ddr2_memory_avl_beginbursttransfer,                   --                                                          .beginbursttransfer
-			m2_ddr2_memory_avl_burstcount                                   => mm_interconnect_1_m2_ddr2_memory_avl_burstcount,                           --                                                          .burstcount
-			m2_ddr2_memory_avl_byteenable                                   => mm_interconnect_1_m2_ddr2_memory_avl_byteenable,                           --                                                          .byteenable
-			m2_ddr2_memory_avl_readdatavalid                                => mm_interconnect_1_m2_ddr2_memory_avl_readdatavalid,                        --                                                          .readdatavalid
-			m2_ddr2_memory_avl_waitrequest                                  => mm_interconnect_1_m2_ddr2_memory_avl_inv                                   --                                                          .waitrequest
+			clk_100_clk_clk                                                 => m2_ddr2_memory_afi_half_clk_clk,                          --                                               clk_100_clk.clk
+			m2_ddr2_memory_afi_clk_clk                                      => m2_ddr2_memory_afi_clk_clk,                               --                                    m2_ddr2_memory_afi_clk.clk
+			m2_ddr2_memory_afi_half_clk_clk                                 => m2_ddr2_memory_afi_half_clk_clk,                          --                               m2_ddr2_memory_afi_half_clk.clk
+			ddr2_address_span_extender_reset_reset_bridge_in_reset_reset    => rst_controller_008_reset_out_reset,                       --    ddr2_address_span_extender_reset_reset_bridge_in_reset.reset
+			m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset            => rst_controller_008_reset_out_reset,                       --            m1_clock_bridge_s0_reset_reset_bridge_in_reset.reset
+			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset => rst_controller_015_reset_out_reset,                       -- m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
+			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset           => rst_controller_015_reset_out_reset,                       --           m2_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
+			ddr2_address_span_extender_expanded_master_address              => ddr2_address_span_extender_expanded_master_address,       --                ddr2_address_span_extender_expanded_master.address
+			ddr2_address_span_extender_expanded_master_waitrequest          => ddr2_address_span_extender_expanded_master_waitrequest,   --                                                          .waitrequest
+			ddr2_address_span_extender_expanded_master_burstcount           => ddr2_address_span_extender_expanded_master_burstcount,    --                                                          .burstcount
+			ddr2_address_span_extender_expanded_master_byteenable           => ddr2_address_span_extender_expanded_master_byteenable,    --                                                          .byteenable
+			ddr2_address_span_extender_expanded_master_read                 => ddr2_address_span_extender_expanded_master_read,          --                                                          .read
+			ddr2_address_span_extender_expanded_master_readdata             => ddr2_address_span_extender_expanded_master_readdata,      --                                                          .readdata
+			ddr2_address_span_extender_expanded_master_readdatavalid        => ddr2_address_span_extender_expanded_master_readdatavalid, --                                                          .readdatavalid
+			ddr2_address_span_extender_expanded_master_write                => ddr2_address_span_extender_expanded_master_write,         --                                                          .write
+			ddr2_address_span_extender_expanded_master_writedata            => ddr2_address_span_extender_expanded_master_writedata,     --                                                          .writedata
+			dma_comm_1_left_mm_read_address                                 => dma_comm_1_left_mm_read_address,                          --                                   dma_comm_1_left_mm_read.address
+			dma_comm_1_left_mm_read_waitrequest                             => dma_comm_1_left_mm_read_waitrequest,                      --                                                          .waitrequest
+			dma_comm_1_left_mm_read_byteenable                              => dma_comm_1_left_mm_read_byteenable,                       --                                                          .byteenable
+			dma_comm_1_left_mm_read_read                                    => dma_comm_1_left_mm_read_read,                             --                                                          .read
+			dma_comm_1_left_mm_read_readdata                                => dma_comm_1_left_mm_read_readdata,                         --                                                          .readdata
+			dma_comm_1_left_mm_read_readdatavalid                           => dma_comm_1_left_mm_read_readdatavalid,                    --                                                          .readdatavalid
+			dma_comm_1_right_mm_read_address                                => dma_comm_1_right_mm_read_address,                         --                                  dma_comm_1_right_mm_read.address
+			dma_comm_1_right_mm_read_waitrequest                            => dma_comm_1_right_mm_read_waitrequest,                     --                                                          .waitrequest
+			dma_comm_1_right_mm_read_byteenable                             => dma_comm_1_right_mm_read_byteenable,                      --                                                          .byteenable
+			dma_comm_1_right_mm_read_read                                   => dma_comm_1_right_mm_read_read,                            --                                                          .read
+			dma_comm_1_right_mm_read_readdata                               => dma_comm_1_right_mm_read_readdata,                        --                                                          .readdata
+			dma_comm_1_right_mm_read_readdatavalid                          => dma_comm_1_right_mm_read_readdatavalid,                   --                                                          .readdatavalid
+			dma_comm_2_left_mm_read_address                                 => dma_comm_2_left_mm_read_address,                          --                                   dma_comm_2_left_mm_read.address
+			dma_comm_2_left_mm_read_waitrequest                             => dma_comm_2_left_mm_read_waitrequest,                      --                                                          .waitrequest
+			dma_comm_2_left_mm_read_byteenable                              => dma_comm_2_left_mm_read_byteenable,                       --                                                          .byteenable
+			dma_comm_2_left_mm_read_read                                    => dma_comm_2_left_mm_read_read,                             --                                                          .read
+			dma_comm_2_left_mm_read_readdata                                => dma_comm_2_left_mm_read_readdata,                         --                                                          .readdata
+			dma_comm_2_left_mm_read_readdatavalid                           => dma_comm_2_left_mm_read_readdatavalid,                    --                                                          .readdatavalid
+			dma_comm_2_right_mm_read_address                                => dma_comm_2_right_mm_read_address,                         --                                  dma_comm_2_right_mm_read.address
+			dma_comm_2_right_mm_read_waitrequest                            => dma_comm_2_right_mm_read_waitrequest,                     --                                                          .waitrequest
+			dma_comm_2_right_mm_read_byteenable                             => dma_comm_2_right_mm_read_byteenable,                      --                                                          .byteenable
+			dma_comm_2_right_mm_read_read                                   => dma_comm_2_right_mm_read_read,                            --                                                          .read
+			dma_comm_2_right_mm_read_readdata                               => dma_comm_2_right_mm_read_readdata,                        --                                                          .readdata
+			dma_comm_2_right_mm_read_readdatavalid                          => dma_comm_2_right_mm_read_readdatavalid,                   --                                                          .readdatavalid
+			dma_comm_3_left_mm_read_address                                 => dma_comm_3_left_mm_read_address,                          --                                   dma_comm_3_left_mm_read.address
+			dma_comm_3_left_mm_read_waitrequest                             => dma_comm_3_left_mm_read_waitrequest,                      --                                                          .waitrequest
+			dma_comm_3_left_mm_read_byteenable                              => dma_comm_3_left_mm_read_byteenable,                       --                                                          .byteenable
+			dma_comm_3_left_mm_read_read                                    => dma_comm_3_left_mm_read_read,                             --                                                          .read
+			dma_comm_3_left_mm_read_readdata                                => dma_comm_3_left_mm_read_readdata,                         --                                                          .readdata
+			dma_comm_3_left_mm_read_readdatavalid                           => dma_comm_3_left_mm_read_readdatavalid,                    --                                                          .readdatavalid
+			dma_comm_3_right_mm_read_address                                => dma_comm_3_right_mm_read_address,                         --                                  dma_comm_3_right_mm_read.address
+			dma_comm_3_right_mm_read_waitrequest                            => dma_comm_3_right_mm_read_waitrequest,                     --                                                          .waitrequest
+			dma_comm_3_right_mm_read_byteenable                             => dma_comm_3_right_mm_read_byteenable,                      --                                                          .byteenable
+			dma_comm_3_right_mm_read_read                                   => dma_comm_3_right_mm_read_read,                            --                                                          .read
+			dma_comm_3_right_mm_read_readdata                               => dma_comm_3_right_mm_read_readdata,                        --                                                          .readdata
+			dma_comm_3_right_mm_read_readdatavalid                          => dma_comm_3_right_mm_read_readdatavalid,                   --                                                          .readdatavalid
+			dma_comm_4_left_mm_read_address                                 => dma_comm_4_left_mm_read_address,                          --                                   dma_comm_4_left_mm_read.address
+			dma_comm_4_left_mm_read_waitrequest                             => dma_comm_4_left_mm_read_waitrequest,                      --                                                          .waitrequest
+			dma_comm_4_left_mm_read_byteenable                              => dma_comm_4_left_mm_read_byteenable,                       --                                                          .byteenable
+			dma_comm_4_left_mm_read_read                                    => dma_comm_4_left_mm_read_read,                             --                                                          .read
+			dma_comm_4_left_mm_read_readdata                                => dma_comm_4_left_mm_read_readdata,                         --                                                          .readdata
+			dma_comm_4_left_mm_read_readdatavalid                           => dma_comm_4_left_mm_read_readdatavalid,                    --                                                          .readdatavalid
+			dma_comm_4_right_mm_read_address                                => dma_comm_4_right_mm_read_address,                         --                                  dma_comm_4_right_mm_read.address
+			dma_comm_4_right_mm_read_waitrequest                            => dma_comm_4_right_mm_read_waitrequest,                     --                                                          .waitrequest
+			dma_comm_4_right_mm_read_byteenable                             => dma_comm_4_right_mm_read_byteenable,                      --                                                          .byteenable
+			dma_comm_4_right_mm_read_read                                   => dma_comm_4_right_mm_read_read,                            --                                                          .read
+			dma_comm_4_right_mm_read_readdata                               => dma_comm_4_right_mm_read_readdata,                        --                                                          .readdata
+			dma_comm_4_right_mm_read_readdatavalid                          => dma_comm_4_right_mm_read_readdatavalid,                   --                                                          .readdatavalid
+			dma_comm_5_left_mm_read_address                                 => dma_comm_5_left_mm_read_address,                          --                                   dma_comm_5_left_mm_read.address
+			dma_comm_5_left_mm_read_waitrequest                             => dma_comm_5_left_mm_read_waitrequest,                      --                                                          .waitrequest
+			dma_comm_5_left_mm_read_byteenable                              => dma_comm_5_left_mm_read_byteenable,                       --                                                          .byteenable
+			dma_comm_5_left_mm_read_read                                    => dma_comm_5_left_mm_read_read,                             --                                                          .read
+			dma_comm_5_left_mm_read_readdata                                => dma_comm_5_left_mm_read_readdata,                         --                                                          .readdata
+			dma_comm_5_left_mm_read_readdatavalid                           => dma_comm_5_left_mm_read_readdatavalid,                    --                                                          .readdatavalid
+			dma_comm_5_right_mm_read_address                                => dma_comm_5_right_mm_read_address,                         --                                  dma_comm_5_right_mm_read.address
+			dma_comm_5_right_mm_read_waitrequest                            => dma_comm_5_right_mm_read_waitrequest,                     --                                                          .waitrequest
+			dma_comm_5_right_mm_read_byteenable                             => dma_comm_5_right_mm_read_byteenable,                      --                                                          .byteenable
+			dma_comm_5_right_mm_read_read                                   => dma_comm_5_right_mm_read_read,                            --                                                          .read
+			dma_comm_5_right_mm_read_readdata                               => dma_comm_5_right_mm_read_readdata,                        --                                                          .readdata
+			dma_comm_5_right_mm_read_readdatavalid                          => dma_comm_5_right_mm_read_readdatavalid,                   --                                                          .readdatavalid
+			dma_comm_6_left_mm_read_address                                 => dma_comm_6_left_mm_read_address,                          --                                   dma_comm_6_left_mm_read.address
+			dma_comm_6_left_mm_read_waitrequest                             => dma_comm_6_left_mm_read_waitrequest,                      --                                                          .waitrequest
+			dma_comm_6_left_mm_read_byteenable                              => dma_comm_6_left_mm_read_byteenable,                       --                                                          .byteenable
+			dma_comm_6_left_mm_read_read                                    => dma_comm_6_left_mm_read_read,                             --                                                          .read
+			dma_comm_6_left_mm_read_readdata                                => dma_comm_6_left_mm_read_readdata,                         --                                                          .readdata
+			dma_comm_6_left_mm_read_readdatavalid                           => dma_comm_6_left_mm_read_readdatavalid,                    --                                                          .readdatavalid
+			dma_comm_6_right_mm_read_address                                => dma_comm_6_right_mm_read_address,                         --                                  dma_comm_6_right_mm_read.address
+			dma_comm_6_right_mm_read_waitrequest                            => dma_comm_6_right_mm_read_waitrequest,                     --                                                          .waitrequest
+			dma_comm_6_right_mm_read_byteenable                             => dma_comm_6_right_mm_read_byteenable,                      --                                                          .byteenable
+			dma_comm_6_right_mm_read_read                                   => dma_comm_6_right_mm_read_read,                            --                                                          .read
+			dma_comm_6_right_mm_read_readdata                               => dma_comm_6_right_mm_read_readdata,                        --                                                          .readdata
+			dma_comm_6_right_mm_read_readdatavalid                          => dma_comm_6_right_mm_read_readdatavalid,                   --                                                          .readdatavalid
+			dma_ftdi_usb3_mm_write_address                                  => dma_ftdi_usb3_mm_write_address,                           --                                    dma_ftdi_usb3_mm_write.address
+			dma_ftdi_usb3_mm_write_waitrequest                              => dma_ftdi_usb3_mm_write_waitrequest,                       --                                                          .waitrequest
+			dma_ftdi_usb3_mm_write_byteenable                               => dma_ftdi_usb3_mm_write_byteenable,                        --                                                          .byteenable
+			dma_ftdi_usb3_mm_write_write                                    => dma_ftdi_usb3_mm_write_write,                             --                                                          .write
+			dma_ftdi_usb3_mm_write_writedata                                => dma_ftdi_usb3_mm_write_writedata,                         --                                                          .writedata
+			m1_clock_bridge_s0_address                                      => mm_interconnect_1_m1_clock_bridge_s0_address,             --                                        m1_clock_bridge_s0.address
+			m1_clock_bridge_s0_write                                        => mm_interconnect_1_m1_clock_bridge_s0_write,               --                                                          .write
+			m1_clock_bridge_s0_read                                         => mm_interconnect_1_m1_clock_bridge_s0_read,                --                                                          .read
+			m1_clock_bridge_s0_readdata                                     => mm_interconnect_1_m1_clock_bridge_s0_readdata,            --                                                          .readdata
+			m1_clock_bridge_s0_writedata                                    => mm_interconnect_1_m1_clock_bridge_s0_writedata,           --                                                          .writedata
+			m1_clock_bridge_s0_burstcount                                   => mm_interconnect_1_m1_clock_bridge_s0_burstcount,          --                                                          .burstcount
+			m1_clock_bridge_s0_byteenable                                   => mm_interconnect_1_m1_clock_bridge_s0_byteenable,          --                                                          .byteenable
+			m1_clock_bridge_s0_readdatavalid                                => mm_interconnect_1_m1_clock_bridge_s0_readdatavalid,       --                                                          .readdatavalid
+			m1_clock_bridge_s0_waitrequest                                  => mm_interconnect_1_m1_clock_bridge_s0_waitrequest,         --                                                          .waitrequest
+			m1_clock_bridge_s0_debugaccess                                  => mm_interconnect_1_m1_clock_bridge_s0_debugaccess,         --                                                          .debugaccess
+			m2_ddr2_memory_avl_address                                      => mm_interconnect_1_m2_ddr2_memory_avl_address,             --                                        m2_ddr2_memory_avl.address
+			m2_ddr2_memory_avl_write                                        => mm_interconnect_1_m2_ddr2_memory_avl_write,               --                                                          .write
+			m2_ddr2_memory_avl_read                                         => mm_interconnect_1_m2_ddr2_memory_avl_read,                --                                                          .read
+			m2_ddr2_memory_avl_readdata                                     => mm_interconnect_1_m2_ddr2_memory_avl_readdata,            --                                                          .readdata
+			m2_ddr2_memory_avl_writedata                                    => mm_interconnect_1_m2_ddr2_memory_avl_writedata,           --                                                          .writedata
+			m2_ddr2_memory_avl_beginbursttransfer                           => mm_interconnect_1_m2_ddr2_memory_avl_beginbursttransfer,  --                                                          .beginbursttransfer
+			m2_ddr2_memory_avl_burstcount                                   => mm_interconnect_1_m2_ddr2_memory_avl_burstcount,          --                                                          .burstcount
+			m2_ddr2_memory_avl_byteenable                                   => mm_interconnect_1_m2_ddr2_memory_avl_byteenable,          --                                                          .byteenable
+			m2_ddr2_memory_avl_readdatavalid                                => mm_interconnect_1_m2_ddr2_memory_avl_readdatavalid,       --                                                          .readdatavalid
+			m2_ddr2_memory_avl_waitrequest                                  => mm_interconnect_1_m2_ddr2_memory_avl_inv                  --                                                          .waitrequest
 		);
 
 	mm_interconnect_2 : component MebX_Qsys_Project_mm_interconnect_2
@@ -3503,10 +4798,7 @@ begin
 			pio_DIP_s1_address                                                     => mm_interconnect_2_pio_dip_s1_address,                                                   --                                                       pio_DIP_s1.address
 			pio_DIP_s1_readdata                                                    => mm_interconnect_2_pio_dip_s1_readdata,                                                  --                                                                 .readdata
 			pio_EXT_s1_address                                                     => mm_interconnect_2_pio_ext_s1_address,                                                   --                                                       pio_EXT_s1.address
-			pio_EXT_s1_write                                                       => mm_interconnect_2_pio_ext_s1_write,                                                     --                                                                 .write
 			pio_EXT_s1_readdata                                                    => mm_interconnect_2_pio_ext_s1_readdata,                                                  --                                                                 .readdata
-			pio_EXT_s1_writedata                                                   => mm_interconnect_2_pio_ext_s1_writedata,                                                 --                                                                 .writedata
-			pio_EXT_s1_chipselect                                                  => mm_interconnect_2_pio_ext_s1_chipselect,                                                --                                                                 .chipselect
 			pio_LED_s1_address                                                     => mm_interconnect_2_pio_led_s1_address,                                                   --                                                       pio_LED_s1.address
 			pio_LED_s1_write                                                       => mm_interconnect_2_pio_led_s1_write,                                                     --                                                                 .write
 			pio_LED_s1_readdata                                                    => mm_interconnect_2_pio_led_s1_readdata,                                                  --                                                                 .readdata
@@ -3612,6 +4904,216 @@ begin
 			m1_ddr2_memory_avl_waitrequest                                  => mm_interconnect_3_m1_ddr2_memory_avl_inv                 --                                                          .waitrequest
 		);
 
+	mm_interconnect_4 : component MebX_Qsys_Project_mm_interconnect_4
+		port map (
+			clk_100_clk_clk                                   => m2_ddr2_memory_afi_half_clk_clk,                             --                                 clk_100_clk.clk
+			dma_ftdi_usb3_reset_n_reset_bridge_in_reset_reset => rst_controller_008_reset_out_reset,                          -- dma_ftdi_usb3_reset_n_reset_bridge_in_reset.reset
+			dma_ftdi_usb3_mm_read_address                     => dma_ftdi_usb3_mm_read_address,                               --                       dma_ftdi_usb3_mm_read.address
+			dma_ftdi_usb3_mm_read_waitrequest                 => dma_ftdi_usb3_mm_read_waitrequest,                           --                                            .waitrequest
+			dma_ftdi_usb3_mm_read_byteenable                  => dma_ftdi_usb3_mm_read_byteenable,                            --                                            .byteenable
+			dma_ftdi_usb3_mm_read_read                        => dma_ftdi_usb3_mm_read_read,                                  --                                            .read
+			dma_ftdi_usb3_mm_read_readdata                    => dma_ftdi_usb3_mm_read_readdata,                              --                                            .readdata
+			dma_ftdi_usb3_mm_read_readdatavalid               => dma_ftdi_usb3_mm_read_readdatavalid,                         --                                            .readdatavalid
+			FTDI_USB3_0_avalon_slave_data_address             => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_address,     --               FTDI_USB3_0_avalon_slave_data.address
+			FTDI_USB3_0_avalon_slave_data_write               => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_write,       --                                            .write
+			FTDI_USB3_0_avalon_slave_data_read                => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_read,        --                                            .read
+			FTDI_USB3_0_avalon_slave_data_readdata            => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_readdata,    --                                            .readdata
+			FTDI_USB3_0_avalon_slave_data_writedata           => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_writedata,   --                                            .writedata
+			FTDI_USB3_0_avalon_slave_data_waitrequest         => mm_interconnect_4_ftdi_usb3_0_avalon_slave_data_waitrequest  --                                            .waitrequest
+		);
+
+	mm_interconnect_5 : component MebX_Qsys_Project_mm_interconnect_5
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                           --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset => rst_controller_002_reset_out_reset,                                        -- COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_1_left_reset_n_reset_bridge_in_reset_reset          => rst_controller_008_reset_out_reset,                                        --          dma_comm_1_left_reset_n_reset_bridge_in_reset.reset
+			dma_comm_1_left_mm_write_address                             => dma_comm_1_left_mm_write_address,                                          --                               dma_comm_1_left_mm_write.address
+			dma_comm_1_left_mm_write_waitrequest                         => dma_comm_1_left_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_1_left_mm_write_byteenable                          => dma_comm_1_left_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_1_left_mm_write_write                               => dma_comm_1_left_mm_write_write,                                            --                                                       .write
+			dma_comm_1_left_mm_write_writedata                           => dma_comm_1_left_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address          => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_address,     --            COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer.address
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write            => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata        => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest      => mm_interconnect_5_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_6 : component MebX_Qsys_Project_mm_interconnect_6
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                           --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset => rst_controller_003_reset_out_reset,                                        -- COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_2_left_reset_n_reset_bridge_in_reset_reset          => rst_controller_008_reset_out_reset,                                        --          dma_comm_2_left_reset_n_reset_bridge_in_reset.reset
+			dma_comm_2_left_mm_write_address                             => dma_comm_2_left_mm_write_address,                                          --                               dma_comm_2_left_mm_write.address
+			dma_comm_2_left_mm_write_waitrequest                         => dma_comm_2_left_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_2_left_mm_write_byteenable                          => dma_comm_2_left_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_2_left_mm_write_write                               => dma_comm_2_left_mm_write_write,                                            --                                                       .write
+			dma_comm_2_left_mm_write_writedata                           => dma_comm_2_left_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address          => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address,     --            COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer.address
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write            => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata        => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest      => mm_interconnect_6_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_7 : component MebX_Qsys_Project_mm_interconnect_7
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                           --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset => rst_controller_004_reset_out_reset,                                        -- COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_3_left_reset_n_reset_bridge_in_reset_reset          => rst_controller_008_reset_out_reset,                                        --          dma_comm_3_left_reset_n_reset_bridge_in_reset.reset
+			dma_comm_3_left_mm_write_address                             => dma_comm_3_left_mm_write_address,                                          --                               dma_comm_3_left_mm_write.address
+			dma_comm_3_left_mm_write_waitrequest                         => dma_comm_3_left_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_3_left_mm_write_byteenable                          => dma_comm_3_left_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_3_left_mm_write_write                               => dma_comm_3_left_mm_write_write,                                            --                                                       .write
+			dma_comm_3_left_mm_write_writedata                           => dma_comm_3_left_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address          => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address,     --            COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer.address
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write            => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata        => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest      => mm_interconnect_7_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_8 : component MebX_Qsys_Project_mm_interconnect_8
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                           --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset => rst_controller_005_reset_out_reset,                                        -- COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_4_left_reset_n_reset_bridge_in_reset_reset          => rst_controller_008_reset_out_reset,                                        --          dma_comm_4_left_reset_n_reset_bridge_in_reset.reset
+			dma_comm_4_left_mm_write_address                             => dma_comm_4_left_mm_write_address,                                          --                               dma_comm_4_left_mm_write.address
+			dma_comm_4_left_mm_write_waitrequest                         => dma_comm_4_left_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_4_left_mm_write_byteenable                          => dma_comm_4_left_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_4_left_mm_write_write                               => dma_comm_4_left_mm_write_write,                                            --                                                       .write
+			dma_comm_4_left_mm_write_writedata                           => dma_comm_4_left_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address          => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address,     --            COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer.address
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write            => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata        => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest      => mm_interconnect_8_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_9 : component MebX_Qsys_Project_mm_interconnect_9
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                           --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset => rst_controller_006_reset_out_reset,                                        -- COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_5_left_reset_n_reset_bridge_in_reset_reset          => rst_controller_008_reset_out_reset,                                        --          dma_comm_5_left_reset_n_reset_bridge_in_reset.reset
+			dma_comm_5_left_mm_write_address                             => dma_comm_5_left_mm_write_address,                                          --                               dma_comm_5_left_mm_write.address
+			dma_comm_5_left_mm_write_waitrequest                         => dma_comm_5_left_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_5_left_mm_write_byteenable                          => dma_comm_5_left_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_5_left_mm_write_write                               => dma_comm_5_left_mm_write_write,                                            --                                                       .write
+			dma_comm_5_left_mm_write_writedata                           => dma_comm_5_left_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address          => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address,     --            COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer.address
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write            => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_writedata        => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_waitrequest      => mm_interconnect_9_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_10 : component MebX_Qsys_Project_mm_interconnect_10
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                            --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset => rst_controller_007_reset_out_reset,                                         -- COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_6_left_reset_n_reset_bridge_in_reset_reset          => rst_controller_008_reset_out_reset,                                         --          dma_comm_6_left_reset_n_reset_bridge_in_reset.reset
+			dma_comm_6_left_mm_write_address                             => dma_comm_6_left_mm_write_address,                                           --                               dma_comm_6_left_mm_write.address
+			dma_comm_6_left_mm_write_waitrequest                         => dma_comm_6_left_mm_write_waitrequest,                                       --                                                       .waitrequest
+			dma_comm_6_left_mm_write_byteenable                          => dma_comm_6_left_mm_write_byteenable,                                        --                                                       .byteenable
+			dma_comm_6_left_mm_write_write                               => dma_comm_6_left_mm_write_write,                                             --                                                       .write
+			dma_comm_6_left_mm_write_writedata                           => dma_comm_6_left_mm_write_writedata,                                         --                                                       .writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address          => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address,     --            COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer.address
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write            => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_writedata        => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_waitrequest      => mm_interconnect_10_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_11 : component MebX_Qsys_Project_mm_interconnect_11
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                            --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset => rst_controller_002_reset_out_reset,                                         -- COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_1_right_reset_n_reset_bridge_in_reset_reset         => rst_controller_008_reset_out_reset,                                         --         dma_comm_1_right_reset_n_reset_bridge_in_reset.reset
+			dma_comm_1_right_mm_write_address                            => dma_comm_1_right_mm_write_address,                                          --                              dma_comm_1_right_mm_write.address
+			dma_comm_1_right_mm_write_waitrequest                        => dma_comm_1_right_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_1_right_mm_write_byteenable                         => dma_comm_1_right_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_1_right_mm_write_write                              => dma_comm_1_right_mm_write_write,                                            --                                                       .write
+			dma_comm_1_right_mm_write_writedata                          => dma_comm_1_right_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address          => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_address,     --            COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer.address
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write            => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata        => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest      => mm_interconnect_11_comm_pedreiro_v1_01_a_avalon_slave_r_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_12 : component MebX_Qsys_Project_mm_interconnect_12
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                            --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset => rst_controller_003_reset_out_reset,                                         -- COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_2_right_reset_n_reset_bridge_in_reset_reset         => rst_controller_008_reset_out_reset,                                         --         dma_comm_2_right_reset_n_reset_bridge_in_reset.reset
+			dma_comm_2_right_mm_write_address                            => dma_comm_2_right_mm_write_address,                                          --                              dma_comm_2_right_mm_write.address
+			dma_comm_2_right_mm_write_waitrequest                        => dma_comm_2_right_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_2_right_mm_write_byteenable                         => dma_comm_2_right_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_2_right_mm_write_write                              => dma_comm_2_right_mm_write_write,                                            --                                                       .write
+			dma_comm_2_right_mm_write_writedata                          => dma_comm_2_right_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address          => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_address,     --            COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer.address
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write            => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata        => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest      => mm_interconnect_12_comm_pedreiro_v1_01_b_avalon_slave_r_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_13 : component MebX_Qsys_Project_mm_interconnect_13
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                            --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset => rst_controller_004_reset_out_reset,                                         -- COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_3_right_reset_n_reset_bridge_in_reset_reset         => rst_controller_008_reset_out_reset,                                         --         dma_comm_3_right_reset_n_reset_bridge_in_reset.reset
+			dma_comm_3_right_mm_write_address                            => dma_comm_3_right_mm_write_address,                                          --                              dma_comm_3_right_mm_write.address
+			dma_comm_3_right_mm_write_waitrequest                        => dma_comm_3_right_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_3_right_mm_write_byteenable                         => dma_comm_3_right_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_3_right_mm_write_write                              => dma_comm_3_right_mm_write_write,                                            --                                                       .write
+			dma_comm_3_right_mm_write_writedata                          => dma_comm_3_right_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address          => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_address,     --            COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer.address
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write            => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata        => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest      => mm_interconnect_13_comm_pedreiro_v1_01_c_avalon_slave_r_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_14 : component MebX_Qsys_Project_mm_interconnect_14
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                            --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset => rst_controller_005_reset_out_reset,                                         -- COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_4_right_reset_n_reset_bridge_in_reset_reset         => rst_controller_008_reset_out_reset,                                         --         dma_comm_4_right_reset_n_reset_bridge_in_reset.reset
+			dma_comm_4_right_mm_write_address                            => dma_comm_4_right_mm_write_address,                                          --                              dma_comm_4_right_mm_write.address
+			dma_comm_4_right_mm_write_waitrequest                        => dma_comm_4_right_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_4_right_mm_write_byteenable                         => dma_comm_4_right_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_4_right_mm_write_write                              => dma_comm_4_right_mm_write_write,                                            --                                                       .write
+			dma_comm_4_right_mm_write_writedata                          => dma_comm_4_right_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address          => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_address,     --            COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer.address
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write            => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata        => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest      => mm_interconnect_14_comm_pedreiro_v1_01_d_avalon_slave_r_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_15 : component MebX_Qsys_Project_mm_interconnect_15
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                            --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset_reset => rst_controller_006_reset_out_reset,                                         -- COMM_Pedreiro_v1_01_E_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_5_right_reset_n_reset_bridge_in_reset_reset         => rst_controller_008_reset_out_reset,                                         --         dma_comm_5_right_reset_n_reset_bridge_in_reset.reset
+			dma_comm_5_right_mm_write_address                            => dma_comm_5_right_mm_write_address,                                          --                              dma_comm_5_right_mm_write.address
+			dma_comm_5_right_mm_write_waitrequest                        => dma_comm_5_right_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_5_right_mm_write_byteenable                         => dma_comm_5_right_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_5_right_mm_write_write                              => dma_comm_5_right_mm_write_write,                                            --                                                       .write
+			dma_comm_5_right_mm_write_writedata                          => dma_comm_5_right_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_address          => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_address,     --            COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer.address
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_write            => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_writedata        => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_R_buffer_waitrequest      => mm_interconnect_15_comm_pedreiro_v1_01_e_avalon_slave_r_buffer_waitrequest  --                                                       .waitrequest
+		);
+
+	mm_interconnect_16 : component MebX_Qsys_Project_mm_interconnect_16
+		port map (
+			clk_100_clk_clk                                              => m2_ddr2_memory_afi_half_clk_clk,                                            --                                            clk_100_clk.clk
+			COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset => rst_controller_007_reset_out_reset,                                         -- COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset.reset
+			dma_comm_6_right_reset_n_reset_bridge_in_reset_reset         => rst_controller_008_reset_out_reset,                                         --         dma_comm_6_right_reset_n_reset_bridge_in_reset.reset
+			dma_comm_6_right_mm_write_address                            => dma_comm_6_right_mm_write_address,                                          --                              dma_comm_6_right_mm_write.address
+			dma_comm_6_right_mm_write_waitrequest                        => dma_comm_6_right_mm_write_waitrequest,                                      --                                                       .waitrequest
+			dma_comm_6_right_mm_write_byteenable                         => dma_comm_6_right_mm_write_byteenable,                                       --                                                       .byteenable
+			dma_comm_6_right_mm_write_write                              => dma_comm_6_right_mm_write_write,                                            --                                                       .write
+			dma_comm_6_right_mm_write_writedata                          => dma_comm_6_right_mm_write_writedata,                                        --                                                       .writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_address          => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_address,     --            COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer.address
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_write            => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_write,       --                                                       .write
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_writedata        => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_writedata,   --                                                       .writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_R_buffer_waitrequest      => mm_interconnect_16_comm_pedreiro_v1_01_f_avalon_slave_r_buffer_waitrequest  --                                                       .waitrequest
+		);
+
 	irq_mapper : component MebX_Qsys_Project_irq_mapper
 		port map (
 			clk            => m2_ddr2_memory_afi_half_clk_clk,    --        clk.clk
@@ -3638,6 +5140,16 @@ begin
 			receiver19_irq => irq_mapper_receiver19_irq,          -- receiver19.irq
 			receiver20_irq => irq_mapper_receiver20_irq,          -- receiver20.irq
 			receiver21_irq => irq_mapper_receiver21_irq,          -- receiver21.irq
+			receiver22_irq => irq_mapper_receiver22_irq,          -- receiver22.irq
+			receiver23_irq => irq_mapper_receiver23_irq,          -- receiver23.irq
+			receiver24_irq => irq_mapper_receiver24_irq,          -- receiver24.irq
+			receiver25_irq => irq_mapper_receiver25_irq,          -- receiver25.irq
+			receiver26_irq => irq_mapper_receiver26_irq,          -- receiver26.irq
+			receiver27_irq => irq_mapper_receiver27_irq,          -- receiver27.irq
+			receiver28_irq => irq_mapper_receiver28_irq,          -- receiver28.irq
+			receiver29_irq => irq_mapper_receiver29_irq,          -- receiver29.irq
+			receiver30_irq => irq_mapper_receiver30_irq,          -- receiver30.irq
+			receiver31_irq => irq_mapper_receiver31_irq,          -- receiver31.irq
 			sender_irq     => nios2_gen2_0_irq_irq                --     sender.irq
 		);
 
@@ -3651,7 +5163,7 @@ begin
 			receiver_reset => rst_controller_009_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_012_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_receiver_irq,      --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver10_irq           --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver21_irq           --             sender.irq
 		);
 
 	irq_synchronizer_001 : component altera_irq_clock_crosser
@@ -3664,7 +5176,7 @@ begin
 			receiver_reset => rst_controller_009_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_012_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_001_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver11_irq           --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver22_irq           --             sender.irq
 		);
 
 	irq_synchronizer_002 : component altera_irq_clock_crosser
@@ -3674,10 +5186,10 @@ begin
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
-			receiver_reset => rst_controller_009_reset_out_reset, -- receiver_clk_reset.reset
+			receiver_reset => rst_controller_013_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_012_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_002_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver12_irq           --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver23_irq           --             sender.irq
 		);
 
 	irq_synchronizer_003 : component altera_irq_clock_crosser
@@ -3687,10 +5199,10 @@ begin
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
-			receiver_reset => rst_controller_013_reset_out_reset, -- receiver_clk_reset.reset
+			receiver_reset => rst_controller_014_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_012_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_003_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver13_irq           --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver24_irq           --             sender.irq
 		);
 
 	irq_synchronizer_004 : component altera_irq_clock_crosser
@@ -3703,20 +5215,7 @@ begin
 			receiver_reset => rst_controller_014_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_012_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_004_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver14_irq           --             sender.irq
-		);
-
-	irq_synchronizer_005 : component altera_irq_clock_crosser
-		generic map (
-			IRQ_WIDTH => 1
-		)
-		port map (
-			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
-			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
-			receiver_reset => rst_controller_014_reset_out_reset, -- receiver_clk_reset.reset
-			sender_reset   => rst_controller_012_reset_out_reset, --   sender_clk_reset.reset
-			receiver_irq   => irq_synchronizer_005_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver21_irq           --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver31_irq           --             sender.irq
 		);
 
 	rst_controller_001 : component mebx_qsys_project_rst_controller_001
@@ -4776,8 +6275,6 @@ begin
 	mm_interconnect_2_timer_1ms_s1_write_ports_inv <= not mm_interconnect_2_timer_1ms_s1_write;
 
 	mm_interconnect_2_timer_1us_s1_write_ports_inv <= not mm_interconnect_2_timer_1us_s1_write;
-
-	mm_interconnect_2_pio_ext_s1_write_ports_inv <= not mm_interconnect_2_pio_ext_s1_write;
 
 	mm_interconnect_2_temp_scl_s1_write_ports_inv <= not mm_interconnect_2_temp_scl_s1_write;
 

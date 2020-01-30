@@ -44,26 +44,26 @@
 
 module MebX_Qsys_Project_mm_interconnect_1_router_001_default_decode
   #(
-     parameter DEFAULT_CHANNEL = 0,
+     parameter DEFAULT_CHANNEL = 1,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 14 
+               DEFAULT_DESTID = 0 
    )
-  (output [358 - 355 : 0] default_destination_id,
-   output [15-1 : 0] default_wr_channel,
-   output [15-1 : 0] default_rd_channel,
-   output [15-1 : 0] default_src_channel
+  (output [356 - 353 : 0] default_destination_id,
+   output [14-1 : 0] default_wr_channel,
+   output [14-1 : 0] default_rd_channel,
+   output [14-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[358 - 355 : 0];
+    DEFAULT_DESTID[356 - 353 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 15'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 14'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module MebX_Qsys_Project_mm_interconnect_1_router_001_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 15'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 15'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 14'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 14'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module MebX_Qsys_Project_mm_interconnect_1_router_001
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [372-1 : 0]    sink_data,
+    input  [370-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module MebX_Qsys_Project_mm_interconnect_1_router_001
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [372-1    : 0] src_data,
-    output reg [15-1 : 0] src_channel,
+    output reg [370-1    : 0] src_data,
+    output reg [14-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -112,18 +112,18 @@ module MebX_Qsys_Project_mm_interconnect_1_router_001
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 321;
+    localparam PKT_ADDR_H = 319;
     localparam PKT_ADDR_L = 288;
-    localparam PKT_DEST_ID_H = 358;
-    localparam PKT_DEST_ID_L = 355;
-    localparam PKT_PROTECTION_H = 362;
-    localparam PKT_PROTECTION_L = 360;
-    localparam ST_DATA_W = 372;
-    localparam ST_CHANNEL_W = 15;
+    localparam PKT_DEST_ID_H = 356;
+    localparam PKT_DEST_ID_L = 353;
+    localparam PKT_PROTECTION_H = 360;
+    localparam PKT_PROTECTION_L = 358;
+    localparam ST_DATA_W = 370;
+    localparam ST_CHANNEL_W = 14;
     localparam DECODER_TYPE = 0;
 
-    localparam PKT_TRANS_WRITE = 324;
-    localparam PKT_TRANS_READ  = 325;
+    localparam PKT_TRANS_WRITE = 322;
+    localparam PKT_TRANS_READ  = 323;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
@@ -134,14 +134,14 @@ module MebX_Qsys_Project_mm_interconnect_1_router_001
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h100000000 - 64'h80000000); 
-    localparam PAD1 = log2ceil(64'h200008000 - 64'h200000000); 
+    localparam PAD0 = log2ceil(64'h80000000 - 64'h0); 
+    localparam PAD1 = log2ceil(64'h100000000 - 64'h80000000); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'h200008000;
+    localparam ADDR_RANGE = 64'h100000000;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -165,7 +165,7 @@ module MebX_Qsys_Project_mm_interconnect_1_router_001
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [15-1 : 0] default_src_channel;
+    wire [14-1 : 0] default_src_channel;
 
 
 
@@ -189,16 +189,16 @@ module MebX_Qsys_Project_mm_interconnect_1_router_001
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
-    // ( 0x80000000 .. 0x100000000 )
-    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 34'h80000000   ) begin
-            src_channel = 15'b01;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 14;
+    // ( 0x0 .. 0x80000000 )
+    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 32'h0   ) begin
+            src_channel = 14'b10;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
 
-    // ( 0x200000000 .. 0x200008000 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 34'h200000000   ) begin
-            src_channel = 15'b10;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 12;
+    // ( 0x80000000 .. 0x100000000 )
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 32'h80000000   ) begin
+            src_channel = 14'b01;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
     end
 
 end

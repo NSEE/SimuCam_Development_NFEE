@@ -35,15 +35,15 @@ architecture RTL of testbench_top is
 	signal s_avalon_slave_config_writedata   : std_logic_vector(31 downto 0);
 	signal s_avalon_slave_config_waitrequest : std_logic;
 	signal s_avalon_slave_config_byteenable  : std_logic_vector(3 downto 0);
-	signal s_avalon_slave_data_address       : std_logic_vector(9 downto 0);
+	signal s_avalon_slave_data_address       : std_logic_vector(20 downto 0);
 	signal s_avalon_slave_data_write         : std_logic;
 	signal s_avalon_slave_data_read          : std_logic;
 	signal s_avalon_slave_data_writedata     : std_logic_vector(255 downto 0);
 	signal s_avalon_slave_data_readdata      : std_logic_vector(255 downto 0);
 	signal s_avalon_slave_data_waitrequest   : std_logic;
 
-	signal s_tx_avalon_slave_data_address : std_logic_vector(9 downto 0);
-	signal s_rx_avalon_slave_data_address : std_logic_vector(9 downto 0);
+	signal s_tx_avalon_slave_data_address : std_logic_vector(20 downto 0);
+	signal s_rx_avalon_slave_data_address : std_logic_vector(20 downto 0);
 
 	--dummy
 
@@ -53,9 +53,15 @@ begin
 	clk100Ftdi <= not clk100Ftdi after 5 ns; -- 100 MHz
 	rst        <= '0' after 100 ns;
 
+	s_avalon_slave_config_address    <= (others => '0');
+	s_avalon_slave_config_write      <= '0';
+	s_avalon_slave_config_writedata  <= (others => '0');
+	s_avalon_slave_config_read       <= '0';
+	s_avalon_slave_config_byteenable <= (others => '0');
+
 	tx_data_stimulli_inst : entity work.tx_data_stimulli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
+			g_ADDRESS_WIDTH => 21,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
@@ -69,7 +75,7 @@ begin
 
 	rx_data_stimulli_inst : entity work.rx_data_stimulli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
+			g_ADDRESS_WIDTH => 21,
 			g_DATA_WIDTH    => 256
 		)
 		port map(

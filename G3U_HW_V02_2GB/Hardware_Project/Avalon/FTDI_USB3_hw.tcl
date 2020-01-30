@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_USB3 "FTDI_UMFT601A_Module" v1.5
+# FTDI_USB3 "FTDI_UMFT601A_Module" v1.6
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_USB3
-set_module_property VERSION 1.5
+set_module_property VERSION 1.6
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -253,7 +253,7 @@ set_interface_property avalon_slave_data PORT_NAME_MAP ""
 set_interface_property avalon_slave_data CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_slave_data SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_slave_data avalon_slave_data_address address Input 10
+add_interface_port avalon_slave_data avalon_slave_data_address address Input 21
 add_interface_port avalon_slave_data avalon_slave_data_write write Input 1
 add_interface_port avalon_slave_data avalon_slave_data_read read Input 1
 add_interface_port avalon_slave_data avalon_slave_data_writedata writedata Input 256

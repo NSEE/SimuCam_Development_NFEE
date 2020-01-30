@@ -1,5 +1,5 @@
 Flow report for MebX_Quartus_Project_DE4_530
-Thu Nov 28 02:43:25 2019
+Thu Jan 30 04:42:01 2020
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -40,28 +40,28 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +-----------------------------------+-------------------------------------------------+
-; Flow Status                       ; Successful - Thu Nov 28 02:43:25 2019           ;
+; Flow Status                       ; Successful - Thu Jan 30 04:41:55 2020           ;
 ; Quartus Prime Version             ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                     ; MebX_Quartus_Project_DE4_530                    ;
 ; Top-level Entity Name             ; MebX_TopLevel                                   ;
 ; Family                            ; Stratix IV                                      ;
 ; Device                            ; EP4SGX530KH40C2                                 ;
 ; Timing Models                     ; Final                                           ;
-; Logic utilization                 ; 53 %                                            ;
-;     Combinational ALUTs           ; 153,257 / 424,960 ( 36 % )                      ;
-;     Memory ALUTs                  ; 17,958 / 212,480 ( 8 % )                        ;
-;     Dedicated logic registers     ; 141,673 / 424,960 ( 33 % )                      ;
-; Total registers                   ; 142961                                          ;
-; Total pins                        ; 517 / 888 ( 58 % )                              ;
+; Logic utilization                 ; N/A                                             ;
+;     Combinational ALUTs           ; 131,613                                         ;
+;     Memory ALUTs                  ; 330                                             ;
+;     Dedicated logic registers     ; 99,598                                          ;
+; Total registers                   ; 100886                                          ;
+; Total pins                        ; 485                                             ;
 ; Total virtual pins                ; 0                                               ;
-; Total block memory bits           ; 17,086,648 / 21,233,664 ( 80 % )                ;
-; DSP block 18-bit elements         ; 44 / 1,024 ( 4 % )                              ;
-; Total GXB Receiver Channel PCS    ; 0 / 24 ( 0 % )                                  ;
-; Total GXB Receiver Channel PMA    ; 0 / 36 ( 0 % )                                  ;
-; Total GXB Transmitter Channel PCS ; 0 / 24 ( 0 % )                                  ;
-; Total GXB Transmitter Channel PMA ; 0 / 36 ( 0 % )                                  ;
-; Total PLLs                        ; 2 / 8 ( 25 % )                                  ;
-; Total DLLs                        ; 2 / 4 ( 50 % )                                  ;
+; Total block memory bits           ; 17,275,078                                      ;
+; DSP block 18-bit elements         ; 8                                               ;
+; Total GXB Receiver Channel PCS    ; 0                                               ;
+; Total GXB Receiver Channel PMA    ; 0                                               ;
+; Total GXB Transmitter Channel PCS ; 0                                               ;
+; Total GXB Transmitter Channel PMA ; 0                                               ;
+; Total PLLs                        ; 2                                               ;
+; Total DLLs                        ; 2                                               ;
 +-----------------------------------+-------------------------------------------------+
 
 
@@ -70,7 +70,7 @@ refer to the applicable agreement for further details.
 +-------------------+------------------------------+
 ; Option            ; Setting                      ;
 +-------------------+------------------------------+
-; Start date & time ; 11/28/2019 00:30:25          ;
+; Start date & time ; 01/30/2020 04:20:19          ;
 ; Main task         ; Compilation                  ;
 ; Revision Name     ; MebX_Quartus_Project_DE4_530 ;
 +-------------------+------------------------------+
@@ -83,7 +83,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP                    ; On                                                                            ; Off                                  ; --                ; --             ;
 ; BLOCK_RAM_AND_MLAB_EQUIVALENT_PAUSED_READ_CAPABILITIES ; Dont Care                                                                     ; Care                                 ; --                ; --             ;
-; COMPILER_SIGNATURE_ID                                  ; 66485671440360.157491181720952                                                ; --                                   ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                                  ; 66485671440360.158036881258644                                                ; --                                   ; --                ; --             ;
 ; ECO_REGENERATE_REPORT                                  ; On                                                                            ; Off                                  ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                                 ; Vhdl                                                                          ; --                                   ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                                    ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                ; --             ;
@@ -141,7 +141,7 @@ refer to the applicable agreement for further details.
 ; SAVE_DISK_SPACE                                        ; Off                                                                           ; On                                   ; --                ; --             ;
 ; SLD_FILE                                               ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.regmap          ; --                                   ; --                ; --             ;
 ; SLD_FILE                                               ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.debuginfo       ; --                                   ; --                ; --             ;
-; SLD_INFO                                               ; QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1574911464           ; --                                   ; MebX_Qsys_Project ; --             ;
+; SLD_INFO                                               ; QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1580368422           ; --                                   ; MebX_Qsys_Project ; --             ;
 ; SMART_RECOMPILE                                        ; On                                                                            ; Off                                  ; --                ; --             ;
 ; SOPCINFO_FILE                                          ; ../Qsys_Project/MebX_Qsys_Project/synthesis/../../MebX_Qsys_Project.sopcinfo  ; --                                   ; --                ; --             ;
 ; STATE_MACHINE_PROCESSING                               ; One-Hot                                                                       ; Auto                                 ; --                ; --             ;
@@ -150,44 +150,29 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------+
-; Flow Elapsed Time                                                                                                           ;
-+-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
-+-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:20:33     ; 1.0                     ; 5718 MB             ; 00:21:07                           ;
-; I/O Assignment Analysis ; 00:05:21     ; 1.0                     ; 2191 MB             ; 00:05:20                           ;
-; Fitter                  ; 01:34:18     ; 1.2                     ; 7943 MB             ; 03:37:36                           ;
-; Assembler               ; 00:01:31     ; 1.0                     ; 2089 MB             ; 00:01:28                           ;
-; Timing Analyzer         ; 00:05:16     ; 1.3                     ; 4222 MB             ; 00:06:19                           ;
-; EDA Netlist Writer      ; 00:03:55     ; 1.0                     ; 2952 MB             ; 00:03:53                           ;
-; Total                   ; 02:10:54     ; --                      ; --                  ; 04:15:43                           ;
-+-------------------------+--------------+-------------------------+---------------------+------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                        ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis ; 00:20:51     ; 1.0                     ; 5936 MB             ; 00:21:27                           ;
+; Total                ; 00:20:51     ; --                      ; --                  ; 00:21:27                           ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+--------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                      ;
-+-------------------------+------------------+-----------+------------+----------------+
-; Module Name             ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
-+-------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis    ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; I/O Assignment Analysis ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; Fitter                  ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; Assembler               ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; Timing Analyzer         ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer      ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-+-------------------------+------------------+-----------+------------+----------------+
++-----------------------------------------------------------------------------------+
+; Flow OS Summary                                                                   ;
++----------------------+------------------+-----------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++----------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
++----------------------+------------------+-----------+------------+----------------+
 
 
 ------------
 ; Flow Log ;
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project_DE4_530
-quartus_fit --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project_DE4_530 --plan
-quartus_fit --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project_DE4_530
-quartus_asm --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project_DE4_530
-quartus_sta MebX_Quartus_Project -c MebX_Quartus_Project_DE4_530
-quartus_eda --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project_DE4_530
 
 
 

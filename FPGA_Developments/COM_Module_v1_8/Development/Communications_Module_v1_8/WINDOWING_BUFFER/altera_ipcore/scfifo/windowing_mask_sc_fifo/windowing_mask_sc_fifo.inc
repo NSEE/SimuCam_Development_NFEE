@@ -17,7 +17,7 @@ FUNCTION windowing_mask_sc_fifo
 (
 	aclr,
 	clock,
-	data[63..0],
+	data[0..0],
 	rdreq,
 	sclr,
 	wrreq
@@ -26,6 +26,6 @@ FUNCTION windowing_mask_sc_fifo
 RETURNS (
 	empty,
 	full,
-	q[63..0],
-	usedw[3..0]
+	q[0..0],
+	usedw[7..0]
 );

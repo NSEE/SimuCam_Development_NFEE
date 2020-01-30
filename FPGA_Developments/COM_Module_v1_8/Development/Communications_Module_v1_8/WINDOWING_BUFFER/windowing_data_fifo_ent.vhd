@@ -9,9 +9,9 @@ entity windowing_data_fifo_ent is
 		clk_i          : in  std_logic;
 		rst_i          : in  std_logic;
 		fifo_control_i : in  t_windowing_fifo_control;
-		fifo_wr_data   : in  t_windowing_fifo_wr_data;
-		fifo_status_o  : out t_windowing_data_fifo_status;
-		fifo_rd_data   : out t_windowing_fifo_rd_data
+		fifo_wr_data   : in  t_windowing_data_fifo_wr_data;
+		fifo_status_o  : out t_windowing_fifo_status;
+		fifo_rd_data   : out t_windowing_data_fifo_rd_data
 	);
 end entity windowing_data_fifo_ent;
 

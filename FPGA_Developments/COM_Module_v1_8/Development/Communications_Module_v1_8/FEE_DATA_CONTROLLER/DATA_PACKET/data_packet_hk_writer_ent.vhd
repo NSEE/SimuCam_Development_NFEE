@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.fee_data_controller_pkg.all;
+
 entity data_packet_hk_writer_ent is
 	port(
 		clk_i                          : in  std_logic;
@@ -45,6 +47,8 @@ architecture RTL of data_packet_hk_writer_ent is
 
 	signal s_housekepping_addr : std_logic_vector(31 downto 0);
 
+	signal s_overflow_send_buffer : std_logic;
+
 begin
 
 	p_data_packet_housekeeping_writer_FSM_state : process(clk_i, rst_i)
@@ -55,6 +59,7 @@ begin
 			s_housekeeping_writer_state <= STOPPED;
 			v_housekeeping_writer_state := STOPPED;
 			s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+			s_overflow_send_buffer      <= '0';
 			-- Outputs Generation
 			housekeeping_wr_busy_o      <= '0';
 			housekeeping_wr_finished_o  <= '0';
@@ -71,6 +76,7 @@ begin
 					s_housekeeping_writer_state <= STOPPED;
 					v_housekeeping_writer_state := STOPPED;
 					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+					s_overflow_send_buffer      <= '0';
 					-- Outputs Generation
 					housekeeping_wr_busy_o      <= '0';
 					housekeeping_wr_finished_o  <= '0';
@@ -91,6 +97,7 @@ begin
 					-- default state transition
 					s_housekeeping_writer_state <= IDLE;
 					v_housekeeping_writer_state := IDLE;
+					s_overflow_send_buffer      <= '0';
 					-- default internal signal values
 					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
 					-- conditional state transition and internal signal values
@@ -110,11 +117,20 @@ begin
 					-- default state transition
 					s_housekeeping_writer_state <= WAITING_SEND_BUFFER_SPACE;
 					v_housekeeping_writer_state := WAITING_SEND_BUFFER_SPACE;
+					s_overflow_send_buffer      <= '0';
 					-- default internal signal values
 					-- conditional state transition
 					-- check if the send buffer is ready and is not full
 					if ((send_buffer_wrready_i = '1') and (send_buffer_stat_full_i = '0')) then
 						-- send buffer is ready and is not full
+						s_overflow_send_buffer      <= '0';
+						-- go to read housekeeping
+						s_housekeeping_writer_state <= READ_HOUSEKEEPING;
+						v_housekeeping_writer_state := READ_HOUSEKEEPING;
+					-- check if the send buffer overflow is enabled
+					elsif (c_SEND_BUFFER_OVERFLOW_ENABLE = '1') then
+						-- send buffer overflow is enabled
+						s_overflow_send_buffer      <= '1';
 						-- go to read housekeeping
 						s_housekeeping_writer_state <= READ_HOUSEKEEPING;
 						v_housekeeping_writer_state := READ_HOUSEKEEPING;
@@ -164,6 +180,7 @@ begin
 					v_housekeeping_writer_state := HOUSEKEEPING_WRITER_FINISH;
 					-- default internal signal values
 					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+					s_overflow_send_buffer      <= '0';
 					-- conditional state transition and internal signal values
 					-- check if a housekeeping writter reset was requested
 					if (housekeeping_wr_reset_i = '1') then
@@ -235,7 +252,12 @@ begin
 					-- fill send buffer data with masking data
 					send_buffer_wrdata_o       <= hk_mem_data_i;
 					-- write the send buffer data
-					send_buffer_wrreq_o        <= '1';
+					-- check if the send buffer is being overflow (no need to write)
+					if (s_overflow_send_buffer = '1') then
+						send_buffer_wrreq_o <= '0';
+					else
+						send_buffer_wrreq_o <= '1';
+					end if;
 				-- conditional output signals
 
 				-- state "HOUSEKEEPING_WRITER_FINISH"

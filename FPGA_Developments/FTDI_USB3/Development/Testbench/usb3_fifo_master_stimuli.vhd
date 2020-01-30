@@ -1310,7 +1310,7 @@ begin
 --					if (umft_rd_n_pin_i = '0') then
 						umft_rxf_n_pin_o        <= '0';
 						umft_txe_n_pin_o        <= '1';
-						if (v_data_cnt < 8707) then
+						if (v_data_cnt < (t_ftdi_prot_reply_payload'high + 1)) then
 							s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PAYLOAD(v_data_cnt);
 						else
 							s_umft601a_data_out     <= (others => '0');
@@ -1342,7 +1342,7 @@ begin
 								s_counter2 <= 0;
 								v_data_cnt              := 0;
 							else
-								s_counter  <= 3000;
+								s_counter  <= 1000;
 								s_counter2 <= s_counter2 + 1;
 							end if;
 						end if;

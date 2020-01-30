@@ -363,7 +363,7 @@ module MebX_Qsys_Project_mm_interconnect_2_router
     end
 
     // ( 0x9b0 .. 0x9c0 )
-    if ( {address[RG:PAD23],{PAD23{1'b0}}} == 12'h9b0   ) begin
+    if ( {address[RG:PAD23],{PAD23{1'b0}}} == 12'h9b0  && read_transaction  ) begin
             src_channel = 30'b000000000000000000100000000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 13;
     end

@@ -43,7 +43,7 @@ entity ftdi_usb3_top is
 		avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => '0'); --                      .writedata
 		avalon_slave_config_waitrequest : out   std_logic; --                                      --                      .waitrequest
 		avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => '0'); --                      .byteenable
-		avalon_slave_data_address       : in    std_logic_vector(9 downto 0)   := (others => '0'); --     avalon_slave_data.address
+		avalon_slave_data_address       : in    std_logic_vector(20 downto 0)  := (others => '0'); --     avalon_slave_data.address
 		avalon_slave_data_write         : in    std_logic                      := '0'; --          --                      .write
 		avalon_slave_data_read          : in    std_logic                      := '0'; --          --                      .read
 		avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => '0'); --                      .writedata
@@ -82,7 +82,6 @@ architecture rtl of ftdi_usb3_top is
 	signal s_tx_dbuffer_wrdata      : std_logic_vector(255 downto 0);
 	signal s_tx_dbuffer_wrreq       : std_logic;
 	signal s_tx_dbuffer_rdreq       : std_logic;
-	signal s_tx_dbuffer_change      : std_logic;
 	signal s_tx_dbuffer_stat_empty  : std_logic;
 	signal s_tx_dbuffer_stat_full   : std_logic;
 	signal s_tx_dbuffer_wrready     : std_logic;
@@ -102,7 +101,6 @@ architecture rtl of ftdi_usb3_top is
 	signal s_rx_dbuffer_wrdata      : std_logic_vector(255 downto 0);
 	signal s_rx_dbuffer_wrreq       : std_logic;
 	signal s_rx_dbuffer_rdreq       : std_logic;
-	signal s_rx_dbuffer_change      : std_logic;
 	signal s_rx_dbuffer_stat_empty  : std_logic;
 	signal s_rx_dbuffer_stat_full   : std_logic;
 	signal s_rx_dbuffer_wrready     : std_logic;
@@ -118,49 +116,52 @@ architecture rtl of ftdi_usb3_top is
 	signal s_avalon_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
 
 	-- Loopback Tx DC Data FIFO Signals
-	signal s_loopback_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
-	signal s_loopback_tx_dc_data_fifo_wrdata_be   : std_logic_vector(3 downto 0);
-	signal s_loopback_tx_dc_data_fifo_wrreq       : std_logic;
-	signal s_loopback_tx_dc_data_fifo_wrempty     : std_logic;
-	signal s_loopback_tx_dc_data_fifo_wrfull      : std_logic;
-	signal s_loopback_tx_dc_data_fifo_wrusedw     : std_logic_vector(11 downto 0);
+	--	signal s_loopback_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
+	--	signal s_loopback_tx_dc_data_fifo_wrdata_be   : std_logic_vector(3 downto 0);
+	--	signal s_loopback_tx_dc_data_fifo_wrreq       : std_logic;
+	--	signal s_loopback_tx_dc_data_fifo_wrempty     : std_logic;
+	--	signal s_loopback_tx_dc_data_fifo_wrfull      : std_logic;
+	--	signal s_loopback_tx_dc_data_fifo_wrusedw     : std_logic_vector(11 downto 0);
 
 	-- Loopback Rx DC Data FIFO Signals
-	signal s_loopback_rx_dc_data_fifo_rdreq       : std_logic;
-	signal s_loopback_rx_dc_data_fifo_rddata_data : std_logic_vector(31 downto 0);
-	signal s_loopback_rx_dc_data_fifo_rddata_be   : std_logic_vector(3 downto 0);
-	signal s_loopback_rx_dc_data_fifo_rdempty     : std_logic;
-	signal s_loopback_rx_dc_data_fifo_rdfull      : std_logic;
-	signal s_loopback_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
+	--	signal s_loopback_rx_dc_data_fifo_rdreq       : std_logic;
+	--	signal s_loopback_rx_dc_data_fifo_rddata_data : std_logic_vector(31 downto 0);
+	--	signal s_loopback_rx_dc_data_fifo_rddata_be   : std_logic_vector(3 downto 0);
+	--	signal s_loopback_rx_dc_data_fifo_rdempty     : std_logic;
+	--	signal s_loopback_rx_dc_data_fifo_rdfull      : std_logic;
+	--	signal s_loopback_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
 
 	-- Tx/Rx Mux Signals
 	--	signal s_tx_mux_select : std_logic_vector(1 downto 0);
 	--	signal s_rx_mux_select : std_logic_vector(1 downto 0);
 
 	-- FTDI Tx DC Data FIFO Signals
-	signal s_ftdi_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
-	signal s_ftdi_tx_dc_data_fifo_wrdata_be   : std_logic_vector(3 downto 0);
-	signal s_ftdi_tx_dc_data_fifo_wrreq       : std_logic;
-	signal s_ftdi_tx_dc_data_fifo_wrempty     : std_logic;
-	signal s_ftdi_tx_dc_data_fifo_wrfull      : std_logic;
-	signal s_ftdi_tx_dc_data_fifo_wrusedw     : std_logic_vector(11 downto 0);
+	--	signal s_ftdi_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
+	--	signal s_ftdi_tx_dc_data_fifo_wrdata_be   : std_logic_vector(3 downto 0);
+	--	signal s_ftdi_tx_dc_data_fifo_wrreq       : std_logic;
+	--	signal s_ftdi_tx_dc_data_fifo_wrempty     : std_logic;
+	--	signal s_ftdi_tx_dc_data_fifo_wrfull      : std_logic;
+	--	signal s_ftdi_tx_dc_data_fifo_wrusedw     : std_logic_vector(11 downto 0);
 
 	-- FTDI Rx DC Data FIFO Signals
-	signal s_ftdi_rx_dc_data_fifo_rdreq       : std_logic;
-	signal s_ftdi_rx_dc_data_fifo_rddata_data : std_logic_vector(31 downto 0);
-	signal s_ftdi_rx_dc_data_fifo_rddata_be   : std_logic_vector(3 downto 0);
-	signal s_ftdi_rx_dc_data_fifo_rdempty     : std_logic;
-	signal s_ftdi_rx_dc_data_fifo_rdfull      : std_logic;
-	signal s_ftdi_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
+	--	signal s_ftdi_rx_dc_data_fifo_rdreq       : std_logic;
+	--	signal s_ftdi_rx_dc_data_fifo_rddata_data : std_logic_vector(31 downto 0);
+	--	signal s_ftdi_rx_dc_data_fifo_rddata_be   : std_logic_vector(3 downto 0);
+	--	signal s_ftdi_rx_dc_data_fifo_rdempty     : std_logic;
+	--	signal s_ftdi_rx_dc_data_fifo_rdfull      : std_logic;
+	--	signal s_ftdi_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
 
 	-- TEST -- Remove Later
 
 	--	signal s_test_tx_dc_data_fifo_aclr : std_logic;
 	--	signal s_test_rx_dc_data_fifo_aclr : std_logic;
 
+	signal s_rx_payload_written_flag : std_logic;
+
 	signal s_rx_buffer_0_rdable_delayed : std_logic;
 	signal s_rx_buffer_1_rdable_delayed : std_logic;
 	signal s_rx_dbuffer_rdable_delayed  : std_logic;
+	signal s_rx_payload_written_delayed : std_logic;
 	signal s_rx_buffer_empty_delayed    : std_logic;
 	signal s_rx_comm_err_delayed        : std_logic;
 
@@ -172,10 +173,13 @@ begin
 		-- Config Avalon MM Testbench Stimulli
 		ftdi_config_avalon_mm_stimulli_inst : entity work.ftdi_config_avalon_mm_stimulli
 			port map(
-				clk_i                => a_avs_clock,
-				rst_i                => a_reset,
-				avs_config_rd_regs_i => s_config_read_registers,
-				avs_config_wr_regs_o => s_config_write_registers
+				clk_i                       => a_avs_clock,
+				rst_i                       => a_reset,
+				avs_config_rd_regs_i        => s_config_read_registers,
+				avs_config_wr_regs_o        => s_config_write_registers,
+				avs_config_rd_readdata_o    => avalon_slave_config_readdata,
+				avs_config_rd_waitrequest_o => s_config_avalon_mm_read_waitrequest,
+				avs_config_wr_waitrequest_o => s_config_avalon_mm_write_waitrequest
 			);
 
 	end generate g_ftdi_avs_config_testbench_stimulli;
@@ -231,43 +235,34 @@ begin
 	-- Tx (Double) Data Buffer Instantiation (Tx: FPGA => FTDI)	
 	tx_data_buffer_ent_inst : entity work.data_buffer_ent
 		port map(
-			clk_i                      => a_avs_clock,
-			rst_i                      => a_reset,
-			double_buffer_clear_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
-			double_buffer_stop_i       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
-			double_buffer_start_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
-			buffer_data_loaded_i       => s_tx_dbuffer_data_loaded,
-			buffer_cfg_length_i        => "10000000000",
-			buffer_wrdata_i            => s_tx_dbuffer_wrdata,
-			buffer_wrreq_i             => s_tx_dbuffer_wrreq,
-			buffer_rdreq_i             => s_tx_dbuffer_rdreq,
-			buffer_change_i            => s_tx_dbuffer_change,
-			buffer_0_wrable_o          => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_wrable,
-			buffer_0_rdable_o          => open,
-			buffer_0_empty_o           => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_empty,
-			buffer_0_used_bytes_o      => open,
-			buffer_0_free_bytes_o      => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_space_bytes,
-			buffer_0_full_o            => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_full,
-			buffer_1_wrable_o          => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_wrable,
-			buffer_1_rdable_o          => open,
-			buffer_1_empty_o           => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_empty,
-			buffer_1_used_bytes_o      => open,
-			buffer_1_free_bytes_o      => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_space_bytes,
-			buffer_1_full_o            => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_full,
-			double_buffer_wrable_o     => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_wrable,
-			double_buffer_rdable_o     => open,
-			double_buffer_empty_o      => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_empty,
-			double_buffer_used_bytes_o => open,
-			double_buffer_free_bytes_o => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_space_bytes,
-			double_buffer_full_o       => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_full,
-			buffer_stat_almost_empty_o => open,
-			buffer_stat_almost_full_o  => open,
-			buffer_stat_empty_o        => s_tx_dbuffer_stat_empty,
-			buffer_stat_full_o         => s_tx_dbuffer_stat_full,
-			buffer_rddata_o            => s_tx_dbuffer_rddata,
-			buffer_rdready_o           => s_tx_dbuffer_rdready,
-			buffer_wrready_o           => s_tx_dbuffer_wrready
+			clk_i                 => a_avs_clock,
+			rst_i                 => a_reset,
+			double_buffer_clear_i => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
+			double_buffer_stop_i  => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			double_buffer_start_i => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			buffer_wrdata_i       => s_tx_dbuffer_wrdata,
+			buffer_wrreq_i        => s_tx_dbuffer_wrreq,
+			buffer_rdreq_i        => s_tx_dbuffer_rdreq,
+			buffer_wrable_o       => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_wrable,
+			buffer_rdable_o       => open,
+			buffer_empty_o        => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_empty,
+			buffer_used_bytes_o   => open,
+			buffer_full_o         => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_full,
+			buffer_stat_empty_o   => s_tx_dbuffer_stat_empty,
+			buffer_stat_full_o    => s_tx_dbuffer_stat_full,
+			buffer_rddata_o       => s_tx_dbuffer_rddata,
+			buffer_rdready_o      => s_tx_dbuffer_rdready,
+			buffer_wrready_o      => s_tx_dbuffer_wrready
 		);
+	s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_space_bytes  <= (others => '0');
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_wrable      <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_wrable;
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_empty       <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_empty;
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_space_bytes <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_space_bytes;
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_full        <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_full;
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_wrable      <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_wrable;
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_empty       <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_empty;
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_space_bytes <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_space_bytes;
+	s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_full        <= s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_full;
 
 	--	-- FTDI Data Transmitter Instantiation (Tx: FPGA => FTDI)	
 	--	ftdi_data_transmitter_ent_inst : entity work.ftdi_data_transmitter_ent
@@ -302,50 +297,39 @@ begin
 			buffer_rdready_i                     => s_rx_dbuffer_rdready,
 			ftdi_rx_data_avalon_mm_o.readdata    => avalon_slave_data_readdata,
 			ftdi_rx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_read_waitrequest,
-			buffer_rdreq_o                       => s_rx_dbuffer_rdreq,
-			buffer_change_o                      => s_rx_dbuffer_change
+			buffer_rdreq_o                       => s_rx_dbuffer_rdreq
 		);
 
 	-- Rx (Double) Data Buffer Instantiation (Rx: FTDI => FPGA)
 	rx_data_buffer_ent_inst : entity work.data_buffer_ent
 		port map(
-			clk_i                      => a_avs_clock,
-			rst_i                      => a_reset,
-			double_buffer_clear_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
-			double_buffer_stop_i       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
-			double_buffer_start_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
-			buffer_data_loaded_i       => s_rx_dbuffer_data_loaded,
-			buffer_cfg_length_i        => "10000000000",
-			buffer_wrdata_i            => s_rx_dbuffer_wrdata,
-			buffer_wrreq_i             => s_rx_dbuffer_wrreq,
-			buffer_rdreq_i             => s_rx_dbuffer_rdreq,
-			buffer_change_i            => s_rx_dbuffer_change,
-			buffer_0_wrable_o          => open,
-			buffer_0_rdable_o          => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable,
-			buffer_0_empty_o           => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_empty,
-			buffer_0_used_bytes_o      => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_used_bytes,
-			buffer_0_free_bytes_o      => open,
-			buffer_0_full_o            => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_full,
-			buffer_1_wrable_o          => open,
-			buffer_1_rdable_o          => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable,
-			buffer_1_empty_o           => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_empty,
-			buffer_1_used_bytes_o      => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_used_bytes,
-			buffer_1_free_bytes_o      => open,
-			buffer_1_full_o            => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_full,
-			double_buffer_wrable_o     => open,
-			double_buffer_rdable_o     => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable,
-			double_buffer_empty_o      => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty,
-			double_buffer_used_bytes_o => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_used_bytes,
-			double_buffer_free_bytes_o => open,
-			double_buffer_full_o       => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_full,
-			buffer_stat_almost_empty_o => open,
-			buffer_stat_almost_full_o  => open,
-			buffer_stat_empty_o        => s_rx_dbuffer_stat_empty,
-			buffer_stat_full_o         => s_rx_dbuffer_stat_full,
-			buffer_rddata_o            => s_rx_dbuffer_rddata,
-			buffer_rdready_o           => s_rx_dbuffer_rdready,
-			buffer_wrready_o           => s_rx_dbuffer_wrready
+			clk_i                 => a_avs_clock,
+			rst_i                 => a_reset,
+			double_buffer_clear_i => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
+			double_buffer_stop_i  => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			double_buffer_start_i => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			buffer_wrdata_i       => s_rx_dbuffer_wrdata,
+			buffer_wrreq_i        => s_rx_dbuffer_wrreq,
+			buffer_rdreq_i        => s_rx_dbuffer_rdreq,
+			buffer_wrable_o       => open,
+			buffer_rdable_o       => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable,
+			buffer_empty_o        => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty,
+			buffer_used_bytes_o   => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_used_bytes,
+			buffer_full_o         => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_full,
+			buffer_stat_empty_o   => s_rx_dbuffer_stat_empty,
+			buffer_stat_full_o    => s_rx_dbuffer_stat_full,
+			buffer_rddata_o       => s_rx_dbuffer_rddata,
+			buffer_rdready_o      => s_rx_dbuffer_rdready,
+			buffer_wrready_o      => s_rx_dbuffer_wrready
 		);
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable     <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable;
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_empty      <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty;
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_used_bytes <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_used_bytes;
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_full       <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_full;
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable     <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable;
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_empty      <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty;
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_used_bytes <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_used_bytes;
+	s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_full       <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_full;
 
 	--	-- FTDI Data Receiver Instantiation (Rx: FTDI => FPGA)
 	--	ftdi_data_receiver_ent_inst : entity work.ftdi_data_receiver_ent
@@ -459,7 +443,7 @@ begin
 			tx_dc_data_fifo_wrreq_o              => s_avalon_tx_dc_data_fifo_wrreq,
 			rx_dc_data_fifo_rdreq_o              => s_avalon_rx_dc_data_fifo_rdreq,
 			tx_dbuffer_rdreq_o                   => s_tx_dbuffer_rdreq,
-			tx_dbuffer_change_o                  => s_tx_dbuffer_change,
+			tx_dbuffer_change_o                  => open,
 			rx_dbuffer_data_loaded_o             => s_rx_dbuffer_data_loaded,
 			rx_dbuffer_wrdata_o                  => s_rx_dbuffer_wrdata,
 			rx_dbuffer_wrreq_o                   => s_rx_dbuffer_wrreq
@@ -621,10 +605,12 @@ begin
 			s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag    <= '0';
 			s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag    <= '0';
 			s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
+			s_rx_payload_written_flag                                              <= '0';
 			s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag  <= '0';
 			s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag           <= '0';
 			s_rx_buffer_0_rdable_delayed                                           <= '0';
 			s_rx_buffer_1_rdable_delayed                                           <= '0';
+			s_rx_payload_written_delayed                                           <= '0';
 			s_rx_buffer_empty_delayed                                              <= '0';
 			s_rx_comm_err_delayed                                                  <= '0';
 			v_started                                                              := '0';
@@ -649,6 +635,7 @@ begin
 				s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag    <= '0';
 				s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag    <= '0';
 				s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
+				s_rx_payload_written_flag                                              <= '0';
 				s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag  <= '0';
 				s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag           <= '0';
 				v_last_rx_buffer                                                       := '0';
@@ -665,6 +652,7 @@ begin
 					s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
 				end if;
 				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr = '1') then
+					s_rx_payload_written_flag                                             <= '0';
 					s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '0';
 				end if;
 				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr = '1') then
@@ -675,31 +663,38 @@ begin
 				if (s_config_write_registers.ftdi_irq_control_reg.ftdi_global_irq_en = '1') then
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_0_rdable_irq_en = '1') then
 						if ((s_rx_buffer_0_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable = '1') and (v_last_rx_buffer = '0')) then
-							s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag <= '1';
+--							s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag <= '1';
 						end if;
 					end if;
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_1_rdable_irq_en = '1') then
 						if ((s_rx_buffer_1_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable = '1') and (v_last_rx_buffer = '0')) then
-							s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag <= '1';
+--							s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag <= '1';
 						end if;
 
 					end if;
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_last_rdable_irq_en = '1') then
 						if ((s_rx_dbuffer_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable = '1') and (v_last_rx_buffer = '1')) then
-							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '1';
+--							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '1';
 							v_last_rx_buffer                                                       := '0';
-							v_last_rx_buffer_full                                                  := '1';
 						end if;
 
 					end if;
+					--					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_last_empty_irq_en = '1') then
+					--						if ((s_rx_buffer_empty_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty = '1') and (v_last_rx_buffer_full = '1')) then
+					--							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '1';
+					--							v_last_rx_buffer                                                      := '0';
+					--							v_last_rx_buffer_full                                                 := '0';
+					--						end if;
+
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_last_empty_irq_en = '1') then
-						if ((s_rx_buffer_empty_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty = '1') and (v_last_rx_buffer_full = '1')) then
-							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '1';
-							v_last_rx_buffer                                                      := '0';
-							v_last_rx_buffer_full                                                 := '0';
+						if (s_rx_payload_written_delayed = '0') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '1') then
+							s_rx_payload_written_flag <= '1';
 						end if;
-
+						if ((s_rx_buffer_empty_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty = '1') and (s_rx_payload_written_flag = '1')) then
+							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '1';
+						end if;
 					end if;
+
 					if (s_config_write_registers.rx_irq_control_reg.rx_comm_err_irq_en = '1') then
 						if ((s_rx_comm_err_delayed = '0') and (s_config_read_registers.rx_comm_error_reg.rx_comm_err_state = '1')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag <= '1';
@@ -713,6 +708,7 @@ begin
 			s_rx_buffer_0_rdable_delayed <= s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable;
 			s_rx_buffer_1_rdable_delayed <= s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable;
 			s_rx_dbuffer_rdable_delayed  <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable;
+			s_rx_payload_written_delayed <= s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer;
 			s_rx_buffer_empty_delayed    <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty;
 			s_rx_comm_err_delayed        <= s_config_read_registers.rx_comm_error_reg.rx_comm_err_state;
 

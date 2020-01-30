@@ -16,39 +16,37 @@ package windowing_fifo_pkg is
 		wrreq : std_logic;
 	end record t_windowing_fifo_wr_control;
 
-	-- windowing data fifo read status [out]
-	type t_windowing_data_fifo_rd_status is record
+	-- windowing fifo read status [out]
+	type t_windowing_fifo_rd_status is record
 		empty : std_logic;
 		usedw : std_logic_vector(7 downto 0);
-	end record t_windowing_data_fifo_rd_status;
+	end record t_windowing_fifo_rd_status;
 
-	-- windowing data fifo write status [out]
-	type t_windowing_data_fifo_wr_status is record
+	-- windowing fifo write status [out]
+	type t_windowing_fifo_wr_status is record
 		full  : std_logic;
 		usedw : std_logic_vector(7 downto 0);
-	end record t_windowing_data_fifo_wr_status;
-
-	-- windowing mask fifo read status [out]
-	type t_windowing_mask_fifo_rd_status is record
-		empty : std_logic;
-		usedw : std_logic_vector(3 downto 0);
-	end record t_windowing_mask_fifo_rd_status;
-
-	-- windowing mask fifo write status [out]
-	type t_windowing_mask_fifo_wr_status is record
-		full  : std_logic;
-		usedw : std_logic_vector(3 downto 0);
-	end record t_windowing_mask_fifo_wr_status;
+	end record t_windowing_fifo_wr_status;
 
 	-- windowing fifo read data [out]
-	type t_windowing_fifo_rd_data is record
-		q : std_logic_vector(63 downto 0);
-	end record t_windowing_fifo_rd_data;
+	type t_windowing_data_fifo_rd_data is record
+		q : std_logic_vector(15 downto 0);
+	end record t_windowing_data_fifo_rd_data;
 
 	-- windowing fifo write data [in]
-	type t_windowing_fifo_wr_data is record
-		data : std_logic_vector(63 downto 0);
-	end record t_windowing_fifo_wr_data;
+	type t_windowing_data_fifo_wr_data is record
+		data : std_logic_vector(15 downto 0);
+	end record t_windowing_data_fifo_wr_data;
+
+	-- windowing fifo read data [out]
+	type t_windowing_mask_fifo_rd_data is record
+		q : std_logic;
+	end record t_windowing_mask_fifo_rd_data;
+
+	-- windowing fifo write data [in]
+	type t_windowing_mask_fifo_wr_data is record
+		data : std_logic;
+	end record t_windowing_mask_fifo_wr_data;
 
 	-- windowing fifo control [in]
 	type t_windowing_fifo_control is record
@@ -57,16 +55,10 @@ package windowing_fifo_pkg is
 	end record t_windowing_fifo_control;
 
 	-- windowing fifo status [out]
-	type t_windowing_data_fifo_status is record
-		read  : t_windowing_data_fifo_rd_status;
-		write : t_windowing_data_fifo_wr_status;
-	end record t_windowing_data_fifo_status;
-
-	-- windowing fifo status [out]
-	type t_windowing_mask_fifo_status is record
-		read  : t_windowing_mask_fifo_rd_status;
-		write : t_windowing_mask_fifo_wr_status;
-	end record t_windowing_mask_fifo_status;
+	type t_windowing_fifo_status is record
+		read  : t_windowing_fifo_rd_status;
+		write : t_windowing_fifo_wr_status;
+	end record t_windowing_fifo_status;
 
 end package windowing_fifo_pkg;
 

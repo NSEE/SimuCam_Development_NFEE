@@ -51,7 +51,7 @@ ENTITY data_buffer_sc_fifo IS
 		empty		: OUT STD_LOGIC ;
 		full		: OUT STD_LOGIC ;
 		q		: OUT STD_LOGIC_VECTOR (255 DOWNTO 0);
-		usedw		: OUT STD_LOGIC_VECTOR (9 DOWNTO 0)
+		usedw		: OUT STD_LOGIC_VECTOR (4 DOWNTO 0)
 	);
 END data_buffer_sc_fifo;
 
@@ -61,7 +61,7 @@ ARCHITECTURE SYN OF data_buffer_sc_fifo IS
 	SIGNAL sub_wire0	: STD_LOGIC ;
 	SIGNAL sub_wire1	: STD_LOGIC ;
 	SIGNAL sub_wire2	: STD_LOGIC_VECTOR (255 DOWNTO 0);
-	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (9 DOWNTO 0);
+	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (4 DOWNTO 0);
 
 
 
@@ -88,7 +88,7 @@ ARCHITECTURE SYN OF data_buffer_sc_fifo IS
 			empty	: OUT STD_LOGIC ;
 			full	: OUT STD_LOGIC ;
 			q	: OUT STD_LOGIC_VECTOR (255 DOWNTO 0);
-			usedw	: OUT STD_LOGIC_VECTOR (9 DOWNTO 0)
+			usedw	: OUT STD_LOGIC_VECTOR (4 DOWNTO 0)
 	);
 	END COMPONENT;
 
@@ -96,17 +96,17 @@ BEGIN
 	empty    <= sub_wire0;
 	full    <= sub_wire1;
 	q    <= sub_wire2(255 DOWNTO 0);
-	usedw    <= sub_wire3(9 DOWNTO 0);
+	usedw    <= sub_wire3(4 DOWNTO 0);
 
 	scfifo_component : scfifo
 	GENERIC MAP (
 		add_ram_output_register => "ON",
 		intended_device_family => "Stratix IV",
-		lpm_numwords => 1024,
+		lpm_numwords => 32,
 		lpm_showahead => "OFF",
 		lpm_type => "scfifo",
 		lpm_width => 256,
-		lpm_widthu => 10,
+		lpm_widthu => 5,
 		overflow_checking => "ON",
 		underflow_checking => "ON",
 		use_eab => "ON"
@@ -137,7 +137,7 @@ END SYN;
 -- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
 -- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
 -- Retrieval info: PRIVATE: Clock NUMERIC "0"
--- Retrieval info: PRIVATE: Depth NUMERIC "1024"
+-- Retrieval info: PRIVATE: Depth NUMERIC "32"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
@@ -166,11 +166,11 @@ END SYN;
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "ON"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
--- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "1024"
+-- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "32"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"
 -- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "256"
--- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "10"
+-- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "5"
 -- Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: USE_EAB STRING "ON"
@@ -182,7 +182,7 @@ END SYN;
 -- Retrieval info: USED_PORT: q 0 0 256 0 OUTPUT NODEFVAL "q[255..0]"
 -- Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
 -- Retrieval info: USED_PORT: sclr 0 0 0 0 INPUT NODEFVAL "sclr"
--- Retrieval info: USED_PORT: usedw 0 0 10 0 OUTPUT NODEFVAL "usedw[9..0]"
+-- Retrieval info: USED_PORT: usedw 0 0 5 0 OUTPUT NODEFVAL "usedw[4..0]"
 -- Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
 -- Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 -- Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
@@ -193,7 +193,7 @@ END SYN;
 -- Retrieval info: CONNECT: empty 0 0 0 0 @empty 0 0 0 0
 -- Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 256 0 @q 0 0 256 0
--- Retrieval info: CONNECT: usedw 0 0 10 0 @usedw 0 0 10 0
+-- Retrieval info: CONNECT: usedw 0 0 5 0 @usedw 0 0 5 0
 -- Retrieval info: GEN_FILE: TYPE_NORMAL data_buffer_sc_fifo.vhd TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL data_buffer_sc_fifo.inc TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL data_buffer_sc_fifo.cmp TRUE

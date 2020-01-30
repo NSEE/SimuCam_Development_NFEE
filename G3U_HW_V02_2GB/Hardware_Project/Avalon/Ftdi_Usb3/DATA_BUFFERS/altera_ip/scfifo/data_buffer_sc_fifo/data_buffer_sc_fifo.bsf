@@ -89,12 +89,12 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 176 104)
 		(output)
-		(text "usedw[9..0]" (rect 0 0 68 14)(font "Arial" (font_size 8)))
-		(text "usedw[9..0]" (rect 99 97 155 110)(font "Arial" (font_size 8)))
+		(text "usedw[4..0]" (rect 0 0 68 14)(font "Arial" (font_size 8)))
+		(text "usedw[4..0]" (rect 99 97 155 110)(font "Arial" (font_size 8)))
 		(line (pt 176 104)(pt 160 104)(line_width 3))
 	)
 	(drawing
-		(text "256 bits x 1024 words" (rect 68 149 225 309)(font "Arial" ))
+		(text "256 bits x 32 words" (rect 78 149 235 309)(font "Arial" ))
 		(line (pt 16 124)(pt 160 124))
 		(line (pt 16 32)(pt 160 32))
 		(line (pt 160 32)(pt 160 185))
