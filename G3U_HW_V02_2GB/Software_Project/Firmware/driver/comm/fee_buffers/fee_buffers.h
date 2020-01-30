@@ -15,6 +15,8 @@
 
 extern OS_EVENT *xNfeeSchedule;
 
+extern OS_EVENT *xFeeQ[N_OF_NFEE];
+
 //! [constants definition]
 // address
 // bit masks

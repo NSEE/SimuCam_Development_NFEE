@@ -755,9 +755,9 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 
 void bInitFTDI(void){
 
-	vFTDIIrqRxBuff0RdableEn(TRUE);
-	vFTDIIrqRxBuff1RdableEn(TRUE);
-	vFTDIIrqRxBuffLastRdableEn(TRUE);
+	vFTDIIrqRxBuff0RdableEn(FALSE);
+	vFTDIIrqRxBuff1RdableEn(FALSE);
+	vFTDIIrqRxBuffLastRdableEn(FALSE);
 	vFTDIIrqRxBuffLastEmptyEn(TRUE);
 	vFTDIIrqRxCommErrEn(TRUE);
 	vFTDIIrqGlobalEn(TRUE);

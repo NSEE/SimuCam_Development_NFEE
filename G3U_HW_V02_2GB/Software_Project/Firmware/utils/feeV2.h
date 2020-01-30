@@ -52,7 +52,7 @@ typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFu
 	sSerialTrap1_Enter, sSerialTrap1_Out, sSerialTrap2_Enter, sSerialTrap2_Out,
 	sWaitSync, redoutWaitSync,
 	redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
-	redoutTransmission, redoutEndSch} tFEEStates;
+	redoutTransmission, redoutEndSch, readoutWaitingFinishTransmission} tFEEStates;
 
 
  /* Error Injection Control Register Struct */

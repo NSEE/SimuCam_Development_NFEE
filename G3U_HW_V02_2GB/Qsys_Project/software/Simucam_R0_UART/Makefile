@@ -162,8 +162,6 @@ C_SRCS += driver/reset/reset.c
 C_SRCS += driver/rtcc_spi/rtcc_spi.c
 C_SRCS += driver/seven_seg/seven_seg.c
 C_SRCS += driver/sync/sync.c
-C_SRCS += rtos/data_control_task.c
-C_SRCS += rtos/fee_taskV2.c
 C_SRCS += rtos/in_ack_handler_task.c
 C_SRCS += rtos/initialization_task.c
 C_SRCS += rtos/nfee_control_taskV2.c
@@ -194,6 +192,8 @@ C_SRCS += utils/sdcard_file_manager.c
 C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
+C_SRCS += rtos/fee_taskV3.c
+C_SRCS += rtos/data_control_taskV2.c
 CXX_SRCS :=
 ASM_SRCS :=
 
