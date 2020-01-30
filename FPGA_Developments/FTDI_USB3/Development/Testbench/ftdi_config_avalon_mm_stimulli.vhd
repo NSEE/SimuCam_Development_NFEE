@@ -6,10 +6,13 @@ use work.ftdi_config_avalon_mm_registers_pkg.all;
 
 entity ftdi_config_avalon_mm_stimulli is
 	port(
-		clk_i                : in  std_logic;
-		rst_i                : in  std_logic;
-		avs_config_rd_regs_i : in  t_ftdi_config_rd_registers;
-		avs_config_wr_regs_o : out t_ftdi_config_wr_registers
+		clk_i                       : in  std_logic;
+		rst_i                       : in  std_logic;
+		avs_config_rd_regs_i        : in  t_ftdi_config_rd_registers;
+		avs_config_wr_regs_o        : out t_ftdi_config_wr_registers;
+		avs_config_rd_readdata_o    : out std_logic_vector(31 downto 0);
+		avs_config_rd_waitrequest_o : out std_logic;
+		avs_config_wr_waitrequest_o : out std_logic
 	);
 end entity ftdi_config_avalon_mm_stimulli;
 
@@ -149,9 +152,9 @@ begin
 				when 25 =>
 					-- Enables IRQ
 					avs_config_wr_regs_o.ftdi_irq_control_reg.ftdi_global_irq_en         <= '1';
-					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_0_rdable_irq_en    <= '1';
-					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_1_rdable_irq_en    <= '1';
-					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_rdable_irq_en <= '1';
+--					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_0_rdable_irq_en    <= '1';
+--					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_1_rdable_irq_en    <= '1';
+--					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_rdable_irq_en <= '1';
 					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_empty_irq_en  <= '1';
 					avs_config_wr_regs_o.rx_irq_control_reg.rx_comm_err_irq_en           <= '1';
 
@@ -183,7 +186,7 @@ begin
 					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr  <= '1';
 					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr           <= '1';
 
-				when 28000 =>
+				when 43000 =>
 					-- Clear IRQ
 					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr    <= '1';
 					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_1_rdable_irq_flag_clr    <= '1';
@@ -198,5 +201,9 @@ begin
 
 		end if;
 	end process p_ftdi_config_avalon_mm_stimulli;
+
+	avs_config_rd_readdata_o    <= (others => '0');
+	avs_config_rd_waitrequest_o <= '1';
+	avs_config_wr_waitrequest_o <= '1';
 
 end architecture RTL;

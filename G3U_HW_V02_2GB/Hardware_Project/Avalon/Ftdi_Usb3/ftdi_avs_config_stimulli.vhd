@@ -9,7 +9,10 @@ entity ftdi_avs_config_stimulli is
 		clk_i                : in  std_logic;
 		rst_i                : in  std_logic;
 		avs_config_rd_regs_i : in  t_ftdi_config_rd_registers;
-		avs_config_wr_regs_o : out t_ftdi_config_wr_registers
+		avs_config_wr_regs_o : out t_ftdi_config_wr_registers;
+		avs_config_rd_readdata_o    : out std_logic_vector(31 downto 0);
+		avs_config_rd_waitrequest_o : out std_logic;
+		avs_config_wr_waitrequest_o : out std_logic
 	);
 end entity ftdi_avs_config_stimulli;
 

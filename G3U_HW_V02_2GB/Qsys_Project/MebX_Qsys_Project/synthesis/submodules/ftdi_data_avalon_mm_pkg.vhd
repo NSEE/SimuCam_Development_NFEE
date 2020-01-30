@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 package ftdi_data_avalon_mm_pkg is
 
-	constant c_FTDI_DATA_AVALON_MM_ADRESS_SIZE : natural := 10;
+	constant c_FTDI_DATA_AVALON_MM_ADRESS_SIZE : natural := 21;
 	constant c_FTDI_DATA_AVALON_MM_DATA_SIZE   : natural := 256;
 	constant c_FTDI_DATA_AVALON_MM_SYMBOL_SIZE : natural := 8;
 

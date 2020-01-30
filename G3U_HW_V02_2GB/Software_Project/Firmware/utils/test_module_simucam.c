@@ -16,21 +16,71 @@ bool bTestSimucamCriticalHW( void ) {
 	 * SDcard para criar logs e pegar defaults
 	 */
 
-	bSuccess = bSdmaInitM1Dma();
+	bSuccess = bSdmaInitCh1Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMA for Memory 1.\n");
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMAs for Channel 1.\n");
 		}
 		#endif
 		return bSuccess;
 	}
 
-	bSuccess = bSdmaInitM2Dma();
+	bSuccess = bSdmaInitCh2Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMA for Memory 2.\n");
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMAs for Channel 2.\n");
+		}
+		#endif
+		return bSuccess;
+	}
+
+	bSuccess = bSdmaInitCh3Dmas();
+	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMAs for Channel 3.\n");
+		}
+		#endif
+		return bSuccess;
+	}
+
+	bSuccess = bSdmaInitCh4Dmas();
+	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMAs for Channel 4.\n");
+		}
+		#endif
+		return bSuccess;
+	}
+
+	bSuccess = bSdmaInitCh5Dmas();
+	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMAs for Channel 5.\n");
+		}
+		#endif
+		return bSuccess;
+	}
+
+	bSuccess = bSdmaInitCh6Dmas();
+	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMAs for Channel 6.\n");
+		}
+		#endif
+		return bSuccess;
+	}
+
+	bSuccess = bSdmaInitFtdiDma();
+	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMA for FTDI.\n");
 		}
 		#endif
 		return bSuccess;
@@ -38,7 +88,6 @@ bool bTestSimucamCriticalHW( void ) {
 
 	//xDma[0].pDmaTranfer = bSdmaDmaM1Transfer;
 	//xDma[0].pDmaTranfer = bSdmaDmaM2Transfer;
-
 
 	return TRUE;
 }
