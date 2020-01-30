@@ -13,18 +13,21 @@
 --refer to the applicable agreement for further details.
 
 
-component masking_machine_sc_fifo
-	PORT
-	(
-		aclr		: IN STD_LOGIC ;
-		clock		: IN STD_LOGIC ;
-		data		: IN STD_LOGIC_VECTOR (8 DOWNTO 0);
-		rdreq		: IN STD_LOGIC ;
-		sclr		: IN STD_LOGIC ;
-		wrreq		: IN STD_LOGIC ;
-		empty		: OUT STD_LOGIC ;
-		full		: OUT STD_LOGIC ;
-		q		: OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
-		usedw		: OUT STD_LOGIC_VECTOR (7 DOWNTO 0)
-	);
-end component;
+FUNCTION send_buffer_sc_1k_fifo 
+(
+	aclr,
+	clock,
+	data[7..0],
+	rdreq,
+	sclr,
+	wrreq
+)
+
+RETURNS (
+	almost_empty,
+	almost_full,
+	empty,
+	full,
+	q[7..0],
+	usedw[9..0]
+);

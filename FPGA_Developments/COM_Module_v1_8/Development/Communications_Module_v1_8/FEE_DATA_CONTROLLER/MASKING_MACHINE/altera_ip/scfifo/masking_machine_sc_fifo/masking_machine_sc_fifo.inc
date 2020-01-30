@@ -17,7 +17,7 @@ FUNCTION masking_machine_sc_fifo
 (
 	aclr,
 	clock,
-	data[7..0],
+	data[8..0],
 	rdreq,
 	sclr,
 	wrreq
@@ -26,6 +26,6 @@ FUNCTION masking_machine_sc_fifo
 RETURNS (
 	empty,
 	full,
-	q[7..0],
+	q[8..0],
 	usedw[7..0]
 );
