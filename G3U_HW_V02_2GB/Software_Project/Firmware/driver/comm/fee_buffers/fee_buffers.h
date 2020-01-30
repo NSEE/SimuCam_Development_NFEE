@@ -14,7 +14,6 @@
 #include "../../../utils/configs_bind_channel_FEEinst.h"
 
 extern OS_EVENT *xNfeeSchedule;
-
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
 
 //! [constants definition]
@@ -90,8 +89,7 @@ bool bFeebGetCh7RightFeeBusy(void);
 bool bFeebGetCh8LeftFeeBusy(void);
 bool bFeebGetCh8RightFeeBusy(void);
 
-bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
-		alt_u8 ucBufferSide);
+bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
 bool bFeebSetMachineControl(TFeebChannel *pxFeebCh);
 bool bFeebGetMachineControl(TFeebChannel *pxFeebCh);

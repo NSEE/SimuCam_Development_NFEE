@@ -90,6 +90,9 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 	signal s_qqword_delay_busy     : std_logic;
 	signal s_qqword_delay_finished : std_logic;
 
+	subtype t_windowing_parameters_cnt is natural range 0 to 512;
+	signal s_windowing_parameters_cnt : t_windowing_parameters_cnt;
+
 begin
 
 	qqword_delay_block_ent_inst : entity work.delay_block_ent
@@ -123,6 +126,7 @@ begin
 			s_payload_eop_error                 <= '0';
 			s_qqword_delay_clear                <= '0';
 			s_qqword_delay_trigger              <= '0';
+			s_windowing_parameters_cnt          <= 0;
 			v_fetch_dword                       := '0';
 			v_read_dword                        := '0';
 			v_mask_cnt                          := 0;
@@ -161,6 +165,7 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
+					s_windowing_parameters_cnt          <= 0;
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -183,6 +188,7 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
+					s_windowing_parameters_cnt          <= 0;
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -300,10 +306,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -332,10 +348,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -364,10 +390,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -396,10 +432,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -428,10 +474,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -460,10 +516,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -492,10 +558,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -524,10 +600,20 @@ begin
 					s_payload_eop_error                 <= '0';
 					s_qqword_delay_clear                <= '0';
 					s_qqword_delay_trigger              <= '0';
-					if (v_mask_cnt < 33) then
-						v_mask_cnt := v_mask_cnt + 1;
+					-- check if the windowing parameters are over
+					if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+						-- windowing parameters are over
+						-- update mask counter
+						if (v_mask_cnt < 33) then
+							v_mask_cnt := v_mask_cnt + 1;
+						else
+							v_mask_cnt := 0;
+						end if;
 					else
-						v_mask_cnt := 0;
+						-- windowing parameters are not over
+						-- keep mask counter cleared
+						v_mask_cnt                 := 0;
+						s_windowing_parameters_cnt <= s_windowing_parameters_cnt + 4;
 					end if;
 					-- conditional state transition
 					-- check if there is still payload to be fetched
@@ -976,14 +1062,22 @@ begin
 					end if;
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_0(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_0(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						-- check if the windowing parameters are over
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_0(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_0(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -994,13 +1088,13 @@ begin
 				when FETCH_RX_DWORD_1 =>
 					-- fetch rx dword data 1 (32b)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					payload_last_rx_buffer_o  <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1010,14 +1104,21 @@ begin
 					end if;
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_1(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_1(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_1(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_1(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -1028,13 +1129,13 @@ begin
 				when FETCH_RX_DWORD_2 =>
 					-- fetch rx dword data 2 (32b)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					payload_last_rx_buffer_o  <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1044,14 +1145,21 @@ begin
 					end if;
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_2(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_2(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_2(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_2(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -1062,13 +1170,13 @@ begin
 				when FETCH_RX_DWORD_3 =>
 					-- fetch rx dword data 3 (32b)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					payload_last_rx_buffer_o  <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1078,14 +1186,21 @@ begin
 					end if;
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_3(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_3(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_3(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_3(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -1096,13 +1211,13 @@ begin
 				when FETCH_RX_DWORD_4 =>
 					-- fetch rx dword data 4 (32b)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					payload_last_rx_buffer_o  <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1112,14 +1227,21 @@ begin
 					end if;
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_4(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_4(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_4(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_4(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -1130,13 +1252,13 @@ begin
 				when FETCH_RX_DWORD_5 =>
 					-- fetch rx dword data 5 (32b)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					payload_last_rx_buffer_o  <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1146,14 +1268,21 @@ begin
 					end if;
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_5(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_5(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_5(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_5(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -1164,13 +1293,13 @@ begin
 				when FETCH_RX_DWORD_6 =>
 					-- fetch rx dword data 6 (32b)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					payload_last_rx_buffer_o  <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1180,14 +1309,21 @@ begin
 					end if;
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_6(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_6(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_6(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_6(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -1198,25 +1334,32 @@ begin
 				when FETCH_RX_DWORD_7 =>
 					-- fetch rx dword data 7 (32b)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '0';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
 					-- conditional output signals
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
-						-- check if the data is pixels or masks
-						if (v_mask_cnt < 32) then
-							-- pixel data, need to swap words
-							s_rx_dword_7(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-							s_rx_dword_7(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+						if (s_windowing_parameters_cnt = t_windowing_parameters_cnt'high) then
+							-- windowing parameters are over
+							-- check if the data is pixels or masks
+							if (v_mask_cnt < 32) then
+								-- pixel data, need to swap words
+								s_rx_dword_7(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+								s_rx_dword_7(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+							else
+								-- mask data, need to swap dwords
+								s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
+							end if;
 						else
-							-- mask data, need to swap dwords
-							s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
+							-- windowing parameters are not over
+							-- windowing parameter data, no need to swap
+							s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
 						end if;
 						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					else
@@ -1230,7 +1373,7 @@ begin
 					payload_reader_busy_o           <= '1';
 					payload_crc32_match_o           <= '0';
 					payload_eop_error_o             <= '0';
-					payload_last_rx_buffer_o        <= '0';
+					payload_last_rx_buffer_o            <= '0';
 					rx_dc_data_fifo_rdreq_o         <= '0';
 					buffer_data_loaded_o            <= '0';
 					buffer_wrdata_o(31 downto 0)    <= s_rx_dword_0;
@@ -1242,72 +1385,84 @@ begin
 					buffer_wrdata_o(223 downto 192) <= s_rx_dword_6;
 					buffer_wrdata_o(255 downto 224) <= s_rx_dword_7;
 					buffer_wrreq_o                  <= '1';
-				-- conditional output signals
+					-- conditional output signals
+					-- check if it is the last buffer
+					if (unsigned(s_payload_length_cnt) < 8) then -- payload length counter comparison need adjust to generate correct output
+						payload_last_rx_buffer_o <= '1';
+					end if;
 
 				-- state "WAITING_QQWORD_DELAY"
 				when WAITING_QQWORD_DELAY =>
 					-- wait until the qqword delay is finished
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
-				-- conditional output signals
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '0';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
+					-- conditional output signals
+					-- check if it is the last buffer
+					if (unsigned(s_payload_length_cnt) < 4) then
+						payload_last_rx_buffer_o <= '1';
+					end if;
 
 				-- state "WRITE_DELAY"
 				when WRITE_DELAY =>
 					-- write delay
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
-				-- conditional output signals
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '0';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
+					-- conditional output signals
+					-- check if it is the last buffer
+					if (unsigned(s_payload_length_cnt) < 4) then
+						payload_last_rx_buffer_o <= '1';
+					end if;
 
 				-- state "CHANGE_BUFFER"
 				when CHANGE_BUFFER =>
 					-- change rx buffer
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '0';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 					-- conditional output signals
 					-- check if it is the last buffer
 					if (unsigned(s_payload_length_cnt) < 4) then
@@ -1318,135 +1473,135 @@ begin
 				when LOAD_BUFFER =>
 					-- load rx buffer
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '1';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '1';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '1';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '1';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "WAITING_RX_DATA_CRC"
 				when WAITING_RX_DATA_CRC =>
 					-- wait until there is enough data in the rx fifo for the crc
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '1';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '1';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "PAYLOAD_RX_PAYLOAD_CRC"
 				when PAYLOAD_RX_PAYLOAD_CRC =>
 					-- fetch and parse the payload crc to the rx fifo
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '1';
-					rx_dc_data_fifo_rdreq_o  <= '1';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '1';
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "WAITING_RX_DATA_EOP"
 				when WAITING_RX_DATA_EOP =>
 					-- wait until there is enough data in the rx fifo for the eop
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					s_payload_crc32          <= (others => '0');
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '1';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '1';
+					s_payload_crc32         <= (others => '0');
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '1';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "PAYLOAD_RX_END_OF_PAYLOAD"
 				when PAYLOAD_RX_END_OF_PAYLOAD =>
 					-- fetch and parse a end of payload to the rx fifo
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					s_payload_crc32          <= (others => '0');
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '1';
-					rx_dc_data_fifo_rdreq_o  <= '1';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '1';
+					s_payload_crc32         <= (others => '0');
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '1';
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "PAYLOAD_RX_ABORT"
 				when PAYLOAD_RX_ABORT =>
 					-- abort a payload receival (consume all data in the rx fifo)
 					-- default output signals
-					payload_reader_busy_o    <= '1';
-					s_payload_crc32          <= (others => '0');
-					payload_crc32_match_o    <= '0';
-					payload_eop_error_o      <= '0';
-					payload_last_rx_buffer_o <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '1';
+					s_payload_crc32         <= (others => '0');
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					payload_last_rx_buffer_o    <= '0';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 					-- conditional output signals
 					-- check if the rx fifo must be read
 					if (v_read_dword = '1') then
@@ -1457,23 +1612,23 @@ begin
 				when FINISH_PAYLOAD_RX =>
 					-- finish the payload read
 					-- default output signals
-					payload_reader_busy_o    <= '0';
-					s_payload_crc32          <= (others => '0');
-					payload_crc32_match_o    <= s_payload_crc32_match;
-					payload_eop_error_o      <= s_payload_eop_error;
-					payload_last_rx_buffer_o <= '1';
-					rx_dc_data_fifo_rdreq_o  <= '0';
-					buffer_data_loaded_o     <= '0';
-					buffer_wrdata_o          <= (others => '0');
-					buffer_wrreq_o           <= '0';
-					s_rx_dword_0             <= (others => '0');
-					s_rx_dword_1             <= (others => '0');
-					s_rx_dword_2             <= (others => '0');
-					s_rx_dword_3             <= (others => '0');
-					s_rx_dword_4             <= (others => '0');
-					s_rx_dword_5             <= (others => '0');
-					s_rx_dword_6             <= (others => '0');
-					s_rx_dword_7             <= (others => '0');
+					payload_reader_busy_o   <= '0';
+					s_payload_crc32         <= (others => '0');
+					payload_crc32_match_o   <= s_payload_crc32_match;
+					payload_eop_error_o     <= s_payload_eop_error;
+					payload_last_rx_buffer_o    <= '1';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 					-- conditional output signals
 
 			end case;

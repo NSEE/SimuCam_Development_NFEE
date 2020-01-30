@@ -140,6 +140,39 @@ bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
+bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktWindowingParam = pxDpktCh->xDpktWindowingParam;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktWindowingParam = vpxCommChannel->xDataPacket.xDpktWindowingParam;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	bool bValidCh = FALSE;
@@ -212,6 +245,12 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 			if (!bDpktGetPixelDelay(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
+			if (!bDpktGetErrorInjection(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetWindowingParams(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
 
 			if (!bInitFail) {
 				bStatus = TRUE;
@@ -223,52 +262,26 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 
 /*
  * Return the necessary delay value for a
- * ADC Pixel Delay period in uliPeriodNs ns.
+ * Pixel Delay period in uliPeriodNs ns.
  */
-alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs){
+alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs){
 
     /*
-     * Delay = AdcPxDelay * ClkCycles@100MHz
-     * AdcPxDelay = Delay / ClkCycles@100MHz
+     * Delay = PxDelay * ClkCycles@100MHz
+     * PxDelay = Delay / ClkCycles@100MHz
      *
      * ClkCycles@100MHz = 10 ns
      *
      * Delay[ns] / 10 = Delay[ns] * 1e-1
-     * AdcPxDelay = Delay[ns] * 1e-1
+     * PxDelay = Delay[ns] * 1e-1
      */
 
-    alt_u16 usiAdcPxDelay;
-    usiAdcPxDelay = (alt_u16) ((float) uliPeriodNs * 1e-1);
-    if (6 < usiAdcPxDelay) {
-        usiAdcPxDelay -= 6;
-    } else {
-        usiAdcPxDelay = 0;
-    }
+    alt_u32 uliPxDelay;
+    uliPxDelay = (alt_u32) ((float) uliPeriodNs * 1e-1);
 
-    return usiAdcPxDelay;
+    return uliPxDelay;
 }
 
-/*
- * Return the necessary delay value for a
- * Line Transfer Delay period in uliPeriodNs ns.
- */
-alt_u16 usiLineTrDelayCalcPeriodNs(alt_u32 uliPeriodNs) {
-
-	/*
-	 * Delay = LineTrDelay * ClkCycles@10MHz
-	 * LineTrDelay = Delay / ClkCycles@10MHz
-	 *
-	 * ClkCycles@10MHz = 100 ns
-	 *
-	 * Delay[ns] / 100 = Delay[ns] * 1e-2
-	 * LineTrDelay = Delay[ns] * 1e-2
-	 */
-
-	alt_u16 LineTrDelay;
-	LineTrDelay = (alt_u16) ((float) uliPeriodNs * 1e-2);
-
-	return LineTrDelay;
-}
 //! [public functions]
 
 //! [private functions]

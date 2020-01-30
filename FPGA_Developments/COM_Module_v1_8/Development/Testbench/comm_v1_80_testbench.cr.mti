@@ -112,7 +112,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwxmit
 -- Compiling architecture spwxmit_arch of spwxmit
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_top.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -135,7 +135,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity masking_machine_ent
 -- Compiling architecture RTL of masking_machine_ent
--- Loading entity delay_block_ent
+-- Loading entity delay_machine_ent
 -- Loading entity masking_machine_sc_fifo
 
 } {} {}} avalon_buffer_L_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/avalon_buffer_L_stimuli.vhd
@@ -255,6 +255,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
 -- Compiling entity data_packet_hk_writer_ent
 -- Compiling architecture RTL of data_packet_hk_writer_ent
 
@@ -325,7 +326,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body windowing_fifo_pkg
 -- Loading package windowing_fifo_pkg
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_machine_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_machine_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_machine_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_machine_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -342,7 +343,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity syncdff
 -- Compiling architecture syncdff_arch of syncdff
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_imgdata_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_imgdata_manager_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_imgdata_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_imgdata_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -405,7 +406,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity send_buffer_0_sc_fifo
 -- Compiling architecture SYN of send_buffer_0_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -455,7 +456,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwstream
 -- Compiling architecture spwstream_arch of spwstream
 
-} {} {}} ../Communications_Module_v1_8/comm_v1_80_top.vhd {0 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd
+} {} {}} ../Communications_Module_v1_8/comm_v1_80_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -476,20 +477,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity avalon_mm_windowing_write_ent
 -- Loading package windowing_fifo_pkg
 -- Loading entity windowing_buffer_ent
--- Loading entity fee_master_data_controller_top
-** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd(409): Signal "s_R_fee_data_controller_window_mask_out" is type ieee.std_logic_1164.STD_LOGIC; expecting type ieee.std_logic_1164.STD_LOGIC_VECTOR.
-** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd(469): Signal "s_L_fee_data_controller_window_mask_out" is type ieee.std_logic_1164.STD_LOGIC; expecting type ieee.std_logic_1164.STD_LOGIC_VECTOR.
+-- Loading package fee_data_controller_pkg
+-- Loading entity fee_data_controller_top
 -- Loading entity rmap_target_top
 -- Loading entity rmap_mem_area_nfee_read
 -- Loading entity rmap_mem_area_nfee_write
 -- Loading entity spw_mux_ent
 -- Loading entity spw_clk_synchronization_ent
 -- Loading entity spw_codec_ent
-** Error (suppressible): D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd(408): (vcom-1272) Length of formal "fee_window_data_i" is 64; length of actual is 16.
-** Error (suppressible): D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd(468): (vcom-1272) Length of formal "fee_window_data_i" is 64; length of actual is 16.
-** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd(988): VHDL Compiler exiting
 
-} {23.0 25.0 33.0 34.0} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -599,6 +596,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
 -- Compiling entity data_transmitter_ent
 -- Compiling architecture RTL of data_transmitter_ent
 
@@ -613,7 +611,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_reply_ent
 -- Compiling architecture rtl of rmap_target_reply_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_hkdata_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_hkdata_controller_top.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_hkdata_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_hkdata_controller_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -627,7 +625,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity data_packet_hk_writer_ent
 -- Loading entity send_buffer_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_data_manager_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_data_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -647,6 +645,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of send_buffer_ent
 -- Loading entity send_buffer_0_sc_fifo
 -- Loading entity send_buffer_1_sc_fifo
+-- Loading entity send_buffer_sc_1k_fifo
 
 } {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecv.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecv.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -672,10 +671,11 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
 -- Compiling entity data_packet_data_writer_ent
 -- Compiling architecture RTL of data_packet_data_writer_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_data_controller_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -685,7 +685,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body fee_data_controller_pkg
 -- Loading package fee_data_controller_pkg
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_hkdata_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_hkdata_manager_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_hkdata_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_hkdata_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -701,6 +701,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
 -- Compiling entity data_packet_header_gen_ent
 -- Compiling architecture RTL of data_packet_header_gen_ent
 
@@ -793,7 +794,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwram
 -- Compiling architecture spwram_arch of spwram
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_imgdata_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_imgdata_controller_top.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_imgdata_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_imgdata_controller_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO

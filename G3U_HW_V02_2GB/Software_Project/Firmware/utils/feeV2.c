@@ -68,9 +68,10 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     }
 
     bDpktGetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
-    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiAdcDelay = usiAdcPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
-    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiColumnDelay = 0 ;
-    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiLineDelay = usiLineTrDelayCalcPeriodNs(xDefaults.ulLineDelay);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodNs(0);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliSkipDelay = uliPxDelayCalcPeriodNs(110000);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
     bDpktSetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
 
 

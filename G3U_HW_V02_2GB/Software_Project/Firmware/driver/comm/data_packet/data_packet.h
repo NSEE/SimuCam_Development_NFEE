@@ -52,9 +52,11 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh);
 bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh);
 
+bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh);
+bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh);
+
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh);
-alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs);
-alt_u16 usiLineTrDelayCalcPeriodNs(alt_u32 uliPeriodNs);
+alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

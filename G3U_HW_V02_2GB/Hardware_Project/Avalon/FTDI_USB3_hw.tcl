@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_USB3 "FTDI_UMFT601A_Module" v1.6
+# FTDI_USB3 "FTDI_UMFT601A_Module" v1.7
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_USB3
-set_module_property VERSION 1.6
+set_module_property VERSION 1.7
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
