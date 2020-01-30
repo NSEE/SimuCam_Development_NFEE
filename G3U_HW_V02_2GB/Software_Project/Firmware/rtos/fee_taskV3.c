@@ -619,11 +619,11 @@ void vFeeTaskV3(void *task_data) {
 				xTrans.ulAddrFinal = pxNFee->xMemMap.xCommon.usiTotalBytes;
 				xTrans.ulTotalBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks;
 				/* For now is fixed by this define, but at any moment it could change*/
-				xTrans.ulSMD_MAX_BLOCKS = SDMA_MAX_BLOCKS;
+				//xTrans.ulSMD_MAX_BLOCKS = SDMA_MAX_BLOCKS;
 
 				/* (re)Configuring the size of the double buffer to the HW DataPacket*/
-				vSetDoubleBufferLeftSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
-				vSetDoubleBufferRightSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
+				//vSetDoubleBufferLeftSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
+				//vSetDoubleBufferRightSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/* Enable IRQ and clear the Double Buffer */
 				bEnableDbBuffer(pxNFee, &pxNFee->xChannel.xFeeBuffer);
@@ -731,7 +731,7 @@ void vFeeTaskV3(void *task_data) {
 						if ( (xTrans.bDmaReturn[0] == TRUE) && (xTrans.bDmaReturn[1] == TRUE) ) {
 
 							pxNFee->xControl.eState = redoutWaitSync;
-							pxNFee->xControl.eNextMode = readoutWaitingFinishTransmission;
+							pxNFee->xControl.eNextMode = redoutTransmission;
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -800,7 +800,7 @@ void vFeeTaskV3(void *task_data) {
 				break;
 
 
-			case readoutWaitingFinishTransmission:
+			case redoutTransmission:
 				/*Will wait for the Before sync signal, probably in this state it will need to treat many RMAP commands*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -1110,6 +1110,9 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
 				/*Do nothing*/
+				break;
+			case M_FEE_TRANS_FINISHED:
+				pxNFeeP->xControl.eState = redoutEndSch;
 				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:

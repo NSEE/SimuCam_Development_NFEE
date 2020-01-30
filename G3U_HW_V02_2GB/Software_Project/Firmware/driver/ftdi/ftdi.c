@@ -90,13 +90,13 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 	// App logic sequence...
 
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-/*
+
 #if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	fprintf(fp,"FTDI Irq 0\n");
+if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	fprintf(fp,"--FTDI Irq--\n");
 }
 #endif
-*/
+
 
 	/* Rx Buffer 0 Readable Flag */
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
