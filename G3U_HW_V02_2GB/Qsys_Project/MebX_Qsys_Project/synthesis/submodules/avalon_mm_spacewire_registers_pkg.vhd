@@ -3,11 +3,12 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package avalon_mm_spacewire_registers_pkg is
+
 	-- Address Constants
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#4C#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#62#;
 
 	-- Registers Types
 
@@ -185,6 +186,8 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_ccd_y_size      : std_logic_vector(15 downto 0); -- Data Packet CCD Y Size
 		data_pkt_data_y_size     : std_logic_vector(15 downto 0); -- Data Packet Data Y Size
 		data_pkt_overscan_y_size : std_logic_vector(15 downto 0); -- Data Packet Overscan Y Size
+		data_pkt_ccd_v_start     : std_logic_vector(15 downto 0); -- Data Packet CCD V-Start
+		data_pkt_ccd_v_end       : std_logic_vector(15 downto 0); -- Data Packet CCD V-End
 		data_pkt_packet_length   : std_logic_vector(15 downto 0); -- Data Packet Packet Length
 		data_pkt_logical_addr    : std_logic_vector(7 downto 0); -- Data Packet Logical Address
 		data_pkt_protocol_id     : std_logic_vector(7 downto 0); -- Data Packet Protocol ID
@@ -202,9 +205,10 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Data Packet Pixel Delay Register
 	type t_comm_data_packet_pixel_delay_wr_reg is record
-		data_pkt_line_delay   : std_logic_vector(15 downto 0); -- Data Packet Line Delay
-		data_pkt_column_delay : std_logic_vector(15 downto 0); -- Data Packet Column Delay
-		data_pkt_adc_delay    : std_logic_vector(15 downto 0); -- Data Packet ADC Delay
+		data_pkt_start_delay : std_logic_vector(31 downto 0); -- Data Packet Start Delay
+		data_pkt_skip_delay  : std_logic_vector(31 downto 0); -- Data Packet Skip Delay
+		data_pkt_line_delay  : std_logic_vector(31 downto 0); -- Data Packet Line Delay
+		data_pkt_adc_delay   : std_logic_vector(31 downto 0); -- Data Packet ADC Delay
 	end record t_comm_data_packet_pixel_delay_wr_reg;
 
 	-- Error Injection Control Register
@@ -217,6 +221,28 @@ package avalon_mm_spacewire_registers_pkg is
 		errinj_data_cnt     : std_logic_vector(15 downto 0); -- Error Injection Data Counter of Error
 		errinj_n_repeat     : std_logic_vector(15 downto 0); -- Error Injection Number of Error Repeats
 	end record t_comm_error_injection_control_wr_reg;
+
+	-- Windowing Parameters Register
+	type t_comm_windowing_parameters_wr_reg is record
+		windowing_packet_order_list_15 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 15
+		windowing_packet_order_list_14 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 14
+		windowing_packet_order_list_13 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 13
+		windowing_packet_order_list_12 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 12
+		windowing_packet_order_list_11 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 11
+		windowing_packet_order_list_10 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 10
+		windowing_packet_order_list_9  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 9
+		windowing_packet_order_list_8  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 8
+		windowing_packet_order_list_7  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 7
+		windowing_packet_order_list_6  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 6
+		windowing_packet_order_list_5  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 5
+		windowing_packet_order_list_4  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 4
+		windowing_packet_order_list_3  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 3
+		windowing_packet_order_list_2  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 2
+		windowing_packet_order_list_1  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 1
+		windowing_packet_order_list_0  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 0
+		windowing_last_e_packet        : std_logic_vector(9 downto 0); -- Windowing Last E Packet
+		windowing_last_f_packet        : std_logic_vector(9 downto 0); -- Windowing Last F Packet
+	end record t_comm_windowing_parameters_wr_reg;
 
 	-- Avalon MM Types
 
@@ -241,6 +267,7 @@ package avalon_mm_spacewire_registers_pkg is
 		data_packet_config_reg          : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
 		data_packet_pixel_delay_reg     : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
 		error_injection_control_reg     : t_comm_error_injection_control_wr_reg; -- Error Injection Control Register
+		windowing_parameters_reg        : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
 	end record t_windowing_write_registers;
 
 	-- Avalon MM Read-Only Registers

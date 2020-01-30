@@ -1,6 +1,6 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="af60acd7ada4808205a7"/>
+    <hash md5_digest_80b="fda96e9ee6116239e16a"/>
   </project>
   <file_info>
     <file device="EP4SGX530KH40C2" path="MebX_Quartus_Project_DE4_530.sof" usercode="0xFFFFFFFF"/>
@@ -137,12 +137,6 @@
     </node>
   </node_info>
   <sld_infos>
-    <sld_info hpath="MebX_Qsys_Project:SOPC_INST" name="SOPC_INST">
-      <assignment_values>
-        <assignment_value text="QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1574911464"/>
-      </assignment_values>
-      <parameters/>
-    </sld_info>
     <sld_info hpath="sld_hub:auto_hub|alt_sld_fab:\instrumentation_fabric_with_node_gen:instrumentation_fabric" library="alt_sld_fab" name="instrumentation_fabric">
       <assignment_values>
         <assignment_value text="QSYS_NAME alt_sld_fab HAS_SOPCINFO 1"/>
