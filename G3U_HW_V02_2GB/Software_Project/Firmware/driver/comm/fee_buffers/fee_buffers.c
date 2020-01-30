@@ -44,8 +44,8 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 0;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
@@ -57,7 +57,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -68,7 +68,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -79,7 +79,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -90,7 +90,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -112,8 +112,8 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 1;
+	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 1;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
@@ -126,7 +126,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[1], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -138,7 +138,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[1], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -150,7 +150,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[1], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(1);
 		}
@@ -162,7 +162,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[1], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -184,8 +184,8 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 2;
+	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 2;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
@@ -198,7 +198,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[2], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -210,7 +210,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[2], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -222,7 +222,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[2], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(1);
 		}
@@ -234,7 +234,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[2], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -255,8 +255,8 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 3;
+	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 3;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
@@ -269,7 +269,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[3], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -281,7 +281,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[3], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -293,7 +293,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[3], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(1);
 		}
@@ -305,7 +305,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[3], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -326,8 +326,8 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 4;
+	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 4;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
@@ -340,7 +340,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[4], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -352,7 +352,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[4], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -364,7 +364,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[4], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(1);
 		}
@@ -376,7 +376,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[4], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -398,8 +398,8 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 5;
+	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 5;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
@@ -412,7 +412,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[5], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -424,7 +424,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[5], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
@@ -436,7 +436,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[5], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(1);
 		}
@@ -448,7 +448,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		error_codel = OSQPost(xFeeQ[5], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailRequestDMAFromIRQ(0);
 		}
