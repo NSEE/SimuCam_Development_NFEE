@@ -15,7 +15,7 @@ void vFeeTaskV3(void *task_data) {
 	INT8U error_code;
 	volatile INT8U ucRetries;
 	tQMask uiCmdFEE;
-	TFEETransmission xTrans;
+	volatile TFEETransmission xTrans;
 	unsigned char ucEL = 0, ucSideFromMSG = 0;
 	unsigned short int usiLenLastBlocks = 0;
 
@@ -558,6 +558,13 @@ void vFeeTaskV3(void *task_data) {
 
 			case redoutConfigureTrans:
 
+				/* Debug only*/
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"NFEE-%hu Task: redoutConfigureTrans\n", pxNFee->ucId);
+				}
+				#endif
+
 				/*If is master sync, check if need to configure error*/
 				if ( xGlobal.bPreMaster == TRUE ) {
 					/*Check if this FEE is in Full*/
@@ -703,16 +710,41 @@ void vFeeTaskV3(void *task_data) {
 
 			case redoutPreLoadBuffer:
 
+				/* Debug only*/
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"NFEE-%hu Task: redoutPreLoadBuffer\n", pxNFee->ucId);
+				}
+				#endif
+
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
+
+					/* Debug only*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						fprintf(fp,"NFEE-%hu Task spw%hu msg %hu  : recebeu mensagem\n", pxNFee->ucId, pxNFee->ucSPWId, uiCmdFEE.ucByte[2]);
+					}
+					#endif
 
 					/* First Check if is access to the DMA (priority) */
 					if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
 
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"NFEE-%hu Task: Antes DMA \n", pxNFee->ucId);
+						}
+						#endif
+
 						if (  xTrans.ucMemory == 0  ) {
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM1Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"NFEE-%hu Task: Depois DMA \n", pxNFee->ucId);
+							}
+							#endif
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -722,6 +754,11 @@ void vFeeTaskV3(void *task_data) {
 							}
 						} else {
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"NFEE-%hu Task: Depois DMA \n", pxNFee->ucId);
+							}
+							#endif
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -785,12 +822,13 @@ void vFeeTaskV3(void *task_data) {
 							ucRetries++;
 
 						}
+						/* Send message telling to controller that is not using the DMA any more */
+						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
 					} else {
 						/* Is not access to DMA, so we need to check what is this received command */
 						vQCmdFEEinPreLoadBuffer( pxNFee, uiCmdFEE.ulWord );
 					}
-					/* Send message telling to controller that is not using the DMA any more */
-					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
+
 				} else {
 					/* Error while trying to read from the Queue*/
 					#if DEBUG_ON
@@ -1209,6 +1247,8 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 			case M_SYNC:
 			case M_PRE_MASTER:
 			case M_MASTER_SYNC:
+				/*
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"NFEE %hhu Task: CRITICAL! Don't expect to receive sync before finish the transmission (in redoutTransmission)\n", pxNFeeP->ucId);
@@ -1219,11 +1259,12 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+				*/
 
-				/* [rfranca] */
+				/* [rfranca] *//*
 				bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
-				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);*/
 
 				break;
 			case M_FEE_FULL:
@@ -2854,7 +2895,7 @@ bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, u
 
 	/* Sync the Meb task and tell that has a PUS command waiting */
 	bSuccesL = FALSE;
-	error_codel = OSQPostFront(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;
@@ -2904,7 +2945,7 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 
 	/* Sync the Meb task and tell that has a PUS command waiting */
 	bSuccesL = FALSE;
-	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;

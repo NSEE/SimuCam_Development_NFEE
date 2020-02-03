@@ -209,7 +209,7 @@ void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 	}
 
 	/* Sync the Meb task and tell that has a PUS command waiting */
-	error_codel = OSQPostFront(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord); /*todo: Tiago - Ficar de olho*/
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}
