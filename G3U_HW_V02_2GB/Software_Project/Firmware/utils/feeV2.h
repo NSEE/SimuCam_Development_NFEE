@@ -92,6 +92,7 @@ typedef struct FeeControl{
     tNFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */
 
     volatile tFEEStates eState;                   /* Real State of NFEE */
+    volatile unsigned char ucTransmited;	/* Count how many sides was sent*/
     tFEEStates eLastMode;
     tFEEStates eMode;
     tFEEStates eNextMode;

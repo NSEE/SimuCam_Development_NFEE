@@ -78,6 +78,9 @@ void vDataControlTaskV2(void *task_data) {
 					vFailFlushQueueData();
 				}
 
+				/* Reset FTDI DMA */
+				bSdmaResetFtdiDma(TRUE);
+
 				vFTDIStop();
 				vFTDIClear();
 

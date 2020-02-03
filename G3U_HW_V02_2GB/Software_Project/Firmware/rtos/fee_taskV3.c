@@ -97,6 +97,10 @@ void vFeeTaskV3(void *task_data) {
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
 
+				/* Reset Channel DMAs */
+				bSdmaResetChDma(pxNFee->ucSPWId, eSdmaLeftBuffer, TRUE);
+				bSdmaResetChDma(pxNFee->ucSPWId, eSdmaRightBuffer, TRUE);
+
 				/* Disable IRQ and clear the Double Buffer */
 				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
 
@@ -168,6 +172,10 @@ void vFeeTaskV3(void *task_data) {
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+
+				/* Reset Channel DMAs */
+				bSdmaResetChDma(pxNFee->ucSPWId, eSdmaLeftBuffer, TRUE);
+				bSdmaResetChDma(pxNFee->ucSPWId, eSdmaRightBuffer, TRUE);
 
 				/* Disable IRQ and clear the Double Buffer */
 				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
@@ -330,6 +338,8 @@ void vFeeTaskV3(void *task_data) {
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
+				pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel = eRmapSenSelEFBoth;
+
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sOn_Enter;
 				pxNFee->xControl.eMode = sWinPattern;
@@ -369,6 +379,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+
+				pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel = eRmapSenSelEFBoth;
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -558,13 +570,6 @@ void vFeeTaskV3(void *task_data) {
 
 			case redoutConfigureTrans:
 
-				/* Debug only*/
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"NFEE-%hu Task: redoutConfigureTrans\n", pxNFee->ucId);
-				}
-				#endif
-
 				/*If is master sync, check if need to configure error*/
 				if ( xGlobal.bPreMaster == TRUE ) {
 					/*Check if this FEE is in Full*/
@@ -581,6 +586,7 @@ void vFeeTaskV3(void *task_data) {
 						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
 						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
 						bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
+
 
 
 					}
@@ -703,6 +709,7 @@ void vFeeTaskV3(void *task_data) {
 				}
 
 				ucRetries = 0;
+				pxNFee->xControl.ucTransmited = 0;
 
 				pxNFee->xControl.eState = redoutPreLoadBuffer;
 				break;
@@ -710,41 +717,17 @@ void vFeeTaskV3(void *task_data) {
 
 			case redoutPreLoadBuffer:
 
-				/* Debug only*/
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"NFEE-%hu Task: redoutPreLoadBuffer\n", pxNFee->ucId);
-				}
-				#endif
-
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
-
-					/* Debug only*/
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-						fprintf(fp,"NFEE-%hu Task spw%hu msg %hu  : recebeu mensagem\n", pxNFee->ucId, pxNFee->ucSPWId, uiCmdFEE.ucByte[2]);
-					}
-					#endif
 
 					/* First Check if is access to the DMA (priority) */
 					if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
 
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"NFEE-%hu Task: Antes DMA \n", pxNFee->ucId);
-						}
-						#endif
-
 						if (  xTrans.ucMemory == 0  ) {
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM1Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"NFEE-%hu Task: Depois DMA \n", pxNFee->ucId);
-							}
-							#endif
+
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -754,11 +737,7 @@ void vFeeTaskV3(void *task_data) {
 							}
 						} else {
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"NFEE-%hu Task: Depois DMA \n", pxNFee->ucId);
-							}
-							#endif
+
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -771,7 +750,7 @@ void vFeeTaskV3(void *task_data) {
 						if ( (xTrans.bDmaReturn[0] == TRUE) && (xTrans.bDmaReturn[1] == TRUE) ) {
 
 							pxNFee->xControl.eState = redoutWaitSync;
-							pxNFee->xControl.eNextMode = redoutTransmission;
+							//pxNFee->xControl.eNextMode = redoutTransmission;
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -780,50 +759,56 @@ void vFeeTaskV3(void *task_data) {
 							#endif
 						} else {
 
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"NFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
-							}
-							#endif
+							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
 
-							if ( ucRetries > 9) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-									fprintf(fp,"NFEE-%hu Task: CRITICAL! D. B. Requested more than 3 times.\n", pxNFee->ucId);
-									fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
+									fprintf(fp,"NFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
 								}
 								#endif
 
-								/*Back to Config*/
-								pxNFee->xControl.bWatingSync = FALSE;
-								pxNFee->xControl.eLastMode = sInit;
-								pxNFee->xControl.eMode = sConfig;
-								pxNFee->xControl.eState = sConfig_Enter;
+								if ( ucRetries > 9) {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+										fprintf(fp,"NFEE-%hu Task: CRITICAL! D. B. Requested more than 3 times.\n", pxNFee->ucId);
+										fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
+									}
+									#endif
 
-								ucRetries = 0;
+									/*Back to Config*/
+									pxNFee->xControl.bWatingSync = FALSE;
+									pxNFee->xControl.eLastMode = sInit;
+									pxNFee->xControl.eMode = sConfig;
+									pxNFee->xControl.eState = sConfig_Enter;
 
+									ucRetries = 0;
+
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+										fprintf(fp,"NFEE %hhu Task: Retry DMA Scheduled request.\n", pxNFee->ucId);
+									}
+									#endif
+
+									/* Stop the module Double Buffer */
+									bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
+									/* Clear all buffer form the Double Buffer */
+									bFeebClrCh(&pxNFee->xChannel.xFeeBuffer);
+									/* Start the module Double Buffer */
+									bFeebStartCh(&pxNFee->xChannel.xFeeBuffer);
+
+									bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, ucSideFromMSG, pxNFee->ucId);
+								}
+
+								ucRetries++;
 							} else {
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-									fprintf(fp,"NFEE %hhu Task: Retry DMA Scheduled request.\n", pxNFee->ucId);
+								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+									fprintf(fp,"NFEE-%hu Task: DMA Scheduled, Side %u\n", pxNFee->ucId, ucSideFromMSG);
 								}
 								#endif
-
-								/* Stop the module Double Buffer */
-								bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
-								/* Clear all buffer form the Double Buffer */
-								bFeebClrCh(&pxNFee->xChannel.xFeeBuffer);
-								/* Start the module Double Buffer */
-								bFeebStartCh(&pxNFee->xChannel.xFeeBuffer);
-
-								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, ucSideFromMSG, pxNFee->ucId);
 							}
-
-							ucRetries++;
-
 						}
-						/* Send message telling to controller that is not using the DMA any more */
-						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
 					} else {
 						/* Is not access to DMA, so we need to check what is this received command */
 						vQCmdFEEinPreLoadBuffer( pxNFee, uiCmdFEE.ulWord );
@@ -1152,9 +1137,33 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
 				/*Do nothing*/
 				break;
-			case M_FEE_TRANS_FINISHED:
-				pxNFeeP->xControl.eState = redoutEndSch;
+
+			case M_FEE_TRANS_FINISHED_L:
+
+				if (pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel == eRmapSenSelEFBoth) {
+
+					pxNFeeP->xControl.ucTransmited++;
+					if ( pxNFeeP->xControl.ucTransmited == 2 )
+						pxNFeeP->xControl.eState = redoutEndSch;
+
+				} else
+					pxNFeeP->xControl.eState = redoutEndSch;
+
 				break;
+
+			case M_FEE_TRANS_FINISHED_D:
+				if (pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel == eRmapSenSelEFBoth) {
+
+					pxNFeeP->xControl.ucTransmited++;
+					if ( pxNFeeP->xControl.ucTransmited == 2 )
+						pxNFeeP->xControl.eState = redoutEndSch;
+
+				} else
+					pxNFeeP->xControl.eState = redoutEndSch;
+
+				break;
+
+
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -2186,10 +2195,10 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_BEFORE_MASTER:
-				if ( pxNFeeP->xControl.eNextMode == pxNFeeP->xControl.eMode )
-					pxNFeeP->xControl.eState = redoutCheckDTCUpdate; /*Is time to start the preparation of the double buffer in order to transmit data just after sync arrives*/
+				if ( pxNFeeP->xControl.eNextMode == pxNFeeP->xControl.eLastMode )
+					pxNFeeP->xControl.eState = redoutCycle_Out; /*Is time to start the preparation of the double buffer in order to transmit data just after sync arrives*/
 				else
-					pxNFeeP->xControl.eState = redoutCycle_Out; /*Received some command to change the mode, just go wait sync to change*/
+					pxNFeeP->xControl.eState = redoutCheckDTCUpdate; /*Received some command to change the mode, just go wait sync to change*/
 				break;
 
 			case M_BEFORE_SYNC:
