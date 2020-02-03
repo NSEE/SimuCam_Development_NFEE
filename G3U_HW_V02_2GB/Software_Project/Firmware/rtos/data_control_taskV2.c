@@ -299,7 +299,7 @@ void vDataControlTaskV2(void *task_data) {
 
 					case sSubScheduleDMA:
 					
-						uliSizeTranfer = pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + 0;
+						uliSizeTranfer = pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST;
 
 						if ( ucMemUsing == 0 )
 							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
