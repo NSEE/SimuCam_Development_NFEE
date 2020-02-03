@@ -750,7 +750,7 @@ void vFeeTaskV3(void *task_data) {
 						if ( (xTrans.bDmaReturn[0] == TRUE) && (xTrans.bDmaReturn[1] == TRUE) ) {
 
 							pxNFee->xControl.eState = redoutWaitSync;
-							pxNFee->xControl.eNextMode = redoutTransmission;
+							//pxNFee->xControl.eNextMode = redoutTransmission;
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
