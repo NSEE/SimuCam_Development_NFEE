@@ -602,15 +602,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (uliTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 
 		if (pxDmaM1TransferDev != NULL) {
-
 			// reset the dma device
 			bSdmaResetChDma(ucChBufferId, ucBufferSide, TRUE);
-
 			// hold transfers for descriptor fifo space
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 				alt_busy_sleep(1); /* delay 1us */
 			}
-
 			/* Success = 0 */
 			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1TransferDev,
 					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
@@ -835,14 +832,11 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (uliTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 		if (pxDmaM2TransferDev != NULL) {
-
 			// reset the dma device
 			bSdmaResetChDma(ucChBufferId, ucBufferSide, TRUE);
-
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 				alt_busy_sleep(1); /* delay 1us */
 			}
-
 			/* Success = 0 */
 			if ( 0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2TransferDev,
 					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,

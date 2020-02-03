@@ -342,10 +342,7 @@ void vDataControlTaskV2(void *task_data) {
 							vCouldNotGetQueueMaskDataCtrl();
 						}
 						break;
-						
-					case sSubLastPckt:
 
-						break;
 
 				case sWaitForEmptyBufferIRQ:
 
@@ -567,6 +564,7 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 		case M_BEFORE_MASTER:
 		case M_PRE_MASTER:
 		case M_BEFORE_SYNC:
+		case M_SYNC:
 
 			break;
 
