@@ -186,7 +186,7 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 	 * When running in a multi threaded environment, obtain the "regs_lock"
 	 * semaphore. This ensures that accessing registers is thread-safe.
 	 */
-	ALT_SEM_PEND(dev->regs_lock, 0);
+//	ALT_SEM_PEND(dev->regs_lock, 0);
 
 	/* Stop the msgdma dispatcher from issuing more descriptors to the
 	 read or write masters  */
@@ -218,7 +218,7 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 		 * registers semaphore so that other threads can access the
 		 * registers.
 		 */
-		ALT_SEM_POST(dev->regs_lock);
+//		ALT_SEM_POST(dev->regs_lock);
 
 		return -ETIME;
 	} else if (NULL == standard_desc && NULL != extended_desc) {
@@ -241,7 +241,7 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 				 * registers semaphore so that other threads can access the
 				 * registers.
 				 */
-				ALT_SEM_POST(dev->regs_lock);
+//				ALT_SEM_POST(dev->regs_lock);
 
 				return -ETIME;
 			}
@@ -252,7 +252,7 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 		 * Now that access to the registers is complete, release the registers
 		 * semaphore so that other threads can access the registers.
 		 */
-		ALT_SEM_POST(dev->regs_lock);
+//		ALT_SEM_POST(dev->regs_lock);
 
 		/* operation not permitted due to descriptor type conflict */
 		return -EPERM;
@@ -296,7 +296,7 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 	 * Now that access to the registers is complete, release the registers
 	 * semaphore so that other threads can access the registers.
 	 */
-	ALT_SEM_POST(dev->regs_lock);
+//	ALT_SEM_POST(dev->regs_lock);
 
 	return 0;
 }
