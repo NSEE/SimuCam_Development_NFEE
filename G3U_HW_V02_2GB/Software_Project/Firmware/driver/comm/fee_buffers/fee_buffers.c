@@ -45,7 +45,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 0;
-	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
+	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 0;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
@@ -55,6 +55,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
 
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
@@ -77,6 +78,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
 
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
@@ -113,7 +115,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 1;
-	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
+	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 1;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
@@ -122,7 +124,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -146,7 +148,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -185,7 +187,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 2;
-	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
+	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 2;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
@@ -194,7 +196,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -218,7 +220,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -256,7 +258,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 3;
-	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
+	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 3;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
@@ -265,7 +267,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -289,7 +291,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -327,7 +329,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 4;
-	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
+	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 4;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
@@ -336,7 +338,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -360,7 +362,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -399,7 +401,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 5;
-	uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
+	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = 5;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
@@ -408,7 +410,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = 0; /*Left*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -432,7 +434,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
-
+		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = 1; /*Right*/
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/

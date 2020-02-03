@@ -136,7 +136,8 @@ typedef union qMask{
 #define M_FEE_PAR_TRAP_2    0x0A
 #define M_FEE_SERIAL_TRAP_1 0x0B
 #define M_FEE_SERIAL_TRAP_2 0x0C
-#define M_FEE_TRANS_FINISHED 0x0D
+#define M_FEE_TRANS_FINISHED_L 0x0D
+#define M_FEE_TRANS_FINISHED_D 0x0E
 
 #define M_FEE_DMA_ACCESS    0x8F    /* This Command should be sent by the ISR of the Empty Buffer */
 
