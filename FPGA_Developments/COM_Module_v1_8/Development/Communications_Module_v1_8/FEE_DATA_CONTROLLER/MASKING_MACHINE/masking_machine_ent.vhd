@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.fee_data_controller_pkg.all;
+
 entity masking_machine_ent is
 	port(
 		clk_i                         : in  std_logic;
@@ -318,9 +320,9 @@ begin
 					s_masking_fifo.wrreq           <= '0';
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
-					-- check if masking fifo is not full
-					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
-						-- masking fifo has space
+					-- check if masking fifo is not full or if the masking fifo overflow is enabled
+					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or (c_MASKING_FIFO_OVERFLOW_ENABLE = '1')) then
+						-- masking fifo has space or the masking fifo overflow is enabled
 						s_masking_machine_state        <= PIXEL_BYTE_LSB;
 						s_masking_machine_return_state <= PIXEL_BYTE_LSB;
 						-- check if the digitalise is enabled
@@ -357,9 +359,9 @@ begin
 					s_masking_fifo.wrreq           <= '0';
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
-					-- check if masking fifo is not full
-					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
-						-- masking fifo has space
+					-- check if masking fifo is not full or if the masking fifo overflow is enabled
+					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or (c_MASKING_FIFO_OVERFLOW_ENABLE = '1')) then
+						-- masking fifo has space or the masking fifo overflow is enabled
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;
 						-- check if the digitalise is enabled
