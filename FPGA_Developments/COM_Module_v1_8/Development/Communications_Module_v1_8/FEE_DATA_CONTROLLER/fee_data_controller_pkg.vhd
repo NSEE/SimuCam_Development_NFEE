@@ -5,7 +5,8 @@ use ieee.numeric_std.all;
 package fee_data_controller_pkg is
 
 	-- send buffer overflow enable ccontants
-	constant c_SEND_BUFFER_OVERFLOW_ENABLE : std_logic := '0'; -- '0': send buffer does not overflow / '1': send buffer overflow 
+	constant c_SEND_BUFFER_OVERFLOW_ENABLE : std_logic := '0'; -- '0': send buffer does not overflow / '1': send buffer overflow
+	constant c_MASKING_FIFO_OVERFLOW_ENABLE : std_logic := '1'; -- '0': masking fifo does not overflow / '1': masking fifo overflow 
 
 	-- fee mode constants
 	constant c_FEE_ON_MODE                      : std_logic_vector(3 downto 0) := x"0"; -- Mode ID 0

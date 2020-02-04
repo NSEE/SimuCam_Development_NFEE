@@ -12,7 +12,7 @@
   </columns>
  </systemtable>
  <library expandedCategories="Library,Project" />
- <window width="1920" height="1030" x="-9" y="-9" />
+ <window width="1936" height="1056" x="-8" y="-8" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />
 </preferences>

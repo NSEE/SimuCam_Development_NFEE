@@ -534,50 +534,62 @@ begin
 			s_dataman_hk_only <= '0';
 		elsif rising_edge(clk_i) then
 			s_dataman_sync <= '0';
-			-- check if a sync signal was received and the side is active and the mode is valid
-			if ((fee_sync_signal_i = '1') and ((fee_left_side_activated_i = '1') or (fee_right_side_activated_i = '1'))) then
+			-- check if a sync signal was received
+			if (fee_sync_signal_i = '1') then
+				-- sync signal was received
 
-				case (data_pkt_fee_mode_i(3 downto 0)) is
-					when c_FEE_ON_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '1';
-					when c_FEE_FULLIMAGE_PATTERN_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_WINDOWING_PATTERN_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_STANDBY_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '1';
-					when c_FEE_FULLIMAGE_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_WINDOWING_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_PERFORMANCE_TEST_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_PARALLEL_TRAP_PUMPING_1_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_PARALLEL_TRAP_PUMPING_2_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_SERIAL_TRAP_PUMPING_1_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_SERIAL_TRAP_PUMPING_2_MODE =>
-						s_dataman_sync    <= '1';
-						s_dataman_hk_only <= '0';
-					when c_FEE_OFF_MODE =>
-						s_dataman_sync    <= '0';
-						s_dataman_hk_only <= '0';
-					when others =>
-						s_dataman_sync    <= '0';
-						s_dataman_hk_only <= '0';
-				end case;
+				-- check if a side is activated
+				if ((fee_left_side_activated_i = '1') or (fee_right_side_activated_i = '1')) then
+					-- a side is activated
+					case (data_pkt_fee_mode_i(3 downto 0)) is
+						when c_FEE_FULLIMAGE_PATTERN_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_WINDOWING_PATTERN_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_FULLIMAGE_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_WINDOWING_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_PERFORMANCE_TEST_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_PARALLEL_TRAP_PUMPING_1_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_PARALLEL_TRAP_PUMPING_2_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_SERIAL_TRAP_PUMPING_1_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_FEE_SERIAL_TRAP_PUMPING_2_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when others =>
+							s_dataman_sync    <= '0';
+							s_dataman_hk_only <= '0';
+					end case;
+				else
+					-- no side is activated
+					case (data_pkt_fee_mode_i(3 downto 0)) is
+						when c_FEE_ON_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '1';
+						when c_FEE_STANDBY_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '1';
+						when c_FEE_OFF_MODE =>
+							s_dataman_sync    <= '0';
+							s_dataman_hk_only <= '0';
+						when others =>
+							s_dataman_sync    <= '0';
+							s_dataman_hk_only <= '0';
+					end case;
+				end if;
 
 			end if;
 		end if;
