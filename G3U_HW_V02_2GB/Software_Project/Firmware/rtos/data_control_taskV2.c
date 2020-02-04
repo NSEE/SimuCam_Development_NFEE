@@ -31,7 +31,6 @@ void vDataControlTaskV2(void *task_data) {
 	TNData_Control *pxDataC;
 	unsigned char ucIL = 0;
 	unsigned char ucFailCount = 0;
-	unsigned short int usiNByterLeft = 0;
 	bool bSuccess = FALSE;
 	unsigned char ucSubReqIFEE = 0;
 	unsigned char ucSubReqICCD = 0;

@@ -17,7 +17,6 @@ void vFeeTaskV3(void *task_data) {
 	tQMask uiCmdFEE;
 	volatile TFEETransmission xTrans;
 	unsigned char ucEL = 0, ucSideFromMSG = 0;
-	unsigned short int usiLenLastBlocks = 0;
 
 
 	/* Fee Instance Data Structure */
