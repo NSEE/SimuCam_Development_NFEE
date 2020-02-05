@@ -64,8 +64,10 @@ package sync_gen_pkg is
 	type t_sync_gen_config is record
 		master_blank_time : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		blank_time        : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		last_blank_time   : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		pre_blank_time    : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		period            : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		last_period       : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		one_shot_time     : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		signal_polarity   : std_logic;
 		number_of_cycles  : std_logic_vector((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0);

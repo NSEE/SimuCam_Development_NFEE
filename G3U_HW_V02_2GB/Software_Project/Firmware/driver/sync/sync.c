@@ -16,10 +16,14 @@ volatile alt_u8 vucN;
 
 /* Master blank time = 400 ms */
 const alt_u16 cusiSyncNFeeMasterBlankTimeMs = 400;
+/* Master detection time = 300 ms */
+const alt_u16 cusiSyncNFeeMasterDetectionTimeMs = 300;
 /* Normal blank time = 200 ms */
 const alt_u16 cusiSyncNFeeNormalBlankTimeMs = 200;
 /* Sync Period = 25 s */
 const alt_u16 cusiSyncNFeeSyncPeriodMs = 25000;
+/* Normal pulse duration = 6.25 s */
+const alt_u16 cusiSyncNFeeNormalPulseDurationMs = 6500;
 /* One shot time = 500 ms */
 const alt_u16 cusiSyncNFeeOneShotTimeMs = 500;
 /* Blank level polarity = '1' */
@@ -1266,31 +1270,41 @@ bool bSyncPreIrqFlagLastPulse(void) {
 bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 	bool bSuccess;
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	
+	if ( cusiSyncNFeeSyncPeriodMs <= usiSyncPeriodMs ) {
 
-	const alt_u16 cusiPulsePeriodMs = usiSyncPeriodMs / cusiSyncNFeeNumberOfPulses;
-	vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncNFeeNumberOfPulses;
-	vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncNFeePulsePolarity;
-	vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs( 100 );
-	vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs( cusiPulsePeriodMs - cusiSyncNFeeMasterBlankTimeMs );
-	vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs( cusiPulsePeriodMs - cusiSyncNFeeNormalBlankTimeMs );
-	vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs( cusiPulsePeriodMs );
-	vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs( cusiSyncNFeeOneShotTimeMs );
+		const alt_u16 cusiLastPulsePeriodMs = usiSyncPeriodMs - (cusiSyncNFeeNormalPulseDurationMs * (cusiSyncNFeeNumberOfPulses - 1));
+		
+		vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncNFeeNumberOfPulses;
+		vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncNFeePulsePolarity;
+		vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs( 100 );
+		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs( cusiSyncNFeeNormalPulseDurationMs - cusiSyncNFeeMasterBlankTimeMs );
+		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs( cusiSyncNFeeNormalPulseDurationMs - cusiSyncNFeeNormalBlankTimeMs );
+		vpxSyncModule->xSyncConfig.uliLastBlankTime = uliPerCalcPeriodMs( cusiLastPulsePeriodMs - cusiSyncNFeeMasterBlankTimeMs );
+		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs( cusiSyncNFeeNormalPulseDurationMs );
+		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs( cusiLastPulsePeriodMs );
+		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs( cusiSyncNFeeMasterDetectionTimeMs );
+		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs( cusiSyncNFeeOneShotTimeMs );
 
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-	fprintf(fp, "\nSync Module Configuration:\n");
-	fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
-	fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
-	fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPreBlankTime ));
-	fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime ));
-	fprintf(fp, "xSyncModule.uliBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliBlankTime ));
-	fprintf(fp, "xSyncModule.uliPeriod = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod ));
-	fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliOneShotTime ));
-	fprintf(fp, "\n");
+		fprintf(fp, "\nSync Module Configuration:\n");
+		fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
+		fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
+		fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPreBlankTime ));
+		fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime ));
+		fprintf(fp, "xSyncModule.uliBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliBlankTime ));
+		fprintf(fp, "xSyncModule.uliLastBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliLastPeriod - vpxSyncModule->xSyncConfig.uliLastBlankTime ));
+		fprintf(fp, "xSyncModule.uliPeriod = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod ));
+		fprintf(fp, "xSyncModule.uliLastPeriod = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliLastPeriod ));
+		fprintf(fp, "xSyncModule.uliMasterDetectionTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliMasterDetectionTime ));
+		fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliOneShotTime ));
+		fprintf(fp, "\n");
 }
 #endif
 
-	bSuccess = TRUE;
+		bSuccess = TRUE;
+	}
 
 	return bSuccess;
 }

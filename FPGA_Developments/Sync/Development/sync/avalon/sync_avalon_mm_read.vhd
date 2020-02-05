@@ -263,221 +263,267 @@ begin
 
 				when (16#1D#) =>
 					-- Sync Master Blank Time Config Register : MBT value
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.master_blank_time(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.master_blank_time(23 downto 16);
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.master_blank_time(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.master_blank_time(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.master_blank_time(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.master_blank_time(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.master_blank_time(31 downto 24);
 					end if;
 
 				when (16#1E#) =>
 					-- Sync Blank Time Config Register : BT value
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.blank_time(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.blank_time(23 downto 16);
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.blank_time(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.blank_time(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.blank_time(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.blank_time(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.blank_time(31 downto 24);
 					end if;
 
 				when (16#1F#) =>
-					-- Sync Period Config Register : Pre-Blank value
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.pre_blank_time(31 downto 24);
+					-- Sync Last Blank Time Config Register : LBT value
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.last_blank_time(7 downto 0);
+					end if;
+					if (avalon_mm_i.byteenable(1) = '1') then
+						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.last_blank_time(15 downto 8);
 					end if;
 					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.pre_blank_time(23 downto 16);
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.last_blank_time(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.last_blank_time(31 downto 24);
+					end if;
+
+				when (16#20#) =>
+					-- Sync Pre-Blank Time Config Register : Pre-Blank value
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.pre_blank_time(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.pre_blank_time(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.pre_blank_time(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.pre_blank_time(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.pre_blank_time(31 downto 24);
 					end if;
 
-				when (16#20#) =>
+				when (16#21#) =>
 					-- Sync Period Config Register : Period value
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.period(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.period(23 downto 16);
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.period(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.period(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.period(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.period(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.period(31 downto 24);
 					end if;
 
-				when (16#21#) =>
-					-- Sync Shot Time Config Register : OST value
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.one_shot_time(31 downto 24);
+				when (16#22#) =>
+					-- Sync Last Period Config Register : Last Period value
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.last_period(7 downto 0);
+					end if;
+					if (avalon_mm_i.byteenable(1) = '1') then
+						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.last_period(15 downto 8);
 					end if;
 					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.one_shot_time(23 downto 16);
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.last_period(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.last_period(31 downto 24);
+					end if;
+
+				when (16#23#) =>
+					-- Sync Master Detection Time : Master Detection Time value
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.master_detection_time(7 downto 0);
+					end if;
+					if (avalon_mm_i.byteenable(1) = '1') then
+						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.master_detection_time(15 downto 8);
+					end if;
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.master_detection_time(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.master_detection_time(31 downto 24);
+					end if;
+
+				when (16#24#) =>
+					-- Sync Shot Time Config Register : OST value
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.one_shot_time(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.one_shot_time(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.one_shot_time(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.one_shot_time(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.one_shot_time(31 downto 24);
 					end if;
 
-				when (16#22#) =>
+				when (16#25#) =>
 					-- Sync General Config Register : Signal polarity
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_general_config_reg.signal_polarity;
 					end if;
 
-				when (16#23#) =>
+				when (16#26#) =>
 					-- Sync General Config Register : Number of cycles
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_general_config_reg.number_of_cycles;
 					end if;
 
-				when (16#24#) =>
+				when (16#27#) =>
 					-- Sync Error Injection Register : Reserved
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_error_injection_reg.error_injection(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_error_injection_reg.error_injection(23 downto 16);
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_error_injection_reg.error_injection(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_error_injection_reg.error_injection(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_error_injection_reg.error_injection(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_error_injection_reg.error_injection(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_error_injection_reg.error_injection(31 downto 24);
 					end if;
 
-				when (16#25#) =>
+				when (16#28#) =>
 					-- Sync Control Register : Internal/External(n) bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.int_ext_n;
 					end if;
 
-				when (16#26#) =>
+				when (16#29#) =>
 					-- Sync Control Register : Start bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.start;
 					end if;
 
-				when (16#27#) =>
+				when (16#2A#) =>
 					-- Sync Control Register : Reset bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.reset;
 					end if;
 
-				when (16#28#) =>
+				when (16#2B#) =>
 					-- Sync Control Register : One Shot bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.one_shot;
 					end if;
 
-				when (16#29#) =>
+				when (16#2C#) =>
 					-- Sync Control Register : Err_inj bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.err_inj;
 					end if;
 
-				when (16#2A#) =>
+				when (16#2D#) =>
 					-- Sync Control Register : Sync_out  out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.out_enable;
 					end if;
 
-				when (16#2B#) =>
+				when (16#2E#) =>
 					-- Sync Control Register : Channel 1 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_1_enable;
 					end if;
 
-				when (16#2C#) =>
+				when (16#2F#) =>
 					-- Sync Control Register : Channel 2 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_2_enable;
 					end if;
 
-				when (16#2D#) =>
+				when (16#30#) =>
 					-- Sync Control Register : Channel 3 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_3_enable;
 					end if;
 
-				when (16#2E#) =>
+				when (16#31#) =>
 					-- Sync Control Register : Channel 4 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_4_enable;
 					end if;
 
-				when (16#2F#) =>
+				when (16#32#) =>
 					-- Sync Control Register : Channel 5 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_5_enable;
 					end if;
 
-				when (16#30#) =>
+				when (16#33#) =>
 					-- Sync Control Register : Channel 6 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_6_enable;
 					end if;
 
-				when (16#31#) =>
+				when (16#34#) =>
 					-- Sync Control Register : Channel 7 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_7_enable;
 					end if;
 
-				when (16#32#) =>
+				when (16#35#) =>
 					-- Sync Control Register : Channel 8 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_8_enable;
 					end if;
 
-				when (16#33#) =>
+				when (16#36#) =>
 					-- Sync IRQ Number Register : Sync IRQ number
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(23 downto 16);
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(31 downto 24);
 					end if;
 
-				when (16#34#) =>
+				when (16#37#) =>
 					-- Sync IRQ Number Register : Pre-Sync IRQ number
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(23 downto 16);
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(7 downto 0);
 					end if;
 					if (avalon_mm_i.byteenable(1) = '1') then
 						avalon_mm_o.readdata(15 downto 8) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(15 downto 8);
 					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(7 downto 0);
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(31 downto 24);
 					end if;
 
 				when others =>
+					-- No register associated to the address, return with 0x00000000
 					avalon_mm_o.readdata <= (others => '0');
 
 			end case;

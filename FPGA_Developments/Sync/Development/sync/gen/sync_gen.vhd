@@ -89,6 +89,8 @@ architecture rtl of sync_gen is
 	signal s_sync_cnt            : std_logic_vector((g_SYNC_COUNTER_WIDTH - 1) downto 0);
 	-- actual blank value
 	signal s_sync_blank          : std_logic_vector((g_SYNC_COUNTER_WIDTH - 1) downto 0);
+	-- actual period value
+	signal s_sync_period         : std_logic_vector((g_SYNC_COUNTER_WIDTH - 1) downto 0);
 	-- cycle counter
 	signal s_sync_cycle_cnt      : natural range 0 to ((2 ** g_SYNC_CYCLE_NUMBER_WIDTH) - 1);
 	signal s_next_sync_cycle_cnt : natural range 0 to ((2 ** g_SYNC_CYCLE_NUMBER_WIDTH) - 1);
@@ -120,12 +122,15 @@ begin
 			v_sync_gen_state                       := IDLE;
 			s_sync_cnt                             <= (others => '0');
 			s_sync_blank                           <= (others => '0');
+			s_sync_period                          <= (others => '0');
 			s_sync_cycle_cnt                       <= 0;
 			s_next_sync_cycle_cnt                  <= 0;
 			s_registered_configs.pre_blank_time    <= (others => '0');
 			s_registered_configs.master_blank_time <= (others => '0');
 			s_registered_configs.blank_time        <= (others => '0');
+			s_registered_configs.last_blank_time   <= (others => '0');
 			s_registered_configs.period            <= (others => '0');
+			s_registered_configs.last_period       <= (others => '0');
 			s_registered_configs.one_shot_time     <= (others => '0');
 			s_registered_configs.signal_polarity   <= not g_SYNC_DEFAULT_STBY_POLARITY;
 			s_registered_configs.number_of_cycles  <= (others => '0');
@@ -152,12 +157,15 @@ begin
 					s_sync_cnt                             <= (others => '0');
 					--					s_sync_blank                           <= config_i.master_blank_time;
 					s_sync_blank                           <= config_i.blank_time;
+					s_sync_period                          <= config_i.period;
 					s_sync_cycle_cnt                       <= 0;
 					s_next_sync_cycle_cnt                  <= 0;
 					s_registered_configs.pre_blank_time    <= (others => '0');
 					s_registered_configs.master_blank_time <= (others => '0');
 					s_registered_configs.blank_time        <= (others => '0');
+					s_registered_configs.last_blank_time   <= (others => '0');
 					s_registered_configs.period            <= (others => '0');
+					s_registered_configs.last_period       <= (others => '0');
 					s_registered_configs.one_shot_time     <= (others => '0');
 					s_registered_configs.signal_polarity   <= not g_SYNC_DEFAULT_STBY_POLARITY;
 					s_registered_configs.number_of_cycles  <= (others => '0');
@@ -263,14 +271,14 @@ begin
 						v_sync_gen_state := IDLE;
 					else
 						-- check if the pre sync period was reached
-						if (s_sync_cnt = std_logic_vector(unsigned(s_registered_configs.period) - unsigned(s_registered_configs.pre_blank_time) - 1)) then
+						if (s_sync_cnt = std_logic_vector(unsigned(s_sync_period) - unsigned(s_registered_configs.pre_blank_time) - 1)) then
 							-- pre sync pulse period reached
 							v_pre_sync_signal := '1';
 						else
 							v_pre_sync_signal := '0';
 						end if;
 						-- check if the period was reached
-						if (s_sync_cnt = std_logic_vector(unsigned(s_registered_configs.period) - 1)) then
+						if (s_sync_cnt = std_logic_vector(unsigned(s_sync_period) - 1)) then
 							-- pulse period reached
 
 							-- pulse period reached, check cycle and update s_sync_blank
@@ -282,6 +290,7 @@ begin
 								s_next_sync_cycle_cnt <= 0;
 								v_next_sync_cycle     := 0;
 								s_sync_blank          <= s_registered_configs.master_blank_time;
+								s_sync_period         <= s_registered_configs.period;
 							else
 								-- more than one cycle, check upper limit of cycle counter
 								if (s_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
@@ -292,8 +301,11 @@ begin
 									-- set next cycle
 									s_next_sync_cycle_cnt <= 1;
 									v_next_sync_cycle     := 0;
-									-- return to master blank time
-									s_sync_blank          <= s_registered_configs.master_blank_time;
+									--									-- return to master blank time
+									--									s_sync_blank          <= s_registered_configs.master_blank_time;
+									-- set blank time and period to last pulse
+									s_sync_blank          <= s_registered_configs.last_blank_time;
+									s_sync_period         <= s_registered_configs.last_period;
 								else
 									-- keep cycle counting
 									s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
@@ -310,8 +322,9 @@ begin
 										s_next_sync_cycle_cnt <= s_next_sync_cycle_cnt + 1;
 										v_next_sync_cycle     := v_next_sync_cycle + 1;
 									end if;
-
-									s_sync_blank <= s_registered_configs.blank_time;
+									-- set blank time and period to normal pulse
+									s_sync_blank     <= s_registered_configs.blank_time;
+									s_sync_period    <= s_registered_configs.period;
 								end if;
 							end if;
 							-- reset sync counter
@@ -378,6 +391,7 @@ begin
 								-- ok, only one cycle, s_sync_blank already contains MBT
 								s_sync_cycle_cnt <= 0;
 								s_sync_blank     <= s_registered_configs.master_blank_time;
+								s_sync_period    <= s_registered_configs.period;
 								-- goto to E_RELEASE state
 								s_sync_gen_state <= E_RELEASE;
 								v_sync_gen_state := E_RELEASE;
@@ -387,12 +401,17 @@ begin
 									-- upper limit reached
 									-- reset cycle counter
 									s_sync_cycle_cnt <= 0;
-									-- return to master blank time
-									s_sync_blank     <= s_registered_configs.master_blank_time;
+									--									-- return to master blank time
+									--									s_sync_blank     <= s_registered_configs.master_blank_time;
+									-- set blank time and period to last pulse
+									s_sync_blank     <= s_registered_configs.last_blank_time;
+									s_sync_period    <= s_registered_configs.last_period;
 								else
 									-- keep cycle counting
 									s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
+									-- set blank time and period to normal pulse
 									s_sync_blank     <= s_registered_configs.blank_time;
+									s_sync_period    <= s_registered_configs.period;
 								end if;
 								-- goto to E_RELEASE state
 								s_sync_gen_state <= E_RELEASE;
@@ -420,7 +439,7 @@ begin
 						v_sync_gen_state := IDLE;
 					else
 						-- check if the period was reached
-						if (s_sync_cnt = std_logic_vector(unsigned(s_registered_configs.period) - 1)) then
+						if (s_sync_cnt = std_logic_vector(unsigned(s_sync_period) - 1)) then
 							-- pulse period reached
 							-- reset sync counter
 							s_sync_cnt       <= (others => '0');
