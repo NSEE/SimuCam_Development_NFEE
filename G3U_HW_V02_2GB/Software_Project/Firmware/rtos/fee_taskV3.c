@@ -623,14 +623,14 @@ void vFeeTaskV3(void *task_data) {
 				xTrans.xCcdMapLocal[0]->ulAddrI = xTrans.xCcdMapLocal[0]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
 				xTrans.xCcdMapLocal[1]->ulAddrI = xTrans.xCcdMapLocal[1]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
 
-				/* Tells to HW where is the packet oder list (before the image)*/
-				bWindCopyWindowingParam(xTrans.xCcdMapLocal[0]->ulOffsetAddr, pxNFee->ucId);
-
 				/* Check if need to change the memory */
 				if ( ucEL == 0 )
 					xTrans.ucMemory = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
 				else
 					xTrans.ucMemory = (unsigned char) ( *pxNFee->xControl.pActualMem );
+
+				/* Tells to HW where is the packet oder list (before the image)*/
+				bWindCopyWindowingParam(xTrans.xCcdMapLocal[0]->ulOffsetAddr, xTrans.ucMemory, pxNFee->ucId);
 
 				/*For now is HardCoded, for a complete half CCD*/
 				xTrans.ulAddrIni = 0; /*This will be the offset*/

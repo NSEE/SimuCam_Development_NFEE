@@ -23,11 +23,14 @@
 //! [program memory private global variables]
 
 //! [public functions]
-bool bWindCopyWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucCommCh){
+bool bWindCopyWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh){
 	bool bStatus = FALSE;
+	bool bValidMem = FALSE;
 	bool bValidCh = FALSE;
-	volatile TCommChannel *vpxCommChannel = NULL;;
+	volatile TCommChannel *vpxCommChannel = NULL;
 	volatile TDpktWindowingParam *vpxWindowingParam = NULL;
+
+	bValidMem = bDdr2SwitchMemory(ucMemoryId);
 
 	switch (ucCommCh) {
 	case eCommSpwCh1:
@@ -75,36 +78,36 @@ bool bWindCopyWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucCommCh){
 		break;
 	}
 
-	if (bValidCh) {
-		*vpxWindowingParam = vpxCommChannel->xDataPacket.xDpktWindowingParam;
+	if ((bValidMem) && (bValidCh)) {
+		vpxCommChannel->xDataPacket.xDpktWindowingParam = *vpxWindowingParam;
 		bStatus = TRUE;
 
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nChannel %d Windowing Parameters:\n", ucCommCh);
-		fprintf(fp, "xDpktWindowingParam.xPacketOrderList = 0x");
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList15);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList14);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList13);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList12);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList11);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList10);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList9);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList8);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList7);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList6);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList5);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList4);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList3);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList2);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList1);
-		fprintf(fp, "%0lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList0);
-		fprintf(fp, "\n");
-		fprintf(fp, "xDpktWindowingParam.uliLastEPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastEPacket);
-		fprintf(fp, "xDpktWindowingParam.uliLastFPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastFPacket);
-		fprintf(fp, "\n");
-}
-#endif
+//#if DEBUG_ON
+//if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//		fprintf(fp, "\nChannel %d Windowing Parameters:\n", ucCommCh);
+//		fprintf(fp, "xDpktWindowingParam.xPacketOrderList = 0x");
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList15);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList14);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList13);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList12);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList11);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList10);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList9);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList8);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList7);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList6);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList5);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList4);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList3);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList2);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList1);
+//		fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList0);
+//		fprintf(fp, "\n");
+//		fprintf(fp, "xDpktWindowingParam.uliLastEPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastEPacket);
+//		fprintf(fp, "xDpktWindowingParam.uliLastFPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastFPacket);
+//		fprintf(fp, "\n");
+//}
+//#endif
 
 	}
 

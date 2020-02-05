@@ -9,6 +9,7 @@
 #define DRIVER_COMM_WINDOWING_WINDOWING_H_
 
 #include "../comm.h"
+#include "../../../api_driver/ddr2/ddr2.h"
 #include "../../../utils/configs_simucam.h"
 
 //! [constants definition]
@@ -21,7 +22,7 @@
 //! [public module structs definition]
 
 //! [public function prototypes]
-bool bWindCopyWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucCommCh);  /* Copy the windowing parameters from the memory address to the specified channel */
+bool bWindCopyWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh);  /* Copy the windowing parameters from the memory address to the specified channel */
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
