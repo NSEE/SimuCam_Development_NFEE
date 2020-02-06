@@ -609,10 +609,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 				alt_busy_sleep(1); /* delay 1us */
 			}
 			/* Success = 0 */
+//			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1TransferDev,
+//					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+//					(alt_u32 *) uliDestAddrLow,
+//					uliRoundedTransferSizeInBytes, uliControlBits,
+//					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
+//					1, 1, 1, 1, 1)	) {
 			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1TransferDev,
 					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 					(alt_u32 *) uliDestAddrLow,
-					uliRoundedTransferSizeInBytes, uliControlBits,
+					22141088, uliControlBits,
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)	) {
 				/* Success = 0 */
@@ -838,10 +844,16 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 				alt_busy_sleep(1); /* delay 1us */
 			}
 			/* Success = 0 */
+//			if ( 0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2TransferDev,
+//					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+//					(alt_u32 *) uliDestAddrLow,
+//					uliRoundedTransferSizeInBytes, uliControlBits,
+//					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
+//					1, 1, 1, 1, 1)) {
 			if ( 0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2TransferDev,
 					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 					(alt_u32 *) uliDestAddrLow,
-					uliRoundedTransferSizeInBytes, uliControlBits,
+					22141088, uliControlBits,
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)) {
 				/* Success = 0 */

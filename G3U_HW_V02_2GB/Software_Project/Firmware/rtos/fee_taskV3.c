@@ -728,7 +728,7 @@ void vFeeTaskV3(void *task_data) {
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
 						if (  xTrans.ucMemory == 0  ) {
-							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM1Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks*2, ucSideFromMSG, pxNFee->ucSPWId);
+							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM1Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
 
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
 								#if DEBUG_ON
