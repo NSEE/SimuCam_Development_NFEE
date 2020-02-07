@@ -17,7 +17,6 @@ void vFeeTaskV3(void *task_data) {
 	tQMask uiCmdFEE;
 	volatile TFEETransmission xTrans;
 	unsigned char ucEL = 0, ucSideFromMSG = 0;
-	unsigned short int usiLenLastBlocks = 0;
 
 
 	/* Fee Instance Data Structure */
@@ -621,14 +620,17 @@ void vFeeTaskV3(void *task_data) {
 				xTrans.xCcdMapLocal[0] = &pxNFee->xMemMap.xCcd[ xTrans.ucCcdNumber ].xLeft;
 				xTrans.xCcdMapLocal[1] = &pxNFee->xMemMap.xCcd[ xTrans.ucCcdNumber ].xRight;
 
-				xTrans.xCcdMapLocal[0]->ulAddrI = xTrans.xCcdMapLocal[0]->ulOffsetAddr + 0;
-				xTrans.xCcdMapLocal[1]->ulAddrI = xTrans.xCcdMapLocal[1]->ulOffsetAddr + 0;
+				xTrans.xCcdMapLocal[0]->ulAddrI = xTrans.xCcdMapLocal[0]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
+				xTrans.xCcdMapLocal[1]->ulAddrI = xTrans.xCcdMapLocal[1]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
 
 				/* Check if need to change the memory */
 				if ( ucEL == 0 )
 					xTrans.ucMemory = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
 				else
 					xTrans.ucMemory = (unsigned char) ( *pxNFee->xControl.pActualMem );
+
+				/* Tells to HW where is the packet oder list (before the image)*/
+				bWindCopyWindowingParam(xTrans.xCcdMapLocal[0]->ulOffsetAddr, xTrans.ucMemory, pxNFee->ucId);
 
 				/*For now is HardCoded, for a complete half CCD*/
 				xTrans.ulAddrIni = 0; /*This will be the offset*/
@@ -736,7 +738,7 @@ void vFeeTaskV3(void *task_data) {
 								#endif
 							}
 						} else {
-							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
+							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks*2, ucSideFromMSG, pxNFee->ucSPWId);
 
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
 								#if DEBUG_ON
@@ -2816,14 +2818,14 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 
 
 	if (  ucMem == 0  ) {
-		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir SDMA_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
 		} else
 			return bDmaReturn;
 	} else {
-		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir SDMA_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
@@ -2842,14 +2844,14 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 
 	if (  ucMem == 0  ) {
-		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir SDMA_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
 		} else
 			return bDmaReturn;
 	} else {
-		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir SDMA_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
@@ -3070,11 +3072,6 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
 
 			break;
 		case 0x04:// reg_1_config
@@ -3268,11 +3265,6 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
 
 			break;
 		case 0x04:// reg_1_config
@@ -3467,11 +3459,6 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
 
 			break;
 		case 0x04:// reg_1_config
@@ -3669,11 +3656,6 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
 
 			break;
 		case 0x04:// reg_1_config
@@ -3892,12 +3874,6 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
-
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -4060,11 +4036,6 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
 
 			break;
 		case 0x04:// reg_1_config
@@ -4262,11 +4233,6 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
 
 			break;
 		case 0x04:// reg_1_config
@@ -4463,11 +4429,6 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
-			}
-			#endif
 
 			break;
 		case 0x04:// reg_1_config

@@ -16,6 +16,7 @@
 #include "../utils/events_handler.h"
 #include "../driver/ftdi/ftdi.h"
 #include "../api_driver/simucam_dma/simucam_dma.h"
+#include "../driver/comm/windowing/windowing.h"
 
 
 void vDataControlTaskV2(void *task_data);

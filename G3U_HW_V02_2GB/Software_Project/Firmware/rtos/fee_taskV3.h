@@ -23,6 +23,7 @@
 #include "../driver/leds/leds.h"
 #include "../utils/communication_configs.h"
 #include "../utils/error_handler_simucam.h"
+#include "../driver/comm/windowing/windowing.h"
 
 /* HK values enum [bndky] */
 

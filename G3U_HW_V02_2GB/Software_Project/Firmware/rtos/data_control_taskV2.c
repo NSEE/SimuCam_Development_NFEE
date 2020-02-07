@@ -31,7 +31,6 @@ void vDataControlTaskV2(void *task_data) {
 	TNData_Control *pxDataC;
 	unsigned char ucIL = 0;
 	unsigned char ucFailCount = 0;
-	unsigned short int usiNByterLeft = 0;
 	bool bSuccess = FALSE;
 	unsigned char ucSubReqIFEE = 0;
 	unsigned char ucSubReqICCD = 0;
@@ -299,7 +298,7 @@ void vDataControlTaskV2(void *task_data) {
 
 					case sSubScheduleDMA:
 					
-						uliSizeTranfer = pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + 0;
+						uliSizeTranfer = pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST;
 
 						if ( ucMemUsing == 0 )
 							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
