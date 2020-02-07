@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.02.03.19:56:25 -->
+ <!-- 2020.02.07.00:19:40 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1580766983</value>
+  <value>1581041977</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -95776,7 +95776,7 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="sync" kind="Sync" version="1.5" path="sync">
+ <module name="sync" kind="Sync" version="1.6" path="sync">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="g_SYNC_IRQ_NUMBER">
@@ -96915,7 +96915,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1580766983</value>
+   <value>1581041977</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -96935,7 +96935,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1580766983</value>
+   <value>1581041977</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -96951,7 +96951,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1580766983</value>
+   <value>1581041977</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -112255,7 +112255,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Sync</displayName>
-  <version>1.5</version>
+  <version>1.6</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>

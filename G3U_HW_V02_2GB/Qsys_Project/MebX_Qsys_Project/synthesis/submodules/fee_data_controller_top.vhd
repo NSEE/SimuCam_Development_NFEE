@@ -445,12 +445,12 @@ begin
 				s_registered_left_side_activated                      <= fee_left_side_activated_i;
 				s_registered_right_side_activated                     <= fee_right_side_activated_i;
 				-- register housekeeping ccd side
-				if (fee_left_side_activated_i = '1') and (fee_right_side_activated_i = '0') then
+				if (fee_left_side_activated_i = '1') and (fee_right_side_activated_i = '1') then
+					s_registered_hk_ccd_side <= c_CCD_LEFT_SIDE; -- both sides activated, hk will use the left side as reference
+				elsif (fee_left_side_activated_i = '1') then
 					s_registered_hk_ccd_side <= c_CCD_LEFT_SIDE;
-				elsif (fee_left_side_activated_i = '0') and (fee_right_side_activated_i = '1') then
+				elsif (fee_right_side_activated_i = '1') then
 					s_registered_hk_ccd_side <= c_CCD_RIGHT_SIDE;
-				else
-					s_registered_hk_ccd_side <= c_CCD_LEFT_SIDE; -- both sides activated or no side activated, hk will use the left side as reference
 				end if;
 				-- register data pkt config
 				s_registered_dpkt_params.image.logical_addr           <= data_pkt_logical_addr_i;

@@ -167,8 +167,10 @@ begin
 			-- Config
 			config_i.master_blank_time => s_sync_mm_write_registers.sync_config_reg.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
 			config_i.blank_time        => s_sync_mm_write_registers.sync_config_reg.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.last_blank_time   => s_sync_mm_write_registers.sync_config_reg.last_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
 			config_i.pre_blank_time    => s_sync_mm_write_registers.sync_config_reg.pre_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
 			config_i.period            => s_sync_mm_write_registers.sync_config_reg.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.last_period       => s_sync_mm_write_registers.sync_config_reg.last_period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
 			config_i.one_shot_time     => s_sync_mm_write_registers.sync_config_reg.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
 			config_i.signal_polarity   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
 			config_i.number_of_cycles  => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
@@ -328,7 +330,7 @@ begin
 			elsif ((s_sync_signal = '0') and (s_sync_delay = '1')) then
 				-- initiate 300 ms counter
 				s_sync_processed_time_counting <= '1';
-				s_sync_processed_time_cnt      <= std_logic_vector(to_unsigned(15000000 - 1, s_sync_processed_time_cnt'length));
+				s_sync_processed_time_cnt      <= std_logic_vector(unsigned(s_sync_mm_write_registers.sync_config_reg.master_detection_time) - 1);
 				--				s_sync_processed_time_cnt      <= std_logic_vector(to_unsigned(15 - 1, s_sync_processed_time_cnt'length));
 			end if;
 
