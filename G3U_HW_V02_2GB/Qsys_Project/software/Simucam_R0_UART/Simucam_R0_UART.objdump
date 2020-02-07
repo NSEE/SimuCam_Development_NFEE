@@ -70698,8 +70698,8 @@ bool bInitSimucamCoreHW ( void )
 8112b248:	1000071e 	bne	r2,zero,8112b268 <bInitSimucamCoreHW+0x54>
 8112b24c:	e0bfff17 	ldw	r2,-4(fp)
 8112b250:	10c00117 	ldw	r3,4(r2)
-8112b254:	00978f74 	movhi	r2,24125
-8112b258:	10b24e44 	addi	r2,r2,-14023
+8112b254:	00978fb4 	movhi	r2,24126
+8112b258:	10acd844 	addi	r2,r2,-19615
 8112b25c:	1880021e 	bne	r3,r2,8112b268 <bInitSimucamCoreHW+0x54>
 		bSuccess = TRUE;
 8112b260:	00800044 	movi	r2,1

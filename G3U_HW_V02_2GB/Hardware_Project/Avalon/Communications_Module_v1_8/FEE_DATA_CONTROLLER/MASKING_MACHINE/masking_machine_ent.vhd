@@ -329,7 +329,7 @@ begin
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
 							-- check if the data need to be transmitted
-							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
+							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) < unsigned(fee_ccd_v_end_i))) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
@@ -368,7 +368,7 @@ begin
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
 							-- check if the data need to be transmitted
-							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
+							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) < unsigned(fee_ccd_v_end_i))) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then

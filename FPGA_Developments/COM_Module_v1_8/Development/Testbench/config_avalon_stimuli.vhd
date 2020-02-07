@@ -129,7 +129,7 @@ begin
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
 					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(0, 16)); -- data_pkt_ccd_v_start
-					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(4509, 16)); -- data_pkt_ccd_v_end
+					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(50, 16)); -- data_pkt_ccd_v_end
 					avalon_mm_read_o                    <= '0';
 
 				-- data_packet_config_4_reg
@@ -187,7 +187,7 @@ begin
 					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#48#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
-					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(0, 32)); -- data_pkt_start_delay
+					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(1000, 32)); -- data_pkt_start_delay
 					avalon_mm_read_o      <= '0';
 
 				-- data_packet_pixel_delay_2_reg
@@ -196,7 +196,7 @@ begin
 					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#49#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
-					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(0, 32)); -- data_pkt_skip_delay
+					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(500, 32)); -- data_pkt_skip_delay
 					avalon_mm_read_o      <= '0';
 
 				-- data_packet_pixel_delay_3_reg
@@ -205,7 +205,7 @@ begin
 					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#4A#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
-					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(0, 32)); -- data_pkt_line_delay
+					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(100, 32)); -- data_pkt_line_delay
 					avalon_mm_read_o      <= '0';
 
 				-- data_packet_pixel_delay_4_reg
@@ -214,7 +214,7 @@ begin
 					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#4B#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
-					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(0, 32)); -- data_pkt_adc_delay
+					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(50, 32)); -- data_pkt_adc_delay
 					avalon_mm_read_o      <= '0';
 
 				--				-- data_packet_pixel_delay_2_reg
