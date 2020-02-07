@@ -49,205 +49,140 @@ use IEEE.numeric_std.all;
 --============================================================================
 package sync_mm_registers_pkg is
 
-	--  Sync Status Register           						(32 bits):
-	--	  31-31 : Internal/External_n					    [R/-]
-	--    30-24 : Reserved                                  [-/-]
-	--    23-16 : State									    [R/-]
-	--    15- 8 : Error code				                [R/-]
-	--     7- 0 : Cycle number						        [R/-]
+	-- Address Constants
 
-	--  Sync Interrupt Registers -------------------------------- 
-	--  Enable Register				                 	(32 bits):
-	--    31- 5 : Reserved                                  [-/-]
-	--     4- 4 : Error interrupt enable bit	            [R/W]
-	--     3- 3 : Blank pulse interrupt enable bit		    [R/W]
-	--     2- 2 : Master pulse interrupt enable bit		    [R/W]
-	--     1- 1 : Normal pulse interrupt enable bit		    [R/W]
-	--     0- 0 : Last pulse interrupt enable bit			[R/W]
-
-	--  Flag Clear Register				                 	(32 bits):
-	--    31- 5 : Reserved                                  [-/-]
-	--     4- 4 : Error interrupt flag clear bit            [R/W]
-	--     3- 3 : Blank pulse interrupt flag clear bit	    [R/W]
-	--     2- 2 : Master pulse interrupt flag clear bit	    [R/W]
-	--     1- 1 : Normal pulse interrupt flag clear bit	    [R/W]
-	--     0- 0 : Last pulse interrupt flag clear bit		[R/W]
-
-	--  Flag Register				                 	(32 bits):
-	--    31- 5 : Reserved                                  [-/-]
-	--     4- 4 : Error interrupt flag bit	  	          	[R/-]
-	--     3- 3 : Blank pulse interrupt flag bit		    [R/-]
-	--     2- 2 : Master pulse interrupt flag bit		    [R/-]
-	--     1- 1 : Normal pulse interrupt flag bit		    [R/-]
-	--     0- 0 : Last pulse interrupt flag bit				[R/-]
-	-----------------------------------------------------------------
-
-	--  Sync config registers -----------------------------------
-	--  Master Blank Time Register		   	              	(32 bits):
-	--    31-0 : MBT value             						[R/W]
-
-	--  Blank Time Register				                    (32 bits):
-	--    31-0 : BT value					                [R/W]
-
-	--  Period Register					                 	(32 bits):
-	--	  31-0 : Period value					            [R/W]
-
-	--  Shot Time Register				                 	(32 bits):
-	--    31-0 : OST value						            [R/W]
-
-	--  General Config Register			                 	(32 bits):
-	--    31- 9 : Reserved                                  [-/-]
-	--     8- 8 : Signal polarity				            [R/W]
-	--     7- 0 : Number of cycles						    [R/W]
-	-----------------------------------------------------------------
-
-	--  Sync Error Injection Register	                 	(32 bits):
-	--    31- 0 : Reserved (TBD)                            [R/W]
-
-	--  Sync Control Register				                (32 bits):
-	--    31-31 : Internal/External(n) bit				    [R/W]
-	--    30-20 : Reserved                                  [-/-]
-	--    19-19 : Start bit				                    [R/W]
-	--    18-18 : Reset bit							        [R/W]
-	--    17-17 : One Shot bit							    [R/W]
-	--    16-16 : Err_inj bit							    [R/W]
-	--    15- 9 : Reserved                                  [-/-]
-	--     8- 8 : Sync_out  out enable bit		         	[R/W]
-	--     7- 7 : Channel H out enable bit      	    	[R/W]
-	--     6- 6 : Channel G out enable bit          		[R/W]
-	--     5- 5 : Channel F out enable bit          		[R/W]
-	--     4- 4 : Channel E out enable bit         		 	[R/W]
-	--     3- 3 : Channel D out enable bit         	 		[R/W]
-	--     2- 2 : Channel C out enable bit          		[R/W]
-	--     1- 1 : Channel B out enable bit          		[R/W]
-	--     0- 0 : Channel A out enable bit	           		[R/W]
-
-	-- Registers Address
-	constant c_SYNC_STATUS_MM_REG_ADDRESS : natural := 0;
-
-	constant c_SYNC_INTERRUPT_MM_ENABLE_REG_ADDRESS     : natural := 1;
-	constant c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS : natural := 2;
-	constant c_SYNC_INTERRUPT_MM_FLAG_REG_ADDRESS       : natural := 3;
-
-	constant c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS : natural := 4;
-	constant c_SYNC_CONFIG_BLANK_TIME_MM_REG_ADDRESS        : natural := 5;
-	constant c_SYNC_CONFIG_PERIOD_MM_REG_ADDRESS            : natural := 6;
-	constant c_SYNC_CONFIG_ONE_SHOT_TIME_MM_REG_ADDRESS     : natural := 7;
-	constant c_SYNC_CONFIG_GENERAL_MM_REG_ADDRESS           : natural := 8;
-
-	constant c_SYNC_ERROR_INJECTION_MM_REG_ADDRESS : natural := 9;
-
-	constant c_SYNC_CONTROL_MM_REG_ADDRESS : natural := 10;
+	-- Allowed Addresses
+	constant c_AVALON_MM_SYNC_MIN_ADDR : natural range 0 to 255 := 16#00#;
+	constant c_AVALON_MM_SYNC_MAX_ADDR : natural range 0 to 255 := 16#37#;
 
 	-- Registers Types
+
+	-- Sync Status Register
 	type t_sync_status_register is record
-		int_ext_n    : std_logic;
-		state        : std_logic_vector(7 downto 0);
-		error_code   : std_logic_vector(7 downto 0);
-		cycle_number : std_logic_vector(7 downto 0);
+		int_ext_n    : std_logic;       -- Internal/External_n
+		state        : std_logic_vector(7 downto 0); -- State
+		error_code   : std_logic_vector(7 downto 0); -- Error code
+		cycle_number : std_logic_vector(7 downto 0); -- Cycle number
 	end record t_sync_status_register;
 
+	-- Sync Interrupt Enable Register
 	type t_sync_interrupt_enable_register is record
-		error_irq_enable        : std_logic;
-		blank_pulse_irq_enable  : std_logic;
-		master_pulse_irq_enable : std_logic;
-		normal_pulse_irq_enable : std_logic;
-		last_pulse_irq_enable   : std_logic;
+		error_irq_enable        : std_logic; -- Error interrupt enable bit
+		blank_pulse_irq_enable  : std_logic; -- Blank pulse interrupt enable bit
+		master_pulse_irq_enable : std_logic; -- Master pulse interrupt enable bit
+		normal_pulse_irq_enable : std_logic; -- Normal pulse interrupt enable bit
+		last_pulse_irq_enable   : std_logic; -- Last pulse interrupt enable bit
 	end record t_sync_interrupt_enable_register;
 
+	-- Sync Interrupt Flag Clear Register
 	type t_sync_interrupt_flag_clear_register is record
-		error_irq_flag_clear        : std_logic;
-		blank_pulse_irq_flag_clear  : std_logic;
-		master_pulse_irq_flag_clear : std_logic;
-		normal_pulse_irq_flag_clear : std_logic;
-		last_pulse_irq_flag_clear   : std_logic;
+		error_irq_flag_clear        : std_logic; -- Error interrupt flag clear bit
+		blank_pulse_irq_flag_clear  : std_logic; -- Blank pulse interrupt flag clear bit
+		master_pulse_irq_flag_clear : std_logic; -- Master pulse interrupt flag clear bit
+		normal_pulse_irq_flag_clear : std_logic; -- Normal pulse interrupt flag clear bit
+		last_pulse_irq_flag_clear   : std_logic; -- Last pulse interrupt flag clear bit
 	end record t_sync_interrupt_flag_clear_register;
 
+	-- Sync Interrupt Flag Register
 	type t_sync_interrupt_flag_register is record
-		error_irq_flag        : std_logic;
-		blank_pulse_irq_flag  : std_logic;
-		master_pulse_irq_flag : std_logic;
-		normal_pulse_irq_flag : std_logic;
-		last_pulse_irq_flag   : std_logic;
+		error_irq_flag        : std_logic; -- Error interrupt flag bit
+		blank_pulse_irq_flag  : std_logic; -- Blank pulse interrupt flag bit
+		master_pulse_irq_flag : std_logic; -- Master pulse interrupt flag bit
+		normal_pulse_irq_flag : std_logic; -- Normal pulse interrupt flag bit
+		last_pulse_irq_flag   : std_logic; -- Last pulse interrupt flag bit
 	end record t_sync_interrupt_flag_register;
 
+	-- Pre-Sync Interrupt Enable Register
 	type t_pre_sync_interrupt_enable_register is record
-		pre_blank_pulse_irq_enable  : std_logic;
-		pre_master_pulse_irq_enable : std_logic;
-		pre_normal_pulse_irq_enable : std_logic;
-		pre_last_pulse_irq_enable   : std_logic;
+		pre_blank_pulse_irq_enable  : std_logic; -- Pre-Blank pulse interrupt enable bit
+		pre_master_pulse_irq_enable : std_logic; -- Pre-Master pulse interrupt enable bit
+		pre_normal_pulse_irq_enable : std_logic; -- Pre-Normal pulse interrupt enable bit
+		pre_last_pulse_irq_enable   : std_logic; -- Pre-Last pulse interrupt enable bit
 	end record t_pre_sync_interrupt_enable_register;
 
+	-- Pre-Sync Interrupt Flag Clear Register
 	type t_pre_sync_interrupt_flag_clear_register is record
-		pre_blank_pulse_irq_flag_clear  : std_logic;
-		pre_master_pulse_irq_flag_clear : std_logic;
-		pre_normal_pulse_irq_flag_clear : std_logic;
-		pre_last_pulse_irq_flag_clear   : std_logic;
+		pre_blank_pulse_irq_flag_clear  : std_logic; -- Pre-Blank pulse interrupt flag clear bit
+		pre_master_pulse_irq_flag_clear : std_logic; -- Pre-Master pulse interrupt flag clear bit
+		pre_normal_pulse_irq_flag_clear : std_logic; -- Pre-Normal pulse interrupt flag clear bit
+		pre_last_pulse_irq_flag_clear   : std_logic; -- Pre-Last pulse interrupt flag clear bit
 	end record t_pre_sync_interrupt_flag_clear_register;
 
+	-- Pre-Sync Interrupt Flag Register
 	type t_pre_sync_interrupt_flag_register is record
-		pre_blank_pulse_irq_flag  : std_logic;
-		pre_master_pulse_irq_flag : std_logic;
-		pre_normal_pulse_irq_flag : std_logic;
-		pre_last_pulse_irq_flag   : std_logic;
+		pre_blank_pulse_irq_flag  : std_logic; -- Pre-Blank pulse interrupt flag bit
+		pre_master_pulse_irq_flag : std_logic; -- Pre-Master pulse interrupt flag bit
+		pre_normal_pulse_irq_flag : std_logic; -- Pre-Normal pulse interrupt flag bit
+		pre_last_pulse_irq_flag   : std_logic; -- Pre-Last pulse interrupt flag bit
 	end record t_pre_sync_interrupt_flag_register;
 
+	-- Sync Master Blank Time Config Register
 	type t_sync_config_register is record
-		master_blank_time : std_logic_vector(31 downto 0);
-		blank_time        : std_logic_vector(31 downto 0);
-		pre_blank_time    : std_logic_vector(31 downto 0);
-		period            : std_logic_vector(31 downto 0);
-		one_shot_time     : std_logic_vector(31 downto 0);
+		master_blank_time     : std_logic_vector(31 downto 0); -- MBT value
+		blank_time            : std_logic_vector(31 downto 0); -- BT value
+		last_blank_time       : std_logic_vector(31 downto 0); -- LBT value
+		pre_blank_time        : std_logic_vector(31 downto 0); -- Pre-Blank value
+		period                : std_logic_vector(31 downto 0); -- Period value
+		last_period           : std_logic_vector(31 downto 0); -- Last Period value
+		master_detection_time : std_logic_vector(31 downto 0); -- Master Detection Time value
+		one_shot_time         : std_logic_vector(31 downto 0); -- OST value
 	end record t_sync_config_register;
 
+	-- Sync General Config Register
 	type t_sync_general_config_register is record
-		signal_polarity  : std_logic;
-		number_of_cycles : std_logic_vector(7 downto 0);
+		signal_polarity  : std_logic;   -- Signal polarity
+		number_of_cycles : std_logic_vector(7 downto 0); -- Number of cycles
 	end record t_sync_general_config_register;
 
+	-- Sync Error Injection Register
 	type t_sync_error_injection_register is record
-		error_injection : std_logic_vector(31 downto 0);
+		error_injection : std_logic_vector(31 downto 0); -- Reserved
 	end record t_sync_error_injection_register;
 
+	-- Sync Control Register
 	type t_sync_control_register is record
-		int_ext_n        : std_logic;
-		start            : std_logic;
-		reset            : std_logic;
-		one_shot         : std_logic;
-		err_inj          : std_logic;
-		out_enable       : std_logic;
-		channel_1_enable : std_logic;
-		channel_2_enable : std_logic;
-		channel_3_enable : std_logic;
-		channel_4_enable : std_logic;
-		channel_5_enable : std_logic;
-		channel_6_enable : std_logic;
-		channel_7_enable : std_logic;
-		channel_8_enable : std_logic;
+		int_ext_n        : std_logic;   -- Internal/External(n) bit
+		start            : std_logic;   -- Start bit
+		reset            : std_logic;   -- Reset bit
+		one_shot         : std_logic;   -- One Shot bit
+		err_inj          : std_logic;   -- Err_inj bit
+		out_enable       : std_logic;   -- Sync_out  out enable bit
+		channel_1_enable : std_logic;   -- Channel 1 out enable bit
+		channel_2_enable : std_logic;   -- Channel 2 out enable bit
+		channel_3_enable : std_logic;   -- Channel 3 out enable bit
+		channel_4_enable : std_logic;   -- Channel 4 out enable bit
+		channel_5_enable : std_logic;   -- Channel 5 out enable bit
+		channel_6_enable : std_logic;   -- Channel 6 out enable bit
+		channel_7_enable : std_logic;   -- Channel 7 out enable bit
+		channel_8_enable : std_logic;   -- Channel 8 out enable bit
 	end record t_sync_control_register;
 
+	-- Sync IRQ Number Register
 	type t_sync_irq_number_register is record
-		sync_irq_number     : std_logic_vector(31 downto 0);
-		pre_sync_irq_number : std_logic_vector(31 downto 0);
+		sync_irq_number     : std_logic_vector(31 downto 0); -- Sync IRQ number
+		pre_sync_irq_number : std_logic_vector(31 downto 0); -- Pre-Sync IRQ number
 	end record t_sync_irq_number_register;
 
-	-- Avalon mm types
+	-- Avalon MM Types
+
+	-- Avalon MM Read/Write Registers
 	type t_sync_mm_write_registers is record
-		sync_irq_enable_reg         : t_sync_interrupt_enable_register;
-		sync_irq_flag_clear_reg     : t_sync_interrupt_flag_clear_register;
-		pre_sync_irq_enable_reg     : t_pre_sync_interrupt_enable_register;
-		pre_sync_irq_flag_clear_reg : t_pre_sync_interrupt_flag_clear_register;
-		sync_config_reg             : t_sync_config_register;
-		sync_general_config_reg     : t_sync_general_config_register;
-		sync_error_injection_reg    : t_sync_error_injection_register;
-		sync_control_reg            : t_sync_control_register;
+		sync_irq_enable_reg         : t_sync_interrupt_enable_register; -- Sync Interrupt Enable Register
+		sync_irq_flag_clear_reg     : t_sync_interrupt_flag_clear_register; -- Sync Interrupt Flag Clear Register
+		pre_sync_irq_enable_reg     : t_pre_sync_interrupt_enable_register; -- Pre-Sync Interrupt Enable Register
+		pre_sync_irq_flag_clear_reg : t_pre_sync_interrupt_flag_clear_register; -- Pre-Sync Interrupt Flag Clear Register
+		sync_config_reg             : t_sync_config_register; -- Sync Master Blank Time Config Register
+		sync_general_config_reg     : t_sync_general_config_register; -- Sync General Config Register
+		sync_error_injection_reg    : t_sync_error_injection_register; -- Sync Error Injection Register
+		sync_control_reg            : t_sync_control_register; -- Sync Control Register
 	end record t_sync_mm_write_registers;
 
+	-- Avalon MM Read-Only Registers
 	type t_sync_mm_read_registers is record
-		sync_status_reg       : t_sync_status_register;
-		sync_irq_flag_reg     : t_sync_interrupt_flag_register;
-		pre_sync_irq_flag_reg : t_pre_sync_interrupt_flag_register;
-		sync_irq_number_reg   : t_sync_irq_number_register;
+		sync_status_reg       : t_sync_status_register; -- Sync Status Register
+		sync_irq_flag_reg     : t_sync_interrupt_flag_register; -- Sync Interrupt Flag Register
+		pre_sync_irq_flag_reg : t_pre_sync_interrupt_flag_register; -- Pre-Sync Interrupt Flag Register
+		sync_irq_number_reg   : t_sync_irq_number_register; -- Sync IRQ Number Register
 	end record t_sync_mm_read_registers;
 
 end package sync_mm_registers_pkg;

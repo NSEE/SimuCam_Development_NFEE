@@ -1304,6 +1304,12 @@ if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 #endif
 
 		bSuccess = TRUE;
+	} else {
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp, "\nSync Module Configuration Failure!! Period is to small\n");
+}
+#endif
 	}
 
 	return bSuccess;

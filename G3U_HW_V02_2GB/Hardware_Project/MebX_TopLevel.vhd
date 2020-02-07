@@ -251,8 +251,8 @@ entity MebX_TopLevel is
 --		JP3_GPIO0_D7_IO        : inout std_logic;
 --		JP3_GPIO0_D8_IO        : inout std_logic;
 --		JP3_GPIO0_D9_IO        : inout std_logic;
---		JP3_GPIO0_D10_IO       : inout std_logic;
---		JP3_GPIO0_D11_IO       : inout std_logic;
+		JP3_GPIO0_D10_IO       : out   std_logic;
+		JP3_GPIO0_D11_IO       : out   std_logic;
 --		JP3_GPIO0_D12_IO       : inout std_logic;
 --		JP3_GPIO0_D13_IO       : inout std_logic;
 		JP3_GPIO0_D14_IO       : out   std_logic;
@@ -851,7 +851,11 @@ begin
 	JP3_GPIO0_D33_IO <= spw_d_measure(6); -- measurement 6 : fee busy signal
 	JP3_GPIO0_D30_IO <= spw_e_measure(6); -- measurement 6 : fee busy signal
 	JP3_GPIO0_D31_IO <= spw_f_measure(6); -- measurement 6 : fee busy signal
-
+	
+	-- Sync Debug
+	JP3_GPIO0_D10_IO <= s_sync_in;
+	JP3_GPIO0_D11_IO <= s_sync_out;
+	
 	--==========--
 	-- eth
 	--==========--
