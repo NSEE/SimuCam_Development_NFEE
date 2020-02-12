@@ -143,6 +143,8 @@ ELF := Simucam_R0_UART.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS += simucam_main.c
+C_SRCS += rtos/data_control_task.c
+C_SRCS += rtos/fee_taskV2.c
 C_SRCS += api_driver/ddr2/ddr2.c
 C_SRCS += api_driver/dma/dma.c
 C_SRCS += api_driver/sense/sense.c
@@ -162,8 +164,6 @@ C_SRCS += driver/reset/reset.c
 C_SRCS += driver/rtcc_spi/rtcc_spi.c
 C_SRCS += driver/seven_seg/seven_seg.c
 C_SRCS += driver/sync/sync.c
-C_SRCS += rtos/data_control_task.c
-C_SRCS += rtos/fee_taskV2.c
 C_SRCS += rtos/in_ack_handler_task.c
 C_SRCS += rtos/initialization_task.c
 C_SRCS += rtos/nfee_control_taskV2.c

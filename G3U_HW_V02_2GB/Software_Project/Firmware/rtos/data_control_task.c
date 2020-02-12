@@ -24,6 +24,8 @@
 //void vRxEmptyBufferFullIRQHandler(void);
 //void vRxCommErrorIRQHandler(void);
 
+static alt_u32 uliFtdiCnt = 0;
+
 /* 0% Ready! */
 void vDataControlTask(void *task_data) {
 	tQMask uiCmdDTC;
@@ -263,6 +265,7 @@ void vDataControlTask(void *task_data) {
 							vFTDIStart();
 							/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
 							vFTDIResetFullImage();
+							uliFtdiCnt = 0;
 							bSuccess = bFTDIRequestFullImage( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
 							if ( bSuccess == FALSE ) {
 								/* Fail */
@@ -314,6 +317,13 @@ void vDataControlTask(void *task_data) {
 
 					case sSubScheduleDMA:
 
+						uliFtdiCnt++;
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"FTDI Transfer no %lu, addr 0x%08lX, size %u", uliFtdiCnt, xCCDMemMapL->ulAddrI, FTDI_BUFFER_SIZE_TRANSFER);
+}
+#endif
+
 						if ( ucMemUsing == 0 )
 							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u16)FTDI_BUFFER_SIZE_TRANSFER, eSdmaRxFtdi);
 						else
@@ -353,6 +363,13 @@ void vDataControlTask(void *task_data) {
 //						#endif
 
 						usiNByterLeft = (alt_u16)uliFTDInDataLeftInBuffer();
+
+						uliFtdiCnt++;
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"FTDI Transfer no %lu, addr 0x%08lX, size %u", uliFtdiCnt, xCCDMemMapL->ulAddrI, usiNByterLeft);
+}
+#endif
 
 						if ( ucMemUsing == 0 )
 							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, usiNByterLeft, eSdmaRxFtdi);
