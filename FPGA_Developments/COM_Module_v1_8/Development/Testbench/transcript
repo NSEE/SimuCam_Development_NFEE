@@ -70,7 +70,7 @@
 # 66 compiles, 0 failed with no errors.
 vsim work.testbench_top
 # vsim work.testbench_top 
-# Start time: 15:08:36 on Feb 07,2020
+# Start time: 18:37:13 on Feb 12,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -155,213 +155,10 @@ vsim work.testbench_top
 add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/masking_machine_ent_inst/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: rfranca  Hostname: ASPIREV15-NBERF  ProcessID: 19880
-#           Attempting to use alternate WLF file "./wlftt9gf5r".
+#           Attempting to use alternate WLF file "./wlftxa78xd".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftt9gf5r
+#           Using alternate file: ./wlftxa78xd
 add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/masking_machine_ent_inst/delay_machine_ent_inst/*
-restart
-# ** Warning: Design size of 10014 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of config_avalon_stimuli.vhd was successful.
 # Compile of config_avalon_stimuli.vhd was successful.
 restart
 # Loading work.config_avalon_stimuli(rtl)
@@ -771,416 +568,6 @@ run
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-run
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
 restart
 # Loading work.config_avalon_stimuli(rtl)
 # ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
@@ -1284,6 +671,108 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 restart
 # ** Warning: Design size of 10014 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of masking_machine_ent.vhd was successful.
+restart
+# Loading work.masking_machine_ent(rtl)
+# ** Warning: Design size of 17992 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -1484,110 +973,10 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
 restart
-# Loading work.delay_machine_ent(rtl)
-# ** Warning: Design size of 17855 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-restart
-# ** Warning: Design size of 10014 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Loading work.masking_machine_ent(rtl)
+# ** Warning: Design size of 17995 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -1689,7 +1078,7 @@ run
 # Compile of config_avalon_stimuli.vhd was successful.
 restart
 # Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -1791,7 +1180,7 @@ run
 # Compile of config_avalon_stimuli.vhd was successful.
 restart
 # Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -1893,7 +1282,7 @@ run
 # Compile of config_avalon_stimuli.vhd was successful.
 restart
 # Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -1993,10 +1382,9 @@ run
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # Compile of config_avalon_stimuli.vhd was successful.
-# Break key hit
 restart
 # Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 17848 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -2095,3 +1483,416 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of config_avalon_stimuli.vhd was successful.
+restart
+# Loading work.config_avalon_stimuli(rtl)
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of config_avalon_stimuli.vhd was successful.
+restart
+# Loading work.config_avalon_stimuli(rtl)
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of config_avalon_stimuli.vhd was successful.
+restart
+# Loading work.config_avalon_stimuli(rtl)
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+restart
+# ** Warning: Design size of 10016 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of config_avalon_stimuli.vhd was successful.
+restart
+# Loading work.config_avalon_stimuli(rtl)
+# ** Warning: Design size of 17851 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk200_to_clk100_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_timecode_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk100_to_clk200_spw_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# End time: 19:14:58 on Feb 12,2020, Elapsed time: 0:37:45
+# Errors: 0, Warnings: 837

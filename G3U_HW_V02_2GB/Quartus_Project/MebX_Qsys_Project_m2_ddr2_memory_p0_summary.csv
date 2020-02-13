@@ -1,29 +1,29 @@
 Core: MebX_Qsys_Project_m2_ddr2_memory_p0 - Instance: SOPC_INST|m2_ddr2_memory
 Path, Setup Margin, Hold Margin
-"Address Command (Slow 900mV 85C Model)",0.177,0.578
+"Address Command (Slow 900mV 85C Model)",0.176,0.578
 "Bus Turnaround Time (Slow 900mV 85C Model)",5.428,--
-"Core (Slow 900mV 85C Model)",0.206,0.08
-"Core Recovery/Removal (Slow 900mV 85C Model)",0.744,0.52
-"Read Capture (Slow 900mV 85C Model)",0.149,0.101
-"Read Resync (Slow 900mV 85C Model)",2.531,5.193
+"Core (Slow 900mV 85C Model)",0.344,0.11
+"Core Recovery/Removal (Slow 900mV 85C Model)",0.87,0.654
+"Read Capture (Slow 900mV 85C Model)",0.15,0.102
+"Read Resync (Slow 900mV 85C Model)",2.795,5.321
 "Write (Slow 900mV 85C Model)",-0.086,-0.086
 "Write Leveling tDQSS (Slow 900mV 85C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 85C Model)",0.42,0.42
 "Address Command (Slow 900mV 0C Model)",0.16,0.647
 "Bus Turnaround Time (Slow 900mV 0C Model)",5.465,--
-"Core (Slow 900mV 0C Model)",0.365,0.226
-"Core Recovery/Removal (Slow 900mV 0C Model)",0.972,0.502
+"Core (Slow 900mV 0C Model)",0.565,0.256
+"Core Recovery/Removal (Slow 900mV 0C Model)",1.048,0.622
 "Read Capture (Slow 900mV 0C Model)",0.152,0.104
-"Read Resync (Slow 900mV 0C Model)",2.614,5.273
+"Read Resync (Slow 900mV 0C Model)",2.925,5.429
 "Write (Slow 900mV 0C Model)",-0.057,-0.057
 "Write Leveling tDQSS (Slow 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 0C Model)",0.42,0.42
 "Address Command (Fast 900mV 0C Model)",0.128,0.831
 "Bus Turnaround Time (Fast 900mV 0C Model)",5.518,--
-"Core (Fast 900mV 0C Model)",0.58,0.144
-"Core Recovery/Removal (Fast 900mV 0C Model)",2.47,0.27
+"Core (Fast 900mV 0C Model)",0.669,0.099
+"Core Recovery/Removal (Fast 900mV 0C Model)",2.041,0.344
 "Read Capture (Fast 900mV 0C Model)",0.182,0.134
-"Read Resync (Fast 900mV 0C Model)",3.126,5.744
+"Read Resync (Fast 900mV 0C Model)",3.266,5.782
 "Write (Fast 900mV 0C Model)",-0.075,-0.075
 "Write Leveling tDQSS (Fast 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Fast 900mV 0C Model)",0.42,0.42

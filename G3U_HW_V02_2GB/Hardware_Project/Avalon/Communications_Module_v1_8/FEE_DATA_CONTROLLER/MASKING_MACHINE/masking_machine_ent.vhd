@@ -150,6 +150,9 @@ architecture RTL of masking_machine_ent is
 
 	-- data fetched flag
 	signal s_data_fetched : std_logic;
+	
+	-- fisrt row constant
+	constant c_CCD_FIRST_ROW : std_logic_vector((fee_ccd_y_size_i'length - 1) downto 0) := (others => '0');
 
 begin
 
@@ -329,7 +332,7 @@ begin
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
 							-- check if the data need to be transmitted
-							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) < unsigned(fee_ccd_v_end_i))) then
+							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
@@ -368,7 +371,7 @@ begin
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
 							-- check if the data need to be transmitted
-							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) < unsigned(fee_ccd_v_end_i))) then
+							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
