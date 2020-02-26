@@ -4,7 +4,7 @@
 
 
 # 
-# COMM_Pedreiro_v1_01 "COMM_Pedreiro_v1_01" v2.1
+# COMM_Pedreiro_v1_01 "COMM_Pedreiro_v1_01" v2.2
 #  2019.08.15.20:34:01
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME COMM_Pedreiro_v1_01
-set_module_property VERSION 2.1
+set_module_property VERSION 2.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
