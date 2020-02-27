@@ -61,7 +61,7 @@ void vFeeTaskV3(void *task_data) {
 
 				bFeebGetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 				//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
-				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDataControllerEn = xDefaults.bDataPacket;
+				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
@@ -3021,7 +3021,7 @@ bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh ) {
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetMachineControl(pxFeebCh);
 	//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
-	pxFeebCh->xFeebMachineControl.bDataControllerEn = xDefaults.bDataPacket;
+	pxFeebCh->xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
 	pxFeebCh->xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
 	bFeebSetMachineControl(pxFeebCh);
 
