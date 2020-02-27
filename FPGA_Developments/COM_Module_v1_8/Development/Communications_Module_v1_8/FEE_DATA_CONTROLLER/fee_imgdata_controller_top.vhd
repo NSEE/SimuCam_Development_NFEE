@@ -99,6 +99,7 @@ architecture RTL of fee_imgdata_controller_top is
 	signal s_send_buffer_wrreq             : std_logic;
 	signal s_send_buffer_stat_full         : std_logic;
 	signal s_send_buffer_wrready           : std_logic;
+	signal s_send_double_buffer_wrable     : std_logic;
 
 begin
 
@@ -135,6 +136,7 @@ begin
 			window_data_ready_i           => fee_window_data_ready_i,
 			window_mask_ready_i           => fee_window_mask_ready_i,
 			masking_buffer_rdreq_i        => s_masking_buffer_rdreq,
+			send_double_buffer_wrable_i   => s_send_double_buffer_wrable,
 			masking_machine_finished_o    => s_masking_machine_finished,
 			window_data_read_o            => fee_window_data_read_o,
 			window_mask_read_o            => fee_window_mask_read_o,
@@ -245,7 +247,8 @@ begin
 			buffer_rddata_o              => imgdata_send_buffer_status_o.rddata,
 			buffer_rdready_o             => imgdata_send_buffer_status_o.rdready,
 			buffer_wrready_o             => s_send_buffer_wrready,
-			double_buffer_empty_o        => imgdata_send_double_buffer_empty_o
+			double_buffer_empty_o        => imgdata_send_double_buffer_empty_o,
+			double_buffer_wrable_o       => s_send_double_buffer_wrable
 		);
 	s_send_buffer_wrdata <= (s_send_buffer_header_gen_wrdata) or (s_send_buffer_data_wr_wrdata);
 	s_send_buffer_wrreq  <= (s_send_buffer_header_gen_wrreq) or (s_send_buffer_data_wr_wrreq);
