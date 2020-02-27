@@ -1,0 +1,10 @@
+# Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# OpenFile C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/RMAP_Memory_NFEE_Area_tb.mpf
+# Loading project RMAP_Memory_NFEE_Area_tb
+# Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
+# Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
+# Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
+# Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
+# Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
+# Compile of nrme_rmap_memory_nfee_area_top.vhd was successful.
+# 6 compiles, 0 failed with no errors.
