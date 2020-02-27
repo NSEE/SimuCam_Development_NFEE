@@ -322,8 +322,8 @@ package rmap_target_pkg is
 	end record t_rmap_target_mem_wr_control;
 
 	type t_rmap_target_mem_wr_flag is record
-		ready : std_logic;
-		error : std_logic;
+		waitrequest : std_logic;
+		error       : std_logic;
 	end record t_rmap_target_mem_wr_flag;
 
 	type t_rmap_target_mem_rd_control is record
@@ -331,9 +331,9 @@ package rmap_target_pkg is
 	end record t_rmap_target_mem_rd_control;
 
 	type t_rmap_target_mem_rd_flag is record
-		valid : std_logic;
-		error : std_logic;
-		data  : std_logic_vector(7 downto 0);
+		waitrequest : std_logic;
+		error       : std_logic;
+		data        : std_logic_vector(7 downto 0);
 	end record t_rmap_target_mem_rd_flag;
 
 	type t_rmap_target_mem_control is record

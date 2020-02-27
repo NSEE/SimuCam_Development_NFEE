@@ -1,0 +1,39 @@
+# Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# OpenFile D:/rfranca/Development/GitHub/Simucam_DLR/FPGA_Developments/RMAP_Memory_Area/Development/Testbench/RMAP_Memory_Area_tb.mpf
+# Loading project RMAP_Memory_Area_tb
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_arbiter_ent.vhd was successful.
+# Compile of rmap_mem_area_nfee_read.vhd was successful.
+# Compile of rmap_mem_area_nfee_write.vhd was successful.
+# Compile of rmem_rmap_memory_area_top.vhd was successful.
+# 6 compiles, 0 failed with no errors.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_arbiter_ent.vhd failed with 2 errors.
+# Compile of rmap_mem_area_nfee_read.vhd was successful.
+# Compile of rmap_mem_area_nfee_write.vhd was successful.
+# Compile of rmem_rmap_memory_area_top.vhd was successful.
+# 6 compiles, 1 failed with 2 errors.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_arbiter_ent.vhd failed with 2 errors.
+# Compile of rmap_mem_area_nfee_read.vhd was successful.
+# Compile of rmap_mem_area_nfee_write.vhd was successful.
+# Compile of rmem_rmap_memory_area_top.vhd was successful.
+# 6 compiles, 1 failed with 2 errors.
+# Compile of rmap_mem_area_nfee_arbiter_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_arbiter_ent.vhd was successful.
+# Compile of rmap_mem_area_nfee_read.vhd was successful.
+# Compile of rmap_mem_area_nfee_write.vhd was successful.
+# Compile of rmem_rmap_memory_area_top.vhd was successful.
+# 6 compiles, 0 failed with no errors.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_pkg.vhd was successful.
+# Compile of rmap_mem_area_nfee_arbiter_ent.vhd was successful.
+# Compile of rmap_mem_area_nfee_read.vhd was successful.
+# Compile of rmap_mem_area_nfee_write.vhd was successful.
+# Compile of rmem_rmap_memory_area_top.vhd was successful.
+# 6 compiles, 0 failed with no errors.
