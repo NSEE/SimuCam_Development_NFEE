@@ -13,18 +13,6 @@ entity nrme_rmap_mem_area_nfee_arbiter_ent is
 		fee_0_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
 		fee_1_wr_rmap_i       : in  t_nrme_nfee_rmap_write_in;
 		fee_1_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
-		fee_2_wr_rmap_i       : in  t_nrme_nfee_rmap_write_in;
-		fee_2_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
-		fee_3_wr_rmap_i       : in  t_nrme_nfee_rmap_write_in;
-		fee_3_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
-		fee_4_wr_rmap_i       : in  t_nrme_nfee_rmap_write_in;
-		fee_4_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
-		fee_5_wr_rmap_i       : in  t_nrme_nfee_rmap_write_in;
-		fee_5_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
-		fee_6_wr_rmap_i       : in  t_nrme_nfee_rmap_write_in;
-		fee_6_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
-		fee_7_wr_rmap_i       : in  t_nrme_nfee_rmap_write_in;
-		fee_7_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
 		avalon_0_mm_wr_rmap_i : in  t_nrme_avalon_mm_rmap_nfee_write_in;
 		avalon_0_mm_rd_rmap_i : in  t_nrme_avalon_mm_rmap_nfee_read_in;
 		fee_wr_rmap_i         : in  t_nrme_nfee_rmap_write_out;
@@ -35,18 +23,6 @@ entity nrme_rmap_mem_area_nfee_arbiter_ent is
 		fee_0_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
 		fee_1_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
 		fee_1_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
-		fee_2_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
-		fee_2_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
-		fee_3_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
-		fee_3_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
-		fee_4_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
-		fee_4_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
-		fee_5_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
-		fee_5_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
-		fee_6_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
-		fee_6_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
-		fee_7_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
-		fee_7_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
 		avalon_0_mm_wr_rmap_o : out t_nrme_avalon_mm_rmap_nfee_write_out;
 		avalon_0_mm_rd_rmap_o : out t_nrme_avalon_mm_rmap_nfee_read_out;
 		fee_wr_rmap_o         : out t_nrme_nfee_rmap_write_in;
@@ -66,46 +42,22 @@ architecture RTL of nrme_rmap_mem_area_nfee_arbiter_ent is
 		master_none,
 		master_wr_fee_0,
 		master_wr_fee_1,
-		master_wr_fee_2,
-		master_wr_fee_3,
-		master_wr_fee_4,
-		master_wr_fee_5,
-		master_wr_fee_6,
-		master_wr_fee_7,
 		master_wr_avs_0,
 		master_rd_fee_0,
 		master_rd_fee_1,
-		master_rd_fee_2,
-		master_rd_fee_3,
-		master_rd_fee_4,
-		master_rd_fee_5,
-		master_rd_fee_6,
-		master_rd_fee_7,
 		master_rd_avs_0
 	);
 	signal s_selected_master : t_master_list;
 
-	subtype t_master_queue_index is natural range 0 to 18;
+	subtype t_master_queue_index is natural range 0 to 6;
 	type t_master_queue is array (0 to t_master_queue_index'high) of t_master_list;
 	signal s_master_queue : t_master_queue;
 
 	signal s_master_wr_fee_0_queued : std_logic;
 	signal s_master_wr_fee_1_queued : std_logic;
-	signal s_master_wr_fee_2_queued : std_logic;
-	signal s_master_wr_fee_3_queued : std_logic;
-	signal s_master_wr_fee_4_queued : std_logic;
-	signal s_master_wr_fee_5_queued : std_logic;
-	signal s_master_wr_fee_6_queued : std_logic;
-	signal s_master_wr_fee_7_queued : std_logic;
 	signal s_master_wr_avs_0_queued : std_logic;
 	signal s_master_rd_fee_0_queued : std_logic;
 	signal s_master_rd_fee_1_queued : std_logic;
-	signal s_master_rd_fee_2_queued : std_logic;
-	signal s_master_rd_fee_3_queued : std_logic;
-	signal s_master_rd_fee_4_queued : std_logic;
-	signal s_master_rd_fee_5_queued : std_logic;
-	signal s_master_rd_fee_6_queued : std_logic;
-	signal s_master_rd_fee_7_queued : std_logic;
 	signal s_master_rd_avs_0_queued : std_logic;
 
 begin
@@ -119,21 +71,9 @@ begin
 			s_master_queue           <= (others => master_none);
 			s_master_wr_fee_0_queued <= '0';
 			s_master_wr_fee_1_queued <= '0';
-			s_master_wr_fee_2_queued <= '0';
-			s_master_wr_fee_3_queued <= '0';
-			s_master_wr_fee_4_queued <= '0';
-			s_master_wr_fee_5_queued <= '0';
-			s_master_wr_fee_6_queued <= '0';
-			s_master_wr_fee_7_queued <= '0';
 			s_master_wr_avs_0_queued <= '0';
 			s_master_rd_fee_0_queued <= '0';
 			s_master_rd_fee_1_queued <= '0';
-			s_master_rd_fee_2_queued <= '0';
-			s_master_rd_fee_3_queued <= '0';
-			s_master_rd_fee_4_queued <= '0';
-			s_master_rd_fee_5_queued <= '0';
-			s_master_rd_fee_6_queued <= '0';
-			s_master_rd_fee_7_queued <= '0';
 			s_master_rd_avs_0_queued <= '0';
 			v_master_queue_index     := 0;
 		elsif (rising_edge(clk_i)) then
@@ -156,78 +96,6 @@ begin
 				-- put master fee 1 write in the queue
 				s_master_queue(v_master_queue_index) <= master_wr_fee_1;
 				s_master_wr_fee_1_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 2 requested a write and is not queued
-			if ((fee_1_wr_rmap_i.write = '1') and (s_master_wr_fee_2_queued = '0')) then
-				-- master fee 2 requested a write and is not queued
-				-- put master fee 2 write in the queue
-				s_master_queue(v_master_queue_index) <= master_wr_fee_2;
-				s_master_wr_fee_2_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 3 requested a write and is not queued
-			if ((fee_1_wr_rmap_i.write = '1') and (s_master_wr_fee_3_queued = '0')) then
-				-- master fee 3 requested a write and is not queued
-				-- put master fee 3 write in the queue
-				s_master_queue(v_master_queue_index) <= master_wr_fee_3;
-				s_master_wr_fee_3_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 4 requested a write and is not queued
-			if ((fee_1_wr_rmap_i.write = '1') and (s_master_wr_fee_4_queued = '0')) then
-				-- master fee 4 requested a write and is not queued
-				-- put master fee 4 write in the queue
-				s_master_queue(v_master_queue_index) <= master_wr_fee_4;
-				s_master_wr_fee_4_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 5 requested a write and is not queued
-			if ((fee_1_wr_rmap_i.write = '1') and (s_master_wr_fee_5_queued = '0')) then
-				-- master fee 5 requested a write and is not queued
-				-- put master fee 5 write in the queue
-				s_master_queue(v_master_queue_index) <= master_wr_fee_5;
-				s_master_wr_fee_5_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 6 requested a write and is not queued
-			if ((fee_1_wr_rmap_i.write = '1') and (s_master_wr_fee_6_queued = '0')) then
-				-- master fee 6 requested a write and is not queued
-				-- put master fee 6 write in the queue
-				s_master_queue(v_master_queue_index) <= master_wr_fee_6;
-				s_master_wr_fee_6_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 7 requested a write and is not queued
-			if ((fee_1_wr_rmap_i.write = '1') and (s_master_wr_fee_7_queued = '0')) then
-				-- master fee 7 requested a write and is not queued
-				-- put master fee 7 write in the queue
-				s_master_queue(v_master_queue_index) <= master_wr_fee_7;
-				s_master_wr_fee_7_queued             <= '1';
 				-- update master queue index
 				if (v_master_queue_index < t_master_queue_index'high) then
 					v_master_queue_index := v_master_queue_index + 1;
@@ -270,78 +138,6 @@ begin
 				end if;
 			end if;
 
-			-- check if master fee 2 requested a read and is not queued
-			if ((fee_0_rd_rmap_i.read = '1') and (s_master_rd_fee_2_queued = '0')) then
-				-- master fee 2 requested a read and is not queued
-				-- put master fee read 2 in the queue
-				s_master_queue(v_master_queue_index) <= master_rd_fee_2;
-				s_master_rd_fee_2_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 3 requested a read and is not queued
-			if ((fee_0_rd_rmap_i.read = '1') and (s_master_rd_fee_3_queued = '0')) then
-				-- master fee 3 requested a read and is not queued
-				-- put master fee read 3 in the queue
-				s_master_queue(v_master_queue_index) <= master_rd_fee_3;
-				s_master_rd_fee_3_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 4 requested a read and is not queued
-			if ((fee_0_rd_rmap_i.read = '1') and (s_master_rd_fee_4_queued = '0')) then
-				-- master fee 4 requested a read and is not queued
-				-- put master fee read 4 in the queue
-				s_master_queue(v_master_queue_index) <= master_rd_fee_4;
-				s_master_rd_fee_4_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 5 requested a read and is not queued
-			if ((fee_0_rd_rmap_i.read = '1') and (s_master_rd_fee_5_queued = '0')) then
-				-- master fee 5 requested a read and is not queued
-				-- put master fee read 5 in the queue
-				s_master_queue(v_master_queue_index) <= master_rd_fee_5;
-				s_master_rd_fee_5_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 6 requested a read and is not queued
-			if ((fee_0_rd_rmap_i.read = '1') and (s_master_rd_fee_6_queued = '0')) then
-				-- master fee 6 requested a read and is not queued
-				-- put master fee read 6 in the queue
-				s_master_queue(v_master_queue_index) <= master_rd_fee_6;
-				s_master_rd_fee_6_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
-			-- check if master fee 7 requested a read and is not queued
-			if ((fee_0_rd_rmap_i.read = '1') and (s_master_rd_fee_7_queued = '0')) then
-				-- master fee 7 requested a read and is not queued
-				-- put master fee read 7 in the queue
-				s_master_queue(v_master_queue_index) <= master_rd_fee_7;
-				s_master_rd_fee_7_queued             <= '1';
-				-- update master queue index
-				if (v_master_queue_index < t_master_queue_index'high) then
-					v_master_queue_index := v_master_queue_index + 1;
-				end if;
-			end if;
-
 			-- check if master avs 0 requested a read and is not queued
 			if ((avalon_0_mm_rd_rmap_i.read = '1') and (s_master_rd_avs_0_queued = '0')) then
 				-- master avs 0 requested a read and is not queued
@@ -369,16 +165,13 @@ begin
 					if (fee_0_wr_rmap_i.write = '0') then
 						-- master is finished
 						-- set master selection to none
-						s_selected_master        <= master_none;
+						s_selected_master                         <= master_none;
 						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_0_queued <= '0';
+						for index in 0 to (t_master_queue_index'high - 1) loop
+							s_master_queue(index) <= s_master_queue(index + 1);
+						end loop;
+						s_master_queue(t_master_queue_index'high) <= master_none;
+						s_master_wr_fee_0_queued                  <= '0';
 						-- update master queue index
 						if (v_master_queue_index > t_master_queue_index'low) then
 							v_master_queue_index := v_master_queue_index - 1;
@@ -392,154 +185,13 @@ begin
 					if (fee_1_wr_rmap_i.write = '0') then
 						-- master is finished
 						-- set master selection to none
-						s_selected_master        <= master_none;
+						s_selected_master                         <= master_none;
 						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_1_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_wr_fee_2 =>
-					-- master fee 2 write at top of the queue
-					s_selected_master <= master_wr_fee_2;
-					-- check if the master is finished
-					if (fee_2_wr_rmap_i.write = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_2_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_wr_fee_3 =>
-					-- master fee 3 write at top of the queue
-					s_selected_master <= master_wr_fee_3;
-					-- check if the master is finished
-					if (fee_3_wr_rmap_i.write = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_3_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_wr_fee_4 =>
-					-- master fee 4 write at top of the queue
-					s_selected_master <= master_wr_fee_4;
-					-- check if the master is finished
-					if (fee_4_wr_rmap_i.write = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_4_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_wr_fee_5 =>
-					-- master fee 5 write at top of the queue
-					s_selected_master <= master_wr_fee_5;
-					-- check if the master is finished
-					if (fee_5_wr_rmap_i.write = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_5_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_wr_fee_6 =>
-					-- master fee 6 write at top of the queue
-					s_selected_master <= master_wr_fee_6;
-					-- check if the master is finished
-					if (fee_6_wr_rmap_i.write = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_6_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_wr_fee_7 =>
-					-- master fee 7 write at top of the queue
-					s_selected_master <= master_wr_fee_7;
-					-- check if the master is finished
-					if (fee_7_wr_rmap_i.write = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_fee_7_queued <= '0';
+						for index in 0 to (t_master_queue_index'high - 1) loop
+							s_master_queue(index) <= s_master_queue(index + 1);
+						end loop;
+						s_master_queue(t_master_queue_index'high) <= master_none;
+						s_master_wr_fee_1_queued                  <= '0';
 						-- update master queue index
 						if (v_master_queue_index > t_master_queue_index'low) then
 							v_master_queue_index := v_master_queue_index - 1;
@@ -553,16 +205,13 @@ begin
 					if (avalon_0_mm_wr_rmap_i.write = '0') then
 						-- master is finished
 						-- set master selection to none
-						s_selected_master        <= master_none;
+						s_selected_master                         <= master_none;
 						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_wr_avs_0_queued <= '0';
+						for index in 0 to (t_master_queue_index'high - 1) loop
+							s_master_queue(index) <= s_master_queue(index + 1);
+						end loop;
+						s_master_queue(t_master_queue_index'high) <= master_none;
+						s_master_wr_avs_0_queued                  <= '0';
 						-- update master queue index
 						if (v_master_queue_index > t_master_queue_index'low) then
 							v_master_queue_index := v_master_queue_index - 1;
@@ -576,16 +225,13 @@ begin
 					if (fee_0_rd_rmap_i.read = '0') then
 						-- master is finished
 						-- set master selection to none
-						s_selected_master        <= master_none;
+						s_selected_master                         <= master_none;
 						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_0_queued <= '0';
+						for index in 0 to (t_master_queue_index'high - 1) loop
+							s_master_queue(index) <= s_master_queue(index + 1);
+						end loop;
+						s_master_queue(t_master_queue_index'high) <= master_none;
+						s_master_rd_fee_0_queued                  <= '0';
 						-- update master queue index
 						if (v_master_queue_index > t_master_queue_index'low) then
 							v_master_queue_index := v_master_queue_index - 1;
@@ -599,154 +245,13 @@ begin
 					if (fee_1_rd_rmap_i.read = '0') then
 						-- master is finished
 						-- set master selection to none
-						s_selected_master        <= master_none;
+						s_selected_master                         <= master_none;
 						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_1_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_rd_fee_2 =>
-					-- master fee 2 read at top of the queue
-					s_selected_master <= master_rd_fee_2;
-					-- check if the master is finished
-					if (fee_2_rd_rmap_i.read = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_2_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_rd_fee_3 =>
-					-- master fee 3 read at top of the queue
-					s_selected_master <= master_rd_fee_3;
-					-- check if the master is finished
-					if (fee_3_rd_rmap_i.read = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_3_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_rd_fee_4 =>
-					-- master fee 4 read at top of the queue
-					s_selected_master <= master_rd_fee_4;
-					-- check if the master is finished
-					if (fee_4_rd_rmap_i.read = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_4_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_rd_fee_5 =>
-					-- master fee 5 read at top of the queue
-					s_selected_master <= master_rd_fee_5;
-					-- check if the master is finished
-					if (fee_5_rd_rmap_i.read = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_5_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_rd_fee_6 =>
-					-- master fee 6 read at top of the queue
-					s_selected_master <= master_rd_fee_6;
-					-- check if the master is finished
-					if (fee_6_rd_rmap_i.read = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_6_queued <= '0';
-						-- update master queue index
-						if (v_master_queue_index > t_master_queue_index'low) then
-							v_master_queue_index := v_master_queue_index - 1;
-						end if;
-					end if;
-
-				when master_rd_fee_7 =>
-					-- master fee 7 read at top of the queue
-					s_selected_master <= master_rd_fee_7;
-					-- check if the master is finished
-					if (fee_7_rd_rmap_i.read = '0') then
-						-- master is finished
-						-- set master selection to none
-						s_selected_master        <= master_none;
-						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_fee_7_queued <= '0';
+						for index in 0 to (t_master_queue_index'high - 1) loop
+							s_master_queue(index) <= s_master_queue(index + 1);
+						end loop;
+						s_master_queue(t_master_queue_index'high) <= master_none;
+						s_master_rd_fee_1_queued                  <= '0';
 						-- update master queue index
 						if (v_master_queue_index > t_master_queue_index'low) then
 							v_master_queue_index := v_master_queue_index - 1;
@@ -760,16 +265,12 @@ begin
 					if (avalon_0_mm_rd_rmap_i.read = '0') then
 						-- master is finished
 						-- set master selection to none
-						s_selected_master        <= master_none;
+						s_selected_master                         <= master_none;
 						-- remove master from the queue
-						s_master_queue(0)        <= s_master_queue(1);
-						s_master_queue(1)        <= s_master_queue(2);
-						s_master_queue(2)        <= s_master_queue(3);
-						s_master_queue(3)        <= s_master_queue(4);
-						s_master_queue(4)        <= s_master_queue(5);
-						s_master_queue(5)        <= s_master_queue(6);
-						s_master_queue(6)        <= master_none;
-						s_master_rd_avs_0_queued <= '0';
+						for index in 0 to (t_master_queue_index'high - 1) loop
+							s_master_queue(index) <= s_master_queue(index + 1);
+						end loop;
+						s_master_queue(t_master_queue_index'high) <= master_none;
 						-- update master queue index
 						if (v_master_queue_index > t_master_queue_index'low) then
 							v_master_queue_index := v_master_queue_index - 1;
@@ -793,12 +294,6 @@ begin
 	fee_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_IN_RST) when (rst_i = '1')
 	                       else (fee_0_wr_rmap_i) when (s_selected_master = master_wr_fee_0)
 	                       else (fee_1_wr_rmap_i) when (s_selected_master = master_wr_fee_1)
-	                       else (fee_2_wr_rmap_i) when (s_selected_master = master_wr_fee_2)
-	                       else (fee_3_wr_rmap_i) when (s_selected_master = master_wr_fee_3)
-	                       else (fee_4_wr_rmap_i) when (s_selected_master = master_wr_fee_4)
-	                       else (fee_5_wr_rmap_i) when (s_selected_master = master_wr_fee_5)
-	                       else (fee_6_wr_rmap_i) when (s_selected_master = master_wr_fee_6)
-	                       else (fee_7_wr_rmap_i) when (s_selected_master = master_wr_fee_7)
 	                       else (c_NRME_NFEE_RMAP_WRITE_IN_RST);
 	avalon_mm_wr_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_IN_RST) when (rst_i = '1')
 	                       else (avalon_0_mm_wr_rmap_i) when (s_selected_master = master_wr_avs_0)
@@ -811,24 +306,6 @@ begin
 	fee_1_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
 	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_1)
 	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
-	fee_2_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_2)
-	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
-	fee_3_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_3)
-	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
-	fee_4_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_4)
-	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
-	fee_5_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_5)
-	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
-	fee_6_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_6)
-	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
-	fee_7_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_7)
-	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
 	avalon_0_mm_wr_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_OUT_RST) when (rst_i = '1')
 	                         else (avalon_mm_wr_rmap_i) when (s_selected_master = master_wr_avs_0)
 	                         else (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_OUT_RST);
@@ -837,12 +314,6 @@ begin
 	fee_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_IN_RST) when (rst_i = '1')
 	                       else (fee_0_rd_rmap_i) when (s_selected_master = master_rd_fee_0)
 	                       else (fee_1_rd_rmap_i) when (s_selected_master = master_rd_fee_1)
-	                       else (fee_2_rd_rmap_i) when (s_selected_master = master_rd_fee_2)
-	                       else (fee_3_rd_rmap_i) when (s_selected_master = master_rd_fee_3)
-	                       else (fee_4_rd_rmap_i) when (s_selected_master = master_rd_fee_4)
-	                       else (fee_5_rd_rmap_i) when (s_selected_master = master_rd_fee_5)
-	                       else (fee_6_rd_rmap_i) when (s_selected_master = master_rd_fee_6)
-	                       else (fee_7_rd_rmap_i) when (s_selected_master = master_rd_fee_7)
 	                       else (c_NRME_NFEE_RMAP_READ_IN_RST);
 	avalon_mm_rd_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_READ_IN_RST) when (rst_i = '1')
 	                       else (avalon_0_mm_rd_rmap_i) when (s_selected_master = master_rd_avs_0)
@@ -854,24 +325,6 @@ begin
 	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
 	fee_1_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
 	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_1)
-	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
-	fee_2_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_2)
-	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
-	fee_3_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_3)
-	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
-	fee_4_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_4)
-	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
-	fee_5_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_5)
-	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
-	fee_6_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_6)
-	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
-	fee_7_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_7)
 	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
 	avalon_0_mm_rd_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_READ_OUT_RST) when (rst_i = '1')
 	                         else (avalon_mm_rd_rmap_i) when (s_selected_master = master_rd_avs_0)

@@ -135,14 +135,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_mem_area_nfee_write
 -- Compiling architecture RTL of rmap_mem_area_nfee_write
 
-} {} {}} ../RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package avalon_mm_spacewire_pkg
-
 } {} {}} ../RMAP_Memory_NFEE_Area/AVALON_RMAP_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_RMAP_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -150,6 +142,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
 -- Compiling package nrme_avalon_mm_rmap_nfee_pkg
+
+} {} {}} ../RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package avalon_mm_spacewire_pkg
 
 } {} {}} ../RMAP_Memory_NFEE_Area/nrme_rmap_memory_nfee_area_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/nrme_rmap_memory_nfee_area_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
