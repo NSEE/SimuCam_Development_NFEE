@@ -545,7 +545,7 @@ int main(void)
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
 		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
-		fprintf(fp, "xDefaults.bDataPacket %u \n", xDefaults.bDataPacket);
+		fprintf(fp, "xDefaults.bBufferOverflowEn %u \n", xDefaults.bBufferOverflowEn);
 		fprintf(fp, "xDefaults.bOneShot %u \n", xDefaults.bOneShot);
 		fprintf(fp, "xDefaults.ucLogicalAddr %u \n", xDefaults.ucLogicalAddr);
 		fprintf(fp, "xDefaults.ucReadOutOrder %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);

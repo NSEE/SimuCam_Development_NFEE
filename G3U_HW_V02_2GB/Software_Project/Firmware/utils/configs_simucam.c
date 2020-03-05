@@ -676,9 +676,9 @@ bool vLoadDebugConfs( void ){
 
 						sidhcpTemp = atoi( inteiro );
 						if (sidhcpTemp == 1)
-							xDefaults.bDataPacket = TRUE;
+							xDefaults.bBufferOverflowEn = TRUE;
 						else
-							xDefaults.bDataPacket = FALSE;
+							xDefaults.bBufferOverflowEn = FALSE;
 
 						p_inteiro = inteiro;
 
