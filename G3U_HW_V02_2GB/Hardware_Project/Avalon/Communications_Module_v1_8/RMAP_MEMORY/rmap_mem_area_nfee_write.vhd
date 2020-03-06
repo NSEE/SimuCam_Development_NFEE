@@ -38,7 +38,7 @@ begin
 			-- RMAP Area Config Register 0 : V Start Config Field
 			rmap_registers_wr_o.reg_0_config.v_start                       <= std_logic_vector(to_unsigned(0, 16));
 			-- RMAP Area Config Register 0 : V End Config Field
-			rmap_registers_wr_o.reg_0_config.v_end                         <= std_logic_vector(to_unsigned(4540, 16));
+			rmap_registers_wr_o.reg_0_config.v_end                         <= std_logic_vector(to_unsigned(4539, 16));
 			-- RMAP Area Config Register 1 : Charge Injection Width Config Field
 			rmap_registers_wr_o.reg_1_config.charge_injection_width        <= std_logic_vector(to_unsigned(0, 16));
 			-- RMAP Area Config Register 1 : Charge Injection Gap Config Field

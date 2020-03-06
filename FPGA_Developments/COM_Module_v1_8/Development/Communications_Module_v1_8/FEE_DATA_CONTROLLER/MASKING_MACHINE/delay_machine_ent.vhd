@@ -101,7 +101,7 @@ begin
 					if (s_delay_cnt = c_DELAY_FINISHED) then
 						-- start delay ended
 						-- check if the first row is to be skipped
-						if (fee_ccd_v_start_i /= c_CCD_FIRST_ROW) then
+						if ((fee_ccd_v_start_i /= c_CCD_FIRST_ROW) or (fee_ccd_v_end_i = c_CCD_FIRST_ROW)) then
 							-- first row is to be skipped
 							-- set column counter
 							s_ccd_column_cnt      <= fee_ccd_x_size_i;
@@ -148,7 +148,7 @@ begin
 						else
 							-- row was not the last of the ccd
 							-- check if the next row is to be skipped
-							if (((unsigned(s_ccd_row_cnt) + 1) < unsigned(fee_ccd_v_start_i)) or ((unsigned(s_ccd_row_cnt) + 2) > unsigned(fee_ccd_v_end_i))) then
+							if (((unsigned(s_ccd_row_cnt) + 1) < unsigned(fee_ccd_v_start_i)) or ((unsigned(s_ccd_row_cnt) + 1) > unsigned(fee_ccd_v_end_i))) then
 								-- next row is to be skipped
 								-- set delay counter
 								if (fee_skip_delay_i /= c_DELAY_FINISHED) then
@@ -221,7 +221,7 @@ begin
 								-- increment row counter
 								s_ccd_row_cnt    <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
 								-- check if the next row is to be skipped
-								if ((unsigned(s_ccd_row_cnt) + 2) > unsigned(fee_ccd_v_end_i)) then
+								if ((unsigned(s_ccd_row_cnt) + 1) > unsigned(fee_ccd_v_end_i)) then
 									-- next row is to be skipped
 									-- set delay counter
 									if (fee_skip_delay_i /= c_DELAY_FINISHED) then

@@ -118,7 +118,7 @@ typedef struct FeebMachineControl {
   bool bClear; /* FEE Machine Clear */
   bool bStop; /* FEE Machine Stop */
   bool bStart; /* FEE Machine Start */
-  bool bDataControllerEn; /* FEE Data Controller Enable */
+  bool bBufferOverflowEn; /* FEE Buffer Overflow Enable */
   bool bDigitaliseEn; /* FEE Digitalise Enable */
   bool bWindowingEn; /* FEE Windowing Enable */
 } TFeebMachineControl;

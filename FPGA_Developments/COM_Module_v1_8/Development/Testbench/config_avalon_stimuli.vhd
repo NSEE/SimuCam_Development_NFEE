@@ -129,7 +129,7 @@ begin
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
 					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(0, 16)); -- data_pkt_ccd_v_start
-					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(50, 16)); -- data_pkt_ccd_v_end
+					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(49, 16)); -- data_pkt_ccd_v_end
 					avalon_mm_read_o                    <= '0';
 
 				-- data_packet_config_4_reg

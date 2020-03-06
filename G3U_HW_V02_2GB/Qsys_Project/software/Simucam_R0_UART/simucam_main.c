@@ -466,6 +466,7 @@ void vVariablesInitialization ( void ) {
 	}
 }
 
+bool bDdr2MemoryFastTest ( void );
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
 void bInitFTDI(void);
 
@@ -544,7 +545,7 @@ int main(void)
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
 		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
-		fprintf(fp, "xDefaults.bDataPacket %u \n", xDefaults.bDataPacket);
+		fprintf(fp, "xDefaults.bBufferOverflowEn %u \n", xDefaults.bBufferOverflowEn);
 		fprintf(fp, "xDefaults.bOneShot %u \n", xDefaults.bOneShot);
 		fprintf(fp, "xDefaults.ucLogicalAddr %u \n", xDefaults.ucLogicalAddr);
 		fprintf(fp, "xDefaults.ucReadOutOrder %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);
@@ -639,7 +640,11 @@ int main(void)
 	bInitFTDI();
 
 	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
+
+	bDdr2MemoryFastTest();
+
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
 
 	xGlobal.bSyncReset = FALSE;
 
@@ -679,6 +684,108 @@ int main(void)
 	return 0;
 }
 
+bool bDdr2MemoryFastTest ( void ) {
+	bool bSuccess = FALSE;
+	bool bM1Success = FALSE;
+	bool bM2Success = FALSE;
+	volatile alt_u32 *vpuliDdrMemAddr = NULL;
+
+	/* Write data into ddr2 memory 1 and ddr2 memory 2 to check if they are working*/
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	debug(fp, "Starting DDR2 Memories test (fast):\n");
+	}
+#endif
+
+	/* Ddr2 Memory 1 */
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	debug(fp, "Testing DDR2 Memory 1...\n");
+	}
+#endif
+	usleep(1000000);
+	bDdr2SwitchMemory(DDR2_M1_ID);
+	bSuccess = TRUE;
+	vpuliDdrMemAddr = (alt_u32 *)0x00000000; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x0FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x1FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x2FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x3FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x4FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x5FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x6FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x7FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	if (bSuccess) {
+		bM1Success = TRUE;
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 1 Passed!\n");
+	}
+#endif
+	} else {
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 1 Failure!\n");
+	}
+#endif
+	}
+
+	/* Ddr2 Memory 2 */
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	debug(fp, "Testing DDR2 Memory 2...\n");
+	}
+#endif
+	usleep(1000000);
+	bDdr2SwitchMemory(DDR2_M2_ID);
+	bSuccess = TRUE;
+	vpuliDdrMemAddr = (alt_u32 *)0x00000000; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x0FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x1FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x2FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x3FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x4FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x5FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x6FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
+	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
+	vpuliDdrMemAddr = (alt_u32 *)0x7FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
+	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
+	if (bSuccess) {
+		bM2Success = TRUE;
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 2 Passed!\n\n");
+	}
+#endif
+	} else {
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 2 Failure!\n\n");
+	}
+#endif
+	}
+
+	bSuccess = FALSE;
+	if ((bM1Success) && (bM2Success)) { bSuccess = TRUE; }
+
+	return ( bSuccess );
+}
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	alt_u8 mem_number;

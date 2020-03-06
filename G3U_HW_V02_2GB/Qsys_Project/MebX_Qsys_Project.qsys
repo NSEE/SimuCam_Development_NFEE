@@ -2337,42 +2337,42 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="0" />
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="0" />
  <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.7" enabled="1" />
  <module
@@ -3472,7 +3472,7 @@
   <parameter name="MEM_ROW_ADDR_WIDTH" value="14" />
   <parameter name="MEM_RTT_NOM" value="50" />
   <parameter name="MEM_SRT" value="2x refresh rate" />
-  <parameter name="MEM_TCL" value="7" />
+  <parameter name="MEM_TCL" value="5" />
   <parameter name="MEM_TFAW_NS" value="37.5" />
   <parameter name="MEM_TINIT_US" value="200" />
   <parameter name="MEM_TMRD_CK" value="5" />
@@ -3826,7 +3826,7 @@
   <parameter name="MEM_ROW_ADDR_WIDTH" value="14" />
   <parameter name="MEM_RTT_NOM" value="50" />
   <parameter name="MEM_SRT" value="2x refresh rate" />
-  <parameter name="MEM_TCL" value="7" />
+  <parameter name="MEM_TCL" value="5" />
   <parameter name="MEM_TFAW_NS" value="37.5" />
   <parameter name="MEM_TINIT_US" value="200" />
   <parameter name="MEM_TMRD_CK" value="5" />
