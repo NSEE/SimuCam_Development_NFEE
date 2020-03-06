@@ -493,6 +493,40 @@ bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh) {
 	return bStatus;
 }
 
+bool bRmapSetEchoingMode(TRmapChannel *pxRmapCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxRmapCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
+
+		vpxCommChannel->xRmap.xEchoingModeConfig = pxRmapCh->xEchoingModeConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxRmapCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
+
+		pxRmapCh->xEchoingModeConfig = vpxCommChannel->xRmap.xEchoingModeConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bRmapGetCodecStatus(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
