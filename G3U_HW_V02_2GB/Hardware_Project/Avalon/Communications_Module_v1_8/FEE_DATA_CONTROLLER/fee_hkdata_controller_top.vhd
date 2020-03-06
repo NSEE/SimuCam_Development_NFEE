@@ -162,7 +162,8 @@ begin
 			buffer_rddata_o              => hkdata_send_buffer_status_o.rddata,
 			buffer_rdready_o             => hkdata_send_buffer_status_o.rdready,
 			buffer_wrready_o             => s_send_buffer_wrready,
-			double_buffer_empty_o        => hkdata_send_double_buffer_empty_o
+			double_buffer_empty_o        => hkdata_send_double_buffer_empty_o,
+			double_buffer_wrable_o       => open
 		);
 	s_send_buffer_wrdata <= (s_send_buffer_header_gen_wrdata) or (s_send_buffer_housekeeping_wr_wrdata);
 	s_send_buffer_wrreq  <= (s_send_buffer_header_gen_wrreq) or (s_send_buffer_housekeeping_wr_wrreq);
