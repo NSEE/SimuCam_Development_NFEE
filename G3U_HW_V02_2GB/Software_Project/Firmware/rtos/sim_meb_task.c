@@ -603,6 +603,16 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				vSyncReset( xPusL->usiValues[0], &(pxMebCLocal->xFeeControl)  );
 			}
 		break;
+		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
+		case 36:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bEchoing = TRUE;
+		break;
+		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
+		case 37:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bEchoing = FALSE;
+		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
 			vSendHKUpdate(pxMebCLocal, xPusL);
