@@ -606,15 +606,15 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
 			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xEchoingModeConfig.bRmapEchoingModeEn = xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = xPusL->usiValues[1];
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bEchoing = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xEchoingModeConfig.bRmapEchoingModeEn = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
