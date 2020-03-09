@@ -91,11 +91,11 @@ bool bRmapSetIrqControl(TRmapChannel *pxRmapCh);
 bool bRmapGetIrqControl(TRmapChannel *pxRmapCh);
 bool bRmapGetIrqFlags(TRmapChannel *pxRmapCh);
 
-bool bRmapSetCodecConfig(TRmapChannel *pxRmapCh);
-bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh);
-
 bool bRmapSetEchoingMode(TRmapChannel *pxRmapCh);
 bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh);
+
+bool bRmapSetCodecConfig(TRmapChannel *pxRmapCh);
+bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh);
 
 bool bRmapGetCodecStatus(TRmapChannel *pxRmapCh);
 

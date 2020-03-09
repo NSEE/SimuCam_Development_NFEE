@@ -459,6 +459,40 @@ bool bRmapGetIrqFlags(TRmapChannel *pxRmapCh) {
 	return bStatus;
 }
 
+bool bRmapSetEchoingMode(TRmapChannel *pxRmapCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxRmapCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
+
+		vpxCommChannel->xRmap.xRmapEchoingModeConfig = pxRmapCh->xRmapEchoingModeConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxRmapCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
+
+		pxRmapCh->xRmapEchoingModeConfig = vpxCommChannel->xRmap.xRmapEchoingModeConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bRmapSetCodecConfig(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -485,40 +519,6 @@ bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh) {
 		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
 
 		pxRmapCh->xRmapCodecConfig = vpxCommChannel->xRmap.xRmapCodecConfig;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bRmapSetEchoingMode(TRmapChannel *pxRmapCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxRmapCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
-
-		vpxCommChannel->xRmap.xEchoingModeConfig = pxRmapCh->xEchoingModeConfig;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxRmapCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
-
-		pxRmapCh->xEchoingModeConfig = vpxCommChannel->xRmap.xEchoingModeConfig;
 
 		bStatus = TRUE;
 
