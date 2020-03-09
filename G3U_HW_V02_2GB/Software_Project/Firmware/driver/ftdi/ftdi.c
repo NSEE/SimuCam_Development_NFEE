@@ -19,6 +19,7 @@
 //! [data memory private global variables]
 // A variable to hold the context of interrupt
 static volatile int viRxBuffHoldContext;
+static volatile int viTxBuffHoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -73,9 +74,21 @@ bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 u
     }
     return bStatus;
 }
+
+bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight){
+	bool bStatus = FALSE;
+	bStatus = TRUE;
+	return bStatus;
+}
+
 void vFTDIResetFullImage( void ){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiHalfCcdReqControl.bRstHalfCcdController = TRUE;
+}
+
+void vFTDIResetWindowArea(void){
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+	vpxFtdiModule->xFtdiHalfCcdReqControl.bRstHalfCcdController = FALSE; /* Dummy */
 }
 
 void vFTDIRxBufferIRQHandler(void* pvContext) {
@@ -232,6 +245,33 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 
 }
 
+void vFTDITxBufferIRQHandler(void* pvContext) {
+	// Cast context to hold_context's type. It is important that this be
+	// declared volatile to avoid unwanted compiler optimization.
+	//volatile int* viTxBuffHoldContext = (volatile int*) pvContext;
+	// Use context value according to your app logic...
+	//*viTxBuffHoldContext = ...;
+	// if (*viTxBuffHoldContext == '0') {}...
+	// App logic sequence...
+
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+
+	/* Tx Finished Transmission Flag */
+	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxFinishedIrqFlag) {
+		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxFinishedIrqFlagClr = TRUE;
+		/* Tx Finished Transmission flag treatment */
+
+	}
+
+	/* Tx Communication Error Flag */
+	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxCommErrIrqFlag) {
+		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxCommErrIrqFlagClr = TRUE;
+		/* Tx Communication Error flag treatment */
+
+	}
+
+}
+
 bool bFTDIIrqRxBuffInit(void) {
     bool bStatus = FALSE;
     void* pvHoldContext;
@@ -251,29 +291,62 @@ bool bFTDIIrqRxBuffInit(void) {
     }
     return bStatus;
 }
+
+bool bFTDIIrqTxBuffInit(void) {
+    bool bStatus = FALSE;
+    void* pvHoldContext;
+    // Recast the hold_context pointer to match the alt_irq_register() function
+    // prototype.
+    pvHoldContext = (void*) &viTxBuffHoldContext;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+	// Clear all flags
+    vpxFtdiModule->xFtdiTxIrqFlagClr.bTxFinishedIrqFlagClr = TRUE;
+    vpxFtdiModule->xFtdiTxIrqFlagClr.bTxCommErrIrqFlagClr = TRUE;
+    // Register the interrupt handler
+    if (0 == alt_irq_register(FTDI_TX_BUFFER_IRQ, pvHoldContext, vFTDITxBufferIRQHandler)){
+        bStatus = TRUE;
+    }
+    return bStatus;
+}
+
 void vFTDIIrqGlobalEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = bEnable;
 }
+
 void vFTDIIrqRxBuff0RdableEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiRxIrqControl.bRxBuff0RdableIrqEn = bEnable;
 }
+
 void vFTDIIrqRxBuff1RdableEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiRxIrqControl.bRxBuff1RdableIrqEn = bEnable;
 }
+
 void vFTDIIrqRxBuffLastRdableEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiRxIrqControl.bRxBuffLastRdableIrqEn = bEnable;
 }
+
 void vFTDIIrqRxBuffLastEmptyEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn = bEnable;
 }
+
 void vFTDIIrqRxCommErrEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiRxIrqControl.bRxCommErrIrqEn = bEnable;
+}
+
+void vFTDIIrqTxFinishedEn(bool bEnable){
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiTxIrqControl.bTxFinishedIrqEn = bEnable;
+}
+
+void vFTDIIrqTxCommErrEn(bool bEnable){
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiTxIrqControl.bTxCommErrIrqEn = bEnable;
 }
 
 //! [public functions]

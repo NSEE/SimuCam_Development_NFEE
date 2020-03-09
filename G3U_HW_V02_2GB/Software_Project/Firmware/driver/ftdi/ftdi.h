@@ -16,6 +16,7 @@
 
 //! [constants definition]
 #define FTDI_RX_BUFFER_IRQ               25
+#define FTDI_TX_BUFFER_IRQ               0
 #define FTDI_MODULE_BASE_ADDR            FTDI_USB3_0_BASE
 #define FTDI_BUFFER_SIZE_TRANSFER        67108864
 #define FTDI_WORD_SIZE_BYTES             32
@@ -53,6 +54,24 @@ typedef struct FtdiRxIrqFlagClr {
 	bool bRxBuffLastEmptyIrqFlagClr; /* Rx Last Buffer Empty IRQ Flag Clear */
 	bool bRxCommErrIrqFlagClr; /* Rx Communication Error IRQ Flag Clear */
 } TFtdiRxIrqFlagClr;
+
+/* FTDI Tx IRQ Control Register Struct */
+typedef struct FtdiTxIrqControl {
+	bool bTxFinishedIrqEn; /* Tx Finished Transmission IRQ Enable */
+	bool bTxCommErrIrqEn; /* Tx Communication Error IRQ Enable */
+} TFtdiTxIrqControl;
+
+/* FTDI Tx IRQ Flag Register Struct */
+typedef struct FtdiTxIrqFlag {
+	bool bTxFinishedIrqFlag; /* Tx Finished Transmission IRQ Flag */
+	bool bTxCommErrIrqFlag; /* Tx Communication Error IRQ Flag */
+} TFtdiTxIrqFlag;
+
+/* FTDI Tx IRQ Flag Clear Register Struct */
+typedef struct FtdiTxIrqFlagClr {
+	bool bTxFinishedIrqFlagClr; /* Tx Finished Transmission IRQ Flag Clear */
+	bool bTxCommErrIrqFlagClr; /* Tx Communication Error IRQ Flag Clear */
+} TFtdiTxIrqFlagClr;
 
 /* FTDI Module Control Register Struct */
 typedef struct FtdiFtdiModuleControl {
@@ -156,6 +175,9 @@ typedef struct FtdiModule {
 	TFtdiRxIrqControl xFtdiRxIrqControl;
 	TFtdiRxIrqFlag xFtdiRxIrqFlag;
 	TFtdiRxIrqFlagClr xFtdiRxIrqFlagClr;
+	TFtdiTxIrqControl xFtdiTxIrqControl;
+	TFtdiTxIrqFlag xFtdiTxIrqFlag;
+	TFtdiTxIrqFlagClr xFtdiTxIrqFlagClr;
 	TFtdiFtdiModuleControl xFtdiFtdiModuleControl;
 	TFtdiHalfCcdReqControl xFtdiHalfCcdReqControl;
 	TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
@@ -174,15 +196,21 @@ void vFTDIAbort(void);
 alt_u8 ucFTDIGetError(void);
 alt_u32 uliFTDInDataLeftInBuffer(void);
 bool bFTDIRequestFullImage(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight);
+bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight);
 void vFTDIResetFullImage(void);
+void vFTDIResetWindowArea(void);
 void vFTDIRxBufferIRQHandler(void* pvContext);
+void vFTDITxBufferIRQHandler(void* pvContext);
 bool bFTDIIrqRxBuffInit(void);
+bool bFTDIIrqTxBuffInit(void);
 void vFTDIIrqGlobalEn(bool bEnable);
 void vFTDIIrqRxBuff0RdableEn(bool bEnable);
 void vFTDIIrqRxBuff1RdableEn(bool bEnable);
 void vFTDIIrqRxBuffLastRdableEn(bool bEnable);
 void vFTDIIrqRxBuffLastEmptyEn(bool bEnable);
 void vFTDIIrqRxCommErrEn(bool bEnable);
+void vFTDIIrqTxFinishedEn(bool bEnable);
+void vFTDIIrqTxCommErrEn(bool bEnable);
 
 //! [public function prototypes]
 

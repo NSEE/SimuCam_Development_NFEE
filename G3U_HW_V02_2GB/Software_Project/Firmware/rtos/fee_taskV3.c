@@ -2969,7 +2969,8 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 	/* Disable RMAP channel */
 	bRmapGetIrqControl(pxRmapCh);
-	pxRmapCh->xRmapIrqControl.bWriteCmdEn = FALSE;
+	pxRmapCh->xRmapIrqControl.bWriteConfigEn = FALSE;
+	pxRmapCh->xRmapIrqControl.bWriteWindowEn = FALSE;
 	bRmapSetIrqControl(pxRmapCh);
 
 	/*todo: No treatment for now  */
@@ -2979,7 +2980,8 @@ bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 
 	bRmapGetIrqControl(pxRmapCh);
-	pxRmapCh->xRmapIrqControl.bWriteCmdEn = TRUE;
+	pxRmapCh->xRmapIrqControl.bWriteConfigEn = TRUE;
+	pxRmapCh->xRmapIrqControl.bWriteWindowEn = TRUE;
 	bRmapSetIrqControl(pxRmapCh);
 
 	/*todo: No treatment for now  */

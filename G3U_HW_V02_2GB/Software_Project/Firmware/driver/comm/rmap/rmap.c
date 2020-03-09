@@ -41,33 +41,46 @@ void vRmapCh1HandleIrq(void* pvContext) {
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
 
-	/* Warnning simplification: For now all address is lower than 1 bytes  */
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IRQ RMAP.\n");
+			/* Warnning simplification: For now all address is lower than 1 bytes  */
+
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+				fprintf(fp,"IRQ RMAP.\n");
+			}
+			#endif
+
+			ucADDRReg = (unsigned char)uliRmapCh1WriteCmdAddress();
+
+			uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = ucADDRReg;
+			uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
+
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+				fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+			}
+			#endif
+
+			error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( 0 );
+			}
+
 	}
-#endif
 
-	ucADDRReg = (unsigned char)uliRmapCh1WriteCmdAddress();
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
 
-	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
-	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-	}
-#endif
-
-	error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendRMAPFromIRQ( 0 );
 	}
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh2HandleIrq(void* pvContext) {
@@ -77,32 +90,44 @@ void vRmapCh2HandleIrq(void* pvContext) {
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IRQ RMAP.\n");
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
+
+		ucADDRReg = (unsigned char)uliRmapCh2WriteCmdAddress();
+
+		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 1;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+		}
+		#endif
+
+		error_codel = OSQPostFront(xFeeQ[1], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 1 );
+		}
+
 	}
-#endif
 
-	ucADDRReg = (unsigned char)uliRmapCh2WriteCmdAddress();
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
 
-	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 1;
-	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-	}
-#endif
-
-	error_codel = OSQPostFront(xFeeQ[1], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendRMAPFromIRQ( 1 );
 	}
 
-
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh3HandleIrq(void* pvContext) {
@@ -112,31 +137,44 @@ void vRmapCh3HandleIrq(void* pvContext) {
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IRQ RMAP.\n");
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
+
+		ucADDRReg = (unsigned char)uliRmapCh3WriteCmdAddress();
+
+		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 2;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+		}
+		#endif
+
+		error_codel = OSQPostFront(xFeeQ[2], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 2 );
+		}
+
 	}
-#endif
 
-	ucADDRReg = (unsigned char)uliRmapCh3WriteCmdAddress();
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
 
-	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 2;
-	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-	}
-#endif
-
-	error_codel = OSQPostFront(xFeeQ[2], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendRMAPFromIRQ( 2 );
 	}
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh4HandleIrq(void* pvContext) {
@@ -146,31 +184,44 @@ void vRmapCh4HandleIrq(void* pvContext) {
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IRQ RMAP.\n");
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
+
+		ucADDRReg = (unsigned char)uliRmapCh4WriteCmdAddress();
+
+		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 3;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+		}
+		#endif
+
+		error_codel = OSQPostFront(xFeeQ[3], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 3 );
+		}
+
 	}
-#endif
 
-	ucADDRReg = (unsigned char)uliRmapCh4WriteCmdAddress();
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
 
-	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 3;
-	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-	}
-#endif
-
-	error_codel = OSQPostFront(xFeeQ[3], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendRMAPFromIRQ( 3 );
 	}
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh5HandleIrq(void* pvContext) {
@@ -180,31 +231,44 @@ void vRmapCh5HandleIrq(void* pvContext) {
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IRQ RMAP.\n");
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
+
+		ucADDRReg = (unsigned char)uliRmapCh5WriteCmdAddress();
+
+		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 4;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+		}
+		#endif
+
+		error_codel = OSQPostFront(xFeeQ[4], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 4 );
+		}
+
 	}
-#endif
 
-	ucADDRReg = (unsigned char)uliRmapCh5WriteCmdAddress();
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
 
-	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 4;
-	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-	}
-#endif
-
-	error_codel = OSQPostFront(xFeeQ[4], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendRMAPFromIRQ( 4 );
 	}
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh6HandleIrq(void* pvContext) {
@@ -214,31 +278,44 @@ void vRmapCh6HandleIrq(void* pvContext) {
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IRQ RMAP.\n");
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
+
+		ucADDRReg = (unsigned char)uliRmapCh6WriteCmdAddress();
+
+		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 5;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+		}
+		#endif
+
+		error_codel = OSQPostFront(xFeeQ[5], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 5 );
+		}
+
 	}
-#endif
 
-	ucADDRReg = (unsigned char)uliRmapCh6WriteCmdAddress();
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
 
-	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 5;
-	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-	}
-#endif
-
-	error_codel = OSQPostFront(xFeeQ[5], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendRMAPFromIRQ( 5 );
 	}
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh7HandleIrq(void* pvContext) {
@@ -251,7 +328,20 @@ void vRmapCh7HandleIrq(void* pvContext) {
 	// App logic sequence...
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
+
+	}
+
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
+
+	}
+
 }
 
 void vRmapCh8HandleIrq(void* pvContext) {
@@ -264,7 +354,20 @@ void vRmapCh8HandleIrq(void* pvContext) {
 	// App logic sequence...
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+	/* RMAP Write Configuration Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		/* RMAP Write Configuration Area flag treatment */
+
+	}
+
+	/* RMAP Write Windowing Area Flag */
+	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
+		/* RMAP Write Windowing Area flag treatment */
+
+	}
+
 }
 
 alt_u32 uliRmapCh1WriteCmdAddress(void) {
@@ -318,7 +421,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh1HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_1_RMAP_IRQ, pvHoldContext, vRmapCh1HandleIrq);
 		bStatus = TRUE;
@@ -329,7 +433,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh2HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_2_RMAP_IRQ, pvHoldContext, vRmapCh2HandleIrq);
 		bStatus = TRUE;
@@ -340,7 +445,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh3HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_3_RMAP_IRQ, pvHoldContext, vRmapCh3HandleIrq);
 		bStatus = TRUE;
@@ -351,7 +457,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh4HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_4_RMAP_IRQ, pvHoldContext, vRmapCh4HandleIrq);
 		bStatus = TRUE;
@@ -362,7 +469,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh5HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_5_RMAP_IRQ, pvHoldContext, vRmapCh5HandleIrq);
 		bStatus = TRUE;
@@ -373,7 +481,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh6HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_6_RMAP_IRQ, pvHoldContext, vRmapCh6HandleIrq);
 		bStatus = TRUE;
@@ -384,7 +493,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh7HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_7_RMAP_IRQ, pvHoldContext, vRmapCh7HandleIrq);
 		bStatus = TRUE;
@@ -395,7 +505,8 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh8HoldContext;
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
+		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_8_RMAP_IRQ, pvHoldContext, vRmapCh8HandleIrq);
 		bStatus = TRUE;

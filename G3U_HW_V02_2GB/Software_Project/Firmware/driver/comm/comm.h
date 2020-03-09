@@ -381,17 +381,20 @@ typedef struct RmapMemAreaAddr {
 
  /* RMAP IRQ Control Register Struct */
 typedef struct RmapIrqControl {
-  bool bWriteCmdEn; /* RMAP Write Command IRQ Enable */
+  bool bWriteConfigEn; /* RMAP Write Configuration Area IRQ Enable */
+  bool bWriteWindowEn; /* RMAP Write Windowing Area IRQ Enable */
 } TRmapIrqControl;
 
  /* RMAP IRQ Flags Register Struct */
 typedef struct RmapIrqFlag {
-  bool bWriteCmdFlag; /* RMAP Write Command IRQ Flag */
+  bool bWriteConfigFlag; /* RMAP Write Configuration Area IRQ Flag */
+  bool bWriteWindowFlag; /* RMAP Write Windowing Area IRQ Flag */
 } TRmapIrqFlag;
 
  /* RMAP IRQ Flags Clear Register Struct */
 typedef struct RmapIrqFlagClr {
-  bool bWriteCmdFlagClr; /* RMAP Write Command IRQ Flag Clear */
+  bool bWriteConfigFlagClr; /* RMAP Write Configuration Area IRQ Flag Clear */
+  bool bWriteWindowFlagClr; /* RMAP Write Windowing Area IRQ Flag Clear */
 } TRmapIrqFlagClr;
 
  /* RMAP IRQ Number Register Struct */
