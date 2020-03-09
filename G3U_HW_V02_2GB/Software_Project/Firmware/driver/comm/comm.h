@@ -165,9 +165,10 @@ typedef struct RmapDevAddr {
   alt_u32 uliRmapBaseAddr; /* RMAP Device Base Address */
 } TRmapDevAddr;
 
+/* RMAP Echoing Mode Config Register Struct */
 typedef struct RmapEchoingModeConfig {
-  bool bRmapEchoingModeEn;
-  bool bRmapEchoingIdEn;
+ bool bRmapEchoingModeEn; /* RMAP Echoing Mode Enable */
+ bool bRmapEchoingIdEn; /* RMAP Echoing ID Enable */
 } TRmapEchoingModeConfig;
 
  /* RMAP Codec Config Register Struct */
@@ -494,19 +495,19 @@ typedef struct FeebChannel {
 	TFeebIrqNumber xFeebIrqNumber;
 } TFeebChannel;
 
-/* General Struct for RMAP Codec Registers Access */
+/* General Struct for Registers Access */
 typedef struct RmapChannel {
-	TRmapDevAddr xRmapDevAddr;
-	TRmapEchoingModeConfig xEchoingModeConfig;
-	TRmapCodecConfig xRmapCodecConfig;
-	TRmapCodecStatus xRmapCodecStatus;
-	TRmapCodecError xRmapCodecError;
-	TRmapMemConfigStat xRmapMemConfigStat;
-	TRmapMemAreaAddr xRmapMemAreaAddr;
-	TRmapIrqControl xRmapIrqControl;
-	TRmapIrqFlag xRmapIrqFlag;
-	TRmapIrqFlagClr xRmapIrqFlagClr;
-	TRmapIrqNumber xRmapIrqNumber;
+ TRmapDevAddr xRmapDevAddr;
+ TRmapEchoingModeConfig xRmapEchoingModeConfig;
+ TRmapCodecConfig xRmapCodecConfig;
+ TRmapCodecStatus xRmapCodecStatus;
+ TRmapCodecError xRmapCodecError;
+ TRmapMemConfigStat xRmapMemConfigStat;
+ TRmapMemAreaAddr xRmapMemAreaAddr;
+ TRmapIrqControl xRmapIrqControl;
+ TRmapIrqFlag xRmapIrqFlag;
+ TRmapIrqFlagClr xRmapIrqFlagClr;
+ TRmapIrqNumber xRmapIrqNumber;
 } TRmapChannel;
 
  /* General Struct for Data Packet Registers Access */
