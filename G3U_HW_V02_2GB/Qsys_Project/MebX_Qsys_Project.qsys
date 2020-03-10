@@ -13,12 +13,12 @@
    {
       datum _sortIndex
       {
-         value = "51";
+         value = "57";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -39,7 +39,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -73,7 +73,7 @@
    {
       datum baseAddress
       {
-         value = "2166367232";
+         value = "2166465536";
          type = "String";
       }
    }
@@ -81,12 +81,12 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "21";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -120,7 +120,7 @@
    {
       datum baseAddress
       {
-         value = "2166366208";
+         value = "2166464512";
          type = "String";
       }
    }
@@ -128,12 +128,12 @@
    {
       datum _sortIndex
       {
-         value = "23";
+         value = "25";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -167,7 +167,7 @@
    {
       datum baseAddress
       {
-         value = "2166365184";
+         value = "2166463488";
          type = "String";
       }
    }
@@ -175,12 +175,12 @@
    {
       datum _sortIndex
       {
-         value = "26";
+         value = "29";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -214,7 +214,7 @@
    {
       datum baseAddress
       {
-         value = "2166364160";
+         value = "2166462464";
          type = "String";
       }
    }
@@ -222,12 +222,12 @@
    {
       datum _sortIndex
       {
-         value = "29";
+         value = "33";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -261,7 +261,7 @@
    {
       datum baseAddress
       {
-         value = "2166363136";
+         value = "2166461440";
          type = "String";
       }
    }
@@ -269,12 +269,12 @@
    {
       datum _sortIndex
       {
-         value = "32";
+         value = "37";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -308,7 +308,7 @@
    {
       datum baseAddress
       {
-         value = "2166362112";
+         value = "2166460416";
          type = "String";
       }
    }
@@ -316,12 +316,12 @@
    {
       datum _sortIndex
       {
-         value = "33";
+         value = "39";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -350,12 +350,12 @@
    {
       datum _sortIndex
       {
-         value = "34";
+         value = "40";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -379,12 +379,12 @@
    {
       datum _sortIndex
       {
-         value = "37";
+         value = "43";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -397,7 +397,7 @@
       }
       datum baseAddress
       {
-         value = "2166368256";
+         value = "2166466560";
          type = "String";
       }
    }
@@ -490,12 +490,12 @@
    {
       datum _sortIndex
       {
-         value = "59";
+         value = "65";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -516,7 +516,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -529,7 +529,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -542,7 +542,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -558,12 +558,12 @@
    {
       datum _sortIndex
       {
-         value = "36";
+         value = "42";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -571,12 +571,12 @@
    {
       datum _sortIndex
       {
-         value = "38";
+         value = "44";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -600,12 +600,12 @@
    {
       datum _sortIndex
       {
-         value = "54";
+         value = "60";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -621,12 +621,12 @@
    {
       datum _sortIndex
       {
-         value = "55";
+         value = "61";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -642,12 +642,12 @@
    {
       datum _sortIndex
       {
-         value = "56";
+         value = "62";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -663,12 +663,12 @@
    {
       datum _sortIndex
       {
-         value = "57";
+         value = "63";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -684,12 +684,12 @@
    {
       datum _sortIndex
       {
-         value = "58";
+         value = "64";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -710,7 +710,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -718,7 +718,7 @@
    {
       datum baseAddress
       {
-         value = "2166370120";
+         value = "2166468424";
          type = "String";
       }
    }
@@ -744,7 +744,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -773,7 +773,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -810,7 +810,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -818,7 +818,7 @@
    {
       datum baseAddress
       {
-         value = "2166370080";
+         value = "2166468384";
          type = "String";
       }
    }
@@ -826,7 +826,7 @@
    {
       datum baseAddress
       {
-         value = "2166369664";
+         value = "2166467968";
          type = "String";
       }
    }
@@ -839,7 +839,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -847,7 +847,7 @@
    {
       datum baseAddress
       {
-         value = "2166370048";
+         value = "2166468352";
          type = "String";
       }
    }
@@ -855,40 +855,11 @@
    {
       datum baseAddress
       {
-         value = "2166369632";
+         value = "2166467936";
          type = "String";
       }
    }
    element dma_comm_2_left
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_2_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2166370016";
-         type = "String";
-      }
-   }
-   element dma_comm_2_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2166369600";
-         type = "String";
-      }
-   }
-   element dma_comm_2_right
    {
       datum _sortIndex
       {
@@ -897,7 +868,36 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element dma_comm_2_left.csr
+   {
+      datum baseAddress
+      {
+         value = "2166468320";
+         type = "String";
+      }
+   }
+   element dma_comm_2_left.descriptor_slave
+   {
+      datum baseAddress
+      {
+         value = "2166467904";
+         type = "String";
+      }
+   }
+   element dma_comm_2_right
+   {
+      datum _sortIndex
+      {
+         value = "20";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
          type = "boolean";
       }
    }
@@ -905,7 +905,7 @@
    {
       datum baseAddress
       {
-         value = "2166369984";
+         value = "2166468288";
          type = "String";
       }
    }
@@ -913,7 +913,7 @@
    {
       datum baseAddress
       {
-         value = "2166369568";
+         value = "2166467872";
          type = "String";
       }
    }
@@ -921,12 +921,12 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "23";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -934,7 +934,7 @@
    {
       datum baseAddress
       {
-         value = "2166369952";
+         value = "2166468256";
          type = "String";
       }
    }
@@ -942,40 +942,11 @@
    {
       datum baseAddress
       {
-         value = "2166369536";
+         value = "2166467840";
          type = "String";
       }
    }
    element dma_comm_3_right
-   {
-      datum _sortIndex
-      {
-         value = "22";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_3_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2166369920";
-         type = "String";
-      }
-   }
-   element dma_comm_3_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2166369504";
-         type = "String";
-      }
-   }
-   element dma_comm_4_left
    {
       datum _sortIndex
       {
@@ -984,56 +955,27 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element dma_comm_4_left.csr
+   element dma_comm_3_right.csr
    {
       datum baseAddress
       {
-         value = "2166369888";
+         value = "2166468224";
          type = "String";
       }
    }
-   element dma_comm_4_left.descriptor_slave
+   element dma_comm_3_right.descriptor_slave
    {
       datum baseAddress
       {
-         value = "2166369472";
+         value = "2166467808";
          type = "String";
       }
    }
-   element dma_comm_4_right
-   {
-      datum _sortIndex
-      {
-         value = "25";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_4_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2166369856";
-         type = "String";
-      }
-   }
-   element dma_comm_4_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2166369440";
-         type = "String";
-      }
-   }
-   element dma_comm_5_left
+   element dma_comm_4_left
    {
       datum _sortIndex
       {
@@ -1042,27 +984,27 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element dma_comm_5_left.csr
+   element dma_comm_4_left.csr
    {
       datum baseAddress
       {
-         value = "2166369824";
+         value = "2166468192";
          type = "String";
       }
    }
-   element dma_comm_5_left.descriptor_slave
+   element dma_comm_4_left.descriptor_slave
    {
       datum baseAddress
       {
-         value = "2166369408";
+         value = "2166467776";
          type = "String";
       }
    }
-   element dma_comm_5_right
+   element dma_comm_4_right
    {
       datum _sortIndex
       {
@@ -1071,56 +1013,27 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element dma_comm_5_right.csr
+   element dma_comm_4_right.csr
    {
       datum baseAddress
       {
-         value = "2166369792";
+         value = "2166468160";
          type = "String";
       }
    }
-   element dma_comm_5_right.descriptor_slave
+   element dma_comm_4_right.descriptor_slave
    {
       datum baseAddress
       {
-         value = "2166369376";
+         value = "2166467744";
          type = "String";
       }
    }
-   element dma_comm_6_left
-   {
-      datum _sortIndex
-      {
-         value = "30";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_6_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2166369760";
-         type = "String";
-      }
-   }
-   element dma_comm_6_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2166369344";
-         type = "String";
-      }
-   }
-   element dma_comm_6_right
+   element dma_comm_5_left
    {
       datum _sortIndex
       {
@@ -1129,27 +1042,56 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element dma_comm_6_right.csr
+   element dma_comm_5_left.csr
    {
       datum baseAddress
       {
-         value = "2166369728";
+         value = "2166468128";
          type = "String";
       }
    }
-   element dma_comm_6_right.descriptor_slave
+   element dma_comm_5_left.descriptor_slave
    {
       datum baseAddress
       {
-         value = "2166369312";
+         value = "2166467712";
          type = "String";
       }
    }
-   element dma_ftdi_usb3
+   element dma_comm_5_right
+   {
+      datum _sortIndex
+      {
+         value = "32";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element dma_comm_5_right.csr
+   {
+      datum baseAddress
+      {
+         value = "2166468096";
+         type = "String";
+      }
+   }
+   element dma_comm_5_right.descriptor_slave
+   {
+      datum baseAddress
+      {
+         value = "2166467680";
+         type = "String";
+      }
+   }
+   element dma_comm_6_left
    {
       datum _sortIndex
       {
@@ -1158,7 +1100,65 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element dma_comm_6_left.csr
+   {
+      datum baseAddress
+      {
+         value = "2166468064";
+         type = "String";
+      }
+   }
+   element dma_comm_6_left.descriptor_slave
+   {
+      datum baseAddress
+      {
+         value = "2166467648";
+         type = "String";
+      }
+   }
+   element dma_comm_6_right
+   {
+      datum _sortIndex
+      {
+         value = "36";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element dma_comm_6_right.csr
+   {
+      datum baseAddress
+      {
+         value = "2166468032";
+         type = "String";
+      }
+   }
+   element dma_comm_6_right.descriptor_slave
+   {
+      datum baseAddress
+      {
+         value = "2166467616";
+         type = "String";
+      }
+   }
+   element dma_ftdi_usb3
+   {
+      datum _sortIndex
+      {
+         value = "41";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
          type = "boolean";
       }
    }
@@ -1166,7 +1166,7 @@
    {
       datum baseAddress
       {
-         value = "2166369696";
+         value = "2166468000";
          type = "String";
       }
    }
@@ -1174,7 +1174,7 @@
    {
       datum baseAddress
       {
-         value = "2166369280";
+         value = "2166467584";
          type = "String";
       }
    }
@@ -1187,7 +1187,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1213,7 +1213,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1221,7 +1221,7 @@
    {
       datum baseAddress
       {
-         value = "2166370128";
+         value = "2166468432";
          type = "String";
       }
    }
@@ -1234,7 +1234,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1255,12 +1255,12 @@
    {
       datum _sortIndex
       {
-         value = "46";
+         value = "52";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1276,12 +1276,12 @@
    {
       datum _sortIndex
       {
-         value = "47";
+         value = "53";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1302,7 +1302,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1323,12 +1323,12 @@
    {
       datum _sortIndex
       {
-         value = "48";
+         value = "54";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1344,12 +1344,12 @@
    {
       datum _sortIndex
       {
-         value = "49";
+         value = "55";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1370,7 +1370,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1428,7 +1428,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1444,7 +1444,7 @@
    {
       datum baseAddress
       {
-         value = "2166360064";
+         value = "2166458368";
          type = "String";
       }
    }
@@ -1513,7 +1513,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1529,12 +1529,12 @@
    {
       datum _sortIndex
       {
-         value = "41";
+         value = "47";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1550,12 +1550,12 @@
    {
       datum _sortIndex
       {
-         value = "42";
+         value = "48";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1571,12 +1571,12 @@
    {
       datum _sortIndex
       {
-         value = "43";
+         value = "49";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1592,12 +1592,12 @@
    {
       datum _sortIndex
       {
-         value = "44";
+         value = "50";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1613,12 +1613,12 @@
    {
       datum _sortIndex
       {
-         value = "45";
+         value = "51";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1634,12 +1634,12 @@
    {
       datum _sortIndex
       {
-         value = "66";
+         value = "72";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1651,16 +1651,142 @@
          type = "String";
       }
    }
-   element rs232_uart
+   element rmap_mem_nfee_comm_1
    {
       datum _sortIndex
       {
-         value = "65";
+         value = "18";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element rmap_mem_nfee_comm_1.avalon_rmap_slave_0
+   {
+      datum baseAddress
+      {
+         value = "2166439936";
+         type = "String";
+      }
+   }
+   element rmap_mem_nfee_comm_2
+   {
+      datum _sortIndex
+      {
+         value = "22";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element rmap_mem_nfee_comm_2.avalon_rmap_slave_0
+   {
+      datum baseAddress
+      {
+         value = "2166423552";
+         type = "String";
+      }
+   }
+   element rmap_mem_nfee_comm_3
+   {
+      datum _sortIndex
+      {
+         value = "26";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element rmap_mem_nfee_comm_3.avalon_rmap_slave_0
+   {
+      datum baseAddress
+      {
+         value = "2166407168";
+         type = "String";
+      }
+   }
+   element rmap_mem_nfee_comm_4
+   {
+      datum _sortIndex
+      {
+         value = "30";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element rmap_mem_nfee_comm_4.avalon_rmap_slave_0
+   {
+      datum baseAddress
+      {
+         value = "2166390784";
+         type = "String";
+      }
+   }
+   element rmap_mem_nfee_comm_5
+   {
+      datum _sortIndex
+      {
+         value = "34";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element rmap_mem_nfee_comm_5.avalon_rmap_slave_0
+   {
+      datum baseAddress
+      {
+         value = "2166374400";
+         type = "String";
+      }
+   }
+   element rmap_mem_nfee_comm_6
+   {
+      datum _sortIndex
+      {
+         value = "38";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element rmap_mem_nfee_comm_6.avalon_rmap_slave_0
+   {
+      datum baseAddress
+      {
+         value = "2166358016";
+         type = "String";
+      }
+   }
+   element rs232_uart
+   {
+      datum _sortIndex
+      {
+         value = "71";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
          type = "boolean";
       }
    }
@@ -1676,12 +1802,12 @@
    {
       datum _sortIndex
       {
-         value = "68";
+         value = "74";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1697,12 +1823,12 @@
    {
       datum _sortIndex
       {
-         value = "60";
+         value = "66";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1718,12 +1844,12 @@
    {
       datum _sortIndex
       {
-         value = "61";
+         value = "67";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1739,12 +1865,12 @@
    {
       datum _sortIndex
       {
-         value = "62";
+         value = "68";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1760,12 +1886,12 @@
    {
       datum _sortIndex
       {
-         value = "63";
+         value = "69";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1781,12 +1907,12 @@
    {
       datum _sortIndex
       {
-         value = "64";
+         value = "70";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1802,12 +1928,12 @@
    {
       datum _sortIndex
       {
-         value = "50";
+         value = "56";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1836,12 +1962,12 @@
    {
       datum _sortIndex
       {
-         value = "67";
+         value = "73";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1862,7 +1988,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1870,7 +1996,7 @@
    {
       datum baseAddress
       {
-         value = "2166370112";
+         value = "2166468416";
          type = "String";
       }
    }
@@ -1878,12 +2004,12 @@
    {
       datum _sortIndex
       {
-         value = "52";
+         value = "58";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1899,12 +2025,12 @@
    {
       datum _sortIndex
       {
-         value = "53";
+         value = "59";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1920,12 +2046,12 @@
    {
       datum _sortIndex
       {
-         value = "39";
+         value = "45";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1941,12 +2067,12 @@
    {
       datum _sortIndex
       {
-         value = "40";
+         value = "46";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1967,7 +2093,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2337,42 +2463,42 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="0" />
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="2.1"
+   version="2.2"
    enabled="0" />
  <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.7" enabled="1" />
  <module
@@ -4030,7 +4156,7 @@
   <parameter name="dataAddrWidth" value="32" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_windowing' start='0x81201000' end='0x81201400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_windowing' start='0x81201400' end='0x81201800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x81201800' end='0x81201C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x81201C00' end='0x81202000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x81202000' end='0x81202400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x81202400' end='0x81202800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='FTDI_USB3_0.avalon_slave_config' start='0x81202800' end='0x81202C00' type='FTDI_USB3.avalon_slave_config' /><slave name='dma_ftdi_usb3.descriptor_slave' start='0x81202C00' end='0x81202C20' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_6_right.descriptor_slave' start='0x81202C20' end='0x81202C40' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_6_left.descriptor_slave' start='0x81202C40' end='0x81202C60' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_5_right.descriptor_slave' start='0x81202C60' end='0x81202C80' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_5_left.descriptor_slave' start='0x81202C80' end='0x81202CA0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_4_right.descriptor_slave' start='0x81202CA0' end='0x81202CC0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_4_left.descriptor_slave' start='0x81202CC0' end='0x81202CE0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_3_right.descriptor_slave' start='0x81202CE0' end='0x81202D00' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_3_left.descriptor_slave' start='0x81202D00' end='0x81202D20' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_2_right.descriptor_slave' start='0x81202D20' end='0x81202D40' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_2_left.descriptor_slave' start='0x81202D40' end='0x81202D60' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_1_right.descriptor_slave' start='0x81202D60' end='0x81202D80' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_1_left.descriptor_slave' start='0x81202D80' end='0x81202DA0' type='altera_msgdma.descriptor_slave' /><slave name='dma_ftdi_usb3.csr' start='0x81202DA0' end='0x81202DC0' type='altera_msgdma.csr' /><slave name='dma_comm_6_right.csr' start='0x81202DC0' end='0x81202DE0' type='altera_msgdma.csr' /><slave name='dma_comm_6_left.csr' start='0x81202DE0' end='0x81202E00' type='altera_msgdma.csr' /><slave name='dma_comm_5_right.csr' start='0x81202E00' end='0x81202E20' type='altera_msgdma.csr' /><slave name='dma_comm_5_left.csr' start='0x81202E20' end='0x81202E40' type='altera_msgdma.csr' /><slave name='dma_comm_4_right.csr' start='0x81202E40' end='0x81202E60' type='altera_msgdma.csr' /><slave name='dma_comm_4_left.csr' start='0x81202E60' end='0x81202E80' type='altera_msgdma.csr' /><slave name='dma_comm_3_right.csr' start='0x81202E80' end='0x81202EA0' type='altera_msgdma.csr' /><slave name='dma_comm_3_left.csr' start='0x81202EA0' end='0x81202EC0' type='altera_msgdma.csr' /><slave name='dma_comm_2_right.csr' start='0x81202EC0' end='0x81202EE0' type='altera_msgdma.csr' /><slave name='dma_comm_2_left.csr' start='0x81202EE0' end='0x81202F00' type='altera_msgdma.csr' /><slave name='dma_comm_1_right.csr' start='0x81202F00' end='0x81202F20' type='altera_msgdma.csr' /><slave name='dma_comm_1_left.csr' start='0x81202F20' end='0x81202F40' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x81202F40' end='0x81202F48' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x81202F48' end='0x81202F50' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x81202F50' end='0x81202F58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /><slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81200000' end='0x81204000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81204000' end='0x81208000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x81208000' end='0x8120C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x8120C000' end='0x81210000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81210000' end='0x81214000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81214000' end='0x81218000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_windowing' start='0x81219000' end='0x81219400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_windowing' start='0x81219400' end='0x81219800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x81219800' end='0x81219C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x81219C00' end='0x8121A000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x8121A000' end='0x8121A400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x8121A400' end='0x8121A800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='FTDI_USB3_0.avalon_slave_config' start='0x8121A800' end='0x8121AC00' type='FTDI_USB3.avalon_slave_config' /><slave name='dma_ftdi_usb3.descriptor_slave' start='0x8121AC00' end='0x8121AC20' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_6_right.descriptor_slave' start='0x8121AC20' end='0x8121AC40' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_6_left.descriptor_slave' start='0x8121AC40' end='0x8121AC60' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_5_right.descriptor_slave' start='0x8121AC60' end='0x8121AC80' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_5_left.descriptor_slave' start='0x8121AC80' end='0x8121ACA0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_4_right.descriptor_slave' start='0x8121ACA0' end='0x8121ACC0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_4_left.descriptor_slave' start='0x8121ACC0' end='0x8121ACE0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_3_right.descriptor_slave' start='0x8121ACE0' end='0x8121AD00' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_3_left.descriptor_slave' start='0x8121AD00' end='0x8121AD20' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_2_right.descriptor_slave' start='0x8121AD20' end='0x8121AD40' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_2_left.descriptor_slave' start='0x8121AD40' end='0x8121AD60' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_1_right.descriptor_slave' start='0x8121AD60' end='0x8121AD80' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_1_left.descriptor_slave' start='0x8121AD80' end='0x8121ADA0' type='altera_msgdma.descriptor_slave' /><slave name='dma_ftdi_usb3.csr' start='0x8121ADA0' end='0x8121ADC0' type='altera_msgdma.csr' /><slave name='dma_comm_6_right.csr' start='0x8121ADC0' end='0x8121ADE0' type='altera_msgdma.csr' /><slave name='dma_comm_6_left.csr' start='0x8121ADE0' end='0x8121AE00' type='altera_msgdma.csr' /><slave name='dma_comm_5_right.csr' start='0x8121AE00' end='0x8121AE20' type='altera_msgdma.csr' /><slave name='dma_comm_5_left.csr' start='0x8121AE20' end='0x8121AE40' type='altera_msgdma.csr' /><slave name='dma_comm_4_right.csr' start='0x8121AE40' end='0x8121AE60' type='altera_msgdma.csr' /><slave name='dma_comm_4_left.csr' start='0x8121AE60' end='0x8121AE80' type='altera_msgdma.csr' /><slave name='dma_comm_3_right.csr' start='0x8121AE80' end='0x8121AEA0' type='altera_msgdma.csr' /><slave name='dma_comm_3_left.csr' start='0x8121AEA0' end='0x8121AEC0' type='altera_msgdma.csr' /><slave name='dma_comm_2_right.csr' start='0x8121AEC0' end='0x8121AEE0' type='altera_msgdma.csr' /><slave name='dma_comm_2_left.csr' start='0x8121AEE0' end='0x8121AF00' type='altera_msgdma.csr' /><slave name='dma_comm_1_right.csr' start='0x8121AF00' end='0x8121AF20' type='altera_msgdma.csr' /><slave name='dma_comm_1_left.csr' start='0x8121AF20' end='0x8121AF40' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x8121AF48' end='0x8121AF50' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -4069,7 +4195,7 @@
   <parameter name="icache_tagramBlockType" value="Automatic" />
   <parameter name="impl" value="Fast" />
   <parameter name="instAddrWidth" value="32" />
-  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
+  <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
   <parameter name="instructionMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="instructionMasterHighPerformanceMapParam" value="" />
   <parameter name="instruction_master_high_performance_paddr_base" value="0" />
@@ -4313,6 +4439,36 @@
   <parameter name="width" value="4" />
  </module>
  <module
+   name="rmap_mem_nfee_comm_1"
+   kind="RMAP_Memory_NFEE_Area"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="rmap_mem_nfee_comm_2"
+   kind="RMAP_Memory_NFEE_Area"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="rmap_mem_nfee_comm_3"
+   kind="RMAP_Memory_NFEE_Area"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="rmap_mem_nfee_comm_4"
+   kind="RMAP_Memory_NFEE_Area"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="rmap_mem_nfee_comm_5"
+   kind="RMAP_Memory_NFEE_Area"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="rmap_mem_nfee_comm_6"
+   kind="RMAP_Memory_NFEE_Area"
+   version="1.0"
+   enabled="1" />
+ <module
    name="rs232_uart"
    kind="altera_avalon_uart"
    version="18.1"
@@ -4505,7 +4661,61 @@
    start="nios2_gen2_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202f50" />
+  <parameter name="baseAddress" value="0x8121af50" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="rmap_mem_nfee_comm_1.avalon_rmap_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81214000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="rmap_mem_nfee_comm_2.avalon_rmap_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81210000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="rmap_mem_nfee_comm_3.avalon_rmap_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x8120c000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="rmap_mem_nfee_comm_4.avalon_rmap_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81208000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="rmap_mem_nfee_comm_5.avalon_rmap_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81204000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="rmap_mem_nfee_comm_6.avalon_rmap_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81200000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4514,7 +4724,7 @@
    start="nios2_gen2_0.data_master"
    end="FTDI_USB3_0.avalon_slave_config">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202800" />
+  <parameter name="baseAddress" value="0x8121a800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4541,7 +4751,7 @@
    start="nios2_gen2_0.data_master"
    end="COMM_Pedreiro_v1_01_A.avalon_slave_windowing">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202400" />
+  <parameter name="baseAddress" value="0x8121a400" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4550,7 +4760,7 @@
    start="nios2_gen2_0.data_master"
    end="COMM_Pedreiro_v1_01_B.avalon_slave_windowing">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202000" />
+  <parameter name="baseAddress" value="0x8121a000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4559,7 +4769,7 @@
    start="nios2_gen2_0.data_master"
    end="COMM_Pedreiro_v1_01_C.avalon_slave_windowing">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81201c00" />
+  <parameter name="baseAddress" value="0x81219c00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4568,7 +4778,7 @@
    start="nios2_gen2_0.data_master"
    end="COMM_Pedreiro_v1_01_D.avalon_slave_windowing">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81201800" />
+  <parameter name="baseAddress" value="0x81219800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4577,7 +4787,7 @@
    start="nios2_gen2_0.data_master"
    end="COMM_Pedreiro_v1_01_E.avalon_slave_windowing">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81201400" />
+  <parameter name="baseAddress" value="0x81219400" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4586,7 +4796,7 @@
    start="nios2_gen2_0.data_master"
    end="COMM_Pedreiro_v1_01_F.avalon_slave_windowing">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81201000" />
+  <parameter name="baseAddress" value="0x81219000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4595,7 +4805,7 @@
    start="nios2_gen2_0.data_master"
    end="ddr2_address_span_extender.cntl">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202f48" />
+  <parameter name="baseAddress" value="0x8121af48" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4604,7 +4814,7 @@
    start="nios2_gen2_0.data_master"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202f40" />
+  <parameter name="baseAddress" value="0x8121af40" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4631,7 +4841,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_1_left.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202f20" />
+  <parameter name="baseAddress" value="0x8121af20" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4640,7 +4850,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_1_right.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202f00" />
+  <parameter name="baseAddress" value="0x8121af00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4649,7 +4859,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_2_left.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202ee0" />
+  <parameter name="baseAddress" value="0x8121aee0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4658,7 +4868,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_2_right.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202ec0" />
+  <parameter name="baseAddress" value="0x8121aec0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4667,7 +4877,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_3_left.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202ea0" />
+  <parameter name="baseAddress" value="0x8121aea0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4676,7 +4886,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_3_right.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202e80" />
+  <parameter name="baseAddress" value="0x8121ae80" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4685,7 +4895,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_4_left.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202e60" />
+  <parameter name="baseAddress" value="0x8121ae60" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4694,7 +4904,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_4_right.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202e40" />
+  <parameter name="baseAddress" value="0x8121ae40" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4703,7 +4913,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_5_left.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202e20" />
+  <parameter name="baseAddress" value="0x8121ae20" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4712,7 +4922,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_5_right.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202e00" />
+  <parameter name="baseAddress" value="0x8121ae00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4721,7 +4931,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_6_left.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202de0" />
+  <parameter name="baseAddress" value="0x8121ade0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4730,7 +4940,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_6_right.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202dc0" />
+  <parameter name="baseAddress" value="0x8121adc0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4739,7 +4949,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_ftdi_usb3.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202da0" />
+  <parameter name="baseAddress" value="0x8121ada0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4748,7 +4958,7 @@
    start="nios2_gen2_0.data_master"
    end="nios2_gen2_0.debug_mem_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81200800" />
+  <parameter name="baseAddress" value="0x81218800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4775,7 +4985,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_1_left.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202d80" />
+  <parameter name="baseAddress" value="0x8121ad80" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4784,7 +4994,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_1_right.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202d60" />
+  <parameter name="baseAddress" value="0x8121ad60" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4793,7 +5003,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_2_left.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202d40" />
+  <parameter name="baseAddress" value="0x8121ad40" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4802,7 +5012,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_2_right.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202d20" />
+  <parameter name="baseAddress" value="0x8121ad20" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4811,7 +5021,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_3_left.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202d00" />
+  <parameter name="baseAddress" value="0x8121ad00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4820,7 +5030,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_3_right.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202ce0" />
+  <parameter name="baseAddress" value="0x8121ace0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4829,7 +5039,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_4_left.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202cc0" />
+  <parameter name="baseAddress" value="0x8121acc0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4838,7 +5048,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_4_right.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202ca0" />
+  <parameter name="baseAddress" value="0x8121aca0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4847,7 +5057,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_5_left.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202c80" />
+  <parameter name="baseAddress" value="0x8121ac80" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4856,7 +5066,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_5_right.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202c60" />
+  <parameter name="baseAddress" value="0x8121ac60" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4865,7 +5075,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_6_left.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202c40" />
+  <parameter name="baseAddress" value="0x8121ac40" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4874,7 +5084,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_comm_6_right.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202c20" />
+  <parameter name="baseAddress" value="0x8121ac20" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4883,7 +5093,7 @@
    start="nios2_gen2_0.data_master"
    end="dma_ftdi_usb3.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81202c00" />
+  <parameter name="baseAddress" value="0x8121ac00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4946,7 +5156,7 @@
    start="nios2_gen2_0.instruction_master"
    end="nios2_gen2_0.debug_mem_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81200800" />
+  <parameter name="baseAddress" value="0x81218800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -6193,6 +6403,36 @@
  <connection
    kind="clock"
    version="18.1"
+   start="clk_100.clk"
+   end="rmap_mem_nfee_comm_1.clock_sink_100mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="rmap_mem_nfee_comm_6.clock_sink_100mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="rmap_mem_nfee_comm_5.clock_sink_100mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="rmap_mem_nfee_comm_4.clock_sink_100mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="rmap_mem_nfee_comm_3.clock_sink_100mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="rmap_mem_nfee_comm_2.clock_sink_100mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
    start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_G.clock_sink_200" />
  <connection
@@ -6250,6 +6490,204 @@
    version="18.1"
    start="clk_100.clk"
    end="clock_bridge_afi_50.s0_clk" />
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_1.conduit_end_channel_hk_in"
+   end="COMM_Pedreiro_v1_01_A.conduit_end_channel_hk_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_2.conduit_end_channel_hk_in"
+   end="COMM_Pedreiro_v1_01_B.conduit_end_channel_hk_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_3.conduit_end_channel_hk_in"
+   end="COMM_Pedreiro_v1_01_C.conduit_end_channel_hk_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_4.conduit_end_channel_hk_in"
+   end="COMM_Pedreiro_v1_01_D.conduit_end_channel_hk_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_6.conduit_end_channel_hk_in"
+   end="COMM_Pedreiro_v1_01_F.conduit_end_channel_hk_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="COMM_Pedreiro_v1_01_E.conduit_end_channel_hk_out"
+   end="rmap_mem_nfee_comm_5.conduit_end_channel_hk_in">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="COMM_Pedreiro_v1_01_C.conduit_end_fee_rmap_master_codec"
+   end="rmap_mem_nfee_comm_3.conduit_end_fee_rmap_slave_0">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_1.conduit_end_fee_rmap_slave_0"
+   end="COMM_Pedreiro_v1_01_A.conduit_end_fee_rmap_master_codec">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_2.conduit_end_fee_rmap_slave_0"
+   end="COMM_Pedreiro_v1_01_B.conduit_end_fee_rmap_master_codec">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_4.conduit_end_fee_rmap_slave_0"
+   end="COMM_Pedreiro_v1_01_D.conduit_end_fee_rmap_master_codec">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_5.conduit_end_fee_rmap_slave_0"
+   end="COMM_Pedreiro_v1_01_E.conduit_end_fee_rmap_master_codec">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_6.conduit_end_fee_rmap_slave_0"
+   end="COMM_Pedreiro_v1_01_F.conduit_end_fee_rmap_master_codec">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_1.conduit_end_fee_rmap_slave_1"
+   end="COMM_Pedreiro_v1_01_A.conduit_end_fee_rmap_master_hk">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_2.conduit_end_fee_rmap_slave_1"
+   end="COMM_Pedreiro_v1_01_B.conduit_end_fee_rmap_master_hk">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_3.conduit_end_fee_rmap_slave_1"
+   end="COMM_Pedreiro_v1_01_C.conduit_end_fee_rmap_master_hk">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_4.conduit_end_fee_rmap_slave_1"
+   end="COMM_Pedreiro_v1_01_D.conduit_end_fee_rmap_master_hk">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_5.conduit_end_fee_rmap_slave_1"
+   end="COMM_Pedreiro_v1_01_E.conduit_end_fee_rmap_master_hk">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_nfee_comm_6.conduit_end_fee_rmap_slave_1"
+   end="COMM_Pedreiro_v1_01_F.conduit_end_fee_rmap_master_hk">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
  <connection
    kind="interrupt"
    version="18.1"
@@ -6866,6 +7304,36 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
+   end="rmap_mem_nfee_comm_1.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="rmap_mem_nfee_comm_6.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="rmap_mem_nfee_comm_5.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="rmap_mem_nfee_comm_4.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="rmap_mem_nfee_comm_3.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="rmap_mem_nfee_comm_2.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
    end="clock_bridge_afi_50.s0_reset" />
  <connection
    kind="reset"
@@ -6890,8 +7358,18 @@
  <connection
    kind="reset"
    version="18.1"
+   start="rst_controller.reset_source_comm_ch1"
+   end="rmap_mem_nfee_comm_1.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
    start="rst_controller.reset_source_comm_ch2"
    end="COMM_Pedreiro_v1_01_B.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="rst_controller.reset_source_comm_ch2"
+   end="rmap_mem_nfee_comm_2.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -6900,8 +7378,18 @@
  <connection
    kind="reset"
    version="18.1"
+   start="rst_controller.reset_source_comm_ch3"
+   end="rmap_mem_nfee_comm_3.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
    start="rst_controller.reset_source_comm_ch4"
    end="COMM_Pedreiro_v1_01_D.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="rst_controller.reset_source_comm_ch4"
+   end="rmap_mem_nfee_comm_4.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -6910,8 +7398,18 @@
  <connection
    kind="reset"
    version="18.1"
+   start="rst_controller.reset_source_comm_ch5"
+   end="rmap_mem_nfee_comm_5.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
    start="rst_controller.reset_source_comm_ch6"
    end="COMM_Pedreiro_v1_01_F.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="rst_controller.reset_source_comm_ch6"
+   end="rmap_mem_nfee_comm_6.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

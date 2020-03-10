@@ -28,6 +28,7 @@
 #define COMM_CH_7_BUFFERS_IRQ           -1
 #define COMM_CH_8_RMAP_IRQ              -1
 #define COMM_CH_8_BUFFERS_IRQ           -1
+
 // address
 #define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_2_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
@@ -37,9 +38,16 @@
 #define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_F_BASE
 #define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_RMAP_MEM_1_BASE_ADDR       RMAP_MEM_NFEE_COMM_1_BASE
+#define COMM_RMAP_MEM_2_BASE_ADDR       RMAP_MEM_NFEE_COMM_2_BASE
+#define COMM_RMAP_MEM_3_BASE_ADDR       RMAP_MEM_NFEE_COMM_3_BASE
+#define COMM_RMAP_MEM_4_BASE_ADDR       RMAP_MEM_NFEE_COMM_4_BASE
+#define COMM_RMAP_MEM_5_BASE_ADDR       RMAP_MEM_NFEE_COMM_5_BASE
+#define COMM_RMAP_MEM_6_BASE_ADDR       RMAP_MEM_NFEE_COMM_6_BASE
+#define COMM_RMAP_MEM_7_BASE_ADDR       RMAP_MEM_NFEE_COMM_1_BASE
+#define COMM_RMAP_MEM_8_BASE_ADDR       RMAP_MEM_NFEE_COMM_2_BASE
+
 // offsets
-#define COMM_RMAP_MEMAREA_CONFIG_OFST   0x00000080
-#define COMM_RMAP_MEMAREA_HK_OFST       0x000000A7
 //! [constants definition]
 
 //! [public module structs definition]
@@ -373,10 +381,16 @@ typedef struct RmapMemAreaHk {
   alt_u16 uliReg35HkReserved; /* Register 35 HK Reserved HK Field */
 } TRmapMemAreaHk;
 
+/* RMAP Memory Area Register Struct */
+typedef struct RmapMemArea {
+ TRmapMemAreaConfig xConfigAreaBaseAddr; /* RMAP Config Memory Area */
+ TRmapMemAreaHk xHkAreaBaseAddr; /* RMAP HouseKeeping Memory Area */
+} TRmapMemArea;
+
  /* RMAP Memory Area Address Register Struct */
 typedef struct RmapMemAreaAddr {
-  TRmapMemAreaConfig *puliConfigAreaBaseAddr; /* RMAP Config Memory Area Base Address */
-  TRmapMemAreaHk *puliHkAreaBaseAddr; /* RMAP HouseKeeping Memory Area Base Address */
+  TRmapMemArea *puliRmapAreaBaseAddr; /* RMAP Memory Area Base Address */
+  alt_u32 uliDummy; /* Dummy */
 } TRmapMemAreaAddr;
 
  /* RMAP IRQ Control Register Struct */

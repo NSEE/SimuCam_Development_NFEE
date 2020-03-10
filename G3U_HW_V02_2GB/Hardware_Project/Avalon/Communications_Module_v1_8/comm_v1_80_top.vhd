@@ -17,37 +17,63 @@ use work.avalon_mm_spacewire_pkg.all;
 use work.avalon_mm_spacewire_registers_pkg.all;
 use work.spw_codec_pkg.all;
 use work.rmap_target_pkg.all;
-use work.rmap_mem_area_nfee_pkg.all;
 use work.windowing_dataset_pkg.all;
 
 entity comm_v1_80_top is
 	port(
-		reset_sink_reset                   : in  std_logic                      := '0'; --          --               reset_sink.a_reset
-		data_in                            : in  std_logic                      := '0'; --          --          spw_conduit_end.data_in_signal
-		data_out                           : out std_logic; --                                      --                         .data_out_signal
-		strobe_in                          : in  std_logic                      := '0'; --          --                         .strobe_in_signal
-		strobe_out                         : out std_logic; --                                      --                         .strobe_out_signal
-		sync_channel                       : in  std_logic                      := '0'; --          --         sync_conduit_end.sync_channel_signal
-		rmap_interrupt_sender_irq          : out std_logic; --                                      --    rmap_interrupt_sender.irq
-		buffers_interrupt_sender_irq       : out std_logic; --                                      -- buffers_interrupt_sender.irq
-		clock_sink_200_clk                 : in  std_logic                      := '0'; --          --           clock_sink_200.clk
-		clock_sink_100_clk                 : in  std_logic                      := '0'; --          --           clock_sink_100.clk
-		avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)   := (others => '0'); --   avalon_slave_windowing.address
-		avalon_slave_windowing_write       : in  std_logic                      := '0'; --          --                         .write
-		avalon_slave_windowing_read        : in  std_logic                      := '0'; --          --                         .read
-		avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0); --                  --                         .readdata
-		avalon_slave_windowing_writedata   : in  std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
-		avalon_slave_windowing_waitrequest : out std_logic; --                                      --                         .waitrequest
-		avalon_slave_windowing_byteenable  : in  std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
-		avalon_slave_L_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => '0'); --    avalon_slave_L_buffer.address
-		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
-		avalon_slave_L_buffer_write        : in  std_logic                      := '0'; --          --                         .write
-		avalon_slave_L_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => '0'); --    avalon_slave_R_buffer.address
-		avalon_slave_R_buffer_write        : in  std_logic                      := '0'; --          --                         .write
-		avalon_slave_R_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
-		measurements_channel               : out std_logic_vector(7 downto 0) --                    -- measurements_conduit_end.measurements_channel_signal
+		reset_sink_reset                   : in  std_logic                      := '0'; --          --                        reset_sink.reset
+		data_in                            : in  std_logic                      := '0'; --          --                   spw_conduit_end.data_in_signal
+		data_out                           : out std_logic; --                                      --                                  .data_out_signal
+		strobe_in                          : in  std_logic                      := '0'; --          --                                  .strobe_in_signal
+		strobe_out                         : out std_logic; --                                      --                                  .strobe_out_signal
+		sync_channel                       : in  std_logic                      := '0'; --          --                  sync_conduit_end.sync_channel_signal
+		rmap_interrupt_sender_irq          : out std_logic; --                                      --             rmap_interrupt_sender.irq
+		buffers_interrupt_sender_irq       : out std_logic; --                                      --          buffers_interrupt_sender.irq
+		clock_sink_200_clk                 : in  std_logic                      := '0'; --          --                    clock_sink_200.clk
+		clock_sink_100_clk                 : in  std_logic                      := '0'; --          --                    clock_sink_100.clk
+		avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)   := (others => '0'); --            avalon_slave_windowing.address
+		avalon_slave_windowing_write       : in  std_logic                      := '0'; --          --                                  .write
+		avalon_slave_windowing_read        : in  std_logic                      := '0'; --          --                                  .read
+		avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0); --                  --                                  .readdata
+		avalon_slave_windowing_writedata   : in  std_logic_vector(31 downto 0)  := (others => '0'); --                                  .writedata
+		avalon_slave_windowing_waitrequest : out std_logic; --                                      --                                  .waitrequest
+		avalon_slave_windowing_byteenable  : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                  .byteenable
+		avalon_slave_L_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => '0'); --             avalon_slave_L_buffer.address
+		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                      --                                  .waitrequest
+		avalon_slave_L_buffer_write        : in  std_logic                      := '0'; --          --                                  .write
+		avalon_slave_L_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                                  .writedata
+		avalon_slave_R_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => '0'); --             avalon_slave_R_buffer.address
+		avalon_slave_R_buffer_write        : in  std_logic                      := '0'; --          --                                  .write
+		avalon_slave_R_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                                  .writedata
+		avalon_slave_R_buffer_waitrequest  : out std_logic; --                                      --                                  .waitrequest
+		measurements_channel               : out std_logic_vector(7 downto 0); --                   --          measurements_conduit_end.measurements_channel_signal
+		fee_codec_rmap_wr_waitrequest_i    : in  std_logic                      := '0'; --          -- conduit_end_fee_rmap_master_codec.wr_waitrequest_signal
+		fee_codec_rmap_readdata_i          : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                  .readdata_signal
+		fee_codec_rmap_rd_waitrequest_i    : in  std_logic                      := '0'; --          --                                  .rd_waitrequest_signal
+		fee_codec_rmap_wr_address_o        : out std_logic_vector(31 downto 0); --                  --                                  .wr_address_signal
+		fee_codec_rmap_write_o             : out std_logic; --                                      --                                  .write_signal
+		fee_codec_rmap_writedata_o         : out std_logic_vector(7 downto 0); --                   --                                  .writedata_signal
+		fee_codec_rmap_rd_address_o        : out std_logic_vector(31 downto 0); --                  --                                  .rd_address_signal
+		fee_codec_rmap_read_o              : out std_logic; --                                      --                                  .read_signal
+		fee_hk_rmap_wr_waitrequest_i       : in  std_logic                      := '0'; --          --    conduit_end_fee_rmap_master_hk.wr_waitrequest_signal
+		fee_hk_rmap_readdata_i             : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                  .readdata_signal
+		fee_hk_rmap_rd_waitrequest_i       : in  std_logic                      := '0'; --          --                                  .rd_waitrequest_signal
+		fee_hk_rmap_wr_address_o           : out std_logic_vector(31 downto 0); --                  --                                  .wr_address_signal
+		fee_hk_rmap_write_o                : out std_logic; --                                      --                                  .write_signal
+		fee_hk_rmap_writedata_o            : out std_logic_vector(7 downto 0); --                   --                                  .writedata_signal
+		fee_hk_rmap_rd_address_o           : out std_logic_vector(31 downto 0); --                  --                                  .rd_address_signal
+		fee_hk_rmap_read_o                 : out std_logic; --                                      --                                  .read_signal
+		channel_hk_timecode_control_o      : out std_logic_vector(1 downto 0); --                   --        conduit_end_channel_hk_out.timecode_control_signal
+		channel_hk_timecode_time_o         : out std_logic_vector(5 downto 0); --                   --                                  .timecode_time_signal
+		channel_hk_rmap_target_status_o    : out std_logic_vector(7 downto 0); --                   --                                  .rmap_target_status_signal
+		channel_hk_rmap_target_indicate_o  : out std_logic; --                                      --                                  .rmap_target_indicate_signal
+		channel_hk_spw_link_escape_err_o   : out std_logic; --                                      --                                  .spw_link_escape_err_signal
+		channel_hk_spw_link_credit_err_o   : out std_logic; --                                      --                                  .spw_link_credit_err_signal
+		channel_hk_spw_link_parity_err_o   : out std_logic; --                                      --                                  .spw_link_parity_err_signal
+		channel_hk_spw_link_disconnect_o   : out std_logic; --                                      --                                  .spw_link_disconnect_signal
+		channel_hk_spw_link_running_o      : out std_logic; --                                      --                                  .spw_link_running_signal
+		channel_hk_frame_counter_o         : out std_logic_vector(15 downto 0); --                  --                                  .frame_counter_signal
+		channel_hk_frame_number_o          : out std_logic_vector(1 downto 0) ---                   --                                  .frame_number_signal
 	);
 end entity comm_v1_80_top;
 
@@ -78,7 +104,6 @@ architecture rtl of comm_v1_80_top is
 	signal s_L_buffer_1_empty : std_logic;
 
 	-- windowing avalon mm read signals
-	signal s_avalon_mm_windwoing_read_readdata    : std_logic_vector(31 downto 0);
 	signal s_avalon_mm_windwoing_read_waitrequest : std_logic;
 
 	-- windowing avalon mm write signals
@@ -138,9 +163,8 @@ architecture rtl of comm_v1_80_top is
 
 	-- fee master data controller signals --
 	-- rmap memory fee master data controller signals
-	signal s_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
-	signal s_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
-	signal s_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
+	signal s_fee_rd_rmap_address : std_logic_vector(31 downto 0);
+	signal s_fee_rd_rmap_read    : std_logic;
 
 	-- fee slave data controller signals --
 	signal s_fee_frame_counter : std_logic_vector(15 downto 0);
@@ -168,18 +192,8 @@ architecture rtl of comm_v1_80_top is
 	signal s_rmap_mem_wr_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
 	signal s_rmap_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
 
-	signal s_rmap_mem_wr_area : t_rmap_memory_wr_area;
-	signal s_rmap_mem_rd_area : t_rmap_memory_rd_area;
-
 	signal s_rmap_write_data_finished : std_logic;
 	signal s_rmap_read_data_finished  : std_logic;
-
-	-- rmap avalon mm read signals
-	signal s_avalon_mm_rmap_mem_read_readdata    : std_logic_vector(31 downto 0);
-	signal s_avalon_mm_rmap_mem_read_waitrequest : std_logic;
-
-	-- rmap avalon mm write signals
-	signal s_avalon_mm_rmap_mem_write_waitrequest : std_logic;
 
 	-- timecode manager
 	signal s_timecode_tick    : std_logic;
@@ -239,7 +253,7 @@ begin
 			avalon_mm_spacewire_i.address     => avalon_slave_windowing_address,
 			avalon_mm_spacewire_i.read        => avalon_slave_windowing_read,
 			avalon_mm_spacewire_i.byteenable  => avalon_slave_windowing_byteenable,
-			avalon_mm_spacewire_o.readdata    => s_avalon_mm_windwoing_read_readdata,
+			avalon_mm_spacewire_o.readdata    => avalon_slave_windowing_readdata,
 			avalon_mm_spacewire_o.waitrequest => s_avalon_mm_windwoing_read_waitrequest,
 			spacewire_write_registers_i       => s_spacewire_write_registers,
 			spacewire_read_registers_i        => s_spacewire_read_registers
@@ -400,8 +414,8 @@ begin
 			fee_right_window_mask_valid_i                 => s_R_fee_data_controller_window_mask_valid,
 			fee_right_window_data_ready_i                 => s_R_fee_data_controller_window_data_ready,
 			fee_right_window_mask_ready_i                 => s_R_fee_data_controller_window_mask_ready,
-			fee_hk_mem_valid_i                            => s_fee_data_controller_mem_rd_flag.valid,
-			fee_hk_mem_data_i                             => s_fee_data_controller_mem_rd_flag.data,
+			fee_hk_mem_waitrequest_i                      => fee_hk_rmap_rd_waitrequest_i,
+			fee_hk_mem_data_i                             => fee_hk_rmap_readdata_i,
 			fee_spw_tx_ready_i                            => s_fee_data_controller_spw_txrdy,
 			data_pkt_ccd_x_size_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_x_size,
 			data_pkt_ccd_y_size_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_y_size,
@@ -450,8 +464,8 @@ begin
 			fee_left_window_mask_read_o                   => s_L_fee_data_controller_window_mask_read,
 			fee_right_window_data_read_o                  => s_R_fee_data_controller_window_data_read,
 			fee_right_window_mask_read_o                  => s_R_fee_data_controller_window_mask_read,
-			fee_hk_mem_byte_address_o                     => s_fee_data_controller_mem_rd_byte_address,
-			fee_hk_mem_read_o                             => s_fee_data_controller_mem_rd_control.read,
+			fee_hk_mem_byte_address_o                     => s_fee_rd_rmap_address,
+			fee_hk_mem_read_o                             => s_fee_rd_rmap_read,
 			fee_spw_tx_write_o                            => s_fee_data_controller_spw_txwrite,
 			fee_spw_tx_flag_o                             => s_fee_data_controller_spw_txflag,
 			fee_spw_tx_data_o                             => s_fee_data_controller_spw_txdata
@@ -495,51 +509,24 @@ begin
 			err_invalid_data_crc_o     => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_invalid_data_crc
 		);
 
-	rmap_mem_area_nfee_read_inst : entity work.rmap_mem_area_nfee_read
-		port map(
-			clk_i                        => a_avs_clock,
-			rst_i                        => a_reset,
-			fee_hk_read_i                => s_fee_data_controller_mem_rd_control.read,
-			fee_hk_readaddr_i            => s_fee_data_controller_mem_rd_byte_address,
-			rmap_read_i                  => s_rmap_mem_control.read.read,
-			rmap_readaddr_i              => s_rmap_mem_rd_byte_address,
-			rmap_registers_wr_i          => s_rmap_mem_wr_area,
-			rmap_registers_rd_i          => s_rmap_mem_rd_area,
-			avalon_mm_rmap_i.address     => avalon_slave_windowing_address,
-			avalon_mm_rmap_i.read        => avalon_slave_windowing_read,
-			avalon_mm_rmap_i.byteenable  => avalon_slave_windowing_byteenable,
-			rmap_write_authorized_i      => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized,
-			rmap_write_finished_i        => s_rmap_write_data_finished,
-			rmap_memerror_o              => s_rmap_mem_flag.read.error,
-			fee_hk_datavalid_o           => s_fee_data_controller_mem_rd_flag.valid,
-			fee_hk_readdata_o            => s_fee_data_controller_mem_rd_flag.data,
-			rmap_datavalid_o             => s_rmap_mem_flag.read.valid,
-			rmap_readdata_o              => s_rmap_mem_flag.read.data,
-			avalon_mm_rmap_o.readdata    => s_avalon_mm_rmap_mem_read_readdata,
-			avalon_mm_rmap_o.waitrequest => s_avalon_mm_rmap_mem_read_waitrequest
-		);
-
-	rmap_mem_area_nfee_write_inst : entity work.rmap_mem_area_nfee_write
-		port map(
-			clk_i                        => a_avs_clock,
-			rst_i                        => a_reset,
-			fee_frame_number_i           => s_fee_frame_number,
-			rmap_write_i                 => s_rmap_mem_control.write.write,
-			rmap_writeaddr_i             => s_rmap_mem_wr_byte_address,
-			rmap_writedata_i             => s_rmap_mem_control.write.data,
-			avalon_mm_rmap_i.address     => avalon_slave_windowing_address,
-			avalon_mm_rmap_i.write       => avalon_slave_windowing_write,
-			avalon_mm_rmap_i.writedata   => avalon_slave_windowing_writedata,
-			avalon_mm_rmap_i.byteenable  => avalon_slave_windowing_byteenable,
-			rmap_write_authorized_i      => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized,
-			rmap_write_finished_i        => s_rmap_write_data_finished,
-			rmap_read_authorized_i       => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized,
-			rmap_read_finished_i         => s_rmap_read_data_finished,
-			rmap_memerror_o              => s_rmap_mem_flag.write.error,
-			rmap_memready_o              => s_rmap_mem_flag.write.ready,
-			avalon_mm_rmap_o.waitrequest => s_avalon_mm_rmap_mem_write_waitrequest,
-			rmap_registers_wr_o          => s_rmap_mem_wr_area
-		);
+	-- rmap memory area master signals assignments
+	-- rmap master codec
+	fee_codec_rmap_wr_address_o       <= s_rmap_mem_wr_byte_address;
+	fee_codec_rmap_write_o            <= s_rmap_mem_control.write.write;
+	fee_codec_rmap_writedata_o        <= s_rmap_mem_control.write.data;
+	s_rmap_mem_flag.write.error       <= '0';
+	s_rmap_mem_flag.write.waitrequest <= fee_codec_rmap_wr_waitrequest_i;
+	fee_codec_rmap_rd_address_o       <= s_rmap_mem_rd_byte_address;
+	fee_codec_rmap_read_o             <= s_rmap_mem_control.read.read;
+	s_rmap_mem_flag.read.error        <= '0';
+	s_rmap_mem_flag.read.data         <= fee_codec_rmap_readdata_i;
+	s_rmap_mem_flag.read.waitrequest  <= fee_codec_rmap_rd_waitrequest_i;
+	-- rmap master hk
+	fee_hk_rmap_wr_address_o          <= (others => '0');
+	fee_hk_rmap_write_o               <= '0';
+	fee_hk_rmap_writedata_o           <= (others => '0');
+	fee_hk_rmap_rd_address_o          <= s_fee_rd_rmap_address;
+	fee_hk_rmap_read_o                <= s_fee_rd_rmap_read;
 
 	-- spw mux
 	-- tx 0 / rx 0 -> rmap
@@ -630,8 +617,7 @@ begin
 			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_clk200
 		);
 
-	avalon_slave_windowing_readdata    <= ((s_avalon_mm_windwoing_read_readdata) or (s_avalon_mm_rmap_mem_read_readdata)) when (a_reset = '0') else (x"00000000");
-	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest) and (s_avalon_mm_rmap_mem_read_waitrequest) and (s_avalon_mm_rmap_mem_write_waitrequest)) when (a_reset = '0') else ('1');
+	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- TODO: remove
 	-- testbench signal
@@ -784,7 +770,7 @@ begin
 						end if;
 						-- detect a rising edge in right buffer 1 empty signal
 						if (((s_R_buffer_1_empty_delayed = '0') and (s_R_buffer_1_empty = '1'))) then
---							s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_1_empty_flag <= '1';
+							--							s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_1_empty_flag <= '1';
 						end if;
 					end if;
 					-- check if the left buffer empty interrupt is activated
@@ -795,7 +781,7 @@ begin
 						end if;
 						-- detect a rising edge in left buffer 1 empty signal
 						if (((s_L_buffer_1_empty_delayed = '0') and (s_L_buffer_1_empty = '1'))) then
---							s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_1_empty_flag <= '1';
+							--							s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_1_empty_flag <= '1';
 						end if;
 					end if;
 				end if;
@@ -870,33 +856,6 @@ begin
 		end if;
 	end process p_sync_in_triger;
 
-	-- rmap error clear manager
-	p_rmap_error_clear_manager : process(a_avs_clock, a_reset) is
-	begin
-		if (a_reset) = '1' then
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
-		elsif rising_edge(a_avs_clock) then
-			-- get error values to the rmap memory area
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
-			-- check if a error clear was requested
-			if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
-			end if;
-		end if;
-	end process p_rmap_error_clear_manager;
-
 	-- measurements channel outputs
 	-- measurement 0 : right empty buffer signal
 	measurements_channel(0) <= s_spacewire_read_registers.fee_buffers_status_reg.fee_right_buffer_empty;
@@ -919,17 +878,17 @@ begin
 	s_spacewire_read_registers.fee_buffers_irq_number_reg.fee_buffers_irq_number <= (others => '0');
 	s_spacewire_read_registers.rmap_irq_number_reg.rmap_irq_number               <= (others => '0');
 
-	-- rmap read area
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(7 downto 6) <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_control;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(5 downto 0) <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_time;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_status            <= x"00";
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_indicate          <= '0';
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error        <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error        <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error        <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect          <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_running             <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
-	s_rmap_mem_rd_area.reg_33_hk.frame_counter                            <= s_fee_frame_counter;
-	s_rmap_mem_rd_area.reg_33_hk.frame_number                             <= s_fee_frame_number;
+	-- channel hk for rmap read area
+	channel_hk_timecode_control_o     <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_control;
+	channel_hk_timecode_time_o        <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_time;
+	channel_hk_rmap_target_status_o   <= x"00";
+	channel_hk_rmap_target_indicate_o <= '0';
+	channel_hk_spw_link_escape_err_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
+	channel_hk_spw_link_credit_err_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
+	channel_hk_spw_link_parity_err_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
+	channel_hk_spw_link_disconnect_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
+	channel_hk_spw_link_running_o     <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
+	channel_hk_frame_counter_o        <= s_fee_frame_counter;
+	channel_hk_frame_number_o         <= s_fee_frame_number;
 
 end architecture rtl;                   -- of comm_v1_80_top

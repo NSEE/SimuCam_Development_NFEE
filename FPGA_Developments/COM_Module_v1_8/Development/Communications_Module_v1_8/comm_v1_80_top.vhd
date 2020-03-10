@@ -104,7 +104,6 @@ architecture rtl of comm_v1_80_top is
 	signal s_L_buffer_1_empty : std_logic;
 
 	-- windowing avalon mm read signals
-	signal s_avalon_mm_windwoing_read_readdata    : std_logic_vector(31 downto 0);
 	signal s_avalon_mm_windwoing_read_waitrequest : std_logic;
 
 	-- windowing avalon mm write signals
@@ -196,13 +195,6 @@ architecture rtl of comm_v1_80_top is
 	signal s_rmap_write_data_finished : std_logic;
 	signal s_rmap_read_data_finished  : std_logic;
 
-	-- rmap avalon mm read signals
-	signal s_avalon_mm_rmap_mem_read_readdata    : std_logic_vector(31 downto 0);
-	signal s_avalon_mm_rmap_mem_read_waitrequest : std_logic;
-
-	-- rmap avalon mm write signals
-	signal s_avalon_mm_rmap_mem_write_waitrequest : std_logic;
-
 	-- timecode manager
 	signal s_timecode_tick    : std_logic;
 	signal s_timecode_control : std_logic_vector(1 downto 0);
@@ -261,7 +253,7 @@ begin
 			avalon_mm_spacewire_i.address     => avalon_slave_windowing_address,
 			avalon_mm_spacewire_i.read        => avalon_slave_windowing_read,
 			avalon_mm_spacewire_i.byteenable  => avalon_slave_windowing_byteenable,
-			avalon_mm_spacewire_o.readdata    => s_avalon_mm_windwoing_read_readdata,
+			avalon_mm_spacewire_o.readdata    => avalon_slave_windowing_readdata,
 			avalon_mm_spacewire_o.waitrequest => s_avalon_mm_windwoing_read_waitrequest,
 			spacewire_write_registers_i       => s_spacewire_write_registers,
 			spacewire_read_registers_i        => s_spacewire_read_registers
@@ -625,8 +617,7 @@ begin
 			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_clk200
 		);
 
-	avalon_slave_windowing_readdata    <= ((s_avalon_mm_windwoing_read_readdata) or (s_avalon_mm_rmap_mem_read_readdata)) when (a_reset = '0') else (x"00000000");
-	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest) and (s_avalon_mm_rmap_mem_read_waitrequest) and (s_avalon_mm_rmap_mem_write_waitrequest)) when (a_reset = '0') else ('1');
+	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- TODO: remove
 	-- testbench signal

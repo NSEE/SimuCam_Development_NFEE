@@ -4,7 +4,6 @@ use ieee.numeric_std.all;
 
 use work.avalon_mm_spacewire_pkg.all;
 use work.avalon_mm_spacewire_registers_pkg.all;
-use work.rmap_mem_area_nfee_pkg.all;
 
 entity avalon_mm_spacewire_write_ent is
 	port(

@@ -1,51 +1,99 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
 # OpenFile C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/RMAP_Memory_NFEE_Area_tb.mpf
 # Loading project RMAP_Memory_NFEE_Area_tb
-# Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
 # Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
 # Compile of nrme_rmap_memory_nfee_area_top.vhd was successful.
-# 6 compiles, 0 failed with no errors.
+# Compile of rmap_avalon_stimuli.vhd failed with 4 errors.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 8 compiles, 2 failed with 11 errors.
 # Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
 # Compile of nrme_rmap_memory_nfee_area_top.vhd was successful.
-# 6 compiles, 0 failed with no errors.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 8 compiles, 1 failed with 7 errors.
 # Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
 # Compile of nrme_rmap_memory_nfee_area_top.vhd was successful.
-# 6 compiles, 0 failed with no errors.
-# Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
-# Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
-# Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
-# Compile of nrme_rmap_memory_nfee_area_top.vhd failed with 4 errors.
-# 4 compiles, 1 failed with 4 errors.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd failed with 3 errors.
+# 8 compiles, 1 failed with 3 errors.
 # Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
 # Compile of nrme_rmap_memory_nfee_area_top.vhd was successful.
-# 6 compiles, 0 failed with no errors.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd failed with 2 errors.
+# 8 compiles, 1 failed with 2 errors.
 # Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
 # Compile of nrme_rmap_memory_nfee_area_top.vhd was successful.
-# 6 compiles, 0 failed with no errors.
-# Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
-# Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+vsim work.testbench_top
+# vsim work.testbench_top 
+# Start time: 12:18:06 on Mar 05,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.nrme_avalon_mm_rmap_nfee_pkg
+# Loading work.nrme_rmap_mem_area_nfee_pkg(body)
+# Loading work.testbench_top(rtl)
+# Loading work.rmap_avalon_stimuli(rtl)
+# Loading work.nrme_rmap_memory_nfee_area_top(rtl)
+# Loading work.nrme_rmap_mem_area_nfee_arbiter_ent(rtl)
+# Loading work.nrme_rmap_mem_area_nfee_read(rtl)
+# Loading work.nrme_rmap_mem_area_nfee_write(rtl)
+add wave -position insertpoint sim:/testbench_top/rmap_avalon_stimuli_inst/*
+add wave -position insertpoint sim:/testbench_top/nrme_rmap_memory_nfee_area_top_inst/*
+add wave -position insertpoint sim:/testbench_top/nrme_rmap_memory_nfee_area_top_inst/nrme_rmap_mem_area_nfee_arbiter_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/nrme_rmap_memory_nfee_area_top_inst/nrme_rmap_mem_area_nfee_write_inst/*
+add wave -position insertpoint sim:/testbench_top/nrme_rmap_memory_nfee_area_top_inst/nrme_rmap_mem_area_nfee_read_inst/*
+restart
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/wave.do
+run
+restart
+run
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/wave.do
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
-# Compile of nrme_rmap_mem_area_nfee_read.vhd was successful.
-# Compile of nrme_rmap_mem_area_nfee_write.vhd was successful.
-# Compile of nrme_rmap_memory_nfee_area_top.vhd was successful.
-# 6 compiles, 0 failed with no errors.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# Loading work.rmap_avalon_stimuli(rtl)
+# Loading work.nrme_rmap_mem_area_nfee_arbiter_ent(rtl)
+run
+# Compile of rmap_avalon_stimuli.vhd was successful.
+restart
+# Loading work.rmap_avalon_stimuli(rtl)
+run
+# Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
+restart
+# Loading work.nrme_rmap_mem_area_nfee_arbiter_ent(rtl)
+run
+# Compile of rmap_avalon_stimuli.vhd was successful.
+restart
+# Loading work.rmap_avalon_stimuli(rtl)
+run
+# Compile of rmap_avalon_stimuli.vhd was successful.
+restart
+# Loading work.rmap_avalon_stimuli(rtl)
+run
+# End time: 14:46:50 on Mar 06,2020, Elapsed time: 26:28:44
+# Errors: 0, Warnings: 0

@@ -4,7 +4,7 @@
 
 
 # 
-# COMM_Pedreiro_v1_01 "COMM_Pedreiro_v1_01" v2.1
+# COMM_Pedreiro_v1_01 "COMM_Pedreiro_v1_01" v2.2
 #  2019.08.15.20:34:01
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME COMM_Pedreiro_v1_01
-set_module_property VERSION 2.1
+set_module_property VERSION 2.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -460,7 +460,7 @@ add_interface_port conduit_end_fee_rmap_master_hk fee_hk_rmap_read_o read_signal
 # connection point conduit_end_channel_hk_out
 # 
 add_interface conduit_end_channel_hk_out conduit end
-set_interface_property conduit_end_channel_hk_out associatedClock clock_sink_100mhz
+set_interface_property conduit_end_channel_hk_out associatedClock clock_sink_100
 set_interface_property conduit_end_channel_hk_out associatedReset reset_sink
 set_interface_property conduit_end_channel_hk_out ENABLED true
 set_interface_property conduit_end_channel_hk_out EXPORT_OF ""

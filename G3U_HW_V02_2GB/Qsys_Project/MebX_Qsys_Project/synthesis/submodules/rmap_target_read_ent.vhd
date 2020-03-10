@@ -274,7 +274,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if memory has valid data
-					if (mem_flag_i.valid = '1') then
+					if (mem_flag_i.waitrequest = '0') then
 						-- memory has valid data
 						-- go to next data field
 						s_rmap_target_read_state <= FIELD_DATA;
@@ -427,7 +427,6 @@ begin
 						-- memory access is only one byte, need to send just the read address
 						mem_byte_address_o <= s_read_address;
 					end if;
-
 					-- set memory read request
 					mem_control_o.read <= '1';
 				-- conditional output signals

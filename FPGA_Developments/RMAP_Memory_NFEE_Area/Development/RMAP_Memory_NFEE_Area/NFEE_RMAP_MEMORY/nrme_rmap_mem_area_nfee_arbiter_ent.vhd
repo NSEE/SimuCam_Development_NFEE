@@ -271,6 +271,7 @@ begin
 							s_master_queue(index) <= s_master_queue(index + 1);
 						end loop;
 						s_master_queue(t_master_queue_index'high) <= master_none;
+						s_master_rd_avs_0_queued                  <= '0';
 						-- update master queue index
 						if (v_master_queue_index > t_master_queue_index'low) then
 							v_master_queue_index := v_master_queue_index - 1;
@@ -289,7 +290,6 @@ begin
 	s_avalon_mm_rmap_waitrequest <= (avalon_mm_wr_rmap_i.waitrequest) and (avalon_mm_rd_rmap_i.waitrequest);
 	s_rmap_waitrequest           <= (s_fee_rmap_waitrequest) and (s_avalon_mm_rmap_waitrequest);
 
-	-- Masters Write inputs
 	-- Masters Write inputs
 	fee_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_IN_RST) when (rst_i = '1')
 	                       else (fee_0_wr_rmap_i) when (s_selected_master = master_wr_fee_0)
