@@ -177,7 +177,7 @@ begin
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
-				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 25000)) then
+				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
 					s_sync          <= '0';
 					v_sync_high     := '0';
 --					v_sync_one_shot := '1'; -- comment this line to remove one-shot
