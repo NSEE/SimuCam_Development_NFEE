@@ -6,30 +6,33 @@ use work.fee_data_controller_pkg.all;
 
 entity data_transmitter_ent is
 	port(
-		clk_i                               : in  std_logic;
-		rst_i                               : in  std_logic;
+		clk_i                                 : in  std_logic;
+		rst_i                                 : in  std_logic;
 		-- general inputs
-		fee_clear_signal_i                  : in  std_logic;
-		fee_stop_signal_i                   : in  std_logic;
-		fee_start_signal_i                  : in  std_logic;
+		fee_clear_signal_i                    : in  std_logic;
+		fee_stop_signal_i                     : in  std_logic;
+		fee_start_signal_i                    : in  std_logic;
 		-- others
-		send_buffer_cfg_length_i            : in  std_logic_vector(15 downto 0);
-		hkdata_send_buffer_status_i         : in  t_fee_dpkt_send_buffer_status;
-		left_imgdata_send_buffer_status_i   : in  t_fee_dpkt_send_buffer_status;
-		right_imgdata_send_buffer_status_i  : in  t_fee_dpkt_send_buffer_status;
-		spw_tx_ready_i                      : in  std_logic;
-		windowing_enabled_i                 : in  std_logic;
-		windowing_packet_order_list_i       : in  std_logic_vector(511 downto 0);
-		windowing_last_left_packet_i        : in  std_logic_vector(9 downto 0);
-		windowing_last_right_packet_i       : in  std_logic_vector(9 downto 0);
-		data_transmitter_busy_o             : out std_logic;
-		data_transmitter_finished_o         : out std_logic;
-		hkdata_send_buffer_control_o        : out t_fee_dpkt_send_buffer_control;
-		left_imgdata_send_buffer_control_o  : out t_fee_dpkt_send_buffer_control;
-		right_imgdata_send_buffer_control_o : out t_fee_dpkt_send_buffer_control;
-		spw_tx_write_o                      : out std_logic;
-		spw_tx_flag_o                       : out std_logic;
-		spw_tx_data_o                       : out std_logic_vector(7 downto 0)
+		send_buffer_cfg_length_i              : in  std_logic_vector(15 downto 0);
+		hkdata_send_buffer_status_i           : in  t_fee_dpkt_send_buffer_status;
+		hkdata_send_buffer_data_type_i        : in  std_logic_vector(1 downto 0);
+		left_imgdata_send_buffer_status_i     : in  t_fee_dpkt_send_buffer_status;
+		left_imgdata_send_buffer_data_type_i  : in  std_logic_vector(1 downto 0);
+		right_imgdata_send_buffer_status_i    : in  t_fee_dpkt_send_buffer_status;
+		right_imgdata_send_buffer_data_type_i : in  std_logic_vector(1 downto 0);
+		spw_tx_ready_i                        : in  std_logic;
+		windowing_enabled_i                   : in  std_logic;
+		windowing_packet_order_list_i         : in  std_logic_vector(511 downto 0);
+		windowing_last_left_packet_i          : in  std_logic_vector(9 downto 0);
+		windowing_last_right_packet_i         : in  std_logic_vector(9 downto 0);
+		data_transmitter_busy_o               : out std_logic;
+		data_transmitter_finished_o           : out std_logic;
+		hkdata_send_buffer_control_o          : out t_fee_dpkt_send_buffer_control;
+		left_imgdata_send_buffer_control_o    : out t_fee_dpkt_send_buffer_control;
+		right_imgdata_send_buffer_control_o   : out t_fee_dpkt_send_buffer_control;
+		spw_tx_write_o                        : out std_logic;
+		spw_tx_flag_o                         : out std_logic;
+		spw_tx_data_o                         : out std_logic_vector(7 downto 0)
 	);
 end entity data_transmitter_ent;
 
@@ -244,24 +247,32 @@ begin
 										-- check if the left imgdata send buffer is ready to be read
 										if (left_imgdata_send_buffer_status_i.rdready = '1') then
 											-- left imgdata send buffer ready to be read
-											-- activate left img data source
-											v_left_imgdata_active    := '1';
-											-- check if the packet is only a header (not be transmitted)
-											if (c_PKT_HEADER_SIZE = left_imgdata_send_buffer_status_i.stat_extended_usedw) then
-												-- set data to be discarded
-												s_discard_data <= '1';
+											-- check if imgdata content is data or overscan
+											if (left_imgdata_send_buffer_data_type_i = c_DATA_PACKET) then
+												-- imgdata content is data, send packet
+												-- activate left img data source
+												v_left_imgdata_active    := '1';
+												-- check if the packet is only a header (not be transmitted)
+												if (c_PKT_HEADER_SIZE = left_imgdata_send_buffer_status_i.stat_extended_usedw) then
+													-- set data to be discarded
+													s_discard_data <= '1';
+												end if;
+												-- update packet information
+												if (send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) then
+													s_last_packet <= '1';
+												end if;
+												s_data_length            <= std_logic_vector(unsigned(left_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
+												-- go to fetch data, then waiting data buffer space 
+												s_data_transmitter_state <= WAITING_DATA_BUFFER_SPACE;
+												v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
+												-- increment packet order list index and left packet counter
+												s_packet_order_list_cnt  <= s_packet_order_list_cnt + 1;
+												s_left_packet_cnt        <= std_logic_vector(unsigned(s_left_packet_cnt) + 1);
+											else
+												-- imgdata content is overscan, skip packet
+												-- increment packet order list index
+												s_packet_order_list_cnt <= s_packet_order_list_cnt + 1;
 											end if;
-											-- update packet information
-											if (send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) then
-												s_last_packet <= '1';
-											end if;
-											s_data_length            <= std_logic_vector(unsigned(left_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
-											-- go to fetch data, then waiting data buffer space 
-											s_data_transmitter_state <= WAITING_DATA_BUFFER_SPACE;
-											v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
-											-- increment packet order list index and left packet counter
-											s_packet_order_list_cnt  <= s_packet_order_list_cnt + 1;
-											s_left_packet_cnt        <= std_logic_vector(unsigned(s_left_packet_cnt) + 1);
 										end if;
 									end if;
 								else
@@ -273,29 +284,86 @@ begin
 										s_packet_order_list_cnt <= s_packet_order_list_cnt + 1;
 									else
 										-- last right packet was not reached, send right packet
-										-- check if the right imgdata send buffer is ready to be read
-										if (right_imgdata_send_buffer_status_i.rdready = '1') then
-											-- right imgdata send buffer ready to be read
-											-- activate right img data source
-											v_right_imgdata_active   := '1';
-											-- check if the packet is only a header (not be transmitted)
-											if (c_PKT_HEADER_SIZE = right_imgdata_send_buffer_status_i.stat_extended_usedw) then
-												-- set data to be discarded
-												s_discard_data <= '1';
+										-- check if imgdata content is data or overscan
+										if (right_imgdata_send_buffer_data_type_i = c_DATA_PACKET) then
+											-- imgdata content is data, send packet
+											-- check if the right imgdata send buffer is ready to be read
+											if (right_imgdata_send_buffer_status_i.rdready = '1') then
+												-- right imgdata send buffer ready to be read
+												-- activate right img data source
+												v_right_imgdata_active   := '1';
+												-- check if the packet is only a header (not be transmitted)
+												if (c_PKT_HEADER_SIZE = right_imgdata_send_buffer_status_i.stat_extended_usedw) then
+													-- set data to be discarded
+													s_discard_data <= '1';
+												end if;
+												-- update packet information
+												if (send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) then
+													s_last_packet <= '1';
+												end if;
+												s_data_length            <= std_logic_vector(unsigned(right_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
+												-- go to fetch data, then waiting data buffer space 
+												s_data_transmitter_state <= WAITING_DATA_BUFFER_SPACE;
+												v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
+												-- increment packet order list index and right packet counter
+												s_packet_order_list_cnt  <= s_packet_order_list_cnt + 1;
+												s_right_packet_cnt       <= std_logic_vector(unsigned(s_right_packet_cnt) + 1);
+											else
+												-- imgdata content is overscan, skip packet
+												-- increment packet order list index
+												s_packet_order_list_cnt <= s_packet_order_list_cnt + 1;
 											end if;
-											-- update packet information
-											if (send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) then
-												s_last_packet <= '1';
-											end if;
-											s_data_length            <= std_logic_vector(unsigned(right_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
-											-- go to fetch data, then waiting data buffer space 
-											s_data_transmitter_state <= WAITING_DATA_BUFFER_SPACE;
-											v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
-											-- increment packet order list index and right packet counter
-											s_packet_order_list_cnt  <= s_packet_order_list_cnt + 1;
-											s_right_packet_cnt       <= std_logic_vector(unsigned(s_right_packet_cnt) + 1);
 										end if;
 									end if;
+								end if;
+							else
+								-- no more packets to be transmitted (packet order list has not reached the end). Overscan packets will be transmitted
+								-- check if the left imgdata send buffer is ready to be read
+								if (left_imgdata_send_buffer_status_i.rdready = '1') then
+									-- left imgdata send buffer ready to be read
+									-- activate left img data source
+									v_left_imgdata_active    := '1';
+									-- check if the packet is only a header (not be transmitted)
+									if (c_PKT_HEADER_SIZE = left_imgdata_send_buffer_status_i.stat_extended_usedw) then
+										-- set data to be discarded
+										s_discard_data <= '1';
+									end if;
+									-- check if imgdata content is data
+									if (left_imgdata_send_buffer_data_type_i = c_DATA_PACKET) then
+										-- imgdata content is data, discard packet
+										s_discard_data <= '1';
+									end if;
+									-- update packet information
+									if (send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) then
+										s_last_packet <= '1';
+									end if;
+									s_data_length            <= std_logic_vector(unsigned(left_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
+									-- go to fetch data, then waiting data buffer space 
+									s_data_transmitter_state <= WAITING_DATA_BUFFER_SPACE;
+									v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
+								-- check if the right imgdata send buffer is ready to be read
+								elsif (right_imgdata_send_buffer_status_i.rdready = '1') then
+									-- right imgdata send buffer ready to be read
+									-- activate right img data source
+									v_right_imgdata_active   := '1';
+									-- check if the packet is only a header (not be transmitted)
+									if (c_PKT_HEADER_SIZE = right_imgdata_send_buffer_status_i.stat_extended_usedw) then
+										-- set data to be discarded
+										s_discard_data <= '1';
+									end if;
+									-- check if imgdata content is data
+									if (right_imgdata_send_buffer_data_type_i = c_DATA_PACKET) then
+										-- imgdata content is data, discard packet
+										s_discard_data <= '1';
+									end if;
+									-- update packet information
+									if (send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) then
+										s_last_packet <= '1';
+									end if;
+									s_data_length            <= std_logic_vector(unsigned(right_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
+									-- go to fetch data, then waiting data buffer space 
+									s_data_transmitter_state <= WAITING_DATA_BUFFER_SPACE;
+									v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
 								end if;
 							end if;
 						end if;

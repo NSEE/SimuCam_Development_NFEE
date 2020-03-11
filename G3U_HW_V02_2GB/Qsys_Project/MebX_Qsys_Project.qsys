@@ -2337,42 +2337,42 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="0" />
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="0" />
  <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.7" enabled="1" />
  <module

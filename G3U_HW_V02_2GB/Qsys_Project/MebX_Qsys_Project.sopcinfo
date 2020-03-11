@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.02.26.15:43:19 -->
+ <!-- 2020.03.10.23:54:57 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1582742596</value>
+  <value>1583895292</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -754,7 +754,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2350,7 +2350,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -3946,7 +3946,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -5542,7 +5542,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -7138,7 +7138,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -8734,7 +8734,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -96915,7 +96915,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1582742596</value>
+   <value>1583895292</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -96935,7 +96935,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1582742596</value>
+   <value>1583895292</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -96951,7 +96951,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1582742596</value>
+   <value>1583895292</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -112047,7 +112047,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>COMM_Pedreiro_v1_01</displayName>
-  <version>2.2</version>
+  <version>2.3</version>
  </plugin>
  <plugin>
   <instanceCount>32</instanceCount>

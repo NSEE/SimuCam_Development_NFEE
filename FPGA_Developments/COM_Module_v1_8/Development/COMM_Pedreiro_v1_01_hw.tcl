@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME COMM_Pedreiro_v1_01
-set_module_property VERSION 2.2
+set_module_property VERSION 2.3
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""

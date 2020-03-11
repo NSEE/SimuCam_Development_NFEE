@@ -21,7 +21,9 @@ entity data_packet_header_gen_ent is
 		send_buffer_wrready_i          : in  std_logic;
 		header_gen_finished_o          : out std_logic;
 		send_buffer_wrdata_o           : out std_logic_vector(7 downto 0);
-		send_buffer_wrreq_o            : out std_logic
+		send_buffer_wrreq_o            : out std_logic;
+		send_buffer_data_type_wrdata_o : out std_logic_vector(1 downto 0);
+		send_buffer_data_type_wrreq_o  : out std_logic
 	);
 end entity data_packet_header_gen_ent;
 
@@ -55,28 +57,32 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_header_gen_state      <= STOPPED;
-			v_header_gen_state      := STOPPED;
-			s_header_gen_next_state <= STOPPED;
-			s_overflow_send_buffer  <= '0';
+			s_header_gen_state             <= STOPPED;
+			v_header_gen_state             := STOPPED;
+			s_header_gen_next_state        <= STOPPED;
+			s_overflow_send_buffer         <= '0';
 			-- Outputs Generation
-			header_gen_finished_o   <= '0';
-			send_buffer_wrdata_o    <= x"00";
-			send_buffer_wrreq_o     <= '0';
+			header_gen_finished_o          <= '0';
+			send_buffer_wrdata_o           <= x"00";
+			send_buffer_wrreq_o            <= '0';
+			send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+			send_buffer_data_type_wrreq_o  <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_header_gen_state) is
 
 				when STOPPED =>
 					-- stopped state. do nothing and reset
-					s_header_gen_state      <= STOPPED;
-					v_header_gen_state      := STOPPED;
-					s_header_gen_next_state <= STOPPED;
-					s_overflow_send_buffer  <= '0';
+					s_header_gen_state             <= STOPPED;
+					v_header_gen_state             := STOPPED;
+					s_header_gen_next_state        <= STOPPED;
+					s_overflow_send_buffer         <= '0';
 					-- Outputs Generation
-					header_gen_finished_o   <= '0';
-					send_buffer_wrdata_o    <= x"00";
-					send_buffer_wrreq_o     <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_wrdata_o           <= x"00";
+					send_buffer_wrreq_o            <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -266,28 +272,34 @@ begin
 					-- does nothing until the control unit signals it is ready to send a header
 					-- reset outputs
 					-- default output signals
-					header_gen_finished_o <= '0';
-					send_buffer_wrdata_o  <= x"00";
-					send_buffer_wrreq_o   <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_wrdata_o           <= x"00";
+					send_buffer_wrreq_o            <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_SEND_BUFFER_SPACE"
 				when WAITING_SEND_BUFFER_SPACE =>
 					-- wait until the send buffer have available space
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- clear send buffer write signal
-					send_buffer_wrdata_o  <= x"00";
-					send_buffer_wrreq_o   <= '0';
+					send_buffer_wrdata_o           <= x"00";
+					send_buffer_wrreq_o            <= '0';
 				-- conditional output signals
 
 				-- state "FIELD_LOGICAL_ADDRESS"
 				when FIELD_LOGICAL_ADDRESS =>
 					-- logical address field, send logical address
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.logical_address;
+					send_buffer_wrdata_o           <= headerdata_i.logical_address;
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -301,9 +313,11 @@ begin
 				when FIELD_PROTOCOL_IDENTIFIER =>
 					-- protocol identifier field, send protocol identifier
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.protocol_id;
+					send_buffer_wrdata_o           <= headerdata_i.protocol_id;
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -317,9 +331,11 @@ begin
 				when FIELD_LENGTH_MSB =>
 					-- length field msb, send length msb
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.length_field(15 downto 8);
+					send_buffer_wrdata_o           <= headerdata_i.length_field(15 downto 8);
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -333,9 +349,11 @@ begin
 				when FIELD_LENGTH_LSB =>
 					-- length field lsb, send length lsb
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.length_field(7 downto 0);
+					send_buffer_wrdata_o           <= headerdata_i.length_field(7 downto 0);
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -350,6 +368,8 @@ begin
 					-- type field msb, send type msb
 					-- default output signals
 					header_gen_finished_o            <= '0';
+					send_buffer_data_type_wrdata_o   <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o    <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o(7 downto 4) <= (others => '0');
 					send_buffer_wrdata_o(3 downto 0) <= headerdata_i.type_field.mode;
@@ -374,6 +394,8 @@ begin
 					send_buffer_wrdata_o(3 downto 2) <= headerdata_i.type_field.frame_number;
 					send_buffer_wrdata_o(1 downto 0) <= headerdata_i.type_field.packet_type;
 					-- write the send buffer data
+					send_buffer_data_type_wrdata_o   <= headerdata_i.type_field.packet_type;
+					send_buffer_data_type_wrreq_o    <= '1';
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
 						send_buffer_wrreq_o <= '0';
@@ -386,9 +408,11 @@ begin
 				when FIELD_FRAME_COUNTER_MSB =>
 					-- frame counter field msb, send frame counter msb
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.frame_counter(15 downto 8);
+					send_buffer_wrdata_o           <= headerdata_i.frame_counter(15 downto 8);
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -402,9 +426,11 @@ begin
 				when FIELD_FRAME_COUNTER_LSB =>
 					-- frame counter field lsb, send frame counter lsb
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.frame_counter(7 downto 0);
+					send_buffer_wrdata_o           <= headerdata_i.frame_counter(7 downto 0);
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -418,9 +444,11 @@ begin
 				when FIELD_SEQUENCE_COUNTER_MSB =>
 					-- sequence counter field msb, send sequence counter msb
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.sequence_counter(15 downto 8);
+					send_buffer_wrdata_o           <= headerdata_i.sequence_counter(15 downto 8);
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -434,9 +462,11 @@ begin
 				when FIELD_SEQUENCE_COUNTER_LSB =>
 					-- sequence counter field lsb, send sequence counter lsb
 					-- default output signals
-					header_gen_finished_o <= '0';
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_i.sequence_counter(7 downto 0);
+					send_buffer_wrdata_o           <= headerdata_i.sequence_counter(7 downto 0);
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -451,9 +481,11 @@ begin
 					-- finish header unit operation
 					-- default output signals
 					-- indicate that the reply generation is finished
-					header_gen_finished_o <= '1';
-					send_buffer_wrreq_o   <= '0';
-					send_buffer_wrdata_o  <= x"00";
+					header_gen_finished_o          <= '1';
+					send_buffer_wrreq_o            <= '0';
+					send_buffer_wrdata_o           <= x"00";
+					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrreq_o  <= '0';
 				-- conditional output signals
 
 				-- all the other states (not defined)
