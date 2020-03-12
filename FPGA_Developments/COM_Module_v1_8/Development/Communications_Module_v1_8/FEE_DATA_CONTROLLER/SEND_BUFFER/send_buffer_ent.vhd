@@ -32,7 +32,8 @@ entity send_buffer_ent is
 		buffer_rdready_o             : out std_logic;
 		buffer_wrready_o             : out std_logic;
 		data_type_rddata_o           : out std_logic_vector(1 downto 0);
-		double_buffer_empty_o        : out std_logic
+		double_buffer_empty_o        : out std_logic;
+		double_buffer_wrable_o       : out std_logic
 	);
 end entity send_buffer_ent;
 
@@ -204,6 +205,7 @@ begin
 					-- stopped state. do nothing and reset
 					s_send_buffer_write_state  <= STOPPED;
 					buffer_wrready_o           <= '0';
+					double_buffer_wrable_o     <= '0';
 					s_wr_data_buffer_selection <= 2;
 					s_data_fifo_0_rdhold       <= '1';
 					s_data_fifo_1_rdhold       <= '1';
@@ -220,6 +222,7 @@ begin
 					s_wr_data_buffer_selection <= 2;
 					s_send_buffer_write_state  <= WAIT_WR_DFIFO_0;
 					buffer_wrready_o           <= '0';
+					double_buffer_wrable_o     <= '0';
 					-- check if data fifo 0 is available (empty)
 					if ((s_data_fifo_0.empty = '1') and (s_data_fifo_0_wrhold = '0')) then
 						-- data fifo 0 is available, go to write data fifo 0 
@@ -231,6 +234,7 @@ begin
 						--						s_data_fifo_0_wrhold       <= '0';
 						-- set the send buffer as ready for write
 						buffer_wrready_o           <= '1';
+						double_buffer_wrable_o     <= '1';
 					end if;
 
 				when WRITE_DFIFO_0 =>
@@ -240,6 +244,7 @@ begin
 					s_data_fifo_0_rdhold       <= '1';
 					--					s_data_fifo_0_wrhold       <= '0';
 					buffer_wrready_o           <= '1';
+					double_buffer_wrable_o     <= '1';
 					-- check if a write request to the data type 0 was received
 					if (data_type_wrreq_i = '1') then
 						s_data_type_0_data <= data_type_wrdata_i;
@@ -255,6 +260,11 @@ begin
 						--						s_data_fifo_0_wrhold       <= '1';
 						-- set the send buffer as not ready for write
 						buffer_wrready_o           <= '0';
+						double_buffer_wrable_o     <= '0';
+						-- check if double buffer will be writeable in the next state
+						if ((s_data_fifo_1.empty = '1') and (s_data_fifo_1_wrhold = '0')) then
+							double_buffer_wrable_o <= '1';
+						end if;
 					end if;
 
 				when WAIT_WR_DFIFO_1 =>
@@ -262,6 +272,7 @@ begin
 					s_wr_data_buffer_selection <= 2;
 					s_send_buffer_write_state  <= WAIT_WR_DFIFO_1;
 					buffer_wrready_o           <= '0';
+					double_buffer_wrable_o     <= '0';
 					-- check if data fifo 1 is available (empty)
 					if ((s_data_fifo_1.empty = '1') and (s_data_fifo_1_wrhold = '0')) then
 						-- data fifo 1 is available, go to write data fifo 1 
@@ -273,6 +284,7 @@ begin
 						--						s_data_fifo_1_wrhold       <= '0';
 						-- set the send buffer as ready for write
 						buffer_wrready_o           <= '1';
+						double_buffer_wrable_o     <= '1';
 					end if;
 
 				when WRITE_DFIFO_1 =>
@@ -282,6 +294,7 @@ begin
 					s_data_fifo_1_rdhold       <= '1';
 					--					s_data_fifo_1_wrhold       <= '0';
 					buffer_wrready_o           <= '1';
+					double_buffer_wrable_o     <= '1';
 					-- check if a write request to the data type 1 was received
 					if (data_type_wrreq_i = '1') then
 						s_data_type_1_data <= data_type_wrdata_i;
@@ -297,6 +310,11 @@ begin
 						--						s_data_fifo_1_wrhold       <= '1';
 						-- set the send buffer as not ready for write
 						buffer_wrready_o           <= '0';
+						double_buffer_wrable_o     <= '0';
+						-- check if double buffer will be writeable in the next state
+						if ((s_data_fifo_0.empty = '1') and (s_data_fifo_0_wrhold = '0')) then
+							double_buffer_wrable_o <= '1';
+						end if;
 					end if;
 
 			end case;
