@@ -28,16 +28,16 @@
 /* HK values enum [bndky] */
 
 enum FeeHKValues{
-    usiTouSense1 = 0, usiTouSense2, usiTouSense3, usiTouSense4, usiTouSense5, usiTouSense6,
-    usiCcd1Ts, usiCcd2Ts, usiCcd3Ts, usiCcd4Ts, usiPrt1, usiPrt2, usiPrt3, usiPrt4, usiPrt5,
-    usiZeroDiffAmp, usiCcd1VodMon, usiCcd1VogMon, usiCcd1VrdMonE, usiCcd2VodMon, usiCcd2VogMon,
-    usiCcd2VrdMonE, usiCcd3VodMon, usiCcd3VogMon, usiCcd3VrdMonE, usiCcd4VodMon, usiCcd4VogMon,
-    usiCcd4VrdMonE, usiVccd, usiVrclkMon, usiViclk, usiVrclkLow, usi5vbPosMon, usi5vbNegMon,
-    usi3v3bMon, usi2v5aMon, usi3v3dMon, usi2v5dMon, usi1v5dMon, usi5vrefMon, usiVccdPosRaw,
-    usiVclkPosRaw, usiVan1PosRaw, usiVan3NegMon, usiVan2PosRaw, usiVdigRaw, usiVdigRaw2,
-    usiViclkLow, usiCcd1VrdMonF, usiCcd1VddMon, usiCcd1VgdMon, usiCcd2VrdMonF, usiCcd2VddMon,
-    usiCcd2VgdMon, usiCcd3VrdMonF, usiCcd3VddMon, usiCcd3VgdMon, usiCcd4VrdMonF, usiCcd4VddMon,
-    usiCcd4VgdMon, usiIgHiMon, usiIgLoMon, usiTsenseA, usiTsenseB
+	eRmapHkTouSense1 = 0, eRmapHkTouSense2, eRmapHkTouSense3, eRmapHkTouSense4, eRmapHkTouSense5, eRmapHkTouSense6,
+	eRmapHkCcd1Ts, eRmapHkCcd2Ts, eRmapHkCcd3Ts, eRmapHkCcd4Ts, eRmapHkPrt1, eRmapHkPrt2, eRmapHkPrt3, eRmapHkPrt4,
+	eRmapHkPrt5, eRmapHkZeroDiffAmp, eRmapHkCcd1VodMon, eRmapHkCcd1VogMon, eRmapHkCcd1VrdMonE, eRmapHkCcd2VodMon,
+	eRmapHkCcd2VogMon, eRmapHkCcd2VrdMonE, eRmapHkCcd3VodMon, eRmapHkCcd3VogMon, eRmapHkCcd3VrdMonE, eRmapHkCcd4VodMon,
+	eRmapHkCcd4VogMon, eRmapHkCcd4VrdMonE, eRmapHkVccd, eRmapHkVrclkMon, eRmapHkViclk, eRmapHkVrclkLow, eRmapHk5vbPosMon,
+	eRmapHk5vbNegMon, eRmapHk3v3bMon, eRmapHk2v5aMon, eRmapHk3v3dMon, eRmapHk2v5dMon, eRmapHk1v5dMon, eRmapHk5vrefMon,
+	eRmapHkVccdPosRaw, eRmapHkVclkPosRaw, eRmapHkVan1PosRaw, eRmapHkVan3NegMon, eRmapHkVan2PosRaw, eRmapHkVdigRaw,
+	eRmapHkVdigRaw2, eRmapHkViclkLow, eRmapHkCcd1VrdMonF, eRmapHkCcd1VddMon, eRmapHkCcd1VgdMon, eRmapHkCcd2VrdMonF,
+	eRmapHkCcd2VddMon, eRmapHkCcd2VgdMon, eRmapHkCcd3VrdMonF, eRmapHkCcd3VddMon, eRmapHkCcd3VgdMon, eRmapHkCcd4VrdMonF,
+	eRmapHkCcd4VddMon, eRmapHkCcd4VgdMon, eRmapHkIgHiMon, eRmapHkIgLoMon, eRmapHkTsenseA, eRmapHkTsenseB
 } EFeeHKValues;
 
 void vFeeTaskV3(void *task_data);
