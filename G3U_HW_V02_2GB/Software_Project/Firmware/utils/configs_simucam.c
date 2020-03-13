@@ -509,6 +509,21 @@ bool vLoadDebugConfs( void ){
 						} while ( (c !=59) );
 
 						break;
+					case 'G':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiroll) = c;
+								p_inteiroll++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+
+						xDefaults.ulStartDelay = (unsigned long)atoll( inteiroll );
+						p_inteiroll = inteiroll;
+
+						break;
 					case 'K':
 
 						do {
@@ -520,22 +535,7 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-						xDefaults.ulColDelay = (unsigned long)atoll( inteiroll );
-						p_inteiroll = inteiroll;
-
-						break;
-					case 'M':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiroll) = c;
-								p_inteiroll++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-						xDefaults.ulADCPixelDelay = (unsigned long)atoll( inteiroll );
+						xDefaults.ulSkipDelay = (unsigned long)atoll( inteiroll );
 						p_inteiroll = inteiroll;
 
 						break;
@@ -551,6 +551,21 @@ bool vLoadDebugConfs( void ){
 						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
 						xDefaults.ulLineDelay = (unsigned long)atoll( inteiroll );
+						p_inteiroll = inteiroll;
+
+						break;
+					case 'M':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiroll) = c;
+								p_inteiroll++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+
+						xDefaults.ulADCPixelDelay = (unsigned long)atoll( inteiroll );
 						p_inteiroll = inteiroll;
 
 						break;
@@ -696,9 +711,9 @@ bool vLoadDebugConfs( void ){
 
 						sidhcpTemp = atoi( inteiro );
 						if (sidhcpTemp == 1)
-							xDefaults.bOneShot = TRUE;
+							xDefaults.bSpwLinkStart = TRUE;
 						else
-							xDefaults.bOneShot = FALSE;
+							xDefaults.bSpwLinkStart = FALSE;
 
 						p_inteiro = inteiro;
 
