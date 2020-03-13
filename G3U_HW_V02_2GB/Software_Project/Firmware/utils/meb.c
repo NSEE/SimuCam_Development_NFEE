@@ -150,7 +150,7 @@ void vSyncReset( unsigned short int usiSynchDelayL, TNFee_Control *pxFeeCP ) {
     INT8U iErrorCodeL = 0;
 
     /* Send message to task queue */
-    iErrorCodeL = OSQPost(xQueueSyncReset, (void *)usiSynchDelayL);
+    iErrorCodeL = OSQPost(xQueueSyncReset, (void *)((unsigned long int)usiSynchDelayL));
     if (iErrorCodeL == OS_ERR_NONE){
 
 		#if DEBUG_ON
