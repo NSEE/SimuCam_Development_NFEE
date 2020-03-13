@@ -282,6 +282,24 @@ alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs){
     return uliPxDelay;
 }
 
+alt_u32 uliPxDelayCalcPeriodMs(alt_u32 uliPeriodMs){
+
+    /*
+     * Delay = PxDelay * ClkCycles@100MHz
+     * PxDelay = Delay / ClkCycles@100MHz
+     *
+     * ClkCycles@100MHz = 10 ns = 1e-5 ms
+     *
+     * Delay[ms] / 1e-5 = Delay[ms] * 1e+5
+     * PxDelay = Delay[ms] * 1e+5
+     */
+
+    alt_u32 uliPxDelay;
+    uliPxDelay = (alt_u32) ((float) uliPeriodMs * 1e+5);
+
+    return uliPxDelay;
+}
+
 //! [public functions]
 
 //! [private functions]

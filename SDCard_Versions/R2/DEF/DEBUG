@@ -11,10 +11,12 @@ C=2295;
 P=0;
 'Over scan serial'
 N=0;
+'Start Pixel Delay (milliseconds) (0)'
+G=0;
+'Skip Pxel Delay (nanoseconds) (110000)'
+K=110000;
 'Line Pixel Delay (nanoseconds) (90000)'
 J=90000;
-'Column Pixel Delay (nanoseconds) (5)'
-K=5;
 'ADC Pixel Delay (nanoseconds) (333)'
 M=333;
 'Buffer overflow enabled (1) ; Buffer overflow disabled (0)'
@@ -23,7 +25,7 @@ T=0;
 R=209;
 'Logical Addr 0x51'
 A=81;
-'OneShot ? 1:( TRUE) 0:(FALSE) '
+'SpaceWire LinkStart ? 1:(TRUE) 0:(FALSE) '
 Z=0;
 '(Not used!)Link SPW for the NFEE-0'
 B=0;
@@ -43,7 +45,7 @@ F=4;
 'Pattern type - 0:Official URD   1:Byte Sequencial    2:0xFF 0xFF    3:Pixel Sequencial'
 Q=0;
 'Data packet protocol ID ( 0xF0 = 240 , 0x02 = 2 ) (Use only decimal representation)'
-D=2;
+D=240;
 'Data Packet DPU Logical Address ( 0x50 = 80 )'
 H=80;
 'Sequence of CCD Redout - Range[0..3]'

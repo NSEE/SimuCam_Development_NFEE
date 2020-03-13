@@ -3001,7 +3001,7 @@ bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Enable SPW channel */
 	bSpwcGetLink(xSPW);
-	xSPW->xSpwcLinkConfig.bLinkStart = FALSE;
+	xSPW->xSpwcLinkConfig.bLinkStart = xDefaults.bSpwLinkStart;
 	xSPW->xSpwcLinkConfig.bAutostart = TRUE;
 	xSPW->xSpwcLinkConfig.bDisconnect = FALSE;
 	bSpwcSetLink(xSPW);

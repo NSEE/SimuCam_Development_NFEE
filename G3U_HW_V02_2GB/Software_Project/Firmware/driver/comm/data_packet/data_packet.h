@@ -57,6 +57,7 @@ bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh);
 
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh);
 alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs);
+alt_u32 uliPxDelayCalcPeriodMs(alt_u32 uliPeriodMs);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

@@ -49,12 +49,13 @@ typedef struct Defaults{
 	unsigned short int usiSyncPeriod;
 	unsigned short int usiPreBtSync;
 	bool bBufferOverflowEn;
+	unsigned long ulStartDelay;
+	unsigned long ulSkipDelay;
 	unsigned long ulLineDelay;
-	unsigned long ulColDelay;
 	unsigned long ulADCPixelDelay;
 	unsigned short int ucRmapKey;
 	unsigned short int ucLogicalAddr;
-	bool bOneShot;
+	bool bSpwLinkStart;
 	unsigned short int usiLinkNFEE0;
 	unsigned short int usiDebugLevel;
 	unsigned short int usiPatternType;
