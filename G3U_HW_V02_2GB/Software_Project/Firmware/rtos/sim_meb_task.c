@@ -402,7 +402,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
-			vSendHKUpdate(pxMebCLocal, xPus);
+			vSendHKUpdate(pxMebCLocal, xPusL);
 			break;
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
