@@ -20,7 +20,7 @@ J=90000;
 'ADC Pixel Delay (nanoseconds) (333)'
 M=333;
 'Buffer overflow enabled (1) ; Buffer overflow disabled (0)'
-T=0;
+T=1;
 'RMAP KEY (0xD1)'
 R=209;
 'Logical Addr 0x51'
