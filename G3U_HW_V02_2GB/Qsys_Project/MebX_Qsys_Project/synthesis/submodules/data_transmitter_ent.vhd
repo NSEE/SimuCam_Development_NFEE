@@ -237,9 +237,9 @@ begin
 								-- check if the packet order list index is for a left side
 								if (windowing_packet_order_list_i(511 - s_packet_order_list_cnt) = c_PKTORDER_LEFT_PACKET) then
 									-- packet order list index is for a left side
-									-- check if the last left packet was reached
-									if (s_left_packet_cnt = windowing_last_left_packet_i) then
-										-- last left packet was reached, skip left packet
+									-- check if the last left packet was reached or the buffer is filled with overscan data
+									if ((s_left_packet_cnt = windowing_last_left_packet_i) or ((left_imgdata_send_buffer_status_i.rdready = '1') and (left_imgdata_send_buffer_data_type_i = c_OVERSCAN_DATA))) then
+										-- last left packet was reached or the buffer is filled with overscan data, skip left packet
 										-- increment packet order list index
 										s_packet_order_list_cnt <= s_packet_order_list_cnt + 1;
 									else
@@ -277,9 +277,9 @@ begin
 									end if;
 								else
 									-- packet order list index is for a right side
-									-- check if the last right packet was reached
-									if (s_right_packet_cnt = windowing_last_right_packet_i) then
-										-- last right packet was reached, skip right packet
+									-- check if the last right packet was reached or the buffer is filled with overscan data
+									if ((s_right_packet_cnt = windowing_last_right_packet_i) or ((right_imgdata_send_buffer_status_i.rdready = '1') and (right_imgdata_send_buffer_data_type_i = c_OVERSCAN_DATA))) then
+										-- last right packet was reached or the buffer is filled with overscan data, skip right packet
 										-- increment packet order list index
 										s_packet_order_list_cnt <= s_packet_order_list_cnt + 1;
 									else
