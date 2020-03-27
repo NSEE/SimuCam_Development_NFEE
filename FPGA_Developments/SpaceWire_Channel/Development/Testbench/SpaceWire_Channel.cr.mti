@@ -1,0 +1,154 @@
+../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity spwrecvfront_generic
+-- Compiling architecture spwrecvfront_arch of spwrecvfront_generic
+
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Loading package spw_codec_pkg
+-- Compiling entity spw_clk_synchronization_ent
+-- Compiling architecture RTL of spw_clk_synchronization_ent
+-- Loading entity spw_data_dc_fifo
+-- Loading entity spw_timecode_dc_fifo
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwxmit_fast
+-- Compiling architecture spwxmit_fast_arch of spwxmit_fast
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecv.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecv.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwrecv
+-- Compiling architecture spwrecv_arch of spwrecv
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwxmit.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwxmit.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwxmit
+-- Compiling architecture spwxmit_arch of spwxmit
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwstream.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwstream.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwstream
+-- Compiling architecture spwstream_arch of spwstream
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwlink.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwlink.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwlink
+-- Compiling architecture spwlink_arch of spwlink
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwrecvfront_fast
+-- Compiling architecture spwrecvfront_arch of spwrecvfront_fast
+
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spw_timecode_dc_fifo
+-- Compiling architecture SYN of spw_timecode_dc_fifo
+
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spw_data_dc_fifo
+-- Compiling architecture SYN of spw_data_dc_fifo
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spw_codec.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spw_codec.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Loading package spw_codec_pkg
+-- Compiling entity spw_codec_ent
+-- Compiling architecture rtl of spw_codec_ent
+-- Loading entity spwstream
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spw_codec_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spw_codec_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling package spw_codec_pkg
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwram.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwram.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity spwram
+-- Compiling architecture spwram_arch of spwram
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/streamtest.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/streamtest.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity streamtest
+-- Compiling architecture streamtest_arch of streamtest
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwpkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwpkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package spwpkg
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/syncdff.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/syncdff.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity syncdff
+-- Compiling architecture syncdff_arch of syncdff
+
+} {} {}}
