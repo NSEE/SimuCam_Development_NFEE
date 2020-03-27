@@ -278,7 +278,7 @@ begin
 						s_rmpe_rmap_echo_controller_return_state <= IDLE;
 					else
 						-- data received, check if the protocol id is valid
-						s_rmap_target_addr <= s_spacewire_data_sc_fifo.rddata_data;
+						s_rmap_protocol_id <= s_spacewire_data_sc_fifo.rddata_data;
 						if (s_spacewire_data_sc_fifo.rddata_data = c_RMAP_PROTOCOL_ID) then
 							-- protocol id is valid,
 							-- check if an echo id must be added

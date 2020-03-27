@@ -1,0 +1,209 @@
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate -group stimulli /testbench_top/rmap_fifo_stimuli_inst/clk_i
+add wave -noupdate -group stimulli /testbench_top/rmap_fifo_stimuli_inst/rst_i
+add wave -noupdate -group stimulli /testbench_top/rmap_fifo_stimuli_inst/rmap_fifo_wrdata_flag_o
+add wave -noupdate -group stimulli /testbench_top/rmap_fifo_stimuli_inst/rmap_fifo_wrdata_data_o
+add wave -noupdate -group stimulli /testbench_top/rmap_fifo_stimuli_inst/rmap_fifo_wrreq_o
+add wave -noupdate -group stimulli /testbench_top/rmap_fifo_stimuli_inst/s_rmap_fifodata_cnt
+add wave -noupdate -group stimulli /testbench_top/rmap_fifo_stimuli_inst/s_counter
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/reset_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/clk_100_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_echo_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_echo_id_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_incoming_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_incoming_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_incoming_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_outgoing_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_outgoing_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_0_rmap_outgoing_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_echo_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_echo_id_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_incoming_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_incoming_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_incoming_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_outgoing_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_outgoing_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_1_rmap_outgoing_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_echo_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_echo_id_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_incoming_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_incoming_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_incoming_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_outgoing_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_outgoing_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_2_rmap_outgoing_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_echo_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_echo_id_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_incoming_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_incoming_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_incoming_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_outgoing_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_outgoing_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_3_rmap_outgoing_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_echo_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_echo_id_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_incoming_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_incoming_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_incoming_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_outgoing_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_outgoing_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_4_rmap_outgoing_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_echo_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_echo_id_en_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_incoming_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_incoming_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_incoming_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_outgoing_fifo_wrdata_flag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_outgoing_fifo_wrdata_data_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/fee_5_rmap_outgoing_fifo_wrreq_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_status_started_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_status_connecting_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_status_running_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_error_errdisc_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_error_errpar_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_error_erresc_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_error_errcred_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_timecode_rx_tick_out_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_timecode_rx_ctrl_out_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_timecode_rx_time_out_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_rx_status_rxvalid_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_rx_status_rxhalff_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_rx_status_rxflag_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_rx_status_rxdata_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_tx_status_txrdy_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_tx_status_txhalff_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_command_autostart_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_command_linkstart_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_command_linkdis_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_link_command_txdivcnt_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_timecode_tx_tick_in_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_timecode_tx_ctrl_in_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_timecode_tx_time_in_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_rx_command_rxread_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_tx_command_txwrite_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_tx_command_txflag_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/spw_data_tx_command_txdata_o
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_0_rmap_incoming_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_0_rmap_incoming_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_0_rmap_outgoing_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_0_rmap_outgoing_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_1_rmap_incoming_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_1_rmap_incoming_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_1_rmap_outgoing_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_1_rmap_outgoing_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_2_rmap_incoming_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_2_rmap_incoming_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_2_rmap_outgoing_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_2_rmap_outgoing_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_3_rmap_incoming_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_3_rmap_incoming_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_3_rmap_outgoing_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_3_rmap_outgoing_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_4_rmap_incoming_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_4_rmap_incoming_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_4_rmap_outgoing_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_4_rmap_outgoing_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_5_rmap_incoming_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_5_rmap_incoming_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_5_rmap_outgoing_fifo_control
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/s_fee_5_rmap_outgoing_fifo_status
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/a_reset_i
+add wave -noupdate -group echo_top /testbench_top/rmpe_rmap_echoing_top_inst/a_avs_clock_i
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/clk_i
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/rst_i
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/echo_en_i
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/echo_id_en_i
+add wave -noupdate -group echo_controller_0_in -childformat {{/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/spw_fifo_control_i.wrdata_data -radix hexadecimal}} -expand -subitemconfig {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/spw_fifo_control_i.wrdata_data {-height 15 -radix hexadecimal}} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/spw_fifo_control_i
+add wave -noupdate -group echo_controller_0_in -expand /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/rmap_fifo_control_i
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/spw_fifo_status_o
+add wave -noupdate -group echo_controller_0_in -childformat {{/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/rmap_fifo_status_o.rddata_data -radix hexadecimal}} -subitemconfig {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/rmap_fifo_status_o.rddata_data {-height 15 -radix hexadecimal}} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/rmap_fifo_status_o
+add wave -noupdate -group echo_controller_0_in -childformat {{/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spacewire_data_sc_fifo.rddata_data -radix hexadecimal} {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spacewire_data_sc_fifo.usedw -radix unsigned}} -expand -subitemconfig {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spacewire_data_sc_fifo.rddata_data {-height 15 -radix hexadecimal} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spacewire_data_sc_fifo.usedw {-height 15 -radix unsigned}} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spacewire_data_sc_fifo
+add wave -noupdate -group echo_controller_0_in -childformat {{/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmap_data_sc_fifo.wrdata_data -radix hexadecimal} {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmap_data_sc_fifo.usedw -radix unsigned}} -expand -subitemconfig {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmap_data_sc_fifo.wrdata_data {-height 15 -radix hexadecimal} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmap_data_sc_fifo.usedw {-height 15 -radix unsigned}} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmap_data_sc_fifo
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmpe_rmap_echo_controller_state
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmpe_rmap_echo_controller_return_state
+add wave -noupdate -group echo_controller_0_in -radix hexadecimal /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmap_target_addr
+add wave -noupdate -group echo_controller_0_in -radix hexadecimal /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_rmap_protocol_id
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spw_fifo_wrdata_flag
+add wave -noupdate -group echo_controller_0_in -radix hexadecimal /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spw_fifo_wrdata_data
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spw_fifo_wrreq
+add wave -noupdate -group echo_controller_0_in /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/s_spw_fifo_overflow_flag
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/clk_i
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/rst_i
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/echo_en_i
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/echo_id_en_i
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/spw_fifo_control_i
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/rmap_fifo_control_i
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/spw_fifo_status_o
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/rmap_fifo_status_o
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_spacewire_data_sc_fifo
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_rmap_data_sc_fifo
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_rmpe_rmap_echo_controller_state
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_rmpe_rmap_echo_controller_return_state
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_rmap_target_addr
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_rmap_protocol_id
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_spw_fifo_wrdata_flag
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_spw_fifo_wrdata_data
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_spw_fifo_wrreq
+add wave -noupdate -group echo_controller_0_out /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/s_spw_fifo_overflow_flag
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/clk_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/rst_i
+add wave -noupdate -group echo_transmitter -childformat {{/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_0_rmap_incoming_fifo_status_i.rddata_data -radix hexadecimal}} -expand -subitemconfig {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_0_rmap_incoming_fifo_status_i.rddata_data {-height 15 -radix hexadecimal}} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_0_rmap_incoming_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_0_rmap_outgoing_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_1_rmap_incoming_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_1_rmap_outgoing_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_2_rmap_incoming_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_2_rmap_outgoing_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_3_rmap_incoming_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_3_rmap_outgoing_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_4_rmap_incoming_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_4_rmap_outgoing_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_5_rmap_incoming_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_5_rmap_outgoing_fifo_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/spw_codec_status_i
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_0_rmap_incoming_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_0_rmap_outgoing_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_1_rmap_incoming_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_1_rmap_outgoing_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_2_rmap_incoming_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_2_rmap_outgoing_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_3_rmap_incoming_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_3_rmap_outgoing_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_4_rmap_incoming_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_4_rmap_outgoing_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_5_rmap_incoming_fifo_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/fee_5_rmap_outgoing_fifo_control_o
+add wave -noupdate -group echo_transmitter -childformat {{/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/spw_codec_control_o.txdata -radix hexadecimal}} -expand -subitemconfig {/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/spw_codec_control_o.txdata {-height 15 -radix hexadecimal}} /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/spw_codec_control_o
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_selected_fifo
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_rmap_fifo_queue
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_incoming_fee_0_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_outgoing_fee_0_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_incoming_fee_1_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_outgoing_fee_1_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_incoming_fee_2_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_outgoing_fee_2_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_incoming_fee_3_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_outgoing_fee_3_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_incoming_fee_4_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_outgoing_fee_4_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_incoming_fee_5_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_outgoing_fee_5_queued
+add wave -noupdate -group echo_transmitter /testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_rmpe_rmap_echo_transmitter_state
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {11822382 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 276
+configure wave -valuecolwidth 135
+configure wave -justifyvalue left
+configure wave -signalnamewidth 1
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ps
+update
+WaveRestoreZoom {0 ps} {52500 ns}

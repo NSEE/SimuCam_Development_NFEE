@@ -21,9 +21,9 @@ V[64;K_VP=XIEUdaT^c=Xc1
 !s100 z[0o<U5GEUo]X9iU;UM183
 Z6 OV;C;10.5b;63
 32
-Z7 !s110 1585127264
+Z7 !s110 1585201462
 !i10b 1
-Z8 !s108 1585127264.000000
+Z8 !s108 1585201462.000000
 Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/rmap_data_sc_fifo/rmap_data_sc_fifo.vhd|
 Z10 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/rmap_data_sc_fifo/rmap_data_sc_fifo.vhd|
 !i113 1
@@ -47,102 +47,143 @@ R10
 !i113 1
 R11
 R12
-Ermpe_rmap_echo_controller_ent
-Z14 w1585125250
-Z15 DPx4 work 21 rmpe_rmap_echoing_pkg 0 22 YdOkRcKJS24ZX;bZR8_Mo0
-Z16 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Ermap_fifo_stimuli
+Z14 w1585203697
+Z15 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 R1
 R2
 R3
-Z17 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd
-Z18 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd
+Z16 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/rmap_fifo_stimuli.vhd
+Z17 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/rmap_fifo_stimuli.vhd
+l0
+L5
+V4`=CIk>V3MPii^Q4R:U7f3
+!s100 `YCj@LfQhWEznJN=aW=h81
+R6
+32
+Z18 !s110 1585203743
+!i10b 1
+Z19 !s108 1585203743.000000
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/rmap_fifo_stimuli.vhd|
+Z21 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/rmap_fifo_stimuli.vhd|
+!i113 1
+R11
+R12
+Artl
+R15
+R1
+R2
+Z22 DEx4 work 17 rmap_fifo_stimuli 0 22 4`=CIk>V3MPii^Q4R:U7f3
+l51
+L15
+Vg<A1iZa]N[Ji1@Z@YLfoU1
+!s100 DE9hbW^Y[lodVW@;<jzGM0
+R6
+32
+R18
+!i10b 1
+R19
+R20
+R21
+!i113 1
+R11
+R12
+Ermpe_rmap_echo_controller_ent
+Z23 w1585200108
+Z24 DPx4 work 21 rmpe_rmap_echoing_pkg 0 22 YdOkRcKJS24ZX;bZR8_Mo0
+R15
+R1
+R2
+R3
+Z25 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd
+Z26 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd
 l0
 L7
 V9eMV5z`DFaJ[7A_4TnWLd0
 !s100 NQ4S>K<Jc]GOXl[ko_f;^3
 R6
 32
-R7
+Z27 !s110 1585201463
 !i10b 1
-R8
-Z19 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd|
-Z20 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd|
+Z28 !s108 1585201463.000000
+Z29 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd|
+Z30 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd|
 !i113 1
 R11
 R12
 Artl
 R13
-Z21 DEx4 work 22 spacewire_data_sc_fifo 0 22 i6ZCDhQE9M_5KVDPhoUK60
+Z31 DEx4 work 22 spacewire_data_sc_fifo 0 22 i6ZCDhQE9M_5KVDPhoUK60
+R24
 R15
-R16
 R1
 R2
-Z22 DEx4 work 29 rmpe_rmap_echo_controller_ent 0 22 9eMV5z`DFaJ[7A_4TnWLd0
+Z32 DEx4 work 29 rmpe_rmap_echo_controller_ent 0 22 9eMV5z`DFaJ[7A_4TnWLd0
 l82
 L25
-V]247mYjKQz7`0GXGhPCWF3
-!s100 A5R0X@hKJ_gj`RPA4^:jD0
+VNAG4[[QiPWfYMURL^oacD0
+!s100 N_GJYn5cOEWM6DeN;H[WV0
 R6
 32
-R7
+R27
 !i10b 1
-R8
-R19
-R20
+R28
+R29
+R30
 !i113 1
 R11
 R12
 Ermpe_rmap_echo_transmitter_ent
-Z23 w1585125379
+Z33 w1585203303
+R24
 R15
-R16
 R1
 R2
 R3
-Z24 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd
-Z25 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd
+Z34 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd
+Z35 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd
 l0
 L7
 V=gSmNMMHE^X]0>:ZaRn5m0
 !s100 <XOWa5V92Q4]zddaK2NP61
 R6
 32
-R7
+Z36 !s110 1585203306
 !i10b 1
-R8
-Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd|
-Z27 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd|
+Z37 !s108 1585203306.000000
+Z38 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd|
+Z39 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd|
 !i113 1
 R11
 R12
 Artl
+R24
 R15
-R16
 R1
 R2
-Z28 DEx4 work 30 rmpe_rmap_echo_transmitter_ent 0 22 =gSmNMMHE^X]0>:ZaRn5m0
-l86
+Z40 DEx4 work 30 rmpe_rmap_echo_transmitter_ent 0 22 =gSmNMMHE^X]0>:ZaRn5m0
+l97
 L40
-VPHTBlaEL2NmK7gTiU?3Wn1
-!s100 7RjYF<cmWO0aPHBWQ]RjS1
+VG5Fg0BaS:]MFE60z[EZlZ1
+!s100 78<9UccnzHLPBiP8XiZY60
 R6
 32
-R7
+R36
 !i10b 1
-R8
-R26
-R27
+R37
+R38
+R39
 !i113 1
 R11
 R12
 Prmpe_rmap_echoing_pkg
-R16
+R15
 R1
 R2
-Z29 w1584678553
+Z41 w1584678553
 R3
-Z30 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd
-Z31 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd
+Z42 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd
+Z43 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd
 l0
 L5
 VYdOkRcKJS24ZX;bZR8_Mo0
@@ -152,14 +193,14 @@ R6
 R7
 !i10b 1
 R8
-Z32 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd|
-Z33 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd|
+Z44 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd|
+Z45 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd|
 !i113 1
 R11
 R12
 Bbody
+R24
 R15
-R16
 R1
 R2
 l0
@@ -171,63 +212,63 @@ R6
 R7
 !i10b 1
 R8
-R32
-R33
+R44
+R45
 !i113 1
 R11
 R12
 Ermpe_rmap_echoing_top
-Z34 w1585127260
+Z46 w1585198935
+R24
 R15
-R16
 R1
 R2
 R3
-Z35 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd
-Z36 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd
+Z47 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd
+Z48 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd
 l0
 L17
 VWoclmEd<FWd8SIX4OT9cN3
 !s100 1<SC]c1_4f?JzW;3@FA8B2
 R6
 32
-Z37 !s110 1585127265
+R27
 !i10b 1
-Z38 !s108 1585127265.000000
-Z39 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd|
-Z40 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd|
+R28
+Z49 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd|
+Z50 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd|
 !i113 1
 R11
 R12
 Artl
-R28
-R22
+R40
+R32
+R24
 R15
-R16
 R1
 R2
-Z41 DEx4 work 21 rmpe_rmap_echoing_top 0 22 WoclmEd<FWd8SIX4OT9cN3
+Z51 DEx4 work 21 rmpe_rmap_echoing_top 0 22 WoclmEd<FWd8SIX4OT9cN3
 l137
 L99
-Z42 VaU_gDikLF;zSU`hgfF0fb2
-Z43 !s100 Acz<O<ciz=cTFe:iM4Ynm3
+VaU_gDikLF;zSU`hgfF0fb2
+!s100 Acz<O<ciz=cTFe:iM4Ynm3
 R6
 32
-R37
+R27
 !i10b 1
-R38
-R39
-R40
+R28
+R49
+R50
 !i113 1
 R11
 R12
 Espacewire_data_sc_fifo
-Z44 w1585124767
+Z52 w1585124767
 R1
 R2
 R3
-Z45 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd
-Z46 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd
+Z53 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd
+Z54 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd
 l0
 L42
 Vi6ZCDhQE9M_5KVDPhoUK60
@@ -237,15 +278,15 @@ R6
 R7
 !i10b 1
 R8
-Z47 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd|
-Z48 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd|
+Z55 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd|
+Z56 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd|
 !i113 1
 R11
 R12
 Asyn
 R1
 R2
-R21
+R31
 l95
 L59
 V:VgGC^=0YL^e1`7SI=65l0
@@ -255,8 +296,52 @@ R6
 R7
 !i10b 1
 R8
-R47
-R48
+R55
+R56
+!i113 1
+R11
+R12
+Etestbench_top
+Z57 w1585203737
+R15
+R1
+R2
+R3
+Z58 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/testbench_top.vhd
+Z59 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/testbench_top.vhd
+l0
+L5
+V8PLe2HbY:2XZhzjO2JGIG0
+!s100 G?5U7^R@6KQZzZA7M_nJY1
+R6
+32
+Z60 !s110 1585203744
+!i10b 1
+R19
+Z61 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/testbench_top.vhd|
+Z62 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/testbench_top.vhd|
+!i113 1
+R11
+R12
+Artl
+R24
+R51
+R22
+R15
+R1
+R2
+Z63 DEx4 work 13 testbench_top 0 22 8PLe2HbY:2XZhzjO2JGIG0
+l19
+L8
+V;?H<`k0=nIMIhcb4UL?oW1
+!s100 SDJJQ64AO:Tl7[Wf;Ufn=0
+R6
+32
+R60
+!i10b 1
+R19
+R61
+R62
 !i113 1
 R11
 R12

@@ -6,13 +6,256 @@
 # Compile of spacewire_data_sc_fifo.vhd was successful.
 # Compile of rmpe_rmap_echo_controller_ent.vhd was successful.
 # Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
-# Compile of rmpe_rmap_echoing_top.vhd failed with 13 errors.
-# 6 compiles, 1 failed with 13 errors.
 # Compile of rmpe_rmap_echoing_top.vhd was successful.
+# Compile of rmap_fifo_stimuli.vhd was successful.
+# Compile of testbench_top.vhd failed with 10 errors.
+# 8 compiles, 1 failed with 10 errors.
 # Compile of rmpe_rmap_echoing_pkg.vhd was successful.
 # Compile of rmap_data_sc_fifo.vhd was successful.
 # Compile of spacewire_data_sc_fifo.vhd was successful.
 # Compile of rmpe_rmap_echo_controller_ent.vhd was successful.
 # Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
 # Compile of rmpe_rmap_echoing_top.vhd was successful.
-# 6 compiles, 0 failed with no errors.
+# Compile of rmap_fifo_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+vsim work.testbench_top
+# vsim work.testbench_top 
+# Start time: 02:05:47 on Mar 26,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.rmpe_rmap_echoing_pkg(body)
+# Loading work.testbench_top(rtl)
+# Loading work.rmap_fifo_stimuli(rtl)
+# Loading work.rmpe_rmap_echoing_top(rtl)
+# Loading work.rmpe_rmap_echo_controller_ent(rtl)
+# Loading work.spacewire_data_sc_fifo(syn)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.scfifo(behavior)
+# Loading work.rmap_data_sc_fifo(syn)
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+add wave -position insertpoint sim:/testbench_top/rmap_fifo_stimuli_inst/*
+add wave -position insertpoint sim:/testbench_top/rmpe_rmap_echoing_top_inst/*
+add wave -position insertpoint sim:/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_incoming_echo_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_fee_0_rmap_outgoing_echo_controller_ent_inst/*
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/wave.do
+restart
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+restart
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmap_fifo_stimuli.vhd was successful.
+restart
+# Loading work.rmap_fifo_stimuli(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echo_controller_ent.vhd was successful.
+restart
+# Loading work.rmpe_rmap_echo_controller_ent(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
+restart
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
+restart
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echoing_pkg.vhd was successful.
+# Compile of rmap_data_sc_fifo.vhd was successful.
+# Compile of spacewire_data_sc_fifo.vhd was successful.
+# Compile of rmpe_rmap_echo_controller_ent.vhd was successful.
+# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
+# Compile of rmpe_rmap_echoing_top.vhd was successful.
+# Compile of rmap_fifo_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 8 compiles, 0 failed with no errors.
+restart
+# Loading work.rmpe_rmap_echoing_pkg(body)
+# Loading work.testbench_top(rtl)
+# Loading work.rmap_fifo_stimuli(rtl)
+# Loading work.rmpe_rmap_echoing_top(rtl)
+# Loading work.rmpe_rmap_echo_controller_ent(rtl)
+# Loading work.spacewire_data_sc_fifo(syn)
+# Loading work.rmap_data_sc_fifo(syn)
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
+restart
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
+restart
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# WARNING: No extended dataflow license exists
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
+restart
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/rmpe_rmap_echoing_top_inst/rmpe_rmap_echo_transmitter_ent_inst/s_fifo_in_use'. 
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+step -out -current
+# ** Error: (vsim-12081) The specified scope, sim:/testbench_top, is not a process or thread.
+# 
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmap_fifo_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# Loading work.testbench_top(rtl)
+# Loading work.rmap_fifo_stimuli(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmap_fifo_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# Loading work.testbench_top(rtl)
+# Loading work.rmap_fifo_stimuli(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+run
+run
+run
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
+restart
+# Loading work.rmpe_rmap_echo_transmitter_ent(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+restart
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmap_fifo_stimuli.vhd was successful.
+# Compile of rmap_fifo_stimuli.vhd was successful.
+restart
+# Loading work.rmap_fifo_stimuli(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+restart
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmap_fifo_stimuli.vhd was successful.
+restart
+# Loading work.rmap_fifo_stimuli(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmap_fifo_stimuli.vhd was successful.
+restart
+# Loading work.rmap_fifo_stimuli(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# Compile of rmap_fifo_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# Loading work.testbench_top(rtl)
+# Loading work.rmap_fifo_stimuli(rtl)
+run
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+run
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/Testbench/wave.do
+# End time: 03:24:02 on Mar 26,2020, Elapsed time: 1:18:15
+# Errors: 5, Warnings: 1
