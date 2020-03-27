@@ -416,17 +416,30 @@ begin
 
 	-- Signals Assignments and Processes --
 
-	-- SpaceWire Channel Control Signals Assignments
-	spw_link_command_autostart_o  <= '1';
-	spw_link_command_linkstart_o  <= '1';
-	spw_link_command_linkdis_o    <= '0';
-	spw_link_command_txdivcnt_o   <= x"01";
-	spw_timecode_tx_tick_in_o     <= '0';
-	spw_timecode_tx_ctrl_in_o     <= (others => '0');
-	spw_timecode_tx_time_in_o     <= (others => '0');
+	-- SpaceWire Channel Codec Configuration
+	p_spwc_codec_config : process(a_avs_clock_i, a_reset_i) is
+	begin
+		if (a_reset_i = '1') then
+			spw_link_command_autostart_o <= '0';
+			spw_link_command_linkstart_o <= '0';
+			spw_link_command_linkdis_o   <= '0';
+			spw_link_command_txdivcnt_o  <= x"01";
+			spw_timecode_tx_tick_in_o    <= '0';
+			spw_timecode_tx_ctrl_in_o    <= (others => '0');
+			spw_timecode_tx_time_in_o    <= (others => '0');
+		elsif rising_edge(a_avs_clock_i) then
+			spw_link_command_autostart_o <= '1';
+			spw_link_command_linkstart_o <= '0';
+			spw_link_command_linkdis_o   <= '0';
+			spw_link_command_txdivcnt_o  <= x"01";
+			spw_timecode_tx_tick_in_o    <= '0';
+			spw_timecode_tx_ctrl_in_o    <= (others => '0');
+			spw_timecode_tx_time_in_o    <= (others => '0');
+		end if;
+	end process p_spwc_codec_config;
 
-	-- SpaceWire Channel Dummy Reader
-	p_spw_codec_glutton_reader : process(a_avs_clock_i, a_reset_i) is
+	-- SpaceWire Channel Glutton Reader
+	p_spwc_codec_glutton_reader : process(a_avs_clock_i, a_reset_i) is
 	begin
 		if (a_reset_i = '1') then
 			spw_data_rx_command_rxread_o <= '0';
@@ -436,5 +449,6 @@ begin
 				spw_data_rx_command_rxread_o <= '1';
 			end if;
 		end if;
-	end process p_spw_codec_glutton_reader;
+	end process p_spwc_codec_glutton_reader;
+
 end architecture rtl;                   -- of rmpe_rmap_echoing_top

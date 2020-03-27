@@ -1,40 +1,16 @@
 	MebX_Qsys_Project u0 (
 		.button_export                                               (<connected-to-button_export>),                                               //                               button.export
 		.clk50_clk                                                   (<connected-to-clk50_clk>),                                                   //                                clk50.clk
-		.comm_a_conduit_end_data_in_signal                           (<connected-to-comm_a_conduit_end_data_in_signal>),                           //                   comm_a_conduit_end.data_in_signal
-		.comm_a_conduit_end_data_out_signal                          (<connected-to-comm_a_conduit_end_data_out_signal>),                          //                                     .data_out_signal
-		.comm_a_conduit_end_strobe_in_signal                         (<connected-to-comm_a_conduit_end_strobe_in_signal>),                         //                                     .strobe_in_signal
-		.comm_a_conduit_end_strobe_out_signal                        (<connected-to-comm_a_conduit_end_strobe_out_signal>),                        //                                     .strobe_out_signal
 		.comm_a_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_a_measurements_conduit_end_measurements_channel_signal>), //      comm_a_measurements_conduit_end.measurements_channel_signal
 		.comm_a_sync_end_sync_channel_signal                         (<connected-to-comm_a_sync_end_sync_channel_signal>),                         //                      comm_a_sync_end.sync_channel_signal
-		.comm_b_conduit_end_data_in_signal                           (<connected-to-comm_b_conduit_end_data_in_signal>),                           //                   comm_b_conduit_end.data_in_signal
-		.comm_b_conduit_end_data_out_signal                          (<connected-to-comm_b_conduit_end_data_out_signal>),                          //                                     .data_out_signal
-		.comm_b_conduit_end_strobe_in_signal                         (<connected-to-comm_b_conduit_end_strobe_in_signal>),                         //                                     .strobe_in_signal
-		.comm_b_conduit_end_strobe_out_signal                        (<connected-to-comm_b_conduit_end_strobe_out_signal>),                        //                                     .strobe_out_signal
 		.comm_b_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_b_measurements_conduit_end_measurements_channel_signal>), //      comm_b_measurements_conduit_end.measurements_channel_signal
 		.comm_b_sync_end_sync_channel_signal                         (<connected-to-comm_b_sync_end_sync_channel_signal>),                         //                      comm_b_sync_end.sync_channel_signal
-		.comm_c_conduit_end_data_in_signal                           (<connected-to-comm_c_conduit_end_data_in_signal>),                           //                   comm_c_conduit_end.data_in_signal
-		.comm_c_conduit_end_data_out_signal                          (<connected-to-comm_c_conduit_end_data_out_signal>),                          //                                     .data_out_signal
-		.comm_c_conduit_end_strobe_in_signal                         (<connected-to-comm_c_conduit_end_strobe_in_signal>),                         //                                     .strobe_in_signal
-		.comm_c_conduit_end_strobe_out_signal                        (<connected-to-comm_c_conduit_end_strobe_out_signal>),                        //                                     .strobe_out_signal
 		.comm_c_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_c_measurements_conduit_end_measurements_channel_signal>), //      comm_c_measurements_conduit_end.measurements_channel_signal
 		.comm_c_sync_end_sync_channel_signal                         (<connected-to-comm_c_sync_end_sync_channel_signal>),                         //                      comm_c_sync_end.sync_channel_signal
-		.comm_d_conduit_end_data_in_signal                           (<connected-to-comm_d_conduit_end_data_in_signal>),                           //                   comm_d_conduit_end.data_in_signal
-		.comm_d_conduit_end_data_out_signal                          (<connected-to-comm_d_conduit_end_data_out_signal>),                          //                                     .data_out_signal
-		.comm_d_conduit_end_strobe_in_signal                         (<connected-to-comm_d_conduit_end_strobe_in_signal>),                         //                                     .strobe_in_signal
-		.comm_d_conduit_end_strobe_out_signal                        (<connected-to-comm_d_conduit_end_strobe_out_signal>),                        //                                     .strobe_out_signal
 		.comm_d_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_d_measurements_conduit_end_measurements_channel_signal>), //      comm_d_measurements_conduit_end.measurements_channel_signal
 		.comm_d_sync_end_sync_channel_signal                         (<connected-to-comm_d_sync_end_sync_channel_signal>),                         //                      comm_d_sync_end.sync_channel_signal
-		.comm_e_conduit_end_data_in_signal                           (<connected-to-comm_e_conduit_end_data_in_signal>),                           //                   comm_e_conduit_end.data_in_signal
-		.comm_e_conduit_end_data_out_signal                          (<connected-to-comm_e_conduit_end_data_out_signal>),                          //                                     .data_out_signal
-		.comm_e_conduit_end_strobe_in_signal                         (<connected-to-comm_e_conduit_end_strobe_in_signal>),                         //                                     .strobe_in_signal
-		.comm_e_conduit_end_strobe_out_signal                        (<connected-to-comm_e_conduit_end_strobe_out_signal>),                        //                                     .strobe_out_signal
 		.comm_e_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_e_measurements_conduit_end_measurements_channel_signal>), //      comm_e_measurements_conduit_end.measurements_channel_signal
 		.comm_e_sync_end_sync_channel_signal                         (<connected-to-comm_e_sync_end_sync_channel_signal>),                         //                      comm_e_sync_end.sync_channel_signal
-		.comm_f_conduit_end_data_in_signal                           (<connected-to-comm_f_conduit_end_data_in_signal>),                           //                   comm_f_conduit_end.data_in_signal
-		.comm_f_conduit_end_data_out_signal                          (<connected-to-comm_f_conduit_end_data_out_signal>),                          //                                     .data_out_signal
-		.comm_f_conduit_end_strobe_in_signal                         (<connected-to-comm_f_conduit_end_strobe_in_signal>),                         //                                     .strobe_in_signal
-		.comm_f_conduit_end_strobe_out_signal                        (<connected-to-comm_f_conduit_end_strobe_out_signal>),                        //                                     .strobe_out_signal
 		.comm_f_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_f_measurements_conduit_end_measurements_channel_signal>), //      comm_f_measurements_conduit_end.measurements_channel_signal
 		.comm_f_sync_end_sync_channel_signal                         (<connected-to-comm_f_sync_end_sync_channel_signal>),                         //                      comm_f_sync_end.sync_channel_signal
 		.csense_adc_fo_export                                        (<connected-to-csense_adc_fo_export>),                                        //                        csense_adc_fo.export
@@ -153,6 +129,48 @@
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                     .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                     .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                     .umft_oe_n_signal
-		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                     .umft_siwu_n_signal
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                     .umft_siwu_n_signal
+		.spwc_g_lvds_spw_data_in_signal                              (<connected-to-spwc_g_lvds_spw_data_in_signal>),                              //                          spwc_g_lvds.spw_data_in_signal
+		.spwc_g_lvds_spw_data_out_signal                             (<connected-to-spwc_g_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_g_lvds_spw_strobe_out_signal                           (<connected-to-spwc_g_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_g_lvds_spw_strobe_in_signal                            (<connected-to-spwc_g_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
+		.spwc_g_leds_spw_red_status_led_signal                       (<connected-to-spwc_g_leds_spw_red_status_led_signal>),                       //                          spwc_g_leds.spw_red_status_led_signal
+		.spwc_g_leds_spw_green_status_led_signal                     (<connected-to-spwc_g_leds_spw_green_status_led_signal>),                     //                                     .spw_green_status_led_signal
+		.spwc_f_lvds_spw_data_in_signal                              (<connected-to-spwc_f_lvds_spw_data_in_signal>),                              //                          spwc_f_lvds.spw_data_in_signal
+		.spwc_f_lvds_spw_data_out_signal                             (<connected-to-spwc_f_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_f_lvds_spw_strobe_out_signal                           (<connected-to-spwc_f_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_f_lvds_spw_strobe_in_signal                            (<connected-to-spwc_f_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
+		.spwc_f_leds_spw_red_status_led_signal                       (<connected-to-spwc_f_leds_spw_red_status_led_signal>),                       //                          spwc_f_leds.spw_red_status_led_signal
+		.spwc_f_leds_spw_green_status_led_signal                     (<connected-to-spwc_f_leds_spw_green_status_led_signal>),                     //                                     .spw_green_status_led_signal
+		.spwc_e_lvds_spw_data_in_signal                              (<connected-to-spwc_e_lvds_spw_data_in_signal>),                              //                          spwc_e_lvds.spw_data_in_signal
+		.spwc_e_lvds_spw_data_out_signal                             (<connected-to-spwc_e_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_e_lvds_spw_strobe_out_signal                           (<connected-to-spwc_e_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_e_lvds_spw_strobe_in_signal                            (<connected-to-spwc_e_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
+		.spwc_e_leds_spw_red_status_led_signal                       (<connected-to-spwc_e_leds_spw_red_status_led_signal>),                       //                          spwc_e_leds.spw_red_status_led_signal
+		.spwc_e_leds_spw_green_status_led_signal                     (<connected-to-spwc_e_leds_spw_green_status_led_signal>),                     //                                     .spw_green_status_led_signal
+		.spwc_d_leds_spw_red_status_led_signal                       (<connected-to-spwc_d_leds_spw_red_status_led_signal>),                       //                          spwc_d_leds.spw_red_status_led_signal
+		.spwc_d_leds_spw_green_status_led_signal                     (<connected-to-spwc_d_leds_spw_green_status_led_signal>),                     //                                     .spw_green_status_led_signal
+		.spwc_d_lvds_spw_data_in_signal                              (<connected-to-spwc_d_lvds_spw_data_in_signal>),                              //                          spwc_d_lvds.spw_data_in_signal
+		.spwc_d_lvds_spw_data_out_signal                             (<connected-to-spwc_d_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_d_lvds_spw_strobe_out_signal                           (<connected-to-spwc_d_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_d_lvds_spw_strobe_in_signal                            (<connected-to-spwc_d_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
+		.spwc_c_lvds_spw_data_in_signal                              (<connected-to-spwc_c_lvds_spw_data_in_signal>),                              //                          spwc_c_lvds.spw_data_in_signal
+		.spwc_c_lvds_spw_data_out_signal                             (<connected-to-spwc_c_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_c_lvds_spw_strobe_out_signal                           (<connected-to-spwc_c_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_c_lvds_spw_strobe_in_signal                            (<connected-to-spwc_c_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
+		.spwc_c_leds_spw_red_status_led_signal                       (<connected-to-spwc_c_leds_spw_red_status_led_signal>),                       //                          spwc_c_leds.spw_red_status_led_signal
+		.spwc_c_leds_spw_green_status_led_signal                     (<connected-to-spwc_c_leds_spw_green_status_led_signal>),                     //                                     .spw_green_status_led_signal
+		.spwc_b_leds_spw_red_status_led_signal                       (<connected-to-spwc_b_leds_spw_red_status_led_signal>),                       //                          spwc_b_leds.spw_red_status_led_signal
+		.spwc_b_leds_spw_green_status_led_signal                     (<connected-to-spwc_b_leds_spw_green_status_led_signal>),                     //                                     .spw_green_status_led_signal
+		.spwc_b_lvds_spw_data_in_signal                              (<connected-to-spwc_b_lvds_spw_data_in_signal>),                              //                          spwc_b_lvds.spw_data_in_signal
+		.spwc_b_lvds_spw_data_out_signal                             (<connected-to-spwc_b_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_b_lvds_spw_strobe_out_signal                           (<connected-to-spwc_b_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_b_lvds_spw_strobe_in_signal                            (<connected-to-spwc_b_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
+		.spwc_a_lvds_spw_data_in_signal                              (<connected-to-spwc_a_lvds_spw_data_in_signal>),                              //                          spwc_a_lvds.spw_data_in_signal
+		.spwc_a_lvds_spw_data_out_signal                             (<connected-to-spwc_a_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_a_lvds_spw_strobe_out_signal                           (<connected-to-spwc_a_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_a_lvds_spw_strobe_in_signal                            (<connected-to-spwc_a_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
+		.spwc_a_leds_spw_red_status_led_signal                       (<connected-to-spwc_a_leds_spw_red_status_led_signal>),                       //                          spwc_a_leds.spw_red_status_led_signal
+		.spwc_a_leds_spw_green_status_led_signal                     (<connected-to-spwc_a_leds_spw_green_status_led_signal>)                      //                                     .spw_green_status_led_signal
 	);
 

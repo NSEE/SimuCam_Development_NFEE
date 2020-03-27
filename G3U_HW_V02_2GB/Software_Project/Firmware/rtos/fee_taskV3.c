@@ -66,14 +66,9 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 
-				/* DEBUG */
-				bRmapGetEchoingMode(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-				pxNFee->xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = TRUE;
-				bRmapSetEchoingMode(&pxNFee->xChannel.xRmap);
-
 				pxNFee->xControl.eState = sConfig_Enter;
 				break;
+
 			case sConfig_Enter:/* Transition */
 
 				#if DEBUG_ON
@@ -96,8 +91,8 @@ void vFeeTaskV3(void *task_data) {
 				/* Disable the link SPW */
 				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = FALSE;
-				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
-				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
+//				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
+//				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
 
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
@@ -191,8 +186,8 @@ void vFeeTaskV3(void *task_data) {
 				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
-				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
-				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
+//				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+//				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
 
 				/*Enabling some important variables*/
 				pxNFee->xControl.bSimulating = TRUE;
@@ -254,8 +249,8 @@ void vFeeTaskV3(void *task_data) {
 				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
-				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
-				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
+//				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+//				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
 
 
 				#if DEBUG_ON

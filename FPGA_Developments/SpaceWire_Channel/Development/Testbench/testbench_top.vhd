@@ -38,6 +38,11 @@ architecture RTL of testbench_top is
 	signal s_dummy_spw_rxdata  : std_logic_vector(7 downto 0);
 	signal s_dummy_spw_rxread  : std_logic;
 
+	signal s_spwcfg_autostart : std_logic;
+	signal s_spwcfg_linkstart : std_logic;
+	signal s_spwcfg_linkdis   : std_logic;
+	signal s_spwcfg_txdivcnt  : std_logic_vector(7 downto 0);
+
 begin
 
 	clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
@@ -55,10 +60,10 @@ begin
 			spw_strobe_out_o              => s_spw_codec_comm_so,
 			spw_red_status_led_o          => open,
 			spw_green_status_led_o        => open,
-			spw_link_command_autostart_i  => '0',
-			spw_link_command_linkstart_i  => '1',
-			spw_link_command_linkdis_i    => '0',
-			spw_link_command_txdivcnt_i   => x"01",
+			spw_link_command_autostart_i  => s_spwcfg_autostart,
+			spw_link_command_linkstart_i  => s_spwcfg_linkstart,
+			spw_link_command_linkdis_i    => s_spwcfg_linkdis,
+			spw_link_command_txdivcnt_i   => s_spwcfg_txdivcnt,
 			spw_timecode_tx_tick_in_i     => '0',
 			spw_timecode_tx_ctrl_in_i     => (others => '0'),
 			spw_timecode_tx_time_in_i     => (others => '0'),
@@ -86,6 +91,21 @@ begin
 
 	--	s_spw_codec_comm_di <= s_spw_codec_comm_do;
 	--	s_spw_codec_comm_si <= s_spw_codec_comm_so;
+
+	p_spw_cfg : process(clk100, rst) is
+	begin
+		if rst = '1' then
+			s_spwcfg_autostart <= '0';
+			s_spwcfg_linkstart <= '0';
+			s_spwcfg_linkdis   <= '0';
+			s_spwcfg_txdivcnt  <= x"01";
+		elsif rising_edge(clk100) then
+			s_spwcfg_autostart <= '1';
+			s_spwcfg_linkstart <= '0';
+			s_spwcfg_linkdis   <= '0';
+			s_spwcfg_txdivcnt  <= x"01";
+		end if;
+	end process p_spw_cfg;
 
 	s_spw_clock <= (s_spw_codec_comm_so) xor (s_spw_codec_comm_do);
 

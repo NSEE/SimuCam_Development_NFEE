@@ -2,40 +2,16 @@
 		port (
 			button_export                                               : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                                   : in    std_logic                     := 'X';             -- clk
-			comm_a_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
-			comm_a_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
-			comm_a_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_a_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
 			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_b_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
-			comm_b_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
-			comm_b_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_b_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
 			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_c_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
-			comm_c_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
-			comm_c_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_c_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
 			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_c_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_d_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
-			comm_d_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
-			comm_d_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_d_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
 			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_d_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_e_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
-			comm_e_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
-			comm_e_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_e_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
 			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_e_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_f_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
-			comm_f_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
-			comm_f_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_f_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
 			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_f_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
 			csense_adc_fo_export                                        : out   std_logic;                                        -- export
@@ -116,6 +92,48 @@
 			sd_card_ip_b_SD_dat3                                        : inout std_logic                     := 'X';             -- b_SD_dat3
 			sd_card_ip_o_SD_clock                                       : out   std_logic;                                        -- o_SD_clock
 			sd_card_wp_n_io_export                                      : in    std_logic                     := 'X';             -- export
+			spwc_a_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_a_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_a_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_a_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_a_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_a_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
+			spwc_b_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_b_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_b_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_b_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_b_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_b_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
+			spwc_c_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_c_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_c_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_c_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_c_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_c_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
+			spwc_d_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_d_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_d_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_d_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_d_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_d_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
+			spwc_e_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_e_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_e_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_e_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_e_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_e_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
+			spwc_f_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_f_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_f_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_f_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_f_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_f_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
+			spwc_g_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_g_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_g_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_g_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_g_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_g_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
 			spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
 			spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
 			spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal

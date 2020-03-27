@@ -14,23 +14,23 @@ module MebX_Qsys_Project_mm_interconnect_11 (
 		input  wire [31:0]  dma_comm_1_right_mm_write_byteenable,                    //                                               .byteenable
 		input  wire         dma_comm_1_right_mm_write_write,                         //                                               .write
 		input  wire [255:0] dma_comm_1_right_mm_write_writedata,                     //                                               .writedata
-		output wire [20:0]  COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address,     //    COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer.address
-		output wire         COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write,       //                                               .write
-		output wire [255:0] COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata,   //                                               .writedata
-		input  wire         COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest  //                                               .waitrequest
+		output wire [20:0]  COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_address,     //    COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer.address
+		output wire         COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_write,       //                                               .write
+		output wire [255:0] COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_writedata,   //                                               .writedata
+		input  wire         COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_waitrequest  //                                               .waitrequest
 	);
 
-	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_waitrequest;   // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_waitrequest -> dma_comm_1_right_mm_write_translator:uav_waitrequest
-	wire  [255:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_readdata;      // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_readdata -> dma_comm_1_right_mm_write_translator:uav_readdata
-	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_debugaccess;   // dma_comm_1_right_mm_write_translator:uav_debugaccess -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_debugaccess
-	wire   [32:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_address;       // dma_comm_1_right_mm_write_translator:uav_address -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_address
-	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_read;          // dma_comm_1_right_mm_write_translator:uav_read -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_read
-	wire   [31:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_byteenable;    // dma_comm_1_right_mm_write_translator:uav_byteenable -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_byteenable
-	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_readdatavalid; // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_readdatavalid -> dma_comm_1_right_mm_write_translator:uav_readdatavalid
-	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_lock;          // dma_comm_1_right_mm_write_translator:uav_lock -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_lock
-	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_write;         // dma_comm_1_right_mm_write_translator:uav_write -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_write
-	wire  [255:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_writedata;     // dma_comm_1_right_mm_write_translator:uav_writedata -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_writedata
-	wire    [5:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_burstcount;    // dma_comm_1_right_mm_write_translator:uav_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_burstcount
+	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_waitrequest;   // COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_waitrequest -> dma_comm_1_right_mm_write_translator:uav_waitrequest
+	wire  [255:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_readdata;      // COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_readdata -> dma_comm_1_right_mm_write_translator:uav_readdata
+	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_debugaccess;   // dma_comm_1_right_mm_write_translator:uav_debugaccess -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_debugaccess
+	wire   [32:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_address;       // dma_comm_1_right_mm_write_translator:uav_address -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_address
+	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_read;          // dma_comm_1_right_mm_write_translator:uav_read -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_read
+	wire   [31:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_byteenable;    // dma_comm_1_right_mm_write_translator:uav_byteenable -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_byteenable
+	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_readdatavalid; // COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_readdatavalid -> dma_comm_1_right_mm_write_translator:uav_readdatavalid
+	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_lock;          // dma_comm_1_right_mm_write_translator:uav_lock -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_lock
+	wire          dma_comm_1_right_mm_write_translator_avalon_universal_master_0_write;         // dma_comm_1_right_mm_write_translator:uav_write -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_write
+	wire  [255:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_writedata;     // dma_comm_1_right_mm_write_translator:uav_writedata -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_writedata
+	wire    [5:0] dma_comm_1_right_mm_write_translator_avalon_universal_master_0_burstcount;    // dma_comm_1_right_mm_write_translator:uav_burstcount -> COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_translator:uav_burstcount
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (33),
@@ -118,7 +118,7 @@ module MebX_Qsys_Project_mm_interconnect_11 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) comm_pedreiro_v1_01_a_avalon_slave_r_buffer_translator (
+	) comm_pedreiro_v1_01_1_avalon_slave_r_buffer_translator (
 		.clk                    (clk_100_clk_clk),                                                                                                                                                                                                                                                       //                      clk.clk
 		.reset                  (dma_comm_1_right_reset_n_reset_bridge_in_reset_reset),                                                                                                                                                                                                                  //                    reset.reset
 		.uav_address            (dma_comm_1_right_mm_write_translator_avalon_universal_master_0_address),                                                                                                                                                                                                // avalon_universal_slave_0.address
@@ -132,10 +132,10 @@ module MebX_Qsys_Project_mm_interconnect_11 (
 		.uav_writedata          (dma_comm_1_right_mm_write_translator_avalon_universal_master_0_writedata),                                                                                                                                                                                              //                         .writedata
 		.uav_lock               (dma_comm_1_right_mm_write_translator_avalon_universal_master_0_lock),                                                                                                                                                                                                   //                         .lock
 		.uav_debugaccess        (dma_comm_1_right_mm_write_translator_avalon_universal_master_0_debugaccess),                                                                                                                                                                                            //                         .debugaccess
-		.av_address             (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address),                                                                                                                                                                                                                   //      avalon_anti_slave_0.address
-		.av_write               (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write),                                                                                                                                                                                                                     //                         .write
-		.av_writedata           (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata),                                                                                                                                                                                                                 //                         .writedata
-		.av_waitrequest         (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest),                                                                                                                                                                                                               //                         .waitrequest
+		.av_address             (COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_address),                                                                                                                                                                                                                   //      avalon_anti_slave_0.address
+		.av_write               (COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_write),                                                                                                                                                                                                                     //                         .write
+		.av_writedata           (COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_writedata),                                                                                                                                                                                                                 //                         .writedata
+		.av_waitrequest         (COMM_Pedreiro_v1_01_1_avalon_slave_R_buffer_waitrequest),                                                                                                                                                                                                               //                         .waitrequest
 		.av_read                (),                                                                                                                                                                                                                                                                      //              (terminated)
 		.av_readdata            (256'b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                                                                                                                                                                                                                      //              (terminated)

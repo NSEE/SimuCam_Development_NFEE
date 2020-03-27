@@ -2,40 +2,16 @@
 module MebX_Qsys_Project (
 	button_export,
 	clk50_clk,
-	comm_a_conduit_end_data_in_signal,
-	comm_a_conduit_end_data_out_signal,
-	comm_a_conduit_end_strobe_in_signal,
-	comm_a_conduit_end_strobe_out_signal,
 	comm_a_measurements_conduit_end_measurements_channel_signal,
 	comm_a_sync_end_sync_channel_signal,
-	comm_b_conduit_end_data_in_signal,
-	comm_b_conduit_end_data_out_signal,
-	comm_b_conduit_end_strobe_in_signal,
-	comm_b_conduit_end_strobe_out_signal,
 	comm_b_measurements_conduit_end_measurements_channel_signal,
 	comm_b_sync_end_sync_channel_signal,
-	comm_c_conduit_end_data_in_signal,
-	comm_c_conduit_end_data_out_signal,
-	comm_c_conduit_end_strobe_in_signal,
-	comm_c_conduit_end_strobe_out_signal,
 	comm_c_measurements_conduit_end_measurements_channel_signal,
 	comm_c_sync_end_sync_channel_signal,
-	comm_d_conduit_end_data_in_signal,
-	comm_d_conduit_end_data_out_signal,
-	comm_d_conduit_end_strobe_in_signal,
-	comm_d_conduit_end_strobe_out_signal,
 	comm_d_measurements_conduit_end_measurements_channel_signal,
 	comm_d_sync_end_sync_channel_signal,
-	comm_e_conduit_end_data_in_signal,
-	comm_e_conduit_end_data_out_signal,
-	comm_e_conduit_end_strobe_in_signal,
-	comm_e_conduit_end_strobe_out_signal,
 	comm_e_measurements_conduit_end_measurements_channel_signal,
 	comm_e_sync_end_sync_channel_signal,
-	comm_f_conduit_end_data_in_signal,
-	comm_f_conduit_end_data_out_signal,
-	comm_f_conduit_end_strobe_in_signal,
-	comm_f_conduit_end_strobe_out_signal,
 	comm_f_measurements_conduit_end_measurements_channel_signal,
 	comm_f_sync_end_sync_channel_signal,
 	csense_adc_fo_export,
@@ -154,44 +130,62 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal);	
+	umft601a_pins_umft_siwu_n_signal,
+	spwc_g_lvds_spw_data_in_signal,
+	spwc_g_lvds_spw_data_out_signal,
+	spwc_g_lvds_spw_strobe_out_signal,
+	spwc_g_lvds_spw_strobe_in_signal,
+	spwc_g_leds_spw_red_status_led_signal,
+	spwc_g_leds_spw_green_status_led_signal,
+	spwc_f_lvds_spw_data_in_signal,
+	spwc_f_lvds_spw_data_out_signal,
+	spwc_f_lvds_spw_strobe_out_signal,
+	spwc_f_lvds_spw_strobe_in_signal,
+	spwc_f_leds_spw_red_status_led_signal,
+	spwc_f_leds_spw_green_status_led_signal,
+	spwc_e_lvds_spw_data_in_signal,
+	spwc_e_lvds_spw_data_out_signal,
+	spwc_e_lvds_spw_strobe_out_signal,
+	spwc_e_lvds_spw_strobe_in_signal,
+	spwc_e_leds_spw_red_status_led_signal,
+	spwc_e_leds_spw_green_status_led_signal,
+	spwc_d_leds_spw_red_status_led_signal,
+	spwc_d_leds_spw_green_status_led_signal,
+	spwc_d_lvds_spw_data_in_signal,
+	spwc_d_lvds_spw_data_out_signal,
+	spwc_d_lvds_spw_strobe_out_signal,
+	spwc_d_lvds_spw_strobe_in_signal,
+	spwc_c_lvds_spw_data_in_signal,
+	spwc_c_lvds_spw_data_out_signal,
+	spwc_c_lvds_spw_strobe_out_signal,
+	spwc_c_lvds_spw_strobe_in_signal,
+	spwc_c_leds_spw_red_status_led_signal,
+	spwc_c_leds_spw_green_status_led_signal,
+	spwc_b_leds_spw_red_status_led_signal,
+	spwc_b_leds_spw_green_status_led_signal,
+	spwc_b_lvds_spw_data_in_signal,
+	spwc_b_lvds_spw_data_out_signal,
+	spwc_b_lvds_spw_strobe_out_signal,
+	spwc_b_lvds_spw_strobe_in_signal,
+	spwc_a_lvds_spw_data_in_signal,
+	spwc_a_lvds_spw_data_out_signal,
+	spwc_a_lvds_spw_strobe_out_signal,
+	spwc_a_lvds_spw_strobe_in_signal,
+	spwc_a_leds_spw_red_status_led_signal,
+	spwc_a_leds_spw_green_status_led_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
-	input		comm_a_conduit_end_data_in_signal;
-	output		comm_a_conduit_end_data_out_signal;
-	input		comm_a_conduit_end_strobe_in_signal;
-	output		comm_a_conduit_end_strobe_out_signal;
 	output	[7:0]	comm_a_measurements_conduit_end_measurements_channel_signal;
 	input		comm_a_sync_end_sync_channel_signal;
-	input		comm_b_conduit_end_data_in_signal;
-	output		comm_b_conduit_end_data_out_signal;
-	input		comm_b_conduit_end_strobe_in_signal;
-	output		comm_b_conduit_end_strobe_out_signal;
 	output	[7:0]	comm_b_measurements_conduit_end_measurements_channel_signal;
 	input		comm_b_sync_end_sync_channel_signal;
-	input		comm_c_conduit_end_data_in_signal;
-	output		comm_c_conduit_end_data_out_signal;
-	input		comm_c_conduit_end_strobe_in_signal;
-	output		comm_c_conduit_end_strobe_out_signal;
 	output	[7:0]	comm_c_measurements_conduit_end_measurements_channel_signal;
 	input		comm_c_sync_end_sync_channel_signal;
-	input		comm_d_conduit_end_data_in_signal;
-	output		comm_d_conduit_end_data_out_signal;
-	input		comm_d_conduit_end_strobe_in_signal;
-	output		comm_d_conduit_end_strobe_out_signal;
 	output	[7:0]	comm_d_measurements_conduit_end_measurements_channel_signal;
 	input		comm_d_sync_end_sync_channel_signal;
-	input		comm_e_conduit_end_data_in_signal;
-	output		comm_e_conduit_end_data_out_signal;
-	input		comm_e_conduit_end_strobe_in_signal;
-	output		comm_e_conduit_end_strobe_out_signal;
 	output	[7:0]	comm_e_measurements_conduit_end_measurements_channel_signal;
 	input		comm_e_sync_end_sync_channel_signal;
-	input		comm_f_conduit_end_data_in_signal;
-	output		comm_f_conduit_end_data_out_signal;
-	input		comm_f_conduit_end_strobe_in_signal;
-	output		comm_f_conduit_end_strobe_out_signal;
 	output	[7:0]	comm_f_measurements_conduit_end_measurements_channel_signal;
 	input		comm_f_sync_end_sync_channel_signal;
 	output		csense_adc_fo_export;
@@ -311,4 +305,46 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
+	input		spwc_g_lvds_spw_data_in_signal;
+	output		spwc_g_lvds_spw_data_out_signal;
+	output		spwc_g_lvds_spw_strobe_out_signal;
+	input		spwc_g_lvds_spw_strobe_in_signal;
+	output		spwc_g_leds_spw_red_status_led_signal;
+	output		spwc_g_leds_spw_green_status_led_signal;
+	input		spwc_f_lvds_spw_data_in_signal;
+	output		spwc_f_lvds_spw_data_out_signal;
+	output		spwc_f_lvds_spw_strobe_out_signal;
+	input		spwc_f_lvds_spw_strobe_in_signal;
+	output		spwc_f_leds_spw_red_status_led_signal;
+	output		spwc_f_leds_spw_green_status_led_signal;
+	input		spwc_e_lvds_spw_data_in_signal;
+	output		spwc_e_lvds_spw_data_out_signal;
+	output		spwc_e_lvds_spw_strobe_out_signal;
+	input		spwc_e_lvds_spw_strobe_in_signal;
+	output		spwc_e_leds_spw_red_status_led_signal;
+	output		spwc_e_leds_spw_green_status_led_signal;
+	output		spwc_d_leds_spw_red_status_led_signal;
+	output		spwc_d_leds_spw_green_status_led_signal;
+	input		spwc_d_lvds_spw_data_in_signal;
+	output		spwc_d_lvds_spw_data_out_signal;
+	output		spwc_d_lvds_spw_strobe_out_signal;
+	input		spwc_d_lvds_spw_strobe_in_signal;
+	input		spwc_c_lvds_spw_data_in_signal;
+	output		spwc_c_lvds_spw_data_out_signal;
+	output		spwc_c_lvds_spw_strobe_out_signal;
+	input		spwc_c_lvds_spw_strobe_in_signal;
+	output		spwc_c_leds_spw_red_status_led_signal;
+	output		spwc_c_leds_spw_green_status_led_signal;
+	output		spwc_b_leds_spw_red_status_led_signal;
+	output		spwc_b_leds_spw_green_status_led_signal;
+	input		spwc_b_lvds_spw_data_in_signal;
+	output		spwc_b_lvds_spw_data_out_signal;
+	output		spwc_b_lvds_spw_strobe_out_signal;
+	input		spwc_b_lvds_spw_strobe_in_signal;
+	input		spwc_a_lvds_spw_data_in_signal;
+	output		spwc_a_lvds_spw_data_out_signal;
+	output		spwc_a_lvds_spw_strobe_out_signal;
+	input		spwc_a_lvds_spw_strobe_in_signal;
+	output		spwc_a_leds_spw_red_status_led_signal;
+	output		spwc_a_leds_spw_green_status_led_signal;
 endmodule

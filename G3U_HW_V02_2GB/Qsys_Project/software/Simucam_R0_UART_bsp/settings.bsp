@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Mar 26, 2020 2:04:49 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1585242289530</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Mar 27, 2020 12:17:13 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1585322233280</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1955,37 +1955,37 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_F</slaveDescriptor>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_6</slaveDescriptor>
                 <addressRange>0x81201000 - 0x812013FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_E</slaveDescriptor>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_5</slaveDescriptor>
                 <addressRange>0x81201400 - 0x812017FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_D</slaveDescriptor>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_4</slaveDescriptor>
                 <addressRange>0x81201800 - 0x81201BFF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_C</slaveDescriptor>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_3</slaveDescriptor>
                 <addressRange>0x81201C00 - 0x81201FFF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_B</slaveDescriptor>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_2</slaveDescriptor>
                 <addressRange>0x81202000 - 0x812023FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_A</slaveDescriptor>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_1</slaveDescriptor>
                 <addressRange>0x81202400 - 0x812027FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>

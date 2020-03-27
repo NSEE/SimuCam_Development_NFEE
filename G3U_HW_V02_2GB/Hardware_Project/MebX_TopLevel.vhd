@@ -394,7 +394,21 @@ architecture bhv of MebX_TopLevel is
 	signal spw_f_measure : std_logic_vector(7 downto 0);
 	signal spw_g_measure : std_logic_vector(7 downto 0);
 	signal spw_h_measure : std_logic_vector(7 downto 0);
-	
+
+	signal spw_a_red_led   : std_logic;
+	signal spw_a_green_led : std_logic;
+	signal spw_b_red_led   : std_logic;
+	signal spw_b_green_led : std_logic;
+	signal spw_c_red_led   : std_logic;
+	signal spw_c_green_led : std_logic;
+	signal spw_d_red_led   : std_logic;
+	signal spw_d_green_led : std_logic;
+	signal spw_e_red_led   : std_logic;
+	signal spw_e_green_led : std_logic;
+	signal spw_f_red_led   : std_logic;
+	signal spw_f_green_led : std_logic;
+	signal spw_g_red_led   : std_logic;
+	signal spw_g_green_led : std_logic;
 	signal spw_h_red_led   : std_logic;
 	signal spw_h_green_led : std_logic;
 
@@ -476,47 +490,45 @@ architecture bhv of MebX_TopLevel is
 			m2_ddr2_i2c_scl_export                                      : out   std_logic;
 			m2_ddr2_i2c_sda_export                                      : inout std_logic;
 			--
-			comm_a_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_a_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_a_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_a_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+			spwc_a_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_a_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_a_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
+			spwc_a_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-			comm_b_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_b_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_b_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_b_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+			spwc_b_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_b_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_b_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
+			spwc_b_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-			comm_c_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_c_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_c_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_c_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+			spwc_c_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_c_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_c_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
+			spwc_c_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-			comm_d_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_d_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_d_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_d_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+			spwc_d_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_d_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_d_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
+			spwc_d_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-			comm_e_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_e_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_e_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_e_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+			spwc_e_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_e_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_e_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
+			spwc_e_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-			comm_f_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			comm_f_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			comm_f_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			comm_f_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+			spwc_f_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_f_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_f_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
+			spwc_f_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-			--			comm_g_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			--			comm_g_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			--			comm_g_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			--			comm_g_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+			spwc_g_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_g_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_g_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
+			spwc_g_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-         spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
-         spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
-         spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
-         spwc_h_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
-         spwc_h_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
-         spwc_h_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
+         spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+         spwc_h_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+         spwc_h_lvds_spw_data_out_signal                             : out   std_logic;                            -- spw_data_out_signal
+         spwc_h_lvds_spw_strobe_out_signal                           : out   std_logic;                            -- spw_strobe_out_signal
 			--
 			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
@@ -533,6 +545,30 @@ architecture bhv of MebX_TopLevel is
 			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
 			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
 			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			--
+         spwc_a_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_a_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
+			--
+         spwc_b_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_b_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
+			--
+         spwc_c_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_c_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
+			--
+         spwc_d_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_d_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
+			--
+         spwc_e_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_e_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
+			--
+         spwc_f_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_f_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
+			--
+         spwc_g_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_g_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
+			--
+         spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                            -- spw_red_status_led_signal
+         spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                            -- spw_green_status_led_signal
 			--
 			temp_scl_export                                             : out   std_logic;
 			temp_sda_export                                             : inout std_logic;
@@ -675,40 +711,40 @@ begin
 			m2_ddr2_i2c_scl_export                                      => M2_DDR2_SCL,
 			m2_ddr2_i2c_sda_export                                      => M2_DDR2_SDA,
 			--
-			comm_a_conduit_end_data_in_signal                           => spw_a_di(0),
-			comm_a_conduit_end_strobe_in_signal                         => spw_a_si(0),
-			comm_a_conduit_end_data_out_signal                          => spw_a_do(0),
-			comm_a_conduit_end_strobe_out_signal                        => spw_a_so(0),
+			spwc_a_lvds_spw_data_in_signal                              => spw_a_di(0),         --                           spwc_a_lvds.spw_data_in_signal
+			spwc_a_lvds_spw_strobe_in_signal                            => spw_a_si(0),         --                                      .spw_strobe_in_signal
+			spwc_a_lvds_spw_data_out_signal                             => spw_a_do(0),         --                                      .spw_data_out_signal
+			spwc_a_lvds_spw_strobe_out_signal                           => spw_a_so(0),         --                                      .spw_strobe_out_signal
 			--
-			comm_b_conduit_end_data_in_signal                           => spw_b_di(0),
-			comm_b_conduit_end_strobe_in_signal                         => spw_b_si(0),
-			comm_b_conduit_end_data_out_signal                          => spw_b_do(0),
-			comm_b_conduit_end_strobe_out_signal                        => spw_b_so(0),
+			spwc_b_lvds_spw_data_in_signal                              => spw_b_di(0),         --                           spwc_b_lvds.spw_data_in_signal
+			spwc_b_lvds_spw_strobe_in_signal                            => spw_b_si(0),         --                                      .spw_strobe_in_signal
+			spwc_b_lvds_spw_data_out_signal                             => spw_b_do(0),         --                                      .spw_data_out_signal
+			spwc_b_lvds_spw_strobe_out_signal                           => spw_b_so(0),         --                                      .spw_strobe_out_signal
 			--
-			comm_c_conduit_end_data_in_signal                           => spw_c_di(0),
-			comm_c_conduit_end_strobe_in_signal                         => spw_c_si(0),
-			comm_c_conduit_end_data_out_signal                          => spw_c_do(0),
-			comm_c_conduit_end_strobe_out_signal                        => spw_c_so(0),
+			spwc_c_lvds_spw_data_in_signal                              => spw_c_di(0),         --                           spwc_c_lvds.spw_data_in_signal
+			spwc_c_lvds_spw_strobe_in_signal                            => spw_c_si(0),         --                                      .spw_strobe_in_signal
+			spwc_c_lvds_spw_data_out_signal                             => spw_c_do(0),         --                                      .spw_data_out_signal
+			spwc_c_lvds_spw_strobe_out_signal                           => spw_c_so(0),         --                                      .spw_strobe_out_signal
 			--
-			comm_d_conduit_end_data_in_signal                           => spw_d_di(0),
-			comm_d_conduit_end_strobe_in_signal                         => spw_d_si(0),
-			comm_d_conduit_end_data_out_signal                          => spw_d_do(0),
-			comm_d_conduit_end_strobe_out_signal                        => spw_d_so(0),
+			spwc_d_lvds_spw_data_in_signal                              => spw_d_di(0),         --                           spwc_d_lvds.spw_data_in_signal
+			spwc_d_lvds_spw_strobe_in_signal                            => spw_d_si(0),         --                                      .spw_strobe_in_signal
+			spwc_d_lvds_spw_data_out_signal                             => spw_d_do(0),         --                                      .spw_data_out_signal
+			spwc_d_lvds_spw_strobe_out_signal                           => spw_d_so(0),         --                                      .spw_strobe_out_signal
 			--
-			comm_e_conduit_end_data_in_signal                           => spw_e_di(0),
-			comm_e_conduit_end_strobe_in_signal                         => spw_e_si(0),
-			comm_e_conduit_end_data_out_signal                          => spw_e_do(0),
-			comm_e_conduit_end_strobe_out_signal                        => spw_e_so(0),
+			spwc_e_lvds_spw_data_in_signal                              => spw_e_di(0),         --                           spwc_e_lvds.spw_data_in_signal
+			spwc_e_lvds_spw_strobe_in_signal                            => spw_e_si(0),         --                                      .spw_strobe_in_signal
+			spwc_e_lvds_spw_data_out_signal                             => spw_e_do(0),         --                                      .spw_data_out_signal
+			spwc_e_lvds_spw_strobe_out_signal                           => spw_e_so(0),         --                                      .spw_strobe_out_signal
 			--
-			comm_f_conduit_end_data_in_signal                           => spw_f_di(0),
-			comm_f_conduit_end_strobe_in_signal                         => spw_f_si(0),
-			comm_f_conduit_end_data_out_signal                          => spw_f_do(0),
-			comm_f_conduit_end_strobe_out_signal                        => spw_f_so(0),
+			spwc_f_lvds_spw_data_in_signal                              => spw_f_di(0),         --                           spwc_f_lvds.spw_data_in_signal
+			spwc_f_lvds_spw_strobe_in_signal                            => spw_f_si(0),         --                                      .spw_strobe_in_signal
+			spwc_f_lvds_spw_data_out_signal                             => spw_f_do(0),         --                                      .spw_data_out_signal
+			spwc_f_lvds_spw_strobe_out_signal                           => spw_f_so(0),         --                                      .spw_strobe_out_signal
 			--
-			--			comm_g_conduit_end_data_in_signal                           => spw_g_di(0),
-			--			comm_g_conduit_end_strobe_in_signal                         => spw_g_si(0),
-			--			comm_g_conduit_end_data_out_signal                          => spw_g_do(0),
-			--			comm_g_conduit_end_strobe_out_signal                        => spw_g_so(0),
+			spwc_g_lvds_spw_data_in_signal                              => spw_g_di(0),         --                           spwc_g_lvds.spw_data_in_signal
+			spwc_g_lvds_spw_strobe_in_signal                            => spw_g_si(0),         --                                      .spw_strobe_in_signal
+			spwc_g_lvds_spw_data_out_signal                             => spw_g_do(0),         --                                      .spw_data_out_signal
+			spwc_g_lvds_spw_strobe_out_signal                           => spw_g_so(0),         --                                      .spw_strobe_out_signal
 			--
          spwc_h_lvds_spw_data_in_signal                              => spw_h_di(0),         --                           spwc_h_lvds.spw_data_in_signal
          spwc_h_lvds_spw_strobe_in_signal                            => spw_h_si(0),         --                                      .spw_strobe_in_signal
@@ -730,6 +766,27 @@ begin
 			comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
 			comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
 			comm_f_measurements_conduit_end_measurements_channel_signal => spw_f_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
+			--
+         spwc_a_leds_spw_red_status_led_signal                       => spw_a_red_led,       --                           spwc_a_leds.spw_red_status_led_signal
+         spwc_a_leds_spw_green_status_led_signal                     => spw_a_green_led,     --                                      .spw_green_status_led_signal
+			--
+         spwc_b_leds_spw_red_status_led_signal                       => spw_b_red_led,       --                           spwc_b_leds.spw_red_status_led_signal
+         spwc_b_leds_spw_green_status_led_signal                     => spw_b_green_led,     --                                      .spw_green_status_led_signal
+			--
+         spwc_c_leds_spw_red_status_led_signal                       => spw_c_red_led,       --                           spwc_c_leds.spw_red_status_led_signal
+         spwc_c_leds_spw_green_status_led_signal                     => spw_c_green_led,     --                                      .spw_green_status_led_signal
+			--
+         spwc_d_leds_spw_red_status_led_signal                       => spw_d_red_led,       --                           spwc_d_leds.spw_red_status_led_signal
+         spwc_d_leds_spw_green_status_led_signal                     => spw_d_green_led,     --                                      .spw_green_status_led_signal
+			--
+         spwc_e_leds_spw_red_status_led_signal                       => spw_e_red_led,       --                           spwc_e_leds.spw_red_status_led_signal
+         spwc_e_leds_spw_green_status_led_signal                     => spw_e_green_led,     --                                      .spw_green_status_led_signal
+			--
+         spwc_f_leds_spw_red_status_led_signal                       => spw_f_red_led,       --                           spwc_f_leds.spw_red_status_led_signal
+         spwc_f_leds_spw_green_status_led_signal                     => spw_f_green_led,     --                                      .spw_green_status_led_signal
+			--
+         spwc_g_leds_spw_red_status_led_signal                       => spw_g_red_led,       --                           spwc_g_leds.spw_red_status_led_signal
+         spwc_g_leds_spw_green_status_led_signal                     => spw_g_green_led,     --                                      .spw_green_status_led_signal
 			--
          spwc_h_leds_spw_red_status_led_signal                       => spw_h_red_led,       --                           spwc_h_leds.spw_red_status_led_signal
          spwc_h_leds_spw_green_status_led_signal                     => spw_h_green_led,     --                                      .spw_green_status_led_signal
@@ -816,20 +873,20 @@ begin
 	LED_DE4(6) <= ('1') when (rst_n = '0') else (leds_b(6));
 	LED_DE4(7) <= ('1') when (rst_n = '0') else (leds_b(7));
 
-	LED_PAINEL_LED_1G    <= ('1') when (rst_n = '0') else (leds_p(0));
-	LED_PAINEL_LED_1R    <= ('1') when (rst_n = '0') else (leds_p(1));
-	LED_PAINEL_LED_2G    <= ('1') when (rst_n = '0') else (leds_p(2));
-	LED_PAINEL_LED_2R    <= ('1') when (rst_n = '0') else (leds_p(3));
-	LED_PAINEL_LED_3G    <= ('1') when (rst_n = '0') else (leds_p(4));
-	LED_PAINEL_LED_3R    <= ('1') when (rst_n = '0') else (leds_p(5));
-	LED_PAINEL_LED_4G    <= ('1') when (rst_n = '0') else (leds_p(6));
-	LED_PAINEL_LED_4R    <= ('1') when (rst_n = '0') else (leds_p(7));
-	LED_PAINEL_LED_5G    <= ('1') when (rst_n = '0') else (leds_p(8));
-	LED_PAINEL_LED_5R    <= ('1') when (rst_n = '0') else (leds_p(9));
-	LED_PAINEL_LED_6G    <= ('1') when (rst_n = '0') else (leds_p(10));
-	LED_PAINEL_LED_6R    <= ('1') when (rst_n = '0') else (leds_p(11));
-	LED_PAINEL_LED_7G    <= ('1') when (rst_n = '0') else (leds_p(12));
-	LED_PAINEL_LED_7R    <= ('1') when (rst_n = '0') else (leds_p(13));
+	LED_PAINEL_LED_1G    <= ('1') when (rst_n = '0') else (leds_p(0) or spw_a_green_led);
+	LED_PAINEL_LED_1R    <= ('1') when (rst_n = '0') else (leds_p(1) or spw_a_red_led);
+	LED_PAINEL_LED_2G    <= ('1') when (rst_n = '0') else (leds_p(2) or spw_b_green_led);
+	LED_PAINEL_LED_2R    <= ('1') when (rst_n = '0') else (leds_p(3) or spw_b_red_led);
+	LED_PAINEL_LED_3G    <= ('1') when (rst_n = '0') else (leds_p(4) or spw_c_green_led);
+	LED_PAINEL_LED_3R    <= ('1') when (rst_n = '0') else (leds_p(5) or spw_c_red_led);
+	LED_PAINEL_LED_4G    <= ('1') when (rst_n = '0') else (leds_p(6) or spw_d_green_led);
+	LED_PAINEL_LED_4R    <= ('1') when (rst_n = '0') else (leds_p(7) or spw_d_red_led);
+	LED_PAINEL_LED_5G    <= ('1') when (rst_n = '0') else (leds_p(8) or spw_e_green_led);
+	LED_PAINEL_LED_5R    <= ('1') when (rst_n = '0') else (leds_p(9) or spw_e_red_led);
+	LED_PAINEL_LED_6G    <= ('1') when (rst_n = '0') else (leds_p(10) or spw_f_green_led);
+	LED_PAINEL_LED_6R    <= ('1') when (rst_n = '0') else (leds_p(11) or spw_f_red_led);
+	LED_PAINEL_LED_7G    <= ('1') when (rst_n = '0') else (leds_p(12) or spw_g_green_led);
+	LED_PAINEL_LED_7R    <= ('1') when (rst_n = '0') else (leds_p(13) or spw_g_red_led);
 	LED_PAINEL_LED_8G    <= ('1') when (rst_n = '0') else (leds_p(14) or spw_h_green_led);
 	LED_PAINEL_LED_8R    <= ('1') when (rst_n = '0') else (leds_p(15) or spw_h_red_led);
 	LED_PAINEL_LED_POWER <= ('1') when (rst_n = '0') else (leds_p(16));
