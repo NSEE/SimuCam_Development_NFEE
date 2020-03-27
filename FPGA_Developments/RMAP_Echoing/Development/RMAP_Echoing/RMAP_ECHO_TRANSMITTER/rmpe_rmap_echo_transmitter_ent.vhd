@@ -56,9 +56,9 @@ architecture RTL of rmpe_rmap_echo_transmitter_ent is
 	);
 	signal s_selected_fifo : t_rmap_fifo_list;
 
-	subtype t_fifo_queue_index is natural range 0 to 12;
-	type t_fifo_queue is array (0 to t_fifo_queue_index'high) of t_fifo_list;
-	signal s_fifo_queue : t_fifo_queue;
+	subtype t_rmap_fifo_queue_index is natural range 0 to 12;
+	type t_rmap_fifo_queue is array (0 to t_rmap_fifo_queue_index'high) of t_rmap_fifo_list;
+	signal s_rmap_fifo_queue : t_rmap_fifo_queue;
 
 	signal s_fifo_incoming_fee_0_queued : std_logic;
 	signal s_fifo_outgoing_fee_0_queued : std_logic;
@@ -86,12 +86,12 @@ architecture RTL of rmpe_rmap_echo_transmitter_ent is
 begin
 
 	p_rmpe_rmap_echo_transmitter : process(clk_i, rst_i) is
-		variable v_fifo_queue_index            : t_fifo_queue_index := 0;
+		variable v_fifo_queue_index                 : t_rmap_fifo_queue_index := 0;
 		variable v_rmpe_rmap_echo_transmitter_state : t_rmpe_rmap_echo_transmitter_fsm;
 	begin
 		if (rst_i = '1') then
 			s_selected_fifo              <= fifo_none;
-			s_fifo_queue                 <= (others => fifo_none);
+			s_rmap_fifo_queue            <= (others => fifo_none);
 			s_fifo_incoming_fee_0_queued <= '0';
 			s_fifo_outgoing_fee_0_queued <= '0';
 			s_fifo_incoming_fee_1_queued <= '0';
@@ -112,10 +112,10 @@ begin
 			if ((fee_0_rmap_incoming_fifo_status_i.empty = '0') and (s_fifo_incoming_fee_0_queued = '0')) then
 				-- fee 0 rmap incoming fifo has data available and is not queued
 				-- put fee 0 rmap incoming fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_0;
-				s_fifo_incoming_fee_0_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_0;
+				s_fifo_incoming_fee_0_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -124,10 +124,10 @@ begin
 			if ((fee_1_rmap_incoming_fifo_status_i.empty = '0') and (s_fifo_incoming_fee_1_queued = '0')) then
 				-- fee 1 rmap incoming fifo has data available and is not queued
 				-- put fee 1 rmap incoming fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_1;
-				s_fifo_incoming_fee_1_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_1;
+				s_fifo_incoming_fee_1_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -136,10 +136,10 @@ begin
 			if ((fee_2_rmap_incoming_fifo_status_i.empty = '0') and (s_fifo_incoming_fee_2_queued = '0')) then
 				-- fee 2 rmap incoming fifo has data available and is not queued
 				-- put fee 2 rmap incoming fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_2;
-				s_fifo_incoming_fee_2_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_2;
+				s_fifo_incoming_fee_2_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -148,10 +148,10 @@ begin
 			if ((fee_3_rmap_incoming_fifo_status_i.empty = '0') and (s_fifo_incoming_fee_3_queued = '0')) then
 				-- fee 3 rmap incoming fifo has data available and is not queued
 				-- put fee 3 rmap incoming fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_3;
-				s_fifo_incoming_fee_3_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_3;
+				s_fifo_incoming_fee_3_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -160,10 +160,10 @@ begin
 			if ((fee_4_rmap_incoming_fifo_status_i.empty = '0') and (s_fifo_incoming_fee_4_queued = '0')) then
 				-- fee 4 rmap incoming fifo has data available and is not queued
 				-- put fee 4 rmap incoming fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_4;
-				s_fifo_incoming_fee_4_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_4;
+				s_fifo_incoming_fee_4_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -172,10 +172,10 @@ begin
 			if ((fee_5_rmap_incoming_fifo_status_i.empty = '0') and (s_fifo_incoming_fee_5_queued = '0')) then
 				-- fee 5 rmap incoming fifo has data available and is not queued
 				-- put fee 5 rmap incoming fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_5;
-				s_fifo_incoming_fee_5_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_incoming_fee_5;
+				s_fifo_incoming_fee_5_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -184,10 +184,10 @@ begin
 			if ((fee_0_rmap_outgoing_fifo_status_i.empty = '0') and (s_fifo_outgoing_fee_0_queued = '0')) then
 				-- fee 0 rmap outgoing fifo has data available and is not queued
 				-- put fee 0 rmap outgoing fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_0;
-				s_fifo_outgoing_fee_0_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_0;
+				s_fifo_outgoing_fee_0_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -196,10 +196,10 @@ begin
 			if ((fee_1_rmap_outgoing_fifo_status_i.empty = '0') and (s_fifo_outgoing_fee_1_queued = '0')) then
 				-- fee 1 rmap outgoing fifo has data available and is not queued
 				-- put fee 1 rmap outgoing fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_1;
-				s_fifo_outgoing_fee_1_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_1;
+				s_fifo_outgoing_fee_1_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -208,10 +208,10 @@ begin
 			if ((fee_2_rmap_outgoing_fifo_status_i.empty = '0') and (s_fifo_outgoing_fee_2_queued = '0')) then
 				-- fee 2 rmap outgoing fifo has data available and is not queued
 				-- put fee 2 rmap outgoing fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_2;
-				s_fifo_outgoing_fee_2_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_2;
+				s_fifo_outgoing_fee_2_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -220,10 +220,10 @@ begin
 			if ((fee_3_rmap_outgoing_fifo_status_i.empty = '0') and (s_fifo_outgoing_fee_3_queued = '0')) then
 				-- fee 3 rmap outgoing fifo has data available and is not queued
 				-- put fee 3 rmap outgoing fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_3;
-				s_fifo_outgoing_fee_3_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_3;
+				s_fifo_outgoing_fee_3_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -232,10 +232,10 @@ begin
 			if ((fee_4_rmap_outgoing_fifo_status_i.empty = '0') and (s_fifo_outgoing_fee_4_queued = '0')) then
 				-- fee 4 rmap outgoing fifo has data available and is not queued
 				-- put fee 4 rmap outgoing fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_4;
-				s_fifo_outgoing_fee_4_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_4;
+				s_fifo_outgoing_fee_4_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
@@ -244,17 +244,17 @@ begin
 			if ((fee_5_rmap_outgoing_fifo_status_i.empty = '0') and (s_fifo_outgoing_fee_5_queued = '0')) then
 				-- fee 5 rmap outgoing fifo has data available and is not queued
 				-- put fee 5 rmap outgoing fifo in the queue
-				s_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_5;
-				s_fifo_outgoing_fee_5_queued     <= '1';
+				s_rmap_fifo_queue(v_fifo_queue_index) <= fifo_outgoing_fee_5;
+				s_fifo_outgoing_fee_5_queued          <= '1';
 				-- update fifo queue index
-				if (v_fifo_queue_index < t_fifo_queue_index'high) then
+				if (v_fifo_queue_index < t_rmap_fifo_queue_index'high) then
 					v_fifo_queue_index := v_fifo_queue_index + 1;
 				end if;
 			end if;
 
 			-- fifo queue management
 			-- case to handle the fifo queue
-			case (s_fifo_queue(0)) is
+			case (s_rmap_fifo_queue(0)) is
 
 				when fifo_none =>
 					-- no fifo waiting at the queue
@@ -267,15 +267,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_incoming_fee_0_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_incoming_fee_0_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -287,15 +287,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_incoming_fee_1_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_incoming_fee_1_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -307,15 +307,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_incoming_fee_2_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_incoming_fee_2_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -327,15 +327,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_incoming_fee_3_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_incoming_fee_3_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -347,15 +347,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_incoming_fee_4_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_incoming_fee_4_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -367,15 +367,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_incoming_fee_5_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_incoming_fee_5_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -387,15 +387,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_outgoing_fee_0_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_outgoing_fee_0_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -407,15 +407,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_outgoing_fee_1_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_outgoing_fee_1_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -427,15 +427,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_outgoing_fee_2_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_outgoing_fee_2_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -447,15 +447,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_outgoing_fee_3_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_outgoing_fee_3_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -467,15 +467,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_outgoing_fee_4_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_outgoing_fee_4_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;
@@ -487,15 +487,15 @@ begin
 					if (s_fifo_in_use = '0') then
 						-- fifo use is over
 						-- set fifo selection to none
-						s_selected_fifo                         <= fifo_none;
+						s_selected_fifo                              <= fifo_none;
 						-- remove fifo from the queue
-						for index in 0 to (t_master_queue_index'high - 1) loop
-							s_fifo_queue(index) <= s_fifo_queue(index + 1);
+						for index in 0 to (t_rmap_fifo_queue_index'high - 1) loop
+							s_rmap_fifo_queue(index) <= s_rmap_fifo_queue(index + 1);
 						end loop;
-						s_fifo_queue(t_master_queue_index'high) <= fifo_none;
-						s_fifo_outgoing_fee_5_queued            <= '0';
+						s_rmap_fifo_queue(t_rmap_fifo_queue_index'high) <= fifo_none;
+						s_fifo_outgoing_fee_5_queued                 <= '0';
 						-- update fifo queue index
-						if (v_fifo_queue_index > t_fifo_queue_index'low) then
+						if (v_fifo_queue_index > t_rmap_fifo_queue_index'low) then
 							v_fifo_queue_index := v_fifo_queue_index - 1;
 						end if;
 					end if;

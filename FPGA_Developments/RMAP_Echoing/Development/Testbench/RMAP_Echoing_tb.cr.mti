@@ -1,0 +1,248 @@
+D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmpe_rmap_echoing_pkg
+-- Compiling entity rmpe_rmap_echoing_top
+-- Compiling architecture rtl of rmpe_rmap_echoing_top
+-- Loading entity rmpe_rmap_echo_controller_ent
+-- Loading entity rmpe_rmap_echo_transmitter_ent
+
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd {0 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmpe_rmap_echoing_pkg
+-- Compiling entity rmpe_rmap_echo_controller_ent
+-- Compiling architecture RTL of rmpe_rmap_echo_controller_ent
+-- Loading entity spacewire_data_sc_fifo
+-- Loading entity rmap_data_sc_fifo
+** Error (suppressible): D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd(98): (vcom-1272) Length of formal "usedw" is 13; length of actual is 5.
+** Error (suppressible): D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd(115): (vcom-1272) Length of formal "usedw" is 5; length of actual is 13.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd(431): VHDL Compiler exiting
+
+} {14.0 15.0} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd {0 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmpe_rmap_echoing_pkg
+-- Compiling entity rmpe_rmap_echo_transmitter_ent
+-- Compiling architecture RTL of rmpe_rmap_echo_transmitter_ent
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(60): (vcom-1136) Unknown identifier "t_fifo_list".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(94): Enumeration literal "fifo_none" is type t_rmap_fifo_list; expecting type (error).
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(115): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(127): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(139): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(151): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(163): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(175): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(187): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(199): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(211): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(223): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(235): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(247): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(257): (vcom-1489) Case expression must be of a discrete type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(272): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(272): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(272): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(272): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(273): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(273): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(275): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(275): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(275): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(292): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(292): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(292): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(292): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(293): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(293): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(295): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(295): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(295): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(312): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(312): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(312): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(312): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(313): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(313): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(315): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(315): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(315): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(332): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(332): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(332): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(332): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(333): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(333): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(335): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(335): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(335): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(352): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(352): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(352): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(352): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(353): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(353): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(355): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(355): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(355): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(372): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(372): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(372): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(372): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(373): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(373): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(375): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(375): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(375): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(392): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(392): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(392): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(392): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(393): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(393): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(395): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(395): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(395): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(412): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(412): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(412): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(412): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(413): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(413): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(415): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(415): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(415): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(432): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(432): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(432): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(432): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(433): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(433): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(435): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(435): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(435): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(452): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(452): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(452): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(452): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(453): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(453): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(455): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(455): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(455): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(472): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(472): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(472): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(472): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(473): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(473): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(475): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(475): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(475): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(492): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(492): (vcom-1581) No feasible entries for infix operator '-'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(492): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(492): Cannot resolve expression type.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(493): (vcom-1581) No feasible entries for infix operator '+'.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(493): Type error resolving infix expression "+" as type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(495): (vcom-1136) Unknown identifier "t_master_queue_index".
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(495): Target type (error) in signal assignment is different from expression type t_rmap_fifo_list.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(495): Attribute "high" returns type (error); expecting type t_fifo_queue_index.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd(712): VHDL Compiler exiting
+
+} {10.0 134.0} {}} ../RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spacewire_data_sc_fifo
+-- Compiling architecture SYN of spacewire_data_sc_fifo
+
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/spacewire_data_sc_fifo/spacewire_data_sc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spacewire_data_sc_fifo
+-- Compiling architecture SYN of spacewire_data_sc_fifo
+
+} {} {}} ../RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/rmap_data_sc_fifo/rmap_data_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/rmap_data_sc_fifo/rmap_data_sc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity rmap_data_sc_fifo
+-- Compiling architecture SYN of rmap_data_sc_fifo
+
+} {} {}} ../RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/rmpe_rmap_echo_controller_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmpe_rmap_echoing_pkg
+-- Compiling entity rmpe_rmap_echo_controller_ent
+-- Compiling architecture RTL of rmpe_rmap_echo_controller_ent
+-- Loading entity spacewire_data_sc_fifo
+-- Loading entity rmap_data_sc_fifo
+
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/rmap_data_sc_fifo/rmap_data_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_CONTROLLER/altera_ip/scfifo/rmap_data_sc_fifo/rmap_data_sc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity rmap_data_sc_fifo
+-- Compiling architecture SYN of rmap_data_sc_fifo
+
+} {} {}} ../RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/RMAP_ECHO_TRANSMITTER/rmpe_rmap_echo_transmitter_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmpe_rmap_echoing_pkg
+-- Compiling entity rmpe_rmap_echo_transmitter_ent
+-- Compiling architecture RTL of rmpe_rmap_echo_transmitter_ent
+
+} {} {}} ../RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package rmpe_rmap_echoing_pkg
+-- Compiling package body rmpe_rmap_echoing_pkg
+-- Loading package rmpe_rmap_echoing_pkg
+
+} {} {}} ../RMAP_Echoing/rmpe_rmap_echoing_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmpe_rmap_echoing_pkg
+-- Compiling entity rmpe_rmap_echoing_top
+-- Compiling architecture rtl of rmpe_rmap_echoing_top
+-- Loading entity rmpe_rmap_echo_controller_ent
+-- Loading entity rmpe_rmap_echo_transmitter_ent
+
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Echoing/Development/RMAP_Echoing/rmpe_rmap_echoing_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package rmpe_rmap_echoing_pkg
+-- Compiling package body rmpe_rmap_echoing_pkg
+-- Loading package rmpe_rmap_echoing_pkg
+
+} {} {}}

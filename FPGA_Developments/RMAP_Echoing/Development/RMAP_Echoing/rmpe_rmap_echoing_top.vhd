@@ -18,81 +18,81 @@ entity rmpe_rmap_echoing_top is
 	port(
 		reset_i                                : in  std_logic                    := '0'; --          --                       reset_sink.reset
 		clk_100_i                              : in  std_logic                    := '0'; --          --                clock_sink_100mhz.clk
-		fee_0_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --           conduit_end_fee_0_rmap.incoming_fifo_wrdata_flag_signal
+		fee_0_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_0_rmap.echo_en_signal
+		fee_0_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		fee_0_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_0_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
 		fee_0_rmap_incoming_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrreq_signal
 		fee_0_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_0_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_0_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_0_rmap_incoming_fifo_full_o        : out std_logic; --                                    --                                 .incoming_fifo_full_signal
-		fee_0_rmap_outgoing_fifo_full_o        : out std_logic; --                                    --                                 .outgoing_fifo_full_signal
-		fee_1_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --           conduit_end_fee_1_rmap.incoming_fifo_wrdata_flag_signal
+		fee_1_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_1_rmap.echo_en_signal
+		fee_1_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		fee_1_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_1_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
 		fee_1_rmap_incoming_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrreq_signal
 		fee_1_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_1_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_1_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_1_rmap_incoming_fifo_full_o        : out std_logic; --                                    --                                 .incoming_fifo_full_signal
-		fee_1_rmap_outgoing_fifo_full_o        : out std_logic; --                                    --                                 .outgoing_fifo_full_signal
-		fee_2_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --           conduit_end_fee_2_rmap.incoming_fifo_wrdata_flag_signal
+		fee_2_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_2_rmap.echo_en_signal
+		fee_2_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		fee_2_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_2_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
 		fee_2_rmap_incoming_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrreq_signal
 		fee_2_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_2_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_2_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_2_rmap_incoming_fifo_full_o        : out std_logic; --                                    --                                 .incoming_fifo_full_signal
-		fee_2_rmap_outgoing_fifo_full_o        : out std_logic; --                                    --                                 .outgoing_fifo_full_signal
-		fee_3_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --           conduit_end_fee_3_rmap.incoming_fifo_wrdata_flag_signal
+		fee_3_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_3_rmap.echo_en_signal
+		fee_3_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		fee_3_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_3_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
 		fee_3_rmap_incoming_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrreq_signal
 		fee_3_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_3_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_3_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_3_rmap_incoming_fifo_full_o        : out std_logic; --                                    --                                 .incoming_fifo_full_signal
-		fee_3_rmap_outgoing_fifo_full_o        : out std_logic; --                                    --                                 .outgoing_fifo_full_signal
-		fee_4_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --           conduit_end_fee_4_rmap.incoming_fifo_wrdata_flag_signal
+		fee_4_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_4_rmap.echo_en_signal
+		fee_4_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		fee_4_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_4_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
 		fee_4_rmap_incoming_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrreq_signal
 		fee_4_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_4_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_4_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_4_rmap_incoming_fifo_full_o        : out std_logic; --                                    --                                 .incoming_fifo_full_signal
-		fee_4_rmap_outgoing_fifo_full_o        : out std_logic; --                                    --                                 .outgoing_fifo_full_signal
-		fee_5_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --           conduit_end_fee_5_rmap.incoming_fifo_wrdata_flag_signal
+		fee_5_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_5_rmap.echo_en_signal
+		fee_5_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		fee_5_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_5_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
 		fee_5_rmap_incoming_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrreq_signal
 		fee_5_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_5_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_5_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_5_rmap_incoming_fifo_full_o        : out std_logic; --                                    --                                 .incoming_fifo_full_signal
-		fee_5_rmap_outgoing_fifo_full_o        : out std_logic; --                                    --                                 .outgoing_fifo_full_signal
-		spw_link_status_started_i              : in  std_logic; --                                    -- conduit_end_spacewire_controller.spw_link_status_started_signal
-		spw_link_status_connecting_i           : in  std_logic; --                                    --                                 .spw_link_status_connecting_signal
-		spw_link_status_running_i              : in  std_logic; --                                    --                                 .spw_link_status_running_signal
-		spw_link_error_errdisc_i               : in  std_logic; --                                    --                                 .spw_link_error_errdisc_signal
-		spw_link_error_errpar_i                : in  std_logic; --                                    --                                 .spw_link_error_errpar_signal
-		spw_link_error_erresc_i                : in  std_logic; --                                    --                                 .spw_link_error_erresc_signal
-		spw_link_error_errcred_i               : in  std_logic; --                                    --                                 .spw_link_error_errcred_signal		
-		spw_timecode_rx_tick_out_i             : in  std_logic; --                                    --                                 .spw_timecode_rx_tick_out_signal
-		spw_timecode_rx_ctrl_out_i             : in  std_logic_vector(1 downto 0); --                 --                                 .spw_timecode_rx_ctrl_out_signal
-		spw_timecode_rx_time_out_i             : in  std_logic_vector(5 downto 0); --                 --                                 .spw_timecode_rx_time_out_signal
-		spw_data_rx_status_rxvalid_i           : in  std_logic; --                                    --                                 .spw_data_rx_status_rxvalid_signal
-		spw_data_rx_status_rxhalff_i           : in  std_logic; --                                    --                                 .spw_data_rx_status_rxhalff_signal
-		spw_data_rx_status_rxflag_i            : in  std_logic; --                                    --                                 .spw_data_rx_status_rxflag_signal
-		spw_data_rx_status_rxdata_i            : in  std_logic_vector(7 downto 0); --                 --                                 .spw_data_rx_status_rxdata_signal
-		spw_data_tx_status_txrdy_i             : in  std_logic; --                                    --                                 .spw_data_tx_status_txrdy_signal
-		spw_data_tx_status_txhalff_i           : in  std_logic; --                                    --                                 .spw_data_tx_status_txhalff_signal
-		spw_link_command_autostart_o           : out std_logic                    := '0'; --          --                                 .spw_link_command_autostart_signal
-		spw_link_command_linkstart_o           : out std_logic                    := '0'; --          --                                 .spw_link_command_linkstart_signal
-		spw_link_command_linkdis_o             : out std_logic                    := '0'; --          --                                 .spw_link_command_linkdis_signal
-		spw_link_command_txdivcnt_o            : out std_logic_vector(7 downto 0) := (others => '0'); --                                 .spw_link_command_txdivcnt_signal
-		spw_timecode_tx_tick_in_o              : out std_logic                    := '0'; --          --                                 .spw_timecode_tx_tick_in_signal
-		spw_timecode_tx_ctrl_in_o              : out std_logic_vector(1 downto 0) := (others => '0'); --                                 .spw_timecode_tx_ctrl_in_signal
-		spw_timecode_tx_time_in_o              : out std_logic_vector(5 downto 0) := (others => '0'); --                                 .spw_timecode_tx_time_in_signal
-		spw_data_rx_command_rxread_o           : out std_logic                    := '0'; --          --                                 .spw_data_rx_command_rxread_signal
-		spw_data_tx_command_txwrite_o          : out std_logic                    := '0'; --          --                                 .spw_data_tx_command_txwrite_signal
-		spw_data_tx_command_txflag_o           : out std_logic                    := '0'; --          --                                 .spw_data_tx_command_txflag_signal
-		spw_data_tx_command_txdata_o           : out std_logic_vector(7 downto 0) := (others => '0') ---                                 .spw_data_tx_command_txdata_signal
+		spw_link_status_started_i              : in  std_logic                    := '0'; --          -- conduit_end_spacewire_controller.spw_link_status_started_signal
+		spw_link_status_connecting_i           : in  std_logic                    := '0'; --          --                                 .spw_link_status_connecting_signal
+		spw_link_status_running_i              : in  std_logic                    := '0'; --          --                                 .spw_link_status_running_signal
+		spw_link_error_errdisc_i               : in  std_logic                    := '0'; --          --                                 .spw_link_error_errdisc_signal
+		spw_link_error_errpar_i                : in  std_logic                    := '0'; --          --                                 .spw_link_error_errpar_signal
+		spw_link_error_erresc_i                : in  std_logic                    := '0'; --          --                                 .spw_link_error_erresc_signal
+		spw_link_error_errcred_i               : in  std_logic                    := '0'; --          --                                 .spw_link_error_errcred_signal		
+		spw_timecode_rx_tick_out_i             : in  std_logic                    := '0'; --          --                                 .spw_timecode_rx_tick_out_signal
+		spw_timecode_rx_ctrl_out_i             : in  std_logic_vector(1 downto 0) := (others => '0'); --                                 .spw_timecode_rx_ctrl_out_signal
+		spw_timecode_rx_time_out_i             : in  std_logic_vector(5 downto 0) := (others => '0'); --                                 .spw_timecode_rx_time_out_signal
+		spw_data_rx_status_rxvalid_i           : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxvalid_signal
+		spw_data_rx_status_rxhalff_i           : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxhalff_signal
+		spw_data_rx_status_rxflag_i            : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxflag_signal
+		spw_data_rx_status_rxdata_i            : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .spw_data_rx_status_rxdata_signal
+		spw_data_tx_status_txrdy_i             : in  std_logic                    := '0'; --          --                                 .spw_data_tx_status_txrdy_signal
+		spw_data_tx_status_txhalff_i           : in  std_logic                    := '0'; --          --                                 .spw_data_tx_status_txhalff_signal
+		spw_link_command_autostart_o           : out std_logic; --                                    --                                 .spw_link_command_autostart_signal
+		spw_link_command_linkstart_o           : out std_logic; --                                    --                                 .spw_link_command_linkstart_signal
+		spw_link_command_linkdis_o             : out std_logic; --                                    --                                 .spw_link_command_linkdis_signal
+		spw_link_command_txdivcnt_o            : out std_logic_vector(7 downto 0); --                 --                                 .spw_link_command_txdivcnt_signal
+		spw_timecode_tx_tick_in_o              : out std_logic; --                                    --                                 .spw_timecode_tx_tick_in_signal
+		spw_timecode_tx_ctrl_in_o              : out std_logic_vector(1 downto 0); --                 --                                 .spw_timecode_tx_ctrl_in_signal
+		spw_timecode_tx_time_in_o              : out std_logic_vector(5 downto 0); --                 --                                 .spw_timecode_tx_time_in_signal
+		spw_data_rx_command_rxread_o           : out std_logic; --                                    --                                 .spw_data_rx_command_rxread_signal
+		spw_data_tx_command_txwrite_o          : out std_logic; --                                    --                                 .spw_data_tx_command_txwrite_signal
+		spw_data_tx_command_txflag_o           : out std_logic; --                                    --                                 .spw_data_tx_command_txflag_signal
+		spw_data_tx_command_txdata_o           : out std_logic_vector(7 downto 0) ---                 --                                 .spw_data_tx_command_txdata_signal
 	);
 end entity rmpe_rmap_echoing_top;
 
@@ -148,11 +148,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_0_rmap_echo_en_i,
+			echo_id_en_i                   => fee_0_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_0_rmap_incoming_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_0_rmap_incoming_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_0_rmap_incoming_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_0_rmap_incoming_fifo_control,
-			spw_fifo_status_o.full         => fee_0_rmap_incoming_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_0_rmap_incoming_fifo_status
 		);
 
@@ -166,11 +168,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_1_rmap_echo_en_i,
+			echo_id_en_i                   => fee_1_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_1_rmap_incoming_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_1_rmap_incoming_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_1_rmap_incoming_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_1_rmap_incoming_fifo_control,
-			spw_fifo_status_o.full         => fee_1_rmap_incoming_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_1_rmap_incoming_fifo_status
 		);
 
@@ -184,11 +188,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_2_rmap_echo_en_i,
+			echo_id_en_i                   => fee_2_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_2_rmap_incoming_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_2_rmap_incoming_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_2_rmap_incoming_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_2_rmap_incoming_fifo_control,
-			spw_fifo_status_o.full         => fee_2_rmap_incoming_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_2_rmap_incoming_fifo_status
 		);
 
@@ -202,11 +208,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_3_rmap_echo_en_i,
+			echo_id_en_i                   => fee_3_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_3_rmap_incoming_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_3_rmap_incoming_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_3_rmap_incoming_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_3_rmap_incoming_fifo_control,
-			spw_fifo_status_o.full         => fee_3_rmap_incoming_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_3_rmap_incoming_fifo_status
 		);
 
@@ -220,11 +228,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_4_rmap_echo_en_i,
+			echo_id_en_i                   => fee_4_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_4_rmap_incoming_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_4_rmap_incoming_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_4_rmap_incoming_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_4_rmap_incoming_fifo_control,
-			spw_fifo_status_o.full         => fee_4_rmap_incoming_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_4_rmap_incoming_fifo_status
 		);
 
@@ -238,11 +248,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_5_rmap_echo_en_i,
+			echo_id_en_i                   => fee_5_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_5_rmap_incoming_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_5_rmap_incoming_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_5_rmap_incoming_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_5_rmap_incoming_fifo_control,
-			spw_fifo_status_o.full         => fee_5_rmap_incoming_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_5_rmap_incoming_fifo_status
 		);
 
@@ -256,11 +268,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_0_rmap_echo_en_i,
+			echo_id_en_i                   => fee_0_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_0_rmap_outgoing_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_0_rmap_outgoing_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_0_rmap_outgoing_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_0_rmap_outgoing_fifo_control,
-			spw_fifo_status_o.full         => fee_0_rmap_outgoing_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_0_rmap_outgoing_fifo_status
 		);
 
@@ -274,11 +288,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_1_rmap_echo_en_i,
+			echo_id_en_i                   => fee_1_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_1_rmap_outgoing_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_1_rmap_outgoing_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_1_rmap_outgoing_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_1_rmap_outgoing_fifo_control,
-			spw_fifo_status_o.full         => fee_1_rmap_outgoing_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_1_rmap_outgoing_fifo_status
 		);
 
@@ -292,11 +308,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_2_rmap_echo_en_i,
+			echo_id_en_i                   => fee_2_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_2_rmap_outgoing_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_2_rmap_outgoing_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_2_rmap_outgoing_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_2_rmap_outgoing_fifo_control,
-			spw_fifo_status_o.full         => fee_2_rmap_outgoing_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_2_rmap_outgoing_fifo_status
 		);
 
@@ -310,11 +328,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_3_rmap_echo_en_i,
+			echo_id_en_i                   => fee_3_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_3_rmap_outgoing_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_3_rmap_outgoing_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_3_rmap_outgoing_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_3_rmap_outgoing_fifo_control,
-			spw_fifo_status_o.full         => fee_3_rmap_outgoing_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_3_rmap_outgoing_fifo_status
 		);
 
@@ -328,11 +348,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_4_rmap_echo_en_i,
+			echo_id_en_i                   => fee_4_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_4_rmap_outgoing_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_4_rmap_outgoing_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_4_rmap_outgoing_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_4_rmap_outgoing_fifo_control,
-			spw_fifo_status_o.full         => fee_4_rmap_outgoing_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_4_rmap_outgoing_fifo_status
 		);
 
@@ -346,11 +368,13 @@ begin
 		port map(
 			clk_i                          => a_avs_clock_i,
 			rst_i                          => a_reset_i,
+			echo_en_i                      => fee_5_rmap_echo_en_i,
+			echo_id_en_i                   => fee_5_rmap_echo_id_en_i,
 			spw_fifo_control_i.wrdata_flag => fee_5_rmap_outgoing_fifo_wrdata_flag_i,
 			spw_fifo_control_i.wrdata_data => fee_5_rmap_outgoing_fifo_wrdata_data_i,
 			spw_fifo_control_i.wrreq       => fee_5_rmap_outgoing_fifo_wrreq_i,
 			rmap_fifo_control_i            => s_fee_5_rmap_outgoing_fifo_control,
-			spw_fifo_status_o.full         => fee_5_rmap_outgoing_fifo_full_o,
+			spw_fifo_status_o              => open,
 			rmap_fifo_status_o             => s_fee_5_rmap_outgoing_fifo_status
 		);
 
