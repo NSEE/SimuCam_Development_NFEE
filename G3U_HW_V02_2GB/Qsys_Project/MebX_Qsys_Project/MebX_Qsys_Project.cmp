@@ -116,6 +116,12 @@
 			sd_card_ip_b_SD_dat3                                        : inout std_logic                     := 'X';             -- b_SD_dat3
 			sd_card_ip_o_SD_clock                                       : out   std_logic;                                        -- o_SD_clock
 			sd_card_wp_n_io_export                                      : in    std_logic                     := 'X';             -- export
+			spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+			spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+			spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+			spwc_h_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+			spwc_h_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+			spwc_h_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
 			ssdp_ssdp0                                                  : out   std_logic_vector(7 downto 0);                     -- ssdp0
 			ssdp_ssdp1                                                  : out   std_logic_vector(7 downto 0);                     -- ssdp1
 			sync_in_conduit                                             : in    std_logic                     := 'X';             -- conduit

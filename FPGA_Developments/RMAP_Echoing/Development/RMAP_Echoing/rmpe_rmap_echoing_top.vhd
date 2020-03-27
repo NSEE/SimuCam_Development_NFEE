@@ -417,16 +417,13 @@ begin
 	-- Signals Assignments and Processes --
 
 	-- SpaceWire Channel Control Signals Assignments
-	spw_link_command_autostart_o  <= '0';
-	spw_link_command_linkstart_o  <= '1';
+	spw_link_command_autostart_o  <= '1';
+	spw_link_command_linkstart_o  <= '0';
 	spw_link_command_linkdis_o    <= '0';
 	spw_link_command_txdivcnt_o   <= x"01";
 	spw_timecode_tx_tick_in_o     <= '0';
 	spw_timecode_tx_ctrl_in_o     <= (others => '0');
 	spw_timecode_tx_time_in_o     <= (others => '0');
-	spw_data_tx_command_txwrite_o <= '0';
-	spw_data_tx_command_txflag_o  <= '0';
-	spw_data_tx_command_txdata_o  <= (others => '0');
 
 	-- SpaceWire Channel Dummy Reader
 	p_spw_codec_glutton_reader : process(a_avs_clock_i, a_reset_i) is

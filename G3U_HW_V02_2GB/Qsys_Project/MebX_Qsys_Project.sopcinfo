@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.03.06.23:00:43 -->
+ <!-- 2020.03.26.03:59:24 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1583546439</value>
+  <value>1585205961</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -754,7 +754,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2346,11 +2346,98 @@ parameters are a RESULT of the module parameters. -->
     <role>measurements_channel_signal</role>
    </port>
   </interface>
+  <interface name="conduit_end_fee_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_rmap_echo_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_echo_id_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
  </module>
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -3942,11 +4029,98 @@ parameters are a RESULT of the module parameters. -->
     <role>measurements_channel_signal</role>
    </port>
   </interface>
+  <interface name="conduit_end_fee_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_rmap_echo_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_echo_id_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
  </module>
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -5538,11 +5712,98 @@ parameters are a RESULT of the module parameters. -->
     <role>measurements_channel_signal</role>
    </port>
   </interface>
+  <interface name="conduit_end_fee_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_rmap_echo_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_echo_id_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
  </module>
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -7134,11 +7395,98 @@ parameters are a RESULT of the module parameters. -->
     <role>measurements_channel_signal</role>
    </port>
   </interface>
+  <interface name="conduit_end_fee_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_rmap_echo_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_echo_id_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
  </module>
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -8730,11 +9078,98 @@ parameters are a RESULT of the module parameters. -->
     <role>measurements_channel_signal</role>
    </port>
   </interface>
+  <interface name="conduit_end_fee_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_rmap_echo_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_echo_id_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
  </module>
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    path="COMM_Pedreiro_v1_01_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -10326,6 +10761,93 @@ parameters are a RESULT of the module parameters. -->
     <role>measurements_channel_signal</role>
    </port>
   </interface>
+  <interface name="conduit_end_fee_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_rmap_echo_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_echo_id_en_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_incoming_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_flag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrdata_data_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_rmap_outgoing_fifo_wrreq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
  </module>
  <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.7" path="FTDI_USB3_0">
   <!-- Describes a single module. Module parameters are
@@ -11419,6 +11941,862 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
+   name="RMAP_Echoing"
+   kind="RMAP_Echoing"
+   version="1.0"
+   path="RMAP_Echoing">
+  <!-- Describes a single module. Module parameters are
+the requested settings for a module instance. -->
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <interface name="reset_sink" kind="reset_sink" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="synchronousEdges">
+    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
+    <value>DEASSERT</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>reset</type>
+   <isStart>false</isStart>
+   <port>
+    <name>reset_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>reset</role>
+   </port>
+  </interface>
+  <interface name="clock_sink_100mhz" kind="clock_sink" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRateKnown">
+    <type>java.lang.Boolean</type>
+    <value>true</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRate">
+    <type>java.lang.Long</type>
+    <value>100000000</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
+   <isStart>false</isStart>
+   <port>
+    <name>clk_100_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>clk</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_fee_0_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_0_rmap_echo_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_0_rmap_echo_id_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_0_rmap_incoming_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_0_rmap_incoming_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_0_rmap_incoming_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_0_rmap_outgoing_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_0_rmap_outgoing_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_0_rmap_outgoing_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_fee_1_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_1_rmap_echo_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_1_rmap_echo_id_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_1_rmap_incoming_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_1_rmap_incoming_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_1_rmap_incoming_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_1_rmap_outgoing_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_1_rmap_outgoing_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_1_rmap_outgoing_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_fee_2_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_2_rmap_echo_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_2_rmap_echo_id_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_2_rmap_incoming_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_2_rmap_incoming_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_2_rmap_incoming_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_2_rmap_outgoing_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_2_rmap_outgoing_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_2_rmap_outgoing_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_fee_3_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_3_rmap_echo_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_3_rmap_echo_id_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_3_rmap_incoming_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_3_rmap_incoming_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_3_rmap_incoming_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_3_rmap_outgoing_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_3_rmap_outgoing_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_3_rmap_outgoing_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_fee_4_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_4_rmap_echo_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_4_rmap_echo_id_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_4_rmap_incoming_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_4_rmap_incoming_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_4_rmap_incoming_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_4_rmap_outgoing_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_4_rmap_outgoing_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_4_rmap_outgoing_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_fee_5_rmap" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>fee_5_rmap_echo_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_en_signal</role>
+   </port>
+   <port>
+    <name>fee_5_rmap_echo_id_en_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>echo_id_en_signal</role>
+   </port>
+   <port>
+    <name>fee_5_rmap_incoming_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_5_rmap_incoming_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>incoming_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_5_rmap_incoming_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>incoming_fifo_wrreq_signal</role>
+   </port>
+   <port>
+    <name>fee_5_rmap_outgoing_fifo_wrdata_flag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrdata_flag_signal</role>
+   </port>
+   <port>
+    <name>fee_5_rmap_outgoing_fifo_wrdata_data_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>outgoing_fifo_wrdata_data_signal</role>
+   </port>
+   <port>
+    <name>fee_5_rmap_outgoing_fifo_wrreq_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>outgoing_fifo_wrreq_signal</role>
+   </port>
+  </interface>
+  <interface
+     name="conduit_end_spacewire_controller"
+     kind="conduit_end"
+     version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>spw_link_status_started_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_status_started_signal</role>
+   </port>
+   <port>
+    <name>spw_link_status_connecting_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_status_connecting_signal</role>
+   </port>
+   <port>
+    <name>spw_link_status_running_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_status_running_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_errdisc_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_error_errdisc_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_errpar_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_error_errpar_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_erresc_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_error_erresc_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_errcred_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_error_errcred_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_rx_tick_out_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_timecode_rx_tick_out_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_rx_ctrl_out_i</name>
+    <direction>Input</direction>
+    <width>2</width>
+    <role>spw_timecode_rx_ctrl_out_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_rx_time_out_i</name>
+    <direction>Input</direction>
+    <width>6</width>
+    <role>spw_timecode_rx_time_out_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxvalid_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_rx_status_rxvalid_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxhalff_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_rx_status_rxhalff_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxflag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_rx_status_rxflag_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxdata_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>spw_data_rx_status_rxdata_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_status_txrdy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_tx_status_txrdy_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_status_txhalff_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_tx_status_txhalff_signal</role>
+   </port>
+   <port>
+    <name>spw_link_command_autostart_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_command_autostart_signal</role>
+   </port>
+   <port>
+    <name>spw_link_command_linkstart_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_command_linkstart_signal</role>
+   </port>
+   <port>
+    <name>spw_link_command_linkdis_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_command_linkdis_signal</role>
+   </port>
+   <port>
+    <name>spw_link_command_txdivcnt_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>spw_link_command_txdivcnt_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_tx_tick_in_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_timecode_tx_tick_in_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_tx_ctrl_in_o</name>
+    <direction>Output</direction>
+    <width>2</width>
+    <role>spw_timecode_tx_ctrl_in_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_tx_time_in_o</name>
+    <direction>Output</direction>
+    <width>6</width>
+    <role>spw_timecode_tx_time_in_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_command_rxread_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_rx_command_rxread_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_command_txwrite_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_tx_command_txwrite_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_command_txflag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_tx_command_txflag_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_command_txdata_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>spw_data_tx_command_txdata_signal</role>
+   </port>
+  </interface>
+ </module>
+ <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
    kind="SEVEN_SEGMENT_CONTROLLER"
    version="1.0"
@@ -11936,6 +13314,515 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
+ <module
+   name="SpaceWire_Channel_H"
+   kind="SpaceWire_Channel"
+   version="1.0"
+   path="SpaceWire_Channel_H">
+  <!-- Describes a single module. Module parameters are
+the requested settings for a module instance. -->
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <interface name="reset_sink" kind="reset_sink" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="synchronousEdges">
+    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
+    <value>DEASSERT</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>reset</type>
+   <isStart>false</isStart>
+   <port>
+    <name>reset_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>reset</role>
+   </port>
+  </interface>
+  <interface name="clock_sink_100mhz" kind="clock_sink" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRateKnown">
+    <type>java.lang.Boolean</type>
+    <value>true</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRate">
+    <type>java.lang.Long</type>
+    <value>100000000</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
+   <isStart>false</isStart>
+   <port>
+    <name>clk_100_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>clk</role>
+   </port>
+  </interface>
+  <interface name="clock_sink_200mhz" kind="clock_sink" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRateKnown">
+    <type>java.lang.Boolean</type>
+    <value>true</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRate">
+    <type>java.lang.Long</type>
+    <value>200000000</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
+   <isStart>false</isStart>
+   <port>
+    <name>clk_200_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>clk</role>
+   </port>
+  </interface>
+  <interface
+     name="conduit_end_spacewire_channel"
+     kind="conduit_end"
+     version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>spw_link_command_autostart_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_command_autostart_signal</role>
+   </port>
+   <port>
+    <name>spw_link_command_linkstart_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_command_linkstart_signal</role>
+   </port>
+   <port>
+    <name>spw_link_command_linkdis_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_link_command_linkdis_signal</role>
+   </port>
+   <port>
+    <name>spw_link_command_txdivcnt_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>spw_link_command_txdivcnt_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_tx_tick_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_timecode_tx_tick_in_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_tx_ctrl_in_i</name>
+    <direction>Input</direction>
+    <width>2</width>
+    <role>spw_timecode_tx_ctrl_in_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_tx_time_in_i</name>
+    <direction>Input</direction>
+    <width>6</width>
+    <role>spw_timecode_tx_time_in_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_command_rxread_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_rx_command_rxread_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_command_txwrite_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_tx_command_txwrite_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_command_txflag_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_tx_command_txflag_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_command_txdata_i</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>spw_data_tx_command_txdata_signal</role>
+   </port>
+   <port>
+    <name>spw_link_status_started_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_status_started_signal</role>
+   </port>
+   <port>
+    <name>spw_link_status_connecting_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_status_connecting_signal</role>
+   </port>
+   <port>
+    <name>spw_link_status_running_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_status_running_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_errdisc_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_error_errdisc_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_errpar_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_error_errpar_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_erresc_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_error_erresc_signal</role>
+   </port>
+   <port>
+    <name>spw_link_error_errcred_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_link_error_errcred_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_rx_tick_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_timecode_rx_tick_out_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_rx_ctrl_out_o</name>
+    <direction>Output</direction>
+    <width>2</width>
+    <role>spw_timecode_rx_ctrl_out_signal</role>
+   </port>
+   <port>
+    <name>spw_timecode_rx_time_out_o</name>
+    <direction>Output</direction>
+    <width>6</width>
+    <role>spw_timecode_rx_time_out_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxvalid_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_rx_status_rxvalid_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxhalff_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_rx_status_rxhalff_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxflag_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_rx_status_rxflag_signal</role>
+   </port>
+   <port>
+    <name>spw_data_rx_status_rxdata_o</name>
+    <direction>Output</direction>
+    <width>8</width>
+    <role>spw_data_rx_status_rxdata_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_status_txrdy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_tx_status_txrdy_signal</role>
+   </port>
+   <port>
+    <name>spw_data_tx_status_txhalff_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_tx_status_txhalff_signal</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_spacewire_lvds" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_200mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>spw_data_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_strobe_in_signal</role>
+   </port>
+  </interface>
+  <interface name="conduit_end_spacewire_leds" kind="conduit_end" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_200mhz</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>spw_red_status_led_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_red_status_led_signal</role>
+   </port>
+   <port>
+    <name>spw_green_status_led_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_green_status_led_signal</role>
+   </port>
+  </interface>
+ </module>
  <module name="clk_100" kind="clock_source" version="18.1" path="clk_100">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -12335,6 +14222,18 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>SpaceWire_Channel_H</moduleName>
+    <slaveName>clock_sink_100mhz</slaveName>
+    <name>SpaceWire_Channel_H.clock_sink_100mhz</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>RMAP_Echoing</moduleName>
+    <slaveName>clock_sink_100mhz</slaveName>
+    <name>RMAP_Echoing.clock_sink_100mhz</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>clock_bridge_afi_50</moduleName>
     <slaveName>s0_clk</slaveName>
     <name>clock_bridge_afi_50.s0_clk</name>
@@ -12672,6 +14571,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_F.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>SpaceWire_Channel_H</moduleName>
+    <slaveName>clock_sink_200mhz</slaveName>
+    <name>SpaceWire_Channel_H.clock_sink_200mhz</name>
    </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="18.1">
@@ -78382,6 +80287,12 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_F.clock_sink_200</name>
    </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>SpaceWire_Channel_H</moduleName>
+    <slaveName>clock_sink_200mhz</slaveName>
+    <name>SpaceWire_Channel_H.clock_sink_200mhz</name>
+   </clockDomainMember>
   </interface>
   <interface name="afi_half_clk" kind="clock_source" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -78618,6 +80529,18 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
     <slaveName>clock_sink_100</slaveName>
     <name>COMM_Pedreiro_v1_01_F.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>SpaceWire_Channel_H</moduleName>
+    <slaveName>clock_sink_100mhz</slaveName>
+    <name>SpaceWire_Channel_H.clock_sink_100mhz</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>RMAP_Echoing</moduleName>
+    <slaveName>clock_sink_100mhz</slaveName>
+    <name>RMAP_Echoing.clock_sink_100mhz</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -96915,7 +98838,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1583546439</value>
+   <value>1585205961</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -96935,7 +98858,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1583546439</value>
+   <value>1585205961</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -96951,7 +98874,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1583546439</value>
+   <value>1585205961</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -108452,6 +110375,60 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock_sink_100</endConnectionPoint>
  </connection>
  <connection
+   name="clk_100.clk/SpaceWire_Channel_H.clock_sink_100mhz"
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="SpaceWire_Channel_H.clock_sink_100mhz">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_100</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>SpaceWire_Channel_H</endModule>
+  <endConnectionPoint>clock_sink_100mhz</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_100.clk/RMAP_Echoing.clock_sink_100mhz"
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="RMAP_Echoing.clock_sink_100mhz">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_100</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>RMAP_Echoing</endModule>
+  <endConnectionPoint>clock_sink_100mhz</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_200.clk/COMM_Pedreiro_v1_01_A.clock_sink_200"
    kind="clock"
    version="18.1"
@@ -108614,6 +110591,33 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
+   name="clk_200.clk/SpaceWire_Channel_H.clock_sink_200mhz"
+   kind="clock"
+   version="18.1"
+   start="clk_200.clk"
+   end="SpaceWire_Channel_H.clock_sink_200mhz">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>SpaceWire_Channel_H</endModule>
+  <endConnectionPoint>clock_sink_200mhz</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_ftdi.clk/FTDI_USB3_0.ftdi_clock_sink"
    kind="clock"
    version="18.1"
@@ -108720,6 +110724,475 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>clock_bridge_afi_50</endModule>
   <endConnectionPoint>s0_clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="RMAP_Echoing.conduit_end_fee_0_rmap/COMM_Pedreiro_v1_01_A.conduit_end_fee_rmap"
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_0_rmap"
+   end="COMM_Pedreiro_v1_01_A.conduit_end_fee_rmap">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>RMAP_Echoing</startModule>
+  <startConnectionPoint>conduit_end_fee_0_rmap</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_A</endModule>
+  <endConnectionPoint>conduit_end_fee_rmap</endConnectionPoint>
+ </connection>
+ <connection
+   name="RMAP_Echoing.conduit_end_fee_1_rmap/COMM_Pedreiro_v1_01_B.conduit_end_fee_rmap"
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_1_rmap"
+   end="COMM_Pedreiro_v1_01_B.conduit_end_fee_rmap">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>RMAP_Echoing</startModule>
+  <startConnectionPoint>conduit_end_fee_1_rmap</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_B</endModule>
+  <endConnectionPoint>conduit_end_fee_rmap</endConnectionPoint>
+ </connection>
+ <connection
+   name="RMAP_Echoing.conduit_end_fee_3_rmap/COMM_Pedreiro_v1_01_D.conduit_end_fee_rmap"
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_3_rmap"
+   end="COMM_Pedreiro_v1_01_D.conduit_end_fee_rmap">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>RMAP_Echoing</startModule>
+  <startConnectionPoint>conduit_end_fee_3_rmap</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_D</endModule>
+  <endConnectionPoint>conduit_end_fee_rmap</endConnectionPoint>
+ </connection>
+ <connection
+   name="RMAP_Echoing.conduit_end_fee_4_rmap/COMM_Pedreiro_v1_01_E.conduit_end_fee_rmap"
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_4_rmap"
+   end="COMM_Pedreiro_v1_01_E.conduit_end_fee_rmap">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>RMAP_Echoing</startModule>
+  <startConnectionPoint>conduit_end_fee_4_rmap</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_E</endModule>
+  <endConnectionPoint>conduit_end_fee_rmap</endConnectionPoint>
+ </connection>
+ <connection
+   name="RMAP_Echoing.conduit_end_fee_5_rmap/COMM_Pedreiro_v1_01_F.conduit_end_fee_rmap"
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_5_rmap"
+   end="COMM_Pedreiro_v1_01_F.conduit_end_fee_rmap">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>RMAP_Echoing</startModule>
+  <startConnectionPoint>conduit_end_fee_5_rmap</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_F</endModule>
+  <endConnectionPoint>conduit_end_fee_rmap</endConnectionPoint>
+ </connection>
+ <connection
+   name="COMM_Pedreiro_v1_01_C.conduit_end_fee_rmap/RMAP_Echoing.conduit_end_fee_2_rmap"
+   kind="conduit"
+   version="18.1"
+   start="COMM_Pedreiro_v1_01_C.conduit_end_fee_rmap"
+   end="RMAP_Echoing.conduit_end_fee_2_rmap">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>COMM_Pedreiro_v1_01_C</startModule>
+  <startConnectionPoint>conduit_end_fee_rmap</startConnectionPoint>
+  <endModule>RMAP_Echoing</endModule>
+  <endConnectionPoint>conduit_end_fee_2_rmap</endConnectionPoint>
+ </connection>
+ <connection
+   name="SpaceWire_Channel_H.conduit_end_spacewire_channel/RMAP_Echoing.conduit_end_spacewire_controller"
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Channel_H.conduit_end_spacewire_channel"
+   end="RMAP_Echoing.conduit_end_spacewire_controller">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>SpaceWire_Channel_H</startModule>
+  <startConnectionPoint>conduit_end_spacewire_channel</startConnectionPoint>
+  <endModule>RMAP_Echoing</endModule>
+  <endConnectionPoint>conduit_end_spacewire_controller</endConnectionPoint>
  </connection>
  <connection
    name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_A.buffers_interrupt_sender"
@@ -111624,6 +114097,60 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
+   name="clk_50.clk_reset/RMAP_Echoing.reset_sink"
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="RMAP_Echoing.reset_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_50</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>RMAP_Echoing</endModule>
+  <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_50.clk_reset/SpaceWire_Channel_H.reset_sink"
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="SpaceWire_Channel_H.reset_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_50</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>SpaceWire_Channel_H</endModule>
+  <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_50.clk_reset/clock_bridge_afi_50.s0_reset"
    kind="reset"
    version="18.1"
@@ -111730,168 +114257,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>m1_ddr2_memory</endModule>
   <endConnectionPoint>soft_reset</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller.reset_source_comm_ch1/COMM_Pedreiro_v1_01_A.reset_sink"
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch1"
-   end="COMM_Pedreiro_v1_01_A.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller</startModule>
-  <startConnectionPoint>reset_source_comm_ch1</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_A</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller.reset_source_comm_ch2/COMM_Pedreiro_v1_01_B.reset_sink"
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch2"
-   end="COMM_Pedreiro_v1_01_B.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller</startModule>
-  <startConnectionPoint>reset_source_comm_ch2</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_B</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller.reset_source_comm_ch3/COMM_Pedreiro_v1_01_C.reset_sink"
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch3"
-   end="COMM_Pedreiro_v1_01_C.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller</startModule>
-  <startConnectionPoint>reset_source_comm_ch3</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_C</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller.reset_source_comm_ch4/COMM_Pedreiro_v1_01_D.reset_sink"
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch4"
-   end="COMM_Pedreiro_v1_01_D.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller</startModule>
-  <startConnectionPoint>reset_source_comm_ch4</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_D</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller.reset_source_comm_ch5/COMM_Pedreiro_v1_01_E.reset_sink"
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch5"
-   end="COMM_Pedreiro_v1_01_E.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller</startModule>
-  <startConnectionPoint>reset_source_comm_ch5</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_E</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller.reset_source_comm_ch6/COMM_Pedreiro_v1_01_F.reset_sink"
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch6"
-   end="COMM_Pedreiro_v1_01_F.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller</startModule>
-  <startConnectionPoint>reset_source_comm_ch6</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_F</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
    name="rst_controller.reset_source_rs232/rs232_uart.reset"
@@ -112018,7 +114383,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>70</instanceCount>
+  <instanceCount>73</instanceCount>
   <name>clock_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -112026,7 +114391,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>65</instanceCount>
+  <instanceCount>67</instanceCount>
   <name>reset_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -112034,7 +114399,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>68</instanceCount>
+  <instanceCount>84</instanceCount>
   <name>conduit_end</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -112047,7 +114412,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>COMM_Pedreiro_v1_01</displayName>
-  <version>2.2</version>
+  <version>2.3</version>
  </plugin>
  <plugin>
   <instanceCount>32</instanceCount>
@@ -112067,10 +114432,26 @@ parameters are a RESULT of the module parameters. -->
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
+  <name>RMAP_Echoing</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IModule</subtype>
+  <displayName>RMAP_Echoing</displayName>
+  <version>1.0</version>
+ </plugin>
+ <plugin>
+  <instanceCount>1</instanceCount>
   <name>SEVEN_SEGMENT_CONTROLLER</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>SEVEN_SEGMENT_CONTROLLER</displayName>
+  <version>1.0</version>
+ </plugin>
+ <plugin>
+  <instanceCount>1</instanceCount>
+  <name>SpaceWire_Channel</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IModule</subtype>
+  <displayName>SpaceWire_Channel</displayName>
   <version>1.0</version>
  </plugin>
  <plugin>
@@ -112298,11 +114679,19 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>71</instanceCount>
+  <instanceCount>74</instanceCount>
   <name>clock</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
   <displayName>Clock Connection</displayName>
+  <version>18.1</version>
+ </plugin>
+ <plugin>
+  <instanceCount>7</instanceCount>
+  <name>conduit</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IConnection</subtype>
+  <displayName>Conduit Connection</displayName>
   <version>18.1</version>
  </plugin>
  <plugin>
@@ -112314,7 +114703,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>79</instanceCount>
+  <instanceCount>75</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

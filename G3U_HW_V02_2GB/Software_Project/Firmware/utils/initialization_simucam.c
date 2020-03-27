@@ -52,4 +52,7 @@ void vInitSimucamBasicHW(void)
 
 	bSetPainelLeds( LEDS_ON, LEDS_R_ALL_MASK | LEDS_POWER_MASK );
 
+	/* DEBUG */
+	bSetPainelLeds( LEDS_OFF, LEDS_8R_MASK );
+
 }

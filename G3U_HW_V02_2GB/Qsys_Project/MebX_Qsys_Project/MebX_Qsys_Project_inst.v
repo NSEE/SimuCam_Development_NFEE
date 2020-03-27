@@ -115,6 +115,12 @@
 		.sd_card_ip_b_SD_dat3                                        (<connected-to-sd_card_ip_b_SD_dat3>),                                        //                                     .b_SD_dat3
 		.sd_card_ip_o_SD_clock                                       (<connected-to-sd_card_ip_o_SD_clock>),                                       //                                     .o_SD_clock
 		.sd_card_wp_n_io_export                                      (<connected-to-sd_card_wp_n_io_export>),                                      //                      sd_card_wp_n_io.export
+		.spwc_h_leds_spw_red_status_led_signal                       (<connected-to-spwc_h_leds_spw_red_status_led_signal>),                       //                          spwc_h_leds.spw_red_status_led_signal
+		.spwc_h_leds_spw_green_status_led_signal                     (<connected-to-spwc_h_leds_spw_green_status_led_signal>),                     //                                     .spw_green_status_led_signal
+		.spwc_h_lvds_spw_data_in_signal                              (<connected-to-spwc_h_lvds_spw_data_in_signal>),                              //                          spwc_h_lvds.spw_data_in_signal
+		.spwc_h_lvds_spw_data_out_signal                             (<connected-to-spwc_h_lvds_spw_data_out_signal>),                             //                                     .spw_data_out_signal
+		.spwc_h_lvds_spw_strobe_out_signal                           (<connected-to-spwc_h_lvds_spw_strobe_out_signal>),                           //                                     .spw_strobe_out_signal
+		.spwc_h_lvds_spw_strobe_in_signal                            (<connected-to-spwc_h_lvds_spw_strobe_in_signal>),                            //                                     .spw_strobe_in_signal
 		.ssdp_ssdp0                                                  (<connected-to-ssdp_ssdp0>),                                                  //                                 ssdp.ssdp0
 		.ssdp_ssdp1                                                  (<connected-to-ssdp_ssdp1>),                                                  //                                     .ssdp1
 		.sync_in_conduit                                             (<connected-to-sync_in_conduit>),                                             //                              sync_in.conduit

@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "51";
+         value = "52";
          type = "int";
       }
       datum sopceditor_expanded
@@ -346,40 +346,11 @@
          type = "boolean";
       }
    }
-   element COMM_Pedreiro_v1_01_H
-   {
-      datum _sortIndex
-      {
-         value = "34";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
    element FTDI_USB3_0
    {
       datum _sortIndex
       {
-         value = "37";
+         value = "38";
          type = "int";
       }
       datum sopceditor_expanded
@@ -486,11 +457,24 @@
          type = "String";
       }
    }
+   element RMAP_Echoing
+   {
+      datum _sortIndex
+      {
+         value = "34";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
    element SEVEN_SEGMENT_CONTROLLER_0
    {
       datum _sortIndex
       {
-         value = "59";
+         value = "60";
          type = "int";
       }
       datum sopceditor_expanded
@@ -505,6 +489,19 @@
       {
          value = "2576";
          type = "String";
+      }
+   }
+   element SpaceWire_Channel_H
+   {
+      datum _sortIndex
+      {
+         value = "35";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
       }
    }
    element clk_100
@@ -558,7 +555,7 @@
    {
       datum _sortIndex
       {
-         value = "36";
+         value = "37";
          type = "int";
       }
       datum sopceditor_expanded
@@ -571,7 +568,7 @@
    {
       datum _sortIndex
       {
-         value = "38";
+         value = "39";
          type = "int";
       }
       datum sopceditor_expanded
@@ -600,7 +597,7 @@
    {
       datum _sortIndex
       {
-         value = "54";
+         value = "55";
          type = "int";
       }
       datum sopceditor_expanded
@@ -621,7 +618,7 @@
    {
       datum _sortIndex
       {
-         value = "55";
+         value = "56";
          type = "int";
       }
       datum sopceditor_expanded
@@ -642,7 +639,7 @@
    {
       datum _sortIndex
       {
-         value = "56";
+         value = "57";
          type = "int";
       }
       datum sopceditor_expanded
@@ -663,7 +660,7 @@
    {
       datum _sortIndex
       {
-         value = "57";
+         value = "58";
          type = "int";
       }
       datum sopceditor_expanded
@@ -684,7 +681,7 @@
    {
       datum _sortIndex
       {
-         value = "58";
+         value = "59";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1153,7 +1150,7 @@
    {
       datum _sortIndex
       {
-         value = "35";
+         value = "36";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1255,7 +1252,7 @@
    {
       datum _sortIndex
       {
-         value = "46";
+         value = "47";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1276,7 +1273,7 @@
    {
       datum _sortIndex
       {
-         value = "47";
+         value = "48";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1323,7 +1320,7 @@
    {
       datum _sortIndex
       {
-         value = "48";
+         value = "49";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1344,7 +1341,7 @@
    {
       datum _sortIndex
       {
-         value = "49";
+         value = "50";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1529,7 +1526,7 @@
    {
       datum _sortIndex
       {
-         value = "41";
+         value = "42";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1550,7 +1547,7 @@
    {
       datum _sortIndex
       {
-         value = "42";
+         value = "43";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1571,7 +1568,7 @@
    {
       datum _sortIndex
       {
-         value = "43";
+         value = "44";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1592,7 +1589,7 @@
    {
       datum _sortIndex
       {
-         value = "44";
+         value = "45";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1613,7 +1610,7 @@
    {
       datum _sortIndex
       {
-         value = "45";
+         value = "46";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1634,7 +1631,7 @@
    {
       datum _sortIndex
       {
-         value = "66";
+         value = "67";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1655,7 +1652,7 @@
    {
       datum _sortIndex
       {
-         value = "65";
+         value = "66";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1676,7 +1673,7 @@
    {
       datum _sortIndex
       {
-         value = "68";
+         value = "69";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1697,7 +1694,7 @@
    {
       datum _sortIndex
       {
-         value = "60";
+         value = "61";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1718,7 +1715,7 @@
    {
       datum _sortIndex
       {
-         value = "61";
+         value = "62";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1739,7 +1736,7 @@
    {
       datum _sortIndex
       {
-         value = "62";
+         value = "63";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1760,7 +1757,7 @@
    {
       datum _sortIndex
       {
-         value = "63";
+         value = "64";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1781,7 +1778,7 @@
    {
       datum _sortIndex
       {
-         value = "64";
+         value = "65";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1802,7 +1799,7 @@
    {
       datum _sortIndex
       {
-         value = "50";
+         value = "51";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1836,7 +1833,7 @@
    {
       datum _sortIndex
       {
-         value = "67";
+         value = "68";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1878,7 +1875,7 @@
    {
       datum _sortIndex
       {
-         value = "52";
+         value = "53";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1899,7 +1896,7 @@
    {
       datum _sortIndex
       {
-         value = "53";
+         value = "54";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1920,7 +1917,7 @@
    {
       datum _sortIndex
       {
-         value = "39";
+         value = "40";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1941,7 +1938,7 @@
    {
       datum _sortIndex
       {
-         value = "40";
+         value = "41";
          type = "int";
       }
       datum sopceditor_expanded
@@ -2097,15 +2094,6 @@
  <interface
    name="comm_g_sync_end"
    internal="COMM_Pedreiro_v1_01_G.sync_conduit_end" />
- <interface
-   name="comm_h_conduit_end"
-   internal="COMM_Pedreiro_v1_01_H.spw_conduit_end" />
- <interface
-   name="comm_h_measurements_conduit_end"
-   internal="COMM_Pedreiro_v1_01_H.measurements_conduit_end" />
- <interface
-   name="comm_h_sync_end"
-   internal="COMM_Pedreiro_v1_01_H.sync_conduit_end" />
  <interface
    name="csense_adc_fo"
    internal="csense_adc_fo.external_connection"
@@ -2274,6 +2262,16 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_h_leds"
+   internal="SpaceWire_Channel_H.conduit_end_spacewire_leds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_h_lvds"
+   internal="SpaceWire_Channel_H.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
    name="ssdp"
    internal="SEVEN_SEGMENT_CONTROLLER_0.SSDP_conduit"
    type="conduit"
@@ -2337,47 +2335,48 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="2.2"
-   enabled="0" />
- <module
-   name="COMM_Pedreiro_v1_01_H"
-   kind="COMM_Pedreiro_v1_01"
-   version="2.2"
+   version="2.3"
    enabled="0" />
  <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.7" enabled="1" />
+ <module name="RMAP_Echoing" kind="RMAP_Echoing" version="1.0" enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
    kind="SEVEN_SEGMENT_CONTROLLER"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="SpaceWire_Channel_H"
+   kind="SpaceWire_Channel"
    version="1.0"
    enabled="1" />
  <module name="clk_100" kind="clock_source" version="18.1" enabled="1">
@@ -4530,15 +4529,6 @@
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="COMM_Pedreiro_v1_01_H.avalon_slave_windowing">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81201000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
    end="COMM_Pedreiro_v1_01_A.avalon_slave_windowing">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x81202400" />
@@ -5529,15 +5519,6 @@
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100070000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_G.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000100060000" />
@@ -5640,15 +5621,6 @@
    end="COMM_Pedreiro_v1_01_G.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000100060000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100070000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -5727,15 +5699,6 @@
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100078000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_G.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000100068000" />
@@ -5838,15 +5801,6 @@
    end="COMM_Pedreiro_v1_01_G.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000100068000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100078000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -6159,11 +6113,6 @@
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_H.clock_sink_100" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_A.clock_sink_100" />
  <connection
    kind="clock"
@@ -6193,13 +6142,18 @@
  <connection
    kind="clock"
    version="18.1"
-   start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_G.clock_sink_200" />
+   start="clk_100.clk"
+   end="SpaceWire_Channel_H.clock_sink_100mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="RMAP_Echoing.clock_sink_100mhz" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_H.clock_sink_200" />
+   end="COMM_Pedreiro_v1_01_G.clock_sink_200" />
  <connection
    kind="clock"
    version="18.1"
@@ -6233,6 +6187,11 @@
  <connection
    kind="clock"
    version="18.1"
+   start="clk_200.clk"
+   end="SpaceWire_Channel_H.clock_sink_200mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
    start="clk_ftdi.clk"
    end="FTDI_USB3_0.ftdi_clock_sink" />
  <connection
@@ -6251,18 +6210,88 @@
    start="clk_100.clk"
    end="clock_bridge_afi_50.s0_clk" />
  <connection
-   kind="interrupt"
+   kind="conduit"
    version="18.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_G.buffers_interrupt_sender">
-  <parameter name="irqNumber" value="11" />
+   start="RMAP_Echoing.conduit_end_fee_0_rmap"
+   end="COMM_Pedreiro_v1_01_A.conduit_end_fee_rmap">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_1_rmap"
+   end="COMM_Pedreiro_v1_01_B.conduit_end_fee_rmap">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_3_rmap"
+   end="COMM_Pedreiro_v1_01_D.conduit_end_fee_rmap">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_4_rmap"
+   end="COMM_Pedreiro_v1_01_E.conduit_end_fee_rmap">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_fee_5_rmap"
+   end="COMM_Pedreiro_v1_01_F.conduit_end_fee_rmap">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="COMM_Pedreiro_v1_01_C.conduit_end_fee_rmap"
+   end="RMAP_Echoing.conduit_end_fee_2_rmap">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Channel_H.conduit_end_spacewire_channel"
+   end="RMAP_Echoing.conduit_end_spacewire_controller">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_H.buffers_interrupt_sender">
-  <parameter name="irqNumber" value="12" />
+   end="COMM_Pedreiro_v1_01_G.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="11" />
  </connection>
  <connection
    kind="interrupt"
@@ -6452,13 +6481,6 @@
    start="nios2_gen2_0.irq"
    end="sync.pre_sync_interrupt_sender">
   <parameter name="irqNumber" value="12" />
- </connection>
- <connection
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_H.rmap_interrupt_sender">
-  <parameter name="irqNumber" value="22" />
  </connection>
  <connection
    kind="interrupt"
@@ -6821,11 +6843,6 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_H.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
    end="COMM_Pedreiro_v1_01_A.reset_sink" />
  <connection
    kind="reset"
@@ -6866,6 +6883,16 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
+   end="RMAP_Echoing.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="SpaceWire_Channel_H.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
    end="clock_bridge_afi_50.s0_reset" />
  <connection
    kind="reset"
@@ -6882,36 +6909,6 @@
    version="18.1"
    start="clk_50.clk_reset"
    end="m1_ddr2_memory.soft_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch1"
-   end="COMM_Pedreiro_v1_01_A.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch2"
-   end="COMM_Pedreiro_v1_01_B.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch3"
-   end="COMM_Pedreiro_v1_01_C.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch4"
-   end="COMM_Pedreiro_v1_01_D.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch5"
-   end="COMM_Pedreiro_v1_01_E.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch6"
-   end="COMM_Pedreiro_v1_01_F.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

@@ -22,32 +22,40 @@ use work.windowing_dataset_pkg.all;
 
 entity comm_v1_80_top is
 	port(
-		reset_sink_reset                   : in  std_logic                      := '0'; --          --               reset_sink.a_reset
-		data_in                            : in  std_logic                      := '0'; --          --          spw_conduit_end.data_in_signal
-		data_out                           : out std_logic; --                                      --                         .data_out_signal
-		strobe_in                          : in  std_logic                      := '0'; --          --                         .strobe_in_signal
-		strobe_out                         : out std_logic; --                                      --                         .strobe_out_signal
-		sync_channel                       : in  std_logic                      := '0'; --          --         sync_conduit_end.sync_channel_signal
-		rmap_interrupt_sender_irq          : out std_logic; --                                      --    rmap_interrupt_sender.irq
-		buffers_interrupt_sender_irq       : out std_logic; --                                      -- buffers_interrupt_sender.irq
-		clock_sink_200_clk                 : in  std_logic                      := '0'; --          --           clock_sink_200.clk
-		clock_sink_100_clk                 : in  std_logic                      := '0'; --          --           clock_sink_100.clk
-		avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)   := (others => '0'); --   avalon_slave_windowing.address
-		avalon_slave_windowing_write       : in  std_logic                      := '0'; --          --                         .write
-		avalon_slave_windowing_read        : in  std_logic                      := '0'; --          --                         .read
-		avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0); --                  --                         .readdata
-		avalon_slave_windowing_writedata   : in  std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
-		avalon_slave_windowing_waitrequest : out std_logic; --                                      --                         .waitrequest
-		avalon_slave_windowing_byteenable  : in  std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
-		avalon_slave_L_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => '0'); --    avalon_slave_L_buffer.address
-		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
-		avalon_slave_L_buffer_write        : in  std_logic                      := '0'; --          --                         .write
-		avalon_slave_L_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_address      : in  std_logic_vector(20 downto 0)  := (others => '0'); --    avalon_slave_R_buffer.address
-		avalon_slave_R_buffer_write        : in  std_logic                      := '0'; --          --                         .write
-		avalon_slave_R_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
-		measurements_channel               : out std_logic_vector(7 downto 0) --                    -- measurements_conduit_end.measurements_channel_signal
+		reset_sink_reset                     : in  std_logic                      := '0'; --          --               reset_sink.a_reset
+		data_in                              : in  std_logic                      := '0'; --          --          spw_conduit_end.data_in_signal
+		data_out                             : out std_logic; --                                      --                         .data_out_signal
+		strobe_in                            : in  std_logic                      := '0'; --          --                         .strobe_in_signal
+		strobe_out                           : out std_logic; --                                      --                         .strobe_out_signal
+		sync_channel                         : in  std_logic                      := '0'; --          --         sync_conduit_end.sync_channel_signal
+		rmap_interrupt_sender_irq            : out std_logic; --                                      --    rmap_interrupt_sender.irq
+		buffers_interrupt_sender_irq         : out std_logic; --                                      -- buffers_interrupt_sender.irq
+		clock_sink_200_clk                   : in  std_logic                      := '0'; --          --           clock_sink_200.clk
+		clock_sink_100_clk                   : in  std_logic                      := '0'; --          --           clock_sink_100.clk
+		avalon_slave_windowing_address       : in  std_logic_vector(7 downto 0)   := (others => '0'); --   avalon_slave_windowing.address
+		avalon_slave_windowing_write         : in  std_logic                      := '0'; --          --                         .write
+		avalon_slave_windowing_read          : in  std_logic                      := '0'; --          --                         .read
+		avalon_slave_windowing_readdata      : out std_logic_vector(31 downto 0); --                  --                         .readdata
+		avalon_slave_windowing_writedata     : in  std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
+		avalon_slave_windowing_waitrequest   : out std_logic; --                                      --                         .waitrequest
+		avalon_slave_windowing_byteenable    : in  std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
+		avalon_slave_L_buffer_address        : in  std_logic_vector(20 downto 0)  := (others => '0'); --    avalon_slave_L_buffer.address
+		avalon_slave_L_buffer_waitrequest    : out std_logic; --                                      --                         .waitrequest
+		avalon_slave_L_buffer_write          : in  std_logic                      := '0'; --          --                         .write
+		avalon_slave_L_buffer_writedata      : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
+		avalon_slave_R_buffer_address        : in  std_logic_vector(20 downto 0)  := (others => '0'); --    avalon_slave_R_buffer.address
+		avalon_slave_R_buffer_write          : in  std_logic                      := '0'; --          --                         .write
+		avalon_slave_R_buffer_writedata      : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
+		avalon_slave_R_buffer_waitrequest    : out std_logic; --                                      --                         .waitrequest
+		measurements_channel                 : out std_logic_vector(7 downto 0); --                   -- measurements_conduit_end.measurements_channel_signal
+		fee_rmap_echo_en_o                   : out std_logic; --                                      --     conduit_end_fee_rmap.echo_en_signal
+		fee_rmap_echo_id_en_o                : out std_logic; --                                      --                         .echo_id_en_signal
+		fee_rmap_incoming_fifo_wrdata_flag_o : out std_logic; --                                      --                         .incoming_fifo_wrdata_flag_signal
+		fee_rmap_incoming_fifo_wrdata_data_o : out std_logic_vector(7 downto 0); --                   --                         .incoming_fifo_wrdata_data_signal
+		fee_rmap_incoming_fifo_wrreq_o       : out std_logic; --                                      --                         .incoming_fifo_wrreq_signal
+		fee_rmap_outgoing_fifo_wrdata_flag_o : out std_logic; --                                      --                         .outgoing_fifo_wrdata_flag_signal
+		fee_rmap_outgoing_fifo_wrdata_data_o : out std_logic_vector(7 downto 0); --                   --                         .outgoing_fifo_wrdata_data_signal
+		fee_rmap_outgoing_fifo_wrreq_o       : out std_logic ---                                      --                         .outgoing_fifo_wrreq_signal
 	);
 end entity comm_v1_80_top;
 
@@ -938,5 +946,15 @@ begin
 	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_running             <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
 	s_rmap_mem_rd_area.reg_33_hk.frame_counter                            <= s_fee_frame_counter;
 	s_rmap_mem_rd_area.reg_33_hk.frame_number                             <= s_fee_frame_number;
+
+	-- rmap echoing
+	fee_rmap_echo_en_o                   <= s_spacewire_write_registers.rmap_echoing_mode_config_reg.rmap_echoing_mode_enable;
+	fee_rmap_echo_id_en_o                <= s_spacewire_write_registers.rmap_echoing_mode_config_reg.rmap_echoing_id_enable;
+	fee_rmap_incoming_fifo_wrdata_flag_o <= s_rmap_spw_flag.receiver.flag;
+	fee_rmap_incoming_fifo_wrdata_data_o <= s_rmap_spw_flag.receiver.data;
+	fee_rmap_incoming_fifo_wrreq_o       <= s_rmap_spw_control.receiver.read;
+	fee_rmap_outgoing_fifo_wrdata_flag_o <= s_rmap_spw_control.transmitter.flag;
+	fee_rmap_outgoing_fifo_wrdata_data_o <= s_rmap_spw_control.transmitter.data;
+	fee_rmap_outgoing_fifo_wrreq_o       <= s_rmap_spw_control.transmitter.write;
 
 end architecture rtl;                   -- of comm_v1_80_top

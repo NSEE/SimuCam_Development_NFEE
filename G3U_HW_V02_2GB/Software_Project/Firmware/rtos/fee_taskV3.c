@@ -66,6 +66,12 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 
+				/* DEBUG */
+				bRmapGetEchoingMode(&pxNFee->xChannel.xRmap);
+				pxNFee->xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
+				pxNFee->xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = TRUE;
+				bRmapSetEchoingMode(&pxNFee->xChannel.xRmap);
+
 				pxNFee->xControl.eState = sConfig_Enter;
 				break;
 			case sConfig_Enter:/* Transition */

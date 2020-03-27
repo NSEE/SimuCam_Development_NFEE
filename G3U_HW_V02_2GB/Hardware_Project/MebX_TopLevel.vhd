@@ -394,6 +394,9 @@ architecture bhv of MebX_TopLevel is
 	signal spw_f_measure : std_logic_vector(7 downto 0);
 	signal spw_g_measure : std_logic_vector(7 downto 0);
 	signal spw_h_measure : std_logic_vector(7 downto 0);
+	
+	signal spw_h_red_led   : std_logic;
+	signal spw_h_green_led : std_logic;
 
 	-----------------------------------------
 	-- Sync - test
@@ -508,10 +511,12 @@ architecture bhv of MebX_TopLevel is
 			--			comm_g_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
 			--			comm_g_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
 			--
-			--			comm_h_conduit_end_data_in_signal                           : in    std_logic                     := 'X'; -- spw_di_signal
-			--			comm_h_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X'; -- spw_si_signal
-			--			comm_h_conduit_end_data_out_signal                          : out   std_logic; --                         -- spw_do_signal
-			--			comm_h_conduit_end_strobe_out_signal                        : out   std_logic; --                         -- spw_so_signal
+         spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        -- spw_red_status_led_signal
+         spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        -- spw_green_status_led_signal
+         spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X';             -- spw_data_in_signal
+         spwc_h_lvds_spw_data_out_signal                             : out   std_logic;                                        -- spw_data_out_signal
+         spwc_h_lvds_spw_strobe_out_signal                           : out   std_logic;                                        -- spw_strobe_out_signal
+         spwc_h_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X';             -- spw_strobe_in_signal
 			--
 			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
@@ -705,10 +710,10 @@ begin
 			--			comm_g_conduit_end_data_out_signal                          => spw_g_do(0),
 			--			comm_g_conduit_end_strobe_out_signal                        => spw_g_so(0),
 			--
-			--			comm_h_conduit_end_data_in_signal                           => spw_h_di(0),
-			--			comm_h_conduit_end_strobe_in_signal                         => spw_h_si(0),
-			--			comm_h_conduit_end_data_out_signal                          => spw_h_do(0),
-			--			comm_h_conduit_end_strobe_out_signal                        => spw_h_so(0),
+         spwc_h_lvds_spw_data_in_signal                              => spw_h_di(0),         --                           spwc_h_lvds.spw_data_in_signal
+         spwc_h_lvds_spw_strobe_in_signal                            => spw_h_si(0),         --                                      .spw_strobe_in_signal
+         spwc_h_lvds_spw_data_out_signal                             => spw_h_do(0),         --                                      .spw_data_out_signal
+         spwc_h_lvds_spw_strobe_out_signal                           => spw_h_so(0),         --                                      .spw_strobe_out_signal
 			--
 			comm_a_sync_end_sync_channel_signal                         => spw_1_sync, --       --                       comm_a_sync_end.sync_channel_signal
 			comm_b_sync_end_sync_channel_signal                         => spw_2_sync, --       --                       comm_b_sync_end.sync_channel_signal
@@ -725,6 +730,9 @@ begin
 			comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
 			comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
 			comm_f_measurements_conduit_end_measurements_channel_signal => spw_f_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
+			--
+         spwc_h_leds_spw_red_status_led_signal                       => spw_h_red_led,       --                           spwc_h_leds.spw_red_status_led_signal
+         spwc_h_leds_spw_green_status_led_signal                     => spw_h_green_led,     --                                      .spw_green_status_led_signal
 			--
 			temp_scl_export                                             => TEMP_SMCLK,
 			temp_sda_export                                             => TEMP_SMDAT,
@@ -822,8 +830,8 @@ begin
 	LED_PAINEL_LED_6R    <= ('1') when (rst_n = '0') else (leds_p(11));
 	LED_PAINEL_LED_7G    <= ('1') when (rst_n = '0') else (leds_p(12));
 	LED_PAINEL_LED_7R    <= ('1') when (rst_n = '0') else (leds_p(13));
-	LED_PAINEL_LED_8G    <= ('1') when (rst_n = '0') else (leds_p(14));
-	LED_PAINEL_LED_8R    <= ('1') when (rst_n = '0') else (leds_p(15));
+	LED_PAINEL_LED_8G    <= ('1') when (rst_n = '0') else (leds_p(14) or spw_h_green_led);
+	LED_PAINEL_LED_8R    <= ('1') when (rst_n = '0') else (leds_p(15) or spw_h_red_led);
 	LED_PAINEL_LED_POWER <= ('1') when (rst_n = '0') else (leds_p(16));
 	LED_PAINEL_LED_ST1   <= ('1') when (rst_n = '0') else (leds_p(17));
 	LED_PAINEL_LED_ST2   <= ('1') when (rst_n = '0') else (leds_p(18));

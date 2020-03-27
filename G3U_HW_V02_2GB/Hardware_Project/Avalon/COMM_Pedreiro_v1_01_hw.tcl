@@ -4,7 +4,7 @@
 
 
 # 
-# COMM_Pedreiro_v1_01 "COMM_Pedreiro_v1_01" v2.2
+# COMM_Pedreiro_v1_01 "COMM_Pedreiro_v1_01" v2.3
 #  2019.08.15.20:34:01
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME COMM_Pedreiro_v1_01
-set_module_property VERSION 2.2
+set_module_property VERSION 2.3
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -416,4 +416,26 @@ set_interface_property measurements_conduit_end CMSIS_SVD_VARIABLES ""
 set_interface_property measurements_conduit_end SVD_ADDRESS_GROUP ""
 
 add_interface_port measurements_conduit_end measurements_channel measurements_channel_signal Output 8
+
+
+# 
+# connection point conduit_end_fee_rmap
+# 
+add_interface conduit_end_fee_rmap conduit end
+set_interface_property conduit_end_fee_rmap associatedClock clock_sink_100
+set_interface_property conduit_end_fee_rmap associatedReset reset_sink
+set_interface_property conduit_end_fee_rmap ENABLED true
+set_interface_property conduit_end_fee_rmap EXPORT_OF ""
+set_interface_property conduit_end_fee_rmap PORT_NAME_MAP ""
+set_interface_property conduit_end_fee_rmap CMSIS_SVD_VARIABLES ""
+set_interface_property conduit_end_fee_rmap SVD_ADDRESS_GROUP ""
+
+add_interface_port conduit_end_fee_rmap fee_rmap_echo_en_o echo_en_signal Output 1
+add_interface_port conduit_end_fee_rmap fee_rmap_echo_id_en_o echo_id_en_signal Output 1
+add_interface_port conduit_end_fee_rmap fee_rmap_incoming_fifo_wrdata_flag_o incoming_fifo_wrdata_flag_signal Output 1
+add_interface_port conduit_end_fee_rmap fee_rmap_incoming_fifo_wrdata_data_o incoming_fifo_wrdata_data_signal Output 8 
+add_interface_port conduit_end_fee_rmap fee_rmap_incoming_fifo_wrreq_o incoming_fifo_wrreq_signal Output 1
+add_interface_port conduit_end_fee_rmap fee_rmap_outgoing_fifo_wrdata_flag_o outgoing_fifo_wrdata_flag_signal Output 1
+add_interface_port conduit_end_fee_rmap fee_rmap_outgoing_fifo_wrdata_data_o outgoing_fifo_wrdata_data_signal Output 8 
+add_interface_port conduit_end_fee_rmap fee_rmap_outgoing_fifo_wrreq_o outgoing_fifo_wrreq_signal Output 1
 

@@ -116,6 +116,12 @@ module MebX_Qsys_Project (
 	sd_card_ip_b_SD_dat3,
 	sd_card_ip_o_SD_clock,
 	sd_card_wp_n_io_export,
+	spwc_h_leds_spw_red_status_led_signal,
+	spwc_h_leds_spw_green_status_led_signal,
+	spwc_h_lvds_spw_data_in_signal,
+	spwc_h_lvds_spw_data_out_signal,
+	spwc_h_lvds_spw_strobe_out_signal,
+	spwc_h_lvds_spw_strobe_in_signal,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
 	sync_in_conduit,
@@ -266,6 +272,12 @@ module MebX_Qsys_Project (
 	inout		sd_card_ip_b_SD_dat3;
 	output		sd_card_ip_o_SD_clock;
 	input		sd_card_wp_n_io_export;
+	output		spwc_h_leds_spw_red_status_led_signal;
+	output		spwc_h_leds_spw_green_status_led_signal;
+	input		spwc_h_lvds_spw_data_in_signal;
+	output		spwc_h_lvds_spw_data_out_signal;
+	output		spwc_h_lvds_spw_strobe_out_signal;
+	input		spwc_h_lvds_spw_strobe_in_signal;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
 	input		sync_in_conduit;

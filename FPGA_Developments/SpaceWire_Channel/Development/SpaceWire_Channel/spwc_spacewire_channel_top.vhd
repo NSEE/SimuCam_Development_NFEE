@@ -12,7 +12,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-use work.spw_codec_pkg.all;
+use work.spwc_codec_pkg.all;
 use work.spwc_leds_controller_pkg.all;
 
 entity spwc_spacewire_channel_top is
@@ -70,22 +70,22 @@ architecture rtl of spwc_spacewire_channel_top is
 	-- Signals --
 
 	-- SpaceWirew Codec Clock Synchronization Signals (200 MHz)
-	signal s_spw_codec_link_command_clk200    : t_spw_codec_link_command;
-	signal s_spw_codec_link_status_clk200     : t_spw_codec_link_status;
-	signal s_spw_codec_link_error_clk200      : t_spw_codec_link_error;
-	signal s_spw_codec_timecode_rx_clk200     : t_spw_codec_timecode_rx;
-	signal s_spw_codec_data_rx_status_clk200  : t_spw_codec_data_rx_status;
-	signal s_spw_codec_data_tx_status_clk200  : t_spw_codec_data_tx_status;
-	signal s_spw_codec_timecode_tx_clk200     : t_spw_codec_timecode_tx;
-	signal s_spw_codec_data_rx_command_clk200 : t_spw_codec_data_rx_command;
-	signal s_spw_codec_data_tx_command_clk200 : t_spw_codec_data_tx_command;
+	signal s_spw_codec_link_command_clk200    : t_spwc_codec_link_command;
+	signal s_spw_codec_link_status_clk200     : t_spwc_codec_link_status;
+	signal s_spw_codec_link_error_clk200      : t_spwc_codec_link_error;
+	signal s_spw_codec_timecode_rx_clk200     : t_spwc_codec_timecode_rx;
+	signal s_spw_codec_data_rx_status_clk200  : t_spwc_codec_data_rx_status;
+	signal s_spw_codec_data_tx_status_clk200  : t_spwc_codec_data_tx_status;
+	signal s_spw_codec_timecode_tx_clk200     : t_spwc_codec_timecode_tx;
+	signal s_spw_codec_data_rx_command_clk200 : t_spwc_codec_data_rx_command;
+	signal s_spw_codec_data_tx_command_clk200 : t_spwc_codec_data_tx_command;
 
 begin
 
 	-- Entities Instantiation --
 
 	-- SpaceWire Codec Clock Domain Synchronization Instantiation
-	spw_clk_synchronization_ent_inst : entity work.spw_clk_synchronization_ent
+	spwc_clk_synchronization_ent_inst : entity work.spwc_clk_synchronization_ent
 		port map(
 			clk_100_i                                  => a_avs_clock,
 			clk_200_i                                  => a_spw_clock,
@@ -129,7 +129,7 @@ begin
 		);
 
 	-- SpaceWire Codec Instantiation 
-	spw_codec_ent_inst : entity work.spw_codec_ent
+	spwc_codec_ent_inst : entity work.spwc_codec_ent
 		port map(
 			clk_200_i                         => a_spw_clock,
 			rst_i                             => a_reset,
