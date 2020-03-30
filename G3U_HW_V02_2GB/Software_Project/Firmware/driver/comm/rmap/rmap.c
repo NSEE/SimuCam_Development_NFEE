@@ -78,7 +78,15 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
 
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 0 );
+		}
 	}
 
 }
@@ -125,7 +133,15 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
 
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 1 );
+		}
 	}
 
 }
@@ -172,7 +188,15 @@ void vRmapCh3HandleIrq(void* pvContext) {
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
 
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 2 );
+		}
 	}
 
 }
@@ -219,7 +243,15 @@ void vRmapCh4HandleIrq(void* pvContext) {
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
 
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 3 );
+		}
 	}
 
 }
@@ -266,7 +298,15 @@ void vRmapCh5HandleIrq(void* pvContext) {
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
 
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 4 );
+		}
 	}
 
 }
@@ -313,7 +353,15 @@ void vRmapCh6HandleIrq(void* pvContext) {
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
 
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 5 );
+		}
 	}
 
 }

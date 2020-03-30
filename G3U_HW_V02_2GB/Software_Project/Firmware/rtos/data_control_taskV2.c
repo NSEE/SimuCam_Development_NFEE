@@ -260,25 +260,29 @@ void vDataControlTaskV2(void *task_data) {
 								vFailFlushQueueData();
 							}
 
-							/* Send Clear command to the FTDI Control Block */
-							vFTDIStop(); // [rfranca]
-							vFTDIClear();
-							vFTDIStart();
-							/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
-							vFTDIResetFullImage();
-							bSuccess = bFTDIRequestFullImage( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
-							if ( bSuccess == FALSE ) {
-								/* Fail */
-								vFailSendRequestDTController();
-								pxDataC->sRunMode = sSubMemUpdated;
-							} else {
+							OSMutexPend(xMutexDMAFTDI, 0, &error_code); /* Try to get mutex that protects the xPus buffer. Wait max 10 ticks = 10 ms */
+							if ( error_code == OS_NO_ERR ) {
 
-
-								pxDataC->sRunMode = sSubScheduleDMA;
-								if ( ucSubCCDSide == 0 ) {
-									xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xLeft;
+								/* Send Clear command to the FTDI Control Block */
+								vFTDIStop(); // [rfranca]
+								vFTDIClear();
+								vFTDIStart();
+								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
+								vFTDIResetFullImage();
+								bSuccess = bFTDIRequestFullImage( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
+								if ( bSuccess == FALSE ) {
+									/* Fail */
+									vFailSendRequestDTController();
+									pxDataC->sRunMode = sSubMemUpdated;
 								} else {
-									xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xRight;
+
+
+									pxDataC->sRunMode = sSubScheduleDMA;
+									if ( ucSubCCDSide == 0 ) {
+										xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xLeft;
+									} else {
+										xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xRight;
+									}
 								}
 							}
 
@@ -327,6 +331,8 @@ void vDataControlTaskV2(void *task_data) {
 								pxDataC->sRunMode = sWaitForEmptyBufferIRQ;
 							}
 						}
+
+						OSMutexPost(xMutexDMAFTDI);
 
 						break;
 						

@@ -948,6 +948,36 @@ void vFailCreateNFEEQueue( unsigned char ucID )
 }
 
 /* CRITICAL. */
+void vFailCreateMebQueue( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailCreateMebQueue. (exit)\n");
+		fprintf(fp,"CRITICAL: Could not create the Queue to the NSEE.\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+/* CRITICAL. */
+void vFailCreateLUTQueue( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailCreateLUTQueue. (exit)\n");
+		fprintf(fp,"CRITICAL: Could not create the Queue to the NSEE.\n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+/* CRITICAL. */
 void vFailCreateNFEESyncQueue( unsigned char ucID )
 {
 	#if DEBUG_ON
@@ -1256,6 +1286,22 @@ void vFailSendBufferFullIRQtoDTC ( void ) {
 	#endif
 }
 
+void vFailSendBufferLastIRQtoLUT ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferLastIRQtoLUT \n");
+	}
+	#endif
+}
+
+void vFailFtdiErrorIRQtoLUT ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailFtdiErrorIRQtoLUT \n");
+	}
+	#endif
+}
+
 void vFailSendBufferLastIRQtoDTC ( void ) {
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -1341,6 +1387,19 @@ void vFailSendMsgMasterSyncDTC( void )
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgMasterSyncDTC \n");
+	}
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vFailSendMsgMasterSyncLut( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMsgMasterSyncLut \n");
 	}
 	#endif
 	/*

@@ -75,6 +75,7 @@ OS_EVENT *xSemTimeoutChecker;
 
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
+OS_EVENT *xMutexDMAFTDI;
 OS_EVENT *xMutexTranferBuffer;
 /* -------------- Definition of Semaphores -------------- */
 
@@ -110,6 +111,10 @@ OS_EVENT *xMebQ;
 /* Sync Reset comm queue [bndky] */
 void *xQueueSyncResetTBL[N_MESG_SYNCRST];
 OS_EVENT *xQueueSyncReset;
+
+/* Queue to comunicate with the LUT Handler */
+void *xLutQTBL[N_OF_LUT_MSG_QUEUE];
+OS_EVENT *xLutQ;
 /* -------------- Definition of Queues -------------- */
 
 
@@ -138,6 +143,7 @@ OS_STK    vFeeTask2_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask3_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask4_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
+OS_STK    vLUT_stk[LUT_STACK_SIZE];
 /* -------------- Definition of Stacks------------------ */
 
 
@@ -333,9 +339,17 @@ bool bResourcesInitRTOS( void ) {
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
 	if ( xMebQ == NULL ) {
-		vFailCreateNFEEQueue( 5 );
+		vFailCreateMebQueue( );
 		bSuccess = FALSE;		
 	}
+
+	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
+	xLutQ = OSQCreate(&xLutQTBL[0], N_OF_LUT_MSG_QUEUE);
+	if ( xLutQ == NULL ) {
+		vFailCreateLUTQueue( );
+		bSuccess = FALSE;
+	}
+
 
 	/* Mutex and Semaphores to control the communication of FastReaderTask */
 	xMutexPus = OSMutexCreate(PCP_MUTEX_PUS_QUEUE, &err);
@@ -358,14 +372,14 @@ bool bResourcesInitRTOS( void ) {
 		vCouldNotCreateQueueMaskDataCtrl( );
 		bSuccess = FALSE;		
 	}
-
+/*
 	xDma[0].xMutexDMA = OSMutexCreate(PCP_MUTEX_DMA_0, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateMutexDMA();
 		bSuccess = FALSE;
 	}
-
-	xDma[1].xMutexDMA = OSMutexCreate(PCP_MUTEX_DMA_1, &err);
+*/
+	xMutexDMAFTDI = OSMutexCreate(PCP_MUTEX_DMA_1, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateMutexDMA();
 		bSuccess = FALSE;

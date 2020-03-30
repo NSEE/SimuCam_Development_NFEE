@@ -306,6 +306,44 @@ void vInitialTask(void *task_data)
 
 
 
+	/* Create the LUT handler task */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vLutHandlerTask,
+									&xSimMeb,
+									(void *)&vLUT_stk[LUT_STACK_SIZE-1],
+									LUT_TASK_PRIO,
+									LUT_TASK_PRIO,
+									vLUT_stk,
+									LUT_STACK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vLutHandlerTask,
+									&xSimMeb,
+									(void *)&vLUT_stk[LUT_STACK_SIZE-1],
+									LUT_TASK_PRIO,
+									LUT_TASK_PRIO,
+									vLUT_stk,
+									LUT_STACK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+			vCoudlNotCreateNFeeControllerTask();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 1500);
+
+
+
 	/* Create the first Meb Controller Task */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vSimMebTask,

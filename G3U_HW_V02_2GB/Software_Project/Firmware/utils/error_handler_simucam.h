@@ -17,6 +17,8 @@
 #endif
 
 void vFailFtdiErrorIRQtoDTC ( void );
+void vFailSendBufferLastIRQtoLUT ( void );
+void vFailFtdiErrorIRQtoLUT ( void );
 void vFailSendBufferEmptyIRQtoDTC ( void );
 void vFailSendBufferLastIRQtoDTC ( void );
 void vFailFromFEE ( void );
@@ -110,9 +112,12 @@ void vFailFlushQueue( void );
 void vFailFlushMEBQueue( void );
 void vFailFlushQueueData( void );
 void vFailFlushNFEEQueue( void );
+void vFailCreateLUTQueue( void );
+void vFailCreateMebQueue( void );
 void vFailCreateNFEESyncQueue( unsigned char ucID );
 void vFailSendMsgSync( unsigned char ucTemp);
 void vFailSendMsgMasterSyncDTC( void );
+void vFailSendMsgMasterSyncLut( void );
 void vFailSendMsgMasterSyncMeb( void );
 void vFailRequestDMAFromIRQ( unsigned char ucTemp);
 void vFailSendRMAPFromIRQ( unsigned char ucTemp);

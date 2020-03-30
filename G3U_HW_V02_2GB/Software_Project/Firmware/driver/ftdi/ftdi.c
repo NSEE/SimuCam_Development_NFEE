@@ -246,6 +246,8 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 }
 
 void vFTDITxBufferIRQHandler(void* pvContext) {
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
 	//volatile int* viTxBuffHoldContext = (volatile int*) pvContext;
@@ -260,14 +262,32 @@ void vFTDITxBufferIRQHandler(void* pvContext) {
 	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxFinishedIrqFlag) {
 		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxFinishedIrqFlagClr = TRUE;
 		/* Tx Finished Transmission flag treatment */
+		uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdtoSend.ucByte[2] = M_LUT_FTDI_BUFFER_FINISH;
+		uiCmdtoSend.ucByte[1] = 0;
+		uiCmdtoSend.ucByte[0] = 0;
 
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xLutQ, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendBufferLastIRQtoLUT();
+		}
 	}
 
 	/* Tx Communication Error Flag */
 	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxCommErrIrqFlag) {
 		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxCommErrIrqFlagClr = TRUE;
 		/* Tx Communication Error flag treatment */
+		uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdtoSend.ucByte[2] = M_LUT_FTDI_ERROR;
+		uiCmdtoSend.ucByte[1] = 0;
+		uiCmdtoSend.ucByte[0] = ucFTDIGetError();
 
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xLutQ, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailFtdiErrorIRQtoLUT();
+		}
 	}
 
 }
