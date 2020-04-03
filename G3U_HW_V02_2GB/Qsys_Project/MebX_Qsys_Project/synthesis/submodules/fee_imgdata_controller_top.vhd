@@ -63,6 +63,7 @@ entity fee_imgdata_controller_top is
 		fee_window_mask_read_o             : out std_logic;
 		-- fee imgdata send buffer status
 		imgdata_send_buffer_status_o       : out t_fee_dpkt_send_buffer_status;
+		imgdata_send_buffer_data_type_o    : out std_logic_vector(1 downto 0);
 		imgdata_send_double_buffer_empty_o : out std_logic
 	);
 end entity fee_imgdata_controller_top;
@@ -101,6 +102,9 @@ architecture RTL of fee_imgdata_controller_top is
 	signal s_send_buffer_wrreq             : std_logic;
 	signal s_send_buffer_stat_full         : std_logic;
 	signal s_send_buffer_wrready           : std_logic;
+	signal s_send_double_buffer_wrable     : std_logic;
+	signal s_send_buffer_data_type_wrdata  : std_logic_vector(1 downto 0);
+	signal s_send_buffer_data_type_wrreq   : std_logic;
 
 begin
 
@@ -138,6 +142,7 @@ begin
 			window_data_ready_i           => fee_window_data_ready_i,
 			window_mask_ready_i           => fee_window_mask_ready_i,
 			masking_buffer_rdreq_i        => s_masking_buffer_rdreq,
+			send_double_buffer_wrable_i   => s_send_double_buffer_wrable,
 			masking_machine_finished_o    => s_masking_machine_finished,
 			window_data_read_o            => fee_window_data_read_o,
 			window_mask_read_o            => fee_window_mask_read_o,
@@ -195,7 +200,9 @@ begin
 			send_buffer_wrready_i          => s_send_buffer_wrready,
 			header_gen_finished_o          => s_header_gen_finished,
 			send_buffer_wrdata_o           => s_send_buffer_header_gen_wrdata,
-			send_buffer_wrreq_o            => s_send_buffer_header_gen_wrreq
+			send_buffer_wrreq_o            => s_send_buffer_header_gen_wrreq,
+			send_buffer_data_type_wrdata_o => s_send_buffer_data_type_wrdata,
+			send_buffer_data_type_wrreq_o  => s_send_buffer_data_type_wrreq
 		);
 
 	-- data packet data writer instantiation
@@ -240,6 +247,8 @@ begin
 			buffer_wrreq_i               => s_send_buffer_wrreq,
 			buffer_rdreq_i               => imgdata_send_buffer_control_i.rdreq,
 			buffer_change_i              => imgdata_send_buffer_control_i.change,
+			data_type_wrdata_i           => s_send_buffer_data_type_wrdata,
+			data_type_wrreq_i            => s_send_buffer_data_type_wrreq,
 			buffer_stat_almost_empty_o   => open,
 			buffer_stat_almost_full_o    => open,
 			buffer_stat_empty_o          => imgdata_send_buffer_status_o.stat_empty,
@@ -248,7 +257,9 @@ begin
 			buffer_rddata_o              => imgdata_send_buffer_status_o.rddata,
 			buffer_rdready_o             => imgdata_send_buffer_status_o.rdready,
 			buffer_wrready_o             => s_send_buffer_wrready,
-			double_buffer_empty_o        => imgdata_send_double_buffer_empty_o
+			data_type_rddata_o           => imgdata_send_buffer_data_type_o,
+			double_buffer_empty_o        => imgdata_send_double_buffer_empty_o,
+			double_buffer_wrable_o       => s_send_double_buffer_wrable
 		);
 	s_send_buffer_wrdata <= (s_send_buffer_header_gen_wrdata) or (s_send_buffer_data_wr_wrdata);
 	s_send_buffer_wrreq  <= (s_send_buffer_header_gen_wrreq) or (s_send_buffer_data_wr_wrreq);

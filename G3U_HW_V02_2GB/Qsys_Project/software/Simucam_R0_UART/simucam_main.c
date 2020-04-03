@@ -546,13 +546,14 @@ int main(void)
 		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
 		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
 		fprintf(fp, "xDefaults.bBufferOverflowEn %u \n", xDefaults.bBufferOverflowEn);
-		fprintf(fp, "xDefaults.bOneShot %u \n", xDefaults.bOneShot);
+		fprintf(fp, "xDefaults.bSpwLinkStart %u \n", xDefaults.bSpwLinkStart);
 		fprintf(fp, "xDefaults.ucLogicalAddr %u \n", xDefaults.ucLogicalAddr);
 		fprintf(fp, "xDefaults.ucReadOutOrder %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);
 		fprintf(fp, "xDefaults.ucRmapKey %u \n", xDefaults.ucRmapKey);
-		fprintf(fp, "xDefaults.ulADCPixelDelay %lu \n", xDefaults.ulADCPixelDelay);
-		fprintf(fp, "xDefaults.ulColDelay %lu \n", xDefaults.ulColDelay);
-		fprintf(fp, "xDefaults.ulLineDelay %lu \n", xDefaults.ulLineDelay);
+		fprintf(fp, "xDefaults.ulStartDelay %lu [ms]\n", xDefaults.ulStartDelay);
+		fprintf(fp, "xDefaults.ulSkipDelay %lu [ns]\n", xDefaults.ulSkipDelay);
+		fprintf(fp, "xDefaults.ulLineDelay %lu [ns]\n", xDefaults.ulLineDelay);
+		fprintf(fp, "xDefaults.ulADCPixelDelay [ns]%lu \n", xDefaults.ulADCPixelDelay);
 		fprintf(fp, "xDefaults.usiCols %u \n", xDefaults.usiCols);
 		fprintf(fp, "xDefaults.usiRows %u \n", xDefaults.usiRows);
 		fprintf(fp, "xDefaults.usiOLN %u \n", xDefaults.usiOLN);

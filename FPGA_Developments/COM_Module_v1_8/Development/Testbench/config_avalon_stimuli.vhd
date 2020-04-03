@@ -149,8 +149,9 @@ begin
 					avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#45#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                 <= '1';
 					avalon_mm_writedata_o             <= (others => '0');
-					 avalon_mm_writedata_o(3 downto 0)   <= c_FEE_FULLIMAGE_PATTERN_MODE; -- data_pkt_fee_mode
+--					avalon_mm_writedata_o(3 downto 0) <= c_FEE_FULLIMAGE_PATTERN_MODE; -- data_pkt_fee_mode
 --					avalon_mm_writedata_o(3 downto 0) <= c_FEE_FULLIMAGE_MODE; -- data_pkt_fee_mode
+					avalon_mm_writedata_o(3 downto 0) <= c_FEE_WINDOWING_MODE; -- data_pkt_fee_mode
 					avalon_mm_writedata_o(9 downto 8) <= std_logic_vector(to_unsigned(3, 2)); -- data_pkt_ccd_number
 					avalon_mm_read_o                  <= '0';
 

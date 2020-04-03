@@ -39,7 +39,7 @@
 #define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_2_BASE
 // offsets
 #define COMM_RMAP_MEMAREA_CONFIG_OFST   0x00000080
-#define COMM_RMAP_MEMAREA_HK_OFST       0x000000A7
+#define COMM_RMAP_MEMAREA_HK_OFST       0x000000AE
 //! [constants definition]
 
 //! [public module structs definition]
