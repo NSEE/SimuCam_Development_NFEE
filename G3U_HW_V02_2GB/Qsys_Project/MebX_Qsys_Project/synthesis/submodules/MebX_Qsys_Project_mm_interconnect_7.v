@@ -8,30 +8,30 @@
 `timescale 1 ps / 1 ps
 module MebX_Qsys_Project_mm_interconnect_7 (
 		input  wire         clk_100_clk_clk,                                              //                                            clk_100_clk.clk
-		input  wire         COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset, // COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset.reset
-		input  wire         dma_comm_3_left_reset_n_reset_bridge_in_reset_reset,          //          dma_comm_3_left_reset_n_reset_bridge_in_reset.reset
-		input  wire [32:0]  dma_comm_3_left_mm_write_address,                             //                               dma_comm_3_left_mm_write.address
-		output wire         dma_comm_3_left_mm_write_waitrequest,                         //                                                       .waitrequest
-		input  wire [31:0]  dma_comm_3_left_mm_write_byteenable,                          //                                                       .byteenable
-		input  wire         dma_comm_3_left_mm_write_write,                               //                                                       .write
-		input  wire [255:0] dma_comm_3_left_mm_write_writedata,                           //                                                       .writedata
-		output wire [20:0]  COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address,          //            COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer.address
-		output wire         COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write,            //                                                       .write
-		output wire [255:0] COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata,        //                                                       .writedata
-		input  wire         COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest       //                                                       .waitrequest
+		input  wire         COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset, // COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset.reset
+		input  wire         dma_comm_4_left_reset_n_reset_bridge_in_reset_reset,          //          dma_comm_4_left_reset_n_reset_bridge_in_reset.reset
+		input  wire [32:0]  dma_comm_4_left_mm_write_address,                             //                               dma_comm_4_left_mm_write.address
+		output wire         dma_comm_4_left_mm_write_waitrequest,                         //                                                       .waitrequest
+		input  wire [31:0]  dma_comm_4_left_mm_write_byteenable,                          //                                                       .byteenable
+		input  wire         dma_comm_4_left_mm_write_write,                               //                                                       .write
+		input  wire [255:0] dma_comm_4_left_mm_write_writedata,                           //                                                       .writedata
+		output wire [20:0]  COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address,          //            COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer.address
+		output wire         COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write,            //                                                       .write
+		output wire [255:0] COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata,        //                                                       .writedata
+		input  wire         COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest       //                                                       .waitrequest
 	);
 
-	wire          dma_comm_3_left_mm_write_translator_avalon_universal_master_0_waitrequest;   // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_waitrequest -> dma_comm_3_left_mm_write_translator:uav_waitrequest
-	wire  [255:0] dma_comm_3_left_mm_write_translator_avalon_universal_master_0_readdata;      // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_readdata -> dma_comm_3_left_mm_write_translator:uav_readdata
-	wire          dma_comm_3_left_mm_write_translator_avalon_universal_master_0_debugaccess;   // dma_comm_3_left_mm_write_translator:uav_debugaccess -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_debugaccess
-	wire   [32:0] dma_comm_3_left_mm_write_translator_avalon_universal_master_0_address;       // dma_comm_3_left_mm_write_translator:uav_address -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_address
-	wire          dma_comm_3_left_mm_write_translator_avalon_universal_master_0_read;          // dma_comm_3_left_mm_write_translator:uav_read -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_read
-	wire   [31:0] dma_comm_3_left_mm_write_translator_avalon_universal_master_0_byteenable;    // dma_comm_3_left_mm_write_translator:uav_byteenable -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_byteenable
-	wire          dma_comm_3_left_mm_write_translator_avalon_universal_master_0_readdatavalid; // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_readdatavalid -> dma_comm_3_left_mm_write_translator:uav_readdatavalid
-	wire          dma_comm_3_left_mm_write_translator_avalon_universal_master_0_lock;          // dma_comm_3_left_mm_write_translator:uav_lock -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_lock
-	wire          dma_comm_3_left_mm_write_translator_avalon_universal_master_0_write;         // dma_comm_3_left_mm_write_translator:uav_write -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_write
-	wire  [255:0] dma_comm_3_left_mm_write_translator_avalon_universal_master_0_writedata;     // dma_comm_3_left_mm_write_translator:uav_writedata -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_writedata
-	wire    [5:0] dma_comm_3_left_mm_write_translator_avalon_universal_master_0_burstcount;    // dma_comm_3_left_mm_write_translator:uav_burstcount -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_burstcount
+	wire          dma_comm_4_left_mm_write_translator_avalon_universal_master_0_waitrequest;   // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_waitrequest -> dma_comm_4_left_mm_write_translator:uav_waitrequest
+	wire  [255:0] dma_comm_4_left_mm_write_translator_avalon_universal_master_0_readdata;      // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_readdata -> dma_comm_4_left_mm_write_translator:uav_readdata
+	wire          dma_comm_4_left_mm_write_translator_avalon_universal_master_0_debugaccess;   // dma_comm_4_left_mm_write_translator:uav_debugaccess -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_debugaccess
+	wire   [32:0] dma_comm_4_left_mm_write_translator_avalon_universal_master_0_address;       // dma_comm_4_left_mm_write_translator:uav_address -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_address
+	wire          dma_comm_4_left_mm_write_translator_avalon_universal_master_0_read;          // dma_comm_4_left_mm_write_translator:uav_read -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_read
+	wire   [31:0] dma_comm_4_left_mm_write_translator_avalon_universal_master_0_byteenable;    // dma_comm_4_left_mm_write_translator:uav_byteenable -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_byteenable
+	wire          dma_comm_4_left_mm_write_translator_avalon_universal_master_0_readdatavalid; // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_readdatavalid -> dma_comm_4_left_mm_write_translator:uav_readdatavalid
+	wire          dma_comm_4_left_mm_write_translator_avalon_universal_master_0_lock;          // dma_comm_4_left_mm_write_translator:uav_lock -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_lock
+	wire          dma_comm_4_left_mm_write_translator_avalon_universal_master_0_write;         // dma_comm_4_left_mm_write_translator:uav_write -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_write
+	wire  [255:0] dma_comm_4_left_mm_write_translator_avalon_universal_master_0_writedata;     // dma_comm_4_left_mm_write_translator:uav_writedata -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_writedata
+	wire    [5:0] dma_comm_4_left_mm_write_translator_avalon_universal_master_0_burstcount;    // dma_comm_4_left_mm_write_translator:uav_burstcount -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_burstcount
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (33),
@@ -57,25 +57,25 @@ module MebX_Qsys_Project_mm_interconnect_7 (
 		.UAV_CONSTANT_BURST_BEHAVIOR (0),
 		.AV_LINEWRAPBURSTS           (0),
 		.AV_REGISTERINCOMINGSIGNALS  (0)
-	) dma_comm_3_left_mm_write_translator (
+	) dma_comm_4_left_mm_write_translator (
 		.clk                    (clk_100_clk_clk),                                                             //                       clk.clk
-		.reset                  (dma_comm_3_left_reset_n_reset_bridge_in_reset_reset),                         //                     reset.reset
-		.uav_address            (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_address),       // avalon_universal_master_0.address
-		.uav_burstcount         (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_burstcount),    //                          .burstcount
-		.uav_read               (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_read),          //                          .read
-		.uav_write              (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_write),         //                          .write
-		.uav_waitrequest        (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_waitrequest),   //                          .waitrequest
-		.uav_readdatavalid      (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_readdatavalid), //                          .readdatavalid
-		.uav_byteenable         (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_byteenable),    //                          .byteenable
-		.uav_readdata           (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_readdata),      //                          .readdata
-		.uav_writedata          (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_writedata),     //                          .writedata
-		.uav_lock               (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_lock),          //                          .lock
-		.uav_debugaccess        (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
-		.av_address             (dma_comm_3_left_mm_write_address),                                            //      avalon_anti_master_0.address
-		.av_waitrequest         (dma_comm_3_left_mm_write_waitrequest),                                        //                          .waitrequest
-		.av_byteenable          (dma_comm_3_left_mm_write_byteenable),                                         //                          .byteenable
-		.av_write               (dma_comm_3_left_mm_write_write),                                              //                          .write
-		.av_writedata           (dma_comm_3_left_mm_write_writedata),                                          //                          .writedata
+		.reset                  (dma_comm_4_left_reset_n_reset_bridge_in_reset_reset),                         //                     reset.reset
+		.uav_address            (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_address),       // avalon_universal_master_0.address
+		.uav_burstcount         (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_burstcount),    //                          .burstcount
+		.uav_read               (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_read),          //                          .read
+		.uav_write              (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_write),         //                          .write
+		.uav_waitrequest        (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_waitrequest),   //                          .waitrequest
+		.uav_readdatavalid      (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_readdatavalid), //                          .readdatavalid
+		.uav_byteenable         (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_byteenable),    //                          .byteenable
+		.uav_readdata           (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_readdata),      //                          .readdata
+		.uav_writedata          (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_writedata),     //                          .writedata
+		.uav_lock               (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_lock),          //                          .lock
+		.uav_debugaccess        (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
+		.av_address             (dma_comm_4_left_mm_write_address),                                            //      avalon_anti_master_0.address
+		.av_waitrequest         (dma_comm_4_left_mm_write_waitrequest),                                        //                          .waitrequest
+		.av_byteenable          (dma_comm_4_left_mm_write_byteenable),                                         //                          .byteenable
+		.av_write               (dma_comm_4_left_mm_write_write),                                              //                          .write
+		.av_writedata           (dma_comm_4_left_mm_write_writedata),                                          //                          .writedata
 		.av_burstcount          (1'b1),                                                                        //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                        //               (terminated)
 		.av_begintransfer       (1'b0),                                                                        //               (terminated)
@@ -119,24 +119,24 @@ module MebX_Qsys_Project_mm_interconnect_7 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) comm_pedreiro_v1_01_c_avalon_slave_l_buffer_translator (
+	) comm_pedreiro_v1_01_d_avalon_slave_l_buffer_translator (
 		.clk                    (clk_100_clk_clk),                                                                                                                                                                                                                                                       //                      clk.clk
-		.reset                  (COMM_Pedreiro_v1_01_C_reset_sink_reset_bridge_in_reset_reset),                                                                                                                                                                                                          //                    reset.reset
-		.uav_address            (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_address),                                                                                                                                                                                                 // avalon_universal_slave_0.address
-		.uav_burstcount         (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_burstcount),                                                                                                                                                                                              //                         .burstcount
-		.uav_read               (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_read),                                                                                                                                                                                                    //                         .read
-		.uav_write              (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_write),                                                                                                                                                                                                   //                         .write
-		.uav_waitrequest        (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_waitrequest),                                                                                                                                                                                             //                         .waitrequest
-		.uav_readdatavalid      (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_readdatavalid),                                                                                                                                                                                           //                         .readdatavalid
-		.uav_byteenable         (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_byteenable),                                                                                                                                                                                              //                         .byteenable
-		.uav_readdata           (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_readdata),                                                                                                                                                                                                //                         .readdata
-		.uav_writedata          (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_writedata),                                                                                                                                                                                               //                         .writedata
-		.uav_lock               (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_lock),                                                                                                                                                                                                    //                         .lock
-		.uav_debugaccess        (dma_comm_3_left_mm_write_translator_avalon_universal_master_0_debugaccess),                                                                                                                                                                                             //                         .debugaccess
-		.av_address             (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address),                                                                                                                                                                                                                   //      avalon_anti_slave_0.address
-		.av_write               (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write),                                                                                                                                                                                                                     //                         .write
-		.av_writedata           (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata),                                                                                                                                                                                                                 //                         .writedata
-		.av_waitrequest         (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest),                                                                                                                                                                                                               //                         .waitrequest
+		.reset                  (COMM_Pedreiro_v1_01_D_reset_sink_reset_bridge_in_reset_reset),                                                                                                                                                                                                          //                    reset.reset
+		.uav_address            (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_address),                                                                                                                                                                                                 // avalon_universal_slave_0.address
+		.uav_burstcount         (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_burstcount),                                                                                                                                                                                              //                         .burstcount
+		.uav_read               (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_read),                                                                                                                                                                                                    //                         .read
+		.uav_write              (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_write),                                                                                                                                                                                                   //                         .write
+		.uav_waitrequest        (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_waitrequest),                                                                                                                                                                                             //                         .waitrequest
+		.uav_readdatavalid      (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_readdatavalid),                                                                                                                                                                                           //                         .readdatavalid
+		.uav_byteenable         (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_byteenable),                                                                                                                                                                                              //                         .byteenable
+		.uav_readdata           (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_readdata),                                                                                                                                                                                                //                         .readdata
+		.uav_writedata          (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_writedata),                                                                                                                                                                                               //                         .writedata
+		.uav_lock               (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_lock),                                                                                                                                                                                                    //                         .lock
+		.uav_debugaccess        (dma_comm_4_left_mm_write_translator_avalon_universal_master_0_debugaccess),                                                                                                                                                                                             //                         .debugaccess
+		.av_address             (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address),                                                                                                                                                                                                                   //      avalon_anti_slave_0.address
+		.av_write               (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write),                                                                                                                                                                                                                     //                         .write
+		.av_writedata           (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata),                                                                                                                                                                                                                 //                         .writedata
+		.av_waitrequest         (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest),                                                                                                                                                                                                               //                         .waitrequest
 		.av_read                (),                                                                                                                                                                                                                                                                      //              (terminated)
 		.av_readdata            (256'b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                                                                                                                                                                                                                      //              (terminated)

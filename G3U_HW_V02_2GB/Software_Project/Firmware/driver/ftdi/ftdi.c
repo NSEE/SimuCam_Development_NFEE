@@ -257,15 +257,15 @@ void vFTDITxBufferIRQHandler(void* pvContext) {
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 
 	/* Tx Finished Transmission Flag */
-	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxFinishedIrqFlag) {
-		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxFinishedIrqFlagClr = TRUE;
+	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxLutFinishedIrqFlag) {
+		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxLutFinishedIrqFlagClr = TRUE;
 		/* Tx Finished Transmission flag treatment */
 
 	}
 
 	/* Tx Communication Error Flag */
-	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxCommErrIrqFlag) {
-		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxCommErrIrqFlagClr = TRUE;
+	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxLutCommErrIrqFlag) {
+		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxLutCommErrIrqFlagClr = TRUE;
 		/* Tx Communication Error flag treatment */
 
 	}
@@ -300,8 +300,8 @@ bool bFTDIIrqTxBuffInit(void) {
     pvHoldContext = (void*) &viTxBuffHoldContext;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 	// Clear all flags
-    vpxFtdiModule->xFtdiTxIrqFlagClr.bTxFinishedIrqFlagClr = TRUE;
-    vpxFtdiModule->xFtdiTxIrqFlagClr.bTxCommErrIrqFlagClr = TRUE;
+    vpxFtdiModule->xFtdiTxIrqFlagClr.bTxLutFinishedIrqFlagClr = TRUE;
+    vpxFtdiModule->xFtdiTxIrqFlagClr.bTxLutCommErrIrqFlagClr = TRUE;
     // Register the interrupt handler
     if (0 == alt_irq_register(FTDI_TX_BUFFER_IRQ, pvHoldContext, vFTDITxBufferIRQHandler)){
         bStatus = TRUE;
@@ -341,12 +341,12 @@ void vFTDIIrqRxCommErrEn(bool bEnable){
 
 void vFTDIIrqTxFinishedEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-    vpxFtdiModule->xFtdiTxIrqControl.bTxFinishedIrqEn = bEnable;
+    vpxFtdiModule->xFtdiTxIrqControl.bTxLutFinishedIrqEn = bEnable;
 }
 
 void vFTDIIrqTxCommErrEn(bool bEnable){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-    vpxFtdiModule->xFtdiTxIrqControl.bTxCommErrIrqEn = bEnable;
+    vpxFtdiModule->xFtdiTxIrqControl.bTxLutCommErrIrqEn = bEnable;
 }
 
 //! [public functions]

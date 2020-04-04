@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.02.26.15:43:19 -->
+ <!-- 2020.04.03.15:25:40 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1582742596</value>
+  <value>1585938336</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -10327,7 +10327,7 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.7" path="FTDI_USB3_0">
+ <module name="FTDI_USB3_0" kind="FTDI_USB3" version="2.0" path="FTDI_USB3_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -11340,7 +11340,10 @@ parameters are a RESULT of the module parameters. -->
     <role>waitrequest</role>
    </port>
   </interface>
-  <interface name="ftdi_interrupt_sender" kind="interrupt_sender" version="18.1">
+  <interface
+     name="ftdi_rx_interrupt_sender"
+     kind="interrupt_sender"
+     version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -11411,7 +11414,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>ftdi_interrupt_sender_irq</name>
+    <name>ftdi_rx_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="ftdi_tx_interrupt_sender"
+     kind="interrupt_sender"
+     version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>ftdi_tx_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -44507,7 +44590,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -44527,7 +44610,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -44537,7 +44620,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH">
    <type>com.altera.entityinterfaces.moduleext.AddressWidthType</type>
-   <value>AddressWidth = 32</value>
+   <value>AddressWidth = 34</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -44908,6 +44991,30 @@ parameters are a RESULT of the module parameters. -->
     <baseAddress>8589934592</baseAddress>
     <span>67108864</span>
    </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>m2_ddr2_memory</moduleName>
+    <slaveName>avl</slaveName>
+    <name>m2_ddr2_memory.avl</name>
+    <baseAddress>2147483648</baseAddress>
+    <span>2147483648</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>true</isBridge>
+    <moduleName>m1_clock_bridge</moduleName>
+    <slaveName>s0</slaveName>
+    <name>m1_clock_bridge.s0</name>
+    <baseAddress>0</baseAddress>
+    <span>2147483648</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>m1_ddr2_memory</moduleName>
+    <slaveName>avl</slaveName>
+    <name>m1_ddr2_memory.avl</name>
+    <baseAddress>0</baseAddress>
+    <span>2147483648</span>
+   </memoryBlock>
   </interface>
   <interface name="mm_write" kind="avalon_master" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -45174,7 +45281,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_address</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>34</width>
     <role>address</role>
    </port>
    <port>
@@ -45201,6 +45308,14 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>waitrequest</role>
    </port>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>FTDI_USB3_0</moduleName>
+    <slaveName>avalon_slave_data</slaveName>
+    <name>FTDI_USB3_0.avalon_slave_data</name>
+    <baseAddress>8589934592</baseAddress>
+    <span>67108864</span>
+   </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>m2_ddr2_memory</moduleName>
@@ -82830,13 +82945,6 @@ parameters are a RESULT of the module parameters. -->
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>dma_comm_1_left</moduleName>
-    <slaveName>csr_irq</slaveName>
-    <name>dma_comm_1_left.csr_irq</name>
-    <interruptNumber>4</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
     <moduleName>dma_comm_1_right</moduleName>
     <slaveName>csr_irq</slaveName>
     <name>dma_comm_1_right.csr_irq</name>
@@ -82922,9 +83030,16 @@ parameters are a RESULT of the module parameters. -->
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>FTDI_USB3_0</moduleName>
-    <slaveName>ftdi_interrupt_sender</slaveName>
-    <name>FTDI_USB3_0.ftdi_interrupt_sender</name>
+    <slaveName>ftdi_rx_interrupt_sender</slaveName>
+    <name>FTDI_USB3_0.ftdi_rx_interrupt_sender</name>
     <interruptNumber>25</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>FTDI_USB3_0</moduleName>
+    <slaveName>ftdi_tx_interrupt_sender</slaveName>
+    <name>FTDI_USB3_0.ftdi_tx_interrupt_sender</name>
+    <interruptNumber>4</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
@@ -96915,7 +97030,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1582742596</value>
+   <value>1585938336</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -96935,7 +97050,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1582742596</value>
+   <value>1585938336</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -96951,7 +97066,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1582742596</value>
+   <value>1585938336</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -105479,6 +105594,57 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>avl</endConnectionPoint>
  </connection>
  <connection
+   name="dma_ftdi_usb3.mm_read/m2_ddr2_memory.avl"
+   kind="avalon"
+   version="18.1"
+   start="dma_ftdi_usb3.mm_read"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x80000000</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>dma_ftdi_usb3</startModule>
+  <startConnectionPoint>mm_read</startConnectionPoint>
+  <endModule>m2_ddr2_memory</endModule>
+  <endConnectionPoint>avl</endConnectionPoint>
+ </connection>
+ <connection
    name="dma_comm_1_left.mm_read/m1_clock_bridge.s0"
    kind="avalon"
    version="18.1"
@@ -106086,6 +106252,57 @@ parameters are a RESULT of the module parameters. -->
    <valid>true</valid>
   </parameter>
   <startModule>dma_comm_6_right</startModule>
+  <startConnectionPoint>mm_read</startConnectionPoint>
+  <endModule>m1_clock_bridge</endModule>
+  <endConnectionPoint>s0</endConnectionPoint>
+ </connection>
+ <connection
+   name="dma_ftdi_usb3.mm_read/m1_clock_bridge.s0"
+   kind="avalon"
+   version="18.1"
+   start="dma_ftdi_usb3.mm_read"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0000</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>dma_ftdi_usb3</startModule>
   <startConnectionPoint>mm_read</startConnectionPoint>
   <endModule>m1_clock_bridge</endModule>
   <endConnectionPoint>s0</endConnectionPoint>
@@ -106701,6 +106918,57 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>mm_write</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_F</endModule>
   <endConnectionPoint>avalon_slave_R_buffer</endConnectionPoint>
+ </connection>
+ <connection
+   name="dma_ftdi_usb3.mm_write/FTDI_USB3_0.avalon_slave_data"
+   kind="avalon"
+   version="18.1"
+   start="dma_ftdi_usb3.mm_write"
+   end="FTDI_USB3_0.avalon_slave_data">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0000000200000000</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>dma_ftdi_usb3</startModule>
+  <startConnectionPoint>mm_write</startConnectionPoint>
+  <endModule>FTDI_USB3_0</endModule>
+  <endConnectionPoint>avalon_slave_data</endConnectionPoint>
  </connection>
  <connection
    name="dma_ftdi_usb3.mm_write/m2_ddr2_memory.avl"
@@ -108932,41 +109200,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.irq/dma_comm_1_left.csr_irq"
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
-   end="dma_comm_1_left.csr_irq">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>4</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>dma_comm_1_left</endModule>
-  <endConnectionPoint>csr_irq</endConnectionPoint>
- </connection>
- <connection
    name="nios2_gen2_0.irq/dma_comm_1_right.csr_irq"
    kind="interrupt"
    version="18.1"
@@ -109387,11 +109620,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>csr_irq</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.irq/FTDI_USB3_0.ftdi_interrupt_sender"
+   name="nios2_gen2_0.irq/FTDI_USB3_0.ftdi_rx_interrupt_sender"
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="FTDI_USB3_0.ftdi_interrupt_sender">
+   end="FTDI_USB3_0.ftdi_rx_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
    <value>25</value>
@@ -109419,7 +109652,42 @@ parameters are a RESULT of the module parameters. -->
   <startModule>nios2_gen2_0</startModule>
   <startConnectionPoint>irq</startConnectionPoint>
   <endModule>FTDI_USB3_0</endModule>
-  <endConnectionPoint>ftdi_interrupt_sender</endConnectionPoint>
+  <endConnectionPoint>ftdi_rx_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/FTDI_USB3_0.ftdi_tx_interrupt_sender"
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="FTDI_USB3_0.ftdi_tx_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>4</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>FTDI_USB3_0</endModule>
+  <endConnectionPoint>ftdi_tx_interrupt_sender</endConnectionPoint>
  </connection>
  <connection
    name="nios2_gen2_0.irq/jtag_uart_0.irq"
@@ -112050,7 +112318,7 @@ parameters are a RESULT of the module parameters. -->
   <version>2.2</version>
  </plugin>
  <plugin>
-  <instanceCount>32</instanceCount>
+  <instanceCount>33</instanceCount>
   <name>interrupt_sender</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -112063,7 +112331,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>FTDI_UMFT601A_Module</displayName>
-  <version>1.7</version>
+  <version>2.0</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -112290,7 +112558,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>116</instanceCount>
+  <instanceCount>119</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

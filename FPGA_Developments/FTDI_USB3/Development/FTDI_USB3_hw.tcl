@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_USB3 "FTDI_UMFT601A_Module" v1.7
+# FTDI_USB3 "FTDI_UMFT601A_Module" v2.0
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_USB3
-set_module_property VERSION 1.7
+set_module_property VERSION 2.0
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -61,7 +61,8 @@ add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROT
 add_fileset_file ftdi_rx_protocol_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
 add_fileset_file ftdi_tx_protocol_header_generator_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
 add_fileset_file ftdi_tx_protocol_payload_writer_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
-add_fileset_file ftdi_protocol_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_controller_ent.vhd
+add_fileset_file ftdi_protocol_img_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_img_controller_ent.vhd
+add_fileset_file ftdi_protocol_lut_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_lut_controller_ent.vhd
 add_fileset_file ftdi_protocol_crc_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
@@ -97,7 +98,8 @@ add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROT
 add_fileset_file ftdi_rx_protocol_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
 add_fileset_file ftdi_tx_protocol_header_generator_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
 add_fileset_file ftdi_tx_protocol_payload_writer_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
-add_fileset_file ftdi_protocol_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_controller_ent.vhd
+add_fileset_file ftdi_protocol_img_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_img_controller_ent.vhd
+add_fileset_file ftdi_protocol_lut_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_lut_controller_ent.vhd
 add_fileset_file ftdi_protocol_crc_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
@@ -226,7 +228,6 @@ set_interface_assignment avalon_slave_config embeddedsw.configuration.isNonVolat
 set_interface_assignment avalon_slave_config embeddedsw.configuration.isPrintableDevice 0
 
 
-
 # 
 # connection point avalon_slave_data
 # 
@@ -265,20 +266,38 @@ set_interface_assignment avalon_slave_data embeddedsw.configuration.isNonVolatil
 set_interface_assignment avalon_slave_data embeddedsw.configuration.isPrintableDevice 0
 
 
+# 
+# connection point ftdi_rx_interrupt_sender
+# 
+add_interface ftdi_rx_interrupt_sender interrupt end
+set_interface_property ftdi_rx_interrupt_sender associatedAddressablePoint ""
+set_interface_property ftdi_rx_interrupt_sender associatedClock clock_sink
+set_interface_property ftdi_rx_interrupt_sender associatedReset reset_sink
+set_interface_property ftdi_rx_interrupt_sender bridgedReceiverOffset ""
+set_interface_property ftdi_rx_interrupt_sender bridgesToReceiver ""
+set_interface_property ftdi_rx_interrupt_sender ENABLED true
+set_interface_property ftdi_rx_interrupt_sender EXPORT_OF ""
+set_interface_property ftdi_rx_interrupt_sender PORT_NAME_MAP ""
+set_interface_property ftdi_rx_interrupt_sender CMSIS_SVD_VARIABLES ""
+set_interface_property ftdi_rx_interrupt_sender SVD_ADDRESS_GROUP ""
+
+add_interface_port ftdi_rx_interrupt_sender ftdi_rx_interrupt_sender_irq irq Output 1
+
 
 # 
-# connection point ftdi_interrupt_sender
+# connection point ftdi_tx_interrupt_sender
 # 
-add_interface ftdi_interrupt_sender interrupt end
-set_interface_property ftdi_interrupt_sender associatedAddressablePoint ""
-set_interface_property ftdi_interrupt_sender associatedClock clock_sink
-set_interface_property ftdi_interrupt_sender associatedReset reset_sink
-set_interface_property ftdi_interrupt_sender bridgedReceiverOffset ""
-set_interface_property ftdi_interrupt_sender bridgesToReceiver ""
-set_interface_property ftdi_interrupt_sender ENABLED true
-set_interface_property ftdi_interrupt_sender EXPORT_OF ""
-set_interface_property ftdi_interrupt_sender PORT_NAME_MAP ""
-set_interface_property ftdi_interrupt_sender CMSIS_SVD_VARIABLES ""
-set_interface_property ftdi_interrupt_sender SVD_ADDRESS_GROUP ""
+add_interface ftdi_tx_interrupt_sender interrupt end
+set_interface_property ftdi_tx_interrupt_sender associatedAddressablePoint ""
+set_interface_property ftdi_tx_interrupt_sender associatedClock clock_sink
+set_interface_property ftdi_tx_interrupt_sender associatedReset reset_sink
+set_interface_property ftdi_tx_interrupt_sender bridgedReceiverOffset ""
+set_interface_property ftdi_tx_interrupt_sender bridgesToReceiver ""
+set_interface_property ftdi_tx_interrupt_sender ENABLED true
+set_interface_property ftdi_tx_interrupt_sender EXPORT_OF ""
+set_interface_property ftdi_tx_interrupt_sender PORT_NAME_MAP ""
+set_interface_property ftdi_tx_interrupt_sender CMSIS_SVD_VARIABLES ""
+set_interface_property ftdi_tx_interrupt_sender SVD_ADDRESS_GROUP ""
 
-add_interface_port ftdi_interrupt_sender ftdi_interrupt_sender_irq irq Output 1
+add_interface_port ftdi_tx_interrupt_sender ftdi_tx_interrupt_sender_irq irq Output 1
+

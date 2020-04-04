@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2020.02.26.15:43:19</td>
+    <td class="l">2020.04.03.15:25:41</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -131,7 +131,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> COMM_Pedreiro_v1_01 2.2
      <br/>&#160;&#160;
      <a href="#module_FTDI_USB3_0"><b>FTDI_USB3_0</b>
-     </a> FTDI_USB3 1.7
+     </a> FTDI_USB3 2.0
      <br/>&#160;&#160;
      <a href="#module_SEVEN_SEGMENT_CONTROLLER_0"><b>SEVEN_SEGMENT_CONTROLLER_0</b>
      </a> SEVEN_SEGMENT_CONTROLLER 1.0
@@ -1335,7 +1335,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>0000000200000000</td>
-    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>0000000200000000</td>
     <td class="empty"></td>
     <td class="empty"></td>
    </tr>
@@ -3457,7 +3457,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>00000000</td>
     <td class="empty"></td>
-    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
     <td class="addr"><span style="color:#989898">0x</span>00000000</td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3658,7 +3658,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>80000000</td>
     <td class="empty"></td>
-    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>80000000</td>
     <td class="addr"><span style="color:#989898">0x</span>80000000</td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5998,16 +5998,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_FTDI_USB3_0"> </a>
   <div>
    <hr/>
-   <h2>FTDI_USB3_0</h2>FTDI_USB3 v1.7
+   <h2>FTDI_USB3_0</h2>FTDI_USB3 v2.0
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="16">FTDI_USB3_0</td>
+      <td class="main" rowspan="20">FTDI_USB3_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_config</td>
@@ -6016,16 +6016,28 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;ftdi_interrupt_sender</td>
+      <td class="to">&#160;&#160;ftdi_rx_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;ftdi_tx_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
      <tr>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
       </td>
       <td class="from">mm_read&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_data</td>
+     </tr>
+     <tr>
+      <td class="from">mm_write&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_data</td>
@@ -8837,11 +8849,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_1_left</td>
+      <td class="main" rowspan="18">dma_comm_1_left</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -8851,12 +8863,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -13509,7 +13515,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_ftdi_usb3</td>
+      <td class="main" rowspan="26">dma_ftdi_usb3</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -13554,9 +13560,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">mm_read&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_FTDI_USB3_0">FTDI_USB3_0</a>
       </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_slave_data</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">mm_write&#160;&#160;</td>
      </tr>
      <tr>
       <td></td>
@@ -13569,10 +13585,20 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="from">mm_write&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
+      <td class="from">mm_read&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
        <a href="#module_m2_ddr2_memory">m2_ddr2_memory</a>
       </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avl</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">mm_write&#160;&#160;</td>
      </tr>
      <tr>
       <td></td>
@@ -13585,10 +13611,20 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="from">mm_write&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
+      <td class="from">mm_read&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
        <a href="#module_m1_clock_bridge">m1_clock_bridge</a>
       </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;s0</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">mm_write&#160;&#160;</td>
      </tr>
      <tr>
       <td></td>
@@ -13738,7 +13774,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">AUTO_MM_READ_ADDRESS_MAP</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /&gt;&lt;slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /&gt;&lt;slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">AUTO_MM_READ_ADDRESS_WIDTH</td>
@@ -13746,11 +13782,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">AUTO_MM_WRITE_ADDRESS_MAP</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /&gt;&lt;slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /&gt;&lt;slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /&gt;&lt;slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">AUTO_MM_WRITE_ADDRESS_WIDTH</td>
-        <td class="parametervalue">AddressWidth = 32</td>
+        <td class="parametervalue">AddressWidth = 34</td>
        </tr>
        <tr>
         <td class="parametername">AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP</td>
@@ -14383,7 +14419,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_ddr2_address_span_extender">ddr2_address_span_extender</a>
       </td>
       <td class="from">expanded_master&#160;&#160;</td>
-      <td class="main" rowspan="54">m1_clock_bridge</td>
+      <td class="main" rowspan="56">m1_clock_bridge</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;s0</td>
@@ -14536,9 +14572,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
      </tr>
      <tr>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
       </td>
+      <td class="from">mm_read&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;s0</td>
+     </tr>
+     <tr>
       <td class="from">mm_write&#160;&#160;</td>
      </tr>
      <tr>
@@ -21319,7 +21361,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_ddr2_address_span_extender">ddr2_address_span_extender</a>
       </td>
       <td class="from">expanded_master&#160;&#160;</td>
-      <td class="main" rowspan="56">m2_ddr2_memory</td>
+      <td class="main" rowspan="58">m2_ddr2_memory</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avl</td>
@@ -21472,9 +21514,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
      </tr>
      <tr>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
       </td>
+      <td class="from">mm_read&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avl</td>
+     </tr>
+     <tr>
       <td class="from">mm_write&#160;&#160;</td>
      </tr>
      <tr>
@@ -27392,7 +27440,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_FTDI_USB3_0">FTDI_USB3_0</a>
       </td>
      </tr>
@@ -27409,7 +27457,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;ftdi_interrupt_sender</td>
+      <td class="to">&#160;&#160;ftdi_rx_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;ftdi_tx_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -27676,7 +27734,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_1_left">dma_comm_1_left</a>
       </td>
      </tr>
@@ -27694,16 +27752,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -32423,7 +32471,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1582742596</td>
+        <td class="parametervalue">1585938336</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -32448,7 +32496,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1582742596</td>
+        <td class="parametervalue">1585938336</td>
        </tr>
       </table>
      </td>
@@ -33327,7 +33375,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0,02 seconds</td>
-    <td class="r">rendering took 0,35 seconds</td>
+    <td class="r">rendering took 0,46 seconds</td>
    </tr>
   </table>
  </body>

@@ -2374,7 +2374,7 @@
    kind="COMM_Pedreiro_v1_01"
    version="2.2"
    enabled="0" />
- <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.7" enabled="1" />
+ <module name="FTDI_USB3_0" kind="FTDI_USB3" version="2.0" enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
    kind="SEVEN_SEGMENT_CONTROLLER"
@@ -3175,10 +3175,10 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 32" />
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
@@ -5393,6 +5393,15 @@
  <connection
    kind="avalon"
    version="18.1"
+   start="dma_ftdi_usb3.mm_read"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
    start="dma_DDR_M1.mm_read"
    end="m1_clock_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -5502,6 +5511,15 @@
    kind="avalon"
    version="18.1"
    start="dma_comm_6_right.mm_read"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_ftdi_usb3.mm_read"
    end="m1_clock_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -5924,6 +5942,15 @@
  <connection
    kind="avalon"
    version="18.1"
+   start="dma_ftdi_usb3.mm_write"
+   end="FTDI_USB3_0.avalon_slave_data">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000200000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
    start="dma_DDR_M2.mm_write"
    end="m2_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
@@ -6324,13 +6351,6 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="dma_comm_1_left.csr_irq">
-  <parameter name="irqNumber" value="4" />
- </connection>
- <connection
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
    end="dma_comm_1_right.csr_irq">
   <parameter name="irqNumber" value="21" />
  </connection>
@@ -6415,8 +6435,15 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="FTDI_USB3_0.ftdi_interrupt_sender">
+   end="FTDI_USB3_0.ftdi_rx_interrupt_sender">
   <parameter name="irqNumber" value="25" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="FTDI_USB3_0.ftdi_tx_interrupt_sender">
+  <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="interrupt"
