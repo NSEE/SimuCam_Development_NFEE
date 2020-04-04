@@ -5,13 +5,13 @@
   <columns>
    <connections preferredWidth="1263" />
    <irq preferredWidth="34" />
-   <name preferredWidth="246" />
+   <name preferredWidth="333" />
    <inputclock preferredWidth="128" />
    <export preferredWidth="211" />
    <description preferredWidth="325" />
   </columns>
  </systemtable>
- <library expandedCategories="Project,Library" />
+ <library expandedCategories="Library,Project" />
  <window width="1936" height="1056" x="-8" y="-8" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />

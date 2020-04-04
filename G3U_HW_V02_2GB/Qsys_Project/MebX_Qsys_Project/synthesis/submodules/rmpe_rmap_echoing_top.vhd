@@ -450,5 +450,5 @@ begin
 			end if;
 		end if;
 	end process p_spwc_codec_glutton_reader;
-	
+
 end architecture rtl;                   -- of rmpe_rmap_echoing_top
