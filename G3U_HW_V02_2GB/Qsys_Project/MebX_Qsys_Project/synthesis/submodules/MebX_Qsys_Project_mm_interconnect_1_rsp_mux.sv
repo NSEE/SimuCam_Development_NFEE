@@ -43,8 +43,8 @@
 //   ARBITRATION_SHARES:  1 1
 //   ARBITRATION_SCHEME   "no-arb"
 //   PIPELINE_ARB:        0
-//   PKT_TRANS_LOCK:      326 (arbitration locking enabled)
-//   ST_DATA_W:           372
+//   PKT_TRANS_LOCK:      324 (arbitration locking enabled)
+//   ST_DATA_W:           370
 //   ST_CHANNEL_W:        15
 // ------------------------------------------
 
@@ -54,14 +54,14 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [372-1   : 0]  sink0_data,
+    input [370-1   : 0]  sink0_data,
     input [15-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [372-1   : 0]  sink1_data,
+    input [370-1   : 0]  sink1_data,
     input [15-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
@@ -72,7 +72,7 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux
     // Source
     // ----------------------
     output                      src_valid,
-    output [372-1    : 0] src_data,
+    output [370-1    : 0] src_data,
     output [15-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
@@ -84,13 +84,13 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 372 + 15 + 2;
+    localparam PAYLOAD_W        = 370 + 15 + 2;
     localparam NUM_INPUTS       = 2;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 0;
-    localparam ST_DATA_W        = 372;
+    localparam ST_DATA_W        = 370;
     localparam ST_CHANNEL_W     = 15;
-    localparam PKT_TRANS_LOCK   = 326;
+    localparam PKT_TRANS_LOCK   = 324;
 
     // ------------------------------------------
     // Signals
@@ -119,8 +119,8 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux
     // ------------------------------------------
     reg [NUM_INPUTS - 1 : 0] lock;
     always @* begin
-      lock[0] = sink0_data[326];
-      lock[1] = sink1_data[326];
+      lock[0] = sink0_data[324];
+      lock[1] = sink1_data[324];
     end
 
     assign last_cycle = src_valid & src_ready & src_endofpacket & ~(|(lock & grant));

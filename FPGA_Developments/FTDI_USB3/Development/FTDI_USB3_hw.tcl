@@ -301,3 +301,4 @@ set_interface_property ftdi_tx_interrupt_sender SVD_ADDRESS_GROUP ""
 
 add_interface_port ftdi_tx_interrupt_sender ftdi_tx_interrupt_sender_irq irq Output 1
 
+
