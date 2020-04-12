@@ -14,6 +14,7 @@ use IEEE.numeric_std.all;
 
 use work.nrme_avalon_mm_rmap_nfee_pkg.all;
 use work.nrme_rmap_mem_area_nfee_pkg.all;
+use work.nrme_avm_rmap_nfee_pkg.all;
 
 entity nrme_rmap_memory_nfee_area_top is
 	port(
@@ -52,7 +53,14 @@ entity nrme_rmap_memory_nfee_area_top is
 		channel_hk_spw_link_disconnect_i  : in  std_logic; --                                     --                             .spw_link_disconnect_signal
 		channel_hk_spw_link_running_i     : in  std_logic; --                                     --                             .spw_link_running_signal
 		channel_hk_frame_counter_i        : in  std_logic_vector(15 downto 0); --                 --                             .frame_counter_signal
-		channel_hk_frame_number_i         : in  std_logic_vector(1 downto 0) ---                  --                             .frame_number_signal
+		channel_hk_frame_number_i         : in  std_logic_vector(1 downto 0)  := (others => '0'); --                             .frame_number_signal
+		avm_rmap_readdata_i               : in  std_logic_vector(7 downto 0)  := (others => '0'); --        avalon_mm_rmap_master.readdata
+		avm_rmap_waitrequest_i            : in  std_logic                     := '0'; --          --                             .waitrequest
+		avm_rmap_address_o                : out std_logic_vector(63 downto 0); --                 --                             .address
+		avm_rmap_read_o                   : out std_logic; --                                     --                             .read
+		avm_rmap_write_o                  : out std_logic; --                                     --                             .write
+		avm_rmap_writedata_o              : out std_logic_vector(7 downto 0); --                  --                             .writedata
+		channel_win_mem_addr_offset_i     : in  std_logic_vector(63 downto 0) := (others => '0') ---   conduit_end_avm_configs_in.win_mem_addr_offset_signal
 	);
 end entity nrme_rmap_memory_nfee_area_top;
 
@@ -70,16 +78,23 @@ architecture rtl of nrme_rmap_memory_nfee_area_top is
 	-- avs 0 signals
 	signal s_avs_0_rmap_wr_waitrequest : std_logic;
 	signal s_avs_0_rmap_rd_waitrequest : std_logic;
-	-- fee rmap signals
-	signal s_fee_wr_rmap_in            : t_nrme_nfee_rmap_write_in;
-	signal s_fee_wr_rmap_out           : t_nrme_nfee_rmap_write_out;
-	signal s_fee_rd_rmap_in            : t_nrme_nfee_rmap_read_in;
-	signal s_fee_rd_rmap_out           : t_nrme_nfee_rmap_read_out;
+	-- fee rmap cfg & hk signals
+	signal s_fee_wr_rmap_cfg_hk_in     : t_nrme_nfee_rmap_write_in;
+	signal s_fee_wr_rmap_cfg_hk_out    : t_nrme_nfee_rmap_write_out;
+	signal s_fee_rd_rmap_cfg_hk_in     : t_nrme_nfee_rmap_read_in;
+	signal s_fee_rd_rmap_cfg_hk_out    : t_nrme_nfee_rmap_read_out;
 	-- avs rmap signals
 	signal s_avalon_mm_wr_rmap_in      : t_nrme_avalon_mm_rmap_nfee_write_in;
 	signal s_avalon_mm_wr_rmap_out     : t_nrme_avalon_mm_rmap_nfee_write_out;
 	signal s_avalon_mm_rd_rmap_in      : t_nrme_avalon_mm_rmap_nfee_read_in;
 	signal s_avalon_mm_rd_rmap_out     : t_nrme_avalon_mm_rmap_nfee_read_out;
+	-- avm rmap & fee rmap win signals
+	signal s_avm_rmap_rd_address       : std_logic_vector((c_NRME_AVM_ADRESS_SIZE - 1) downto 0);
+	signal s_avm_rmap_wr_address       : std_logic_vector((c_NRME_AVM_ADRESS_SIZE - 1) downto 0);
+	signal s_fee_wr_rmap_win_in        : t_nrme_nfee_rmap_write_in;
+	signal s_fee_wr_rmap_win_out       : t_nrme_nfee_rmap_write_out;
+	signal s_fee_rd_rmap_win_in        : t_nrme_nfee_rmap_read_in;
+	signal s_fee_rd_rmap_win_out       : t_nrme_nfee_rmap_read_out;
 
 begin
 
@@ -104,8 +119,10 @@ begin
 			avalon_0_mm_rd_rmap_i.address     => avs_0_rmap_address_i,
 			avalon_0_mm_rd_rmap_i.read        => avs_0_rmap_read_i,
 			avalon_0_mm_rd_rmap_i.byteenable  => avs_0_rmap_byteenable_i,
-			fee_wr_rmap_i                     => s_fee_wr_rmap_out,
-			fee_rd_rmap_i                     => s_fee_rd_rmap_out,
+			fee_wr_rmap_cfg_hk_i              => s_fee_wr_rmap_cfg_hk_out,
+			fee_rd_rmap_cfg_hk_i              => s_fee_rd_rmap_cfg_hk_out,
+			fee_wr_rmap_win_i                 => s_fee_wr_rmap_win_out,
+			fee_rd_rmap_win_i                 => s_fee_rd_rmap_win_out,
 			avalon_mm_wr_rmap_i               => s_avalon_mm_wr_rmap_out,
 			avalon_mm_rd_rmap_i               => s_avalon_mm_rd_rmap_out,
 			fee_0_wr_rmap_o.waitrequest       => fee_0_rmap_wr_waitrequest_o,
@@ -117,35 +134,65 @@ begin
 			avalon_0_mm_wr_rmap_o.waitrequest => s_avs_0_rmap_wr_waitrequest,
 			avalon_0_mm_rd_rmap_o.readdata    => avs_0_rmap_readdata_o,
 			avalon_0_mm_rd_rmap_o.waitrequest => s_avs_0_rmap_rd_waitrequest,
-			fee_wr_rmap_o                     => s_fee_wr_rmap_in,
-			fee_rd_rmap_o                     => s_fee_rd_rmap_in,
+			fee_wr_rmap_cfg_hk_o              => s_fee_wr_rmap_cfg_hk_in,
+			fee_rd_rmap_cfg_hk_o              => s_fee_rd_rmap_cfg_hk_in,
+			fee_wr_rmap_win_o                 => s_fee_wr_rmap_win_in,
+			fee_rd_rmap_win_o                 => s_fee_rd_rmap_win_in,
 			avalon_mm_wr_rmap_o               => s_avalon_mm_wr_rmap_in,
 			avalon_mm_rd_rmap_o               => s_avalon_mm_rd_rmap_in
 		);
 	avs_0_rmap_waitrequest_o <= (s_avs_0_rmap_wr_waitrequest) and (s_avs_0_rmap_rd_waitrequest);
 
-	nrme_rmap_mem_area_nfee_read_inst : entity work.nrme_rmap_mem_area_nfee_read
+	nrme_rmap_mem_area_nfee_read_ent_inst : entity work.nrme_rmap_mem_area_nfee_read_ent
 		port map(
 			clk_i               => a_avs_clock,
 			rst_i               => a_reset,
-			fee_rmap_i          => s_fee_rd_rmap_in,
+			fee_rmap_i          => s_fee_rd_rmap_cfg_hk_in,
 			avalon_mm_rmap_i    => s_avalon_mm_rd_rmap_in,
 			rmap_registers_wr_i => s_rmap_mem_wr_area,
 			rmap_registers_rd_i => s_rmap_mem_rd_area,
-			fee_rmap_o          => s_fee_rd_rmap_out,
+			fee_rmap_o          => s_fee_rd_rmap_cfg_hk_out,
 			avalon_mm_rmap_o    => s_avalon_mm_rd_rmap_out
 		);
 
-	nrme_rmap_mem_area_nfee_write_inst : entity work.nrme_rmap_mem_area_nfee_write
+	nrme_rmap_mem_area_nfee_write_ent_inst : entity work.nrme_rmap_mem_area_nfee_write_ent
 		port map(
 			clk_i               => a_avs_clock,
 			rst_i               => a_reset,
-			fee_rmap_i          => s_fee_wr_rmap_in,
+			fee_rmap_i          => s_fee_wr_rmap_cfg_hk_in,
 			avalon_mm_rmap_i    => s_avalon_mm_wr_rmap_in,
-			fee_rmap_o          => s_fee_wr_rmap_out,
+			fee_rmap_o          => s_fee_wr_rmap_cfg_hk_out,
 			avalon_mm_rmap_o    => s_avalon_mm_wr_rmap_out,
 			rmap_registers_wr_o => s_rmap_mem_wr_area
 		);
+
+	nrme_avm_rmap_nfee_read_ent_inst : entity work.nrme_avm_rmap_nfee_read_ent
+		port map(
+			clk_i                             => a_avs_clock,
+			rst_i                             => a_reset,
+			fee_rmap_rd_i                     => s_fee_rd_rmap_win_in,
+			avm_slave_rd_status_i.readdata    => avm_rmap_readdata_i,
+			avm_slave_rd_status_i.waitrequest => avm_rmap_waitrequest_i,
+			avm_rmap_mem_addr_offset_i        => channel_win_mem_addr_offset_i,
+			fee_rmap_rd_o                     => s_fee_rd_rmap_win_out,
+			avm_slave_rd_control_o.address    => s_avm_rmap_rd_address,
+			avm_slave_rd_control_o.read       => avm_rmap_read_o
+		);
+
+	nrme_avm_rmap_nfee_write_ent_inst : entity work.nrme_avm_rmap_nfee_write_ent
+		port map(
+			clk_i                             => a_avs_clock,
+			rst_i                             => a_reset,
+			fee_rmap_wr_i                     => s_fee_wr_rmap_win_in,
+			avm_slave_wr_status_i.waitrequest => avm_rmap_waitrequest_i,
+			avm_rmap_mem_addr_offset_i        => channel_win_mem_addr_offset_i,
+			fee_rmap_wr_o                     => s_fee_wr_rmap_win_out,
+			avm_slave_wr_control_o.address    => s_avm_rmap_wr_address,
+			avm_slave_wr_control_o.write      => avm_rmap_write_o,
+			avm_slave_wr_control_o.writedata  => avm_rmap_writedata_o
+		);
+
+	avm_rmap_address_o <= (s_avm_rmap_rd_address) or (s_avm_rmap_wr_address);
 
 	-- nrme nfee rmap error clear manager
 	p_nrme_nfee_rmap_error_clear_manager : process(a_avs_clock, a_reset) is

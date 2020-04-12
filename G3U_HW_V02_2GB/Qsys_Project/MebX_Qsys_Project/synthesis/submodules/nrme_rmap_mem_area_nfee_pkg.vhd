@@ -47,7 +47,9 @@ package nrme_rmap_mem_area_nfee_pkg is
 	constant c_NRME_NFEE_RMAP_WRITE_OUT_RST : t_nrme_nfee_rmap_write_out := (
 		waitrequest => '1'
 	);
-
+	
+	constant c_NRME_NFEE_RMAP_WIN_OFFSET_BIT : natural := 23;
+	
 	-- Address Constants
 
 	-- Allowed Addresses

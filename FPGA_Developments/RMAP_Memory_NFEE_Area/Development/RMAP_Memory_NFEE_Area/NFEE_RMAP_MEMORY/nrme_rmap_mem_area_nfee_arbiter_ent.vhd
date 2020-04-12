@@ -15,8 +15,10 @@ entity nrme_rmap_mem_area_nfee_arbiter_ent is
 		fee_1_rd_rmap_i       : in  t_nrme_nfee_rmap_read_in;
 		avalon_0_mm_wr_rmap_i : in  t_nrme_avalon_mm_rmap_nfee_write_in;
 		avalon_0_mm_rd_rmap_i : in  t_nrme_avalon_mm_rmap_nfee_read_in;
-		fee_wr_rmap_i         : in  t_nrme_nfee_rmap_write_out;
-		fee_rd_rmap_i         : in  t_nrme_nfee_rmap_read_out;
+		fee_wr_rmap_cfg_hk_i  : in  t_nrme_nfee_rmap_write_out;
+		fee_rd_rmap_cfg_hk_i  : in  t_nrme_nfee_rmap_read_out;
+		fee_wr_rmap_win_i     : in  t_nrme_nfee_rmap_write_out;
+		fee_rd_rmap_win_i     : in  t_nrme_nfee_rmap_read_out;
 		avalon_mm_wr_rmap_i   : in  t_nrme_avalon_mm_rmap_nfee_write_out;
 		avalon_mm_rd_rmap_i   : in  t_nrme_avalon_mm_rmap_nfee_read_out;
 		fee_0_wr_rmap_o       : out t_nrme_nfee_rmap_write_out;
@@ -25,8 +27,10 @@ entity nrme_rmap_mem_area_nfee_arbiter_ent is
 		fee_1_rd_rmap_o       : out t_nrme_nfee_rmap_read_out;
 		avalon_0_mm_wr_rmap_o : out t_nrme_avalon_mm_rmap_nfee_write_out;
 		avalon_0_mm_rd_rmap_o : out t_nrme_avalon_mm_rmap_nfee_read_out;
-		fee_wr_rmap_o         : out t_nrme_nfee_rmap_write_in;
-		fee_rd_rmap_o         : out t_nrme_nfee_rmap_read_in;
+		fee_wr_rmap_cfg_hk_o  : out t_nrme_nfee_rmap_write_in;
+		fee_rd_rmap_cfg_hk_o  : out t_nrme_nfee_rmap_read_in;
+		fee_wr_rmap_win_o     : out t_nrme_nfee_rmap_write_in;
+		fee_rd_rmap_win_o     : out t_nrme_nfee_rmap_read_in;
 		avalon_mm_wr_rmap_o   : out t_nrme_avalon_mm_rmap_nfee_write_in;
 		avalon_mm_rd_rmap_o   : out t_nrme_avalon_mm_rmap_nfee_read_in
 	);
@@ -59,6 +63,11 @@ architecture RTL of nrme_rmap_mem_area_nfee_arbiter_ent is
 	signal s_master_rd_fee_0_queued : std_logic;
 	signal s_master_rd_fee_1_queued : std_logic;
 	signal s_master_rd_avs_0_queued : std_logic;
+
+	signal s_fee_0_wr_win_address_flag : std_logic;
+	signal s_fee_1_wr_win_address_flag : std_logic;
+	signal s_fee_0_rd_win_address_flag : std_logic;
+	signal s_fee_1_rd_win_address_flag : std_logic;
 
 begin
 
@@ -286,45 +295,71 @@ begin
 	-- Signals assignments --
 
 	-- Waitrequest
-	s_fee_rmap_waitrequest       <= (fee_wr_rmap_i.waitrequest) and (fee_rd_rmap_i.waitrequest);
+	s_fee_rmap_waitrequest       <= (fee_wr_rmap_cfg_hk_i.waitrequest) and (fee_rd_rmap_cfg_hk_i.waitrequest);
 	s_avalon_mm_rmap_waitrequest <= (avalon_mm_wr_rmap_i.waitrequest) and (avalon_mm_rd_rmap_i.waitrequest);
 	s_rmap_waitrequest           <= (s_fee_rmap_waitrequest) and (s_avalon_mm_rmap_waitrequest);
 
+	-- Windowing Area Address Flags
+	s_fee_0_wr_win_address_flag <= ('0') when (rst_i = '1')
+	                               else ('1') when ((fee_0_wr_rmap_i.address(c_NRME_NFEE_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_wr_rmap_i.address(31 downto (c_NRME_NFEE_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('0');
+	s_fee_1_wr_win_address_flag <= ('0') when (rst_i = '1')
+	                               else ('1') when ((fee_1_wr_rmap_i.address(c_NRME_NFEE_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_wr_rmap_i.address(31 downto (c_NRME_NFEE_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('0');
+	s_fee_0_rd_win_address_flag <= ('0') when (rst_i = '1')
+	                               else ('1') when ((fee_0_rd_rmap_i.address(c_NRME_NFEE_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_rd_rmap_i.address(31 downto (c_NRME_NFEE_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('0');
+	s_fee_1_rd_win_address_flag <= ('0') when (rst_i = '1')
+	                               else ('1') when ((fee_1_rd_rmap_i.address(c_NRME_NFEE_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_rd_rmap_i.address(31 downto (c_NRME_NFEE_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('0');
+
 	-- Masters Write inputs
-	fee_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_IN_RST) when (rst_i = '1')
-	                       else (fee_0_wr_rmap_i) when (s_selected_master = master_wr_fee_0)
-	                       else (fee_1_wr_rmap_i) when (s_selected_master = master_wr_fee_1)
-	                       else (c_NRME_NFEE_RMAP_WRITE_IN_RST);
-	avalon_mm_wr_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_IN_RST) when (rst_i = '1')
-	                       else (avalon_0_mm_wr_rmap_i) when (s_selected_master = master_wr_avs_0)
-	                       else (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_IN_RST);
+	fee_wr_rmap_cfg_hk_o <= (c_NRME_NFEE_RMAP_WRITE_IN_RST) when (rst_i = '1')
+	                        else (fee_0_wr_rmap_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '0'))
+	                        else (fee_1_wr_rmap_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '0'))
+	                        else (c_NRME_NFEE_RMAP_WRITE_IN_RST);
+	fee_wr_rmap_win_o    <= (c_NRME_NFEE_RMAP_WRITE_IN_RST) when (rst_i = '1')
+	                        else (fee_0_wr_rmap_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '1'))
+	                        else (fee_1_wr_rmap_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '1'))
+	                        else (c_NRME_NFEE_RMAP_WRITE_IN_RST);
+	avalon_mm_wr_rmap_o  <= (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_IN_RST) when (rst_i = '1')
+	                        else (avalon_0_mm_wr_rmap_i) when (s_selected_master = master_wr_avs_0)
+	                        else (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_IN_RST);
 
 	-- Masters Write outputs
 	fee_0_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_0)
+	                         else (fee_wr_rmap_cfg_hk_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '0'))
+	                         else (fee_wr_rmap_win_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '1'))
 	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
 	fee_1_wr_rmap_o       <= (c_NRME_NFEE_RMAP_WRITE_OUT_RST) when (rst_i = '1')
-	                         else (fee_wr_rmap_i) when (s_selected_master = master_wr_fee_1)
+	                         else (fee_wr_rmap_cfg_hk_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '0'))
+	                         else (fee_wr_rmap_win_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '1'))
 	                         else (c_NRME_NFEE_RMAP_WRITE_OUT_RST);
 	avalon_0_mm_wr_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_OUT_RST) when (rst_i = '1')
 	                         else (avalon_mm_wr_rmap_i) when (s_selected_master = master_wr_avs_0)
 	                         else (c_NRME_AVALON_MM_RMAP_NFEE_WRITE_OUT_RST);
 
 	-- Masters Read inputs
-	fee_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_IN_RST) when (rst_i = '1')
-	                       else (fee_0_rd_rmap_i) when (s_selected_master = master_rd_fee_0)
-	                       else (fee_1_rd_rmap_i) when (s_selected_master = master_rd_fee_1)
-	                       else (c_NRME_NFEE_RMAP_READ_IN_RST);
-	avalon_mm_rd_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_READ_IN_RST) when (rst_i = '1')
-	                       else (avalon_0_mm_rd_rmap_i) when (s_selected_master = master_rd_avs_0)
-	                       else (c_NRME_AVALON_MM_RMAP_NFEE_READ_IN_RST);
+	fee_rd_rmap_cfg_hk_o <= (c_NRME_NFEE_RMAP_READ_IN_RST) when (rst_i = '1')
+	                        else (fee_0_rd_rmap_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '0'))
+	                        else (fee_1_rd_rmap_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '0'))
+	                        else (c_NRME_NFEE_RMAP_READ_IN_RST);
+	fee_rd_rmap_win_o    <= (c_NRME_NFEE_RMAP_READ_IN_RST) when (rst_i = '1')
+	                        else (fee_0_rd_rmap_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '1'))
+	                        else (fee_1_rd_rmap_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '1'))
+	                        else (c_NRME_NFEE_RMAP_READ_IN_RST);
+	avalon_mm_rd_rmap_o  <= (c_NRME_AVALON_MM_RMAP_NFEE_READ_IN_RST) when (rst_i = '1')
+	                        else (avalon_0_mm_rd_rmap_i) when (s_selected_master = master_rd_avs_0)
+	                        else (c_NRME_AVALON_MM_RMAP_NFEE_READ_IN_RST);
 
 	-- Masters Read outputs
 	fee_0_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_0)
+	                         else (fee_rd_rmap_cfg_hk_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '0'))
+	                         else (fee_rd_rmap_win_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '1'))
 	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
 	fee_1_rd_rmap_o       <= (c_NRME_NFEE_RMAP_READ_OUT_RST) when (rst_i = '1')
-	                         else (fee_rd_rmap_i) when (s_selected_master = master_rd_fee_1)
+	                         else (fee_rd_rmap_cfg_hk_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '0'))
+	                         else (fee_rd_rmap_win_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '1'))
 	                         else (c_NRME_NFEE_RMAP_READ_OUT_RST);
 	avalon_0_mm_rd_rmap_o <= (c_NRME_AVALON_MM_RMAP_NFEE_READ_OUT_RST) when (rst_i = '1')
 	                         else (avalon_mm_rd_rmap_i) when (s_selected_master = master_rd_avs_0)

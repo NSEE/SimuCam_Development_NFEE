@@ -43,13 +43,14 @@ begin
 			avalon_mm_write_o     <= '0';
 			avalon_mm_writedata_o <= (others => '0');
 			avalon_mm_read_o      <= '0';
-			s_counter             <= s_counter + 1;
+--			s_counter             <= s_counter + 1;
 
 			case s_counter is
 
 				when 500 to 503 =>
 					-- register write
-					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
+--					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o      <= x"0000800000";
 					avalon_mm_write_o        <= '1';
 					avalon_mm_writedata_o    <= (others => '0');
 					avalon_mm_writedata_o(15 downto 0) <= std_logic_vector(to_unsigned(541, 16)); -- v-start
@@ -57,8 +58,11 @@ begin
 					
 				when 1500 to 1503 =>
 					-- register read
-					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
+--					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o      <= x"0000800000";
 					avalon_mm_read_o        <= '1';
+
+
 
 				when others =>
 					null;

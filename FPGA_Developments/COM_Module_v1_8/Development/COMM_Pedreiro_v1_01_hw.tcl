@@ -480,3 +480,18 @@ add_interface_port conduit_end_channel_hk_out channel_hk_spw_link_running_o spw_
 add_interface_port conduit_end_channel_hk_out channel_hk_frame_counter_o frame_counter_signal Output 16
 add_interface_port conduit_end_channel_hk_out channel_hk_frame_number_o frame_number_signal Output 2
 
+
+# 
+# connection point conduit_end_avm_configs_out
+# 
+add_interface conduit_end_avm_configs_out conduit end
+set_interface_property conduit_end_avm_configs_out associatedClock clock_sink_100
+set_interface_property conduit_end_avm_configs_out associatedReset reset_sink
+set_interface_property conduit_end_avm_configs_out ENABLED true
+set_interface_property conduit_end_avm_configs_out EXPORT_OF ""
+set_interface_property conduit_end_avm_configs_out PORT_NAME_MAP ""
+set_interface_property conduit_end_avm_configs_out CMSIS_SVD_VARIABLES ""
+set_interface_property conduit_end_avm_configs_out SVD_ADDRESS_GROUP ""
+
+add_interface_port conduit_end_avm_configs_out channel_win_mem_addr_offset_o win_mem_addr_offset_signal Output 64
+

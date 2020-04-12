@@ -73,7 +73,8 @@ entity comm_v1_80_top is
 		channel_hk_spw_link_disconnect_o   : out std_logic; --                                      --                                  .spw_link_disconnect_signal
 		channel_hk_spw_link_running_o      : out std_logic; --                                      --                                  .spw_link_running_signal
 		channel_hk_frame_counter_o         : out std_logic_vector(15 downto 0); --                  --                                  .frame_counter_signal
-		channel_hk_frame_number_o          : out std_logic_vector(1 downto 0) ---                   --                                  .frame_number_signal
+		channel_hk_frame_number_o          : out std_logic_vector(1 downto 0); --                   --                                  .frame_number_signal
+		channel_win_mem_addr_offset_o      : out std_logic_vector(63 downto 0) ---                  --       conduit_end_avm_configs_out.win_mem_addr_offset_signal
 	);
 end entity comm_v1_80_top;
 
@@ -194,6 +195,14 @@ architecture rtl of comm_v1_80_top is
 
 	signal s_rmap_write_data_finished : std_logic;
 	signal s_rmap_read_data_finished  : std_logic;
+
+	signal s_rmap_win_area_write_flag : std_logic;
+	signal s_rmap_win_area_read_flag  : std_logic;
+
+	signal s_rmap_mem_write_delayed : std_logic;
+	signal s_rmap_mem_read_delayed  : std_logic;
+
+	constant c_COMM_NFEE_RMAP_WIN_OFFSET_BIT : natural := 23;
 
 	-- timecode manager
 	signal s_timecode_tick    : std_logic;
@@ -638,27 +647,78 @@ begin
 		variable v_read_addr_recorded  : std_logic := '0';
 	begin
 		if (a_reset) = '1' then
-			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_addr <= (others => '0');
-			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_addr  <= (others => '0');
-			v_write_addr_recorded                                                  := '0';
-			v_read_addr_recorded                                                   := '0';
+			s_rmap_win_area_write_flag                                                     <= '0';
+			s_rmap_win_area_read_flag                                                      <= '0';
+			s_rmap_mem_write_delayed                                                       <= '0';
+			s_rmap_mem_read_delayed                                                        <= '0';
+			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_addr         <= (others => '0');
+			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_length_bytes <= (others => '0');
+			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_addr          <= (others => '0');
+			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_length_bytes  <= (others => '0');
+			v_write_addr_recorded                                                          := '0';
+			v_read_addr_recorded                                                           := '0';
 		elsif rising_edge(a_avs_clock) then
+
+			-- check if a write was authorized
 			if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized = '1') then
-				if ((s_rmap_mem_control.write.write = '1') and (v_write_addr_recorded = '0')) then
-					s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_addr <= s_rmap_mem_wr_byte_address;
-					v_write_addr_recorded                                                  := '1';
+				-- write authorized
+				-- check if the write signal had a rising edge
+				if ((s_rmap_mem_control.write.write = '1') and (s_rmap_mem_write_delayed = '0')) then
+					-- the write signal had a rising edge
+					-- check if the write parameters were not recorded yet (first write)
+					if (v_write_addr_recorded = '0') then
+						-- the write parameters were not recorded yet (first write)
+						-- record write addr and set win area flag
+						s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_addr         <= s_rmap_mem_wr_byte_address;
+						s_rmap_win_area_write_flag                                                     <= s_rmap_mem_wr_byte_address(c_COMM_NFEE_RMAP_WIN_OFFSET_BIT);
+						-- set the write length to one
+						s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_length_bytes <= std_logic_vector(to_unsigned(1, s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_length_bytes'length));
+						-- set the write parameters recorded flag
+						v_write_addr_recorded                                                          := '1';
+					else
+						-- the write parameters were already recorded (not first write)
+						-- increment the write length
+						s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_length_bytes <= std_logic_vector(unsigned(s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_length_bytes) + 1);
+					end if;
 				end if;
 			else
+				-- write not authorized
+				-- clear the write parameters recorded flag 
 				v_write_addr_recorded := '0';
 			end if;
+			-- delay write signal
+			s_rmap_mem_write_delayed <= s_rmap_mem_control.write.write;
+
+			-- check if a read was authorized
 			if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized = '1') then
-				if ((s_rmap_mem_control.read.read = '1') and (v_read_addr_recorded = '0')) then
-					s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_addr <= s_rmap_mem_rd_byte_address;
-					v_read_addr_recorded                                                  := '1';
+				-- read authorized
+				-- check if the read signal had a rising edge
+				if ((s_rmap_mem_control.read.read = '1') and (s_rmap_mem_read_delayed = '0')) then
+					-- the read signal had a rising edge
+					-- check if the read parameters were not recorded yet (first read)
+					if (v_read_addr_recorded = '0') then
+						-- the read parameters were not recorded yet (first read)
+						-- record read addr and set win area flag
+						s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_addr         <= s_rmap_mem_rd_byte_address;
+						s_rmap_win_area_read_flag                                                     <= s_rmap_mem_rd_byte_address(c_COMM_NFEE_RMAP_WIN_OFFSET_BIT);
+						-- set the read length to one
+						s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_length_bytes <= std_logic_vector(to_unsigned(1, s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_length_bytes'length));
+						-- set the read parameters recorded flag
+						v_read_addr_recorded                                                          := '1';
+					else
+						-- the read parameters were already recorded (not first read)
+						-- increment the read length
+						s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_length_bytes <= std_logic_vector(unsigned(s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_length_bytes) + 1);
+					end if;
 				end if;
 			else
+				-- read not authorized
+				-- clear the read parameters recorded flag 
 				v_read_addr_recorded := '0';
 			end if;
+			-- delay read signal
+			s_rmap_mem_read_delayed <= s_rmap_mem_control.read.read;
+
 		end if;
 	end process p_rmap_last_addr;
 
@@ -802,20 +862,34 @@ begin
 	p_rmap_write_irq_manager : process(a_avs_clock, a_reset) is
 	begin
 		if (a_reset = '1') then
-			s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_command_flag <= '0';
-			s_rmap_write_finished_delayed                                         <= '0';
+			s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag <= '0';
+			s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag <= '0';
+			s_rmap_write_finished_delayed                                        <= '0';
 		elsif rising_edge(a_avs_clock) then
 			-- flag clear
-			if (s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_command_flag_clear = '1') then
-				s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_command_flag <= '0';
+			if (s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear = '1') then
+				s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag <= '0';
+			end if;
+			if (s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear = '1') then
+				s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag <= '0';
 			end if;
 			-- check if the global interrupt is enabled
 			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
-				-- check if the rmap write finished interrupt is activated
-				if (s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_command_en = '1') then
-					-- detect a rising edge in write finished signal
-					if (((s_rmap_write_finished_delayed = '0') and (s_rmap_write_data_finished = '1'))) then
-						s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_command_flag <= '1';
+				-- detect a rising edge in write finished signal
+				if (((s_rmap_write_finished_delayed = '0') and (s_rmap_write_data_finished = '1'))) then
+					-- check if the write was to a windowing area
+					if (s_rmap_win_area_write_flag = '1') then
+						-- the write was to a windowing area
+						-- check if the rmap window write finished interrupt is activated
+						if (s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_window_en = '1') then
+							s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag <= '1';
+						end if;
+					else
+						-- the write was not to a windowing area
+						-- check if the rmap config write finished interrupt is activated
+						if (s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_config_en = '1') then
+							s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag <= '1';
+						end if;
 					end if;
 				end if;
 			end if;
@@ -823,7 +897,7 @@ begin
 			s_rmap_write_finished_delayed <= s_rmap_write_data_finished;
 		end if;
 	end process p_rmap_write_irq_manager;
-	rmap_interrupt_sender_irq <= s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_command_flag;
+	rmap_interrupt_sender_irq <= (s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag) or (s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag);
 
 	-- sync in trigger generation
 	p_sync_in_triger : process(a_avs_clock, a_reset) is
@@ -890,5 +964,9 @@ begin
 	channel_hk_spw_link_running_o     <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
 	channel_hk_frame_counter_o        <= s_fee_frame_counter;
 	channel_hk_frame_number_o         <= s_fee_frame_number;
+
+	-- channel memory offset for rmap windowing area
+	channel_win_mem_addr_offset_o(63 downto 32) <= s_spacewire_write_registers.rmap_memory_config_reg.rmap_win_area_offset_high_dword;
+	channel_win_mem_addr_offset_o(31 downto 0)  <= s_spacewire_write_registers.rmap_memory_config_reg.rmap_win_area_offset_low_dword;
 
 end architecture rtl;                   -- of comm_v1_80_top
