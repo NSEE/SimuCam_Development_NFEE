@@ -50,8 +50,6 @@ entity fee_imgdata_controller_top is
 		data_pkt_skip_delay_i              : in  std_logic_vector(31 downto 0);
 		data_pkt_line_delay_i              : in  std_logic_vector(31 downto 0);
 		data_pkt_adc_delay_i               : in  std_logic_vector(31 downto 0);
-		-- fee masking buffer control
-		masking_buffer_overflow_i          : in  std_logic;
 		-- fee imgdata send buffer control
 		imgdata_send_buffer_control_i      : in  t_fee_dpkt_send_buffer_control;
 		-- fee imgdata controller status
@@ -117,7 +115,6 @@ begin
 			fee_windowing_en_i            => fee_windowing_en_i,
 			fee_pattern_en_i              => fee_pattern_en_i,
 			masking_machine_hold_i        => s_masking_machine_hold,
-			masking_buffer_overflow_i     => masking_buffer_overflow_i,
 			fee_ccd_x_size_i              => data_pkt_ccd_x_size_i,
 			fee_ccd_y_size_i              => data_pkt_ccd_y_size_i,
 			fee_data_y_size_i             => data_pkt_data_y_size_i,

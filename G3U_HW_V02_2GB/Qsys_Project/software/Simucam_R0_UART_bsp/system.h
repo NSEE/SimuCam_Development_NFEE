@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Fri Apr 03 18:18:43 BRT 2020
+ * Generated: Tue Feb 18 15:28:10 BRT 2020
  */
 
 /*
@@ -522,8 +522,8 @@
 #define DMA_COMM_1_LEFT_CSR_ERROR_ENABLE 0
 #define DMA_COMM_1_LEFT_CSR_ERROR_ENABLE_DERIVED 0
 #define DMA_COMM_1_LEFT_CSR_ERROR_WIDTH 8
-#define DMA_COMM_1_LEFT_CSR_IRQ -1
-#define DMA_COMM_1_LEFT_CSR_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define DMA_COMM_1_LEFT_CSR_IRQ 4
+#define DMA_COMM_1_LEFT_CSR_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define DMA_COMM_1_LEFT_CSR_MAX_BURST_COUNT 128
 #define DMA_COMM_1_LEFT_CSR_MAX_BYTE 67108864
 #define DMA_COMM_1_LEFT_CSR_MAX_STRIDE 1
@@ -2064,7 +2064,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1585938336
+#define SYSID_QSYS_TIMESTAMP 1582035364
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

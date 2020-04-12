@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#62#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#69#;
 
 	-- Registers Types
 
@@ -145,9 +145,17 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- RMAP Memory Status Register
 	type t_comm_rmap_memory_status_rd_reg is record
-		rmap_last_write_addr : std_logic_vector(31 downto 0); -- RMAP Last Write Address
-		rmap_last_read_addr  : std_logic_vector(31 downto 0); -- RMAP Last Read Address
+		rmap_last_write_addr         : std_logic_vector(31 downto 0); -- RMAP Last Write Address
+		rmap_last_write_length_bytes : std_logic_vector(31 downto 0); -- RMAP Last Write Length [Bytes]
+		rmap_last_read_addr          : std_logic_vector(31 downto 0); -- RMAP Last Read Address
+		rmap_last_read_length_bytes  : std_logic_vector(31 downto 0); -- RMAP Last Read Length [Bytes]
 	end record t_comm_rmap_memory_status_rd_reg;
+
+	-- RMAP Memory Config Register
+	type t_comm_rmap_memory_config_wr_reg is record
+		rmap_win_area_offset_high_dword : std_logic_vector(31 downto 0); -- RMAP Windowing Area Offset (High Dword)
+		rmap_win_area_offset_low_dword  : std_logic_vector(31 downto 0); -- RMAP Windowing Area Offset (Low Dword)
+	end record t_comm_rmap_memory_config_wr_reg;
 
 	-- RMAP Memory Area Address Register
 	type t_comm_rmap_mem_area_addr_wr_reg is record
@@ -157,17 +165,20 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- RMAP IRQ Control Register
 	type t_comm_rmap_irq_control_wr_reg is record
-		rmap_write_command_en : std_logic; -- RMAP Write Command IRQ Enable
+		rmap_write_config_en : std_logic; -- RMAP Write Config IRQ Enable
+		rmap_write_window_en : std_logic; -- RMAP Write Window IRQ Enable
 	end record t_comm_rmap_irq_control_wr_reg;
 
 	-- RMAP IRQ Flags Register
 	type t_comm_rmap_irq_flags_rd_reg is record
-		rmap_write_command_flag : std_logic; -- RMAP Write Command IRQ Flag
+		rmap_write_config_flag : std_logic; -- RMAP Write Config IRQ Flag
+		rmap_write_window_flag : std_logic; -- RMAP Write Config IRQ Flag
 	end record t_comm_rmap_irq_flags_rd_reg;
 
 	-- RMAP IRQ Flags Clear Register
 	type t_comm_rmap_irq_flags_clear_wr_reg is record
-		rmap_write_command_flag_clear : std_logic; -- RMAP Write Command IRQ Flag Clear
+		rmap_write_config_flag_clear : std_logic; -- RMAP Write Config IRQ Flag Clear
+		rmap_write_window_flag_clear : std_logic; -- RMAP Write Config IRQ Flag Clear
 	end record t_comm_rmap_irq_flags_clear_wr_reg;
 
 	-- RMAP IRQ Number Register
@@ -260,6 +271,7 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_buffers_irq_flags_clear_reg : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
 		rmap_dev_addr_reg               : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
 		rmap_codec_config_reg           : t_comm_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
+		rmap_memory_config_reg          : t_comm_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
 		rmap_mem_area_addr_reg          : t_comm_rmap_mem_area_addr_wr_reg; -- RMAP Memory Area Address Register
 		rmap_irq_control_reg            : t_comm_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
 		rmap_irq_flags_clear_reg        : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register

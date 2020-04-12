@@ -15,7 +15,7 @@ entity data_packet_hk_writer_ent is
 		-- others
 		housekeeping_wr_start_i        : in  std_logic;
 		housekeeping_wr_reset_i        : in  std_logic;
-		hk_mem_valid_i                 : in  std_logic;
+		hk_mem_waitrequest_i           : in  std_logic;
 		hk_mem_data_i                  : in  std_logic_vector(7 downto 0);
 		send_buffer_stat_almost_full_i : in  std_logic;
 		send_buffer_stat_full_i        : in  std_logic;
@@ -145,7 +145,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if housekeeping memory has valid data
-					if (hk_mem_valid_i = '1') then
+					if (hk_mem_waitrequest_i = '0') then
 						-- memory has valid data
 						-- go to write housekeeping
 						s_housekeeping_writer_state <= WRITE_HOUSEKEEPING;

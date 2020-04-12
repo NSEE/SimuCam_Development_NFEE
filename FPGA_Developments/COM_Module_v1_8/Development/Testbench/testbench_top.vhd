@@ -152,7 +152,35 @@ begin
 			avalon_slave_R_buffer_address      => s_avalon_buffer_R_stimuli_mm_address,
 			avalon_slave_R_buffer_write        => s_avalon_buffer_R_stimuli_mm_write,
 			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
-			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest
+			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest,
+			measurements_channel               => open,
+			fee_codec_rmap_wr_waitrequest_i    => '0',
+			fee_codec_rmap_readdata_i          => (others => '0'),
+			fee_codec_rmap_rd_waitrequest_i    => '0',
+			fee_codec_rmap_wr_address_o        => open,
+			fee_codec_rmap_write_o             => open,
+			fee_codec_rmap_writedata_o         => open,
+			fee_codec_rmap_rd_address_o        => open,
+			fee_codec_rmap_read_o              => open,
+			fee_hk_rmap_wr_waitrequest_i       => '0',
+			fee_hk_rmap_readdata_i             => (others => '0'),
+			fee_hk_rmap_rd_waitrequest_i       => '0',
+			fee_hk_rmap_wr_address_o           => open,
+			fee_hk_rmap_write_o                => open,
+			fee_hk_rmap_writedata_o            => open,
+			fee_hk_rmap_rd_address_o           => open,
+			fee_hk_rmap_read_o                 => open,
+			channel_hk_timecode_control_o      => open,
+			channel_hk_timecode_time_o         => open,
+			channel_hk_rmap_target_status_o    => open,
+			channel_hk_rmap_target_indicate_o  => open,
+			channel_hk_spw_link_escape_err_o   => open,
+			channel_hk_spw_link_credit_err_o   => open,
+			channel_hk_spw_link_parity_err_o   => open,
+			channel_hk_spw_link_disconnect_o   => open,
+			channel_hk_spw_link_running_o      => open,
+			channel_hk_frame_counter_o         => open,
+			channel_hk_frame_number_o          => open
 		);
 	s_sync_n <= not (s_sync);
 
@@ -178,10 +206,10 @@ begin
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
 				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 25000)) then
-					s_sync          <= '0';
-					v_sync_high     := '0';
---					v_sync_one_shot := '1'; -- comment this line to remove one-shot
-					v_sync_div_cnt  := 0;
+					s_sync         <= '0';
+					v_sync_high    := '0';
+					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot
+					v_sync_div_cnt := 0;
 				end if;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;

@@ -32,4 +32,26 @@ package avalon_mm_spacewire_pkg is
 		waitrequest : std_logic;
 	end record t_avalon_mm_spacewire_write_out;
 
+	constant c_AVALON_MM_SPACEWIRE_READ_IN_RST : t_avalon_mm_spacewire_read_in := (
+		address    => (others => '0'),
+		read       => '0',
+		byteenable => (others => '0')
+	);
+
+	constant c_AVALON_MM_SPACEWIRE_READ_OUT_RST : t_avalon_mm_spacewire_read_out := (
+		readdata    => (others => '0'),
+		waitrequest => '1'
+	);
+
+	constant c_AVALON_MM_SPACEWIRE_WRITE_IN_RST : t_avalon_mm_spacewire_write_in := (
+		address    => (others => '0'),
+		write      => '0',
+		writedata  => (others => '0'),
+		byteenable => (others => '0')
+	);
+
+	constant c_AVALON_MM_SPACEWIRE_WRITE_OUT_RST : t_avalon_mm_spacewire_write_out := (
+		waitrequest => '1'
+	);
+	
 end package avalon_mm_spacewire_pkg;
