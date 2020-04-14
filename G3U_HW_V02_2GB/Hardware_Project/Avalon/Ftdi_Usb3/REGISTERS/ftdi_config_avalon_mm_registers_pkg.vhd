@@ -119,17 +119,6 @@ package ftdi_config_avalon_mm_registers_pkg is
 		lut_controller_busy : std_logic; -- LUT Controller Busy
 	end record t_ftdi_lut_trans_status_rd_reg;
 
-	-- FTDI LUT CCD0 Windowing Configuration
-	type t_lut_ccd0_windowing_cfg_wr_reg is record
-		ccd0_window_list_pointer       : std_logic_vector(31 downto 0); -- CCD0 Window List Pointer
-		ccd0_packet_order_list_pointer : std_logic_vector(31 downto 0); -- CCD0 Packet Order List Pointer
-		ccd0_window_list_length        : std_logic_vector(15 downto 0); -- CCD0 Window List Length
-		ccd0_windows_size_x            : std_logic_vector(5 downto 0); -- CCD0 Windows Size X
-		ccd0_windows_size_y            : std_logic_vector(5 downto 0); -- CCD0 Windows Size Y
-		ccd0_last_e_packet             : std_logic_vector(9 downto 0); -- CCD0 Last E Packet
-		ccd0_last_f_packet             : std_logic_vector(9 downto 0); -- CCD0 Last F Packet
-	end record t_lut_ccd0_windowing_cfg_wr_reg;
-
 	-- FTDI LUT CCD1 Windowing Configuration
 	type t_lut_ccd1_windowing_cfg_wr_reg is record
 		ccd1_window_list_pointer       : std_logic_vector(31 downto 0); -- CCD1 Window List Pointer
@@ -162,6 +151,17 @@ package ftdi_config_avalon_mm_registers_pkg is
 		ccd3_last_e_packet             : std_logic_vector(9 downto 0); -- CCD3 Last E Packet
 		ccd3_last_f_packet             : std_logic_vector(9 downto 0); -- CCD3 Last F Packet
 	end record t_lut_ccd3_windowing_cfg_wr_reg;
+
+	-- FTDI LUT CCD4 Windowing Configuration
+	type t_lut_ccd4_windowing_cfg_wr_reg is record
+		ccd4_window_list_pointer       : std_logic_vector(31 downto 0); -- CCD4 Window List Pointer
+		ccd4_packet_order_list_pointer : std_logic_vector(31 downto 0); -- CCD4 Packet Order List Pointer
+		ccd4_window_list_length        : std_logic_vector(15 downto 0); -- CCD4 Window List Length
+		ccd4_windows_size_x            : std_logic_vector(5 downto 0); -- CCD4 Windows Size X
+		ccd4_windows_size_y            : std_logic_vector(5 downto 0); -- CCD4 Windows Size Y
+		ccd4_last_e_packet             : std_logic_vector(9 downto 0); -- CCD4 Last E Packet
+		ccd4_last_f_packet             : std_logic_vector(9 downto 0); -- CCD4 Last F Packet
+	end record t_lut_ccd4_windowing_cfg_wr_reg;
 
 	-- FTDI Rx Communication Error Register
 	type t_ftdi_rx_comm_error_rd_reg is record
@@ -233,10 +233,10 @@ package ftdi_config_avalon_mm_registers_pkg is
 		tx_irq_flag_clear_reg      : t_ftdi_tx_irq_flag_clear_wr_reg; -- FTDI Tx IRQ Flag Clear Register
 		hccd_req_control_reg       : t_ftdi_hccd_req_control_wr_reg; -- FTDI Half-CCD Request Control Register
 		lut_trans_control_reg      : t_ftdi_lut_trans_control_wr_reg; -- FTDI LUT Transmission Control Register
-		lut_ccd0_windowing_cfg_reg : t_lut_ccd0_windowing_cfg_wr_reg; -- FTDI LUT CCD0 Windowing Configuration
 		lut_ccd1_windowing_cfg_reg : t_lut_ccd1_windowing_cfg_wr_reg; -- FTDI LUT CCD1 Windowing Configuration
 		lut_ccd2_windowing_cfg_reg : t_lut_ccd2_windowing_cfg_wr_reg; -- FTDI LUT CCD2 Windowing Configuration
 		lut_ccd3_windowing_cfg_reg : t_lut_ccd3_windowing_cfg_wr_reg; -- FTDI LUT CCD3 Windowing Configuration
+		lut_ccd4_windowing_cfg_reg : t_lut_ccd4_windowing_cfg_wr_reg; -- FTDI LUT CCD4 Windowing Configuration
 	end record t_ftdi_config_wr_registers;
 
 	-- Avalon MM Read-Only Registers

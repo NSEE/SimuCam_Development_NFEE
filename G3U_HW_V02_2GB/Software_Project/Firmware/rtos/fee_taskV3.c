@@ -630,7 +630,7 @@ void vFeeTaskV3(void *task_data) {
 					xTrans.ucMemory = (unsigned char) ( *pxNFee->xControl.pActualMem );
 
 				/* Tells to HW where is the packet oder list (before the image)*/
-				bWindCopyWindowingParam(xTrans.xCcdMapLocal[0]->ulOffsetAddr, xTrans.ucMemory, pxNFee->ucId);
+				bWindCopyMebWindowingParam(xTrans.xCcdMapLocal[0]->ulOffsetAddr, xTrans.ucMemory, pxNFee->ucId);
 
 				/*For now is HardCoded, for a complete half CCD*/
 				xTrans.ulAddrIni = 0; /*This will be the offset*/

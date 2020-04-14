@@ -23,7 +23,7 @@
 //! [program memory private global variables]
 
 //! [public functions]
-bool bWindCopyWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh){
+bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh){
 	bool bStatus = FALSE;
 	bool bValidMem = FALSE;
 	bool bValidCh = FALSE;
@@ -112,7 +112,101 @@ if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
+}
+
+bool bWindCopyCcdXWindowingConfig(alt_u8 ucCommCh){
+	bool bStatus = FALSE;
+	bool bValidMem = FALSE;
+	bool bValidCh = FALSE;
+	volatile TCommChannel *vpxCommChannel = NULL;
+	volatile TFtdiModule *vpxFtdiModule = NULL;
+
+	switch (ucCommCh) {
+	case eCommSpwCh1:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh2:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh3:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh4:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh5:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh6:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh7:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh8:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
+		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+		bValidCh = TRUE;
+		break;
+	default:
+		bValidCh = FALSE;
+		break;
+	}
+
+	if ((bValidMem) && (bValidCh)) {
+
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt      = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr;
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1PacketOrderListPrt = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr;
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1WinListLength);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastFPacket);
+
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt      = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr;
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2PacketOrderListPrt = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr;
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2WinListLength);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastFPacket);
+
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt      = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr;
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3PacketOrderListPrt = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr;
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3WinListLength);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastFPacket);
+
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt      = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr;
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4PacketOrderListPrt = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr;
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4WinListLength);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastFPacket);
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
 }
 //! [public functions]
 

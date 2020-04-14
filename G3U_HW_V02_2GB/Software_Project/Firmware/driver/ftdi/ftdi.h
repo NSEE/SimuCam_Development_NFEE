@@ -20,6 +20,8 @@
 #define FTDI_MODULE_BASE_ADDR            FTDI_USB3_0_BASE
 #define FTDI_BUFFER_SIZE_TRANSFER        67108864
 #define FTDI_WORD_SIZE_BYTES             32
+#define FTDI_WIN_AREA_WINDOING_SIZE      512
+#define FTDI_WIN_AREA_PAYLOAD_SIZE       8388608
 //! [constants definition]
 
 //! [public module structs definition]
@@ -131,17 +133,6 @@ typedef struct FtdiLutTransStatus {
   bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
 
- /* FTDI LUT CCD0 Windowing Configuration Struct */
-typedef struct FtdiLutCcd0WindCfg {
-  alt_u32 uliCcd0WindowListPrt; /* CCD0 Window List Pointer */
-  alt_u32 uliCcd0PacketOrderListPrt; /* CCD0 Packet Order List Pointer */
-  alt_u32 uliCcd0WindowListLength; /* CCD0 Window List Length */
-  alt_u32 uliCcd0WindowsSizeX; /* CCD0 Windows Size X */
-  alt_u32 uliCcd0WindowsSizeY; /* CCD0 Windows Size Y */
-  alt_u32 uliCcd0LastEPacket; /* CCD0 Last E Packet */
-  alt_u32 uliCcd0LastFPacket; /* CCD0 Last F Packet */
-} TFtdiLutCcd0WindCfg;
-
  /* FTDI LUT CCD1 Windowing Configuration Struct */
 typedef struct FtdiLutCcd1WindCfg {
   alt_u32 uliCcd1WindowListPrt; /* CCD1 Window List Pointer */
@@ -174,6 +165,17 @@ typedef struct FtdiLutCcd3WindCfg {
   alt_u32 uliCcd3LastEPacket; /* CCD3 Last E Packet */
   alt_u32 uliCcd3LastFPacket; /* CCD3 Last F Packet */
 } TFtdiLutCcd3WindCfg;
+
+ /* FTDI LUT CCD4 Windowing Configuration Struct */
+typedef struct FtdiLutCcd4WindCfg {
+  alt_u32 uliCcd4WindowListPrt; /* CCD4 Window List Pointer */
+  alt_u32 uliCcd4PacketOrderListPrt; /* CCD4 Packet Order List Pointer */
+  alt_u32 uliCcd4WindowListLength; /* CCD4 Window List Length */
+  alt_u32 uliCcd4WindowsSizeX; /* CCD4 Windows Size X */
+  alt_u32 uliCcd4WindowsSizeY; /* CCD4 Windows Size Y */
+  alt_u32 uliCcd4LastEPacket; /* CCD4 Last E Packet */
+  alt_u32 uliCcd4LastFPacket; /* CCD4 Last F Packet */
+} TFtdiLutCcd4WindCfg;
 
  /* FTDI Rx Communication Error Register Struct */
 typedef struct FtdiRxCommError {
@@ -247,10 +249,10 @@ typedef struct FtdiModule {
   TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
   TFtdiLutTransControl xFtdiLutTransControl;
   TFtdiLutTransStatus xFtdiLutTransStatus;
-  TFtdiLutCcd0WindCfg xFtdiLutCcd0WindCfg;
   TFtdiLutCcd1WindCfg xFtdiLutCcd1WindCfg;
   TFtdiLutCcd2WindCfg xFtdiLutCcd2WindCfg;
   TFtdiLutCcd3WindCfg xFtdiLutCcd3WindCfg;
+  TFtdiLutCcd4WindCfg xFtdiLutCcd4WindCfg;
   TFtdiRxCommError xFtdiRxCommError;
   TFtdiTxCommError xFtdiTxCommError;
   TFtdiRxBufferStatus xFtdiRxBufferStatus;

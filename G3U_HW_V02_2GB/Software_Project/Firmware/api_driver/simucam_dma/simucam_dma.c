@@ -643,7 +643,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
 	if ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) % 32) {
 		// Transfer size is not a multiple of 32
-		uliRoundedTransferSizeInBytes = ((alt_u32) ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) / 32) + 1) * 32;
+		uliRoundedTransferSizeInBytes = (alt_u32)(((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) & 0xFFFFFFE0) + 32);
 	} else {
 		uliRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
 	}
@@ -874,7 +874,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
 	if ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) % 32) {
 		// Transfer size is not a multiple of 32
-		uliRoundedTransferSizeInBytes = ((alt_u32) ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) / 32) + 1) * 32;
+		uliRoundedTransferSizeInBytes = (alt_u32)(((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) & 0xFFFFFFE0) + 32);
 	} else {
 		uliRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
 	}
@@ -959,9 +959,9 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 
 	// Rounding up the size to the nearest multiple of FTDI_WORD_SIZE_BYTES
-	if (uliRoundedTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
+	if (uliTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
 		// Transfer size is not a multiple of FTDI_WORD_SIZE_BYTES
-		uliRoundedTransferSizeInBytes = ((alt_u32) (uliTransferSizeInBytes / FTDI_WORD_SIZE_BYTES) + 1) * FTDI_WORD_SIZE_BYTES;
+		uliRoundedTransferSizeInBytes = (alt_u32)((uliTransferSizeInBytes & 0xFFFFFFE0) + 32);
 	} else {
 		uliRoundedTransferSizeInBytes = uliTransferSizeInBytes;
 	}
@@ -1052,7 +1052,7 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	// Rounding up the size to the nearest multiple of FTDI_WORD_SIZE_BYTES
 	if (uliRoundedTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
 		// Transfer size is not a multiple of FTDI_WORD_SIZE_BYTES
-		uliRoundedTransferSizeInBytes = ((alt_u32) (uliTransferSizeInBytes / FTDI_WORD_SIZE_BYTES) + 1) * FTDI_WORD_SIZE_BYTES;
+		uliRoundedTransferSizeInBytes = (alt_u32)((uliTransferSizeInBytes & 0xFFFFFFE0) + 32);
 	} else {
 		uliRoundedTransferSizeInBytes = uliTransferSizeInBytes;
 	}

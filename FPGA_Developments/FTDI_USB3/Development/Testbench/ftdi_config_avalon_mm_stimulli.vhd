@@ -109,20 +109,6 @@ begin
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_abort_transmission              <= '0';
 			-- FTDI LUT Transmission Control Register : Reset LUT Controller
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_reset_controller                <= '0';
-			-- FTDI LUT CCD0 Windowing Configuration : CCD0 Window List Pointer
-			avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_window_list_pointer       <= (others => '0');
-			-- FTDI LUT CCD0 Windowing Configuration : CCD0 Packet Order List Pointer
-			avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_packet_order_list_pointer <= (others => '0');
-			-- FTDI LUT CCD0 Windowing Configuration : CCD0 Window List Length
-			avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_window_list_length        <= (others => '0');
-			-- FTDI LUT CCD0 Windowing Configuration : CCD0 Windows Size X
-			avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_windows_size_x            <= (others => '0');
-			-- FTDI LUT CCD0 Windowing Configuration : CCD0 Windows Size Y
-			avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_windows_size_y            <= (others => '0');
-			-- FTDI LUT CCD0 Windowing Configuration : CCD0 Last E Packet
-			avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_last_e_packet             <= (others => '0');
-			-- FTDI LUT CCD0 Windowing Configuration : CCD0 Last F Packet
-			avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_last_f_packet             <= (others => '0');
 			-- FTDI LUT CCD1 Windowing Configuration : CCD1 Window List Pointer
 			avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer       <= (others => '0');
 			-- FTDI LUT CCD1 Windowing Configuration : CCD1 Packet Order List Pointer
@@ -165,6 +151,20 @@ begin
 			avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_e_packet             <= (others => '0');
 			-- FTDI LUT CCD3 Windowing Configuration : CCD3 Last F Packet
 			avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_f_packet             <= (others => '0');
+			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Window List Pointer
+			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_pointer       <= (others => '0');
+			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Packet Order List Pointer
+			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_packet_order_list_pointer <= (others => '0');
+			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Window List Length
+			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_length        <= (others => '0');
+			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Windows Size X
+			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_x            <= (others => '0');
+			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Windows Size Y
+			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_y            <= (others => '0');
+			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Last E Packet
+			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet             <= (others => '0');
+			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Last F Packet
+			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet             <= (others => '0');
 
 		end procedure p_reset_registers;
 
@@ -258,34 +258,34 @@ begin
 					avs_config_wr_regs_o.lut_trans_control_reg.lut_trans_timeout                   <= std_logic_vector(to_unsigned(0, 16));
 					avs_config_wr_regs_o.lut_trans_control_reg.lut_transmit                        <= '1';
 					-- Configure Windowing Parameters
-					avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_window_list_pointer       <= x"01234567";
-					avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_packet_order_list_pointer <= x"09ABCDEF";
-					avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_window_list_length        <= x"0159";
-					avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_windows_size_x            <= "001100";
-					avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_windows_size_y            <= "000011";
-					avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_last_e_packet             <= "0011001100";
-					avs_config_wr_regs_o.lut_ccd0_windowing_cfg_reg.ccd0_last_f_packet             <= "0000110011";
-					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer       <= x"11234567";
-					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_packet_order_list_pointer <= x"19ABCDEF";
-					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_length        <= x"1159";
-					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_windows_size_x            <= "011100";
-					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_windows_size_y            <= "010011";
-					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_e_packet             <= "0111001100";
-					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_f_packet             <= "0100110011";
-					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_pointer       <= x"21234567";
-					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_packet_order_list_pointer <= x"29ABCDEF";
-					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_length        <= x"2159";
-					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_windows_size_x            <= "101100";
-					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_windows_size_y            <= "100011";
-					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_e_packet             <= "1011001100";
-					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_f_packet             <= "1000110011";
-					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_pointer       <= x"31234567";
-					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_packet_order_list_pointer <= x"39ABCDEF";
-					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_length        <= x"3159";
-					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_windows_size_x            <= "111100";
-					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_windows_size_y            <= "110011";
-					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_e_packet             <= "1111001100";
-					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_f_packet             <= "1100110011";
+					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer       <= x"01234567";
+					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_packet_order_list_pointer <= x"09ABCDEF";
+					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_length        <= x"0159";
+					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_windows_size_x            <= "001100";
+					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_windows_size_y            <= "000011";
+					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_e_packet             <= "0011001100";
+					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_f_packet             <= "0000110011";
+					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_pointer       <= x"11234567";
+					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_packet_order_list_pointer <= x"19ABCDEF";
+					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_length        <= x"1159";
+					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_windows_size_x            <= "011100";
+					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_windows_size_y            <= "010011";
+					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_e_packet             <= "0111001100";
+					avs_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_f_packet             <= "0100110011";
+					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_pointer       <= x"21234567";
+					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_packet_order_list_pointer <= x"29ABCDEF";
+					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_length        <= x"2159";
+					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_windows_size_x            <= "101100";
+					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_windows_size_y            <= "100011";
+					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_e_packet             <= "1011001100";
+					avs_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_f_packet             <= "1000110011";
+					avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_pointer       <= x"31234567";
+					avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_packet_order_list_pointer <= x"39ABCDEF";
+					avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_length        <= x"3159";
+					avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_x            <= "111100";
+					avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_y            <= "110011";
+					avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet             <= "1111001100";
+					avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet             <= "1100110011";
 
 				when 25 =>
 					-- Enables IRQ

@@ -31,10 +31,10 @@ entity ftdi_protocol_top is
 		trans_lut_transmit_i                 : in  std_logic; --                  -- Trasnmit LUT
 		trans_lut_abort_transmit_i           : in  std_logic; --                  -- Abort LUT Transmission
 		trans_lut_reset_controller_i         : in  std_logic; --                  -- Reset LUT Controller
-		lut_winparams_ccd0_wincfg_i          : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		lut_winparams_ccd1_wincfg_i          : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		lut_winparams_ccd2_wincfg_i          : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		lut_winparams_ccd3_wincfg_i          : in  t_ftdi_lut_winparams_ccdx_wincfg;
+		lut_winparams_ccd4_wincfg_i          : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		tx_dc_data_fifo_wrempty_i            : in  std_logic;
 		tx_dc_data_fifo_wrfull_i             : in  std_logic;
 		tx_dc_data_fifo_wrusedw_i            : in  std_logic_vector(11 downto 0);
@@ -351,10 +351,10 @@ begin
 			payload_writer_reset_i        => s_payload_writer_reset,
 			payload_length_bytes_i        => s_payload_writer_length_bytes,
 			payload_qqword_delay_i        => req_half_ccd_request_timeout_i,
-			lut_winparams_ccd0_wincfg_i   => lut_winparams_ccd0_wincfg_i,
 			lut_winparams_ccd1_wincfg_i   => lut_winparams_ccd1_wincfg_i,
 			lut_winparams_ccd2_wincfg_i   => lut_winparams_ccd2_wincfg_i,
 			lut_winparams_ccd3_wincfg_i   => lut_winparams_ccd3_wincfg_i,
+			lut_winparams_ccd4_wincfg_i   => lut_winparams_ccd4_wincfg_i,
 			buffer_stat_empty_i           => tx_dbuffer_stat_empty_i,
 			buffer_rddata_i               => tx_dbuffer_rddata_i,
 			buffer_rdready_i              => tx_dbuffer_rdready_i,

@@ -30,30 +30,37 @@ void vFTDIStop( void ){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiFtdiModuleControl.bModuleStop = TRUE;
 }
+
 void vFTDIStart( void ){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiFtdiModuleControl.bModuleStart = TRUE;
 }
+
 void vFTDIClear( void ){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiFtdiModuleControl.bModuleClear = TRUE;
 }
+
 void vFTDIAbort( void ){
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     vpxFtdiModule->xFtdiHalfCcdReqControl.bAbortHalfCcdReq = TRUE;
+    vpxFtdiModule->xFtdiLutTransControl.bAbortLutTrans = TRUE;
 }
+
 alt_u8 ucFTDIGetError( void ){
     alt_u8 ucErrorCode = 0;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     ucErrorCode = (alt_u8)(vpxFtdiModule->xFtdiRxCommError.usiRxCommErrCode);
     return ucErrorCode;
 }
+
 alt_u32 uliFTDInDataLeftInBuffer( void ){
     alt_u32 uliBufferUsedBytes = 0;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
     uliBufferUsedBytes = vpxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
     return uliBufferUsedBytes;
 }
+
 bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){
     bool bStatus = FALSE;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
@@ -76,9 +83,21 @@ bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 u
 }
 
 bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight){
-	bool bStatus = FALSE;
-	bStatus = TRUE;
-	return bStatus;
+    bool bStatus = FALSE;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    if ((usiHalfWidth <= 2295 ) && (usiHeight <= 4540)) {
+        vpxFtdiModule->xFtdiLutTransControl.ucLutFeeNumber = ucFee;
+        vpxFtdiModule->xFtdiLutTransControl.ucLutCcdNumber = 0;
+        vpxFtdiModule->xFtdiLutTransControl.ucLutCcdSide = 0;
+        vpxFtdiModule->xFtdiLutTransControl.usiLutExpNumber = 0;
+        vpxFtdiModule->xFtdiLutTransControl.usiLutCcdWidth = usiHalfWidth;
+        vpxFtdiModule->xFtdiLutTransControl.usiLutCcdHeight = usiHeight;
+        vpxFtdiModule->xFtdiLutTransControl.usiLutTransTimeout = 0;
+        vpxFtdiModule->xFtdiLutTransControl.uliLutLengthBytes = FTDI_WIN_AREA_WINDOING_SIZE + FTDI_WIN_AREA_PAYLOAD_SIZE;
+        vpxFtdiModule->xFtdiLutTransControl.bTransmitLut = TRUE;
+        bStatus = TRUE;
+    }
+    return bStatus;
 }
 
 void vFTDIResetFullImage( void ){
@@ -88,7 +107,7 @@ void vFTDIResetFullImage( void ){
 
 void vFTDIResetWindowArea(void){
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	vpxFtdiModule->xFtdiHalfCcdReqControl.bRstHalfCcdController = FALSE; /* Dummy */
+	vpxFtdiModule->xFtdiLutTransControl.bRstLutController = TRUE;
 }
 
 void vFTDIRxBufferIRQHandler(void* pvContext) {
@@ -224,22 +243,21 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 			vFailFtdiErrorIRQtoDTC();
 		}
 
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	fprintf(fp,"FTDI Irq Err \n");
-	fprintf(fp,"FTDI Irq Err : Payload CRC %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayCrcErr);
-	fprintf(fp,"FTDI Irq Err : Payload EOP %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayEopErr);
-	fprintf(fp,"FTDI Irq Err Header : Received %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.bHalfCcdReceived);
-	fprintf(fp,"FTDI Irq Err Header : FEE Number %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdFeeNumber);
-	fprintf(fp,"FTDI Irq Err Header : CCD Number %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdNumber);
-	fprintf(fp,"FTDI Irq Err Header : CCD Side %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdSide);
-	fprintf(fp,"FTDI Irq Err Header : CCD Height %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.usiHalfCcdCcdHeight);
-	fprintf(fp,"FTDI Irq Err Header : CCD Width %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.usiHalfCcdCcdWidth);
-	fprintf(fp,"FTDI Irq Err Header : Exposure Number %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.usiHalfCcdExpNumber);
-	fprintf(fp,"FTDI Irq Err Header : Image Length Bytes %lu\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes);
-
-}
-#endif
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"FTDI Rx Irq Err \n");
+				fprintf(fp,"FTDI Rx Irq Err : Payload CRC %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayCrcErr);
+				fprintf(fp,"FTDI Rx Irq Err : Payload EOP %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayEopErr);
+				fprintf(fp,"FTDI Rx Irq Err Header : Received %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.bHalfCcdReceived);
+				fprintf(fp,"FTDI Rx Irq Err Header : FEE Number %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdFeeNumber);
+				fprintf(fp,"FTDI Rx Irq Err Header : CCD Number %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdNumber);
+				fprintf(fp,"FTDI Rx Irq Err Header : CCD Side %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdSide);
+				fprintf(fp,"FTDI Rx Irq Err Header : CCD Height %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.usiHalfCcdCcdHeight);
+				fprintf(fp,"FTDI Rx Irq Err Header : CCD Width %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.usiHalfCcdCcdWidth);
+				fprintf(fp,"FTDI Rx Irq Err Header : Exposure Number %u\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.usiHalfCcdExpNumber);
+				fprintf(fp,"FTDI Rx Irq Err Header : Image Length Bytes %lu\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes);
+			}
+			#endif
 
 	}
 
@@ -267,6 +285,13 @@ void vFTDITxBufferIRQHandler(void* pvContext) {
 	if (vpxFtdiModule->xFtdiTxIrqFlag.bTxLutCommErrIrqFlag) {
 		vpxFtdiModule->xFtdiTxIrqFlagClr.bTxLutCommErrIrqFlagClr = TRUE;
 		/* Tx Communication Error flag treatment */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			fprintf(fp,"FTDI Tx Irq Err \n");
+			fprintf(fp,"FTDI Tx Irq Err : Payload NACK %d\n", vpxFtdiModule->xFtdiTxCommError.bLutPayloadNackErr);
+		}
+		#endif
 
 	}
 

@@ -122,10 +122,10 @@ architecture rtl of ftdi_usb3_top is
 	signal s_avalon_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
 
 	-- FTDI Protocol Controller Top Signals
-	signal s_lut_winparams_ccd0_wincfg : t_ftdi_lut_winparams_ccdx_wincfg;
 	signal s_lut_winparams_ccd1_wincfg : t_ftdi_lut_winparams_ccdx_wincfg;
 	signal s_lut_winparams_ccd2_wincfg : t_ftdi_lut_winparams_ccdx_wincfg;
 	signal s_lut_winparams_ccd3_wincfg : t_ftdi_lut_winparams_ccdx_wincfg;
+	signal s_lut_winparams_ccd4_wincfg : t_ftdi_lut_winparams_ccdx_wincfg;
 
 	-- Loopback Tx DC Data FIFO Signals
 	--	signal s_loopback_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
@@ -393,10 +393,10 @@ begin
 			trans_lut_transmit_i                 => s_config_write_registers.lut_trans_control_reg.lut_transmit,
 			trans_lut_abort_transmit_i           => s_config_write_registers.lut_trans_control_reg.lut_abort_transmission,
 			trans_lut_reset_controller_i         => s_config_write_registers.lut_trans_control_reg.lut_reset_controller,
-			lut_winparams_ccd0_wincfg_i          => s_lut_winparams_ccd0_wincfg,
 			lut_winparams_ccd1_wincfg_i          => s_lut_winparams_ccd1_wincfg,
 			lut_winparams_ccd2_wincfg_i          => s_lut_winparams_ccd2_wincfg,
 			lut_winparams_ccd3_wincfg_i          => s_lut_winparams_ccd3_wincfg,
+			lut_winparams_ccd4_wincfg_i          => s_lut_winparams_ccd4_wincfg,
 			tx_dc_data_fifo_wrempty_i            => s_avalon_tx_dc_data_fifo_wrempty,
 			tx_dc_data_fifo_wrfull_i             => s_avalon_tx_dc_data_fifo_wrfull,
 			tx_dc_data_fifo_wrusedw_i            => s_avalon_tx_dc_data_fifo_wrusedw,
@@ -791,18 +791,6 @@ begin
 	--	s_rx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
 
 	-- FTDI Protocol Controller Top Assignments
-	s_lut_winparams_ccd0_wincfg.ccdx_window_list_pointer              <= s_config_write_registers.lut_ccd0_windowing_cfg_reg.ccd0_window_list_pointer;
-	s_lut_winparams_ccd0_wincfg.ccdx_packet_order_list_pointer        <= s_config_write_registers.lut_ccd0_windowing_cfg_reg.ccd0_packet_order_list_pointer;
-	s_lut_winparams_ccd0_wincfg.ccdx_window_list_length(31 downto 16) <= (others => '0');
-	s_lut_winparams_ccd0_wincfg.ccdx_window_list_length(15 downto 0)  <= s_config_write_registers.lut_ccd0_windowing_cfg_reg.ccd0_window_list_length;
-	s_lut_winparams_ccd0_wincfg.ccdx_windows_size_x(31 downto 6)      <= (others => '0');
-	s_lut_winparams_ccd0_wincfg.ccdx_windows_size_x(5 downto 0)       <= s_config_write_registers.lut_ccd0_windowing_cfg_reg.ccd0_windows_size_x;
-	s_lut_winparams_ccd0_wincfg.ccdx_windows_size_y(31 downto 6)      <= (others => '0');
-	s_lut_winparams_ccd0_wincfg.ccdx_windows_size_y(5 downto 0)       <= s_config_write_registers.lut_ccd0_windowing_cfg_reg.ccd0_windows_size_y;
-	s_lut_winparams_ccd0_wincfg.ccdx_last_e_packet(31 downto 10)      <= (others => '0');
-	s_lut_winparams_ccd0_wincfg.ccdx_last_e_packet(9 downto 0)        <= s_config_write_registers.lut_ccd0_windowing_cfg_reg.ccd0_last_e_packet;
-	s_lut_winparams_ccd0_wincfg.ccdx_last_f_packet(31 downto 10)      <= (others => '0');
-	s_lut_winparams_ccd0_wincfg.ccdx_last_f_packet(9 downto 0)        <= s_config_write_registers.lut_ccd0_windowing_cfg_reg.ccd0_last_f_packet;
 	s_lut_winparams_ccd1_wincfg.ccdx_window_list_pointer              <= s_config_write_registers.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer;
 	s_lut_winparams_ccd1_wincfg.ccdx_packet_order_list_pointer        <= s_config_write_registers.lut_ccd1_windowing_cfg_reg.ccd1_packet_order_list_pointer;
 	s_lut_winparams_ccd1_wincfg.ccdx_window_list_length(31 downto 16) <= (others => '0');
@@ -839,6 +827,18 @@ begin
 	s_lut_winparams_ccd3_wincfg.ccdx_last_e_packet(9 downto 0)        <= s_config_write_registers.lut_ccd3_windowing_cfg_reg.ccd3_last_e_packet;
 	s_lut_winparams_ccd3_wincfg.ccdx_last_f_packet(31 downto 10)      <= (others => '0');
 	s_lut_winparams_ccd3_wincfg.ccdx_last_f_packet(9 downto 0)        <= s_config_write_registers.lut_ccd3_windowing_cfg_reg.ccd3_last_f_packet;
+	s_lut_winparams_ccd4_wincfg.ccdx_window_list_pointer              <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_window_list_pointer;
+	s_lut_winparams_ccd4_wincfg.ccdx_packet_order_list_pointer        <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_packet_order_list_pointer;
+	s_lut_winparams_ccd4_wincfg.ccdx_window_list_length(31 downto 16) <= (others => '0');
+	s_lut_winparams_ccd4_wincfg.ccdx_window_list_length(15 downto 0)  <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_window_list_length;
+	s_lut_winparams_ccd4_wincfg.ccdx_windows_size_x(31 downto 6)      <= (others => '0');
+	s_lut_winparams_ccd4_wincfg.ccdx_windows_size_x(5 downto 0)       <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_x;
+	s_lut_winparams_ccd4_wincfg.ccdx_windows_size_y(31 downto 6)      <= (others => '0');
+	s_lut_winparams_ccd4_wincfg.ccdx_windows_size_y(5 downto 0)       <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_y;
+	s_lut_winparams_ccd4_wincfg.ccdx_last_e_packet(31 downto 10)      <= (others => '0');
+	s_lut_winparams_ccd4_wincfg.ccdx_last_e_packet(9 downto 0)        <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet;
+	s_lut_winparams_ccd4_wincfg.ccdx_last_f_packet(31 downto 10)      <= (others => '0');
+	s_lut_winparams_ccd4_wincfg.ccdx_last_f_packet(9 downto 0)        <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet;
 	-- Reserved Signals Assignments
 
 end architecture rtl;                   -- of ftdi_usb3_top

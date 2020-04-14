@@ -211,8 +211,9 @@ architecture rtl of comm_v1_80_top is
 	signal s_current_timecode : std_logic_vector(7 downto 0);
 
 	-- sync edge detection
-	signal s_sync_in_trigger : std_logic;
-	signal s_sync_in_delayed : std_logic;
+	signal s_sync_in_trigger  : std_logic;
+	signal s_fee_clear_signal : std_logic;
+	signal s_sync_in_delayed  : std_logic;
 
 	-- spw mux
 	-- "spw mux" to "codec" signals
@@ -401,7 +402,7 @@ begin
 			clk_i                                         => a_avs_clock,
 			rst_i                                         => a_reset,
 			fee_sync_signal_i                             => s_sync_in_trigger,
-			fee_clear_signal_i                            => '0',
+			fee_clear_signal_i                            => s_fee_clear_signal,
 			fee_current_timecode_i                        => s_current_timecode,
 			fee_clear_frame_i                             => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
 			fee_left_side_activated_i                     => s_left_side_activated,
@@ -441,6 +442,7 @@ begin
 			data_pkt_skip_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_skip_delay,
 			data_pkt_line_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
 			data_pkt_adc_delay_i                          => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
+			masking_buffer_overflow_i                     => s_spacewire_write_registers.fee_machine_config_reg.fee_buffer_overflow_en,
 			windowing_packet_order_list_i(511 downto 480) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_15,
 			windowing_packet_order_list_i(479 downto 448) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_14,
 			windowing_packet_order_list_i(447 downto 416) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_13,
@@ -907,11 +909,13 @@ begin
 			s_sync_in_delayed      <= '0';
 			s_right_side_activated <= '0';
 			s_left_side_activated  <= '0';
+			s_fee_clear_signal     <= '0';
 		elsif rising_edge(a_avs_clock) then
 			s_right_side_activated <= '0';
 			s_left_side_activated  <= '0';
 			-- trigger signal
 			s_sync_in_trigger      <= '0';
+			s_fee_clear_signal     <= '0';
 			-- rising edge detection (sync signal)
 			if ((s_sync_in_delayed = '0') and (s_sync_channel = '1')) then
 				s_sync_in_trigger <= '1';
@@ -924,6 +928,9 @@ begin
 					-- left side has data (is activated)
 					s_left_side_activated <= '1';
 				end if;
+			-- falling edge detection (fee clear signal)
+			elsif ((s_sync_in_delayed = '1') and (s_sync_channel = '0')) then
+				s_fee_clear_signal <= '1';
 			end if;
 			-- delay signals
 			s_sync_in_delayed      <= s_sync_channel;

@@ -18,6 +18,7 @@ entity masking_machine_ent is
 		fee_pattern_en_i              : in  std_logic;
 		-- others
 		masking_machine_hold_i        : in  std_logic;
+		masking_buffer_overflow_i     : in  std_logic;
 		fee_ccd_x_size_i              : in  std_logic_vector(15 downto 0);
 		fee_ccd_y_size_i              : in  std_logic_vector(15 downto 0);
 		fee_data_y_size_i             : in  std_logic_vector(15 downto 0);
@@ -324,7 +325,7 @@ begin
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
 					-- check if masking fifo is not full or if the masking fifo overflow is enabled
-					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or (c_MASKING_FIFO_OVERFLOW_ENABLE = '1')) then
+					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or (masking_buffer_overflow_i = '1')) then
 						-- masking fifo has space or the masking fifo overflow is enabled
 						s_masking_machine_state        <= PIXEL_BYTE_LSB;
 						s_masking_machine_return_state <= PIXEL_BYTE_LSB;
@@ -363,7 +364,7 @@ begin
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
 					-- check if masking fifo is not full or if the masking fifo overflow is enabled
-					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or (c_MASKING_FIFO_OVERFLOW_ENABLE = '1')) then
+					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or (masking_buffer_overflow_i = '1')) then
 						-- masking fifo has space or the masking fifo overflow is enabled
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;

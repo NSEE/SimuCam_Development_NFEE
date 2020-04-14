@@ -57,6 +57,8 @@ entity fee_data_controller_top is
 		data_pkt_skip_delay_i         : in  std_logic_vector(31 downto 0);
 		data_pkt_line_delay_i         : in  std_logic_vector(31 downto 0);
 		data_pkt_adc_delay_i          : in  std_logic_vector(31 downto 0);
+		-- fee masking buffer control
+		masking_buffer_overflow_i     : in  std_logic;
 		-- windowing parameters
 		windowing_packet_order_list_i : in  std_logic_vector(511 downto 0);
 		windowing_last_left_packet_i  : in  std_logic_vector(9 downto 0);
@@ -237,6 +239,7 @@ begin
 			data_pkt_skip_delay_i              => s_registered_dpkt_params.image.skip_delay,
 			data_pkt_line_delay_i              => s_registered_dpkt_params.image.line_delay,
 			data_pkt_adc_delay_i               => s_registered_dpkt_params.image.adc_delay,
+			masking_buffer_overflow_i          => masking_buffer_overflow_i,
 			imgdata_send_buffer_control_i      => s_left_imgdata_send_buffer_control,
 			imgdataman_finished_o              => s_left_imgdataman_status.finished,
 			imgdata_headerdata_o               => open,
@@ -287,6 +290,7 @@ begin
 			data_pkt_skip_delay_i              => s_registered_dpkt_params.image.skip_delay,
 			data_pkt_line_delay_i              => s_registered_dpkt_params.image.line_delay,
 			data_pkt_adc_delay_i               => s_registered_dpkt_params.image.adc_delay,
+			masking_buffer_overflow_i          => masking_buffer_overflow_i,
 			imgdata_send_buffer_control_i      => s_right_imgdata_send_buffer_control,
 			imgdataman_finished_o              => s_right_imgdataman_status.finished,
 			imgdata_headerdata_o               => open,

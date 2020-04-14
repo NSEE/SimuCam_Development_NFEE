@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2020.04.11.22:56:57</td>
+    <td class="l">2020.04.12.02:37:34</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -131,7 +131,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> COMM_Pedreiro_v1_01 2.2
      <br/>&#160;&#160;
      <a href="#module_FTDI_USB3_0"><b>FTDI_USB3_0</b>
-     </a> FTDI_USB3 1.7
+     </a> FTDI_USB3 2.0
      <br/>&#160;&#160;
      <a href="#module_SEVEN_SEGMENT_CONTROLLER_0"><b>SEVEN_SEGMENT_CONTROLLER_0</b>
      </a> SEVEN_SEGMENT_CONTROLLER 1.0
@@ -193,7 +193,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <a href="#module_dma_comm_6_right"><b>dma_comm_6_right</b>
      </a> altera_msgdma 18.1
      <br/>&#160;&#160;
-     <a href="#module_dma_ftdi_usb3"><b>dma_ftdi_usb3</b>
+     <a href="#module_dma_ftdi_rx_usb3"><b>dma_ftdi_rx_usb3</b>
+     </a> altera_msgdma 18.1
+     <br/>&#160;&#160;
+     <a href="#module_dma_ftdi_tx_usb3"><b>dma_ftdi_tx_usb3</b>
      </a> altera_msgdma 18.1
      <br/>&#160;&#160;
      <a href="#module_ext_flash"><b>ext_flash</b>
@@ -366,7 +369,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a>
     </td>
     <td class="mastermodule" colspan="2">
-     <a href="#module_dma_ftdi_usb3"><b>dma_ftdi_usb3</b>
+     <a href="#module_dma_ftdi_rx_usb3"><b>dma_ftdi_rx_usb3</b>
+     </a>
+    </td>
+    <td class="mastermodule" colspan="2">
+     <a href="#module_dma_ftdi_tx_usb3"><b>dma_ftdi_tx_usb3</b>
      </a>
     </td>
     <td class="mastermodule" colspan="2">
@@ -400,6 +407,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="masterlr">&#160;expanded_master</td>
+    <td class="masterl">&#160;mm_read</td>
+    <td class="masterr">&#160;mm_write</td>
     <td class="masterl">&#160;mm_read</td>
     <td class="masterr">&#160;mm_write</td>
     <td class="masterl">&#160;mm_read</td>
@@ -475,9 +484,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_sdcard_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -554,6 +567,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_windowing&#160;</td>
@@ -584,7 +599,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121a400</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019400</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -630,6 +647,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_R_buffer&#160;</td>
@@ -638,6 +657,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>0000000104000000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -709,6 +730,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_windowing&#160;</td>
@@ -739,7 +762,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121a000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -785,6 +810,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_R_buffer&#160;</td>
@@ -797,6 +824,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>000000010c000000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -864,6 +893,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_windowing&#160;</td>
@@ -894,7 +925,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81219c00</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81018c00</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -940,6 +973,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_R_buffer&#160;</td>
@@ -956,6 +991,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>0000000114000000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1019,6 +1056,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_windowing&#160;</td>
@@ -1049,7 +1088,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81219800</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81018800</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1095,6 +1136,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_R_buffer&#160;</td>
@@ -1115,6 +1158,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>000000011c000000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1174,6 +1219,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_windowing&#160;</td>
@@ -1204,7 +1251,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81219400</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81018400</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1250,6 +1299,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_R_buffer&#160;</td>
@@ -1274,6 +1325,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>0000000124000000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1329,6 +1382,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">avalon_slave_windowing&#160;</td>
@@ -1359,7 +1414,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81219000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81018000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1393,6 +1450,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>0000000128000000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1443,12 +1502,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavemodule">&#160;
      <a href="#module_FTDI_USB3_0"><b>FTDI_USB3_0</b>
      </a>
     </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1514,7 +1577,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121a800</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019800</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1552,6 +1617,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>0000000200000000</td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>0000000200000000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1601,9 +1668,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">SSDP_avalon_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1680,9 +1751,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1759,9 +1834,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1838,9 +1917,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1917,9 +2000,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -1996,9 +2083,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2075,9 +2166,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">windowed_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2143,7 +2238,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121af48</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019f80</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2192,6 +2289,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -2222,7 +2321,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121af20</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019f60</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2260,7 +2361,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ad80</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019dc0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2309,6 +2412,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -2339,7 +2444,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121af00</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019f40</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2377,7 +2484,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ad60</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019da0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2426,6 +2535,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -2456,7 +2567,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121aee0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019f20</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2494,7 +2607,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ad40</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019d80</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2543,6 +2658,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -2573,7 +2690,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121aec0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019f00</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2611,7 +2730,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ad20</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019d60</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2660,6 +2781,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -2690,7 +2813,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121aea0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019ee0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2728,7 +2853,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ad00</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019d40</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2777,6 +2904,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -2807,7 +2936,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ae80</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019ec0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2845,7 +2976,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ace0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019d20</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2894,6 +3027,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -2924,7 +3059,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ae60</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019ea0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -2962,7 +3099,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121acc0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019d00</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3011,6 +3150,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -3041,7 +3182,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ae40</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019e80</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3079,7 +3222,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121aca0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019ce0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3128,6 +3273,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -3158,7 +3305,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ae20</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019e60</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3196,7 +3345,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ac80</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019cc0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3245,6 +3396,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -3275,7 +3428,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ae00</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019e40</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3313,7 +3468,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ac60</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019ca0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3362,6 +3519,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -3392,7 +3551,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ade0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019e20</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3430,7 +3591,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ac40</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019c80</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3479,6 +3642,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -3509,7 +3674,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121adc0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019e00</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3547,7 +3714,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ac20</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019c60</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3558,7 +3727,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slavemodule">&#160;
-     <a href="#module_dma_ftdi_usb3"><b>dma_ftdi_usb3</b>
+     <a href="#module_dma_ftdi_rx_usb3"><b>dma_ftdi_rx_usb3</b>
      </a>
     </td>
     <td class="empty"></td>
@@ -3596,6 +3765,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavem">csr&#160;</td>
@@ -3626,7 +3797,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ada0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019de0</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3664,7 +3837,132 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8121ac00</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019c40</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_dma_ftdi_tx_usb3"><b>dma_ftdi_tx_usb3</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavem">csr&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019c20</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavem">descriptor_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81019c00</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3713,9 +4011,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">uas&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3792,9 +4094,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_jtag_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3871,9 +4177,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3950,9 +4260,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4029,6 +4343,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avl&#160;</td>
@@ -4059,6 +4375,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>00000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>00000000</td>
@@ -4108,9 +4426,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4187,9 +4509,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4266,6 +4592,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avl&#160;</td>
@@ -4296,6 +4624,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>80000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>80000000</td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>80000000</td>
@@ -4345,9 +4675,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">debug_mem_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4424,9 +4758,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4503,9 +4841,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4582,9 +4924,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4661,9 +5007,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4740,9 +5090,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4819,9 +5173,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4898,9 +5256,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -4977,6 +5339,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_rmap_slave_0&#160;</td>
@@ -5007,7 +5371,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81214000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81014000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5056,6 +5422,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_rmap_slave_0&#160;</td>
@@ -5086,7 +5454,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81210000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81010000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5135,6 +5505,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_rmap_slave_0&#160;</td>
@@ -5165,7 +5537,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>8120c000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>8100c000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5214,6 +5588,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_rmap_slave_0&#160;</td>
@@ -5244,7 +5620,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81208000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81008000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5293,6 +5671,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_rmap_slave_0&#160;</td>
@@ -5323,7 +5703,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81204000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81004000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5372,6 +5754,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_rmap_slave_0&#160;</td>
@@ -5402,7 +5786,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>81200000</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>81000000</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5451,9 +5837,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5530,9 +5920,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_rst_controller_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5609,9 +6003,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5688,9 +6086,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5767,9 +6169,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5846,9 +6252,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -5925,9 +6335,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -6004,9 +6418,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -6083,9 +6501,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">avalon_mm_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -6162,9 +6584,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">control_slave&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -6241,9 +6667,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -6320,9 +6750,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -6399,9 +6833,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -6478,9 +6916,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -7597,16 +8039,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_FTDI_USB3_0"> </a>
   <div>
    <hr/>
-   <h2>FTDI_USB3_0</h2>FTDI_USB3 v1.7
+   <h2>FTDI_USB3_0</h2>FTDI_USB3 v2.0
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="16">FTDI_USB3_0</td>
+      <td class="main" rowspan="21">FTDI_USB3_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_config</td>
@@ -7615,16 +8057,34 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;ftdi_interrupt_sender</td>
+      <td class="to">&#160;&#160;ftdi_rx_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;ftdi_tx_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
+       <a href="#module_dma_ftdi_rx_usb3">dma_ftdi_rx_usb3</a>
       </td>
       <td class="from">mm_read&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_data</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_dma_ftdi_tx_usb3">dma_ftdi_tx_usb3</a>
+      </td>
+      <td class="from">mm_write&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_data</td>
@@ -7768,7 +8228,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_m2_ddr2_memory">m2_ddr2_memory</a>
       </td>
       <td class="from">afi_half_clk&#160;&#160;</td>
-      <td class="main" rowspan="106">clk_100</td>
+      <td class="main" rowspan="109">clk_100</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk_in</td>
@@ -8094,7 +8554,23 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
+       <a href="#module_dma_ftdi_rx_usb3">dma_ftdi_rx_usb3</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_dma_ftdi_tx_usb3">dma_ftdi_tx_usb3</a>
       </td>
      </tr>
      <tr>
@@ -10532,11 +11008,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_1_left</td>
+      <td class="main" rowspan="18">dma_comm_1_left</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -10546,12 +11022,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -10921,11 +11391,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_1_right</td>
+      <td class="main" rowspan="18">dma_comm_1_right</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -10935,12 +11405,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -11310,11 +11774,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_2_left</td>
+      <td class="main" rowspan="18">dma_comm_2_left</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -11324,12 +11788,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -11699,11 +12157,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_2_right</td>
+      <td class="main" rowspan="18">dma_comm_2_right</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -11713,12 +12171,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -12088,11 +12540,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_3_left</td>
+      <td class="main" rowspan="18">dma_comm_3_left</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -12102,12 +12554,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -12477,11 +12923,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_3_right</td>
+      <td class="main" rowspan="18">dma_comm_3_right</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -12491,12 +12937,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -12866,11 +13306,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_4_left</td>
+      <td class="main" rowspan="18">dma_comm_4_left</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -12880,12 +13320,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -13255,11 +13689,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_4_right</td>
+      <td class="main" rowspan="18">dma_comm_4_right</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -13269,12 +13703,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -13644,11 +14072,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_5_left</td>
+      <td class="main" rowspan="18">dma_comm_5_left</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -13658,12 +14086,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -14033,11 +14455,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_5_right</td>
+      <td class="main" rowspan="18">dma_comm_5_right</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -14047,12 +14469,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -14422,11 +14838,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_6_left</td>
+      <td class="main" rowspan="18">dma_comm_6_left</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -14436,12 +14852,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -14811,11 +15221,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_comm_6_right</td>
+      <td class="main" rowspan="18">dma_comm_6_right</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -14825,12 +15235,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -15192,19 +15596,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
-  <a name="module_dma_ftdi_usb3"> </a>
+  <a name="module_dma_ftdi_rx_usb3"> </a>
   <div>
    <hr/>
-   <h2>dma_ftdi_usb3</h2>altera_msgdma v18.1
+   <h2>dma_ftdi_rx_usb3</h2>altera_msgdma v18.1
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="20">dma_ftdi_usb3</td>
+      <td class="main" rowspan="18">dma_ftdi_rx_usb3</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -15214,12 +15618,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;descriptor_slave</td>
-     </tr>
-     <tr>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;csr_irq</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -15446,6 +15844,389 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <tr>
         <td class="parametername">AUTO_MM_WRITE_ADDRESS_WIDTH</td>
         <td class="parametervalue">AddressWidth = 32</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP</td>
+        <td class="parametervalue"></td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH</td>
+        <td class="parametervalue">AddressWidth = -1</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP</td>
+        <td class="parametervalue"></td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH</td>
+        <td class="parametervalue">AddressWidth = -1</td>
+       </tr>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">Stratix IV</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>
+      <table>
+       <tr>
+        <td class="parametername">BURST_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">BURST_WRAPPING_SUPPORT</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">CHANNEL_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">CHANNEL_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">CHANNEL_WIDTH</td>
+        <td class="parametervalue">8</td>
+       </tr>
+       <tr>
+        <td class="parametername">DATA_FIFO_DEPTH</td>
+        <td class="parametervalue">128</td>
+       </tr>
+       <tr>
+        <td class="parametername">DATA_WIDTH</td>
+        <td class="parametervalue">256</td>
+       </tr>
+       <tr>
+        <td class="parametername">DESCRIPTOR_FIFO_DEPTH</td>
+        <td class="parametervalue">128</td>
+       </tr>
+       <tr>
+        <td class="parametername">DMA_MODE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ENHANCED_FEATURES</td>
+        <td class="parametervalue">1</td>
+       </tr>
+       <tr>
+        <td class="parametername">ERROR_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ERROR_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ERROR_WIDTH</td>
+        <td class="parametervalue">8</td>
+       </tr>
+       <tr>
+        <td class="parametername">MAX_BURST_COUNT</td>
+        <td class="parametervalue">128</td>
+       </tr>
+       <tr>
+        <td class="parametername">MAX_BYTE</td>
+        <td class="parametervalue">67108864</td>
+       </tr>
+       <tr>
+        <td class="parametername">MAX_STRIDE</td>
+        <td class="parametervalue">1</td>
+       </tr>
+       <tr>
+        <td class="parametername">PACKET_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">PACKET_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">PREFETCHER_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">PROGRAMMABLE_BURST_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">RESPONSE_PORT</td>
+        <td class="parametervalue">2</td>
+       </tr>
+       <tr>
+        <td class="parametername">STRIDE_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">STRIDE_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">TRANSFER_TYPE</td>
+        <td class="parametervalue">Full Word Accesses Only</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_dma_ftdi_tx_usb3"> </a>
+  <div>
+   <hr/>
+   <h2>dma_ftdi_tx_usb3</h2>altera_msgdma v18.1
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
+      </td>
+      <td class="from">data_master&#160;&#160;</td>
+      <td class="main" rowspan="18">dma_ftdi_tx_usb3</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;csr</td>
+     </tr>
+     <tr>
+      <td class="from">data_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;descriptor_slave</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_100">clk_100</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_50">clk_50</a>
+      </td>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset_n</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">mm_read&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_m2_ddr2_memory">m2_ddr2_memory</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avl</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">mm_read&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_m1_clock_bridge">m1_clock_bridge</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;s0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">mm_write&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_FTDI_USB3_0">FTDI_USB3_0</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_slave_data</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">MODE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">DATA_WIDTH</td>
+        <td class="parametervalue">256</td>
+       </tr>
+       <tr>
+        <td class="parametername">USE_FIX_ADDRESS_WIDTH</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">FIX_ADDRESS_WIDTH</td>
+        <td class="parametervalue">32</td>
+       </tr>
+       <tr>
+        <td class="parametername">EXPOSE_ST_PORT</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">DATA_FIFO_DEPTH</td>
+        <td class="parametervalue">128</td>
+       </tr>
+       <tr>
+        <td class="parametername">DESCRIPTOR_FIFO_DEPTH</td>
+        <td class="parametervalue">128</td>
+       </tr>
+       <tr>
+        <td class="parametername">RESPONSE_PORT</td>
+        <td class="parametervalue">2</td>
+       </tr>
+       <tr>
+        <td class="parametername">MAX_BYTE</td>
+        <td class="parametervalue">67108864</td>
+       </tr>
+       <tr>
+        <td class="parametername">TRANSFER_TYPE</td>
+        <td class="parametervalue">Full Word Accesses Only</td>
+       </tr>
+       <tr>
+        <td class="parametername">BURST_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">MAX_BURST_COUNT</td>
+        <td class="parametervalue">128</td>
+       </tr>
+       <tr>
+        <td class="parametername">BURST_WRAPPING_SUPPORT</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ENHANCED_FEATURES</td>
+        <td class="parametervalue">1</td>
+       </tr>
+       <tr>
+        <td class="parametername">STRIDE_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">MAX_STRIDE</td>
+        <td class="parametervalue">1</td>
+       </tr>
+       <tr>
+        <td class="parametername">PROGRAMMABLE_BURST_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">STRIDE_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">PACKET_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">PACKET_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ERROR_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ERROR_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ERROR_WIDTH</td>
+        <td class="parametervalue">8</td>
+       </tr>
+       <tr>
+        <td class="parametername">CHANNEL_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">CHANNEL_ENABLE_DERIVED</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">CHANNEL_WIDTH</td>
+        <td class="parametervalue">8</td>
+       </tr>
+       <tr>
+        <td class="parametername">PREFETCHER_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">PREFETCHER_READ_BURST_ENABLE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">PREFETCHER_DATA_WIDTH</td>
+        <td class="parametervalue">32</td>
+       </tr>
+       <tr>
+        <td class="parametername">PREFETCHER_MAX_READ_BURST_COUNT</td>
+        <td class="parametervalue">2</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DEVICE_FAMILY</td>
+        <td class="parametervalue">STRATIXIV</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DEVICE</td>
+        <td class="parametervalue">EP4SGX530KH40C2</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_DEVICE_SPEEDGRADE</td>
+        <td class="parametervalue">2</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_MM_READ_ADDRESS_MAP</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /&gt;&lt;slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /&gt;&lt;/address-map&gt;</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_MM_READ_ADDRESS_WIDTH</td>
+        <td class="parametervalue">AddressWidth = 32</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_MM_WRITE_ADDRESS_MAP</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /&gt;&lt;/address-map&gt;</td>
+       </tr>
+       <tr>
+        <td class="parametername">AUTO_MM_WRITE_ADDRESS_WIDTH</td>
+        <td class="parametervalue">AddressWidth = 34</td>
        </tr>
        <tr>
         <td class="parametername">AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP</td>
@@ -16078,7 +16859,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_rmap_mem_nfee_comm_1">rmap_mem_nfee_comm_1</a>
       </td>
       <td class="from">avalon_mm_rmap_master&#160;&#160;</td>
-      <td class="main" rowspan="72">m1_clock_bridge</td>
+      <td class="main" rowspan="75">m1_clock_bridge</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;s0</td>
@@ -16304,7 +17085,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
+       <a href="#module_dma_ftdi_tx_usb3">dma_ftdi_tx_usb3</a>
+      </td>
+      <td class="from">mm_read&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;s0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_dma_ftdi_rx_usb3">dma_ftdi_rx_usb3</a>
       </td>
       <td class="from">mm_write&#160;&#160;</td>
      </tr>
@@ -23086,7 +23879,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_rmap_mem_nfee_comm_1">rmap_mem_nfee_comm_1</a>
       </td>
       <td class="from">avalon_mm_rmap_master&#160;&#160;</td>
-      <td class="main" rowspan="74">m2_ddr2_memory</td>
+      <td class="main" rowspan="77">m2_ddr2_memory</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avl</td>
@@ -23312,7 +24105,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
+       <a href="#module_dma_ftdi_tx_usb3">dma_ftdi_tx_usb3</a>
+      </td>
+      <td class="from">mm_read&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avl</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_dma_ftdi_rx_usb3">dma_ftdi_rx_usb3</a>
       </td>
       <td class="from">mm_write&#160;&#160;</td>
      </tr>
@@ -29184,7 +29989,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="200">nios2_gen2_0</td>
+      <td class="main" rowspan="181">nios2_gen2_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -29327,7 +30132,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_FTDI_USB3_0">FTDI_USB3_0</a>
       </td>
      </tr>
@@ -29344,7 +30149,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;ftdi_interrupt_sender</td>
+      <td class="to">&#160;&#160;ftdi_rx_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;ftdi_tx_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -29611,7 +30426,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_1_left">dma_comm_1_left</a>
       </td>
      </tr>
@@ -29630,16 +30445,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29647,7 +30452,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_1_right">dma_comm_1_right</a>
       </td>
      </tr>
@@ -29666,16 +30471,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29683,7 +30478,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_2_left">dma_comm_2_left</a>
       </td>
      </tr>
@@ -29702,16 +30497,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29719,7 +30504,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_2_right">dma_comm_2_right</a>
       </td>
      </tr>
@@ -29738,16 +30523,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29755,7 +30530,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_3_left">dma_comm_3_left</a>
       </td>
      </tr>
@@ -29774,16 +30549,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29791,7 +30556,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_3_right">dma_comm_3_right</a>
       </td>
      </tr>
@@ -29810,16 +30575,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29827,7 +30582,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_4_left">dma_comm_4_left</a>
       </td>
      </tr>
@@ -29846,16 +30601,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29863,7 +30608,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_4_right">dma_comm_4_right</a>
       </td>
      </tr>
@@ -29882,16 +30627,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29899,7 +30634,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_5_left">dma_comm_5_left</a>
       </td>
      </tr>
@@ -29918,16 +30653,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29935,7 +30660,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_5_right">dma_comm_5_right</a>
       </td>
      </tr>
@@ -29954,16 +30679,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -29971,7 +30686,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_6_left">dma_comm_6_left</a>
       </td>
      </tr>
@@ -29990,16 +30705,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -30007,7 +30712,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
+      <td class="neighbor" rowspan="4">
        <a href="#module_dma_comm_6_right">dma_comm_6_right</a>
       </td>
      </tr>
@@ -30026,16 +30731,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
-     </tr>
      <tr style="height:6px">
       <td></td>
      </tr>
@@ -30043,8 +30738,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="6">
-       <a href="#module_dma_ftdi_usb3">dma_ftdi_usb3</a>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_dma_ftdi_rx_usb3">dma_ftdi_rx_usb3</a>
       </td>
      </tr>
      <tr>
@@ -30062,15 +30757,31 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
-     <tr>
+     <tr style="height:6px">
       <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;csr_irq</td>
+      <td class="from">data_master&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_dma_ftdi_tx_usb3">dma_ftdi_tx_usb3</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;csr</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">data_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;descriptor_slave</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -30913,7 +31624,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /&gt;&lt;slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /&gt;&lt;slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /&gt;&lt;slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /&gt;&lt;slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /&gt;&lt;slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /&gt;&lt;slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /&gt;&lt;slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /&gt;&lt;slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /&gt;&lt;slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81200000' end='0x81204000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81204000' end='0x81208000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x81208000' end='0x8120C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x8120C000' end='0x81210000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81210000' end='0x81214000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81214000' end='0x81218000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_F.avalon_slave_windowing' start='0x81219000' end='0x81219400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_E.avalon_slave_windowing' start='0x81219400' end='0x81219800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x81219800' end='0x81219C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x81219C00' end='0x8121A000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x8121A000' end='0x8121A400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x8121A400' end='0x8121A800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='FTDI_USB3_0.avalon_slave_config' start='0x8121A800' end='0x8121AC00' type='FTDI_USB3.avalon_slave_config' /&gt;&lt;slave name='dma_ftdi_usb3.descriptor_slave' start='0x8121AC00' end='0x8121AC20' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_6_right.descriptor_slave' start='0x8121AC20' end='0x8121AC40' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_6_left.descriptor_slave' start='0x8121AC40' end='0x8121AC60' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_5_right.descriptor_slave' start='0x8121AC60' end='0x8121AC80' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_5_left.descriptor_slave' start='0x8121AC80' end='0x8121ACA0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_4_right.descriptor_slave' start='0x8121ACA0' end='0x8121ACC0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_4_left.descriptor_slave' start='0x8121ACC0' end='0x8121ACE0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_3_right.descriptor_slave' start='0x8121ACE0' end='0x8121AD00' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_3_left.descriptor_slave' start='0x8121AD00' end='0x8121AD20' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_2_right.descriptor_slave' start='0x8121AD20' end='0x8121AD40' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_2_left.descriptor_slave' start='0x8121AD40' end='0x8121AD60' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_1_right.descriptor_slave' start='0x8121AD60' end='0x8121AD80' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_1_left.descriptor_slave' start='0x8121AD80' end='0x8121ADA0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_ftdi_usb3.csr' start='0x8121ADA0' end='0x8121ADC0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_6_right.csr' start='0x8121ADC0' end='0x8121ADE0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_6_left.csr' start='0x8121ADE0' end='0x8121AE00' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_5_right.csr' start='0x8121AE00' end='0x8121AE20' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_5_left.csr' start='0x8121AE20' end='0x8121AE40' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_4_right.csr' start='0x8121AE40' end='0x8121AE60' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_4_left.csr' start='0x8121AE60' end='0x8121AE80' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_3_right.csr' start='0x8121AE80' end='0x8121AEA0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_3_left.csr' start='0x8121AEA0' end='0x8121AEC0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_2_right.csr' start='0x8121AEC0' end='0x8121AEE0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_2_left.csr' start='0x8121AEE0' end='0x8121AF00' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_1_right.csr' start='0x8121AF00' end='0x8121AF20' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_1_left.csr' start='0x8121AF20' end='0x8121AF40' type='altera_msgdma.csr' /&gt;&lt;slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;slave name='ddr2_address_span_extender.cntl' start='0x8121AF48' end='0x8121AF50' type='altera_address_span_extender.cntl' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /&gt;&lt;slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /&gt;&lt;slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /&gt;&lt;slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /&gt;&lt;slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /&gt;&lt;slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /&gt;&lt;slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /&gt;&lt;slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /&gt;&lt;slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /&gt;&lt;slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81000000' end='0x81004000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81004000' end='0x81008000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x81008000' end='0x8100C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x8100C000' end='0x81010000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81010000' end='0x81014000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81014000' end='0x81018000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_F.avalon_slave_windowing' start='0x81018000' end='0x81018400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_E.avalon_slave_windowing' start='0x81018400' end='0x81018800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x81018800' end='0x81018C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x81018C00' end='0x81019000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x81019000' end='0x81019400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x81019400' end='0x81019800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /&gt;&lt;slave name='FTDI_USB3_0.avalon_slave_config' start='0x81019800' end='0x81019C00' type='FTDI_USB3.avalon_slave_config' /&gt;&lt;slave name='dma_ftdi_tx_usb3.descriptor_slave' start='0x81019C00' end='0x81019C20' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_ftdi_tx_usb3.csr' start='0x81019C20' end='0x81019C40' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_ftdi_rx_usb3.descriptor_slave' start='0x81019C40' end='0x81019C60' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_6_right.descriptor_slave' start='0x81019C60' end='0x81019C80' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_6_left.descriptor_slave' start='0x81019C80' end='0x81019CA0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_5_right.descriptor_slave' start='0x81019CA0' end='0x81019CC0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_5_left.descriptor_slave' start='0x81019CC0' end='0x81019CE0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_4_right.descriptor_slave' start='0x81019CE0' end='0x81019D00' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_4_left.descriptor_slave' start='0x81019D00' end='0x81019D20' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_3_right.descriptor_slave' start='0x81019D20' end='0x81019D40' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_3_left.descriptor_slave' start='0x81019D40' end='0x81019D60' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_2_right.descriptor_slave' start='0x81019D60' end='0x81019D80' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_2_left.descriptor_slave' start='0x81019D80' end='0x81019DA0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_1_right.descriptor_slave' start='0x81019DA0' end='0x81019DC0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_comm_1_left.descriptor_slave' start='0x81019DC0' end='0x81019DE0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_ftdi_rx_usb3.csr' start='0x81019DE0' end='0x81019E00' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_6_right.csr' start='0x81019E00' end='0x81019E20' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_6_left.csr' start='0x81019E20' end='0x81019E40' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_5_right.csr' start='0x81019E40' end='0x81019E60' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_5_left.csr' start='0x81019E60' end='0x81019E80' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_4_right.csr' start='0x81019E80' end='0x81019EA0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_4_left.csr' start='0x81019EA0' end='0x81019EC0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_3_right.csr' start='0x81019EC0' end='0x81019EE0' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_3_left.csr' start='0x81019EE0' end='0x81019F00' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_2_right.csr' start='0x81019F00' end='0x81019F20' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_2_left.csr' start='0x81019F20' end='0x81019F40' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_1_right.csr' start='0x81019F40' end='0x81019F60' type='altera_msgdma.csr' /&gt;&lt;slave name='dma_comm_1_left.csr' start='0x81019F60' end='0x81019F80' type='altera_msgdma.csr' /&gt;&lt;slave name='ddr2_address_span_extender.cntl' start='0x81019F80' end='0x81019F88' type='altera_address_span_extender.cntl' /&gt;&lt;slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">tightlyCoupledDataMaster0MapParam</td>
@@ -30965,7 +31676,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">internalIrqMaskSystemInfo</td>
-        <td class="parametervalue">4294967295</td>
+        <td class="parametervalue">2097135</td>
        </tr>
        <tr>
         <td class="parametername">customInstSlavesSystemInfo</td>
@@ -35396,7 +36107,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1586656612</td>
+        <td class="parametervalue">1586669847</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -35421,7 +36132,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1586656612</td>
+        <td class="parametervalue">1586669847</td>
        </tr>
       </table>
      </td>
@@ -36299,8 +37010,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0,03 seconds</td>
-    <td class="r">rendering took 0,58 seconds</td>
+    <td class="l">generation took 0,02 seconds</td>
+    <td class="r">rendering took 0,78 seconds</td>
    </tr>
   </table>
  </body>

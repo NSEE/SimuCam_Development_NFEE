@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#69#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#68#;
 
 	-- Registers Types
 
@@ -68,7 +68,7 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_machine_clear      : std_logic; -- FEE Machine Clear
 		fee_machine_stop       : std_logic; -- FEE Machine Stop
 		fee_machine_start      : std_logic; -- FEE Machine Start
-		fee_data_controller_en : std_logic; -- FEE Data Controller Enable
+		fee_buffer_overflow_en : std_logic; -- FEE Buffer Overflow Enable
 		fee_digitalise_en      : std_logic; -- FEE Digitalise Enable
 		fee_windowing_en       : std_logic; -- FEE Windowing Enable
 	end record t_comm_fee_machine_config_wr_reg;
@@ -157,11 +157,10 @@ package avalon_mm_spacewire_registers_pkg is
 		rmap_win_area_offset_low_dword  : std_logic_vector(31 downto 0); -- RMAP Windowing Area Offset (Low Dword)
 	end record t_comm_rmap_memory_config_wr_reg;
 
-	-- RMAP Memory Area Address Register
-	type t_comm_rmap_mem_area_addr_wr_reg is record
-		rmap_mem_area_config_base_addr : std_logic_vector(31 downto 0); -- RMAP Config Memory Area Base Address
-		rmap_mem_area_hk_base_addr     : std_logic_vector(31 downto 0); -- RMAP HouseKeeping Memory Area Base Address
-	end record t_comm_rmap_mem_area_addr_wr_reg;
+	-- RMAP Memory Area Pointer Register
+	type t_comm_rmap_mem_area_ptr_wr_reg is record
+		rmap_mem_area_ptr : std_logic_vector(31 downto 0); -- RMAP Memory Area Pointer
+	end record t_comm_rmap_mem_area_ptr_wr_reg;
 
 	-- RMAP IRQ Control Register
 	type t_comm_rmap_irq_control_wr_reg is record
@@ -272,7 +271,7 @@ package avalon_mm_spacewire_registers_pkg is
 		rmap_dev_addr_reg               : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
 		rmap_codec_config_reg           : t_comm_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
 		rmap_memory_config_reg          : t_comm_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
-		rmap_mem_area_addr_reg          : t_comm_rmap_mem_area_addr_wr_reg; -- RMAP Memory Area Address Register
+		rmap_mem_area_ptr_reg           : t_comm_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
 		rmap_irq_control_reg            : t_comm_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
 		rmap_irq_flags_clear_reg        : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
 		data_packet_dev_addr_reg        : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register

@@ -122,7 +122,7 @@ architecture RTL of ftdi_umft601a_controller_ent is
 
 	signal s_delay_cnt : natural range 0 to 2 := 0;
 
---	signal s_umft601a_clock : std_logic;
+	--	signal s_umft601a_clock : std_logic;
 
 	signal s_rx_wrreq_protected : std_logic;
 	signal s_tx_rdreq_protected : std_logic;
@@ -518,7 +518,9 @@ begin
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
 					s_tx_priority                    <= '0';
-					s_tx_words_cnt                   <= 1024;
+--					s_tx_words_cnt                   <= 1023;
+--					s_tx_words_cnt                   <= 511;
+					s_tx_words_cnt                   <= 1019;
 				-- conditional state transition and internal signal values
 
 				-- state "TX_INTERRUPTED"
@@ -533,7 +535,9 @@ begin
 					s_tx_interrupted                 <= '0';
 					s_tx_interrupted_data            <= (others => '0');
 					s_tx_interrupted_be              <= (others => '0');
-					s_tx_words_cnt                   <= 1024;
+--					s_tx_words_cnt                   <= 1022;
+--					s_tx_words_cnt                   <= 510;
+					s_tx_words_cnt                   <= 1018;
 				-- conditional state transition and internal signal values
 
 				-- state "TX_TRANSMITTING"
@@ -556,13 +560,12 @@ begin
 					--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					else
 						-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
-						--						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
-						if ((s_umft601a_buffered_pins.txe_n = '0')) then
+						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
 							--						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							-- umft601a module can still receive data
 							s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
 							v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
-						--							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 						--						-- check if the umft601a module can still receive data and if the tx words are over (force each write to have a maximum of 4096 Bytes)
 						--						elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt = 0)) then
 						--							s_ftdi_umft601a_controller_state <= IDLE;
@@ -571,6 +574,10 @@ begin
 							s_tx_interrupted      <= '1';
 							s_tx_interrupted_data <= s_tx_dc_data_fifo.rddata_data;
 							s_tx_interrupted_be   <= s_tx_dc_data_fifo.rddata_be;
+							if (s_tx_words_cnt = 0) then
+								s_ftdi_umft601a_controller_state <= TX_FILLING;
+								v_ftdi_umft601a_controller_state := TX_FILLING;
+							end if;
 						end if;
 					end if;
 
@@ -853,7 +860,7 @@ begin
 
 	-- signals assingments
 	-- clock and reset assingments
---	s_umft601a_clock                 <= (s_umft601a_buffered_pins.clock);
+	--	s_umft601a_clock                 <= (s_umft601a_buffered_pins.clock);
 	s_umft601a_buffered_pins.reset_n <= not (rst_i);
 
 	s_tx_dc_extended_wrusedw(s_tx_dc_data_fifo.rdusedw'length)                <= s_tx_dc_data_fifo.rdfull;
