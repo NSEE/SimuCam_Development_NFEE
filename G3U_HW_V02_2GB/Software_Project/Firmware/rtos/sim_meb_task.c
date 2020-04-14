@@ -403,15 +403,22 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 36:
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			#if DEBUG_ON
+			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
 			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bEchoing = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			#if DEBUG_ON
+			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			#endif
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
@@ -621,15 +628,22 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 36:
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			#if DEBUG_ON
+			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
 			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bEchoing = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			#if DEBUG_ON
+			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			#endif
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
