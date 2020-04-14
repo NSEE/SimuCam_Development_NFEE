@@ -13,6 +13,7 @@
 #include "data_controller.h"
 #include "feeV2.h"
 #include "ccd.h"
+#include "lut_handler.h"
 
 /* Used to get the priorities needed for the sync-reset function [bndky] */
 #include "../rtos/tasks_configurations.h"
@@ -51,6 +52,7 @@ typedef struct Simucam_MEB {
     TNData_Control xDataControl;
     TNFee_Control xFeeControl;
     TSwapControl xSwapControl;
+    TLUTStruct xLut;
 } TSimucam_MEB;
 
 extern TSimucam_MEB xSimMeb;

@@ -97,11 +97,16 @@ typedef struct {
 
 
 #define N_OF_MEB_MSG_QUEUE      32
+#define N_OF_LUT_MSG_QUEUE      8
+
 /* This Queue will synchronize the MEB task for any action that it should be aware (PUS, CHANGES in the FEE) */
 extern void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
-extern OS_EVENT *xMebQ;	
+extern OS_EVENT *xMebQ;
 extern OS_EVENT *xMutexPus;
 extern volatile tTMPus xPus[N_PUS_PIPE];
+
+extern void *xLutQTBL[N_OF_LUT_MSG_QUEUE];
+extern OS_EVENT *xLutQ;
 
 
 /*Struct used to parse the received command through UART*/

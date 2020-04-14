@@ -48,8 +48,9 @@
 #define FEE_COTROL_TASK_PRIO            9
 #define MEB_TASK_PRIO                   8
 #define PCP_MUTEX_PUS_QUEUE             7
-#define PCP_MUTEX_DMA_1                 6
-#define PCP_MUTEX_DMA_0                 4
+#define LUT_TASK_PRIO            		6
+#define PCP_MUTEX_DMA_1                 5
+//#define PCP_MUTEX_DMA_0                 4
 
 #define STACK_MONITOR_TASK_PRIO			16   /* High*/
 
@@ -88,7 +89,7 @@
 #define FEES_STACK_SIZE             FEE_TASK_STACKSIZE
 #define MEB_STACK_SIZE              FEE_TASK_STACKSIZE /*todo: Maybe should increase in later versions*/
 #define SYNC_RESET_STACK_SIZE       TINY_TASK_STACKSIZE /*[bndky]*/
-
+#define LUT_STACK_SIZE             TINY_TASK_STACKSIZE
 
 /* -------------- Definition of Stacks------------------ */
 extern OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
@@ -114,6 +115,7 @@ extern OS_STK    vFeeTask3_stk[FEES_STACK_SIZE];
 extern OS_STK    vFeeTask4_stk[FEES_STACK_SIZE];
 extern OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
 extern OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
+extern OS_STK    vLUT_stk[LUT_STACK_SIZE];
 /* -------------- Definition of Stacks------------------ */
 
 
@@ -168,7 +170,7 @@ extern OS_EVENT *xSemCountSenderACK;
 extern OS_EVENT *xMutexSenderACK;
 
 OS_EVENT *xMutexTranferBuffer;
-
+extern OS_EVENT *xMutexDMAFTDI;
 
 /* Struct for the DMA control */
 typedef struct Dma{
