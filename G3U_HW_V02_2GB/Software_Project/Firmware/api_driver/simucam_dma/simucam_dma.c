@@ -645,7 +645,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 		// Transfer size is not a multiple of 32
 		uliRoundedTransferSizeInBytes = (alt_u32)(((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) & 0xFFFFFFE0) + 32);
 	} else {
-		uliRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
+		uliRoundedTransferSizeInBytes = (alt_u32)(SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
 	}
 
 	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
@@ -876,7 +876,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 		// Transfer size is not a multiple of 32
 		uliRoundedTransferSizeInBytes = (alt_u32)(((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) & 0xFFFFFFE0) + 32);
 	} else {
-		uliRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
+		uliRoundedTransferSizeInBytes = (alt_u32)(SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
 	}
 
 	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)

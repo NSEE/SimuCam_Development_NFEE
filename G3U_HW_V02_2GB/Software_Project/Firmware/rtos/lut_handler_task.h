@@ -16,6 +16,7 @@
 #include "../utils/queue_commands_list.h"
 #include "../api_driver/simucam_dma/simucam_dma.h"
 #include "../driver/comm/data_packet/data_packet.h"
+#include "../driver/comm/windowing/windowing.h"
 #include "../utils/communication_configs.h"
 #include "../utils/error_handler_simucam.h"
 #include "../driver/ftdi/ftdi.h"

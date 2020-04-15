@@ -686,7 +686,7 @@ bool bRmapGetCodecError(TRmapChannel *pxRmapCh) {
 	return bStatus;
 }
 
-bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh) {
+bool bRmapSetMemConfig(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -694,7 +694,7 @@ bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
 
-		*(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt) = *(pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt);
+		vpxCommChannel->xRmap.xRmapMemConfig  = pxRmapCh->xRmapMemConfig;
 
 		bStatus = TRUE;
 	}
@@ -702,7 +702,7 @@ bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh) {
 	return bStatus;
 }
 
-bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh) {
+bool bRmapGetMemConfig(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -710,7 +710,7 @@ bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
 
-		*(pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt) = *(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt);
+		pxRmapCh->xRmapMemConfig = vpxCommChannel->xRmap.xRmapMemConfig;
 
 		bStatus = TRUE;
 	}
@@ -718,7 +718,7 @@ bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh) {
 	return bStatus;
 }
 
-bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh) {
+bool bRmapGetMemStatus(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -735,7 +735,9 @@ bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh) {
 	return bStatus;
 }
 
-bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
+bool bRmapSetRmapMemCfgArea(TRmapChannel *pxRmapCh) {
+	bool bStatus = TRUE;
+	/*
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -743,16 +745,57 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
 
-		*(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt) = *(pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt);
+		vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig = pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig;
 
 		bStatus = TRUE;
 	}
+	*/
+
+	return bStatus;
+}
+
+bool bRmapGetRmapMemCfgArea(TRmapChannel *pxRmapCh) {
+	bool bStatus = TRUE;
+	/*
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxRmapCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
+
+		pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig;
+
+		bStatus = TRUE;
+	}
+	*/
+
+	return bStatus;
+}
+
+bool bRmapSetRmapMemHkArea(TRmapChannel *pxRmapCh) {
+	bool bStatus = TRUE;
+	/*
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxRmapCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
+
+		vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk = pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk;
+
+		bStatus = TRUE;
+	}
+	*/
 
 	return bStatus;
 
 }
 
-bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh) {
+bool bRmapGetRmapMemHkArea(TRmapChannel *pxRmapCh) {
+	bool bStatus = TRUE;
+	/*
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -760,10 +803,11 @@ bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
 
-		*(pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt) = *(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt);
+		pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk;
 
 		bStatus = TRUE;
 	}
+	*/
 
 	return bStatus;
 }
@@ -856,13 +900,16 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 			if (!bRmapGetCodecStatus(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bRmapGetMemConfigArea(pxRmapCh)) {
+			if (!bRmapGetMemConfig(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bRmapGetMemConfigStat(pxRmapCh)) {
+			if (!bRmapGetMemStatus(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bRmapGetRmapMemHKArea(pxRmapCh)) {
+			if (!bRmapGetRmapMemCfgArea(pxRmapCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapGetRmapMemHkArea(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
 

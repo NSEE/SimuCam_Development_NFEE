@@ -269,7 +269,7 @@ void vFTDIAbort(void);
 alt_u8 ucFTDIGetError(void);
 alt_u32 uliFTDInDataLeftInBuffer(void);
 bool bFTDIRequestFullImage(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight);
-bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight);
+bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight, alt_u32 uliLutLengthBytes);
 void vFTDIResetFullImage(void);
 void vFTDIResetWindowArea(void);
 void vFTDIRxBufferIRQHandler(void* pvContext);

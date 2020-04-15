@@ -7,7 +7,7 @@
 
 #include "lut_handler.h"
 
-void vLutInit( TLUTStruct *pLut  ) {
+void vLutInit( TLUTStruct *pLut ) {
 	unsigned char ucIL;
 
 	for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
@@ -20,6 +20,7 @@ void vLutInit( TLUTStruct *pLut  ) {
 	pLut->ucDdrNumber = MEMORY_NUMBER_LUT;
 	pLut->ulSize = SIZE_LUT;
 }
+
 /*#define SIZE_LUT	‭		8388608‬
-#define MEMORY_NUMBER_LUT	‭0
+#define MEMORY_NUMBER_LUT	‭1
 #define INITIAL_ADDR_LUT	‭‭2042626048‬	*/

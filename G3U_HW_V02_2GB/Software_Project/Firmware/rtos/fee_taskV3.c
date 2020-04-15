@@ -77,9 +77,9 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
-				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x00; /*Off*/
-				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+				bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
@@ -162,9 +162,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
-				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x00; /*On mode*/
-				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+				bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
@@ -227,9 +227,9 @@ void vFeeTaskV3(void *task_data) {
 			case sStandby_Enter:
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
-				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x04; /*sFeeStandBy*/
-				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+				bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 
 				/* [rfranca] */
 				/* removed for Tiago in 15/12 */
@@ -909,67 +909,67 @@ void vFeeTaskV3(void *task_data) {
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				if (xTrans.bFirstT == TRUE) {
 					xTrans.bFirstT = FALSE;
-					bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+					bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 					switch ( pxNFee->xControl.eMode ) {
 
 						case sOn: /*0x0*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0x0) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x0;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sFullPattern: /*0x1*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0x1) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x1;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sWinPattern:/*0x2*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0x2) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x2;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sStandBy: /*0x4*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0x4) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x4;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sFullImage:/*0x6*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0x6) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x6;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sWindowing:/*0x5*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0x5) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x5;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sParTrap1:/*0x9*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0x9) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x9;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sParTrap2:/*0xA*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0xA) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0xA;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sSerialTrap1:/*0xB*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0xB) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0xB;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sSerialTrap2:/*0xC*/
 							if (pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode != 0xC) {
 								pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0xC;
-								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						default:
@@ -2299,7 +2299,7 @@ void vInitialConfig_DpktPacket( TNFee *pxNFeeP ) {
 /* Initializing the the values of the HK memory area, only during dev*/
 void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 
-	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+	bRmapGetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1 = 0xFF00;
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2 = 0xFF01;
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3 = 0xFF02;
@@ -2364,7 +2364,7 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon = 0xFF3D;
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA = 0xFF3E;
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB = 0xFF3F;
-	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+	bRmapSetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 }
 
 /**
@@ -2386,7 +2386,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliV
 	usiValue = (unsigned short int) uliValue;
 
 	/* Load current values */
-	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+	bRmapGetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 
 	/* TODO: Verif which HK is 32bit, future, for now all regs are 16bit */
 	/* Switch case to assign value to register */
@@ -2591,7 +2591,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliV
 		break;
 	}
 
-	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+	bRmapSetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 
 }
 

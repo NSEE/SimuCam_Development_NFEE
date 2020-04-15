@@ -881,7 +881,10 @@ void bInitFTDI(void){
 	vFTDIIrqRxBuffLastRdableEn(TRUE);
 	vFTDIIrqRxBuffLastEmptyEn(TRUE);
 	vFTDIIrqRxCommErrEn(TRUE);
+	vFTDIIrqTxFinishedEn(TRUE);
+	vFTDIIrqTxCommErrEn(TRUE);
 	vFTDIIrqGlobalEn(TRUE);
 	bFTDIIrqRxBuffInit();
+	bFTDIIrqTxBuffInit();
 
 }

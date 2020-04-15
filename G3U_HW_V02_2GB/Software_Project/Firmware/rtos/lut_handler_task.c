@@ -33,6 +33,12 @@ void vLutHandlerTask(void *task_data) {
 		switch (pxMebC->xLut.eState) {
 			case sInitLut:
 
+				/* Clear RMAP Windowing Area and set memory offset for the RMAP codec [rfranca] */
+				for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+					bWindClearWindowingArea(pxMebC->xLut.ucDdrNumber, pxMebC->xLut.ulInitialAddr[ucIL], pxMebC->xLut.ulSize);
+					bWindSetWindowingAreaOffset(ucIL, pxMebC->xLut.ucDdrNumber, pxMebC->xLut.ulInitialAddr[ucIL]);
+				}
+
 				pxMebC->xLut.eState = sRunLut;
 				break;
 			case sConfigLut:
@@ -77,13 +83,22 @@ void vLutHandlerTask(void *task_data) {
 
 				if ( ucIReq < N_OF_NFEE ) {
 					if ( pxMebC->xLut.bUpdatedRam[ucIReq] == TRUE ) {
+
 						vFTDIAbort();
 						vFTDIClear();
 						vFTDIStart();
+
 						/*Request send LUT to the NUC*/
-						bSuccess = bFTDITransmitWindowArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight);
+						vFTDIResetWindowArea();
+						bWindCopyCcdXWindowingConfig(ucIReq);
+						bSuccess = bFTDITransmitWindowArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight, pxMebC->xLut.ulSize);
 						if ( bSuccess == FALSE ) {
-							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
+
+							if (pxMebC->xLut.ucDdrNumber == 0) {
+								bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
+							} else {
+								bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
+							}
 
 							if ( bDmaReturn == TRUE ) {
 
@@ -96,6 +111,7 @@ void vLutHandlerTask(void *task_data) {
 								}
 								#endif
 							}
+
 						} else {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

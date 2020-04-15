@@ -11,7 +11,7 @@
 #include "../simucam_definitions.h"
 
 #define SIZE_LUT			8388608		/* Bytes - 8 MB*/
-#define MEMORY_NUMBER_LUT	0			/* Which memory is the LUT*/
+#define MEMORY_NUMBER_LUT	1			/* Which memory is the LUT*/
 #define INITIAL_ADDR_LUT	2042626048	/* Initial addr 2GB - 100MB */
 #define JUMP_ADDR_LUT		1024		/* Initial addr 2GB - 100MB */
 

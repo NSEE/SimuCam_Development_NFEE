@@ -99,13 +99,16 @@ bool bRmapGetCodecStatus(TRmapChannel *pxRmapCh);
 
 bool bRmapGetCodecError(TRmapChannel *pxRmapCh);
 
-bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh);
-bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh);
+bool bRmapGetMemStatus(TRmapChannel *pxRmapCh);
 
-bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh);
+bool bRmapSetMemConfig(TRmapChannel *pxRmapCh);
+bool bRmapGetMemConfig(TRmapChannel *pxRmapCh);
 
-bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh);
-bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh);
+bool bRmapSetRmapMemCfgArea(TRmapChannel *pxRmapCh);
+bool bRmapGetRmapMemCfgArea(TRmapChannel *pxRmapCh);
+
+bool bRmapSetRmapMemHkArea(TRmapChannel *pxRmapCh);
+bool bRmapGetRmapMemHkArea(TRmapChannel *pxRmapCh);
 
 bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh);
 

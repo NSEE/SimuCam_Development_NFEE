@@ -82,10 +82,10 @@ bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 u
     return bStatus;
 }
 
-bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight){
+bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight, alt_u32 uliLutLengthBytes){
     bool bStatus = FALSE;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-    if ((usiHalfWidth <= 2295 ) && (usiHeight <= 4540)) {
+    if ((ucFee < 6) && (usiHalfWidth <= 2295 ) && (usiHeight <= 4540) && (uliLutLengthBytes <= FTDI_WIN_AREA_PAYLOAD_SIZE)) {
         vpxFtdiModule->xFtdiLutTransControl.ucLutFeeNumber = ucFee;
         vpxFtdiModule->xFtdiLutTransControl.ucLutCcdNumber = 0;
         vpxFtdiModule->xFtdiLutTransControl.ucLutCcdSide = 0;
@@ -93,7 +93,7 @@ bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeig
         vpxFtdiModule->xFtdiLutTransControl.usiLutCcdWidth = usiHalfWidth;
         vpxFtdiModule->xFtdiLutTransControl.usiLutCcdHeight = usiHeight;
         vpxFtdiModule->xFtdiLutTransControl.usiLutTransTimeout = 0;
-        vpxFtdiModule->xFtdiLutTransControl.uliLutLengthBytes = FTDI_WIN_AREA_WINDOING_SIZE + FTDI_WIN_AREA_PAYLOAD_SIZE;
+        vpxFtdiModule->xFtdiLutTransControl.uliLutLengthBytes = FTDI_WIN_AREA_WINDOING_SIZE + uliLutLengthBytes;
         vpxFtdiModule->xFtdiLutTransControl.bTransmitLut = TRUE;
         bStatus = TRUE;
     }
