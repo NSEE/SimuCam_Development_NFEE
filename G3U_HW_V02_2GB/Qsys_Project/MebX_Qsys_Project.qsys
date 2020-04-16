@@ -2567,7 +2567,7 @@
    kind="COMM_Pedreiro_v1_01"
    version="2.2"
    enabled="0" />
- <module name="FTDI_USB3_0" kind="FTDI_USB3" version="2.0" enabled="1" />
+ <module name="FTDI_USB3_0" kind="FTDI_USB3" version="2.1" enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
    kind="SEVEN_SEGMENT_CONTROLLER"

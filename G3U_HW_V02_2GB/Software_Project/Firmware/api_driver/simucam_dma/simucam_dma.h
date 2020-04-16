@@ -148,10 +148,8 @@ bool bSdmaInitFtdiRxDma(void);
 bool bSdmaInitFtdiTxDma(void);
 bool bSdmaResetChDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait);
 bool bSdmaResetFtdiDma(bool bWait);
-bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlocks,
-		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
-bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlocks,
-		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
 bool bSdmaSetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
 bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBytes, alt_u8 ucFtdiOperation);
 bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBytes, alt_u8 ucFtdiOperation);

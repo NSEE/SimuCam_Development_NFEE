@@ -867,8 +867,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 		break;
 	}
 
-	uliSrcAddrLow = (alt_u32) SDMA_M2_BASE_ADDR_LOW
-			+ (alt_u32) uliDdrInitialAddr;
+	uliSrcAddrLow = (alt_u32) SDMA_M2_BASE_ADDR_LOW + (alt_u32) uliDdrInitialAddr;
 	uliSrcAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
 
 	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
@@ -888,9 +887,11 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 	}
 
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (uliTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
+
 		if (pxDmaM2TransferDev != NULL) {
 			// reset the dma device
 			bSdmaResetChDma(ucChBufferId, ucBufferSide, TRUE);
+			// hold transfers for descriptor fifo space
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 				alt_busy_sleep(1); /* delay 1us */
 			}
@@ -902,8 +903,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)) {
 				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev,
-						&xDmaExtendedDescriptor)) {
+				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev, &xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
 			}
@@ -948,8 +948,8 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_M1_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliDestAddrHigh = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
-				bOperationFlag = TRUE;
 				pxDmaM1TransferDev = pxDmaFtdiRxDev;
+				bOperationFlag = TRUE;
 			break;
 
 		default:
@@ -994,7 +994,7 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)	) {
 				/* Success = 0 */
-				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1TransferDev,	&xDmaExtendedDescriptor)) {
+				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1TransferDev, &xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
 			}
@@ -1030,8 +1030,8 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 				uliSrcAddrHigh  = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
 				uliDestAddrHigh = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
-				bOperationFlag = TRUE;
 				pxDmaM2TransferDev = pxDmaFtdiTxDev;
+				bOperationFlag = TRUE;
 			break;
 
 		case eSdmaRxFtdi:
@@ -1039,8 +1039,8 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_M2_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliDestAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
-				bOperationFlag = TRUE;
 				pxDmaM2TransferDev = pxDmaFtdiRxDev;
+				bOperationFlag = TRUE;
 			break;
 
 		default:
@@ -1050,7 +1050,7 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 
 	// Rounding up the size to the nearest multiple of FTDI_WORD_SIZE_BYTES
-	if (uliRoundedTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
+	if (uliTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
 		// Transfer size is not a multiple of FTDI_WORD_SIZE_BYTES
 		uliRoundedTransferSizeInBytes = (alt_u32)((uliTransferSizeInBytes & 0xFFFFFFE0) + 32);
 	} else {
@@ -1066,11 +1066,13 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 
 	if ((bOperationFlag) && (bAddressFlag) && (uliRoundedTransferSizeInBytes <= FTDI_BUFFER_SIZE_TRANSFER)) {
+
 		if (pxDmaM2TransferDev != NULL) {
 
 			// reset the dma device
 			bSdmaResetFtdiDma(TRUE);
 
+			// hold transfers for descriptor fifo space
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 				alt_busy_sleep(1); /* delay 1us */
 			}
@@ -1083,8 +1085,7 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)) {
 				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev,
-						&xDmaExtendedDescriptor)) {
+				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev, &xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
 			}
@@ -1092,4 +1093,3 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 	return bStatus;
 }
-

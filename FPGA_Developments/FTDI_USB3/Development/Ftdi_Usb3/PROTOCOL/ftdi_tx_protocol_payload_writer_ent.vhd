@@ -1140,13 +1140,45 @@ begin
 	end process p_ftdi_tx_protocol_payload_writer;
 
 	-- Signals Assingments
-	s_tx_dword_0 <= buffer_rddata_i(31 downto 0);
-	s_tx_dword_1 <= buffer_rddata_i(63 downto 32);
-	s_tx_dword_2 <= buffer_rddata_i(95 downto 64);
-	s_tx_dword_3 <= buffer_rddata_i(127 downto 96);
-	s_tx_dword_4 <= buffer_rddata_i(159 downto 128);
-	s_tx_dword_5 <= buffer_rddata_i(191 downto 160);
-	s_tx_dword_6 <= buffer_rddata_i(223 downto 192);
-	s_tx_dword_7 <= buffer_rddata_i(255 downto 224);
+	-- qqword to dword 0 assigments and endianess correction 
+	s_tx_dword_0(31 downto 24) <= buffer_rddata_i(7 downto 0);
+	s_tx_dword_0(23 downto 16) <= buffer_rddata_i(15 downto 8);
+	s_tx_dword_0(15 downto 8)  <= buffer_rddata_i(23 downto 16);
+	s_tx_dword_0(7 downto 0)   <= buffer_rddata_i(31 downto 24);
+	-- qqword to dword 1 assigments and endianess correction
+	s_tx_dword_1(31 downto 24) <= buffer_rddata_i(39 downto 32);
+	s_tx_dword_1(23 downto 16) <= buffer_rddata_i(47 downto 40);
+	s_tx_dword_1(15 downto 8)  <= buffer_rddata_i(55 downto 48);
+	s_tx_dword_1(7 downto 0)   <= buffer_rddata_i(63 downto 56);
+	-- qqword to dword 2 assigments and endianess correction
+	s_tx_dword_2(31 downto 24) <= buffer_rddata_i(71 downto 64);
+	s_tx_dword_2(23 downto 16) <= buffer_rddata_i(79 downto 72);
+	s_tx_dword_2(15 downto 8)  <= buffer_rddata_i(87 downto 80);
+	s_tx_dword_2(7 downto 0)   <= buffer_rddata_i(95 downto 88);
+	-- qqword to dword 3 assigments and endianess correction
+	s_tx_dword_3(31 downto 24) <= buffer_rddata_i(103 downto 96);
+	s_tx_dword_3(23 downto 16) <= buffer_rddata_i(111 downto 104);
+	s_tx_dword_3(15 downto 8)  <= buffer_rddata_i(119 downto 112);
+	s_tx_dword_3(7 downto 0)   <= buffer_rddata_i(127 downto 120);
+	-- qqword to dword 4 assigments and endianess correction
+	s_tx_dword_4(31 downto 24) <= buffer_rddata_i(135 downto 128);
+	s_tx_dword_4(23 downto 16) <= buffer_rddata_i(143 downto 136);
+	s_tx_dword_4(15 downto 8)  <= buffer_rddata_i(151 downto 144);
+	s_tx_dword_4(7 downto 0)   <= buffer_rddata_i(159 downto 152);
+	-- qqword to dword 5 assigments and endianess correction
+	s_tx_dword_5(31 downto 24) <= buffer_rddata_i(167 downto 160);
+	s_tx_dword_5(23 downto 16) <= buffer_rddata_i(175 downto 168);
+	s_tx_dword_5(15 downto 8)  <= buffer_rddata_i(183 downto 176);
+	s_tx_dword_5(7 downto 0)   <= buffer_rddata_i(191 downto 184);
+	-- qqword to dword 6 assigments and endianess correction
+	s_tx_dword_6(31 downto 24) <= buffer_rddata_i(199 downto 192);
+	s_tx_dword_6(23 downto 16) <= buffer_rddata_i(207 downto 200);
+	s_tx_dword_6(15 downto 8)  <= buffer_rddata_i(215 downto 208);
+	s_tx_dword_6(7 downto 0)   <= buffer_rddata_i(223 downto 216);
+	-- qqword to dword 7 assigments and endianess correction
+	s_tx_dword_7(31 downto 24) <= buffer_rddata_i(231 downto 224);
+	s_tx_dword_7(23 downto 16) <= buffer_rddata_i(239 downto 232);
+	s_tx_dword_7(15 downto 8)  <= buffer_rddata_i(247 downto 240);
+	s_tx_dword_7(7 downto 0)   <= buffer_rddata_i(255 downto 248);
 
 end architecture RTL;

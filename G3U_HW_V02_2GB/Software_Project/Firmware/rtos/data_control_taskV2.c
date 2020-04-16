@@ -354,7 +354,9 @@ void vDataControlTaskV2(void *task_data) {
 
 				case sWaitForEmptyBufferIRQ:
 
-					vFTDIClear(); // [rfranca]
+					/* [rfranca] */
+					vFTDIResetFullImage();
+					vFTDIClear();
 
 					/* Default: 0-> left; 1-> right; */
 					ucSubCCDSide = ( ucSubCCDSide + 1 ) % 2;

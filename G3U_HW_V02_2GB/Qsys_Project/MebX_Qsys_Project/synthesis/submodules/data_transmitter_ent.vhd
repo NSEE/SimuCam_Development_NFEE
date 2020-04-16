@@ -428,15 +428,19 @@ begin
 					v_hkdata_active          := '0';
 					v_left_imgdata_active    := '0';
 					v_right_imgdata_active   := '0';
-					-- check if sequence counter will overflow
-					if (s_sequence_cnt = x"FFFF") then
-						-- sequence counter will overflow
-						-- clear sequence counter
-						s_sequence_cnt <= (others => '0');
-					else
-						-- sequence counter will not overflow
-						-- increment sequence counter
-						s_sequence_cnt <= std_logic_vector(unsigned(s_sequence_cnt) + 1);
+					-- check if the data was not discarded
+					if (s_discard_data = '0') then
+						-- data was not discarded, increment sequence counter
+						-- check if sequence counter will overflow
+						if (s_sequence_cnt = x"FFFF") then
+							-- sequence counter will overflow
+							-- clear sequence counter
+							s_sequence_cnt <= (others => '0');
+						else
+							-- sequence counter will not overflow
+							-- increment sequence counter
+							s_sequence_cnt <= std_logic_vector(unsigned(s_sequence_cnt) + 1);
+						end if;
 					end if;
 					-- conditional state transition and internal signal values
 					-- check if a data transmitter reset was requested

@@ -157,6 +157,8 @@ void vLutHandlerTask(void *task_data) {
 					pxMebC->xLut.bFakingLUT[ucIL] = FALSE;
 				}
 
+				vFTDIResetWindowArea();
+
 				pxMebC->xLut.eState = sRunLut;
 				break;
 

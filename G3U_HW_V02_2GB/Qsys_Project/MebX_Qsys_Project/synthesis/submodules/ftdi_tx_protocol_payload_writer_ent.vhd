@@ -19,10 +19,10 @@ entity ftdi_tx_protocol_payload_writer_ent is
 		payload_writer_reset_i        : in  std_logic;
 		payload_length_bytes_i        : in  std_logic_vector(31 downto 0);
 		payload_qqword_delay_i        : in  std_logic_vector(15 downto 0);
-		lut_winparams_ccd0_wincfg_i   : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		lut_winparams_ccd1_wincfg_i   : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		lut_winparams_ccd2_wincfg_i   : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		lut_winparams_ccd3_wincfg_i   : in  t_ftdi_lut_winparams_ccdx_wincfg;
+		lut_winparams_ccd4_wincfg_i   : in  t_ftdi_lut_winparams_ccdx_wincfg;
 		buffer_stat_empty_i           : in  std_logic;
 		buffer_rddata_i               : in  std_logic_vector(255 downto 0);
 		buffer_rdready_i              : in  std_logic;
@@ -732,89 +732,89 @@ begin
 						-- set the correct windowing parameters according to the windowing parameters counter
 						case (s_windowing_parameters_cnt) is
 							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET) =>
-								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd0_wincfg_i.ccdx_window_list_pointer;
-								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd0_wincfg_i.ccdx_window_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
-								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd0_wincfg_i.ccdx_packet_order_list_pointer;
-								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd0_wincfg_i.ccdx_packet_order_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
-								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd0_wincfg_i.ccdx_window_list_length;
-								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd0_wincfg_i.ccdx_window_list_length);
-							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
-								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd0_wincfg_i.ccdx_windows_size_x;
-								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd0_wincfg_i.ccdx_windows_size_x);
-							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
-								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd0_wincfg_i.ccdx_windows_size_y;
-								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd0_wincfg_i.ccdx_windows_size_y);
-							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
-								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd0_wincfg_i.ccdx_last_e_packet;
-								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd0_wincfg_i.ccdx_last_e_packet);
-							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
-								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd0_wincfg_i.ccdx_last_f_packet;
-								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd0_wincfg_i.ccdx_last_f_packet);
-							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd1_wincfg_i.ccdx_window_list_pointer;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd1_wincfg_i.ccdx_window_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd1_wincfg_i.ccdx_packet_order_list_pointer;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd1_wincfg_i.ccdx_packet_order_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd1_wincfg_i.ccdx_window_list_length;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd1_wincfg_i.ccdx_window_list_length);
-							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd1_wincfg_i.ccdx_windows_size_x;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd1_wincfg_i.ccdx_windows_size_x);
-							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd1_wincfg_i.ccdx_windows_size_y;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd1_wincfg_i.ccdx_windows_size_y);
-							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd1_wincfg_i.ccdx_last_e_packet;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd1_wincfg_i.ccdx_last_e_packet);
-							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd1_wincfg_i.ccdx_last_f_packet;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd1_wincfg_i.ccdx_last_f_packet);
-							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd2_wincfg_i.ccdx_window_list_pointer;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd2_wincfg_i.ccdx_window_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd2_wincfg_i.ccdx_packet_order_list_pointer;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd2_wincfg_i.ccdx_packet_order_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd2_wincfg_i.ccdx_window_list_length;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd2_wincfg_i.ccdx_window_list_length);
-							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd2_wincfg_i.ccdx_windows_size_x;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd2_wincfg_i.ccdx_windows_size_x);
-							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd2_wincfg_i.ccdx_windows_size_y;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd2_wincfg_i.ccdx_windows_size_y);
-							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd2_wincfg_i.ccdx_last_e_packet;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd2_wincfg_i.ccdx_last_e_packet);
-							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd2_wincfg_i.ccdx_last_f_packet;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd2_wincfg_i.ccdx_last_f_packet);
-							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd3_wincfg_i.ccdx_window_list_pointer;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd3_wincfg_i.ccdx_window_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd3_wincfg_i.ccdx_packet_order_list_pointer;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd3_wincfg_i.ccdx_packet_order_list_pointer);
-							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd3_wincfg_i.ccdx_window_list_length;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd3_wincfg_i.ccdx_window_list_length);
-							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd3_wincfg_i.ccdx_windows_size_x;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd3_wincfg_i.ccdx_windows_size_x);
-							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd3_wincfg_i.ccdx_windows_size_y;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd3_wincfg_i.ccdx_windows_size_y);
-							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd3_wincfg_i.ccdx_last_e_packet;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd3_wincfg_i.ccdx_last_e_packet);
-							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
+							when (c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
 								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd3_wincfg_i.ccdx_last_f_packet;
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd3_wincfg_i.ccdx_last_f_packet);
+							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET) =>
+								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd4_wincfg_i.ccdx_window_list_pointer;
+								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd4_wincfg_i.ccdx_window_list_pointer);
+							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET) =>
+								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd4_wincfg_i.ccdx_packet_order_list_pointer;
+								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd4_wincfg_i.ccdx_packet_order_list_pointer);
+							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET) =>
+								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd4_wincfg_i.ccdx_window_list_length;
+								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd4_wincfg_i.ccdx_window_list_length);
+							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET) =>
+								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd4_wincfg_i.ccdx_windows_size_x;
+								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd4_wincfg_i.ccdx_windows_size_x);
+							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET) =>
+								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd4_wincfg_i.ccdx_windows_size_y;
+								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd4_wincfg_i.ccdx_windows_size_y);
+							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET) =>
+								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd4_wincfg_i.ccdx_last_e_packet;
+								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd4_wincfg_i.ccdx_last_e_packet);
+							when (c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET + c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET) =>
+								tx_dc_data_fifo_wrdata_data_o <= lut_winparams_ccd4_wincfg_i.ccdx_last_f_packet;
+								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, lut_winparams_ccd4_wincfg_i.ccdx_last_f_packet);
 							when others =>
 								tx_dc_data_fifo_wrdata_data_o <= x"00000000";
 								s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, x"00000000");
@@ -1140,13 +1140,45 @@ begin
 	end process p_ftdi_tx_protocol_payload_writer;
 
 	-- Signals Assingments
-	s_tx_dword_0 <= buffer_rddata_i(31 downto 0);
-	s_tx_dword_1 <= buffer_rddata_i(63 downto 32);
-	s_tx_dword_2 <= buffer_rddata_i(95 downto 64);
-	s_tx_dword_3 <= buffer_rddata_i(127 downto 96);
-	s_tx_dword_4 <= buffer_rddata_i(159 downto 128);
-	s_tx_dword_5 <= buffer_rddata_i(191 downto 160);
-	s_tx_dword_6 <= buffer_rddata_i(223 downto 192);
-	s_tx_dword_7 <= buffer_rddata_i(255 downto 224);
+	-- qqword to dword 0 assigments and endianess correction 
+	s_tx_dword_0(31 downto 24) <= buffer_rddata_i(7 downto 0);
+	s_tx_dword_0(23 downto 16) <= buffer_rddata_i(15 downto 8);
+	s_tx_dword_0(15 downto 8)  <= buffer_rddata_i(23 downto 16);
+	s_tx_dword_0(7 downto 0)   <= buffer_rddata_i(31 downto 24);
+	-- qqword to dword 1 assigments and endianess correction
+	s_tx_dword_1(31 downto 24) <= buffer_rddata_i(39 downto 32);
+	s_tx_dword_1(23 downto 16) <= buffer_rddata_i(47 downto 40);
+	s_tx_dword_1(15 downto 8)  <= buffer_rddata_i(55 downto 48);
+	s_tx_dword_1(7 downto 0)   <= buffer_rddata_i(63 downto 56);
+	-- qqword to dword 2 assigments and endianess correction
+	s_tx_dword_2(31 downto 24) <= buffer_rddata_i(71 downto 64);
+	s_tx_dword_2(23 downto 16) <= buffer_rddata_i(79 downto 72);
+	s_tx_dword_2(15 downto 8)  <= buffer_rddata_i(87 downto 80);
+	s_tx_dword_2(7 downto 0)   <= buffer_rddata_i(95 downto 88);
+	-- qqword to dword 3 assigments and endianess correction
+	s_tx_dword_3(31 downto 24) <= buffer_rddata_i(103 downto 96);
+	s_tx_dword_3(23 downto 16) <= buffer_rddata_i(111 downto 104);
+	s_tx_dword_3(15 downto 8)  <= buffer_rddata_i(119 downto 112);
+	s_tx_dword_3(7 downto 0)   <= buffer_rddata_i(127 downto 120);
+	-- qqword to dword 4 assigments and endianess correction
+	s_tx_dword_4(31 downto 24) <= buffer_rddata_i(135 downto 128);
+	s_tx_dword_4(23 downto 16) <= buffer_rddata_i(143 downto 136);
+	s_tx_dword_4(15 downto 8)  <= buffer_rddata_i(151 downto 144);
+	s_tx_dword_4(7 downto 0)   <= buffer_rddata_i(159 downto 152);
+	-- qqword to dword 5 assigments and endianess correction
+	s_tx_dword_5(31 downto 24) <= buffer_rddata_i(167 downto 160);
+	s_tx_dword_5(23 downto 16) <= buffer_rddata_i(175 downto 168);
+	s_tx_dword_5(15 downto 8)  <= buffer_rddata_i(183 downto 176);
+	s_tx_dword_5(7 downto 0)   <= buffer_rddata_i(191 downto 184);
+	-- qqword to dword 6 assigments and endianess correction
+	s_tx_dword_6(31 downto 24) <= buffer_rddata_i(199 downto 192);
+	s_tx_dword_6(23 downto 16) <= buffer_rddata_i(207 downto 200);
+	s_tx_dword_6(15 downto 8)  <= buffer_rddata_i(215 downto 208);
+	s_tx_dword_6(7 downto 0)   <= buffer_rddata_i(223 downto 216);
+	-- qqword to dword 7 assigments and endianess correction
+	s_tx_dword_7(31 downto 24) <= buffer_rddata_i(231 downto 224);
+	s_tx_dword_7(23 downto 16) <= buffer_rddata_i(239 downto 232);
+	s_tx_dword_7(15 downto 8)  <= buffer_rddata_i(247 downto 240);
+	s_tx_dword_7(7 downto 0)   <= buffer_rddata_i(255 downto 248);
 
 end architecture RTL;

@@ -16,6 +16,7 @@
 //! [constants definition]
 // address
 #define COMM_WINDOING_PARAMETERS_OFST   512 /* Offset for all windowing related parameters (packet order list, etc.) */
+#define COMM_WINDOING_RMAP_AREA_OFST    0x00800000
 // bit masks
 //! [constants definition]
 

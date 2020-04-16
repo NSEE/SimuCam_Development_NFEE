@@ -518,8 +518,8 @@ begin
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
 					s_tx_priority                    <= '0';
---					s_tx_words_cnt                   <= 1023;
---					s_tx_words_cnt                   <= 511;
+					--					s_tx_words_cnt                   <= 1023;
+					--					s_tx_words_cnt                   <= 511;
 					s_tx_words_cnt                   <= 1019;
 				-- conditional state transition and internal signal values
 
@@ -535,8 +535,8 @@ begin
 					s_tx_interrupted                 <= '0';
 					s_tx_interrupted_data            <= (others => '0');
 					s_tx_interrupted_be              <= (others => '0');
---					s_tx_words_cnt                   <= 1022;
---					s_tx_words_cnt                   <= 510;
+					--					s_tx_words_cnt                   <= 1022;
+					--					s_tx_words_cnt                   <= 510;
 					s_tx_words_cnt                   <= 1018;
 				-- conditional state transition and internal signal values
 
