@@ -81,7 +81,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
 
 		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {

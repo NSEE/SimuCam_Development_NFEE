@@ -92,7 +92,7 @@ void vLutHandlerTask(void *task_data) {
 						vFTDIResetWindowArea();
 						bWindCopyCcdXWindowingConfig(ucIReq);
 						bSuccess = bFTDITransmitWindowArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight, pxMebC->xLut.ulSize);
-						if ( bSuccess == FALSE ) {
+						if ( bSuccess == TRUE ) {
 
 							if (pxMebC->xLut.ucDdrNumber == 0) {
 								bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
