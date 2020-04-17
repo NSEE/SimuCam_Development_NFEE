@@ -127,6 +127,8 @@ architecture rtl of rmap_target_write_ent is
 	signal s_write_address_vector : std_logic_vector(39 downto 0);
 	signal s_byte_counter_vector  : std_logic_vector(23 downto 0);
 
+	signal s_last_byte_written : std_logic;
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
@@ -166,6 +168,7 @@ begin
 			v_byte_counter                 := (others => '0');
 			s_write_data_crc               <= x"00";
 			s_write_data_crc_ok            <= '0';
+			s_last_byte_written            <= '0';
 			-- Outputs Generation
 			flags_o.write_data_indication  <= '0';
 			flags_o.write_operation_failed <= '0';
@@ -199,6 +202,7 @@ begin
 					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
+					s_last_byte_written            <= '0';
 					-- conditional state transition and internal signal values
 					-- check if user application authorized a write
 					if (control_i.write_authorization = '1') then
@@ -208,18 +212,20 @@ begin
 						-- prepare byte counter for multi-byte write data
 						s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 						v_byte_counter                 := std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
-						-- check if the data need to be verified before written
-						if (headerdata_i.instruction_verify_data_before_write = '1') then
-							-- data does need to be verified to be written
-							-- go to waiting buffer data
-							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
-							v_rmap_target_write_state := WAITING_BUFFER_DATA;
-						else
-							-- data does not need to be verified to be written
-							-- go to write memory data
-							s_rmap_target_write_state <= WRITE_DATA;
-							v_rmap_target_write_state := WRITE_DATA;
-						end if;
+						--						-- check if the data need to be verified before written
+						--						if (headerdata_i.instruction_verify_data_before_write = '1') then
+						--							-- data does need to be verified to be written
+						--							-- go to waiting buffer data
+						--							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+						--							v_rmap_target_write_state := WAITING_BUFFER_DATA;
+						--						else
+						--							-- data does not need to be verified to be written
+						--							-- go to write memory data
+						--							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+						--							v_rmap_target_write_state := WAITING_BUFFER_DATA;
+						--						end if;
+						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+						v_rmap_target_write_state      := WAITING_BUFFER_DATA;
 						-- prepare for next field (data field)
 						s_rmap_target_write_next_state <= FIELD_DATA;
 					-- check if a write request was not authorized by the user application
@@ -273,11 +279,12 @@ begin
 					v_byte_counter                 := (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if all data has been written
-					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
-						-- all data written
-						-- go to next field (data crc)
-						s_rmap_target_write_next_state <= FIELD_DATA_CRC;
-					else
+					if not ((s_byte_counter = c_BYTE_COUNTER_ZERO) and (s_last_byte_written = '1')) then
+						--					if ((s_byte_counter = c_BYTE_COUNTER_ZERO) and (s_last_byte_written = '1')) then
+						--						-- all data written
+						--						-- go to next field (data crc)
+						--						s_rmap_target_write_next_state <= FIELD_DATA_CRC;
+						--					else
 						-- there is still more data to be written
 						-- check if the data need to be verified before written
 						if not (headerdata_i.instruction_verify_data_before_write = '1') then
@@ -285,21 +292,31 @@ begin
 							-- go to write memory data
 							s_rmap_target_write_state <= WRITE_DATA;
 							v_rmap_target_write_state := WRITE_DATA;
-							-- check if memory address need to be incremented
-							if (headerdata_i.instruction_increment_address = '1') then
-								-- increment memory address (for next data)
-								s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
-							end if;
-							-- check if byte counter can to be incremented (else it will be reseted)
-							if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
-								-- can be incremented without overflowing
-								s_write_byte_counter <= s_write_byte_counter + 1;
+							-- check if it is the last byte
+							if (s_byte_counter /= c_BYTE_COUNTER_ZERO) then
+								-- not the last byte
+								-- check if memory address need to be incremented
+								if (headerdata_i.instruction_increment_address = '1') then
+									-- increment memory address (for next data)
+									s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
+								end if;
+								-- check if byte counter can to be incremented (else it will be reseted)
+								if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
+									-- can be incremented without overflowing
+									s_write_byte_counter <= s_write_byte_counter + 1;
+								end if;
 							end if;
 						end if;
 						-- update byte counter (for next byte)
-						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
-						v_byte_counter := std_logic_vector(unsigned(s_byte_counter) - 1);
-
+						if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
+							--						-- all data written
+							--						-- go to next field (data crc)
+							s_rmap_target_write_next_state <= FIELD_DATA_CRC;
+							s_last_byte_written            <= '1';
+						else
+							s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
+							v_byte_counter := std_logic_vector(unsigned(s_byte_counter) - 1);
+						end if;
 					end if;
 
 				-- state "FIELD_DATA_CRC"
@@ -314,6 +331,7 @@ begin
 					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
+					s_last_byte_written            <= '0';
 					-- conditional state transition and internal signal values
 					if (s_write_data_crc = spw_flag_i.data) then
 						s_write_data_crc_ok <= '1';
@@ -330,6 +348,7 @@ begin
 					s_byte_counter                 <= (others => '0');
 					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
+					s_last_byte_written            <= '0';
 					-- conditional state transition and internal signal values
 					-- check if an end of package arrived
 					if (spw_flag_i.flag = '1') then
@@ -366,7 +385,7 @@ begin
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
 					-- check if all data has been written
-					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
+					if ((s_byte_counter = c_BYTE_COUNTER_ZERO) and (s_last_byte_written = '1')) then
 						-- all data written
 						-- finish write operation
 						s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
@@ -374,18 +393,22 @@ begin
 						s_rmap_target_write_next_state <= IDLE;
 					else
 						-- there is still more data to be written
-						-- update byte counter (for next byte)
-						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
-						v_byte_counter := std_logic_vector(unsigned(s_byte_counter) - 1);
-						-- check if memory address need to be incremented
-						if (headerdata_i.instruction_increment_address = '1') then
-							-- increment memory address (for next data)
-							s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
-						end if;
-						-- check if byte counter can to be incremented (else it will be reseted)
-						if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
-							-- can be incremented without overflowing
-							s_write_byte_counter <= s_write_byte_counter + 1;
+						if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
+							s_last_byte_written <= '1';
+						else
+							-- update byte counter (for next byte)
+							s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
+							v_byte_counter := std_logic_vector(unsigned(s_byte_counter) - 1);
+							-- check if memory address need to be incremented
+							if (headerdata_i.instruction_increment_address = '1') then
+								-- increment memory address (for next data)
+								s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
+							end if;
+							-- check if byte counter can to be incremented (else it will be reseted)
+							if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
+								-- can be incremented without overflowing
+								s_write_byte_counter <= s_write_byte_counter + 1;
+							end if;
 						end if;
 					end if;
 
@@ -400,7 +423,7 @@ begin
 					-- conditional state transition and internal signal values
 					-- check if a memory error occurred
 					-- check if the memory is ready for more data
-					if (mem_flag_i.ready = '1') then
+					if (mem_flag_i.waitrequest = '0') then
 						-- memory is ready for more data
 						-- check if the data need to be verified before written
 						if (headerdata_i.instruction_verify_data_before_write = '1') then
@@ -475,6 +498,7 @@ begin
 					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
+					s_last_byte_written            <= '0';
 					-- conditional state transition and internal signal values
 					if (control_i.write_reset = '1') then
 						-- write reset commanded, go back to idle
@@ -549,7 +573,7 @@ begin
 						-- write data in verify buffer
 						s_write_verify_buffer(to_integer(unsigned(s_byte_counter))) <= spw_flag_i.data;
 					else
-						mem_control_o.write <= '1';
+						mem_control_o.write <= '0';
 						mem_control_o.data  <= spw_flag_i.data;
 						-- check if memory access is more than one byte
 						if (c_MEMORY_ACCESS_SIZE > 1) then
@@ -607,7 +631,7 @@ begin
 					flags_o.write_data_discarded   <= '0';
 					spw_control_o.read             <= '0';
 					-- default output signals
-					mem_control_o.write            <= '1';
+					mem_control_o.write            <= '0';
 					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(v_byte_counter)));
 					-- conditional output signals
 					-- check if memory access is more than one byte
@@ -628,7 +652,7 @@ begin
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
 					spw_control_o.read             <= '0';
-					mem_control_o.write            <= '0';
+					mem_control_o.write            <= '1';
 				-- conditional output signals
 
 				-- state "UNEXPECTED_PACKAGE_END"

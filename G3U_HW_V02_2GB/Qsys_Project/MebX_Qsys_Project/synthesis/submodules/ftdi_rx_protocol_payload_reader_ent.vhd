@@ -1088,13 +1088,13 @@ begin
 				when FETCH_RX_DWORD_1 =>
 					-- fetch rx dword data 1 (32b)
 					-- default output signals
-					payload_reader_busy_o <= '1';
-					payload_crc32_match_o <= '0';
-					payload_eop_error_o   <= '0';
-					payload_last_rx_buffer_o  <= '0';
-					buffer_data_loaded_o  <= '0';
-					buffer_wrdata_o       <= (others => '0');
-					buffer_wrreq_o        <= '0';
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1129,13 +1129,13 @@ begin
 				when FETCH_RX_DWORD_2 =>
 					-- fetch rx dword data 2 (32b)
 					-- default output signals
-					payload_reader_busy_o <= '1';
-					payload_crc32_match_o <= '0';
-					payload_eop_error_o   <= '0';
-					payload_last_rx_buffer_o  <= '0';
-					buffer_data_loaded_o  <= '0';
-					buffer_wrdata_o       <= (others => '0');
-					buffer_wrreq_o        <= '0';
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1170,13 +1170,13 @@ begin
 				when FETCH_RX_DWORD_3 =>
 					-- fetch rx dword data 3 (32b)
 					-- default output signals
-					payload_reader_busy_o <= '1';
-					payload_crc32_match_o <= '0';
-					payload_eop_error_o   <= '0';
-					payload_last_rx_buffer_o  <= '0';
-					buffer_data_loaded_o  <= '0';
-					buffer_wrdata_o       <= (others => '0');
-					buffer_wrreq_o        <= '0';
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1211,13 +1211,13 @@ begin
 				when FETCH_RX_DWORD_4 =>
 					-- fetch rx dword data 4 (32b)
 					-- default output signals
-					payload_reader_busy_o <= '1';
-					payload_crc32_match_o <= '0';
-					payload_eop_error_o   <= '0';
-					payload_last_rx_buffer_o  <= '0';
-					buffer_data_loaded_o  <= '0';
-					buffer_wrdata_o       <= (others => '0');
-					buffer_wrreq_o        <= '0';
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1252,13 +1252,13 @@ begin
 				when FETCH_RX_DWORD_5 =>
 					-- fetch rx dword data 5 (32b)
 					-- default output signals
-					payload_reader_busy_o <= '1';
-					payload_crc32_match_o <= '0';
-					payload_eop_error_o   <= '0';
-					payload_last_rx_buffer_o  <= '0';
-					buffer_data_loaded_o  <= '0';
-					buffer_wrdata_o       <= (others => '0');
-					buffer_wrreq_o        <= '0';
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1293,13 +1293,13 @@ begin
 				when FETCH_RX_DWORD_6 =>
 					-- fetch rx dword data 6 (32b)
 					-- default output signals
-					payload_reader_busy_o <= '1';
-					payload_crc32_match_o <= '0';
-					payload_eop_error_o   <= '0';
-					payload_last_rx_buffer_o  <= '0';
-					buffer_data_loaded_o  <= '0';
-					buffer_wrdata_o       <= (others => '0');
-					buffer_wrreq_o        <= '0';
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
 					-- conditional output signals
 					-- check if the word need to be fetched
 					if (v_fetch_dword = '1') then
@@ -1334,14 +1334,14 @@ begin
 				when FETCH_RX_DWORD_7 =>
 					-- fetch rx dword data 7 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
 					-- conditional output signals
 					-- check if the word need to be read
 					if (v_read_dword = '1') then
@@ -1373,7 +1373,7 @@ begin
 					payload_reader_busy_o           <= '1';
 					payload_crc32_match_o           <= '0';
 					payload_eop_error_o             <= '0';
-					payload_last_rx_buffer_o            <= '0';
+					payload_last_rx_buffer_o        <= '0';
 					rx_dc_data_fifo_rdreq_o         <= '0';
 					buffer_data_loaded_o            <= '0';
 					buffer_wrdata_o(31 downto 0)    <= s_rx_dword_0;
@@ -1395,22 +1395,22 @@ begin
 				when WAITING_QQWORD_DELAY =>
 					-- wait until the qqword delay is finished
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 					-- conditional output signals
 					-- check if it is the last buffer
 					if (unsigned(s_payload_length_cnt) < 4) then
@@ -1421,22 +1421,22 @@ begin
 				when WRITE_DELAY =>
 					-- write delay
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 					-- conditional output signals
 					-- check if it is the last buffer
 					if (unsigned(s_payload_length_cnt) < 4) then
@@ -1447,22 +1447,22 @@ begin
 				when CHANGE_BUFFER =>
 					-- change rx buffer
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 					-- conditional output signals
 					-- check if it is the last buffer
 					if (unsigned(s_payload_length_cnt) < 4) then
@@ -1473,135 +1473,135 @@ begin
 				when LOAD_BUFFER =>
 					-- load rx buffer
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '1';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '1';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '1';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '1';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 				-- conditional output signals
 
 				-- state "WAITING_RX_DATA_CRC"
 				when WAITING_RX_DATA_CRC =>
 					-- wait until there is enough data in the rx fifo for the crc
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '1';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '1';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 				-- conditional output signals
 
 				-- state "PAYLOAD_RX_PAYLOAD_CRC"
 				when PAYLOAD_RX_PAYLOAD_CRC =>
 					-- fetch and parse the payload crc to the rx fifo
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '1';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '1';
+					rx_dc_data_fifo_rdreq_o  <= '1';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 				-- conditional output signals
 
 				-- state "WAITING_RX_DATA_EOP"
 				when WAITING_RX_DATA_EOP =>
 					-- wait until there is enough data in the rx fifo for the eop
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= (others => '0');
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '1';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					s_payload_crc32          <= (others => '0');
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '1';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 				-- conditional output signals
 
 				-- state "PAYLOAD_RX_END_OF_PAYLOAD"
 				when PAYLOAD_RX_END_OF_PAYLOAD =>
 					-- fetch and parse a end of payload to the rx fifo
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= (others => '0');
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '1';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					s_payload_crc32          <= (others => '0');
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '1';
+					rx_dc_data_fifo_rdreq_o  <= '1';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 				-- conditional output signals
 
 				-- state "PAYLOAD_RX_ABORT"
 				when PAYLOAD_RX_ABORT =>
 					-- abort a payload receival (consume all data in the rx fifo)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= (others => '0');
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					payload_last_rx_buffer_o    <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '1';
+					s_payload_crc32          <= (others => '0');
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 					-- conditional output signals
 					-- check if the rx fifo must be read
 					if (v_read_dword = '1') then
@@ -1612,23 +1612,23 @@ begin
 				when FINISH_PAYLOAD_RX =>
 					-- finish the payload read
 					-- default output signals
-					payload_reader_busy_o   <= '0';
-					s_payload_crc32         <= (others => '0');
-					payload_crc32_match_o   <= s_payload_crc32_match;
-					payload_eop_error_o     <= s_payload_eop_error;
-					payload_last_rx_buffer_o    <= '1';
-					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= (others => '0');
-					s_rx_dword_1            <= (others => '0');
-					s_rx_dword_2            <= (others => '0');
-					s_rx_dword_3            <= (others => '0');
-					s_rx_dword_4            <= (others => '0');
-					s_rx_dword_5            <= (others => '0');
-					s_rx_dword_6            <= (others => '0');
-					s_rx_dword_7            <= (others => '0');
+					payload_reader_busy_o    <= '0';
+					s_payload_crc32          <= (others => '0');
+					payload_crc32_match_o    <= s_payload_crc32_match;
+					payload_eop_error_o      <= s_payload_eop_error;
+					payload_last_rx_buffer_o <= '1';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 					-- conditional output signals
 
 			end case;

@@ -39,6 +39,19 @@ package ftdi_protocol_pkg is
 	constant c_FTDI_PROT_EXPOSURE_NUMBER_SIZE : natural := 16;
 	constant c_FTDI_PROT_PAYLOAD_LENGTH_SIZE  : natural := 32;
 
+	constant c_FTDI_LUT_WINPARAMS_CCD0_WINCFG_OFFSET : natural := 256;
+	constant c_FTDI_LUT_WINPARAMS_CCD1_WINCFG_OFFSET : natural := 320;
+	constant c_FTDI_LUT_WINPARAMS_CCD2_WINCFG_OFFSET : natural := 384;
+	constant c_FTDI_LUT_WINPARAMS_CCD3_WINCFG_OFFSET : natural := 448;
+
+	constant c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_PRT_OFFSET       : natural := 0;
+	constant c_FTDI_LUT_WINPARAMS_CCDx_PKT_ORDER_LIST_PRT_OFFSET : natural := 4;
+	constant c_FTDI_LUT_WINPARAMS_CCDx_WIN_LIST_LENGTH_OFFSET    : natural := 8;
+	constant c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_X_OFFSET        : natural := 12;
+	constant c_FTDI_LUT_WINPARAMS_CCDx_WIND_SIZE_Y_OFFSET        : natural := 16;
+	constant c_FTDI_LUT_WINPARAMS_CCDx_LAST_E_PKT_OFFSET         : natural := 20;
+	constant c_FTDI_LUT_WINPARAMS_CCDx_LAST_F_PKT_OFFSET         : natural := 24;
+
 	type t_ftdi_prot_header_img_sel is record
 		fee_number : std_logic_vector((c_FTDI_PROT_IMG_SEL_FEE_NUMBER_SIZE - 1) downto 0);
 		ccd_number : std_logic_vector((c_FTDI_PROT_IMG_SEL_CCD_NUMBER_SIZE - 1) downto 0);
@@ -110,6 +123,16 @@ package ftdi_protocol_pkg is
 		exposure_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_EXPOSURE_NUMBER_SIZE)),
 		payload_length  => std_logic_vector(to_unsigned(0, c_FTDI_PROT_PAYLOAD_LENGTH_SIZE))
 	);
+
+	type t_ftdi_lut_winparams_ccdx_wincfg is record
+		ccdx_window_list_pointer       : std_logic_vector(31 downto 0);
+		ccdx_packet_order_list_pointer : std_logic_vector(31 downto 0);
+		ccdx_window_list_length        : std_logic_vector(31 downto 0);
+		ccdx_windows_size_x            : std_logic_vector(31 downto 0);
+		ccdx_windows_size_y            : std_logic_vector(31 downto 0);
+		ccdx_last_e_packet             : std_logic_vector(31 downto 0);
+		ccdx_last_f_packet             : std_logic_vector(31 downto 0);
+	end record t_ftdi_lut_winparams_ccdx_wincfg;
 
 end package ftdi_protocol_pkg;
 

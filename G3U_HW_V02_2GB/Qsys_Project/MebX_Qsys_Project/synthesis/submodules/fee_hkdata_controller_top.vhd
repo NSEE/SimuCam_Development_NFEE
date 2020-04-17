@@ -21,7 +21,7 @@ entity fee_hkdata_controller_top is
 		fee_machine_stop_i                : in  std_logic;
 		fee_machine_start_i               : in  std_logic;
 		-- fee housekeeping memory status
-		fee_hk_mem_valid_i                : in  std_logic;
+		fee_hk_mem_waitrequest_i          : in  std_logic;
 		fee_hk_mem_data_i                 : in  std_logic_vector(7 downto 0);
 		-- data packet parameters
 		data_pkt_packet_length_i          : in  std_logic_vector(15 downto 0);
@@ -129,7 +129,7 @@ begin
 			fee_start_signal_i             => fee_machine_start_i,
 			housekeeping_wr_start_i        => s_housekeeping_wr_control.start,
 			housekeeping_wr_reset_i        => s_housekeeping_wr_control.reset,
-			hk_mem_valid_i                 => fee_hk_mem_valid_i,
+			hk_mem_waitrequest_i           => fee_hk_mem_waitrequest_i,
 			hk_mem_data_i                  => fee_hk_mem_data_i,
 			send_buffer_stat_almost_full_i => '0',
 			send_buffer_stat_full_i        => s_send_buffer_stat_full,
