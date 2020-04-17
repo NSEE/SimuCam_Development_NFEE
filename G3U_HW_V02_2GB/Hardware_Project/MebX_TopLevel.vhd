@@ -525,10 +525,10 @@ architecture bhv of MebX_TopLevel is
 			spwc_g_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
 			spwc_g_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
 			--
-         spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-         spwc_h_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-         spwc_h_lvds_spw_data_out_signal                             : out   std_logic;                            -- spw_data_out_signal
-         spwc_h_lvds_spw_strobe_out_signal                           : out   std_logic;                            -- spw_strobe_out_signal
+			spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
+			spwc_h_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
+			spwc_h_lvds_spw_data_out_signal                             : out   std_logic;                            -- spw_data_out_signal
+			spwc_h_lvds_spw_strobe_out_signal                           : out   std_logic;                            -- spw_strobe_out_signal
 			--
 			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal

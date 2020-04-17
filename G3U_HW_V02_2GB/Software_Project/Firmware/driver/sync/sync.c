@@ -123,6 +123,14 @@ void vSyncHandleIrq(void* pvContext) {
 
 	}
 
+	uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
+
+	/* Send Priority message to the LUT Task to indicate the Sync */
+	error_codel = OSQPostFront(xLutQ, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgMasterSyncLut( );
+	}
+
 	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
 
 	/* Send Priority message to the Meb Task to indicate the Sync */

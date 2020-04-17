@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.ftdi_protocol_pkg.all;
+
 entity usb3_fifo_master_stimuli is
 	port(
 		clk_i                : in    std_logic;
@@ -37,14 +39,24 @@ architecture RTL of usb3_fifo_master_stimuli is
 	-- ACK Package
 	type t_ftdi_prot_ack_package is array (0 to 7) of std_logic_vector(31 downto 0);
 	constant c_FTDI_PROT_ACK_PACKAGE : t_ftdi_prot_ack_package := (
-		x"55555555",
-		x"20202020",
+		c_FTDI_PROT_START_OF_PACKAGE,
+		c_FTDI_PROT_PKG_ID_ACK_OK,
 		x"00000000",
 		x"00000000",
 		x"00000000",
 		x"00000000",
 		x"58374840",
-		x"33333333"
+		c_FTDI_PROT_END_OF_HEADER
+	);
+	constant c_FTDI_PROT_NACK_PACKAGE : t_ftdi_prot_ack_package := (
+		c_FTDI_PROT_START_OF_PACKAGE,
+		c_FTDI_PROT_PKG_ID_NACK_ERROR,
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"C7CEA3C5",
+		c_FTDI_PROT_END_OF_HEADER
 	);
 
 	-- Reply Package
@@ -1259,7 +1271,7 @@ begin
 
 			case s_counter is
 
-				when 29 to 32 =>
+				when (33 - 4) to (33 - 1) =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
@@ -1285,8 +1297,8 @@ begin
 					s_umft601a_be_out       <= (others => '0');
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
-
-				when 69 to 72 =>
+				
+				when (400 - 4) to (400 - 1) =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
@@ -1294,17 +1306,17 @@ begin
 					s_umft601a_be_out       <= (others => '0');
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
-
-				when 73 to (73 - 1 + 8) =>
+					
+				when 400 to (400 - 1 + 8) =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
-					s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PACKAGE(v_data_cnt);
+					s_umft601a_data_out     <= c_FTDI_PROT_ACK_PACKAGE(v_data_cnt);
 					v_data_cnt              := v_data_cnt + 1;
 					s_umft601a_wakeup_n_out <= '1';
 					s_umft601a_be_out       <= (others => '1');
 					s_umft601a_gpio_out     <= (others => '1');
-					
-				when (73 + 8) =>
+
+				when (400 + 8) =>
 					umft_rxf_n_pin_o        <= '1';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
@@ -1312,56 +1324,83 @@ begin
 					s_umft601a_be_out       <= (others => '0');
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
-					s_counter               <= 5000;
 
-				when 5099 to 5102 =>
-					umft_rxf_n_pin_o        <= '0';
-					umft_txe_n_pin_o        <= '1';
-					s_umft601a_data_out     <= (others => '0');
-					s_umft601a_wakeup_n_out <= '1';
-					s_umft601a_be_out       <= (others => '0');
-					s_umft601a_gpio_out     <= (others => '1');
-
-				when 5103 to (5103 - 1 + 1024) =>
---					if (umft_rd_n_pin_i = '0') then
-						umft_rxf_n_pin_o        <= '0';
-						umft_txe_n_pin_o        <= '1';
-						if (v_data_cnt < (t_ftdi_prot_reply_payload'high + 1)) then
-							s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PAYLOAD(v_data_cnt);
-						else
-							s_umft601a_data_out     <= (others => '0');
-						end if;
-						v_data_cnt              := v_data_cnt + 1;
-						s_umft601a_wakeup_n_out <= '1';
-						s_umft601a_be_out       <= (others => '1');
-						s_umft601a_gpio_out     <= (others => '1');
---					else
+--				when 69 to 72 =>
+--					umft_rxf_n_pin_o        <= '0';
+--					umft_txe_n_pin_o        <= '1';
+--					s_umft601a_data_out     <= (others => '0');
+--					s_umft601a_wakeup_n_out <= '1';
+--					s_umft601a_be_out       <= (others => '0');
+--					s_umft601a_gpio_out     <= (others => '1');
+--					v_data_cnt              := 0;
+--
+--				when 73 to (73 - 1 + 8) =>
+--					umft_rxf_n_pin_o        <= '0';
+--					umft_txe_n_pin_o        <= '1';
+--					s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PACKAGE(v_data_cnt);
+--					v_data_cnt              := v_data_cnt + 1;
+--					s_umft601a_wakeup_n_out <= '1';
+--					s_umft601a_be_out       <= (others => '1');
+--					s_umft601a_gpio_out     <= (others => '1');
+--					
+--				when (73 + 8) =>
+--					umft_rxf_n_pin_o        <= '1';
+--					umft_txe_n_pin_o        <= '1';
+--					s_umft601a_data_out     <= (others => '0');
+--					s_umft601a_wakeup_n_out <= '1';
+--					s_umft601a_be_out       <= (others => '0');
+--					s_umft601a_gpio_out     <= (others => '1');
+--					v_data_cnt              := 0;
+--					s_counter               <= 5000;
+--
+--				when 5099 to 5102 =>
+--					umft_rxf_n_pin_o        <= '0';
+--					umft_txe_n_pin_o        <= '1';
+--					s_umft601a_data_out     <= (others => '0');
+--					s_umft601a_wakeup_n_out <= '1';
+--					s_umft601a_be_out       <= (others => '0');
+--					s_umft601a_gpio_out     <= (others => '1');
+--
+--				when 5103 to (5103 - 1 + 1024) =>
+----					if (umft_rd_n_pin_i = '0') then
 --						umft_rxf_n_pin_o        <= '0';
 --						umft_txe_n_pin_o        <= '1';
---						s_umft601a_data_out     <= (others => '0');
+--						if (v_data_cnt < (t_ftdi_prot_reply_payload'high + 1)) then
+--							s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PAYLOAD(v_data_cnt);
+--						else
+--							s_umft601a_data_out     <= (others => '0');
+--						end if;
+--						v_data_cnt              := v_data_cnt + 1;
 --						s_umft601a_wakeup_n_out <= '1';
 --						s_umft601a_be_out       <= (others => '1');
 --						s_umft601a_gpio_out     <= (others => '1');
---						s_counter               <= s_counter;
---					end if;
-
-				when (5103 + 1024) =>
-					umft_rxf_n_pin_o        <= '1';
-					umft_txe_n_pin_o        <= '1';
-					s_umft601a_data_out     <= (others => '0');
-					s_umft601a_wakeup_n_out <= '1';
-					s_umft601a_be_out       <= (others => '0');
-					s_umft601a_gpio_out     <= (others => '1');
-						if (s_counter = (5103 + 1024)) then
-							if (s_counter2 = 10) then
-								s_counter  <= 10000;
-								s_counter2 <= 0;
-								v_data_cnt              := 0;
-							else
-								s_counter  <= 1000;
-								s_counter2 <= s_counter2 + 1;
-							end if;
-						end if;
+----					else
+----						umft_rxf_n_pin_o        <= '0';
+----						umft_txe_n_pin_o        <= '1';
+----						s_umft601a_data_out     <= (others => '0');
+----						s_umft601a_wakeup_n_out <= '1';
+----						s_umft601a_be_out       <= (others => '1');
+----						s_umft601a_gpio_out     <= (others => '1');
+----						s_counter               <= s_counter;
+----					end if;
+--
+--				when (5103 + 1024) =>
+--					umft_rxf_n_pin_o        <= '1';
+--					umft_txe_n_pin_o        <= '1';
+--					s_umft601a_data_out     <= (others => '0');
+--					s_umft601a_wakeup_n_out <= '1';
+--					s_umft601a_be_out       <= (others => '0');
+--					s_umft601a_gpio_out     <= (others => '1');
+--						if (s_counter = (5103 + 1024)) then
+--							if (s_counter2 = 10) then
+--								s_counter  <= 10000;
+--								s_counter2 <= 0;
+--								v_data_cnt              := 0;
+--							else
+--								s_counter  <= 1000;
+--								s_counter2 <= s_counter2 + 1;
+--							end if;
+--						end if;
 
 --												when 10000 to 10002 =>
 --													umft_rxf_n_pin_o        <= '0';

@@ -23,7 +23,8 @@ alt_msgdma_dev *pxDmaCh5LeftDev = NULL;
 alt_msgdma_dev *pxDmaCh5RightDev = NULL;
 alt_msgdma_dev *pxDmaCh6LeftDev = NULL;
 alt_msgdma_dev *pxDmaCh6RightDev = NULL;
-alt_msgdma_dev *pxDmaFtdiDev = NULL;
+alt_msgdma_dev *pxDmaFtdiRxDev = NULL;
+alt_msgdma_dev *pxDmaFtdiTxDev = NULL;
 //! [data memory public global variables]
 
 //! [public functions]
@@ -225,20 +226,48 @@ bool bSdmaInitCh6Dmas(void) {
 	return bStatus;
 }
 
-bool bSdmaInitFtdiDma(void) {
+bool bSdmaInitFtdiRxDma(void) {
 	bool bStatus = FALSE;
 	bool bFailDispatcher = FALSE;
 	alt_u16 usiCounter = 0;
 
 	// open dma device
-	pxDmaFtdiDev = alt_msgdma_open((char *) SDMA_DMA_FTDI_NAME);
+	pxDmaFtdiRxDev = alt_msgdma_open((char *) SDMA_DMA_FTDI_RX_NAME);
 
 	// check if the device was opened
-	if (pxDmaFtdiDev != NULL) {
+	if (pxDmaFtdiRxDev != NULL) {
 		// device opened
 		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
-		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiRxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiRxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+			usleep(1);
+			usiCounter++;
+			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+				bFailDispatcher = TRUE;
+				break;
+			}
+		}
+		if (bFailDispatcher == FALSE)
+			bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bSdmaInitFtdiTxDma(void) {
+	bool bStatus = FALSE;
+	bool bFailDispatcher = FALSE;
+	alt_u16 usiCounter = 0;
+
+	// open dma device
+	pxDmaFtdiTxDev = alt_msgdma_open((char *) SDMA_DMA_FTDI_TX_NAME);
+
+	// check if the device was opened
+	if (pxDmaFtdiTxDev != NULL) {
+		// device opened
+		// reset the dispatcher
+		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiTxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiTxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
 			usleep(1);
 			usiCounter++;
 			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
@@ -369,15 +398,17 @@ bool bSdmaResetChDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait){
 }
 
 bool bSdmaResetFtdiDma(bool bWait){
-	bool bStatus = FALSE;
+	bool bStatusRx = FALSE;
+	bool bStatusTx = FALSE;
+	bool bStatus   = FALSE;
 	bool bFailDispatcher = FALSE;
 	alt_u16 usiCounter = 0;
 
-	if (pxDmaFtdiDev != NULL) {
+	if (pxDmaFtdiRxDev != NULL) {
 		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiRxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
 		if (bWait) {
-			while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+			while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiRxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
 				usleep(1);
 				usiCounter++;
 				if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
@@ -386,13 +417,39 @@ bool bSdmaResetFtdiDma(bool bWait){
 				}
 			}
 			if (bFailDispatcher == FALSE)
-				bStatus = TRUE;
+				bStatusRx = TRUE;
 		} else {
-			bStatus = TRUE;
+			bStatusRx = TRUE;
 		}
 	}
 
-	return bStatus;
+	usiCounter = 0;
+	bFailDispatcher = FALSE;
+
+	if (pxDmaFtdiTxDev != NULL) {
+		// reset the dispatcher
+		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiTxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+		if (bWait) {
+			while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiTxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+				usleep(1);
+				usiCounter++;
+				if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+					bFailDispatcher = TRUE;
+					break;
+				}
+			}
+			if (bFailDispatcher == FALSE)
+				bStatusTx = TRUE;
+		} else {
+			bStatusTx = TRUE;
+		}
+	}
+
+	if ((bStatusRx) && (bStatusTx)) {
+		bStatus = TRUE;
+	}
+
+	return (bStatus);
 }
 
 bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
@@ -586,9 +643,9 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
 	if ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) % 32) {
 		// Transfer size is not a multiple of 32
-		uliRoundedTransferSizeInBytes = ((alt_u32) ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) / 32) + 1) * 32;
+		uliRoundedTransferSizeInBytes = (alt_u32)(((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) & 0xFFFFFFE0) + 32);
 	} else {
-		uliRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
+		uliRoundedTransferSizeInBytes = (alt_u32)(SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
 	}
 
 	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
@@ -810,16 +867,15 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 		break;
 	}
 
-	uliSrcAddrLow = (alt_u32) SDMA_M2_BASE_ADDR_LOW
-			+ (alt_u32) uliDdrInitialAddr;
+	uliSrcAddrLow = (alt_u32) SDMA_M2_BASE_ADDR_LOW + (alt_u32) uliDdrInitialAddr;
 	uliSrcAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
 
 	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
 	if ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) % 32) {
 		// Transfer size is not a multiple of 32
-		uliRoundedTransferSizeInBytes = ((alt_u32) ((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) / 32) + 1) * 32;
+		uliRoundedTransferSizeInBytes = (alt_u32)(((SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks) & 0xFFFFFFE0) + 32);
 	} else {
-		uliRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
+		uliRoundedTransferSizeInBytes = (alt_u32)(SDMA_PIXEL_BLOCK_SIZE_BYTES * uliTransferSizeInBlocks);
 	}
 
 	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
@@ -831,9 +887,11 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 	}
 
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (uliTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
+
 		if (pxDmaM2TransferDev != NULL) {
 			// reset the dma device
 			bSdmaResetChDma(ucChBufferId, ucBufferSide, TRUE);
+			// hold transfers for descriptor fifo space
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 				alt_busy_sleep(1); /* delay 1us */
 			}
@@ -845,8 +903,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)) {
 				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev,
-						&xDmaExtendedDescriptor)) {
+				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev, &xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
 			}
@@ -882,7 +939,7 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 				uliSrcAddrHigh  = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
 				uliDestAddrHigh = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
-				pxDmaM1TransferDev = pxDmaFtdiDev;
+				pxDmaM1TransferDev = pxDmaFtdiTxDev;
 				bOperationFlag = TRUE;
 			break;
 
@@ -891,8 +948,8 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_M1_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliDestAddrHigh = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
+				pxDmaM1TransferDev = pxDmaFtdiRxDev;
 				bOperationFlag = TRUE;
-				pxDmaM1TransferDev = pxDmaFtdiDev;
 			break;
 
 		default:
@@ -902,9 +959,9 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 
 	// Rounding up the size to the nearest multiple of FTDI_WORD_SIZE_BYTES
-	if (uliRoundedTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
+	if (uliTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
 		// Transfer size is not a multiple of FTDI_WORD_SIZE_BYTES
-		uliRoundedTransferSizeInBytes = ((alt_u32) (uliTransferSizeInBytes / FTDI_WORD_SIZE_BYTES) + 1) * FTDI_WORD_SIZE_BYTES;
+		uliRoundedTransferSizeInBytes = (alt_u32)((uliTransferSizeInBytes & 0xFFFFFFE0) + 32);
 	} else {
 		uliRoundedTransferSizeInBytes = uliTransferSizeInBytes;
 	}
@@ -937,7 +994,7 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)	) {
 				/* Success = 0 */
-				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1TransferDev,	&xDmaExtendedDescriptor)) {
+				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1TransferDev, &xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
 			}
@@ -973,8 +1030,8 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 				uliSrcAddrHigh  = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
 				uliDestAddrHigh = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
+				pxDmaM2TransferDev = pxDmaFtdiTxDev;
 				bOperationFlag = TRUE;
-				pxDmaM2TransferDev = pxDmaFtdiDev;
 			break;
 
 		case eSdmaRxFtdi:
@@ -982,8 +1039,8 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_M2_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliDestAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
+				pxDmaM2TransferDev = pxDmaFtdiRxDev;
 				bOperationFlag = TRUE;
-				pxDmaM2TransferDev = pxDmaFtdiDev;
 			break;
 
 		default:
@@ -993,9 +1050,9 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 
 	// Rounding up the size to the nearest multiple of FTDI_WORD_SIZE_BYTES
-	if (uliRoundedTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
+	if (uliTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
 		// Transfer size is not a multiple of FTDI_WORD_SIZE_BYTES
-		uliRoundedTransferSizeInBytes = ((alt_u32) (uliTransferSizeInBytes / FTDI_WORD_SIZE_BYTES) + 1) * FTDI_WORD_SIZE_BYTES;
+		uliRoundedTransferSizeInBytes = (alt_u32)((uliTransferSizeInBytes & 0xFFFFFFE0) + 32);
 	} else {
 		uliRoundedTransferSizeInBytes = uliTransferSizeInBytes;
 	}
@@ -1009,11 +1066,13 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 
 	if ((bOperationFlag) && (bAddressFlag) && (uliRoundedTransferSizeInBytes <= FTDI_BUFFER_SIZE_TRANSFER)) {
+
 		if (pxDmaM2TransferDev != NULL) {
 
 			// reset the dma device
 			bSdmaResetFtdiDma(TRUE);
 
+			// hold transfers for descriptor fifo space
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 				alt_busy_sleep(1); /* delay 1us */
 			}
@@ -1026,8 +1085,7 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)) {
 				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev,
-						&xDmaExtendedDescriptor)) {
+				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev, &xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
 			}
@@ -1035,4 +1093,3 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	}
 	return bStatus;
 }
-

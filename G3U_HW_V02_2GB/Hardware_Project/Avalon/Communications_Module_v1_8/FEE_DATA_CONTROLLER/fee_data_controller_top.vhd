@@ -36,7 +36,7 @@ entity fee_data_controller_top is
 		fee_right_window_data_ready_i : in  std_logic;
 		fee_right_window_mask_ready_i : in  std_logic;
 		-- fee housekeeping memory status
-		fee_hk_mem_valid_i            : in  std_logic;
+		fee_hk_mem_waitrequest_i      : in  std_logic;
 		fee_hk_mem_data_i             : in  std_logic_vector(7 downto 0);
 		-- fee spw codec tx status
 		fee_spw_tx_ready_i            : in  std_logic;
@@ -185,7 +185,7 @@ begin
 			fee_machine_clear_i               => s_fee_clear_signal,
 			fee_machine_stop_i                => s_fee_stop_signal,
 			fee_machine_start_i               => s_fee_start_signal,
-			fee_hk_mem_valid_i                => fee_hk_mem_valid_i,
+			fee_hk_mem_waitrequest_i          => fee_hk_mem_waitrequest_i,
 			fee_hk_mem_data_i                 => fee_hk_mem_data_i,
 			data_pkt_packet_length_i          => x"0400", -- 0x400 = 1024 Bytes
 			data_pkt_fee_mode_i               => s_registered_dpkt_params.image.fee_mode,

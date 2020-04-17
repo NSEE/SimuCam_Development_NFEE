@@ -58,6 +58,7 @@ enum RmapCcdMode {
 } ERmapCcdMode;
 
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
+extern OS_EVENT *xLutQ;
 //extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
 
 //! [public module structs definition]
@@ -91,9 +92,6 @@ bool bRmapSetIrqControl(TRmapChannel *pxRmapCh);
 bool bRmapGetIrqControl(TRmapChannel *pxRmapCh);
 bool bRmapGetIrqFlags(TRmapChannel *pxRmapCh);
 
-bool bRmapSetEchoingMode(TRmapChannel *pxRmapCh);
-bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh);
-
 bool bRmapSetCodecConfig(TRmapChannel *pxRmapCh);
 bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh);
 
@@ -101,13 +99,19 @@ bool bRmapGetCodecStatus(TRmapChannel *pxRmapCh);
 
 bool bRmapGetCodecError(TRmapChannel *pxRmapCh);
 
-bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh);
-bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh);
+bool bRmapGetMemStatus(TRmapChannel *pxRmapCh);
 
-bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh);
+bool bRmapSetMemConfig(TRmapChannel *pxRmapCh);
+bool bRmapGetMemConfig(TRmapChannel *pxRmapCh);
 
-bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh);
-bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh);
+bool bRmapSetRmapMemCfgArea(TRmapChannel *pxRmapCh);
+bool bRmapGetRmapMemCfgArea(TRmapChannel *pxRmapCh);
+
+bool bRmapSetRmapMemHkArea(TRmapChannel *pxRmapCh);
+bool bRmapGetRmapMemHkArea(TRmapChannel *pxRmapCh);
+
+bool bRmapSetEchoingMode(TRmapChannel *pxRmapCh);
+bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh);
 
 bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh);
 

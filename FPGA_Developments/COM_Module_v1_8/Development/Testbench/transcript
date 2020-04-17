@@ -32,9 +32,6 @@
 # Compile of spw_data_dc_fifo.vhd was successful.
 # Compile of spw_timecode_dc_fifo.vhd was successful.
 # Compile of spw_clk_synchronization_ent.vhd was successful.
-# Compile of rmap_mem_area_nfee_pkg.vhd was successful.
-# Compile of rmap_mem_area_nfee_read.vhd was successful.
-# Compile of rmap_mem_area_nfee_write.vhd was successful.
 # Compile of rmap_target_crc_pkg.vhd was successful.
 # Compile of rmap_target_pkg.vhd was successful.
 # Compile of rmap_target_command_ent.vhd was successful.
@@ -67,4 +64,4 @@
 # Compile of avalon_buffer_L_stimuli.vhd was successful.
 # Compile of avalon_buffer_R_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 66 compiles, 0 failed with no errors.
+# 63 compiles, 0 failed with no errors.

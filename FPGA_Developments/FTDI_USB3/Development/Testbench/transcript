@@ -19,7 +19,8 @@
 # Compile of ftdi_rx_protocol_header_parser_ent.vhd was successful.
 # Compile of ftdi_tx_protocol_payload_writer_ent.vhd was successful.
 # Compile of ftdi_rx_protocol_payload_reader_ent.vhd was successful.
-# Compile of ftdi_protocol_controller_ent.vhd was successful.
+# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
+# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
 # Compile of ftdi_protocol_top.vhd was successful.
 # Compile of ftdi_data_loopback_ent.vhd was successful.
 # Compile of ftdi_tx_data_mux_ent.vhd was successful.
@@ -36,4 +37,4 @@
 # Compile of tx_data_stimulli.vhd was successful.
 # Compile of rx_data_stimulli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 35 compiles, 0 failed with no errors.
+# 36 compiles, 0 failed with no errors.

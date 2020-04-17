@@ -18,7 +18,7 @@ entity rmpe_rmap_echoing_top is
 	port(
 		reset_i                                : in  std_logic                    := '0'; --          --                       reset_sink.reset
 		clk_100_i                              : in  std_logic                    := '0'; --          --                clock_sink_100mhz.clk
-		fee_0_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_0_rmap.echo_en_signal
+		fee_0_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --   conduit_end_fee_0_rmap_echo_in.echo_en_signal
 		fee_0_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
 		fee_0_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_0_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
@@ -26,7 +26,7 @@ entity rmpe_rmap_echoing_top is
 		fee_0_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_0_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_0_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_1_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_1_rmap.echo_en_signal
+		fee_1_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --   conduit_end_fee_1_rmap_echo_in.echo_en_signal
 		fee_1_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
 		fee_1_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_1_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
@@ -34,7 +34,7 @@ entity rmpe_rmap_echoing_top is
 		fee_1_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_1_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_1_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_2_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_2_rmap.echo_en_signal
+		fee_2_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --   conduit_end_fee_2_rmap_echo_in.echo_en_signal
 		fee_2_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
 		fee_2_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_2_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
@@ -42,7 +42,7 @@ entity rmpe_rmap_echoing_top is
 		fee_2_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_2_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_2_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_3_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_3_rmap.echo_en_signal
+		fee_3_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --   conduit_end_fee_3_rmap_echo_in.echo_en_signal
 		fee_3_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
 		fee_3_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_3_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
@@ -50,7 +50,7 @@ entity rmpe_rmap_echoing_top is
 		fee_3_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_3_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_3_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_4_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_4_rmap.echo_en_signal
+		fee_4_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --   conduit_end_fee_4_rmap_echo_in.echo_en_signal
 		fee_4_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
 		fee_4_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_4_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal
@@ -58,7 +58,7 @@ entity rmpe_rmap_echoing_top is
 		fee_4_rmap_outgoing_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrdata_flag_signal
 		fee_4_rmap_outgoing_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .outgoing_fifo_wrdata_data_signal
 		fee_4_rmap_outgoing_fifo_wrreq_i       : in  std_logic                    := '0'; --          --                                 .outgoing_fifo_wrreq_signal
-		fee_5_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --           conduit_end_fee_5_rmap.echo_en_signal
+		fee_5_rmap_echo_en_i                   : in  std_logic                    := '0'; --          --   conduit_end_fee_5_rmap_echo_in.echo_en_signal
 		fee_5_rmap_echo_id_en_i                : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
 		fee_5_rmap_incoming_fifo_wrdata_flag_i : in  std_logic                    := '0'; --          --                                 .incoming_fifo_wrdata_flag_signal
 		fee_5_rmap_incoming_fifo_wrdata_data_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .incoming_fifo_wrdata_data_signal

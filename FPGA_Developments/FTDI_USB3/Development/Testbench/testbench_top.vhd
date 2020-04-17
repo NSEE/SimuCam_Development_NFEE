@@ -136,7 +136,9 @@ begin
 			avalon_slave_data_read          => s_avalon_slave_data_read,
 			avalon_slave_data_writedata     => s_avalon_slave_data_writedata,
 			avalon_slave_data_readdata      => s_avalon_slave_data_readdata,
-			avalon_slave_data_waitrequest   => s_avalon_slave_data_waitrequest
+			avalon_slave_data_waitrequest   => s_avalon_slave_data_waitrequest,
+			ftdi_rx_interrupt_sender_irq    => open,
+			ftdi_tx_interrupt_sender_irq    => open
 		);
 
 end architecture RTL;

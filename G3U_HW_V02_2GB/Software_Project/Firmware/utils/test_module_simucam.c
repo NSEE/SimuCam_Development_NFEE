@@ -76,11 +76,21 @@ bool bTestSimucamCriticalHW( void ) {
 		return bSuccess;
 	}
 
-	bSuccess = bSdmaInitFtdiDma();
+	bSuccess = bSdmaInitFtdiRxDma();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMA for FTDI.\n");
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the Rx DMA for FTDI.\n");
+		}
+		#endif
+		return bSuccess;
+	}
+
+	bSuccess = bSdmaInitFtdiTxDma();
+	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the Tx DMA for FTDI.\n");
 		}
 		#endif
 		return bSuccess;

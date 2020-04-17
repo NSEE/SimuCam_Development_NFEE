@@ -129,10 +129,6 @@ begin
 	comm_v1_01_top_inst : entity work.comm_v1_80_top
 		port map(
 			reset_sink_reset                   => rst,
-			data_in                            => s_spw_codec_comm_di,
-			data_out                           => s_spw_codec_comm_do,
-			strobe_in                          => s_spw_codec_comm_si,
-			strobe_out                         => s_spw_codec_comm_so,
 			sync_channel                       => s_sync,
 			rmap_interrupt_sender_irq          => s_irq_rmap,
 			buffers_interrupt_sender_irq       => s_irq_buffers,
@@ -152,7 +148,35 @@ begin
 			avalon_slave_R_buffer_address      => s_avalon_buffer_R_stimuli_mm_address,
 			avalon_slave_R_buffer_write        => s_avalon_buffer_R_stimuli_mm_write,
 			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
-			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest
+			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest,
+			fee_codec_rmap_wr_waitrequest_i    => '0',
+			fee_codec_rmap_readdata_i          => (others => '0'),
+			fee_codec_rmap_rd_waitrequest_i    => '0',
+			fee_codec_rmap_wr_address_o        => open,
+			fee_codec_rmap_write_o             => open,
+			fee_codec_rmap_writedata_o         => open,
+			fee_codec_rmap_rd_address_o        => open,
+			fee_codec_rmap_read_o              => open,
+			measurements_channel               => open,
+			fee_hk_rmap_wr_waitrequest_i       => '0',
+			fee_hk_rmap_readdata_i             => (others => '0'),
+			fee_hk_rmap_rd_waitrequest_i       => '0',
+			fee_hk_rmap_wr_address_o           => open,
+			fee_hk_rmap_write_o                => open,
+			fee_hk_rmap_writedata_o            => open,
+			fee_hk_rmap_rd_address_o           => open,
+			fee_hk_rmap_read_o                 => open,
+			channel_hk_timecode_control_o      => open,
+			channel_hk_timecode_time_o         => open,
+			channel_hk_rmap_target_status_o    => open,
+			channel_hk_rmap_target_indicate_o  => open,
+			channel_hk_spw_link_escape_err_o   => open,
+			channel_hk_spw_link_credit_err_o   => open,
+			channel_hk_spw_link_parity_err_o   => open,
+			channel_hk_spw_link_disconnect_o   => open,
+			channel_hk_spw_link_running_o      => open,
+			channel_hk_frame_counter_o         => open,
+			channel_hk_frame_number_o          => open
 		);
 	s_sync_n <= not (s_sync);
 

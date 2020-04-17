@@ -44,6 +44,7 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
         /* Are Normal Fee instances */
     	vNFeeControlInit( &xMeb->xFeeControl );
         vDataControllerInit( &xMeb->xDataControl, &xMeb->xFeeControl );
+        vLutInit( &xMeb->xLut );
 
     } else {
         /* Are Fast Fee instances */

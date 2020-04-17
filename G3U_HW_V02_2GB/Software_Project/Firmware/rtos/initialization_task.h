@@ -24,6 +24,7 @@
 #include "../utils/meb.h"
 #include "../utils/error_handler_simucam.h"
 #include "sync_reset_task.h"    /* bndky */
+#include "lut_handler_task.h"
 
 void vInitialTask(void *task_data);
 
