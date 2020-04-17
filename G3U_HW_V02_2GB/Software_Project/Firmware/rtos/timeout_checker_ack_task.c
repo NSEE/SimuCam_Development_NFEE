@@ -34,10 +34,10 @@ void vCheck( void ) {
     unsigned char ucHashVerification = 0;
 
     ucHashVerification = 0;
-    ucHashVerification |= (( SemCount32 == N_32 ) << 2) | ( ( SemCount64 == N_64 ) << 1 ) | (( SemCount128 == N_128 ) << 0);
+    ucHashVerification |= ( ( SemCount512 == N_512 ) << 3) | (( SemCount32 == N_32 ) << 2) | ( ( SemCount64 == N_64 ) << 1 ) | (( SemCount128 == N_128 ) << 0);
 
     /* Nothing in the (re)transmission buffer */
-    if ( ucHashVerification == 0b00000111 )
+    if ( ucHashVerification == 0b00001111 )
         return;
 
     /* Try to get the Mutex of the UART */
@@ -75,10 +75,65 @@ void vCheck( void ) {
     	memset( xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32)); /* For consistency with SemCount32 */
 
 
+    /* There are any spot used in the xBuffer512? */
+    if ( 0b000001000 != (0b00001000 & ucHashVerification ) )
+        vCheckRetransmission512();
+    else
+    	memset( xInUseRetrans.b512 , FALSE , sizeof(xInUseRetrans.b512)); /* For consistency with SemCountb512 */
+
+
+
     OSMutexPost(xTxUARTMutex);
 
     return;
 }
+
+inline void vCheckRetransmission512( void ) {
+    INT8U ucErrorCodeL = 0;
+    unsigned char ucIL = 0;
+
+    OSMutexAccept(xMutexBuffer128, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    if ( ucErrorCodeL != OS_NO_ERR ) {
+        /* Could not get the Mutex at this time, not critical it will try again later */
+        return;
+    }
+
+
+    /* ---> At this point we have access to the xBuffer128*/
+
+    /* Search the one that if in use */
+	for( ucIL = 0; ucIL < N_512; ucIL++) {
+        /* Check if in use */
+        if ( xInUseRetrans.b512[ucIL] == TRUE ) {
+
+            if ( xBuffer512[ucIL].bSent == TRUE )
+                if ( ++xBuffer512[ucIL].usiTimeOut > TIMEOUT_COUNT )
+                	xBuffer512[ucIL].bSent = FALSE;
+
+            if ( xBuffer512[ucIL].bSent == FALSE ) {
+                puts(xBuffer512[ucIL].buffer);
+                xBuffer512[ucIL].bSent = TRUE;
+                xBuffer512[ucIL].usiTimeOut = 0;
+
+                /* Check if already tried all the times */
+                if ( ++xBuffer512[ucIL].ucNofRetries > N_RETRIES_COMM ) {
+                    /* Now it is a Free place */
+                    xInUseRetrans.b512[ucIL] = FALSE;
+                    SemCount512++;
+                    ucErrorCodeL = OSSemPost(xSemCountBuffer512);
+                    if ( ucErrorCodeL != OS_ERR_NONE ) {
+                    	SemCount512--;
+                    	vFailSetCountSemaphorexBuffer512(); /*Could not send back the semaphore, this is critical.*/
+                    }
+                }
+            }
+        }
+	}
+    OSMutexPost(xMutexBuffer128);
+
+    return;
+}
+
 
 inline void vCheckRetransmission128( void ) {
     INT8U ucErrorCodeL = 0;

@@ -418,6 +418,18 @@ void vFailSetCountSemaphorexBuffer64( void )
 }
 
 /*CRITICAL*/
+void vFailSetCountSemaphorexBuffer512( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailSetCountSemaphorexBuffer512. (exit)\n");
+		debug(fp,"Could not post to the semaphore.()\n");
+	}
+	#endif
+
+}
+
+/*CRITICAL*/
 void vFailSetCountSemaphorexBuffer128( void )
 {
 	#if DEBUG_ON
@@ -430,6 +442,16 @@ void vFailSetCountSemaphorexBuffer128( void )
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
 	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
+}
+
+void vFailGetCountSemaphorexBuffer512( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailGetCountSemaphorexBuffer512. (exit)\n");
+		debug(fp,"Could not get to the semaphore.()\n");
+	}
+	#endif
 }
 
 void vFailGetCountSemaphorexBuffer128( void )

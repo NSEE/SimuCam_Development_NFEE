@@ -16,6 +16,7 @@
 void vTimeoutCheckerTask(void *task_data);
 void vTimeoutCheckerTaskv2(void *task_data);
 void vCheck( void );
+void vCheckRetransmission512( void );
 void vCheckRetransmission128( void );
 void vCheckRetransmission64( void );
 void vCheckRetransmission32( void );
