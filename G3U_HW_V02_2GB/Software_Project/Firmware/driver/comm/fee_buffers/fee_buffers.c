@@ -602,11 +602,11 @@ bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -626,11 +626,11 @@ bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -650,11 +650,11 @@ bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -674,11 +674,11 @@ bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -698,11 +698,11 @@ bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -722,11 +722,11 @@ bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -746,11 +746,11 @@ bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -770,11 +770,11 @@ bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 			bStatus = TRUE;
 			break;
 		default:
@@ -1245,11 +1245,11 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 		if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 			switch (ucBufferSide) {
 			case eCommLeftBuffer:
-				vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//				vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 				bStatus = TRUE;
 				break;
 			case eCommRightBuffer:
-				vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
+//				vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
 				bStatus = TRUE;
 				break;
 			default:
@@ -1262,7 +1262,7 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 	return bStatus;
 }
 
-bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
+bool bFeebGetBufferDataControl(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -1270,7 +1270,24 @@ bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
-		vpxCommChannel->xFeeBuffer.xFeebMachineControl = pxFeebCh->xFeebMachineControl;
+		pxFeebCh->xFeebBufferDataControl = vpxCommChannel->xFeeBuffer.xFeebBufferDataControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bFeebSetBufferDataControl(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		vpxCommChannel->xFeeBuffer.xFeebBufferDataControl = pxFeebCh->xFeebBufferDataControl;
 
 		bStatus = TRUE;
 
@@ -1288,6 +1305,23 @@ bool bFeebGetMachineControl(TFeebChannel *pxFeebCh) {
 		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebMachineControl = vpxCommChannel->xFeeBuffer.xFeebMachineControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		vpxCommChannel->xFeeBuffer.xFeebMachineControl = pxFeebCh->xFeebMachineControl;
 
 		bStatus = TRUE;
 
@@ -1417,6 +1451,9 @@ bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 				bInitFail = TRUE;
 			}
 			if (!bFeebGetBuffersStatus(pxFeebCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bFeebGetBufferDataControl(pxFeebCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bFeebGetMachineControl(pxFeebCh)) {

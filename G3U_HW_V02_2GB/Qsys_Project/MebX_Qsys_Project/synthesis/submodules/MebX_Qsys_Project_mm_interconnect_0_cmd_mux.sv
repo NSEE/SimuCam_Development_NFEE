@@ -39,8 +39,8 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         MebX_Qsys_Project_mm_interconnect_0_cmd_mux
-//   NUM_INPUTS:          21
-//   ARBITRATION_SHARES:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+//   NUM_INPUTS:          20
+//   ARBITRATION_SHARES:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
 //   PKT_TRANS_LOCK:      356 (arbitration locking enabled)
@@ -193,13 +193,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     input                       sink19_endofpacket,
     output                      sink19_ready,
 
-    input                       sink20_valid,
-    input [404-1   : 0]  sink20_data,
-    input [21-1: 0]  sink20_channel,
-    input                       sink20_startofpacket,
-    input                       sink20_endofpacket,
-    output                      sink20_ready,
-
 
     // ----------------------
     // Source
@@ -218,7 +211,7 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     input reset
 );
     localparam PAYLOAD_W        = 404 + 21 + 2;
-    localparam NUM_INPUTS       = 21;
+    localparam NUM_INPUTS       = 20;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 1;
     localparam ST_DATA_W        = 404;
@@ -258,7 +251,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     wire [PAYLOAD_W - 1 : 0] sink17_payload;
     wire [PAYLOAD_W - 1 : 0] sink18_payload;
     wire [PAYLOAD_W - 1 : 0] sink19_payload;
-    wire [PAYLOAD_W - 1 : 0] sink20_payload;
 
     assign valid[0] = sink0_valid;
     assign valid[1] = sink1_valid;
@@ -280,7 +272,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     assign valid[17] = sink17_valid;
     assign valid[18] = sink18_valid;
     assign valid[19] = sink19_valid;
-    assign valid[20] = sink20_valid;
 
     wire [NUM_INPUTS - 1 : 0] eop;
     assign eop[0] = sink0_endofpacket;
@@ -303,7 +294,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     assign eop[17] = sink17_endofpacket;
     assign eop[18] = sink18_endofpacket;
     assign eop[19] = sink19_endofpacket;
-    assign eop[20] = sink20_endofpacket;
 
     // ------------------------------------------
     // ------------------------------------------
@@ -332,7 +322,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
       lock[17] = sink17_data[356];
       lock[18] = sink18_data[356];
       lock[19] = sink19_data[356];
-      lock[20] = sink20_data[356];
     end
     reg [NUM_INPUTS - 1 : 0] locked = '0;
     always @(posedge clk or posedge reset) begin
@@ -392,7 +381,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     // 17      |      1       |  0
     // 18      |      1       |  0
     // 19      |      1       |  0
-    // 20      |      1       |  0
      wire [SHARE_COUNTER_W - 1 : 0] share_0 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_1 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_2 = 1'd0;
@@ -413,7 +401,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
      wire [SHARE_COUNTER_W - 1 : 0] share_17 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_18 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_19 = 1'd0;
-     wire [SHARE_COUNTER_W - 1 : 0] share_20 = 1'd0;
 
     // ------------------------------------------
     // Choose the share value corresponding to the grant.
@@ -440,8 +427,7 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     share_16 & { SHARE_COUNTER_W {next_grant[16]} } |
     share_17 & { SHARE_COUNTER_W {next_grant[17]} } |
     share_18 & { SHARE_COUNTER_W {next_grant[18]} } |
-    share_19 & { SHARE_COUNTER_W {next_grant[19]} } |
-    share_20 & { SHARE_COUNTER_W {next_grant[20]} };
+    share_19 & { SHARE_COUNTER_W {next_grant[19]} };
     end
 
     // ------------------------------------------
@@ -582,7 +568,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     assign sink17_ready = src_ready && grant[17];
     assign sink18_ready = src_ready && grant[18];
     assign sink19_ready = src_ready && grant[19];
-    assign sink20_ready = src_ready && grant[20];
 
     assign src_valid = |(grant & valid);
 
@@ -607,8 +592,7 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
       sink16_payload & {PAYLOAD_W {grant[16]} } |
       sink17_payload & {PAYLOAD_W {grant[17]} } |
       sink18_payload & {PAYLOAD_W {grant[18]} } |
-      sink19_payload & {PAYLOAD_W {grant[19]} } |
-      sink20_payload & {PAYLOAD_W {grant[20]} };
+      sink19_payload & {PAYLOAD_W {grant[19]} };
     end
 
     // ------------------------------------------
@@ -655,8 +639,6 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux
     sink18_startofpacket,sink18_endofpacket};
     assign sink19_payload = {sink19_channel,sink19_data,
     sink19_startofpacket,sink19_endofpacket};
-    assign sink20_payload = {sink20_channel,sink20_data,
-    sink20_startofpacket,sink20_endofpacket};
 
     assign {src_channel,src_data,src_startofpacket,src_endofpacket} = src_payload;
 endmodule

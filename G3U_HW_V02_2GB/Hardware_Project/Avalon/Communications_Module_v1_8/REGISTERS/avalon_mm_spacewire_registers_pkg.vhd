@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#6A#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#71#;
 
 	-- Registers Types
 
@@ -73,12 +73,6 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_windowing_en       : std_logic; -- FEE Windowing Enable
 	end record t_comm_fee_machine_config_wr_reg;
 
-	-- FEE Buffers Config Register
-	type t_comm_fee_buffers_config_wr_reg is record
-		fee_right_buffer_size : std_logic_vector(3 downto 0); -- Windowing Right Buffer Size Config
-		fee_left_buffer_size  : std_logic_vector(3 downto 0); -- Windowing Left Buffer Size Config
-	end record t_comm_fee_buffers_config_wr_reg;
-
 	-- FEE Buffers Status Register
 	type t_comm_fee_buffers_status_rd_reg is record
 		fee_right_buffer_empty : std_logic; -- Windowing Right Buffer Empty
@@ -86,6 +80,18 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_right_machine_busy : std_logic; -- FEE Right Machine Busy
 		fee_left_machine_busy  : std_logic; -- FEE Left Machine Busy
 	end record t_comm_fee_buffers_status_rd_reg;
+
+	-- FEE Buffers Data Control Register
+	type t_comm_fee_buffers_data_control_wr_reg is record
+		right_rd_initial_addr_high_dword : std_logic_vector(31 downto 0); -- Right Initial Read Address [High Dword]
+		right_rd_initial_addr_low_dword  : std_logic_vector(31 downto 0); -- Right Initial Read Address [Low Dword]
+		right_rd_data_length_bytes       : std_logic_vector(31 downto 0); -- Right Read Data Length [Bytes]
+		right_rd_start                   : std_logic; -- Right Data Read Start
+		left_rd_initial_addr_high_dword  : std_logic_vector(31 downto 0); -- Left Initial Read Address [High Dword]
+		left_rd_initial_addr_low_dword   : std_logic_vector(31 downto 0); -- Left Initial Read Address [Low Dword]
+		left_rd_data_length_bytes        : std_logic_vector(31 downto 0); -- Left Read Data Length [Bytes]
+		left_rd_start                    : std_logic; -- Left Data Read Start
+	end record t_comm_fee_buffers_data_control_wr_reg;
 
 	-- FEE Buffers IRQ Control Register
 	type t_comm_fee_buffers_irq_control_wr_reg is record
@@ -271,7 +277,7 @@ package avalon_mm_spacewire_registers_pkg is
 		spw_timecode_config_reg         : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
 		fee_buffers_dev_addr_reg        : t_comm_fee_buffers_dev_addr_wr_reg; -- FEE Buffers Device Address Register
 		fee_machine_config_reg          : t_comm_fee_machine_config_wr_reg; -- FEE Machine Config Register
-		fee_buffers_config_reg          : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
+		fee_buffers_data_control_reg    : t_comm_fee_buffers_data_control_wr_reg; -- FEE Buffers Data Control Register
 		fee_buffers_irq_control_reg     : t_comm_fee_buffers_irq_control_wr_reg; -- FEE Buffers IRQ Control Register
 		fee_buffers_irq_flags_clear_reg : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
 		rmap_dev_addr_reg               : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register

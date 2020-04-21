@@ -132,15 +132,25 @@ typedef struct FeebMachineControl {
   bool bWindowingEn; /* FEE Windowing Enable */
 } TFeebMachineControl;
 
- /* FEE Buffers Config Register Struct */
+ /* FEE Buffers Status Register Struct */
 typedef struct FeebBufferStatus {
-  alt_u8 ucRightBufferSize; /* Windowing Right Buffer Size Config */
-  alt_u8 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
   bool bRightBufferEmpty; /* Windowing Right Buffer Empty */
   bool bLeftBufferEmpty; /* Windowing Left Buffer Empty */
   bool bRightFeeBusy; /* FEE Right Machine Busy */
   bool bLeftFeeBusy; /* FEE Left Machine Busy */
 } TFeebBufferStatus;
+
+ /* FEE Buffers Data Control Register Struct */
+typedef struct FeebBufferDataControl {
+  alt_u32 uliRightRdInitAddrHighDword; /* Right Initial Read Address [High Dword] */
+  alt_u32 uliRightRdInitAddrLowDword; /* Right Initial Read Address [Low Dword] */
+  alt_u32 uliRightRdDataLenghtBytes; /* Right Read Data Length [Bytes] */
+  bool bRightRdStart; /* Right Data Read Start */
+  alt_u32 uliLeftRdInitAddrHighDword; /* Left Initial Read Address [High Dword] */
+  alt_u32 uliLeftRdInitAddrLowDword; /* Left Initial Read Address [Low Dword] */
+  alt_u32 uliLeftRdDataLenghtBytes; /* Left Read Data Length [Bytes] */
+  bool bLeftRdStart; /* Left Data Read Start */
+} TFeebBufferDataControl;
 
  /* FEE Buffers IRQ Control Register Struct */
 typedef struct FeebIrqControl {
@@ -334,6 +344,7 @@ typedef struct FeebChannel {
   TFeebDevAddr xFeebDevAddr;
   TFeebMachineControl xFeebMachineControl;
   TFeebBufferStatus xFeebBufferStatus;
+  TFeebBufferDataControl xFeebBufferDataControl;
   TFeebIrqControl xFeebIrqControl;
   TFeebIrqFlag xFeebIrqFlag;
   TFeebIrqFlagClr xFeebIrqFlagClr;

@@ -91,8 +91,11 @@ bool bFeebGetCh8RightFeeBusy(void);
 
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
-bool bFeebSetMachineControl(TFeebChannel *pxFeebCh);
+bool bFeebGetBufferDataControl(TFeebChannel *pxFeebCh);
+bool bFeebSetBufferDataControl(TFeebChannel *pxFeebCh);
+
 bool bFeebGetMachineControl(TFeebChannel *pxFeebCh);
+bool bFeebSetMachineControl(TFeebChannel *pxFeebCh);
 
 bool bFeebStartCh(TFeebChannel *pxFeebCh);
 bool bFeebStopCh(TFeebChannel *pxFeebCh);
