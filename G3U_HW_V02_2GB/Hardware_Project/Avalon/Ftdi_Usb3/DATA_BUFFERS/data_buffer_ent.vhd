@@ -186,7 +186,10 @@ begin
 	s_data_fifo.sclr <= ('1') when (rst_i = '1') else (double_buffer_clear_i);
 
 	-- wr buffer output signal muxing
-	buffer_stat_full_o <= ('0') when (rst_i = '1') else (s_data_fifo.full);
+	--	buffer_stat_full_o <= ('0') when (rst_i = '1') else (s_data_fifo.full);
+	buffer_stat_full_o <= ('0') when (rst_i = '1')
+	                      else ('1') when ((s_data_fifo.full = '1') or (unsigned(s_data_fifo.usedw) >= 28))
+	                      else ('0');
 
 	-- wr buffer input signal muxing
 	-- data fifo write signals

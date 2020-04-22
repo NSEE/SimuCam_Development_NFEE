@@ -15,6 +15,7 @@ use IEEE.numeric_std.all;
 use work.ftdi_config_avalon_mm_pkg.all;
 use work.ftdi_config_avalon_mm_registers_pkg.all;
 use work.ftdi_data_avalon_mm_pkg.all;
+use work.ftdi_avm_usb3_pkg.all;
 use work.ftdi_protocol_pkg.all;
 
 entity ftdi_usb3_top is
@@ -22,36 +23,42 @@ entity ftdi_usb3_top is
 		g_FTDI_TESTBENCH_MODE : std_logic := '0'
 	);
 	port(
-		clock_sink_clk                  : in    std_logic                      := '0'; --          --               clock_sink.clk
-		ftdi_clock_sink_clk             : in    std_logic                      := '0'; --          --          ftdi_clock_sink.clk
-		reset_sink_reset                : in    std_logic                      := '0'; --          --               reset_sink.reset
-		umft_data_bus                   : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --        conduit_umft_pins.umft_data_signal
-		umft_reset_n_pin                : out   std_logic; --                                      --                         .umft_reset_n_signal
-		umft_rxf_n_pin                  : in    std_logic                      := '1'; --          --                         .umft_rxf_n_signal
-		umft_clock_pin                  : in    std_logic                      := '1'; --          --                         .umft_clock_signal
-		umft_wakeup_n_pin               : inout std_logic                      := 'Z'; --          --                         .umft_wakeup_n_signal
-		umft_be_bus                     : inout std_logic_vector(3 downto 0)   := (others => 'Z'); --                         .umft_be_signal
-		umft_txe_n_pin                  : in    std_logic                      := '1'; --          --                         .umft_txe_n_signal
-		umft_gpio_bus                   : inout std_logic_vector(1 downto 0)   := (others => 'Z'); --                         .umft_gpio_bus_signal
-		umft_wr_n_pin                   : out   std_logic; --                                      --                         .umft_wr_n_signal
-		umft_rd_n_pin                   : out   std_logic; --                                      --                         .umft_rd_n_signal
-		umft_oe_n_pin                   : out   std_logic; --                                      --                         .umft_oe_n_signal
-		umft_siwu_n_pin                 : out   std_logic; --                                      --                         .umft_siwu_n_signal
-		avalon_slave_config_address     : in    std_logic_vector(7 downto 0)   := (others => '0'); --      avalon_slave_config.address
-		avalon_slave_config_write       : in    std_logic                      := '0'; --          --                         .write
-		avalon_slave_config_read        : in    std_logic                      := '0'; --          --                         .read
-		avalon_slave_config_readdata    : out   std_logic_vector(31 downto 0); --                  --                         .readdata
-		avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
-		avalon_slave_config_waitrequest : out   std_logic; --                                      --                         .waitrequest
-		avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
-		avalon_slave_data_address       : in    std_logic_vector(20 downto 0)  := (others => '0'); --        avalon_slave_data.address
-		avalon_slave_data_write         : in    std_logic                      := '0'; --          --                         .write
-		avalon_slave_data_read          : in    std_logic                      := '0'; --          --                         .read
-		avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_data_readdata      : out   std_logic_vector(255 downto 0); --                 --                         .readdata
-		avalon_slave_data_waitrequest   : out   std_logic; --                                      --                         .waitrequest
-		ftdi_rx_interrupt_sender_irq    : out   std_logic; --                                      -- ftdi_rx_interrupt_sender.irq
-		ftdi_tx_interrupt_sender_irq    : out   std_logic ---                                      -- ftdi_tx_interrupt_sender.irq
+		clock_sink_clk                   : in    std_logic                      := '0'; --          --               clock_sink.clk
+		ftdi_clock_sink_clk              : in    std_logic                      := '0'; --          --          ftdi_clock_sink.clk
+		reset_sink_reset                 : in    std_logic                      := '0'; --          --               reset_sink.reset
+		umft_data_bus                    : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --        conduit_umft_pins.umft_data_signal
+		umft_reset_n_pin                 : out   std_logic; --                                      --                         .umft_reset_n_signal
+		umft_rxf_n_pin                   : in    std_logic                      := '1'; --          --                         .umft_rxf_n_signal
+		umft_clock_pin                   : in    std_logic                      := '1'; --          --                         .umft_clock_signal
+		umft_wakeup_n_pin                : inout std_logic                      := 'Z'; --          --                         .umft_wakeup_n_signal
+		umft_be_bus                      : inout std_logic_vector(3 downto 0)   := (others => 'Z'); --                         .umft_be_signal
+		umft_txe_n_pin                   : in    std_logic                      := '1'; --          --                         .umft_txe_n_signal
+		umft_gpio_bus                    : inout std_logic_vector(1 downto 0)   := (others => 'Z'); --                         .umft_gpio_bus_signal
+		umft_wr_n_pin                    : out   std_logic; --                                      --                         .umft_wr_n_signal
+		umft_rd_n_pin                    : out   std_logic; --                                      --                         .umft_rd_n_signal
+		umft_oe_n_pin                    : out   std_logic; --                                      --                         .umft_oe_n_signal
+		umft_siwu_n_pin                  : out   std_logic; --                                      --                         .umft_siwu_n_signal
+		avalon_slave_config_address      : in    std_logic_vector(7 downto 0)   := (others => '0'); --      avalon_slave_config.address
+		avalon_slave_config_write        : in    std_logic                      := '0'; --          --                         .write
+		avalon_slave_config_read         : in    std_logic                      := '0'; --          --                         .read
+		avalon_slave_config_readdata     : out   std_logic_vector(31 downto 0); --                  --                         .readdata
+		avalon_slave_config_writedata    : in    std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
+		avalon_slave_config_waitrequest  : out   std_logic; --                                      --                         .waitrequest
+		avalon_slave_config_byteenable   : in    std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
+		avalon_master_data_readdata_i    : in    std_logic_vector(255 downto 0) := (others => '0'); --       avalon_master_data.readdata
+		avalon_master_data_waitrequest_i : in    std_logic                      := '0'; --          --                         .waitrequest
+		avalon_master_data_address_o     : out   std_logic_vector(63 downto 0); --                  --                         .address
+		avalon_master_data_read_o        : out   std_logic; --                                      --                         .read
+		avalon_master_data_write_o       : out   std_logic; --                                      --                         .write
+		avalon_master_data_writedata_o   : out   std_logic_vector(255 downto 0); --                 --                         .writedata
+		--		avalon_slave_data_address        : in    std_logic_vector(20 downto 0)  := (others => '0'); --        avalon_slave_data.address
+		--		avalon_slave_data_write          : in    std_logic                      := '0'; --          --                         .write
+		--		avalon_slave_data_read           : in    std_logic                      := '0'; --          --                         .read
+		--		avalon_slave_data_writedata      : in    std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
+		--		avalon_slave_data_readdata       : out   std_logic_vector(255 downto 0); --                 --                         .readdata
+		--		avalon_slave_data_waitrequest    : out   std_logic; --                                      --                         .waitrequest
+		ftdi_rx_interrupt_sender_irq     : out   std_logic; --                                      -- ftdi_rx_interrupt_sender.irq
+		ftdi_tx_interrupt_sender_irq     : out   std_logic ---                                      -- ftdi_tx_interrupt_sender.irq
 	);
 end entity ftdi_usb3_top;
 
@@ -180,6 +187,14 @@ architecture rtl of ftdi_usb3_top is
 	signal s_tx_lut_finished_delayed : std_logic;
 	signal s_tx_lut_comm_err_delayed : std_logic;
 
+	-- avm
+	signal s_avm_master_rd_control        : t_ftdi_avm_master_rd_control;
+	signal s_avm_master_rd_status         : t_ftdi_avm_master_rd_status;
+	signal s_avm_slave_rd_control_address : std_logic_vector(63 downto 0);
+	signal s_avm_master_wr_control        : t_ftdi_avm_master_wr_control;
+	signal s_avm_master_wr_status         : t_ftdi_avm_master_wr_status;
+	signal s_avm_slave_wr_control_address : std_logic_vector(63 downto 0);
+
 begin
 
 	-- Config Avalon MM Testbench Stimulli Generate
@@ -231,21 +246,55 @@ begin
 
 	end generate g_ftdi_avs_config_read_write;
 
-	-- Tx Data Avalon MM Write Instantiation
-	ftdi_tx_data_avalon_mm_write_ent_inst : entity work.ftdi_tx_data_avalon_mm_write_ent
+	--	-- Tx Data Avalon MM Write Instantiation
+	--	ftdi_tx_data_avalon_mm_write_ent_inst : entity work.ftdi_tx_data_avalon_mm_write_ent
+	--		port map(
+	--			clk_i                                => a_avs_clock,
+	--			rst_i                                => a_reset,
+	--			ftdi_tx_data_avalon_mm_i.address     => avalon_slave_data_address,
+	--			ftdi_tx_data_avalon_mm_i.write       => avalon_slave_data_write,
+	--			ftdi_tx_data_avalon_mm_i.writedata   => avalon_slave_data_writedata,
+	--			buffer_stat_full_i                   => s_tx_dbuffer_stat_full,
+	--			buffer_wrready_i                     => s_tx_dbuffer_wrready,
+	--			ftdi_tx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_write_waitrequest,
+	--			buffer_data_loaded_o                 => s_tx_dbuffer_data_loaded,
+	--			buffer_wrdata_o                      => s_tx_dbuffer_wrdata,
+	--			buffer_wrreq_o                       => s_tx_dbuffer_wrreq
+	--		);
+
+	ftdi_avm_usb3_read_ent_inst : entity work.ftdi_avm_usb3_read_ent
 		port map(
-			clk_i                                => a_avs_clock,
-			rst_i                                => a_reset,
-			ftdi_tx_data_avalon_mm_i.address     => avalon_slave_data_address,
-			ftdi_tx_data_avalon_mm_i.write       => avalon_slave_data_write,
-			ftdi_tx_data_avalon_mm_i.writedata   => avalon_slave_data_writedata,
-			buffer_stat_full_i                   => s_tx_dbuffer_stat_full,
-			buffer_wrready_i                     => s_tx_dbuffer_wrready,
-			ftdi_tx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_write_waitrequest,
-			buffer_data_loaded_o                 => s_tx_dbuffer_data_loaded,
-			buffer_wrdata_o                      => s_tx_dbuffer_wrdata,
-			buffer_wrreq_o                       => s_tx_dbuffer_wrreq
+			clk_i                             => a_avs_clock,
+			rst_i                             => a_reset,
+			avm_master_rd_control_i           => s_avm_master_rd_control,
+			avm_slave_rd_status_i.readdata    => avalon_master_data_readdata_i,
+			avm_slave_rd_status_i.waitrequest => avalon_master_data_waitrequest_i,
+			avm_master_rd_status_o            => s_avm_master_rd_status,
+			avm_slave_rd_control_o.address    => s_avm_slave_rd_control_address,
+			avm_slave_rd_control_o.read       => avalon_master_data_read_o
 		);
+
+	ftdi_avm_reader_controller_ent_inst : entity work.ftdi_avm_reader_controller_ent
+		port map(
+			clk_i                                      => a_avs_clock,
+			rst_i                                      => a_reset,
+			ftdi_module_stop_i                         => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			ftdi_module_start_i                        => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			controller_rd_start_i                      => s_config_write_registers.data_control_reg.tx_rd_start,
+			controller_rd_reset_i                      => s_config_write_registers.data_control_reg.tx_rd_reset,
+			controller_rd_initial_addr_i(63 downto 32) => s_config_write_registers.data_control_reg.tx_rd_initial_addr_high_dword,
+			controller_rd_initial_addr_i(31 downto 0)  => s_config_write_registers.data_control_reg.tx_rd_initial_addr_low_dword,
+			controller_rd_length_bytes_i               => s_config_write_registers.data_control_reg.tx_rd_data_length_bytes,
+			controller_wr_busy_i                       => s_config_read_registers.data_status_reg.rx_wr_busy,
+			avm_master_rd_status_i                     => s_avm_master_rd_status,
+			buffer_stat_full_i                         => s_tx_dbuffer_stat_full,
+			buffer_wrready_i                           => s_tx_dbuffer_wrready,
+			controller_rd_busy_o                       => s_config_read_registers.data_status_reg.tx_rd_busy,
+			avm_master_rd_control_o                    => s_avm_master_rd_control,
+			buffer_wrdata_o                            => s_tx_dbuffer_wrdata,
+			buffer_wrreq_o                             => s_tx_dbuffer_wrreq
+		);
+	s_tx_dbuffer_data_loaded <= '0';
 
 	-- Tx (Double) Data Buffer Instantiation (Tx: FPGA => FTDI)	
 	tx_data_buffer_ent_inst : entity work.data_buffer_ent
@@ -298,21 +347,54 @@ begin
 	--			tx_dc_data_fifo_wrreq_o       => s_avalon_tx_dc_data_fifo_wrreq
 	--		);
 
-	-- Rx Data Avalon MM Read Instantiation
-	ftdi_rx_data_avalon_mm_read_ent_inst : entity work.ftdi_rx_data_avalon_mm_read_ent
+	--	-- Rx Data Avalon MM Read Instantiation
+	--	ftdi_rx_data_avalon_mm_read_ent_inst : entity work.ftdi_rx_data_avalon_mm_read_ent
+	--		port map(
+	--			clk_i                                => a_avs_clock,
+	--			rst_i                                => a_reset,
+	--			data_rx_stop_i                       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+	--			data_rx_start_i                      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+	--			ftdi_rx_data_avalon_mm_i.address     => avalon_slave_data_address,
+	--			ftdi_rx_data_avalon_mm_i.read        => avalon_slave_data_read,
+	--			buffer_stat_empty_i                  => s_rx_dbuffer_stat_empty,
+	--			buffer_rddata_i                      => s_rx_dbuffer_rddata,
+	--			buffer_rdready_i                     => s_rx_dbuffer_rdready,
+	--			ftdi_rx_data_avalon_mm_o.readdata    => avalon_slave_data_readdata,
+	--			ftdi_rx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_read_waitrequest,
+	--			buffer_rdreq_o                       => s_rx_dbuffer_rdreq
+	--		);
+
+	ftdi_avm_usb3_write_ent_inst : entity work.ftdi_avm_usb3_write_ent
 		port map(
-			clk_i                                => a_avs_clock,
-			rst_i                                => a_reset,
-			data_rx_stop_i                       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
-			data_rx_start_i                      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
-			ftdi_rx_data_avalon_mm_i.address     => avalon_slave_data_address,
-			ftdi_rx_data_avalon_mm_i.read        => avalon_slave_data_read,
-			buffer_stat_empty_i                  => s_rx_dbuffer_stat_empty,
-			buffer_rddata_i                      => s_rx_dbuffer_rddata,
-			buffer_rdready_i                     => s_rx_dbuffer_rdready,
-			ftdi_rx_data_avalon_mm_o.readdata    => avalon_slave_data_readdata,
-			ftdi_rx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_read_waitrequest,
-			buffer_rdreq_o                       => s_rx_dbuffer_rdreq
+			clk_i                             => a_avs_clock,
+			rst_i                             => a_reset,
+			avm_master_wr_control_i           => s_avm_master_wr_control,
+			avm_slave_wr_status_i.waitrequest => avalon_master_data_waitrequest_i,
+			avm_master_wr_status_o            => s_avm_master_wr_status,
+			avm_slave_wr_control_o.address    => s_avm_slave_wr_control_address,
+			avm_slave_wr_control_o.write      => avalon_master_data_write_o,
+			avm_slave_wr_control_o.writedata  => avalon_master_data_writedata_o
+		);
+
+	ftdi_avm_writer_controller_ent_inst : entity work.ftdi_avm_writer_controller_ent
+		port map(
+			clk_i                                      => a_avs_clock,
+			rst_i                                      => a_reset,
+			ftdi_module_stop_i                         => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			ftdi_module_start_i                        => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			controller_wr_start_i                      => s_config_write_registers.data_control_reg.rx_wr_start,
+			controller_wr_reset_i                      => s_config_write_registers.data_control_reg.rx_wr_reset,
+			controller_wr_initial_addr_i(63 downto 32) => s_config_write_registers.data_control_reg.rx_wr_initial_addr_high_dword,
+			controller_wr_initial_addr_i(31 downto 0)  => s_config_write_registers.data_control_reg.rx_wr_initial_addr_low_dword,
+			controller_wr_length_bytes_i               => s_config_write_registers.data_control_reg.rx_wr_data_length_bytes,
+			controller_rd_busy_i                       => s_config_read_registers.data_status_reg.tx_rd_busy,
+			avm_master_wr_status_i                     => s_avm_master_wr_status,
+			buffer_stat_empty_i                        => s_rx_dbuffer_stat_empty,
+			buffer_rddata_i                            => s_rx_dbuffer_rddata,
+			buffer_rdready_i                           => s_rx_dbuffer_rdready,
+			controller_wr_busy_o                       => s_config_read_registers.data_status_reg.rx_wr_busy,
+			avm_master_wr_control_o                    => s_avm_master_wr_control,
+			buffer_rdreq_o                             => s_rx_dbuffer_rdreq
 		);
 
 	-- Rx (Double) Data Buffer Instantiation (Rx: FTDI => FPGA)
@@ -784,7 +866,8 @@ begin
 	avalon_slave_config_waitrequest <= ((s_config_avalon_mm_read_waitrequest) and (s_config_avalon_mm_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- Data Avalon Assignments
-	avalon_slave_data_waitrequest <= ((s_data_avalon_mm_read_waitrequest) and (s_data_avalon_mm_write_waitrequest)) when (a_reset = '0') else ('1');
+	avalon_master_data_address_o <= (s_avm_slave_rd_control_address) or (s_avm_slave_wr_control_address);
+	--	avalon_slave_data_waitrequest <= ((s_data_avalon_mm_read_waitrequest) and (s_data_avalon_mm_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- Tx/Rx Mux Assignments
 	--	s_tx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");

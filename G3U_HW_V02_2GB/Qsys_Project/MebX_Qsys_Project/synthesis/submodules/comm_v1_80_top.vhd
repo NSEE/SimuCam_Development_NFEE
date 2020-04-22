@@ -365,11 +365,13 @@ begin
 			fee_stop_signal_i                          => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
 			fee_start_signal_i                         => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
 			controller_rd_start_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_start,
+			controller_rd_reset_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_reset,
 			controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_initial_addr_high_dword,
 			controller_rd_initial_addr_i(31 downto 0)  => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_initial_addr_low_dword,
 			controller_rd_length_bytes_i               => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_data_length_bytes,
 			avm_master_rd_status_i                     => s_avm_right_buffer_master_rd_status,
 			window_buffer_control_i                    => s_R_window_buffer_control,
+			controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.right_rd_busy,
 			avm_master_rd_control_o                    => s_avm_right_buffer_master_rd_control,
 			window_buffer_o                            => s_R_window_buffer
 		);
@@ -435,11 +437,13 @@ begin
 			fee_stop_signal_i                          => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
 			fee_start_signal_i                         => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
 			controller_rd_start_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_start,
+			controller_rd_reset_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_reset,
 			controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_initial_addr_high_dword,
 			controller_rd_initial_addr_i(31 downto 0)  => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_initial_addr_low_dword,
 			controller_rd_length_bytes_i               => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_data_length_bytes,
 			avm_master_rd_status_i                     => s_avm_left_buffer_master_rd_status,
 			window_buffer_control_i                    => s_L_window_buffer_control,
+			controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.left_rd_busy,
 			avm_master_rd_control_o                    => s_avm_left_buffer_master_rd_control,
 			window_buffer_o                            => s_L_window_buffer
 		);

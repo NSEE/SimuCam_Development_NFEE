@@ -23,8 +23,8 @@
 //alt_msgdma_dev *pxDmaCh5RightDev = NULL;
 //alt_msgdma_dev *pxDmaCh6LeftDev = NULL;
 //alt_msgdma_dev *pxDmaCh6RightDev = NULL;
-alt_msgdma_dev *pxDmaFtdiRxDev = NULL;
-alt_msgdma_dev *pxDmaFtdiTxDev = NULL;
+//alt_msgdma_dev *pxDmaFtdiRxDev = NULL;
+//alt_msgdma_dev *pxDmaFtdiTxDev = NULL;
 //! [data memory public global variables]
 
 //! [public functions]
@@ -229,152 +229,133 @@ bool bSdmaInitCh6Dmas(void) {
 }
 
 bool bSdmaInitFtdiRxDma(void) {
-	bool bStatus = FALSE;
-	bool bFailDispatcher = FALSE;
-	alt_u16 usiCounter = 0;
-
-	// open dma device
-	pxDmaFtdiRxDev = alt_msgdma_open((char *) SDMA_DMA_FTDI_RX_NAME);
-
-	// check if the device was opened
-	if (pxDmaFtdiRxDev != NULL) {
-		// device opened
-		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiRxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
-		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiRxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
-			usleep(1);
-			usiCounter++;
-			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
-				bFailDispatcher = TRUE;
-				break;
-			}
-		}
-		if (bFailDispatcher == FALSE)
-			bStatus = TRUE;
-	}
-
-	return bStatus;
-}
-
-bool bSdmaInitFtdiTxDma(void) {
-	bool bStatus = FALSE;
-	bool bFailDispatcher = FALSE;
-	alt_u16 usiCounter = 0;
-
-	// open dma device
-	pxDmaFtdiTxDev = alt_msgdma_open((char *) SDMA_DMA_FTDI_TX_NAME);
-
-	// check if the device was opened
-	if (pxDmaFtdiTxDev != NULL) {
-		// device opened
-		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiTxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
-		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiTxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
-			usleep(1);
-			usiCounter++;
-			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
-				bFailDispatcher = TRUE;
-				break;
-			}
-		}
-		if (bFailDispatcher == FALSE)
-			bStatus = TRUE;
-	}
-
-	return bStatus;
-}
-
-bool bSdmaResetChDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait){
 //	bool bStatus = FALSE;
 //	bool bFailDispatcher = FALSE;
 //	alt_u16 usiCounter = 0;
 //
-//	alt_msgdma_dev *pxChDmaDev = NULL;
-//	volatile TCommChannel *vpxCommChannel = NULL;
+//	// open dma device
+//	pxDmaFtdiRxDev = alt_msgdma_open((char *) SDMA_DMA_FTDI_RX_NAME);
 //
-//	switch (ucChBufferId) {
-//	case eSdmaCh1Buffer:
-//		switch (ucBufferSide) {
-//		case eSdmaRightBuffer:
-//			pxChDmaDev  = pxDmaCh1RightDev;
-//			break;
-//		case eSdmaLeftBuffer:
-//			pxChDmaDev = pxDmaCh1LeftDev;
-//			break;
-//		default:
-//			pxChDmaDev = NULL;
-//			break;
+//	// check if the device was opened
+//	if (pxDmaFtdiRxDev != NULL) {
+//		// device opened
+//		// reset the dispatcher
+//		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiRxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+//		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiRxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+//			usleep(1);
+//			usiCounter++;
+//			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+//				bFailDispatcher = TRUE;
+//				break;
+//			}
 //		}
-//		break;
-//	case eSdmaCh2Buffer:
-//		switch (ucBufferSide) {
-//		case eSdmaRightBuffer:
-//			pxChDmaDev  = pxDmaCh2RightDev;
-//			break;
-//		case eSdmaLeftBuffer:
-//			pxChDmaDev = pxDmaCh2LeftDev;
-//			break;
-//		default:
-//			pxChDmaDev = NULL;
-//			break;
-//		}
-//		break;
-//	case eSdmaCh3Buffer:
-//		switch (ucBufferSide) {
-//		case eSdmaRightBuffer:
-//			pxChDmaDev  = pxDmaCh3RightDev;
-//			break;
-//		case eSdmaLeftBuffer:
-//			pxChDmaDev = pxDmaCh3LeftDev;
-//			break;
-//		default:
-//			pxChDmaDev = NULL;
-//			break;
-//		}
-//		break;
-//	case eSdmaCh4Buffer:
-//		switch (ucBufferSide) {
-//		case eSdmaRightBuffer:
-//			pxChDmaDev  = pxDmaCh4RightDev;
-//			break;
-//		case eSdmaLeftBuffer:
-//			pxChDmaDev = pxDmaCh4LeftDev;
-//			break;
-//		default:
-//			pxChDmaDev = NULL;
-//			break;
-//		}
-//		break;
-//	case eSdmaCh5Buffer:
-//		switch (ucBufferSide) {
-//		case eSdmaRightBuffer:
-//			pxChDmaDev  = pxDmaCh5RightDev;
-//			break;
-//		case eSdmaLeftBuffer:
-//			pxChDmaDev = pxDmaCh5LeftDev;
-//			break;
-//		default:
-//			pxChDmaDev = NULL;
-//			break;
-//		}
-//		break;
-//	case eSdmaCh6Buffer:
-//		switch (ucBufferSide) {
-//		case eSdmaRightBuffer:
-//			pxChDmaDev  = pxDmaCh6RightDev;
-//			break;
-//		case eSdmaLeftBuffer:
-//			pxChDmaDev = pxDmaCh6LeftDev;
-//			break;
-//		default:
-//			pxChDmaDev = NULL;
-//			break;
-//		}
-//		break;
-//	default:
-//		pxChDmaDev  = NULL;
-//		break;
+//		if (bFailDispatcher == FALSE)
+//			bStatus = TRUE;
 //	}
+
+	bool bStatus = TRUE;
+	return bStatus;
+}
+
+bool bSdmaInitFtdiTxDma(void) {
+//	bool bStatus = FALSE;
+//	bool bFailDispatcher = FALSE;
+//	alt_u16 usiCounter = 0;
+//
+//	// open dma device
+//	pxDmaFtdiTxDev = alt_msgdma_open((char *) SDMA_DMA_FTDI_TX_NAME);
+//
+//	// check if the device was opened
+//	if (pxDmaFtdiTxDev != NULL) {
+//		// device opened
+//		// reset the dispatcher
+//		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiTxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+//		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiTxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+//			usleep(1);
+//			usiCounter++;
+//			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+//				bFailDispatcher = TRUE;
+//				break;
+//			}
+//		}
+//		if (bFailDispatcher == FALSE)
+//			bStatus = TRUE;
+//	}
+
+	bool bStatus = TRUE;
+	return bStatus;
+}
+
+bool bSdmaResetChDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait){
+	bool bStatus = FALSE;
+//	bool bFailDispatcher = FALSE;
+//	alt_u16 usiCounter = 0;
+//
+//	alt_msgdma_dev *pxChDmaDev = NULL;
+	volatile TCommChannel *vpxCommChannel = NULL;
+
+	switch (ucChBufferId) {
+	case eSdmaCh1Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+		break;
+	case eSdmaCh2Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+		break;
+	case eSdmaCh3Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+		break;
+	case eSdmaCh4Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+		break;
+	case eSdmaCh5Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+		break;
+	case eSdmaCh6Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+		break;
+	case eSdmaCh7Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
+		break;
+	case eSdmaCh8Buffer:
+		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
+		break;
+	default:
+		vpxCommChannel = NULL;
+		break;
+	}
+
+	if (vpxCommChannel != NULL) {
+
+		switch (ucBufferSide) {
+		case eSdmaRightBuffer:
+			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.bRightRdReset = TRUE;
+			if (bWait) {
+				// wait for the avm controller to be free
+				while (vpxCommChannel->xFeeBuffer.xFeebBufferDataStatus.bRightRdBusy) {
+					alt_busy_sleep(1); /* delay 1us */
+				}
+			}
+			bStatus = TRUE;
+			break;
+		case eSdmaLeftBuffer:
+			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.bLeftRdReset = TRUE;
+			if (bWait) {
+				// wait for the avm controller to be free
+				while (vpxCommChannel->xFeeBuffer.xFeebBufferDataStatus.bLeftRdBusy) {
+					alt_busy_sleep(1); /* delay 1us */
+				}
+			}
+			bStatus = TRUE;
+			break;
+		default:
+			bStatus = FALSE;
+			break;
+		}
+
+
+
+	}
+
 //
 //	if (pxChDmaDev != NULL) {
 //		// reset the dispatcher
@@ -396,7 +377,7 @@ bool bSdmaResetChDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait){
 //			bStatus = TRUE;
 //		}
 //	}
-	bool bStatus = TRUE;
+
 	return bStatus;
 }
 
@@ -404,49 +385,69 @@ bool bSdmaResetFtdiDma(bool bWait){
 	bool bStatusRx = FALSE;
 	bool bStatusTx = FALSE;
 	bool bStatus   = FALSE;
-	bool bFailDispatcher = FALSE;
-	alt_u16 usiCounter = 0;
+//	bool bFailDispatcher = FALSE;
+//	alt_u16 usiCounter = 0;
 
-	if (pxDmaFtdiRxDev != NULL) {
-		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiRxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
-		if (bWait) {
-			while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiRxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
-				usleep(1);
-				usiCounter++;
-				if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
-					bFailDispatcher = TRUE;
-					break;
-				}
-			}
-			if (bFailDispatcher == FALSE)
-				bStatusRx = TRUE;
-		} else {
-			bStatusRx = TRUE;
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+
+//	if (pxDmaFtdiRxDev != NULL) {
+//		// reset the dispatcher
+//		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiRxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+//		if (bWait) {
+//			while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiRxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+//				usleep(1);
+//				usiCounter++;
+//				if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+//					bFailDispatcher = TRUE;
+//					break;
+//				}
+//			}
+//			if (bFailDispatcher == FALSE)
+//				bStatusRx = TRUE;
+//		} else {
+//			bStatusRx = TRUE;
+//		}
+//	}
+
+	vpxFtdiModule->xFtdiDataControl.bRxWrReset = TRUE;
+	if (bWait) {
+		// wait for the avm controller to be free
+		while (vpxFtdiModule->xFtdiDataStatus.bRxWrBusy) {
+			alt_busy_sleep(1); /* delay 1us */
 		}
 	}
+	bStatusRx = TRUE;
 
-	usiCounter = 0;
-	bFailDispatcher = FALSE;
+//	usiCounter = 0;
+//	bFailDispatcher = FALSE;
 
-	if (pxDmaFtdiTxDev != NULL) {
-		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiTxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
-		if (bWait) {
-			while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiTxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
-				usleep(1);
-				usiCounter++;
-				if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
-					bFailDispatcher = TRUE;
-					break;
-				}
-			}
-			if (bFailDispatcher == FALSE)
-				bStatusTx = TRUE;
-		} else {
-			bStatusTx = TRUE;
+//	if (pxDmaFtdiTxDev != NULL) {
+//		// reset the dispatcher
+//		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaFtdiTxDev->csr_base, ALTERA_MSGDMA_CSR_RESET_MASK);
+//		if (bWait) {
+//			while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaFtdiTxDev->csr_base) & ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
+//				usleep(1);
+//				usiCounter++;
+//				if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+//					bFailDispatcher = TRUE;
+//					break;
+//				}
+//			}
+//			if (bFailDispatcher == FALSE)
+//				bStatusTx = TRUE;
+//		} else {
+//			bStatusTx = TRUE;
+//		}
+//	}
+
+	vpxFtdiModule->xFtdiDataControl.bTxRdReset = TRUE;
+	if (bWait) {
+		// wait for the avm controller to be free
+		while (vpxFtdiModule->xFtdiDataStatus.bTxRdBusy) {
+			alt_busy_sleep(1); /* delay 1us */
 		}
 	}
+	bStatusTx = TRUE;
 
 	if ((bStatusRx) && (bStatusTx)) {
 		bStatus = TRUE;
@@ -631,13 +632,18 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (uliTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 
+		// reset the avm controller
+		bSdmaResetChDma(ucChBufferId, ucBufferSide, TRUE);
+
 		if (eSdmaRightBuffer == ucBufferSide) {
+			// start new transfer
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliRightRdInitAddrHighDword = uliSrcAddrHigh;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliRightRdInitAddrLowDword = uliSrcAddrLow;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliRightRdDataLenghtBytes = uliRoundedTransferSizeInBytes;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.bRightRdStart = TRUE;
 			bStatus = TRUE;
 		} else {
+			// start new transfer
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliLeftRdInitAddrHighDword = uliSrcAddrHigh;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliLeftRdInitAddrLowDword = uliSrcAddrLow;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliLeftRdDataLenghtBytes = uliRoundedTransferSizeInBytes;
@@ -845,13 +851,18 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (uliTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 
+		// reset the avm controller
+		bSdmaResetChDma(ucChBufferId, ucBufferSide, TRUE);
+
 		if (eSdmaRightBuffer == ucBufferSide) {
+			// start new transfer
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliRightRdInitAddrHighDword = uliSrcAddrHigh;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliRightRdInitAddrLowDword = uliSrcAddrLow;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliRightRdDataLenghtBytes = uliRoundedTransferSizeInBytes;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.bRightRdStart = TRUE;
 			bStatus = TRUE;
 		} else {
+			// start new transfer
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliLeftRdInitAddrHighDword = uliSrcAddrHigh;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliLeftRdInitAddrLowDword = uliSrcAddrLow;
 			vpxCommChannel->xFeeBuffer.xFeebBufferDataControl.uliLeftRdDataLenghtBytes = uliRoundedTransferSizeInBytes;
@@ -885,8 +896,10 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBytes, alt_u8 ucFtdiOperation){
 	bool bStatus;
 
-	alt_msgdma_dev *pxDmaM1TransferDev = NULL;
-	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
+//	alt_msgdma_dev *pxDmaM1TransferDev = NULL;
+//	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
+
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 
 	alt_u32 uliDestAddrLow = 0;
 	alt_u32 uliDestAddrHigh = 0;
@@ -894,7 +907,7 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	alt_u32 uliSrcAddrLow = 0;
 	alt_u32 uliSrcAddrHigh = 0;
 
-	alt_u32 uliControlBits = 0x00000000;
+//	alt_u32 uliControlBits = 0x00000000;
 	bool bAddressFlag = FALSE;
 	bool bOperationFlag = FALSE;
 
@@ -907,18 +920,18 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 		case eSdmaTxFtdi:
 				uliSrcAddrLow   = (alt_u32) SDMA_M1_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliSrcAddrHigh  = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
-				uliDestAddrLow  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
-				uliDestAddrHigh = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
-				pxDmaM1TransferDev = pxDmaFtdiTxDev;
+//				uliDestAddrLow  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
+//				uliDestAddrHigh = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
+//				pxDmaM1TransferDev = pxDmaFtdiTxDev;
 				bOperationFlag = TRUE;
 			break;
 
 		case eSdmaRxFtdi:
-				uliSrcAddrLow   = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
-				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
+//				uliSrcAddrLow   = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
+//				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_M1_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliDestAddrHigh = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
-				pxDmaM1TransferDev = pxDmaFtdiRxDev;
+//				pxDmaM1TransferDev = pxDmaFtdiRxDev;
 				bOperationFlag = TRUE;
 			break;
 
@@ -946,29 +959,49 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 
 	if ((bOperationFlag) && (bAddressFlag) && (uliRoundedTransferSizeInBytes <= FTDI_BUFFER_SIZE_TRANSFER)) {
 
-		if (pxDmaM1TransferDev != NULL) {
+		// reset the avm controller
+		bSdmaResetFtdiDma(TRUE);
 
-			// reset the dma device
-			bSdmaResetFtdiDma(TRUE);
-
-			// hold transfers for descriptor fifo space
-			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
-				alt_busy_sleep(1); /* delay 1us */
-			}
-
-			/* Success = 0 */
-			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1TransferDev,
-					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
-					(alt_u32 *) uliDestAddrLow,
-					uliRoundedTransferSizeInBytes, uliControlBits,
-					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
-					1, 1, 1, 1, 1)	) {
-				/* Success = 0 */
-				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1TransferDev, &xDmaExtendedDescriptor)) {
-					bStatus = TRUE;
-				}
-			}
+		if (eSdmaTxFtdi == ucFtdiOperation) {
+			// start new transfer
+			vpxFtdiModule->xFtdiDataControl.uliTxRdInitAddrHighDword = uliSrcAddrHigh;
+			vpxFtdiModule->xFtdiDataControl.uliTxRdInitAddrLowDword = uliSrcAddrLow;
+			vpxFtdiModule->xFtdiDataControl.uliTxRdDataLenghtBytes = uliRoundedTransferSizeInBytes;
+			vpxFtdiModule->xFtdiDataControl.bTxRdStart = TRUE;
+			bStatus = TRUE;
+		} else {
+			// start new transfer
+			vpxFtdiModule->xFtdiDataControl.uliRxWrInitAddrHighDword = uliDestAddrHigh;
+			vpxFtdiModule->xFtdiDataControl.uliRxWrInitAddrLowDword = uliDestAddrLow;
+			vpxFtdiModule->xFtdiDataControl.uliRxWrDataLenghtBytes = uliRoundedTransferSizeInBytes;
+			vpxFtdiModule->xFtdiDataControl.bRxWrStart = TRUE;
+			bStatus = TRUE;
 		}
+
+//		if (pxDmaM1TransferDev != NULL) {
+//
+//			// reset the dma device
+//			bSdmaResetFtdiDma(TRUE);
+//
+//			// hold transfers for descriptor fifo space
+//			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+//				alt_busy_sleep(1); /* delay 1us */
+//			}
+//
+//			/* Success = 0 */
+//			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1TransferDev,
+//					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+//					(alt_u32 *) uliDestAddrLow,
+//					uliRoundedTransferSizeInBytes, uliControlBits,
+//					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
+//					1, 1, 1, 1, 1)	) {
+//				/* Success = 0 */
+//				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1TransferDev, &xDmaExtendedDescriptor)) {
+//					bStatus = TRUE;
+//				}
+//			}
+//		}
+
 	}
 	return bStatus;
 }
@@ -976,8 +1009,10 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBytes, alt_u8 ucFtdiOperation){
 	bool bStatus;
 
-	alt_msgdma_dev *pxDmaM2TransferDev = NULL;
-	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
+//	alt_msgdma_dev *pxDmaM2TransferDev = NULL;
+//	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
+
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 
 	alt_u32 uliDestAddrLow = 0;
 	alt_u32 uliDestAddrHigh = 0;
@@ -985,7 +1020,7 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 	alt_u32 uliSrcAddrLow = 0;
 	alt_u32 uliSrcAddrHigh = 0;
 
-	alt_u32 uliControlBits = 0x00000000;
+//	alt_u32 uliControlBits = 0x00000000;
 	bool bAddressFlag = FALSE;
 	bool bOperationFlag = FALSE;
 
@@ -998,18 +1033,18 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 		case eSdmaTxFtdi:
 				uliSrcAddrLow   = (alt_u32) SDMA_M2_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliSrcAddrHigh  = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
-				uliDestAddrLow  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
-				uliDestAddrHigh = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
-				pxDmaM2TransferDev = pxDmaFtdiTxDev;
+//				uliDestAddrLow  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
+//				uliDestAddrHigh = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
+//				pxDmaM2TransferDev = pxDmaFtdiTxDev;
 				bOperationFlag = TRUE;
 			break;
 
 		case eSdmaRxFtdi:
-				uliSrcAddrLow   = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
-				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
+//				uliSrcAddrLow   = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_LOW;
+//				uliSrcAddrHigh  = (alt_u32) SDMA_FTDI_BUFF_BASE_ADDR_HIGH;
 				uliDestAddrLow  = (alt_u32) SDMA_M2_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 				uliDestAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
-				pxDmaM2TransferDev = pxDmaFtdiRxDev;
+//				pxDmaM2TransferDev = pxDmaFtdiRxDev;
 				bOperationFlag = TRUE;
 			break;
 
@@ -1037,29 +1072,49 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInByt
 
 	if ((bOperationFlag) && (bAddressFlag) && (uliRoundedTransferSizeInBytes <= FTDI_BUFFER_SIZE_TRANSFER)) {
 
-		if (pxDmaM2TransferDev != NULL) {
+		// reset the avm controller
+		bSdmaResetFtdiDma(TRUE);
 
-			// reset the dma device
-			bSdmaResetFtdiDma(TRUE);
-
-			// hold transfers for descriptor fifo space
-			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
-				alt_busy_sleep(1); /* delay 1us */
-			}
-
-			/* Success = 0 */
-			if ( 0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2TransferDev,
-					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
-					(alt_u32 *) uliDestAddrLow,
-					uliRoundedTransferSizeInBytes, uliControlBits,
-					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
-					1, 1, 1, 1, 1)) {
-				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev, &xDmaExtendedDescriptor)) {
-					bStatus = TRUE;
-				}
-			}
+		if (eSdmaTxFtdi == ucFtdiOperation) {
+			// start new transfer
+			vpxFtdiModule->xFtdiDataControl.uliTxRdInitAddrHighDword = uliSrcAddrHigh;
+			vpxFtdiModule->xFtdiDataControl.uliTxRdInitAddrLowDword = uliSrcAddrLow;
+			vpxFtdiModule->xFtdiDataControl.uliTxRdDataLenghtBytes = uliRoundedTransferSizeInBytes;
+			vpxFtdiModule->xFtdiDataControl.bTxRdStart = TRUE;
+			bStatus = TRUE;
+		} else {
+			// start new transfer
+			vpxFtdiModule->xFtdiDataControl.uliRxWrInitAddrHighDword = uliDestAddrHigh;
+			vpxFtdiModule->xFtdiDataControl.uliRxWrInitAddrLowDword = uliDestAddrLow;
+			vpxFtdiModule->xFtdiDataControl.uliRxWrDataLenghtBytes = uliRoundedTransferSizeInBytes;
+			vpxFtdiModule->xFtdiDataControl.bRxWrStart = TRUE;
+			bStatus = TRUE;
 		}
+
+//		if (pxDmaM2TransferDev != NULL) {
+//
+//			// reset the dma device
+//			bSdmaResetFtdiDma(TRUE);
+//
+//			// hold transfers for descriptor fifo space
+//			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2TransferDev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+//				alt_busy_sleep(1); /* delay 1us */
+//			}
+//
+//			/* Success = 0 */
+//			if ( 0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2TransferDev,
+//					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+//					(alt_u32 *) uliDestAddrLow,
+//					uliRoundedTransferSizeInBytes, uliControlBits,
+//					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
+//					1, 1, 1, 1, 1)) {
+//				/* Success = 0 */
+//				if ( 0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM2TransferDev, &xDmaExtendedDescriptor)) {
+//					bStatus = TRUE;
+//				}
+//			}
+//		}
+
 	}
 	return bStatus;
 }

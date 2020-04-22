@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#71#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#75#;
 
 	-- Registers Types
 
@@ -87,11 +87,19 @@ package avalon_mm_spacewire_registers_pkg is
 		right_rd_initial_addr_low_dword  : std_logic_vector(31 downto 0); -- Right Initial Read Address [Low Dword]
 		right_rd_data_length_bytes       : std_logic_vector(31 downto 0); -- Right Read Data Length [Bytes]
 		right_rd_start                   : std_logic; -- Right Data Read Start
+		right_rd_reset                   : std_logic; -- Right Data Read Reset
 		left_rd_initial_addr_high_dword  : std_logic_vector(31 downto 0); -- Left Initial Read Address [High Dword]
 		left_rd_initial_addr_low_dword   : std_logic_vector(31 downto 0); -- Left Initial Read Address [Low Dword]
 		left_rd_data_length_bytes        : std_logic_vector(31 downto 0); -- Left Read Data Length [Bytes]
 		left_rd_start                    : std_logic; -- Left Data Read Start
+		left_rd_reset                    : std_logic; -- Left Data Read Reset
 	end record t_comm_fee_buffers_data_control_wr_reg;
+
+	-- FEE Buffers Data Status Register
+	type t_comm_fee_buffers_data_status_rd_reg is record
+		right_rd_busy : std_logic;      -- Right Data Read Busy
+		left_rd_busy  : std_logic;      -- Left Data Read Busy
+	end record t_comm_fee_buffers_data_status_rd_reg;
 
 	-- FEE Buffers IRQ Control Register
 	type t_comm_fee_buffers_irq_control_wr_reg is record
@@ -296,16 +304,17 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Avalon MM Read-Only Registers
 	type t_windowing_read_registers is record
-		spw_link_status_reg        : t_comm_spw_link_status_rd_reg; -- SpaceWire Link Status Register
-		spw_timecode_status_reg    : t_comm_spw_timecode_rd_reg; -- SpaceWire Timecode Status Register
-		fee_buffers_status_reg     : t_comm_fee_buffers_status_rd_reg; -- FEE Buffers Status Register
-		fee_buffers_irq_flags_reg  : t_comm_fee_buffers_irq_flags_rd_reg; -- FEE Buffers IRQ Flags Register
-		fee_buffers_irq_number_reg : t_comm_fee_buffers_number_rd_reg; -- FEE Buffers IRQ Number Register
-		rmap_codec_status_reg      : t_comm_rmap_codec_status_rd_reg; -- RMAP Codec Status Register
-		rmap_memory_status_reg     : t_comm_rmap_memory_status_rd_reg; -- RMAP Memory Status Register
-		rmap_irq_flags_reg         : t_comm_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
-		rmap_irq_number_reg        : t_comm_rmap_irq_number_rd_reg; -- RMAP IRQ Number Register
-		data_packet_header_reg     : t_comm_data_packet_header_rd_reg; -- Data Packet Header Register
+		spw_link_status_reg         : t_comm_spw_link_status_rd_reg; -- SpaceWire Link Status Register
+		spw_timecode_status_reg     : t_comm_spw_timecode_rd_reg; -- SpaceWire Timecode Status Register
+		fee_buffers_status_reg      : t_comm_fee_buffers_status_rd_reg; -- FEE Buffers Status Register
+		fee_buffers_data_status_reg : t_comm_fee_buffers_data_status_rd_reg; -- FEE Buffers Data Status Register
+		fee_buffers_irq_flags_reg   : t_comm_fee_buffers_irq_flags_rd_reg; -- FEE Buffers IRQ Flags Register
+		fee_buffers_irq_number_reg  : t_comm_fee_buffers_number_rd_reg; -- FEE Buffers IRQ Number Register
+		rmap_codec_status_reg       : t_comm_rmap_codec_status_rd_reg; -- RMAP Codec Status Register
+		rmap_memory_status_reg      : t_comm_rmap_memory_status_rd_reg; -- RMAP Memory Status Register
+		rmap_irq_flags_reg          : t_comm_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
+		rmap_irq_number_reg         : t_comm_rmap_irq_number_rd_reg; -- RMAP IRQ Number Register
+		data_packet_header_reg      : t_comm_data_packet_header_rd_reg; -- Data Packet Header Register
 	end record t_windowing_read_registers;
 
 end package avalon_mm_spacewire_registers_pkg;

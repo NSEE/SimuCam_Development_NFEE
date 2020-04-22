@@ -597,7 +597,7 @@ void vFeebCh8HandleIrq(void* pvContext) {
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -621,7 +621,7 @@ bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -645,7 +645,7 @@ bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -669,7 +669,7 @@ bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -693,7 +693,7 @@ bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -717,7 +717,7 @@ bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -741,7 +741,7 @@ bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -765,7 +765,7 @@ bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
+//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -1236,11 +1236,11 @@ bool bFeebGetCh8RightFeeBusy(void) {
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 		alt_u8 ucBufferSide) {
 	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
+//	volatile TCommChannel *vpxCommChannel;
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+//		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 			switch (ucBufferSide) {
@@ -1288,6 +1288,23 @@ bool bFeebSetBufferDataControl(TFeebChannel *pxFeebCh) {
 		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebBufferDataControl = pxFeebCh->xFeebBufferDataControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bFeebGetBufferDataStatus(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		pxFeebCh->xFeebBufferDataStatus = vpxCommChannel->xFeeBuffer.xFeebBufferDataStatus;
 
 		bStatus = TRUE;
 

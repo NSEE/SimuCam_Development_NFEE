@@ -170,7 +170,7 @@ begin
 						s_buffer_empty    <= '0';
 					end if;
 					--					if (s_windowing_avsbuff_sc_fifo.full = '1') then
-					if (unsigned(s_windowing_avsbuff_sc_fifo.usedw) >= 28) then
+					if ((s_windowing_avsbuff_sc_fifo.full = '1') or (unsigned(s_windowing_avsbuff_sc_fifo.usedw) >= 28)) then
 						window_buffer_control_o.locked <= '1';
 					else
 						window_buffer_control_o.locked <= '0';

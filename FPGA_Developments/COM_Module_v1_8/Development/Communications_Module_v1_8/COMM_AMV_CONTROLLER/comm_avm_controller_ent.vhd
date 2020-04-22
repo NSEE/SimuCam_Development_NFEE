@@ -5,8 +5,6 @@ use ieee.numeric_std.all;
 use work.comm_avm_image_pkg.all;
 use work.windowing_dataset_pkg.all;
 
--- TODO: adicionar reset e busy!!
-
 entity comm_avm_controller_ent is
 	port(
 		clk_i                        : in  std_logic;
@@ -15,10 +13,12 @@ entity comm_avm_controller_ent is
 		fee_stop_signal_i            : in  std_logic;
 		fee_start_signal_i           : in  std_logic;
 		controller_rd_start_i        : in  std_logic;
+		controller_rd_reset_i        : in  std_logic;
 		controller_rd_initial_addr_i : in  std_logic_vector(63 downto 0);
 		controller_rd_length_bytes_i : in  std_logic_vector(31 downto 0);
 		avm_master_rd_status_i       : in  t_comm_avm_master_rd_status;
 		window_buffer_control_i      : in  t_windowing_buffer_control;
+		controller_rd_busy_o         : out std_logic;
 		avm_master_rd_control_o      : out t_comm_avm_master_rd_control;
 		window_buffer_o              : out t_windowing_buffer
 	);
@@ -56,6 +56,7 @@ begin
 			s_rd_addr_cnt               <= to_unsigned(0, s_rd_addr_cnt'length);
 			s_rd_data_cnt               <= to_unsigned(0, s_rd_data_cnt'length);
 			-- outputs reset
+			controller_rd_busy_o        <= '0';
 			avm_master_rd_control_o     <= c_COMM_AVM_MASTER_RD_CONTROL_RST;
 			window_buffer_o.wrdata      <= (others => '0');
 			window_buffer_o.wrreq       <= '0';
@@ -211,13 +212,21 @@ begin
 
 			-- check if a stop was issued
 			if (fee_stop_signal_i = '1') then
-				-- stop issued, go to stopped
+				-- a stop was issued
+				-- go to stopped
 				s_comm_avm_controller_state <= STOPPED;
 				v_comm_avm_controller_state := STOPPED;
+			-- check if a reset was requested
+			elsif (controller_rd_reset_i = '1') then
+				-- a reset was requested
+				-- go to idle
+				s_comm_avm_controller_state <= IDLE;
+				v_comm_avm_controller_state := IDLE;
 			end if;
 
 			-- Output Generation --
 			-- Default output generation
+			controller_rd_busy_o    <= '0';
 			avm_master_rd_control_o <= c_COMM_AVM_MASTER_RD_CONTROL_RST;
 			window_buffer_o.wrdata  <= (others => '0');
 			window_buffer_o.wrreq   <= '0';
@@ -247,12 +256,14 @@ begin
 				when BUFFER_WAITING =>
 					-- waiting windowing buffer
 					-- default output signals
-					-- conditional output signals
+					controller_rd_busy_o <= '1';
+				-- conditional output signals
 
-					-- state "READ_START"
+				-- state "READ_START"
 				when READ_START =>
 					-- start of a avm read
 					-- default output signals
+					controller_rd_busy_o                            <= '1';
 					avm_master_rd_control_o.rd_req                  <= '1';
 					avm_master_rd_control_o.rd_address(63 downto 5) <= std_logic_vector(s_rd_addr_cnt);
 					avm_master_rd_control_o.rd_address(4 downto 0)  <= (others => '0');
@@ -262,12 +273,14 @@ begin
 				when READ_WAITING =>
 					-- wait for avm read to finish
 					-- default output signals
-					-- conditional output signals
+					controller_rd_busy_o <= '1';
+				-- conditional output signals
 
-					-- state "BUFFER_WRITE"
+				-- state "BUFFER_WRITE"
 				when BUFFER_WRITE =>
 					-- write windowing buffer
 					-- default output signals
+					controller_rd_busy_o   <= '1';
 					window_buffer_o.wrdata <= avm_master_rd_status_i.rd_data;
 					window_buffer_o.wrreq  <= '1';
 				-- conditional output signals
@@ -276,6 +289,7 @@ begin
 				when FINISHED =>
 					-- avm controller is finished
 					-- default output signals
+					controller_rd_busy_o <= '1';
 					-- conditional output signals
 
 			end case;

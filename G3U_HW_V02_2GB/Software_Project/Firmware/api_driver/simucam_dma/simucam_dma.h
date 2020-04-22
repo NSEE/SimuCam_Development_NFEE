@@ -95,8 +95,8 @@
 //#define SDMA_DMA_CH_5_RIGHT_NAME        DMA_COMM_5_RIGHT_CSR_NAME
 //#define SDMA_DMA_CH_6_LEFT_NAME         DMA_COMM_6_LEFT_CSR_NAME
 //#define SDMA_DMA_CH_6_RIGHT_NAME        DMA_COMM_6_RIGHT_CSR_NAME
-#define SDMA_DMA_FTDI_RX_NAME           DMA_FTDI_RX_USB3_CSR_NAME
-#define SDMA_DMA_FTDI_TX_NAME           DMA_FTDI_TX_USB3_CSR_NAME
+//#define SDMA_DMA_FTDI_RX_NAME           DMA_FTDI_RX_USB3_CSR_NAME
+//#define SDMA_DMA_FTDI_TX_NAME           DMA_FTDI_TX_USB3_CSR_NAME
 
 //
 #define SDMA_PIXEL_BLOCK_SIZE_BYTES     (unsigned long)136u
@@ -150,7 +150,6 @@ bool bSdmaResetChDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait);
 bool bSdmaResetFtdiDma(bool bWait);
 bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
 bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
-bool bSdmaSetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
 bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBytes, alt_u8 ucFtdiOperation);
 bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBytes, alt_u8 ucFtdiOperation);
 //! [public function prototypes]

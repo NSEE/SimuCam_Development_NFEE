@@ -8,7 +8,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#76#;
+	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#82#;
 
 	-- Registers Types
 
@@ -118,6 +118,26 @@ package ftdi_config_avalon_mm_registers_pkg is
 		lut_transmitted     : std_logic; -- LUT Transmitted
 		lut_controller_busy : std_logic; -- LUT Controller Busy
 	end record t_ftdi_lut_trans_status_rd_reg;
+
+	-- FTDI Data Control Register
+	type t_ftdi_data_control_wr_reg is record
+		tx_rd_initial_addr_high_dword : std_logic_vector(31 downto 0); -- Tx Initial Read Address [High Dword]
+		tx_rd_initial_addr_low_dword  : std_logic_vector(31 downto 0); -- Tx Initial Read Address [Low Dword]
+		tx_rd_data_length_bytes       : std_logic_vector(31 downto 0); -- Tx Read Data Length [Bytes]
+		tx_rd_start                   : std_logic; -- Tx Data Read Start
+		tx_rd_reset                   : std_logic; -- Tx Data Read Reset
+		rx_wr_initial_addr_high_dword : std_logic_vector(31 downto 0); -- Rx Initial Write Address [High Dword]
+		rx_wr_initial_addr_low_dword  : std_logic_vector(31 downto 0); -- Rx Initial Write Address [Low Dword]
+		rx_wr_data_length_bytes       : std_logic_vector(31 downto 0); -- Rx Write Data Length [Bytes]
+		rx_wr_start                   : std_logic; -- Rx Data Write Start
+		rx_wr_reset                   : std_logic; -- Rx Data Write Reset
+	end record t_ftdi_data_control_wr_reg;
+
+	-- FTDI Data Status Register
+	type t_ftdi_data_status_rd_reg is record
+		tx_rd_busy : std_logic;         -- Tx Data Read Busy
+		rx_wr_busy : std_logic;         -- Rx Data Write Busy
+	end record t_ftdi_data_status_rd_reg;
 
 	-- FTDI LUT CCD1 Windowing Configuration
 	type t_lut_ccd1_windowing_cfg_wr_reg is record
@@ -233,6 +253,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 		tx_irq_flag_clear_reg      : t_ftdi_tx_irq_flag_clear_wr_reg; -- FTDI Tx IRQ Flag Clear Register
 		hccd_req_control_reg       : t_ftdi_hccd_req_control_wr_reg; -- FTDI Half-CCD Request Control Register
 		lut_trans_control_reg      : t_ftdi_lut_trans_control_wr_reg; -- FTDI LUT Transmission Control Register
+		data_control_reg           : t_ftdi_data_control_wr_reg; -- FTDI Data Control Register
 		lut_ccd1_windowing_cfg_reg : t_lut_ccd1_windowing_cfg_wr_reg; -- FTDI LUT CCD1 Windowing Configuration
 		lut_ccd2_windowing_cfg_reg : t_lut_ccd2_windowing_cfg_wr_reg; -- FTDI LUT CCD2 Windowing Configuration
 		lut_ccd3_windowing_cfg_reg : t_lut_ccd3_windowing_cfg_wr_reg; -- FTDI LUT CCD3 Windowing Configuration
@@ -245,6 +266,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 		tx_irq_flag_reg       : t_ftdi_tx_irq_flag_rd_reg; -- FTDI Tx IRQ Flag Register
 		hccd_reply_status_reg : t_ftdi_hccd_reply_status_rd_reg; -- FTDI Half-CCD Reply Status Register
 		lut_trans_status_reg  : t_ftdi_lut_trans_status_rd_reg; -- FTDI LUT Transmission Status Register
+		data_status_reg       : t_ftdi_data_status_rd_reg; -- FTDI Data Status Register
 		rx_comm_error_reg     : t_ftdi_rx_comm_error_rd_reg; -- FTDI Rx Communication Error Register
 		tx_comm_error_reg     : t_ftdi_tx_comm_error_rd_reg; -- FTDI Tx LUT Communication Error Register
 		rx_buffer_status_reg  : t_ftdi_rx_buffer_status_rd_reg; -- FTDI Rx Buffer Status Register
