@@ -161,9 +161,17 @@ void vParserCommTask(void *task_data) {
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
+							case 34:
+
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								//TNFee_Control xNFee_Control;
+
+
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
 							case 36:
+								usiFeeInstL = PreParsedLocal.usiValues[6];
 								if ( usiFeeInstL <= N_OF_NFEE ) {
-									usiFeeInstL = PreParsedLocal.usiValues[6];
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
@@ -177,8 +185,8 @@ void vParserCommTask(void *task_data) {
 								}
 								break;
 							case 37:
+								usiFeeInstL = PreParsedLocal.usiValues[6];
 								if ( usiFeeInstL <= N_OF_NFEE ) {
-									usiFeeInstL = PreParsedLocal.usiValues[6];
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
 									bSendMessagePUStoMebTask(&xTcPusL);

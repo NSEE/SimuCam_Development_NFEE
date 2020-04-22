@@ -399,6 +399,196 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			param1 = xPusL->usiValues[0];
 			bSyncCtrIntern(param1 == 0); /*True = Internal*/
 			break;
+		case 34:
+			usiFeeInstL = xPusL->usiValues[0];
+			tTMPus xTmPusL;
+			xTmPusL.usiPusId = xPusL->usiPusId;
+			xTmPusL.usiPid = 112;
+			xTmPusL.usiCat = 0;
+			xTmPusL.usiType = 250;
+			xTmPusL.usiSubType = 35;
+			xTmPusL.ucNofValues = 0;
+			xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
+			xTmPusL.ucNofValues++;
+			bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiChargeInjectionWidth;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiChargeInjectionGap;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiParallelToiPeriod;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiParallelClkOverlap;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiNFinalDump;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bChargeInjectionEn;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bTriLevelClkEn;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bImgClkDir;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bRegClkDir;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiIntSyncPeriod;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliTrapPumpingDwellCounter >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliTrapPumpingDwellCounter;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bSyncSel;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDGEn;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg5ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd1WinListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd1WinListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd1PktorderListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd1PktorderListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd1WinListLength;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd1WinSizeX;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd1WinSizeY;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg8ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd2WinListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd2WinListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd2PktorderListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd2PktorderListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd2WinListLength;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd2WinSizeX;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd2WinSizeY;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg11ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd3WinListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd3WinListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd3PktorderListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd3PktorderListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd3WinListLength;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd3WinSizeX;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd3WinSizeY;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg14ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd4WinListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd4WinListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd4PktorderListPtr >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliCcd4PktorderListPtr;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd4WinListLength;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd4WinSizeX;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd4WinSizeY;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg17ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcdVodConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd1VrdConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd2VrdConfig0;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcd2VrdConfig1;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd3VrdConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd4VrdConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdVgdConfig0;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdVgdConfig1;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcdVogConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcdIgHiConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcdIgLoConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiReg21ConfigReserved0;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg21ConfigReserved1;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bClearErrorFlag;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliReg22ConfigReserved >> 16;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->uliReg22ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd1LastEPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd1LastFPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd2LastEPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg23ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd2LastFPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd3LastEPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd3LastFPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg24ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd4LastEPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiCcd4LastFPacket;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiSurfaceInversionCounter;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucReg25ConfigReserved;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiReadoutPauseCounter;
+			xTmPusL.ucNofValues++;
+			xTmPusL.usiValues[xTmPusL.ucNofValues]=pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiTrapPumpingShuffleCounter;
+			xTmPusL.ucNofValues++;
+			vSendPusTM512(xTmPusL);
+			break;
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
 			usiFeeInstL = xPusL->usiValues[0];
@@ -406,8 +596,11 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+			}
 			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
@@ -416,8 +609,10 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+			}
 			#endif
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
@@ -624,6 +819,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				vSyncReset( xPusL->usiValues[0], &(pxMebCLocal->xFeeControl)  );
 			}
 		break;
+
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
 			usiFeeInstL = xPusL->usiValues[0];
@@ -631,8 +827,11 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+			}
 			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
@@ -641,8 +840,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-			fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+			}
 			#endif
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
