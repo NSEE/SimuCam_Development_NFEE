@@ -46,7 +46,7 @@ entity fee_data_controller_top is
 		data_pkt_data_y_size_i        : in  std_logic_vector(15 downto 0);
 		data_pkt_overscan_y_size_i    : in  std_logic_vector(15 downto 0);
 		data_pkt_packet_length_i      : in  std_logic_vector(15 downto 0);
-		data_pkt_fee_mode_i           : in  std_logic_vector(3 downto 0);
+		data_pkt_fee_mode_i           : in  std_logic_vector(4 downto 0);
 		data_pkt_ccd_number_i         : in  std_logic_vector(1 downto 0);
 		data_pkt_ccd_v_start_i        : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_v_end_i          : in  std_logic_vector(15 downto 0);
@@ -473,7 +473,6 @@ begin
 				s_registered_dpkt_params.image.data_y_size            <= data_pkt_data_y_size_i;
 				s_registered_dpkt_params.image.overscan_y_size        <= data_pkt_overscan_y_size_i;
 				s_registered_dpkt_params.image.packet_length          <= data_pkt_packet_length_i;
-				s_registered_dpkt_params.image.fee_mode               <= data_pkt_fee_mode_i;
 				s_registered_dpkt_params.image.ccd_number             <= data_pkt_ccd_number_i;
 				s_registered_dpkt_params.image.ccd_v_start            <= data_pkt_ccd_v_start_i;
 				s_registered_dpkt_params.image.ccd_v_end              <= data_pkt_ccd_v_end_i;
@@ -483,44 +482,77 @@ begin
 				s_registered_dpkt_params.image.adc_delay              <= data_pkt_adc_delay_i;
 				-- register masking settings
 				s_registered_dpkt_params.transmission.digitalise_en   <= fee_digitalise_en_i;
-				case (data_pkt_fee_mode_i(3 downto 0)) is
-					when c_FEE_ON_MODE =>
+				case (data_pkt_fee_mode_i) is
+					when c_DPKT_OFF_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_NONE;
+						s_registered_dpkt_params.transmission.windowing_en <= '0';
+						s_registered_dpkt_params.transmission.pattern_en   <= '0';
+					when c_DPKT_ON_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_ON_MODE;
+						s_registered_dpkt_params.transmission.windowing_en <= '0';
+						s_registered_dpkt_params.transmission.pattern_en   <= '0';
+					when c_DPKT_FULLIMAGE_PATTERN_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_FULLIMAGE_PATTERN_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_FEE_FULLIMAGE_PATTERN_MODE =>
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_FEE_WINDOWING_PATTERN_MODE =>
+					when c_DPKT_WINDOWING_PATTERN_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_PATTERN_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '1';
 						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_FEE_STANDBY_MODE =>
+					when c_DPKT_STANDBY_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_STANDBY_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_FULLIMAGE_MODE =>
+					when c_DPKT_FULLIMAGE_MODE_PATTERN_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_FULLIMAGE_MODE;
+						s_registered_dpkt_params.transmission.windowing_en <= '0';
+						s_registered_dpkt_params.transmission.pattern_en   <= '1';
+					when c_DPKT_FULLIMAGE_MODE_SSD_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_FULLIMAGE_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_WINDOWING_MODE =>
+					when c_DPKT_WINDOWING_MODE_PATTERN_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_MODE;
+						s_registered_dpkt_params.transmission.windowing_en <= '1';
+						s_registered_dpkt_params.transmission.pattern_en   <= '1';
+					when c_DPKT_WINDOWING_MODE_SSDIMG_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '1';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_PERFORMANCE_TEST_MODE =>
+					when c_DPKT_WINDOWING_MODE_SSDWIN_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_MODE;
+						s_registered_dpkt_params.transmission.windowing_en <= '1';
+						s_registered_dpkt_params.transmission.pattern_en   <= '0';
+					when c_DPKT_PERFORMANCE_TEST_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PERFORMANCE_TEST_MODE;
+						s_registered_dpkt_params.transmission.windowing_en <= '1';
+						s_registered_dpkt_params.transmission.pattern_en   <= '0';
+					when c_DPKT_PAR_TRAP_PUMP_1_MODE_PUMP_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_PARALLEL_TRAP_PUMPING_1_MODE =>
+					when c_DPKT_PAR_TRAP_PUMP_1_MODE_DATA_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_PARALLEL_TRAP_PUMPING_2_MODE =>
+					when c_DPKT_PAR_TRAP_PUMP_2_MODE_PUMP_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_SERIAL_TRAP_PUMPING_1_MODE =>
+					when c_DPKT_PAR_TRAP_PUMP_2_MODE_DATA_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_SERIAL_TRAP_PUMPING_2_MODE =>
+					when c_DPKT_SER_TRAP_PUMP_1_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_SERIAL_TRAP_PUMPING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_FEE_OFF_MODE =>
+					when c_DPKT_SER_TRAP_PUMP_2_MODE =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_SERIAL_TRAP_PUMPING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
 					when others =>
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_NONE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
 				end case;
@@ -554,32 +586,41 @@ begin
 				-- check if a side is activated
 				if ((fee_left_side_activated_i = '1') or (fee_right_side_activated_i = '1')) then
 					-- a side is activated
-					case (data_pkt_fee_mode_i(3 downto 0)) is
-						when c_FEE_FULLIMAGE_PATTERN_MODE =>
+					case (data_pkt_fee_mode_i) is
+						when c_DPKT_FULLIMAGE_PATTERN_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_WINDOWING_PATTERN_MODE =>
+						when c_DPKT_WINDOWING_PATTERN_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_FULLIMAGE_MODE =>
+						when c_DPKT_FULLIMAGE_MODE_PATTERN_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_WINDOWING_MODE =>
+						when c_DPKT_FULLIMAGE_MODE_SSD_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_PERFORMANCE_TEST_MODE =>
+						when c_DPKT_WINDOWING_MODE_PATTERN_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_PARALLEL_TRAP_PUMPING_1_MODE =>
+						when c_DPKT_WINDOWING_MODE_SSDIMG_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_PARALLEL_TRAP_PUMPING_2_MODE =>
+						when c_DPKT_WINDOWING_MODE_SSDWIN_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_SERIAL_TRAP_PUMPING_1_MODE =>
+						when c_DPKT_PERFORMANCE_TEST_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_FEE_SERIAL_TRAP_PUMPING_2_MODE =>
+						when c_DPKT_PAR_TRAP_PUMP_1_MODE_DATA_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_DPKT_PAR_TRAP_PUMP_2_MODE_DATA_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_DPKT_SER_TRAP_PUMP_1_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '0';
+						when c_DPKT_SER_TRAP_PUMP_2_MODE =>
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
 						when others =>
@@ -588,16 +629,22 @@ begin
 					end case;
 				else
 					-- no side is activated
-					case (data_pkt_fee_mode_i(3 downto 0)) is
-						when c_FEE_ON_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '1';
-						when c_FEE_STANDBY_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '1';
-						when c_FEE_OFF_MODE =>
+					case (data_pkt_fee_mode_i) is
+						when c_DPKT_OFF_MODE =>
 							s_dataman_sync    <= '0';
 							s_dataman_hk_only <= '0';
+						when c_DPKT_ON_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '1';
+						when c_DPKT_STANDBY_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '1';
+						when c_DPKT_PAR_TRAP_PUMP_1_MODE_PUMP_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '1';
+						when c_DPKT_PAR_TRAP_PUMP_2_MODE_PUMP_MODE =>
+							s_dataman_sync    <= '1';
+							s_dataman_hk_only <= '1';
 						when others =>
 							s_dataman_sync    <= '0';
 							s_dataman_hk_only <= '0';

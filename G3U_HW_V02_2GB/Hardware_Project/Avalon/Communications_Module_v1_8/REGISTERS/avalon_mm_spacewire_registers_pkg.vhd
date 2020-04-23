@@ -207,7 +207,7 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_packet_length   : std_logic_vector(15 downto 0); -- Data Packet Packet Length
 		data_pkt_logical_addr    : std_logic_vector(7 downto 0); -- Data Packet Logical Address
 		data_pkt_protocol_id     : std_logic_vector(7 downto 0); -- Data Packet Protocol ID
-		data_pkt_fee_mode        : std_logic_vector(3 downto 0); -- Data Packet FEE Mode
+		data_pkt_fee_mode        : std_logic_vector(4 downto 0); -- Data Packet FEE Mode
 		data_pkt_ccd_number      : std_logic_vector(1 downto 0); -- Data Packet CCD Number
 	end record t_comm_data_packet_config_wr_reg;
 

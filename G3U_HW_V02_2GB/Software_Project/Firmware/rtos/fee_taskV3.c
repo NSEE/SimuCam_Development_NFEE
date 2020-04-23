@@ -662,19 +662,19 @@ void vFeeTaskV3(void *task_data) {
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						break;
 					case sFullImage:
-						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImage;
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImageSsdMode;
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sWindowing:
-						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowing;
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingSsdImgMode;
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						break;
 					case sParTrap1:
-						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping1;
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping1Data;
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sParTrap2:
-						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping2;
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping2Data;
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sSerialTrap1:
@@ -1670,22 +1670,22 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 					} else if ( pxNFeeP->xControl.eNextMode == sFullImage_Enter ) {
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImage;
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImageSsdMode;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else if ( pxNFeeP->xControl.eNextMode == sWindowing_Enter ) {
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowing;
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingSsdImgMode;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else if ( pxNFeeP->xControl.eNextMode == sParTrap1_Enter ) {
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping1;
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping1Data;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else if ( pxNFeeP->xControl.eNextMode == sParTrap2_Enter ) {
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping2;
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping2Data;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else if ( pxNFeeP->xControl.eNextMode == sSerialTrap1_Enter ) {
 						/* [rfranca] */

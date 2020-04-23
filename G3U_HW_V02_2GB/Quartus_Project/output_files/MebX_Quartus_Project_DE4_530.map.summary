@@ -1,20 +1,20 @@
-Analysis & Elaboration Status : Successful - Fri Apr 17 11:51:34 2020
+Analysis & Synthesis Status : Successful - Thu Apr 23 01:45:05 2020
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 Revision Name : MebX_Quartus_Project_DE4_530
 Top-level Entity Name : MebX_TopLevel
 Family : Stratix IV
-Logic utilization : N/A until Partition Merge
-    Combinational ALUTs : N/A until Partition Merge
-    Memory ALUTs : N/A until Partition Merge
-    Dedicated logic registers : N/A until Partition Merge
-Total registers : N/A until Partition Merge
-Total pins : N/A until Partition Merge
-Total virtual pins : N/A until Partition Merge
-Total block memory bits : N/A until Partition Merge
-DSP block 18-bit elements : N/A until Partition Merge
-Total GXB Receiver Channel PCS : N/A until Partition Merge
-Total GXB Receiver Channel PMA : N/A until Partition Merge
-Total GXB Transmitter Channel PCS : N/A until Partition Merge
-Total GXB Transmitter Channel PMA : N/A until Partition Merge
-Total PLLs : N/A until Partition Merge
-Total DLLs : N/A until Partition Merge
+Logic utilization : N/A
+    Combinational ALUTs : 158,468
+    Memory ALUTs : 330
+    Dedicated logic registers : 131,388
+Total registers : 132676
+Total pins : 487
+Total virtual pins : 0
+Total block memory bits : 18,281,960
+DSP block 18-bit elements : 8
+Total GXB Receiver Channel PCS : 0
+Total GXB Receiver Channel PMA : 0
+Total GXB Transmitter Channel PCS : 0
+Total GXB Transmitter Channel PMA : 0
+Total PLLs : 2
+Total DLLs : 2

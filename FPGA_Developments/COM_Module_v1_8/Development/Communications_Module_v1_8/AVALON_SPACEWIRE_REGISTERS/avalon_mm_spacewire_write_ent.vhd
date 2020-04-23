@@ -120,7 +120,7 @@ begin
 			-- Data Packet Config Register : Data Packet Protocol ID
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_protocol_id                         <= x"F0";
 			-- Data Packet Config Register : Data Packet FEE Mode
-			spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode                            <= std_logic_vector(to_unsigned(1, 4));
+			spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode                            <= std_logic_vector(to_unsigned(0, 5));
 			-- Data Packet Config Register : Data Packet CCD Number
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_number                          <= std_logic_vector(to_unsigned(0, 2));
 			-- Data Packet Pixel Delay Register : Data Packet Start Delay
@@ -577,7 +577,7 @@ begin
 				when (16#4D#) =>
 					-- Data Packet Config Register : Data Packet FEE Mode
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
-						spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode <= avalon_mm_spacewire_i.writedata(3 downto 0);
+						spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode <= avalon_mm_spacewire_i.writedata(4 downto 0);
 					end if;
 					-- Data Packet Config Register : Data Packet CCD Number
 					if (avalon_mm_spacewire_i.byteenable(1) = '1') then

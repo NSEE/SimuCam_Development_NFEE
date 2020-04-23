@@ -672,7 +672,7 @@ begin
 				when (16#4D#) =>
 					-- Data Packet Config Register : Data Packet FEE Mode
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
-						avalon_mm_spacewire_o.readdata(3 downto 0) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_fee_mode;
+						avalon_mm_spacewire_o.readdata(4 downto 0) <= spacewire_write_registers_i.data_packet_config_reg.data_pkt_fee_mode;
 					end if;
 					-- Data Packet Config Register : Data Packet CCD Number
 					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
