@@ -24,8 +24,6 @@ static volatile int viCh3HoldContext;
 static volatile int viCh4HoldContext;
 static volatile int viCh5HoldContext;
 static volatile int viCh6HoldContext;
-static volatile int viCh7HoldContext;
-static volatile int viCh8HoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -366,58 +364,6 @@ void vRmapCh6HandleIrq(void* pvContext) {
 
 }
 
-void vRmapCh7HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-
-	/* RMAP Write Configuration Area Flag */
-	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
-		/* RMAP Write Configuration Area flag treatment */
-
-	}
-
-	/* RMAP Write Windowing Area Flag */
-	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-		/* RMAP Write Windowing Area flag treatment */
-
-	}
-
-}
-
-void vRmapCh8HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-
-	/* RMAP Write Configuration Area Flag */
-	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
-		/* RMAP Write Configuration Area flag treatment */
-
-	}
-
-	/* RMAP Write Windowing Area Flag */
-	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-		/* RMAP Write Windowing Area flag treatment */
-
-	}
-
-}
-
 alt_u32 uliRmapCh1WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
 	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
@@ -445,16 +391,6 @@ alt_u32 uliRmapCh5WriteCmdAddress(void) {
 
 alt_u32 uliRmapCh6WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
-}
-
-alt_u32 uliRmapCh7WriteCmdAddress(void) {
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
-}
-
-alt_u32 uliRmapCh8WriteCmdAddress(void) {
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
 }
 
@@ -533,30 +469,6 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_6_RMAP_IRQ, pvHoldContext, vRmapCh6HandleIrq);
-		bStatus = TRUE;
-		break;
-	case eCommSpwCh7:
-		// Recast the hold_context pointer to match the alt_irq_register() function
-		// prototype.
-		pvHoldContext = (void*) &viCh7HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-		// Register the interrupt handler
-		alt_irq_register(COMM_CH_7_RMAP_IRQ, pvHoldContext, vRmapCh7HandleIrq);
-		bStatus = TRUE;
-		break;
-	case eCommSpwCh8:
-		// Recast the hold_context pointer to match the alt_irq_register() function
-		// prototype.
-		pvHoldContext = (void*) &viCh8HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-		// Clear all flags
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
-		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-		// Register the interrupt handler
-		alt_irq_register(COMM_CH_8_RMAP_IRQ, pvHoldContext, vRmapCh8HandleIrq);
 		bStatus = TRUE;
 		break;
 	default:
@@ -901,22 +813,6 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
 			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_6_BASE_ADDR;
-			bValidCh = TRUE;
-			break;
-		case eCommSpwCh7:
-			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_7_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_7_BASE_ADDR;
-			bValidCh = TRUE;
-			break;
-		case eCommSpwCh8:
-			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_8_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_8_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		default:

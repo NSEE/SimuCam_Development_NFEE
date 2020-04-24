@@ -63,16 +63,6 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 		vpxWindowingParam = (TDpktWindowingParam *)uliWindowingParamAddr;
 		bValidCh = TRUE;
 		break;
-	case eCommSpwCh7:
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *)uliWindowingParamAddr;
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh8:
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *)uliWindowingParamAddr;
-		bValidCh = TRUE;
-		break;
 	default:
 		bValidCh = FALSE;
 		break;
@@ -149,16 +139,6 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucCommCh){
 		break;
 	case eCommSpwCh6:
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh7:
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh8:
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 		vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 		bValidCh = TRUE;
 		break;
@@ -264,14 +244,6 @@ bool bWindSetWindowingAreaOffset(alt_u8 ucCommCh, alt_u8 ucMemoryId, alt_u32 uli
 		break;
 	case eCommSpwCh6:
 		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh7:
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh8:
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 		bValidCh = TRUE;
 		break;
 	default:

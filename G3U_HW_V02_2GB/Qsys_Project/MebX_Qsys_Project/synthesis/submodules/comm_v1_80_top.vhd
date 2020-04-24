@@ -12,9 +12,8 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-use work.avalon_mm_windowing_pkg.all;
 use work.avalon_mm_spacewire_pkg.all;
-use work.comm_avm_image_pkg.all;
+use work.comm_avm_buffers_pkg.all;
 use work.avalon_mm_spacewire_registers_pkg.all;
 use work.spw_codec_pkg.all;
 use work.rmap_target_pkg.all;
@@ -35,14 +34,6 @@ entity comm_v1_80_top is
 		avalon_slave_windowing_writedata     : in  std_logic_vector(31 downto 0)  := (others => '0'); --                                  .writedata
 		avalon_slave_windowing_waitrequest   : out std_logic; --                                      --                                  .waitrequest
 		avalon_slave_windowing_byteenable    : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                  .byteenable
-		--		avalon_slave_L_buffer_address        : in  std_logic_vector(20 downto 0)  := (others => '0'); --             avalon_slave_L_buffer.address
-		--		avalon_slave_L_buffer_waitrequest    : out std_logic; --                                      --                                  .waitrequest
-		--		avalon_slave_L_buffer_write          : in  std_logic                      := '0'; --          --                                  .write
-		--		avalon_slave_L_buffer_writedata      : in  std_logic_vector(255 downto 0) := (others => '0'); --                                  .writedata
-		--		avalon_slave_R_buffer_address        : in  std_logic_vector(20 downto 0)  := (others => '0'); --             avalon_slave_R_buffer.address
-		--		avalon_slave_R_buffer_write          : in  std_logic                      := '0'; --          --                                  .write
-		--		avalon_slave_R_buffer_writedata      : in  std_logic_vector(255 downto 0) := (others => '0'); --                                  .writedata
-		--		avalon_slave_R_buffer_waitrequest    : out std_logic; --                                      --                                  .waitrequest
 		avm_left_buffer_readdata_i           : in  std_logic_vector(255 downto 0) := (others => '0'); --      avalon_mm_left_buffer_master.readdata
 		avm_left_buffer_waitrequest_i        : in  std_logic                      := '0'; --          --                                  .waitrequest
 		avm_left_buffer_address_o            : out std_logic_vector(63 downto 0); --                  --                                  .address
@@ -288,10 +279,10 @@ architecture rtl of comm_v1_80_top is
 	signal s_L_window_buffer_control : t_windowing_buffer_control;
 
 	-- avm
-	signal s_avm_right_buffer_master_rd_control : t_comm_avm_master_rd_control;
-	signal s_avm_right_buffer_master_rd_status  : t_comm_avm_master_rd_status;
-	signal s_avm_left_buffer_master_rd_control  : t_comm_avm_master_rd_control;
-	signal s_avm_left_buffer_master_rd_status   : t_comm_avm_master_rd_status;
+	signal s_avm_right_buffer_master_rd_control : t_comm_avm_buffers_master_rd_control;
+	signal s_avm_right_buffer_master_rd_status  : t_comm_avm_buffers_master_rd_status;
+	signal s_avm_left_buffer_master_rd_control  : t_comm_avm_buffers_master_rd_control;
+	signal s_avm_left_buffer_master_rd_status   : t_comm_avm_buffers_master_rd_status;
 
 begin
 
@@ -328,23 +319,8 @@ begin
 			spacewire_write_registers_o       => s_spacewire_write_registers
 		);
 
-	--	-- right avalon mm windowing write instantiation
-	--	right_avalon_mm_windowing_write_ent_inst : entity work.avalon_mm_windowing_write_ent
-	--		port map(
-	--			clk_i                             => a_avs_clock,
-	--			rst_i                             => a_reset,
-	--			avalon_mm_windowing_i.address     => avalon_slave_R_buffer_address,
-	--			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
-	--			avalon_mm_windowing_i.writedata   => avalon_slave_R_buffer_writedata,
-	--			fee_clear_signal_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-	--			window_buffer_size_i              => s_spacewire_write_registers.fee_buffers_config_reg.fee_right_buffer_size,
-	--			window_buffer_control_i           => s_R_window_buffer_control,
-	--			avalon_mm_windowing_o.waitrequest => avalon_slave_R_buffer_waitrequest,
-	--			window_buffer_o                   => s_R_window_buffer
-	--		);
-
-	-- right avm image reader instantiation
-	comm_right_avm_image_read_ent_inst : entity work.comm_avm_image_read_ent
+	-- right avm buffers reader instantiation
+	comm_right_avm_buffers_reader_ent_inst : entity work.comm_avm_buffers_reader_ent
 		port map(
 			clk_i                             => a_avs_clock,
 			rst_i                             => a_reset,
@@ -356,8 +332,8 @@ begin
 			avm_slave_rd_control_o.read       => avm_right_buffer_read_o
 		);
 
-	-- right avm controller instantiation
-	comm_right_avm_controller_ent_inst : entity work.comm_avm_controller_ent
+	-- right avm buffers controller instantiation
+	comm_right_avm_buffers_controller_ent_inst : entity work.comm_avm_buffers_controller_ent
 		port map(
 			clk_i                                      => a_avs_clock,
 			rst_i                                      => a_reset,
@@ -400,23 +376,8 @@ begin
 			window_buffer_1_empty_o => s_R_buffer_1_empty
 		);
 
-	--	-- left avalon mm windowing write instantiation
-	--	left_avalon_mm_windowing_write_ent_inst : entity work.avalon_mm_windowing_write_ent
-	--		port map(
-	--			clk_i                             => a_avs_clock,
-	--			rst_i                             => a_reset,
-	--			avalon_mm_windowing_i.address     => avalon_slave_L_buffer_address,
-	--			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
-	--			avalon_mm_windowing_i.writedata   => avalon_slave_L_buffer_writedata,
-	--			fee_clear_signal_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-	--			window_buffer_size_i              => s_spacewire_write_registers.fee_buffers_config_reg.fee_left_buffer_size,
-	--			window_buffer_control_i           => s_L_window_buffer_control,
-	--			avalon_mm_windowing_o.waitrequest => avalon_slave_L_buffer_waitrequest,
-	--			window_buffer_o                   => s_L_window_buffer
-	--		);
-
-	-- left avm image reader instantiation
-	comm_left_avm_image_read_ent_inst : entity work.comm_avm_image_read_ent
+	-- left avm buffers reader instantiation
+	comm_left_avm_buffers_reader_ent_inst : entity work.comm_avm_buffers_reader_ent
 		port map(
 			clk_i                             => a_avs_clock,
 			rst_i                             => a_reset,
@@ -428,8 +389,8 @@ begin
 			avm_slave_rd_control_o.read       => avm_left_buffer_read_o
 		);
 
-	-- left avm controller instantiation
-	comm_left_avm_controller_ent_inst : entity work.comm_avm_controller_ent
+	-- left avm buffers controller instantiation
+	comm_left_avm_buffers_controller_ent_inst : entity work.comm_avm_buffers_controller_ent
 		port map(
 			clk_i                                      => a_avs_clock,
 			rst_i                                      => a_reset,
@@ -472,10 +433,6 @@ begin
 			window_buffer_1_empty_o => s_L_buffer_1_empty
 		);
 
-	-- signals muxing for "fee data controller" and "data controller"
-	--   -- "fee_data_controller_en" is set  : the "fee data controller" have the access right to the windowing buffers and the spw mux
-	--   -- "fee_data_controller_en" is clear: the "data controller"     have the access right to the windowing buffers and the spw mux
-	-- 
 	-- right windowing buffer control muxing
 	s_R_window_data_read                      <= (s_R_fee_data_controller_window_data_read);
 	s_R_window_mask_read                      <= (s_R_fee_data_controller_window_mask_read);

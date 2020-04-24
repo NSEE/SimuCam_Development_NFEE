@@ -31,17 +31,6 @@ void vFeebCh3HandleIrq(void* pvContext);
 void vFeebCh4HandleIrq(void* pvContext);
 void vFeebCh5HandleIrq(void* pvContext);
 void vFeebCh6HandleIrq(void* pvContext);
-void vFeebCh7HandleIrq(void* pvContext);
-void vFeebCh8HandleIrq(void* pvContext);
-
-bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
-bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
-bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
-bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
-bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
-bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
-bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
-bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
 bool vFeebInitIrq(alt_u8 ucCommCh);
 
@@ -67,10 +56,6 @@ bool bFeebGetCh5LeftBufferEmpty(void);
 bool bFeebGetCh5RightBufferEmpty(void);
 bool bFeebGetCh6LeftBufferEmpty(void);
 bool bFeebGetCh6RightBufferEmpty(void);
-bool bFeebGetCh7LeftBufferEmpty(void);
-bool bFeebGetCh7RightBufferEmpty(void);
-bool bFeebGetCh8LeftBufferEmpty(void);
-bool bFeebGetCh8RightBufferEmpty(void);
 
 bool bFeebGetCh1LeftFeeBusy(void);
 bool bFeebGetCh1RightFeeBusy(void);
@@ -84,12 +69,6 @@ bool bFeebGetCh5LeftFeeBusy(void);
 bool bFeebGetCh5RightFeeBusy(void);
 bool bFeebGetCh6LeftFeeBusy(void);
 bool bFeebGetCh6RightFeeBusy(void);
-bool bFeebGetCh7LeftFeeBusy(void);
-bool bFeebGetCh7RightFeeBusy(void);
-bool bFeebGetCh8LeftFeeBusy(void);
-bool bFeebGetCh8RightFeeBusy(void);
-
-bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
 bool bFeebGetBufferDataControl(TFeebChannel *pxFeebCh);
 bool bFeebSetBufferDataControl(TFeebChannel *pxFeebCh);

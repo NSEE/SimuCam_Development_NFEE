@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_USB3 "FTDI_UMFT601A_Module" v2.1
+# FTDI_USB3 "FTDI_UMFT601A_Module" v2.2
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_USB3
-set_module_property VERSION 2.1
+set_module_property VERSION 2.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -44,21 +44,13 @@ add_fileset_file ftdi_config_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON
 add_fileset_file ftdi_config_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_stimulli.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_stimulli.vhd
-add_fileset_file ftdi_data_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
-add_fileset_file ftdi_rx_data_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
-add_fileset_file ftdi_tx_data_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
-add_fileset_file ftdi_avm_usb3_pkg.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_USB3_MASTER/ftdi_avm_usb3_pkg.vhd
-add_fileset_file ftdi_avm_usb3_read_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_USB3_MASTER/ftdi_avm_usb3_read_ent.vhd
-add_fileset_file ftdi_avm_usb3_write_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_USB3_MASTER/ftdi_avm_usb3_write_ent.vhd
-add_fileset_file ftdi_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_avm_reader_controller_ent.vhd
-add_fileset_file ftdi_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_avm_writer_controller_ent.vhd
+add_fileset_file ftdi_avm_usb3_pkg.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_pkg.vhd
+add_fileset_file ftdi_avm_usb3_reader_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_reader_ent.vhd
+add_fileset_file ftdi_avm_usb3_writer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_writer_ent.vhd
+add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_tx_avm_reader_controller_ent.vhd
+add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
-add_fileset_file ftdi_data_receiver_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
-add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
-add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
-add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
-add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
@@ -86,21 +78,13 @@ add_fileset_file ftdi_config_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON
 add_fileset_file ftdi_config_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_stimulli.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_stimulli.vhd
-add_fileset_file ftdi_data_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
-add_fileset_file ftdi_rx_data_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
-add_fileset_file ftdi_tx_data_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
-add_fileset_file ftdi_avm_usb3_pkg.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_USB3_MASTER/ftdi_avm_usb3_pkg.vhd
-add_fileset_file ftdi_avm_usb3_read_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_USB3_MASTER/ftdi_avm_usb3_read_ent.vhd
-add_fileset_file ftdi_avm_usb3_write_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_USB3_MASTER/ftdi_avm_usb3_write_ent.vhd
-add_fileset_file ftdi_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_avm_reader_controller_ent.vhd
-add_fileset_file ftdi_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_avm_writer_controller_ent.vhd
+add_fileset_file ftdi_avm_usb3_pkg.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_pkg.vhd
+add_fileset_file ftdi_avm_usb3_reader_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_reader_ent.vhd
+add_fileset_file ftdi_avm_usb3_writer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_writer_ent.vhd
+add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_tx_avm_reader_controller_ent.vhd
+add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
-add_fileset_file ftdi_data_receiver_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
-add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
-add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
-add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
-add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd

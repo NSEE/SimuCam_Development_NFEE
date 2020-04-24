@@ -141,14 +141,14 @@ begin
 			avalon_slave_windowing_writedata   => s_config_avalon_stimuli_mm_writedata,
 			avalon_slave_windowing_waitrequest => s_config_avalon_stimuli_mm_waitrequest,
 			avalon_slave_windowing_byteenable  => "1111",
-			avalon_slave_L_buffer_address      => s_avalon_buffer_L_stimuli_mm_address,
-			avalon_slave_L_buffer_waitrequest  => s_avalon_buffer_L_stimuli_mm_waitrequest,
-			avalon_slave_L_buffer_write        => s_avalon_buffer_L_stimuli_mm_write,
-			avalon_slave_L_buffer_writedata    => s_avalon_buffer_L_stimuli_mm_writedata,
-			avalon_slave_R_buffer_address      => s_avalon_buffer_R_stimuli_mm_address,
-			avalon_slave_R_buffer_write        => s_avalon_buffer_R_stimuli_mm_write,
-			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
-			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest,
+			avm_left_buffer_readdata_i         => (others => '0'),
+			avm_left_buffer_waitrequest_i      => '1',
+			avm_left_buffer_address_o          => open,
+			avm_left_buffer_read_o             => open,
+			avm_right_buffer_readdata_i        => (others => '0'),
+			avm_right_buffer_waitrequest_i     => '1',
+			avm_right_buffer_address_o         => open,
+			avm_right_buffer_read_o            => open,
 			fee_codec_rmap_wr_waitrequest_i    => '0',
 			fee_codec_rmap_readdata_i          => (others => '0'),
 			fee_codec_rmap_rd_waitrequest_i    => '0',
@@ -202,10 +202,10 @@ begin
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
 				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
-					s_sync          <= '0';
-					v_sync_high     := '0';
---					v_sync_one_shot := '1'; -- comment this line to remove one-shot
-					v_sync_div_cnt  := 0;
+					s_sync         <= '0';
+					v_sync_high    := '0';
+					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot
+					v_sync_div_cnt := 0;
 				end if;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;

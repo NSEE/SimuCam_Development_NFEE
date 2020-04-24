@@ -71,8 +71,6 @@ void vRmapCh3HandleIrq(void* pvContext);
 void vRmapCh4HandleIrq(void* pvContext);
 void vRmapCh5HandleIrq(void* pvContext);
 void vRmapCh6HandleIrq(void* pvContext);
-void vRmapCh7HandleIrq(void* pvContext);
-void vRmapCh8HandleIrq(void* pvContext);
 
 alt_u32 uliRmapCh1WriteCmdAddress(void);
 alt_u32 uliRmapCh2WriteCmdAddress(void);
@@ -80,8 +78,6 @@ alt_u32 uliRmapCh3WriteCmdAddress(void);
 alt_u32 uliRmapCh4WriteCmdAddress(void);
 alt_u32 uliRmapCh5WriteCmdAddress(void);
 alt_u32 uliRmapCh6WriteCmdAddress(void);
-alt_u32 uliRmapCh7WriteCmdAddress(void);
-alt_u32 uliRmapCh8WriteCmdAddress(void);
 
 bool vRmapInitIrq(alt_u8 ucCommCh);
 
