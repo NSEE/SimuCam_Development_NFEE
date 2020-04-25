@@ -25,8 +25,7 @@
 #include "../utils/error_handler_simucam.h"
 #include "../driver/comm/windowing/windowing.h"
 
-/* HK values enum [bndky] */
-
+/* HK values enum */
 enum FeeHKValues{
 	eRmapHkTouSense1 = 0, eRmapHkTouSense2, eRmapHkTouSense3, eRmapHkTouSense4, eRmapHkTouSense5, eRmapHkTouSense6,
 	eRmapHkCcd1Ts, eRmapHkCcd2Ts, eRmapHkCcd3Ts, eRmapHkCcd4Ts, eRmapHkPrt1, eRmapHkPrt2, eRmapHkPrt3, eRmapHkPrt4,
@@ -37,7 +36,8 @@ enum FeeHKValues{
 	eRmapHkVccdPosRaw, eRmapHkVclkPosRaw, eRmapHkVan1PosRaw, eRmapHkVan3NegMon, eRmapHkVan2PosRaw, eRmapHkVdigRaw,
 	eRmapHkVdigRaw2, eRmapHkViclkLow, eRmapHkCcd1VrdMonF, eRmapHkCcd1VddMon, eRmapHkCcd1VgdMon, eRmapHkCcd2VrdMonF,
 	eRmapHkCcd2VddMon, eRmapHkCcd2VgdMon, eRmapHkCcd3VrdMonF, eRmapHkCcd3VddMon, eRmapHkCcd3VgdMon, eRmapHkCcd4VrdMonF,
-	eRmapHkCcd4VddMon, eRmapHkCcd4VgdMon, eRmapHkIgHiMon, eRmapHkIgLoMon, eRmapHkTsenseA, eRmapHkTsenseB
+	eRmapHkCcd4VddMon, eRmapHkCcd4VgdMon, eRmapHkIgHiMon, eRmapHkIgLoMon, eRmapHkTsenseA, eRmapHkTsenseB,
+	eRmapHkFpgaMinVer, eRmapHkFpgaMajVer, eRmapHkBoardId
 } EFeeHKValues;
 
 void vFeeTaskV3(void *task_data);
@@ -78,7 +78,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
-void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliValue); /* [bndky] */
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
 
 
 
