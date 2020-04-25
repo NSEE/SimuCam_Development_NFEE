@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#6A#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#6D#;
 
 	-- Registers Types
 
@@ -211,6 +211,11 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_ccd_number      : std_logic_vector(1 downto 0); -- Data Packet CCD Number
 	end record t_comm_data_packet_config_wr_reg;
 
+	-- Data Packet Errors Register
+	type t_comm_data_packet_errors_wr_reg is record
+		data_pkt_invalid_ccd_mode : std_logic; -- Data Packet Invalid CCD Mode Error
+	end record t_comm_data_packet_errors_wr_reg;
+
 	-- Data Packet Header Register
 	type t_comm_data_packet_header_rd_reg is record
 		data_pkt_header_length           : std_logic_vector(15 downto 0); -- Data Packet Header Length
@@ -258,6 +263,8 @@ package avalon_mm_spacewire_registers_pkg is
 		windowing_packet_order_list_0  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 0
 		windowing_last_e_packet        : std_logic_vector(9 downto 0); -- Windowing Last E Packet
 		windowing_last_f_packet        : std_logic_vector(9 downto 0); -- Windowing Last F Packet
+		windowing_x_coordinate_error   : std_logic; -- Windowing X-Coordinate Error
+		windowing_y_coordinate_error   : std_logic; -- Windowing Y-Coordinate Error
 	end record t_comm_windowing_parameters_wr_reg;
 
 	-- Avalon MM Types
@@ -283,6 +290,7 @@ package avalon_mm_spacewire_registers_pkg is
 		rmap_irq_flags_clear_reg        : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
 		data_packet_dev_addr_reg        : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
 		data_packet_config_reg          : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
+		data_packet_errors_reg          : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
 		data_packet_pixel_delay_reg     : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
 		error_injection_control_reg     : t_comm_error_injection_control_wr_reg; -- Error Injection Control Register
 		windowing_parameters_reg        : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register

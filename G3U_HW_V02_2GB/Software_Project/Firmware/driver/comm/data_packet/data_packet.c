@@ -57,6 +57,40 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
+bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktDataPacketErrors = pxDpktCh->xDpktDataPacketErrors;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktDataPacketErrors = vpxCommChannel->xDataPacket.xDpktDataPacketErrors;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -237,6 +271,9 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 
 		if (bValidCh) {
 			if (!bDpktGetPacketConfig(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetPacketErrors(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetPacketHeader(pxDpktCh)) {

@@ -30,9 +30,6 @@ enum DpktMode {
 	eDpktOff = 15
 } EDpktMode;
 
-
-
-
 //! [public module structs definition]
 //! [public module structs definition]
 
@@ -43,6 +40,9 @@ enum DpktMode {
 
 bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh);
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh);
+
+bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh);
+bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh);
 
 bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
 

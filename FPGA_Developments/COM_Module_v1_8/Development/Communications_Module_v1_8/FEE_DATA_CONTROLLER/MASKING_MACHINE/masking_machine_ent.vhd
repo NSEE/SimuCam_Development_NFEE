@@ -42,6 +42,7 @@ entity masking_machine_ent is
 		masking_buffer_rdreq_i        : in  std_logic;
 		send_double_buffer_wrable_i   : in  std_logic;
 		masking_machine_finished_o    : out std_logic;
+		masking_buffer_overflowed_o   : out std_logic;
 		window_data_read_o            : out std_logic;
 		window_mask_read_o            : out std_logic;
 		masking_buffer_almost_empty_o : out std_logic;
@@ -201,6 +202,7 @@ begin
 			window_data_read_o             <= '0';
 			window_mask_read_o             <= '0';
 			masking_machine_finished_o     <= '0';
+			masking_buffer_overflowed_o    <= '0';
 			s_masking_fifo.data_imgbyte    <= (others => '0');
 			s_masking_fifo.data_imgchange  <= '0';
 			s_masking_fifo.wrreq           <= '0';
@@ -221,6 +223,7 @@ begin
 					window_data_read_o             <= '0';
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
+					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
 					s_masking_fifo.wrreq           <= '0';
@@ -242,6 +245,7 @@ begin
 					window_data_read_o             <= '0';
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
+					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
 					s_masking_fifo.wrreq           <= '0';
@@ -272,6 +276,7 @@ begin
 					window_data_read_o             <= '0';
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
+					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
 					s_masking_fifo.wrreq           <= '0';
@@ -298,6 +303,7 @@ begin
 					window_data_read_o             <= '0';
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
+					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
 					s_masking_fifo.wrreq           <= '0';
@@ -320,6 +326,7 @@ begin
 					window_data_read_o             <= '0';
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
+					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
 					s_masking_fifo.wrreq           <= '0';
@@ -327,6 +334,11 @@ begin
 					s_data_fetched                 <= '0';
 					-- check if masking fifo is not full or if the masking fifo overflow is enabled and the send double buffer is full
 					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
+						-- check if the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+						if ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
+							-- the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+							masking_buffer_overflowed_o <= '1';
+						end if;
 						-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
 						s_masking_machine_state        <= PIXEL_BYTE_LSB;
 						s_masking_machine_return_state <= PIXEL_BYTE_LSB;
@@ -359,6 +371,7 @@ begin
 					window_data_read_o             <= '0';
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
+					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
 					s_masking_fifo.wrreq           <= '0';
@@ -366,6 +379,11 @@ begin
 					s_data_fetched                 <= '0';
 					-- check if masking fifo is not full or if the masking fifo overflow is enabled and the send double buffer is full
 					if ((unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) or ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
+						-- check if the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+						if ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
+							-- the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+							masking_buffer_overflowed_o <= '1';
+						end if;
 						-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;
@@ -438,6 +456,7 @@ begin
 					window_data_read_o            <= '0';
 					window_mask_read_o            <= '0';
 					masking_machine_finished_o    <= '0';
+					masking_buffer_overflowed_o   <= '0';
 					s_masking_fifo.data_imgbyte   <= (others => '0');
 					s_masking_fifo.data_imgchange <= '0';
 					s_masking_fifo.wrreq          <= '0';
@@ -459,6 +478,7 @@ begin
 					window_data_read_o             <= '0';
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
+					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
 					s_masking_fifo.wrreq           <= '0';
