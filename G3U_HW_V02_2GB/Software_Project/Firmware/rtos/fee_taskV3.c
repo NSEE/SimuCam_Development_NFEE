@@ -2371,223 +2371,227 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 /**
  * @name vUpdateFeeHKValue
  * @author bndky
- * @brief Update HK function for simulated FEE
+ * @brief Update RMAP HK function for simulated FEE
  * @ingroup rtos
  *
- * @param 	[in]	TNFee 			*FeeInstance
- * @param	[in]	usi 	usiID		(0 - 63)
- * @param	[in]	alt_u32			fValue
+ * @param 	[in]	TNFee 			*pxNFeeP
+ * @param	[in]	alt_u8 	        ucRmapHkID (0 - 66)
+ * @param	[in]	alt_u32			uliRawValue
  *
  * @retval void
  **/
-void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliValue){
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue ){
 	
-	unsigned short int usiValue;
-	/* Approx. float to usi */
-	usiValue = (unsigned short int) uliValue;
-
 	/* Load current values */
 	bRmapGetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 
-	/* TODO: Verif which HK is 32bit, future, for now all regs are 16bit */
 	/* Switch case to assign value to register */
-	switch(usiID){
+	switch(ucRmapHkID){
 		case eRmapHkTouSense1:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkTouSense2:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkTouSense3:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkTouSense4:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense4 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense4 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkTouSense5:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense5 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense5 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkTouSense6:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense6 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense6 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd1Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1Ts = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1Ts = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd2Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2Ts = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2Ts = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd3Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3Ts = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3Ts = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd4Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4Ts = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4Ts = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkPrt1:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt1 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt1 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkPrt2:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt2 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt2 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkPrt3:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt3 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt3 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkPrt4:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt4 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt4 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkPrt5:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt5 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt5 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkZeroDiffAmp:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiZeroDiffAmp = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiZeroDiffAmp = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd1VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VodMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VodMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd1VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VogMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VogMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd1VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonE = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonE = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd2VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VodMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VodMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd2VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VogMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VogMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd2VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonE = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonE = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd3VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VodMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VodMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd3VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VogMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VogMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd3VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonE = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonE = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd4VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VodMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VodMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd4VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VogMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VogMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd4VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonE = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonE = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVccd:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccd = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccd = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVrclkMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkViclk:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclk = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclk = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVrclkLow:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkLow = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkLow = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk5vbPosMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbPosMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbPosMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk5vbNegMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbNegMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbNegMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk3v3bMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3bMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3bMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk2v5aMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5aMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5aMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk3v3dMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3dMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3dMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk2v5dMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5dMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5dMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk1v5dMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi1v5dMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi1v5dMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHk5vrefMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vrefMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vrefMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVccdPosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccdPosRaw = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccdPosRaw = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVclkPosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVclkPosRaw = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVclkPosRaw = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVan1PosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan1PosRaw = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan1PosRaw = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVan3NegMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan3NegMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan3NegMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVan2PosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan2PosRaw = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan2PosRaw = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVdigRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkVdigRaw2:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw2 = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw2 = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkViclkLow:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclkLow = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclkLow = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd1VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonF = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonF = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd1VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VddMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VddMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd1VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VgdMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VgdMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd2VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonF = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonF = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd2VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VddMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VddMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd2VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VgdMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VgdMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd3VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonF = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonF = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd3VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VddMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VddMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd3VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VgdMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VgdMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd4VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonF = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonF = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd4VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VddMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VddMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkCcd4VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VgdMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VgdMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkIgHiMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgHiMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgHiMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkIgLoMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkTsenseA:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA = (alt_u16)uliRawValue;
 		break;
 		case eRmapHkTsenseB:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB = usiValue;
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB = (alt_u16)uliRawValue;
+		break;
+		case eRmapHkFpgaMinVer:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMinorVersion = (alt_u8)uliRawValue;
+		break;
+		case eRmapHkFpgaMajVer:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMajorVersion = (alt_u8)uliRawValue;
+		break;
+		case eRmapHkBoardId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiBoardId = (alt_u16)uliRawValue;
 		break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-				fprintf(fp, "HK update: HK ID out of bounds: %hu;\n", usiID );
+				fprintf(fp, "HK update: HK ID out of bounds: %u;\n", ucRmapHkID );
 			#endif
 		break;
 	}
@@ -3180,6 +3184,9 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 					break;
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
@@ -3187,6 +3194,9 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
@@ -3194,6 +3204,9 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -3211,6 +3224,9 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
 				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
 				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
@@ -3220,6 +3236,9 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3228,6 +3247,9 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				default:
 					#if DEBUG_ON
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
@@ -3342,6 +3364,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3351,6 +3376,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
 				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3363,6 +3391,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitBeforeSyncSignal; /*Will stay until master sync*/
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 							fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode (in redoutTransmission)\n", pxNFeeP->ucId);
@@ -3371,6 +3402,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
 				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3378,6 +3412,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -3403,6 +3440,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
 				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
 				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3412,6 +3452,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3419,6 +3462,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				default:
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
@@ -3537,6 +3583,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3546,6 +3595,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
 				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3559,6 +3611,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutCheckDTCUpdate; /*Will stay until master sync*/
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3568,6 +3623,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
 				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3575,6 +3633,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -3600,6 +3661,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
 				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
 				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -3609,6 +3673,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3616,6 +3683,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				default:
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
@@ -3736,6 +3806,9 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					break;
 				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
 				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Stand-By Mode)\n\n");
@@ -3768,6 +3841,9 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eState = sStandBy;
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -3827,6 +3903,9 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3834,6 +3913,9 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					#endif
 					break;
 				default:
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
@@ -3948,6 +4030,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 				case eRmapCcdModeStandby: /*Stand-By-Mode*/
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
 				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Can't perform this command, already processing a changing action.\n\n");
@@ -3955,6 +4040,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					#endif
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -3980,6 +4068,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
 				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
 				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Can't perform this command, already processing a changing action.\n\n");
@@ -3989,6 +4080,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -3996,6 +4090,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					#endif
 					break;
 				default:
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
@@ -4122,6 +4219,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
 				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4134,6 +4234,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitSync; /*Will stay until master sync*/
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4143,6 +4246,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
 				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4150,6 +4256,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -4175,6 +4284,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
 				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
 				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4184,6 +4296,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -4191,6 +4306,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				default:
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
@@ -4310,6 +4428,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4319,6 +4440,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
 				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4332,6 +4456,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4341,6 +4468,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
 				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4348,6 +4478,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -4373,6 +4506,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
 				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
 				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4382,6 +4518,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -4389,6 +4528,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				default:
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
@@ -4507,6 +4649,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4516,6 +4661,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullPatt: /*Full Image Pattern Mode*/
 				case eRmapCcdModeWindPatt: /*Windowing-Pattern-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4528,6 +4676,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutPreLoadBuffer; /*Will stay until master sync*/
 						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
 					} else {
+						bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+						bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4537,6 +4688,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				case eRmapCcdModeFullImg: /*Full Image Mode*/
 				case eRmapCcdModeWindowing: /*Windowing-Mode*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4544,6 +4698,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 					break;
 				case eRmapCcdModePerformance: /*Performance test mode -windowing*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
@@ -4569,6 +4726,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeParallelTrap2: /*Parallel trap pumping mode 2 - Full-Image*/
 				case eRmapCcdModeSerialTrap1: /*Serial trap pumping mode 1- Full Image*/
 				case eRmapCcdModeSerialTrap2: /*Serial trap pumping mode 2- Full Image*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
@@ -4578,6 +4738,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 				case eRmapCcdModeReserved0: /*Reserved*/
 				case eRmapCcdModeReserved1: /*Reserved*/
 				case eRmapCcdModeReserved2: /*Reserved*/
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
@@ -4586,6 +4749,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 				default:
 					#if DEBUG_ON
+					bDpktGetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
+					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}

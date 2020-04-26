@@ -105,6 +105,11 @@ entity comm_v1_80_top is
 		channel_hk_spw_link_running_o        : out std_logic; --                                      --                                  .spw_link_running_signal
 		channel_hk_frame_counter_o           : out std_logic_vector(15 downto 0); --                  --                                  .frame_counter_signal
 		channel_hk_frame_number_o            : out std_logic_vector(1 downto 0); --                   --                                  .frame_number_signal
+		channel_hk_err_win_wrong_x_coord_o   : out std_logic; --                                      --                                  .err_win_wrong_x_coord_signal
+		channel_hk_err_win_wrong_y_coord_o   : out std_logic; --                                      --                                  .err_win_wrong_y_coord_signal
+		channel_hk_err_e_side_buffer_full_o  : out std_logic; --                                      --                                  .err_e_side_buffer_full_signal
+		channel_hk_err_f_side_buffer_full_o  : out std_logic; --                                      --                                  .err_f_side_buffer_full_signal
+		channel_hk_err_invalid_ccd_mode_o    : out std_logic; --                                      --                                  .err_invalid_ccd_mode_signal
 		channel_win_mem_addr_offset_o        : out std_logic_vector(63 downto 0) ---                  --  conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
 	);
 end entity comm_v1_80_top;
@@ -277,6 +282,10 @@ architecture rtl of comm_v1_80_top is
 	signal s_R_window_buffer_control : t_windowing_buffer_control;
 	signal s_L_window_buffer         : t_windowing_buffer;
 	signal s_L_window_buffer_control : t_windowing_buffer_control;
+
+	-- rmap hk
+	signal s_fee_left_output_buffer_overflowed  : std_logic;
+	signal s_fee_right_output_buffer_overflowed : std_logic;
 
 begin
 
@@ -502,6 +511,8 @@ begin
 			fee_machine_busy_o                            => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy,
 			fee_frame_counter_o                           => s_fee_frame_counter,
 			fee_frame_number_o                            => s_fee_frame_number,
+			fee_left_output_buffer_overflowed_o           => s_fee_left_output_buffer_overflowed,
+			fee_right_output_buffer_overflowed_o          => s_fee_right_output_buffer_overflowed,
 			fee_left_window_data_read_o                   => s_L_fee_data_controller_window_data_read,
 			fee_left_window_mask_read_o                   => s_L_fee_data_controller_window_mask_read,
 			fee_right_window_data_read_o                  => s_R_fee_data_controller_window_data_read,
@@ -948,17 +959,22 @@ begin
 	s_spacewire_read_registers.rmap_irq_number_reg.rmap_irq_number               <= (others => '0');
 
 	-- channel hk for rmap read area
-	channel_hk_timecode_control_o     <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_control;
-	channel_hk_timecode_time_o        <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_time;
-	channel_hk_rmap_target_status_o   <= x"00";
-	channel_hk_rmap_target_indicate_o <= '0';
-	channel_hk_spw_link_escape_err_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
-	channel_hk_spw_link_credit_err_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
-	channel_hk_spw_link_parity_err_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
-	channel_hk_spw_link_disconnect_o  <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
-	channel_hk_spw_link_running_o     <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
-	channel_hk_frame_counter_o        <= s_fee_frame_counter;
-	channel_hk_frame_number_o         <= s_fee_frame_number;
+	channel_hk_timecode_control_o       <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_control;
+	channel_hk_timecode_time_o          <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_time;
+	channel_hk_rmap_target_status_o     <= x"00";
+	channel_hk_rmap_target_indicate_o   <= '0';
+	channel_hk_spw_link_escape_err_o    <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
+	channel_hk_spw_link_credit_err_o    <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
+	channel_hk_spw_link_parity_err_o    <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
+	channel_hk_spw_link_disconnect_o    <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
+	channel_hk_spw_link_running_o       <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
+	channel_hk_frame_counter_o          <= s_fee_frame_counter;
+	channel_hk_frame_number_o           <= s_fee_frame_number;
+	channel_hk_err_win_wrong_x_coord_o  <= s_spacewire_write_registers.windowing_parameters_reg.windowing_x_coordinate_error;
+	channel_hk_err_win_wrong_y_coord_o  <= s_spacewire_write_registers.windowing_parameters_reg.windowing_y_coordinate_error;
+	channel_hk_err_e_side_buffer_full_o <= s_fee_left_output_buffer_overflowed;
+	channel_hk_err_f_side_buffer_full_o <= s_fee_right_output_buffer_overflowed;
+	channel_hk_err_invalid_ccd_mode_o   <= s_spacewire_write_registers.data_packet_errors_reg.data_pkt_invalid_ccd_mode;
 
 	-- channel memory offset for rmap windowing area
 	channel_win_mem_addr_offset_o(63 downto 32) <= s_spacewire_write_registers.rmap_memory_config_reg.rmap_win_area_offset_high_dword;

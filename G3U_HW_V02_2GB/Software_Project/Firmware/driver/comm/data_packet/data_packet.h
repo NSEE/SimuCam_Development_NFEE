@@ -47,6 +47,9 @@ enum DpktMode {
 bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh);
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh);
 
+bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh);
+bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh);
+
 bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
 
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
