@@ -251,7 +251,6 @@ add_interface_port avalon_mm_rmap_master avm_rmap_write_o write Output 1
 add_interface_port avalon_mm_rmap_master avm_rmap_writedata_o writedata Output 8
 
 
-
 # 
 # connection point conduit_end_rmap_avm_configs_in
 # 

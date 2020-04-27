@@ -5,14 +5,8 @@
   <columns>
    <connections preferredWidth="1775" />
    <irq preferredWidth="34" />
-   <name preferredWidth="294" />
-   <inputclock preferredWidth="117" />
-   <export preferredWidth="211" />
-   <description preferredWidth="325" />
   </columns>
  </systemtable>
- <library expandedCategories="Project,Library" />
+ <library expandedCategories="Library,Project" />
  <window width="1936" height="1056" x="-8" y="-8" />
- <hdlexample language="VHDL" />
- <generation synthesis="VHDL" />
 </preferences>

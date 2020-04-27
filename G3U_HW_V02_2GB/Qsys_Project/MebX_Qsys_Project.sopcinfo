@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.04.22.23:19:20 -->
+ <!-- 2020.04.26.01:29:10 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1587608356</value>
+  <value>1587875345</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -2861,6 +2861,36 @@ parameters are a RESULT of the module parameters. -->
     <width>2</width>
     <role>frame_number_signal</role>
    </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
+   </port>
   </interface>
   <interface
      name="conduit_end_rmap_avm_configs_out"
@@ -5020,6 +5050,36 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>2</width>
     <role>frame_number_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
    </port>
   </interface>
   <interface
@@ -7181,6 +7241,36 @@ parameters are a RESULT of the module parameters. -->
     <width>2</width>
     <role>frame_number_signal</role>
    </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
+   </port>
   </interface>
   <interface
      name="conduit_end_rmap_avm_configs_out"
@@ -9340,6 +9430,36 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>2</width>
     <role>frame_number_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
    </port>
   </interface>
   <interface
@@ -11501,6 +11621,36 @@ parameters are a RESULT of the module parameters. -->
     <width>2</width>
     <role>frame_number_signal</role>
    </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
+   </port>
   </interface>
   <interface
      name="conduit_end_rmap_avm_configs_out"
@@ -13660,6 +13810,36 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>2</width>
     <role>frame_number_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
    </port>
   </interface>
   <interface
@@ -100822,6 +101002,36 @@ parameters are a RESULT of the module parameters. -->
     <width>2</width>
     <role>frame_number_signal</role>
    </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
+   </port>
   </interface>
   <interface name="avalon_mm_rmap_master" kind="avalon_master" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -101978,6 +102188,36 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>2</width>
     <role>frame_number_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
    </port>
   </interface>
   <interface name="avalon_mm_rmap_master" kind="avalon_master" version="18.1">
@@ -103136,6 +103376,36 @@ parameters are a RESULT of the module parameters. -->
     <width>2</width>
     <role>frame_number_signal</role>
    </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
+   </port>
   </interface>
   <interface name="avalon_mm_rmap_master" kind="avalon_master" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -104292,6 +104562,36 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>2</width>
     <role>frame_number_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
    </port>
   </interface>
   <interface name="avalon_mm_rmap_master" kind="avalon_master" version="18.1">
@@ -105450,6 +105750,36 @@ parameters are a RESULT of the module parameters. -->
     <width>2</width>
     <role>frame_number_signal</role>
    </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
+   </port>
   </interface>
   <interface name="avalon_mm_rmap_master" kind="avalon_master" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -106606,6 +106936,36 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>2</width>
     <role>frame_number_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_x_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_x_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_win_wrong_y_coord_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_win_wrong_y_coord_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_e_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_e_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_f_side_buffer_full_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_f_side_buffer_full_signal</role>
+   </port>
+   <port>
+    <name>channel_hk_err_invalid_ccd_mode_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>err_invalid_ccd_mode_signal</role>
    </port>
   </interface>
   <interface name="avalon_mm_rmap_master" kind="avalon_master" version="18.1">
@@ -114889,7 +115249,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1587608356</value>
+   <value>1587875345</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -114909,7 +115269,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1587608356</value>
+   <value>1587875345</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -114925,7 +115285,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1587608356</value>
+   <value>1587875345</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
