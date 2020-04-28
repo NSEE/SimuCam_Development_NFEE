@@ -425,7 +425,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->eMode = sMebToRun;
 			break;
 		/* TC_SCAM_TURNOFF */
-		case 62:
+		case 66:
 			/*todo: Do nothing for now */
 			/* Animate LED */
 			/* Wait for N seconds */
@@ -668,7 +668,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 			break;
 		/* TC_SCAM_TURNOFF */
-		case 62:
+		case 66:
 			/*todo: Do nothing for now */
 			/* Force all go to Config Mode */
 			vEnterConfigRoutine(pxMebCLocal);

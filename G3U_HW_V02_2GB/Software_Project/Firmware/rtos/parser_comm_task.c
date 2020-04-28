@@ -315,7 +315,7 @@ void vParserCommTask(void *task_data) {
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
-							case 62: /* TC_SCAM_TURNOFF */
+							case 66: /* TC_SCAM_TURNOFF */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
