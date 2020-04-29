@@ -97,6 +97,15 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
     bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
 
+
+    pxNfeeL->xControl.xTrap.bEnabled = FALSE;
+    pxNfeeL->xControl.xTrap.bPumping = FALSE;
+    pxNfeeL->xControl.xTrap.bEmiting = FALSE;
+    pxNfeeL->xControl.xTrap.uliDT = 0;
+    pxNfeeL->xControl.xTrap.usiSH = 0;
+    pxNfeeL->xControl.xTrap.usiNofSyncstoWait = 0;
+    pxNfeeL->xControl.xTrap.ucICountSyncs = 0;
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */
