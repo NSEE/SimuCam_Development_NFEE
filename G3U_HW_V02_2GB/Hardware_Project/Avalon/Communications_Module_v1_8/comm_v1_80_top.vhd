@@ -530,7 +530,7 @@ begin
 		generic map(
 			g_VERIFY_BUFFER_WIDTH  => 8,
 			g_MEMORY_ADDRESS_WIDTH => 32,
-			g_DATA_LENGTH_WIDTH    => 8,
+			g_DATA_LENGTH_WIDTH    => 24,
 			g_MEMORY_ACCESS_WIDTH  => 0
 		)
 		port map(
