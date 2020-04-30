@@ -581,7 +581,7 @@ int main(void)
 		fprintf(fp, "xDefaults.ulStartDelay %lu [ms]\n", xDefaults.ulStartDelay);
 		fprintf(fp, "xDefaults.ulSkipDelay %lu [ns]\n", xDefaults.ulSkipDelay);
 		fprintf(fp, "xDefaults.ulLineDelay %lu [ns]\n", xDefaults.ulLineDelay);
-		fprintf(fp, "xDefaults.ulADCPixelDelay [ns]%lu \n", xDefaults.ulADCPixelDelay);
+		fprintf(fp, "xDefaults.ulADCPixelDelay %lu [ns]\n", xDefaults.ulADCPixelDelay);
 		fprintf(fp, "xDefaults.usiCols %u \n", xDefaults.usiCols);
 		fprintf(fp, "xDefaults.usiRows %u \n", xDefaults.usiRows);
 		fprintf(fp, "xDefaults.usiOLN %u \n", xDefaults.usiOLN);
