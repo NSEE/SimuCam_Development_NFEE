@@ -7,10 +7,12 @@
 
 #ifndef SIM_MEB_TASK_H_
 #define SIM_MEB_TASK_H_
-
+#include "../utils/queue_commands_list.h"
 #include "../simucam_definitions.h"
 #include "../utils/communication_configs.h"
-#include "../utils/queue_commands_list.h"
+#include "../utils/communication_utils.h"
+#include "../utils/log_manager_simucam.h"
+#include "../driver/reset/reset.h"
 #include "../utils/feeV2.h"
 #include "../utils/ccd.h"
 #include "../utils/meb.h"

@@ -66,7 +66,7 @@ extern volatile unsigned short int usiIdCMD;
 /*================================== Reader UART ================================*/
 
 /* This structure will be used to send TM PUS packets through UART */
-#define SIZE_TM_PUS_VALUES     32
+#define SIZE_TM_PUS_VALUES     128
 #define N_PUS_PIPE     16
 typedef struct {
     tErrorReceiver ucErrorFlag;
@@ -169,6 +169,16 @@ extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 
 #define MAX_RETRIES_ACK_IN              50
 
+
+#define N_512   8
+typedef struct {
+    char buffer[512];
+    bool bSent;     /* Indicates if it was already transmited */
+    unsigned short int usiId; /* If Zero is empty and available*/
+    short int usiTimeOut; /*seconds*/
+    unsigned char ucNofRetries;
+} txBuffer512;
+
 #define N_128   6
 typedef struct {
     char buffer[128];
@@ -198,6 +208,7 @@ typedef struct {
 
 /* This struct was made to perform some operation of verification faster */
 typedef struct {
+	bool b512[N_512];
     bool b128[N_128];
     bool b64[N_64];
     bool b32[N_32];
@@ -206,10 +217,13 @@ typedef struct {
 
 /*  Before access the any buffer for transmission the task should check in the Count Semaphore if has resource available
     if there is buffer free, the task should try to get the mutex in order to protect the integrity of the buffer */
+extern volatile unsigned char SemCount512;
 extern volatile unsigned char SemCount128;
 extern OS_EVENT *xSemCountBuffer128;
+extern OS_EVENT *xSemCountBuffer512;
 extern OS_EVENT *xMutexBuffer128;
 extern txBuffer128 xBuffer128[N_128];
+extern txBuffer512 xBuffer512[N_512];
 
 extern volatile unsigned char SemCount64;
 extern OS_EVENT *xSemCountBuffer64;

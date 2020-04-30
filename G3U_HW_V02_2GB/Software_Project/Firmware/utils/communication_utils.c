@@ -8,6 +8,108 @@
 #include "communication_utils.h"
 
 
+bool bSendUART512v2 ( char *cBuffer, short int siIdMessage ) {
+	INT8U ucErrorCode = 0;;
+	unsigned short int ucIL = 0;
+	bool bSuccessL = FALSE;
+
+	OSSemPend(xSemCountBuffer512, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
+	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
+	if ( ucErrorCode != OS_NO_ERR ) {
+		/* No space in the transmission buffer */
+		vFailGetCountSemaphorexBuffer512(); /*Could not send back the semaphore, this is critical.*/
+		return bSuccessL;
+	}
+
+
+	/* ---> At this point we know that there is some space in the buffer */
+
+
+	/* Need to get the Mutex that protects xBuffer128 */
+	OSMutexPend(xMutexBuffer128, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
+	if ( ucErrorCode != OS_NO_ERR ) {
+		/* Could not get the mutex, so we need to give the semaphore back */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp,"Could not get the mutex xMutexBuffer512(128) that protect xBuffer512(128). (bSendUART512v2)\n");
+		}
+		#endif
+		ucErrorCode = OSSemPost(xSemCountBuffer512);
+		if ( ucErrorCode != OS_ERR_NONE ) {
+			vFailSetCountSemaphorexBuffer512(); /*Could not send back the semaphore, this is critical.*/
+		}
+
+		return bSuccessL;
+	}
+
+
+	/* ---> At this point we Have the mutex of the xBuffer128, and we can use it freely */
+
+
+
+	/* Search for space */
+	for( ucIL = 0; ucIL < N_512; ucIL++)
+	{
+		if ( xInUseRetrans.b512[ucIL] == FALSE ) {
+			/* Clear the buffer */
+			memset(xBuffer512[ucIL].buffer, 0, 512);
+			/* Making sure that will have some \0 */
+			memcpy(xBuffer512[ucIL].buffer, cBuffer, 511);
+			xBuffer512[ucIL].usiId = siIdMessage;
+			xBuffer512[ucIL].ucNofRetries = 0;
+			xBuffer512[ucIL].usiTimeOut = 0;
+			xBuffer512[ucIL].bSent = FALSE;
+			xInUseRetrans.b512[ucIL] = TRUE;
+			break;
+		}
+	}
+
+	if ( ucIL >= N_512 ) {
+		ucErrorCode = OSSemPost(xSemCountBuffer512);
+		OSMutexPost(xMutexBuffer128);
+		return bSuccessL;
+	}
+
+	bSuccessL = TRUE;
+	SemCount512--; /* Sure that you get the semaphore */
+
+
+	/* ---> Now try to get the Mutex that protects the TX of the UART to transmit the message */
+
+
+	OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
+	if ( ucErrorCode != OS_NO_ERR ) {
+		/* Could not get the mutex of TX */
+		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART128v2)\n");
+		}
+		#endif
+		/* Indicates that this buffer already has a message that should be sent by the retransmission immediately */
+		/* Free the Mutex of the xBuffer128 */
+		OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
+		return bSuccessL;
+	}
+
+
+	/* ---> At this point we have all resources to send the message */
+
+
+	puts(xBuffer512[ucIL].buffer);
+	xBuffer512[ucIL].bSent = TRUE;
+
+
+	/* ---> Best scenario, giving the mutexes back in the inverse order to avoid deadlock */
+
+	OSMutexPost(xTxUARTMutex);
+	OSMutexPost(xMutexBuffer128);
+
+	return bSuccessL;
+}
+
+
+
 /* Make sure that there is only 127 characters to send */
 /* Always, ALWAYS send only an char[128] that you first did a memset(cBuffer,0,128), before put some string on it. */
 bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
@@ -530,6 +632,39 @@ void vSendPusTM128 ( tTMPus xPcktPus ) {
 			vCouldNotSendTMPusCommand( cBufferPus );
 	}
 }
+
+
+/* Send through a big buffer */
+void vSendPusTM512 ( tTMPus xPcktPus ) {
+    char cBufferPus[512] = "";
+    unsigned char crc = 0;
+	unsigned short int usiIL = 0;
+    unsigned short int usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+    usiIdCMDLocal = usiGetIdCMD();
+
+	/* Start with the beginning of the PUS header values */
+	sprintf(cBufferPus, PUS_TM_SPRINTF, usiIdCMDLocal, xPcktPus.usiPid, xPcktPus.usiCat, xPcktPus.usiType, xPcktPus.usiSubType, xPcktPus.usiPusId );
+	/* Add how many parameters need to send in the command */
+	for(usiIL = 0; usiIL < xPcktPus.ucNofValues; usiIL++)
+	{
+		sprintf(cBufferPus, PUS_ADDER_SPRINTF, cBufferPus, xPcktPus.usiValues[usiIL] );
+	}
+	/* Calculate the crc, append it and finish the string with ";" character */
+    crc = ucCrc8wInit( cBufferPus , strlen(cBufferPus));
+    sprintf(cBufferPus, "%s|%hhu;", cBufferPus, crc );
+
+	bSuccees = bSendUART512v2(cBufferPus, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+			vCouldNotSendTMPusCommand( cBufferPus );
+	}
+}
+
 
 
 
