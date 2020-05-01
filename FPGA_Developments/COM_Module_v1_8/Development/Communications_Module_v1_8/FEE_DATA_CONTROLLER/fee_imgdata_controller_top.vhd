@@ -54,6 +54,8 @@ entity fee_imgdata_controller_top is
 		masking_buffer_overflow_i          : in  std_logic;
 		-- fee imgdata send buffer control
 		imgdata_send_buffer_control_i      : in  t_fee_dpkt_send_buffer_control;
+		-- fee output buffer status
+		fee_output_buffer_overflowed_o     : out std_logic;
 		-- fee imgdata controller status
 		imgdataman_finished_o              : out std_logic;
 		-- fee imgdata headerdata
@@ -144,6 +146,7 @@ begin
 			masking_buffer_rdreq_i        => s_masking_buffer_rdreq,
 			send_double_buffer_wrable_i   => s_send_double_buffer_wrable,
 			masking_machine_finished_o    => s_masking_machine_finished,
+			masking_buffer_overflowed_o   => fee_output_buffer_overflowed_o,
 			window_data_read_o            => fee_window_data_read_o,
 			window_mask_read_o            => fee_window_mask_read_o,
 			masking_buffer_almost_empty_o => s_masking_buffer_almost_empty,

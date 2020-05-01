@@ -41,6 +41,10 @@ typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSi
 #define N_OF_CCD                4
 
 
+/*For TRAP Mode*/
+#define CHARGE_TIME 			0.5 //Seconds
+#define DEFAULT_SYNC_TIME 		6.25 //Seconds
+
 
 
 /* FEE operation modes */
@@ -76,6 +80,17 @@ typedef struct FEEMemoryMap{
     TFullCcdMemMap xCcd[N_OF_CCD];   /* Memory map of the four Full CCDs (xLeft,xRight) */
 } TFEEMemoryMap;
 
+typedef struct TrapModeControl{
+	bool bEnabled;
+	bool bPumping;
+	bool bEmiting;
+	unsigned short ucICountSyncs;
+	unsigned short usiNofSyncstoWait;
+	double dTotalWait;
+	alt_u32 uliDT;
+	alt_u16 usiSH;
+} TTrapModeControl;
+
 typedef enum { sLeft = 0, sRight, sBoth } tNFeeSide;
 typedef struct FeeControl{
     bool bEnabled;
@@ -97,6 +112,7 @@ typedef struct FeeControl{
     tFEEStates eMode;
     tFEEStates eNextMode;
 
+    TTrapModeControl xTrap;
     TDpktErrorCopy	xErrorSWCtrl;
 
 } TFeeControl;

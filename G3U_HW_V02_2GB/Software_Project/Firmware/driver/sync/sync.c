@@ -173,10 +173,8 @@ void vSyncPreHandleIrq(void* pvContext) {
 
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 
-
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = TRUE;
-
 
 	if (vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag) {
 		vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
@@ -208,6 +206,14 @@ void vSyncPreHandleIrq(void* pvContext) {
 				vFailSendMsgSync( ucIL );
 			}
 		//}
+	}
+
+	uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
+
+	/* Send Priority message to the LUT Task to indicate the Sync */
+	error_codel = OSQPostFront(xLutQ, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgMasterSyncLut( );
 	}
 
 }

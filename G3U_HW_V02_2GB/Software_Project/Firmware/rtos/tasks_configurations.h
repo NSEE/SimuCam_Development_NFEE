@@ -152,6 +152,7 @@ extern OS_EVENT *xMutexBuffer128;
 extern OS_EVENT *xMutexBuffer64;
 extern OS_EVENT *xMutexBuffer32;
 
+extern OS_EVENT *xSemCountBuffer512;
 extern OS_EVENT *xSemCountBuffer128;
 extern OS_EVENT *xSemCountBuffer64;
 extern OS_EVENT *xSemCountBuffer32;

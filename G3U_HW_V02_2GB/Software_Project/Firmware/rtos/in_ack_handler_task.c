@@ -15,6 +15,7 @@ void vInAckHandlerTaskV2(void *task_data) {
     bool bFinished32 = FALSE;
     bool bFinished64 = FALSE;
     bool bFinished128 = FALSE;
+    bool bFinished512 = FALSE;
 	INT8U error_code;
 	tReceiverACKState eReceiverAckState;
 	static txReceivedACK xRAckLocal;
@@ -77,12 +78,13 @@ void vInAckHandlerTaskV2(void *task_data) {
                 /* Now a search will be performed in the three output buffer in order to find
                    the (re)transmission buffer identified by the id and erase it. */
                 ucHashVerification = 0;
-                ucHashVerification |= (( SemCount32 == N_32 ) << 2) | ( ( SemCount64 == N_64 ) << 1 ) | (( SemCount128 == N_128 ) << 0);
+                ucHashVerification |=  (( SemCount512 == N_512 ) << 3) | (( SemCount32 == N_32 ) << 2) | ( ( SemCount64 == N_64 ) << 1 ) | (( SemCount128 == N_128 ) << 0);
 
                 bFound = FALSE;
                 bFinished32=FALSE;
                 bFinished64=FALSE;
                 bFinished128=FALSE;
+                bFinished512=FALSE;
                 ucCountRetries = 0;
                 do
                 {
@@ -106,7 +108,13 @@ void vInAckHandlerTaskV2(void *task_data) {
                     else
                         bFinished32 = TRUE;
 
-                } while ( ((ucCountRetries++ < MAX_RETRIES_ACK_IN) && (bFound == FALSE) && ((bFinished32 == FALSE) | (bFinished64 == FALSE) | (bFinished128 == FALSE))) );
+                    /* There are any spot used in the xBuffer32? */
+                    if ( (0b00001000 != (0b00001000 & ucHashVerification ) ) && (bFound ==FALSE ) )
+                        bFound = bCheckInAck512( &xRAckLocal, &bFinished512  );
+                    else
+                        bFinished512 = TRUE;
+
+                } while ( ((ucCountRetries++ < MAX_RETRIES_ACK_IN) && (bFound == FALSE) && ((bFinished32 == FALSE) | (bFinished64 == FALSE) | (bFinished128 == FALSE)| (bFinished512 == FALSE) )) );
                 
                 if (bFound == FALSE) {
                     /* Could not found the buffer with the id received in the ack packet*/
@@ -124,6 +132,41 @@ void vInAckHandlerTaskV2(void *task_data) {
                 eReceiverAckState = sRAGettingACK;
 		}
 	}
+}
+
+
+bool bCheckInAck512( txReceivedACK *xRecAckL , bool *bFinished ) {
+	bool bFound = FALSE;
+	INT8U error_code;
+    unsigned char ucIL = 0;
+
+    bFound = FALSE;
+    *bFinished = FALSE;
+    OSMutexPend(xMutexBuffer128, 5, &error_code); /* Mas wait 1 tick = 1 ms */
+    if ( error_code != OS_NO_ERR )
+        return bFound;
+
+    /* ---> At this point we have access to xBuffer128 */
+
+    for(ucIL = 0; ucIL < N_512; ucIL++)
+    {
+        if ( xBuffer512[ucIL].usiId == xRecAckL->usiId ) {
+            bFound = TRUE;
+            /* Free the slot with the index ucIL */
+            xInUseRetrans.b512[ucIL] = FALSE;
+            SemCount512++;
+            error_code = OSSemPost(xSemCountBuffer512);
+            if ( error_code != OS_ERR_NONE ) {
+                SemCount512--;
+                vFailSetCountSemaphorexBuffer512();
+            }
+            break;
+        }
+    }
+    OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
+    (*bFinished) = TRUE;
+
+    return bFound;
 }
 
 

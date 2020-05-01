@@ -8,19 +8,36 @@ package fee_data_controller_pkg is
 	constant c_SEND_BUFFER_OVERFLOW_ENABLE  : std_logic := '0'; -- '0': send buffer does not overflow / '1': send buffer overflow
 	constant c_MASKING_FIFO_OVERFLOW_ENABLE : std_logic := '0'; -- '0': masking fifo does not overflow / '1': masking fifo overflow 
 
-	-- fee mode constants
-	constant c_FEE_ON_MODE                      : std_logic_vector(3 downto 0) := x"0"; -- Mode ID 0
-	constant c_FEE_FULLIMAGE_PATTERN_MODE       : std_logic_vector(3 downto 0) := x"1"; -- Mode ID 1
-	constant c_FEE_WINDOWING_PATTERN_MODE       : std_logic_vector(3 downto 0) := x"2"; -- Mode ID 2
-	constant c_FEE_STANDBY_MODE                 : std_logic_vector(3 downto 0) := x"4"; -- Mode ID 4
-	constant c_FEE_FULLIMAGE_MODE               : std_logic_vector(3 downto 0) := x"5"; -- Mode ID 5
-	constant c_FEE_WINDOWING_MODE               : std_logic_vector(3 downto 0) := x"6"; -- Mode ID 6
-	constant c_FEE_PERFORMANCE_TEST_MODE        : std_logic_vector(3 downto 0) := x"7"; -- Mode ID 7
-	constant c_FEE_PARALLEL_TRAP_PUMPING_1_MODE : std_logic_vector(3 downto 0) := x"9"; -- Mode ID 9
-	constant c_FEE_PARALLEL_TRAP_PUMPING_2_MODE : std_logic_vector(3 downto 0) := x"A"; -- Mode ID 10
-	constant c_FEE_SERIAL_TRAP_PUMPING_1_MODE   : std_logic_vector(3 downto 0) := x"B"; -- Mode ID 11
-	constant c_FEE_SERIAL_TRAP_PUMPING_2_MODE   : std_logic_vector(3 downto 0) := x"C"; -- Mode ID 12
-	constant c_FEE_OFF_MODE                     : std_logic_vector(3 downto 0) := x"F"; -- Mode ID 15
+	-- data packet mode constants
+	constant c_DPKT_OFF_MODE                       : std_logic_vector(4 downto 0) := "00000"; -- d0 : N-FEE Off Mode
+	constant c_DPKT_ON_MODE                        : std_logic_vector(4 downto 0) := "00001"; -- d1 : N-FEE On Mode
+	constant c_DPKT_FULLIMAGE_PATTERN_MODE         : std_logic_vector(4 downto 0) := "00010"; -- d2 : N-FEE Full-Image Pattern Mode
+	constant c_DPKT_WINDOWING_PATTERN_MODE         : std_logic_vector(4 downto 0) := "00011"; -- d3 : N-FEE Windowing Pattern Mode
+	constant c_DPKT_STANDBY_MODE                   : std_logic_vector(4 downto 0) := "00100"; -- d4 : N-FEE Standby Mode
+	constant c_DPKT_FULLIMAGE_MODE_PATTERN_MODE    : std_logic_vector(4 downto 0) := "00101"; -- d5 : N-FEE Full-Image Mode / Pattern Mode
+	constant c_DPKT_FULLIMAGE_MODE_SSD_MODE        : std_logic_vector(4 downto 0) := "00110"; -- d6 : N-FEE Full-Image Mode / SSD Mode
+	constant c_DPKT_WINDOWING_MODE_PATTERN_MODE    : std_logic_vector(4 downto 0) := "00111"; -- d7 : N-FEE Windowing Mode / Pattern Mode
+	constant c_DPKT_WINDOWING_MODE_SSDIMG_MODE     : std_logic_vector(4 downto 0) := "01000"; -- d8 : N-FEE Windowing Mode / SSD Image Mode
+	constant c_DPKT_WINDOWING_MODE_SSDWIN_MODE     : std_logic_vector(4 downto 0) := "01001"; -- d9 : N-FEE Windowing Mode / SSD Window Mode
+	constant c_DPKT_PERFORMANCE_TEST_MODE          : std_logic_vector(4 downto 0) := "01010"; -- d10: N-FEE Performance Test Mode
+	constant c_DPKT_PAR_TRAP_PUMP_1_MODE_PUMP_MODE : std_logic_vector(4 downto 0) := "01011"; -- d11: N-FEE Parallel Trap Pumping 1 Mode / Pumping Mode
+	constant c_DPKT_PAR_TRAP_PUMP_1_MODE_DATA_MODE : std_logic_vector(4 downto 0) := "01100"; -- d12: N-FEE Parallel Trap Pumping 1 Mode / Data Emiting Mode
+	constant c_DPKT_PAR_TRAP_PUMP_2_MODE_PUMP_MODE : std_logic_vector(4 downto 0) := "01101"; -- d13: N-FEE Parallel Trap Pumping 2 Mode / Pumping Mode
+	constant c_DPKT_PAR_TRAP_PUMP_2_MODE_DATA_MODE : std_logic_vector(4 downto 0) := "01110"; -- d14: N-FEE Parallel Trap Pumping 2 Mode / Data Emiting Mode
+	constant c_DPKT_SER_TRAP_PUMP_1_MODE           : std_logic_vector(4 downto 0) := "01111"; -- d15: N-FEE Serial Trap Pumping 1 Mode
+	constant c_DPKT_SER_TRAP_PUMP_2_MODE           : std_logic_vector(4 downto 0) := "10000"; -- d16: N-FEE Serial Trap Pumping 2 Mode
+
+	-- fee mode id constants
+	constant c_FEE_ID_NONE                       : std_logic_vector(3 downto 0) := "1111";
+	constant c_FEE_ID_ON_MODE                    : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(0, 4)); -- Mode ID 0
+	constant c_FEE_ID_FULLIMAGE_PATTERN_MODE     : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(1, 4)); -- Mode ID 1
+	constant c_FEE_ID_WINDOWING_PATTERN_MODE     : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(2, 4)); -- Mode ID 2
+	constant c_FEE_ID_STANDBY_MODE               : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(4, 4)); -- Mode ID 4
+	constant c_FEE_ID_FULLIMAGE_MODE             : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(5, 4)); -- Mode ID 5
+	constant c_FEE_ID_WINDOWING_MODE             : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(6, 4)); -- Mode ID 6
+	constant c_FEE_ID_PERFORMANCE_TEST_MODE      : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(7, 4)); -- Mode ID 7
+	constant c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(9, 4)); -- Mode ID 9
+	constant c_FEE_ID_SERIAL_TRAP_PUMPING_MODE   : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(11, 4)); -- Mode ID 11
 
 	-- fee data packet header data --
 	-- data packet header size [bytes]

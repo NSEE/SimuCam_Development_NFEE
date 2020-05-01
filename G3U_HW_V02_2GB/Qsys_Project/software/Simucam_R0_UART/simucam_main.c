@@ -29,6 +29,7 @@ volatile unsigned short int usiIdCMD; /* Used in the communication with NUC*/
 /* Indicates if there's free slots in the buffer of retransmission: xBuffer128, xBuffer64, xBuffer32 */
 tInUseRetransBuffer xInUseRetrans;
 
+txBuffer512 xBuffer512[N_512];
 txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
@@ -51,6 +52,7 @@ volatile tTMPus xPus[N_PUS_PIPE];
 OS_EVENT *xSemCommInit;
 OS_EVENT *xTxUARTMutex; /*Mutex tx UART*/
 
+OS_EVENT *xSemCountBuffer512;
 OS_EVENT *xSemCountBuffer128;
 OS_EVENT *xMutexBuffer128;
 OS_EVENT *xSemCountBuffer64;
@@ -62,6 +64,7 @@ OS_EVENT *xMutexBuffer32;
 OS_EVENT *xMutexPus;
 
 /* For performance porpuses in the Time Out CHecker task */
+volatile unsigned char SemCount512;
 volatile unsigned char SemCount128;
 volatile unsigned char SemCount64;
 volatile unsigned char SemCount32;
@@ -197,6 +200,16 @@ bool bResourcesInitRTOS( void ) {
 	xMutexBuffer32 = OSMutexCreate(PCP_MUTEX_B32_PRIO, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateMutexSResources(err);
+		bSuccess = FALSE;
+	}
+
+
+	/* This semaphore will count the number of positions available in the "big" buffer of 128 characters*/
+	SemCount512 = N_512;
+	xSemCountBuffer512 = OSSemCreate(N_512);
+	if (!xSemCountBuffer512) {
+		SemCount512 = 0;
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
@@ -401,6 +414,7 @@ void vVariablesInitialization ( void ) {
 
 	usiIdCMD = 2;
 
+	memset( (void *)xInUseRetrans.b512 , FALSE , sizeof(xInUseRetrans.b512));
 	memset( (void *)xInUseRetrans.b128 , FALSE , sizeof(xInUseRetrans.b128));
 	memset( (void *)xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
 	memset( (void *)xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
@@ -567,7 +581,7 @@ int main(void)
 		fprintf(fp, "xDefaults.ulStartDelay %lu [ms]\n", xDefaults.ulStartDelay);
 		fprintf(fp, "xDefaults.ulSkipDelay %lu [ns]\n", xDefaults.ulSkipDelay);
 		fprintf(fp, "xDefaults.ulLineDelay %lu [ns]\n", xDefaults.ulLineDelay);
-		fprintf(fp, "xDefaults.ulADCPixelDelay [ns]%lu \n", xDefaults.ulADCPixelDelay);
+		fprintf(fp, "xDefaults.ulADCPixelDelay %lu [ns]\n", xDefaults.ulADCPixelDelay);
 		fprintf(fp, "xDefaults.usiCols %u \n", xDefaults.usiCols);
 		fprintf(fp, "xDefaults.usiRows %u \n", xDefaults.usiRows);
 		fprintf(fp, "xDefaults.usiOLN %u \n", xDefaults.usiOLN);
