@@ -4,7 +4,7 @@
         <BspVersion>18.1</BspVersion>
         <BspGeneratedTimeStamp>30/04/2020 22:22:16</BspGeneratedTimeStamp>
         <BspGeneratedUnixTimeStamp>1588296136400</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
