@@ -449,7 +449,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eNextMode = sParTrap2;
 				/* Real State */
 
-				pxNFee->xControl.xTrap.bEnabled = FALSE;
+				pxNFee->xControl.xTrap.bEnabled = TRUE;
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
