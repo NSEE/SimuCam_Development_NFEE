@@ -47,7 +47,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_021_default_decode
      parameter DEFAULT_CHANNEL = 0,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 0 
+               DEFAULT_DESTID = 15 
    )
   (output [390 - 386 : 0] default_destination_id,
    output [21-1 : 0] default_wr_channel,
@@ -191,84 +191,88 @@ module MebX_Qsys_Project_mm_interconnect_0_router_021
 
 
 
-        if (destid == 0  && read_transaction) begin
-            src_channel = 21'b00000000000000000001;
-        end
-
-        if (destid == 2  && read_transaction) begin
-            src_channel = 21'b00000000000000000010;
-        end
-
-        if (destid == 9  && read_transaction) begin
-            src_channel = 21'b00000000010000000000;
-        end
-
         if (destid == 15 ) begin
-            src_channel = 21'b00000000100000000000;
+            src_channel = 21'b000000000000000000001;
         end
 
         if (destid == 16 ) begin
-            src_channel = 21'b00000001000000000000;
-        end
-
-        if (destid == 17 ) begin
-            src_channel = 21'b00000010000000000000;
-        end
-
-        if (destid == 18 ) begin
-            src_channel = 21'b00000100000000000000;
-        end
-
-        if (destid == 19 ) begin
-            src_channel = 21'b00001000000000000000;
-        end
-
-        if (destid == 20 ) begin
-            src_channel = 21'b00010000000000000000;
-        end
-
-        if (destid == 12 ) begin
-            src_channel = 21'b00100000000000000000;
-        end
-
-        if (destid == 14  && read_transaction) begin
-            src_channel = 21'b01000000000000000000;
-        end
-
-        if (destid == 13  && write_transaction) begin
-            src_channel = 21'b10000000000000000000;
-        end
-
-        if (destid == 4  && read_transaction) begin
-            src_channel = 21'b00000000000000000100;
-        end
-
-        if (destid == 6  && read_transaction) begin
-            src_channel = 21'b00000000000000001000;
-        end
-
-        if (destid == 8  && read_transaction) begin
-            src_channel = 21'b00000000000000010000;
+            src_channel = 21'b000000000000000000010;
         end
 
         if (destid == 10  && read_transaction) begin
-            src_channel = 21'b00000000000000100000;
+            src_channel = 21'b000000000010000000000;
         end
 
-        if (destid == 1  && read_transaction) begin
-            src_channel = 21'b00000000000001000000;
+        if (destid == 9  && read_transaction) begin
+            src_channel = 21'b000000000100000000000;
         end
 
-        if (destid == 3  && read_transaction) begin
-            src_channel = 21'b00000000000010000000;
-        end
-
-        if (destid == 5  && read_transaction) begin
-            src_channel = 21'b00000000000100000000;
+        if (destid == 8  && read_transaction) begin
+            src_channel = 21'b000000001000000000000;
         end
 
         if (destid == 7  && read_transaction) begin
-            src_channel = 21'b00000000001000000000;
+            src_channel = 21'b000000010000000000000;
+        end
+
+        if (destid == 6  && read_transaction) begin
+            src_channel = 21'b000000100000000000000;
+        end
+
+        if (destid == 5  && read_transaction) begin
+            src_channel = 21'b000001000000000000000;
+        end
+
+        if (destid == 4  && read_transaction) begin
+            src_channel = 21'b000010000000000000000;
+        end
+
+        if (destid == 3  && read_transaction) begin
+            src_channel = 21'b000100000000000000000;
+        end
+
+        if (destid == 2  && read_transaction) begin
+            src_channel = 21'b001000000000000000000;
+        end
+
+        if (destid == 14  && read_transaction) begin
+            src_channel = 21'b010000000000000000000;
+        end
+
+        if (destid == 17 ) begin
+            src_channel = 21'b000000000000000000100;
+        end
+
+        if (destid == 13  && write_transaction) begin
+            src_channel = 21'b100000000000000000000;
+        end
+
+        if (destid == 18 ) begin
+            src_channel = 21'b000000000000000001000;
+        end
+
+        if (destid == 19 ) begin
+            src_channel = 21'b000000000000000010000;
+        end
+
+        if (destid == 20 ) begin
+            src_channel = 21'b000000000000000100000;
+        end
+
+        if (destid == 0 ) begin
+            src_channel = 21'b000000000000001000000;
+        end
+
+        if (destid == 1  && read_transaction) begin
+            src_channel = 21'b000000000000010000000;
+        end
+
+        if (destid == 12  && read_transaction) begin
+            src_channel = 21'b000000000000100000000;
+        end
+
+        if (destid == 11  && read_transaction) begin
+            src_channel = 21'b000000000001000000000;
         end
 
 
