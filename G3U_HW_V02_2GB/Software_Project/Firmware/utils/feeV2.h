@@ -58,6 +58,8 @@ typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFu
 	redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
 	redoutTransmission, redoutEndSch, readoutWaitingFinishTransmission} tFEEStates;
 
+typedef enum { dsPattern = 0, dsSSD } tDataSource;
+
 
  /* Error Injection Control Register Struct */
 typedef struct DpktErrorCopy {
@@ -114,6 +116,8 @@ typedef struct FeeControl{
 
     TTrapModeControl xTrap;
     TDpktErrorCopy	xErrorSWCtrl;
+
+    tDataSource eDataSource;
 
 } TFeeControl;
 
