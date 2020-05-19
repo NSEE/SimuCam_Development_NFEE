@@ -1150,6 +1150,13 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
 				/*Do nothing*/
 				break;
@@ -1282,6 +1289,13 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
 				/*Do nothing*/
 				break;
@@ -1459,6 +1473,13 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
 				/*Do nothing*/
 				break;
@@ -1679,9 +1700,15 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
-		case M_FEE_CAN_ACCESS_NEXT_MEM:
-			/*Do nothing*/
-			break;
+			case M_FEE_DT_SOURCE:
+				if ( uiCmdFEEL.ucByte[3] == 0 )
+					pxNFeeP->xControl.eDataSource = dsPattern;
+				else
+					pxNFeeP->xControl.eDataSource = dsSSD;
+				break;
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				/*Do nothing*/
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1890,6 +1917,13 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				if ( uiCmdFEEL.ucByte[3] == 0 )
+					pxNFeeP->xControl.eDataSource = dsPattern;
+				else
+					pxNFeeP->xControl.eDataSource = dsSSD;
+				break;
+
 			case M_NFC_CONFIG_RESET:
 				/*Do nothing*/
 				break;
@@ -2028,6 +2062,13 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				if ( uiCmdFEEL.ucByte[3] == 0 )
+					pxNFeeP->xControl.eDataSource = dsPattern;
+				else
+					pxNFeeP->xControl.eDataSource = dsSSD;
+				break;
+
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:
 				#if DEBUG_ON
@@ -2124,6 +2165,13 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -2266,6 +2314,13 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
 				/*Do nothing*/
 				break;

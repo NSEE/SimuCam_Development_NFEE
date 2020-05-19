@@ -386,6 +386,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned short int param1 =0;
 	unsigned short int usiFeeInstL;
 	alt_u32 ulEP, ulStart, ulPx, ulLine;
+	unsigned char ucFeeInstL;
+	unsigned char ucDTSourceL;
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -497,6 +499,13 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 			}
 
+			break;
+
+		/*Data Source*/
+		case 70:
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			ucDTSourceL = (unsigned char)xPusL->usiValues[1];
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucFeeInstL );
 			break;
 
 		/* TC_SCAM_CONFIG */
@@ -625,6 +634,8 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned short int usiFeeInstL;
+	unsigned char ucFeeInstL;
+	unsigned char ucDTSourceL;
 	unsigned char ucShutDownI=0;
 
 	switch (xPusL->usiSubType) {
@@ -748,6 +759,13 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n" );
 			#endif
+			break;
+
+		/*Data Source*/
+		case 70:
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			ucDTSourceL = (unsigned char)xPusL->usiValues[1];
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucFeeInstL );
 			break;
 
 		case 61:
