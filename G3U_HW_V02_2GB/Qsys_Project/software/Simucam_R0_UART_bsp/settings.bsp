@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>30/04/2020 22:22:16</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1588296136400</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 19, 2020 11:14:26 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1589897666176</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>

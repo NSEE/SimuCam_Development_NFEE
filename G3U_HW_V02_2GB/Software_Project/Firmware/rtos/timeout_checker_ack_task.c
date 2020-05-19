@@ -91,11 +91,14 @@ void vCheck( void ) {
 inline void vCheckRetransmission512( void ) {
     INT8U ucErrorCodeL = 0;
     unsigned char ucIL = 0;
+    unsigned char ucRetMutex = 0;
 
-    OSMutexAccept(xMutexBuffer128, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
-    if ( ucErrorCodeL != OS_NO_ERR ) {
+
+    ucRetMutex = OSMutexAccept(xMutexBuffer128, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    if ( (ucErrorCodeL != OS_NO_ERR) || ( ucRetMutex == 0 ) ) {
         /* Could not get the Mutex at this time, not critical it will try again later */
-        return;
+    	OSMutexPost(xMutexBuffer128);
+    	return;
     }
 
 
@@ -138,13 +141,15 @@ inline void vCheckRetransmission512( void ) {
 inline void vCheckRetransmission128( void ) {
     INT8U ucErrorCodeL = 0;
     unsigned char ucIL = 0;
+    unsigned char ucRetMutex = 0;
 
-    OSMutexAccept(xMutexBuffer128, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
-    if ( ucErrorCodeL != OS_NO_ERR ) {
+
+    ucRetMutex = OSMutexAccept(xMutexBuffer128, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    if ( (ucErrorCodeL != OS_NO_ERR) || ( ucRetMutex == 0 ) ) {
         /* Could not get the Mutex at this time, not critical it will try again later */
-        return;
+    	OSMutexPost(xMutexBuffer128);
+    	return;
     }
-    
 
     /* ---> At this point we have access to the xBuffer128*/
 
@@ -184,13 +189,16 @@ inline void vCheckRetransmission128( void ) {
 inline void vCheckRetransmission64( void ) {
     INT8U ucErrorCodeL = 0;
     unsigned char ucIL = 0;
+    unsigned char ucRetMutex = 0;
 
-    OSMutexAccept(xMutexBuffer64, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
-    if ( ucErrorCodeL != OS_NO_ERR ) {
+
+    ucRetMutex = OSMutexAccept(xMutexBuffer64, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    if ( (ucErrorCodeL != OS_NO_ERR) || ( ucRetMutex == 0 ) ) {
         /* Could not get the Mutex at this time, not critical it will try again later */
-        return;
+    	OSMutexPost(xMutexBuffer64);
+    	return;
     }
-    
+
     /* ---> At this point we have access to the xBuffer64*/
 
     /* Search the one that if in use */
@@ -230,13 +238,16 @@ inline void vCheckRetransmission32( void ) {
     INT8U ucErrorCodeL = 0;
     unsigned char ucIL = 0;
     unsigned char ucMax = 0;
+    unsigned char ucRetMutex = 0;
 
-    OSMutexAccept(xMutexBuffer32, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
-    if ( ucErrorCodeL != OS_NO_ERR ) {
+
+    ucRetMutex = OSMutexAccept(xMutexBuffer32, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    if ( (ucErrorCodeL != OS_NO_ERR) || ( ucRetMutex == 0 ) ) {
         /* Could not get the Mutex at this time, not critical it will try again later */
-        return;
+    	OSMutexPost(xMutexBuffer32);
+    	return;
     }
-    
+
     /* ---> At this point we have access to the xBuffer32*/
 
     /* Search the one that if in use */
