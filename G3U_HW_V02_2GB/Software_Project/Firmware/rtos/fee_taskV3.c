@@ -1701,7 +1701,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_DT_SOURCE:
-				if ( uiCmdFEEL.ucByte[3] == 0 )
+				if ( uiCmdFEEL.ucByte[1] == 0 )
 					pxNFeeP->xControl.eDataSource = dsPattern;
 				else
 					pxNFeeP->xControl.eDataSource = dsSSD;
@@ -1918,7 +1918,7 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_DT_SOURCE:
-				if ( uiCmdFEEL.ucByte[3] == 0 )
+				if ( uiCmdFEEL.ucByte[1] == 0 )
 					pxNFeeP->xControl.eDataSource = dsPattern;
 				else
 					pxNFeeP->xControl.eDataSource = dsSSD;
@@ -2063,7 +2063,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_DT_SOURCE:
-				if ( uiCmdFEEL.ucByte[3] == 0 )
+				if ( uiCmdFEEL.ucByte[1] == 0 )
 					pxNFeeP->xControl.eDataSource = dsPattern;
 				else
 					pxNFeeP->xControl.eDataSource = dsSSD;
