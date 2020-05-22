@@ -106,6 +106,11 @@ architecture rtl of nrme_rmap_memory_nfee_area_top is
 	signal s_hk_err_e_side_buffer_full_delayed : std_logic;
 	signal s_hk_err_f_side_buffer_full_delayed : std_logic;
 	signal s_hk_err_invalid_ccd_mode_delayed   : std_logic;
+	-- fee rmap spw errors signals
+	signal s_spw_err_link_escape_err           : std_logic;
+	signal s_spw_err_link_credit_err           : std_logic;
+	signal s_spw_err_link_parity_err           : std_logic;
+	signal s_spw_err_link_disconnect           : std_logic;
 
 begin
 
@@ -214,11 +219,19 @@ begin
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
+			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
+			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
+			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
+			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= '0';
 			s_hk_err_win_wrong_x_coord_delayed                                                                         <= '0';
 			s_hk_err_win_wrong_y_coord_delayed                                                                         <= '0';
 			s_hk_err_e_side_buffer_full_delayed                                                                        <= '0';
 			s_hk_err_f_side_buffer_full_delayed                                                                        <= '0';
 			s_hk_err_invalid_ccd_mode_delayed                                                                          <= '0';
+			s_spw_err_link_escape_err                                                                                  <= '0';
+			s_spw_err_link_credit_err                                                                                  <= '0';
+			s_spw_err_link_parity_err                                                                                  <= '0';
+			s_spw_err_link_disconnect                                                                                  <= '0';
 		elsif rising_edge(a_avs_clock) then
 			-- get error values to the rmap memory area
 			-- check if a rising edge happened in any of the errors flags and register the error
@@ -237,6 +250,18 @@ begin
 			if ((s_hk_err_invalid_ccd_mode_delayed = '0') and (channel_hk_err_invalid_ccd_mode_i = '1')) then
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
 			end if;
+			if ((s_spw_err_link_escape_err = '0') and (channel_hk_spw_link_escape_err_i = '1')) then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+			end if;
+			if ((s_spw_err_link_credit_err = '0') and (channel_hk_spw_link_credit_err_i = '1')) then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+			end if;
+			if ((s_spw_err_link_parity_err = '0') and (channel_hk_spw_link_parity_err_i = '1')) then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+			end if;
+			if ((s_spw_err_link_disconnect = '0') and (channel_hk_spw_link_disconnect_i = '1')) then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+			end if;
 			-- check if a error clear was requested
 			if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
@@ -244,6 +269,10 @@ begin
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= '0';
 			end if;
 			-- delay error signals
 			s_hk_err_win_wrong_x_coord_delayed  <= channel_hk_err_win_wrong_x_coord_i;
@@ -251,6 +280,10 @@ begin
 			s_hk_err_e_side_buffer_full_delayed <= channel_hk_err_e_side_buffer_full_i;
 			s_hk_err_f_side_buffer_full_delayed <= channel_hk_err_f_side_buffer_full_i;
 			s_hk_err_invalid_ccd_mode_delayed   <= channel_hk_err_invalid_ccd_mode_i;
+			s_spw_err_link_escape_err           <= channel_hk_spw_link_escape_err_i;
+			s_spw_err_link_credit_err           <= channel_hk_spw_link_credit_err_i;
+			s_spw_err_link_parity_err           <= channel_hk_spw_link_parity_err_i;
+			s_spw_err_link_disconnect           <= channel_hk_spw_link_disconnect_i;
 		end if;
 	end process p_nrme_nfee_rmap_error_clear_manager;
 
@@ -259,10 +292,6 @@ begin
 	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(5 downto 0) <= channel_hk_timecode_time_i;
 	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_status            <= channel_hk_rmap_target_status_i;
 	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_indicate          <= channel_hk_rmap_target_indicate_i;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error        <= channel_hk_spw_link_escape_err_i;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error        <= channel_hk_spw_link_credit_err_i;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error        <= channel_hk_spw_link_parity_err_i;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect          <= channel_hk_spw_link_disconnect_i;
 	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_running             <= channel_hk_spw_link_running_i;
 	s_rmap_mem_rd_area.reg_33_hk.frame_counter                            <= channel_hk_frame_counter_i;
 	s_rmap_mem_rd_area.reg_33_hk.frame_number                             <= channel_hk_frame_number_i;
