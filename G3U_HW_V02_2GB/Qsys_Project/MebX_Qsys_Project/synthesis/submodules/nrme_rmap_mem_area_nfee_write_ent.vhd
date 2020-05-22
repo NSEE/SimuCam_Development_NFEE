@@ -75,6 +75,8 @@ begin
 			rmap_registers_wr_o.reg_5_config.digitise_en                   <= '1';
 			-- RMAP Area Config Register 5 : DG (Drain Gate) Enable Field
 			rmap_registers_wr_o.reg_5_config.dg_en                         <= '0';
+			-- RMAP Area Config Register 5 : CCD Readout Enable Field
+			rmap_registers_wr_o.reg_5_config.ccd_read_en                   <= '1';
 			-- RMAP Area Config Register 5 : Register 5 Configuration Reserved
 			rmap_registers_wr_o.reg_5_config.reg_5_config_reserved         <= (others => '0');
 			-- RMAP Area Config Register 6 : CCD 1 Window List Pointer Config Field
@@ -448,8 +450,10 @@ begin
 				when (x"00000014") =>
 					-- RMAP Area Config Register 5 : DG (Drain Gate) Enable Field
 					rmap_registers_wr_o.reg_5_config.dg_en                 <= fee_rmap_i.writedata(0);
+					-- RMAP Area Config Register 5 : CCD Readout Enable Field
+					rmap_registers_wr_o.reg_5_config.ccd_read_en           <= fee_rmap_i.writedata(1);
 					-- RMAP Area Config Register 5 : Register 5 Configuration Reserved
-					rmap_registers_wr_o.reg_5_config.reg_5_config_reserved <= fee_rmap_i.writedata(7 downto 1);
+					rmap_registers_wr_o.reg_5_config.reg_5_config_reserved <= fee_rmap_i.writedata(7 downto 2);
 
 				when (x"00000015") =>
 					-- RMAP Area Config Register 5 : Trap Pumping Dwell Counter Field
@@ -1588,12 +1592,18 @@ begin
 					end if;
 
 				when (16#0F#) =>
-					-- RMAP Area Config Register 5 : Register 5 Configuration Reserved
+					-- RMAP Area Config Register 5 : CCD Readout Enable Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						rmap_registers_wr_o.reg_5_config.reg_5_config_reserved <= avalon_mm_rmap_i.writedata(6 downto 0);
+						rmap_registers_wr_o.reg_5_config.ccd_read_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
 				when (16#10#) =>
+					-- RMAP Area Config Register 5 : Register 5 Configuration Reserved
+					if (avalon_mm_rmap_i.byteenable(0) = '1') then
+						rmap_registers_wr_o.reg_5_config.reg_5_config_reserved <= avalon_mm_rmap_i.writedata(5 downto 0);
+					end if;
+
+				when (16#11#) =>
 					-- RMAP Area Config Register 6 : CCD 1 Window List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_6_config.ccd1_win_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1608,7 +1618,7 @@ begin
 						rmap_registers_wr_o.reg_6_config.ccd1_win_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#11#) =>
+				when (16#12#) =>
 					-- RMAP Area Config Register 7 : CCD 1 Packet Order List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_7_config.ccd1_pktorder_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1623,7 +1633,7 @@ begin
 						rmap_registers_wr_o.reg_7_config.ccd1_pktorder_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#12#) =>
+				when (16#13#) =>
 					-- RMAP Area Config Register 8 : CCD 1 Window List Length Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_8_config.ccd1_win_list_length(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1640,13 +1650,13 @@ begin
 						rmap_registers_wr_o.reg_8_config.ccd1_win_size_y <= avalon_mm_rmap_i.writedata(29 downto 24);
 					end if;
 
-				when (16#13#) =>
+				when (16#14#) =>
 					-- RMAP Area Config Register 8 : Register 8 Configuration Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_8_config.reg_8_config_reserved <= avalon_mm_rmap_i.writedata(3 downto 0);
 					end if;
 
-				when (16#14#) =>
+				when (16#15#) =>
 					-- RMAP Area Config Register 9 : CCD 2 Window List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_9_config.ccd2_win_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1661,7 +1671,7 @@ begin
 						rmap_registers_wr_o.reg_9_config.ccd2_win_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#15#) =>
+				when (16#16#) =>
 					-- RMAP Area Config Register 10 : CCD 2 Packet Order List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_10_config.ccd2_pktorder_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1676,7 +1686,7 @@ begin
 						rmap_registers_wr_o.reg_10_config.ccd2_pktorder_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#16#) =>
+				when (16#17#) =>
 					-- RMAP Area Config Register 11 : CCD 2 Window List Length Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_11_config.ccd2_win_list_length(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1693,13 +1703,13 @@ begin
 						rmap_registers_wr_o.reg_11_config.ccd2_win_size_y <= avalon_mm_rmap_i.writedata(29 downto 24);
 					end if;
 
-				when (16#17#) =>
+				when (16#18#) =>
 					-- RMAP Area Config Register 11 : Register 11 Configuration Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_11_config.reg_11_config_reserved <= avalon_mm_rmap_i.writedata(3 downto 0);
 					end if;
 
-				when (16#18#) =>
+				when (16#19#) =>
 					-- RMAP Area Config Register 12 : CCD 3 Window List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_12_config.ccd3_win_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1714,7 +1724,7 @@ begin
 						rmap_registers_wr_o.reg_12_config.ccd3_win_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#19#) =>
+				when (16#1A#) =>
 					-- RMAP Area Config Register 13 : CCD 3 Packet Order List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_13_config.ccd3_pktorder_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1729,7 +1739,7 @@ begin
 						rmap_registers_wr_o.reg_13_config.ccd3_pktorder_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#1A#) =>
+				when (16#1B#) =>
 					-- RMAP Area Config Register 14 : CCD 3 Window List Length Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_14_config.ccd3_win_list_length(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1746,13 +1756,13 @@ begin
 						rmap_registers_wr_o.reg_14_config.ccd3_win_size_y <= avalon_mm_rmap_i.writedata(29 downto 24);
 					end if;
 
-				when (16#1B#) =>
+				when (16#1C#) =>
 					-- RMAP Area Config Register 14 : Register 14 Configuration Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_14_config.reg_14_config_reserved <= avalon_mm_rmap_i.writedata(3 downto 0);
 					end if;
 
-				when (16#1C#) =>
+				when (16#1D#) =>
 					-- RMAP Area Config Register 15 : CCD 4 Window List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_15_config.ccd4_win_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1767,7 +1777,7 @@ begin
 						rmap_registers_wr_o.reg_15_config.ccd4_win_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#1D#) =>
+				when (16#1E#) =>
 					-- RMAP Area Config Register 16 : CCD 4 Packet Order List Pointer Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_16_config.ccd4_pktorder_list_ptr(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1782,7 +1792,7 @@ begin
 						rmap_registers_wr_o.reg_16_config.ccd4_pktorder_list_ptr(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#1E#) =>
+				when (16#1F#) =>
 					-- RMAP Area Config Register 17 : CCD 4 Window List Length Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_17_config.ccd4_win_list_length(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1799,7 +1809,7 @@ begin
 						rmap_registers_wr_o.reg_17_config.ccd4_win_size_y <= avalon_mm_rmap_i.writedata(29 downto 24);
 					end if;
 
-				when (16#1F#) =>
+				when (16#20#) =>
 					-- RMAP Area Config Register 17 : Register 17 Configuration Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_17_config.reg_17_config_reserved <= avalon_mm_rmap_i.writedata(3 downto 0);
@@ -1812,7 +1822,7 @@ begin
 						rmap_registers_wr_o.reg_18_config.ccd_vod_config(11 downto 8) <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#20#) =>
+				when (16#21#) =>
 					-- RMAP Area Config Register 18 : CCD 1 Vrd Configuration Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_18_config.ccd1_vrd_config(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1829,7 +1839,7 @@ begin
 						rmap_registers_wr_o.reg_19_config.ccd2_vrd_config1 <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#21#) =>
+				when (16#22#) =>
 					-- RMAP Area Config Register 19 : CCD 3 Vrd Configuration Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_19_config.ccd3_vrd_config(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1845,7 +1855,7 @@ begin
 						rmap_registers_wr_o.reg_19_config.ccd4_vrd_config(11 downto 8) <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#22#) =>
+				when (16#23#) =>
 					-- RMAP Area Config Register 19 : CCD Vgd Configuration Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_19_config.ccd_vgd_config0 <= avalon_mm_rmap_i.writedata(3 downto 0);
@@ -1862,7 +1872,7 @@ begin
 						rmap_registers_wr_o.reg_20_config.ccd_vog_config(11 downto 8) <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#23#) =>
+				when (16#24#) =>
 					-- RMAP Area Config Register 20 : CCD Ig High Configuration Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_20_config.ccd_ig_hi_config(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1878,7 +1888,7 @@ begin
 						rmap_registers_wr_o.reg_21_config.ccd_ig_lo_config(11 downto 8) <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#24#) =>
+				when (16#25#) =>
 					-- RMAP Area Config Register 21 : Register 21 Configuration Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_21_config.reg_21_config_reserved_0(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1895,13 +1905,13 @@ begin
 						rmap_registers_wr_o.reg_21_config.reg_21_config_reserved_1 <= avalon_mm_rmap_i.writedata(26 downto 24);
 					end if;
 
-				when (16#25#) =>
+				when (16#26#) =>
 					-- RMAP Area Config Register 21 : Clear Error Flag Config Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_21_config.clear_error_flag <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#26#) =>
+				when (16#27#) =>
 					-- RMAP Area Config Register 22 : Register 22 Configuration Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_22_config.reg_22_config_reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1916,7 +1926,7 @@ begin
 						rmap_registers_wr_o.reg_22_config.reg_22_config_reserved(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#27#) =>
+				when (16#28#) =>
 					-- RMAP Area Config Register 23 : CCD 1 Last E Packet Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_23_config.ccd1_last_e_packet(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1932,7 +1942,7 @@ begin
 						rmap_registers_wr_o.reg_23_config.ccd1_last_f_packet(9 downto 8) <= avalon_mm_rmap_i.writedata(25 downto 24);
 					end if;
 
-				when (16#28#) =>
+				when (16#29#) =>
 					-- RMAP Area Config Register 23 : CCD 2 Last E Packet Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_23_config.ccd2_last_e_packet(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1945,7 +1955,7 @@ begin
 						rmap_registers_wr_o.reg_23_config.reg_23_config_reserved <= avalon_mm_rmap_i.writedata(17 downto 16);
 					end if;
 
-				when (16#29#) =>
+				when (16#2A#) =>
 					-- RMAP Area Config Register 24 : CCD 2 Last F Packet Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_24_config.ccd2_last_f_packet(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1961,7 +1971,7 @@ begin
 						rmap_registers_wr_o.reg_24_config.ccd3_last_e_packet(9 downto 8) <= avalon_mm_rmap_i.writedata(25 downto 24);
 					end if;
 
-				when (16#2A#) =>
+				when (16#2B#) =>
 					-- RMAP Area Config Register 24 : CCD 3 Last F Packet Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_24_config.ccd3_last_f_packet(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1974,7 +1984,7 @@ begin
 						rmap_registers_wr_o.reg_24_config.reg_24_config_reserved <= avalon_mm_rmap_i.writedata(17 downto 16);
 					end if;
 
-				when (16#2B#) =>
+				when (16#2C#) =>
 					-- RMAP Area Config Register 25 : CCD 4 Last E Packet Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_25_config.ccd4_last_e_packet(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -1990,7 +2000,7 @@ begin
 						rmap_registers_wr_o.reg_25_config.ccd4_last_f_packet(9 downto 8) <= avalon_mm_rmap_i.writedata(25 downto 24);
 					end if;
 
-				when (16#2C#) =>
+				when (16#2D#) =>
 					-- RMAP Area Config Register 25 : Surface Inversion Counter Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_25_config.surface_inversion_counter(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2003,7 +2013,7 @@ begin
 						rmap_registers_wr_o.reg_25_config.reg_25_config_reserved <= avalon_mm_rmap_i.writedata(17 downto 16);
 					end if;
 
-				when (16#2D#) =>
+				when (16#2E#) =>
 					-- RMAP Area Config Register 26 : Readout Pause Counter Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_26_config.readout_pause_counter(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2019,7 +2029,7 @@ begin
 						rmap_registers_wr_o.reg_26_config.trap_pumping_shuffle_counter(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#2E#) =>
+				when (16#2F#) =>
 					-- RMAP Area HK Register 0 : TOU Sense 1 HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_0_hk.tou_sense_1(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2035,7 +2045,7 @@ begin
 						rmap_registers_wr_o.reg_0_hk.tou_sense_2(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#2F#) =>
+				when (16#30#) =>
 					-- RMAP Area HK Register 1 : TOU Sense 3 HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_1_hk.tou_sense_3(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2051,7 +2061,7 @@ begin
 						rmap_registers_wr_o.reg_1_hk.tou_sense_4(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#30#) =>
+				when (16#31#) =>
 					-- RMAP Area HK Register 2 : TOU Sense 5 HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_2_hk.tou_sense_5(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2067,7 +2077,7 @@ begin
 						rmap_registers_wr_o.reg_2_hk.tou_sense_6(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#31#) =>
+				when (16#32#) =>
 					-- RMAP Area HK Register 3 : CCD 1 TS HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_3_hk.ccd1_ts(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2083,7 +2093,7 @@ begin
 						rmap_registers_wr_o.reg_3_hk.ccd2_ts(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#32#) =>
+				when (16#33#) =>
 					-- RMAP Area HK Register 4 : CCD 3 TS HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_4_hk.ccd3_ts(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2099,7 +2109,7 @@ begin
 						rmap_registers_wr_o.reg_4_hk.ccd4_ts(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#33#) =>
+				when (16#34#) =>
 					-- RMAP Area HK Register 5 : PRT 1 HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_5_hk.prt1(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2115,7 +2125,7 @@ begin
 						rmap_registers_wr_o.reg_5_hk.prt2(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#34#) =>
+				when (16#35#) =>
 					-- RMAP Area HK Register 6 : PRT 3 HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_6_hk.prt3(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2131,7 +2141,7 @@ begin
 						rmap_registers_wr_o.reg_6_hk.prt4(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#35#) =>
+				when (16#36#) =>
 					-- RMAP Area HK Register 7 : PRT 5 HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_7_hk.prt5(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2147,7 +2157,7 @@ begin
 						rmap_registers_wr_o.reg_7_hk.zero_diff_amp(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#36#) =>
+				when (16#37#) =>
 					-- RMAP Area HK Register 8 : CCD 1 Vod Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_8_hk.ccd1_vod_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2163,7 +2173,7 @@ begin
 						rmap_registers_wr_o.reg_8_hk.ccd1_vog_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#37#) =>
+				when (16#38#) =>
 					-- RMAP Area HK Register 9 : CCD 1 Vrd Monitor E HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_9_hk.ccd1_vrd_mon_e(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2179,7 +2189,7 @@ begin
 						rmap_registers_wr_o.reg_9_hk.ccd2_vod_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#38#) =>
+				when (16#39#) =>
 					-- RMAP Area HK Register 10 : CCD 2 Vog Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_10_hk.ccd2_vog_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2195,7 +2205,7 @@ begin
 						rmap_registers_wr_o.reg_10_hk.ccd2_vrd_mon_e(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#39#) =>
+				when (16#3A#) =>
 					-- RMAP Area HK Register 11 : CCD 3 Vod Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_11_hk.ccd3_vod_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2211,7 +2221,7 @@ begin
 						rmap_registers_wr_o.reg_11_hk.ccd3_vog_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3A#) =>
+				when (16#3B#) =>
 					-- RMAP Area HK Register 12 : CCD 3 Vrd Monitor E HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_12_hk.ccd3_vrd_mon_e(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2227,7 +2237,7 @@ begin
 						rmap_registers_wr_o.reg_12_hk.ccd4_vod_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3B#) =>
+				when (16#3C#) =>
 					-- RMAP Area HK Register 13 : CCD 4 Vog Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_13_hk.ccd4_vog_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2243,7 +2253,7 @@ begin
 						rmap_registers_wr_o.reg_13_hk.ccd4_vrd_mon_e(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3C#) =>
+				when (16#3D#) =>
 					-- RMAP Area HK Register 14 : V CCD HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_14_hk.vccd(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2259,7 +2269,7 @@ begin
 						rmap_registers_wr_o.reg_14_hk.vrclk_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3D#) =>
+				when (16#3E#) =>
 					-- RMAP Area HK Register 15 : VIClock HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_15_hk.viclk(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2275,7 +2285,7 @@ begin
 						rmap_registers_wr_o.reg_15_hk.vrclk_low(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3E#) =>
+				when (16#3F#) =>
 					-- RMAP Area HK Register 16 : 5Vb Positive Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_16_hk.d5vb_pos_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2291,7 +2301,7 @@ begin
 						rmap_registers_wr_o.reg_16_hk.d5vb_neg_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3F#) =>
+				when (16#40#) =>
 					-- RMAP Area HK Register 17 : 3V3b Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_17_hk.d3v3b_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2307,7 +2317,7 @@ begin
 						rmap_registers_wr_o.reg_17_hk.d2v5a_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#40#) =>
+				when (16#41#) =>
 					-- RMAP Area HK Register 18 : 3V3d Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_18_hk.d3v3d_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2323,7 +2333,7 @@ begin
 						rmap_registers_wr_o.reg_18_hk.d2v5d_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#41#) =>
+				when (16#42#) =>
 					-- RMAP Area HK Register 19 : 1V5d Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_19_hk.d1v5d_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2339,7 +2349,7 @@ begin
 						rmap_registers_wr_o.reg_19_hk.d5vref_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#42#) =>
+				when (16#43#) =>
 					-- RMAP Area HK Register 20 : Vccd Positive Raw HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_20_hk.vccd_pos_raw(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2355,7 +2365,7 @@ begin
 						rmap_registers_wr_o.reg_20_hk.vclk_pos_raw(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#43#) =>
+				when (16#44#) =>
 					-- RMAP Area HK Register 21 : Van 1 Positive Raw HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_21_hk.van1_pos_raw(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2371,7 +2381,7 @@ begin
 						rmap_registers_wr_o.reg_21_hk.van3_neg_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#44#) =>
+				when (16#45#) =>
 					-- RMAP Area HK Register 22 : Van Positive Raw HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_22_hk.van2_pos_raw(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2387,7 +2397,7 @@ begin
 						rmap_registers_wr_o.reg_22_hk.vdig_raw(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#45#) =>
+				when (16#46#) =>
 					-- RMAP Area HK Register 23 : Vdig Raw 2 HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_23_hk.vdig_raw_2(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2403,7 +2413,7 @@ begin
 						rmap_registers_wr_o.reg_23_hk.viclk_low(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#46#) =>
+				when (16#47#) =>
 					-- RMAP Area HK Register 24 : CCD 1 Vrd Monitor F HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_24_hk.ccd1_vrd_mon_f(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2419,7 +2429,7 @@ begin
 						rmap_registers_wr_o.reg_24_hk.ccd1_vdd_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#47#) =>
+				when (16#48#) =>
 					-- RMAP Area HK Register 25 : CCD 1 Vgd Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_25_hk.ccd1_vgd_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2435,7 +2445,7 @@ begin
 						rmap_registers_wr_o.reg_25_hk.ccd2_vrd_mon_f(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#48#) =>
+				when (16#49#) =>
 					-- RMAP Area HK Register 26 : CCD 2 Vdd Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_26_hk.ccd2_vdd_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2451,7 +2461,7 @@ begin
 						rmap_registers_wr_o.reg_26_hk.ccd2_vgd_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#49#) =>
+				when (16#4A#) =>
 					-- RMAP Area HK Register 27 : CCD 3 Vrd Monitor F HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_27_hk.ccd3_vrd_mon_f(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2467,7 +2477,7 @@ begin
 						rmap_registers_wr_o.reg_27_hk.ccd3_vdd_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#4A#) =>
+				when (16#4B#) =>
 					-- RMAP Area HK Register 28 : CCD 3 Vgd Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_28_hk.ccd3_vgd_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2483,7 +2493,7 @@ begin
 						rmap_registers_wr_o.reg_28_hk.ccd4_vrd_mon_f(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#4B#) =>
+				when (16#4C#) =>
 					-- RMAP Area HK Register 29 : CCD 4 Vdd Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_29_hk.ccd4_vdd_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2499,7 +2509,7 @@ begin
 						rmap_registers_wr_o.reg_29_hk.ccd4_vgd_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#4C#) =>
+				when (16#4D#) =>
 					-- RMAP Area HK Register 30 : Ig High Monitor HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_30_hk.ig_hi_mon(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2515,7 +2525,7 @@ begin
 						rmap_registers_wr_o.reg_30_hk.ig_lo_mon(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#4D#) =>
+				when (16#4E#) =>
 					-- RMAP Area HK Register 31 : Tsense A HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_31_hk.tsense_a(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2535,13 +2545,13 @@ begin
 						rmap_registers_wr_o.reg_32_hk.spw_status_spw_status_reserved <= avalon_mm_rmap_i.writedata(17 downto 16);
 					end if;
 
-				when (16#55#) =>
+				when (16#56#) =>
 					-- RMAP Area HK Register 32 : Register 32 HK Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_32_hk.reg_32_hk_reserved <= avalon_mm_rmap_i.writedata(7 downto 0);
 					end if;
 
-				when (16#56#) =>
+				when (16#57#) =>
 					-- RMAP Area HK Register 33 : Register 33 HK Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_33_hk.reg_33_hk_reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2554,7 +2564,7 @@ begin
 						rmap_registers_wr_o.reg_33_hk.op_mode <= avalon_mm_rmap_i.writedata(19 downto 16);
 					end if;
 
-				when (16#5C#) =>
+				when (16#5D#) =>
 					-- RMAP Area HK Register 34 : Error Flags : Error Flags Reserved
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_34_hk.error_flags_error_flags_reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2569,7 +2579,7 @@ begin
 						rmap_registers_wr_o.reg_34_hk.error_flags_error_flags_reserved(26 downto 24) <= avalon_mm_rmap_i.writedata(26 downto 24);
 					end if;
 
-				when (16#5D#) =>
+				when (16#5E#) =>
 					-- RMAP Area HK Register 35 : FPGA Minor Version Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_35_hk.fpga_minor_version <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2586,7 +2596,7 @@ begin
 						rmap_registers_wr_o.reg_35_hk.board_id(8) <= avalon_mm_rmap_i.writedata(24);
 					end if;
 
-				when (16#5E#) =>
+				when (16#5F#) =>
 					-- RMAP Area HK Register 35 : Register 35 HK Reserved HK Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.reg_35_hk.reg_35_hk_reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);

@@ -64,8 +64,12 @@ void vFeeTaskV3(void *task_data) {
 				//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
+				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = TRUE;
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
+
+				/* Clear all FEE Machine Statistics */
+				bFeebClearMachineStatistics(&pxNFee->xChannel.xFeeBuffer);
 
 				pxNFee->xControl.eState = sConfig_Enter;
 				break;
@@ -3166,6 +3170,7 @@ bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh ) {
 	//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
 	pxFeebCh->xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
 	pxFeebCh->xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+	pxFeebCh->xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 	bFeebSetMachineControl(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
@@ -3248,6 +3253,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
@@ -3459,6 +3465,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
@@ -3677,6 +3684,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
@@ -3898,6 +3906,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
@@ -4127,6 +4136,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
@@ -4305,6 +4315,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
@@ -4523,6 +4534,7 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
@@ -4743,6 +4755,7 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config

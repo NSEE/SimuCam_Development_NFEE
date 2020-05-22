@@ -47,14 +47,14 @@ package nrme_rmap_mem_area_nfee_pkg is
 	constant c_NRME_NFEE_RMAP_WRITE_OUT_RST : t_nrme_nfee_rmap_write_out := (
 		waitrequest => '1'
 	);
-	
+
 	constant c_NRME_NFEE_RMAP_WIN_OFFSET_BIT : natural := 23;
-	
+
 	-- Address Constants
 
 	-- Allowed Addresses
 	constant c_NRME_AVALON_MM_NFEE_RMAP_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_NRME_AVALON_MM_NFEE_RMAP_MAX_ADDR : natural range 0 to 255 := 16#5E#;
+	constant c_NRME_AVALON_MM_NFEE_RMAP_MAX_ADDR : natural range 0 to 255 := 16#5F#;
 
 	-- Registers Types
 
@@ -130,7 +130,8 @@ package nrme_rmap_mem_area_nfee_pkg is
 		sensor_sel                 : std_logic_vector(1 downto 0); -- CCD Port Data Sensor Selection Config Field
 		digitise_en                : std_logic; -- Digitalise Enable Config Field
 		dg_en                      : std_logic; -- DG (Drain Gate) Enable Field
-		reg_5_config_reserved      : std_logic_vector(6 downto 0); -- Register 5 Configuration Reserved
+		ccd_read_en                : std_logic; -- CCD Readout Enable Field
+		reg_5_config_reserved      : std_logic_vector(5 downto 0); -- Register 5 Configuration Reserved
 	end record t_reg_5_config_wr_reg;
 
 	-- RMAP Area Config Register 6

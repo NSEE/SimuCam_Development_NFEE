@@ -314,7 +314,8 @@ alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs){
      */
 
     alt_u32 uliPxDelay;
-    uliPxDelay = (alt_u32) ((float) uliPeriodNs * 1e-1);
+    //    uliPxDelay = (alt_u32) ((float) uliPeriodNs * 1e-1);
+    uliPxDelay = (alt_u32) ( uliPeriodNs / (alt_u32)10 );
 
     return uliPxDelay;
 }
@@ -332,7 +333,8 @@ alt_u32 uliPxDelayCalcPeriodMs(alt_u32 uliPeriodMs){
      */
 
     alt_u32 uliPxDelay;
-    uliPxDelay = (alt_u32) ((float) uliPeriodMs * 1e+5);
+    //    uliPxDelay = (alt_u32) ((float) uliPeriodMs * 1e+5);
+    uliPxDelay = (alt_u32) ( uliPeriodMs * (alt_u32)100000 );
 
     return uliPxDelay;
 }

@@ -76,7 +76,7 @@ begin
 			-- RMAP Area Config Register 5 : DG (Drain Gate) Enable Field
 			rmap_registers_wr_o.reg_5_config.dg_en                         <= '0';
 			-- RMAP Area Config Register 5 : CCD Readout Enable Field
-			rmap_registers_wr_o.reg_5_config.ccd_read_en                   <= '0';
+			rmap_registers_wr_o.reg_5_config.ccd_read_en                   <= '1';
 			-- RMAP Area Config Register 5 : Register 5 Configuration Reserved
 			rmap_registers_wr_o.reg_5_config.reg_5_config_reserved         <= (others => '0');
 			-- RMAP Area Config Register 6 : CCD 1 Window List Pointer Config Field
