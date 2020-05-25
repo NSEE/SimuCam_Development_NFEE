@@ -136,6 +136,18 @@ void vParserCommTask(void *task_data) {
 
                     case 250: /* srv-Type = 250 */
 						switch ( xTcPusL.usiSubType ) {
+							case 70: /*Data source*/
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+
+//								#if DEBUG_ON
+//								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+//									fprintf(fp,"Parser Task: TC_DATA_SOURCE\n");
+//								#endif
+
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
 							case 29: /* TC_SYNCH_SOURCE */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )

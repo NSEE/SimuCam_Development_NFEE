@@ -797,7 +797,7 @@ void vFeeTaskV3(void *task_data) {
 						break;
 					case sFullImage:
 						if ( pxNFee->xControl.eDataSource == dsPattern ) {
-							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern;
+							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePatternMode;
 							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						} else {
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImageSsdMode;
@@ -806,7 +806,7 @@ void vFeeTaskV3(void *task_data) {
 						break;
 					case sWindowing:
 						if ( pxNFee->xControl.eDataSource == dsPattern ) {
-							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingPattern;
+							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingPatternMode;
 							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						} else {
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingSsdImgMode;
@@ -1701,7 +1701,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_DT_SOURCE:
-				if ( uiCmdFEEL.ucByte[1] == 0 )
+				if ( uiCmdFEEL.ucByte[0] == 0 )
 					pxNFeeP->xControl.eDataSource = dsPattern;
 				else
 					pxNFeeP->xControl.eDataSource = dsSSD;
@@ -1918,7 +1918,8 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_DT_SOURCE:
-				if ( uiCmdFEEL.ucByte[1] == 0 )
+
+				if ( uiCmdFEEL.ucByte[0] == 0 )
 					pxNFeeP->xControl.eDataSource = dsPattern;
 				else
 					pxNFeeP->xControl.eDataSource = dsSSD;
@@ -2063,7 +2064,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_DT_SOURCE:
-				if ( uiCmdFEEL.ucByte[1] == 0 )
+				if ( uiCmdFEEL.ucByte[0] == 0 )
 					pxNFeeP->xControl.eDataSource = dsPattern;
 				else
 					pxNFeeP->xControl.eDataSource = dsSSD;

@@ -763,9 +763,15 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/*Data Source*/
 		case 70:
+
 			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			ucDTSourceL = (unsigned char)xPusL->usiValues[1];
-			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucFeeInstL );
+//			#if DEBUG_ON
+//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+//				fprintf(fp,"MEB Task: DATA_SOURCE ucFeeInstL= %hhu, ucDTSourceL= %hhu\n",ucFeeInstL,ucDTSourceL  );
+//			#endif
+
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
 			break;
 
 		case 61:
