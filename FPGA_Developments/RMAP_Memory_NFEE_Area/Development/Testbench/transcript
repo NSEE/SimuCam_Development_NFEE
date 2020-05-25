@@ -15,5 +15,5 @@
 # Compile of nrme_tb_avs_pkg.vhd was successful.
 # Compile of nrme_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 15 compiles, 0 failed with no errors.
+# Compile of testbench_top.vhd failed with 6 errors.
+# 15 compiles, 1 failed with 6 errors.

@@ -398,8 +398,35 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	switch (xPusL->usiSubType) {
 		/* TC_SYNCH_SOURCE */
 		case 29:
+			/* Disable all sync IRQs [rfranca] */
+			bSyncIrqEnableError(FALSE);
+			bSyncIrqEnableBlankPulse(FALSE);
+			bSyncIrqEnableMasterPulse(FALSE);
+			bSyncIrqEnableNormalPulse(FALSE);
+			bSyncIrqEnableLastPulse(FALSE);
+			bSyncPreIrqEnableBlankPulse(FALSE);
+			bSyncPreIrqEnableMasterPulse(FALSE);
+			bSyncPreIrqEnableNormalPulse(FALSE);
+			bSyncPreIrqEnableLastPulse(FALSE);
+			/* Set sync source */
 			param1 = xPusL->usiValues[0];
 			bSyncCtrIntern(param1 == 0); /*True = Internal*/
+			/* Clear all sync IRQ Flags [rfranca] */
+			bSyncIrqFlagClrError(TRUE);
+			bSyncIrqFlagClrBlankPulse(TRUE);
+			bSyncIrqFlagClrMasterPulse(TRUE);
+			bSyncIrqFlagClrNormalPulse(TRUE);
+			bSyncIrqFlagClrLastPulse(TRUE);
+			bSyncPreIrqFlagClrBlankPulse(TRUE);
+			bSyncPreIrqFlagClrMasterPulse(TRUE);
+			bSyncPreIrqFlagClrNormalPulse(TRUE);
+			bSyncPreIrqFlagClrLastPulse(TRUE);
+			/* Enable relevant sync IRQs [rfranca] */
+			bSyncIrqEnableMasterPulse(TRUE);
+			bSyncIrqEnableNormalPulse(TRUE);
+			bSyncIrqEnableLastPulse(TRUE);
+			bSyncPreIrqEnableBlankPulse(TRUE);
+			bSyncPreIrqEnableMasterPulse(TRUE);
 			break;
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:

@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#6D#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#78#;
 
 	-- Registers Types
 
@@ -70,8 +70,23 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_machine_start      : std_logic; -- FEE Machine Start
 		fee_buffer_overflow_en : std_logic; -- FEE Buffer Overflow Enable
 		fee_digitalise_en      : std_logic; -- FEE Digitalise Enable
+		fee_readout_en         : std_logic; -- FEE Readout Enable
 		fee_windowing_en       : std_logic; -- FEE Windowing Enable
+		fee_statistics_clear   : std_logic; -- FEE Statistics Clear
 	end record t_comm_fee_machine_config_wr_reg;
+
+	-- FEE Machine Statistics Register
+	type t_comm_fee_machine_statistics_rd_reg is record
+		fee_incoming_pkts_cnt       : std_logic_vector(31 downto 0); -- FEE Incoming Packets Counter
+		fee_incoming_bytes_cnt      : std_logic_vector(31 downto 0); -- FEE Incoming Bytes Counter
+		fee_outgoing_pkts_cnt       : std_logic_vector(31 downto 0); -- FEE Outgoing Packets Counter
+		fee_outgoing_bytes_cnt      : std_logic_vector(31 downto 0); -- FEE Outgoing Bytes Counter
+		fee_spw_link_escape_err_cnt : std_logic_vector(31 downto 0); -- FEE SpW Link Escape Errors Counter
+		fee_spw_link_credit_err_cnt : std_logic_vector(31 downto 0); -- FEE SpW Link Credit Errors Counter
+		fee_spw_link_parity_err_cnt : std_logic_vector(31 downto 0); -- FEE SpW Link Parity Errors Counter
+		fee_spw_link_disconnect_cnt : std_logic_vector(31 downto 0); -- FEE SpW Link Disconnects Counter
+		fee_spw_eep_cnt             : std_logic_vector(31 downto 0); -- FEE SpaceWire EEPs Counter
+	end record t_comm_fee_machine_statistics_rd_reg;
 
 	-- FEE Buffers Config Register
 	type t_comm_fee_buffers_config_wr_reg is record
@@ -300,6 +315,7 @@ package avalon_mm_spacewire_registers_pkg is
 	type t_windowing_read_registers is record
 		spw_link_status_reg        : t_comm_spw_link_status_rd_reg; -- SpaceWire Link Status Register
 		spw_timecode_status_reg    : t_comm_spw_timecode_rd_reg; -- SpaceWire Timecode Status Register
+		fee_machine_statistics_reg : t_comm_fee_machine_statistics_rd_reg; -- FEE Machine Statistics Register
 		fee_buffers_status_reg     : t_comm_fee_buffers_status_rd_reg; -- FEE Buffers Status Register
 		fee_buffers_irq_flags_reg  : t_comm_fee_buffers_irq_flags_rd_reg; -- FEE Buffers IRQ Flags Register
 		fee_buffers_irq_number_reg : t_comm_fee_buffers_number_rd_reg; -- FEE Buffers IRQ Number Register

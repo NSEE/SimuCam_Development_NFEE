@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.04.28.15:44:06 -->
+ <!-- 2020.05.22.05:10:04 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1588099441</value>
+  <value>1590134998</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -61800,15 +61800,15 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0</name>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0_CALIB</name>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0_DLL_RESET</name>
-   <value>0101101010011</value>
+   <value>0101101100011</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0_DLL_RESET_MIRR</name>
@@ -62316,7 +62316,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TCL</name>
-   <value>5</value>
+   <value>6</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TDQSCK</name>
@@ -62432,7 +62432,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_WTCL_INT</name>
-   <value>4</value>
+   <value>5</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MR0_BL</name>
@@ -62444,7 +62444,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MR0_CAS_LATENCY</name>
-   <value>5</value>
+   <value>6</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MR0_DLL</name>
@@ -62900,7 +62900,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AC_ROM_MR0">
    <type>java.lang.String</type>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -62916,7 +62916,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AC_ROM_MR0_CALIB">
    <type>java.lang.String</type>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -62924,7 +62924,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AC_ROM_MR0_DLL_RESET">
    <type>java.lang.String</type>
-   <value>0101101010011</value>
+   <value>0101101100011</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -63028,7 +63028,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MR0_CAS_LATENCY">
    <type>int</type>
-   <value>5</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -63508,7 +63508,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_WTCL_INT">
    <type>int</type>
-   <value>4</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -63988,7 +63988,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TCL">
    <type>int</type>
-   <value>5</value>
+   <value>6</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73093,7 +73093,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="NUM_AC_FR_CYCLE_SHIFTS">
    <type>int</type>
-   <value>1</value>
+   <value>0</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -73381,7 +73381,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_T_WL">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -73389,7 +73389,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_T_RL">
    <type>int</type>
-   <value>5</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -76822,15 +76822,15 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0</name>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0_CALIB</name>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0_DLL_RESET</name>
-   <value>0101101010011</value>
+   <value>0101101100011</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.AC_ROM_MR0_DLL_RESET_MIRR</name>
@@ -77338,7 +77338,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TCL</name>
-   <value>5</value>
+   <value>6</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TDQSCK</name>
@@ -77454,7 +77454,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_WTCL_INT</name>
-   <value>4</value>
+   <value>5</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MR0_BL</name>
@@ -77466,7 +77466,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MR0_CAS_LATENCY</name>
-   <value>5</value>
+   <value>6</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MR0_DLL</name>
@@ -77922,7 +77922,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AC_ROM_MR0">
    <type>java.lang.String</type>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -77938,7 +77938,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AC_ROM_MR0_CALIB">
    <type>java.lang.String</type>
-   <value>0101001010011</value>
+   <value>0101001100011</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -77946,7 +77946,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AC_ROM_MR0_DLL_RESET">
    <type>java.lang.String</type>
-   <value>0101101010011</value>
+   <value>0101101100011</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -78050,7 +78050,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MR0_CAS_LATENCY">
    <type>int</type>
-   <value>5</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -78530,7 +78530,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_WTCL_INT">
    <type>int</type>
-   <value>4</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -79010,7 +79010,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TCL">
    <type>int</type>
-   <value>5</value>
+   <value>6</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -88115,7 +88115,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="NUM_AC_FR_CYCLE_SHIFTS">
    <type>int</type>
-   <value>1</value>
+   <value>0</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -88403,7 +88403,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_T_WL">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -88411,7 +88411,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_T_RL">
    <type>int</type>
-   <value>5</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -115249,7 +115249,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1588099441</value>
+   <value>1590134998</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -115269,7 +115269,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1588099441</value>
+   <value>1590134998</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -115285,7 +115285,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1588099441</value>
+   <value>1590134998</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

@@ -214,8 +214,8 @@ module MebX_Qsys_Project_m1_ddr2_memory_s0 (
 		.CALIB_LFIFO_OFFSET                (5),
 		.CALIB_REG_WIDTH                   (8),
 		.READ_VALID_FIFO_SIZE              (16),
-		.MEM_T_WL                          (2),
-		.MEM_T_RL                          (5),
+		.MEM_T_WL                          (3),
+		.MEM_T_RL                          (6),
 		.CTL_REGDIMM_ENABLED               (0),
 		.NUM_WRITE_FR_CYCLE_SHIFTS         (0),
 		.VFIFO_CONTROL_WIDTH_PER_DQS       (1),
@@ -261,8 +261,8 @@ module MebX_Qsys_Project_m1_ddr2_memory_s0 (
 		.CALIB_LFIFO_OFFSET                (5),
 		.CALIB_SKIP_STEPS_WIDTH            (8),
 		.READ_VALID_FIFO_SIZE              (16),
-		.MEM_T_WL                          (2),
-		.MEM_T_RL                          (5),
+		.MEM_T_WL                          (3),
+		.MEM_T_RL                          (6),
 		.CTL_REGDIMM_ENABLED               (0),
 		.SEQUENCER_VERSION                 (18)
 	) sequencer_data_mgr_inst (

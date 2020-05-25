@@ -22,8 +22,8 @@
 #endif
 
 /* HW and FW release version */
-#define SIMUCAM_RELEASE                 "L3"
-#define SIMUCAM_HW_VERSION              "1.0"
+#define SIMUCAM_RELEASE                 "R3"
+#define SIMUCAM_HW_VERSION              "0.0"
 #define SIMUCAM_FW_VERSION              "0.0"
 
 #define N_OF_NFEE       6	/* ONLY for tests */

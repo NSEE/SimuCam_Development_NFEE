@@ -569,6 +569,35 @@ int main(void)
 		vCriticalErrorLedPanel();
 		return -1;
 	}
+
+	/* Hard-coded DEBUG configurations due to dificulties in acessing the SD card. TODO: Remove later. */
+	xDefaults.usiSyncPeriod     = 6250; /* ms */
+	xDefaults.usiRows           = 4510;
+	xDefaults.usiOLN            = 30;
+	xDefaults.usiCols           = 2295;
+	xDefaults.usiPreScanSerial  = 0;
+	xDefaults.usiOverScanSerial = 0;
+	xDefaults.ulStartDelay      = 0; /* ms */
+	xDefaults.ulSkipDelay       = 110000; /* ns */
+	xDefaults.ulLineDelay       = 90000; /* ns */
+	xDefaults.ulADCPixelDelay   = 333; /* ns */
+	xDefaults.bBufferOverflowEn = FALSE;
+	xDefaults.ucRmapKey         = 209; /* 0xD1 */
+	xDefaults.ucLogicalAddr     = 81; /* 0x51 */
+	xDefaults.bSpwLinkStart     = FALSE;
+	xDefaults.usiLinkNFEE0      = 0;
+	xDefaults.usiGuardNFEEDelay = 50; /* ms */
+	xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
+	xDefaults.usiPatternType    = 0; /* Official URD */
+	xDefaults.usiDataProtId     = 240; /* 0xF0 */
+	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
+	xDefaults.ucReadOutOrder[0] = 0;
+	xDefaults.ucReadOutOrder[1] = 1;
+	xDefaults.ucReadOutOrder[2] = 2;
+	xDefaults.ucReadOutOrder[3] = 3;
+	xDefaults.usiSpwPLength     = 32140; /* 32k LESIA */
+	xDefaults.usiPreBtSync      = 200; /* ms */
+
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nDebug configuration loaded from SDCard \n");

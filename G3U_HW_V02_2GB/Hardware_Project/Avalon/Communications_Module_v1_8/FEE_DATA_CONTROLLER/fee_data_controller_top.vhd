@@ -20,6 +20,7 @@ entity fee_data_controller_top is
 		fee_machine_stop_i                   : in  std_logic;
 		fee_machine_start_i                  : in  std_logic;
 		fee_digitalise_en_i                  : in  std_logic;
+		fee_readout_en_i                     : in  std_logic;
 		fee_windowing_en_i                   : in  std_logic;
 		-- fee left windowing buffer status
 		fee_left_window_data_i               : in  std_logic_vector(15 downto 0);
@@ -487,7 +488,7 @@ begin
 				s_registered_dpkt_params.image.line_delay             <= data_pkt_line_delay_i;
 				s_registered_dpkt_params.image.adc_delay              <= data_pkt_adc_delay_i;
 				-- register masking settings
-				s_registered_dpkt_params.transmission.digitalise_en   <= fee_digitalise_en_i;
+				s_registered_dpkt_params.transmission.digitalise_en   <= (fee_digitalise_en_i) and (fee_readout_en_i);
 				case (data_pkt_fee_mode_i) is
 					when c_DPKT_OFF_MODE =>
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_NONE;
