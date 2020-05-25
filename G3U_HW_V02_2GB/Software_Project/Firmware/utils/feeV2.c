@@ -98,7 +98,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
     bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
 
-
+    pxNfeeL->xControl.xTrap.bEnabledSerial = FALSE;
     pxNfeeL->xControl.xTrap.bEnabled = FALSE;
     pxNfeeL->xControl.xTrap.bPumping = FALSE;
     pxNfeeL->xControl.xTrap.bEmiting = FALSE;
@@ -106,6 +106,12 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.xTrap.usiSH = 0;
     pxNfeeL->xControl.xTrap.usiNofSyncstoWait = 0;
     pxNfeeL->xControl.xTrap.ucICountSyncs = 0;
+
+    pxNfeeL->xControl.xTrap.xRestoreDelays.uliAdcDelay = pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay;
+    pxNfeeL->xControl.xTrap.xRestoreDelays.uliStartDelay = pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay;
+    pxNfeeL->xControl.xTrap.xRestoreDelays.uliSkipDelay = pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliSkipDelay;
+    pxNfeeL->xControl.xTrap.xRestoreDelays.uliLineDelay = pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay;
+
 
 }
 
