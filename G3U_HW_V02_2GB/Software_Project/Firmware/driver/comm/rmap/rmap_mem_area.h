@@ -40,6 +40,7 @@ typedef struct RmapMemAreaConfig {
   alt_u8 ucSensorSel; /* CCD Port Data Sensor Selection Config Field */
   bool bDigitiseEn; /* Digitalise Enable Config Field */
   bool bDGEn; /* DG (Drain Gate) Enable Field */
+  bool bCcdReadEn; /* CCD Readout Enable Field */
   alt_u8 ucReg5ConfigReserved; /* Register 5 Configuration Reserved */
   alt_u32 uliCcd1WinListPtr; /* CCD 1 Window List Pointer Config Field */
   alt_u32 uliCcd1PktorderListPtr; /* CCD 1 Packet Order List Pointer Config Field */

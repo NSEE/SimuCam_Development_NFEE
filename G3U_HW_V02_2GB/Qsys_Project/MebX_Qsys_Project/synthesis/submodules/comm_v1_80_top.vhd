@@ -287,6 +287,12 @@ architecture rtl of comm_v1_80_top is
 	signal s_fee_left_output_buffer_overflowed  : std_logic;
 	signal s_fee_right_output_buffer_overflowed : std_logic;
 
+	-- fee statistics
+	signal s_statistics_spw_link_escape_err_dly : std_logic;
+	signal s_statistics_spw_link_credit_err_dly : std_logic;
+	signal s_statistics_spw_link_parity_err_dly : std_logic;
+	signal s_statistics_spw_link_disconnect_dly : std_logic;
+
 begin
 
 	-- reset_n creation
@@ -451,6 +457,7 @@ begin
 			fee_machine_stop_i                            => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
 			fee_machine_start_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
 			fee_digitalise_en_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
+			fee_readout_en_i                              => s_spacewire_write_registers.fee_machine_config_reg.fee_readout_en,
 			fee_windowing_en_i                            => s_spacewire_write_registers.fee_machine_config_reg.fee_windowing_en,
 			fee_left_window_data_i                        => s_L_fee_data_controller_window_data_out,
 			fee_left_window_mask_i                        => s_L_fee_data_controller_window_mask_out,
@@ -906,6 +913,112 @@ begin
 			s_sync_in_delayed      <= s_sync_channel;
 		end if;
 	end process p_sync_in_triger;
+
+	-- fee statistics manager
+	p_fee_statistics : process(a_avs_clock, a_reset) is
+	begin
+		if (a_reset = '1') then
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt       <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt      <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt       <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt      <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_escape_err_cnt <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_credit_err_cnt <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_parity_err_cnt <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_disconnect_cnt <= (others => '0');
+			s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt             <= (others => '0');
+		elsif rising_edge(a_avs_clock) then
+			-- make statistics
+			-- check if a incoming packet occurred (high level)
+			if ((s_rmap_spw_control.receiver.read = '1') and (s_rmap_spw_flag.receiver.flag = '1')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt) + 1);
+				end if;
+			end if;
+			-- check if a incoming byte occurred (high level)
+			if ((s_rmap_spw_control.receiver.read = '1') and (s_rmap_spw_flag.receiver.flag = '0')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt) + 1);
+				end if;
+			end if;
+			-- check if a outgoing packet occurred (high level)
+			if ((s_rmap_spw_control.transmitter.write = '1') and (s_rmap_spw_control.transmitter.flag = '1')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt) + 1);
+				end if;
+			end if;
+			-- check if a outgoing byte occurred (high level)
+			if ((s_rmap_spw_control.transmitter.write = '1') and (s_rmap_spw_control.transmitter.flag = '0')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt) + 1);
+				end if;
+			end if;
+			-- check if a spw link escape error occurred (rising edge)
+			if ((s_statistics_spw_link_escape_err_dly = '0') and (s_spacewire_read_registers.spw_link_status_reg.spw_err_escape = '1')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_escape_err_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_escape_err_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_escape_err_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_escape_err_cnt) + 1);
+				end if;
+			end if;
+			s_statistics_spw_link_escape_err_dly <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
+			-- check if a spw link credit error occurred (rising edge)
+			if ((s_statistics_spw_link_credit_err_dly = '0') and (s_spacewire_read_registers.spw_link_status_reg.spw_err_credit = '1')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_credit_err_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_credit_err_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_credit_err_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_credit_err_cnt) + 1);
+				end if;
+			end if;
+			s_statistics_spw_link_credit_err_dly <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
+			-- check if a spw link parity error occurred (rising edge)
+			if ((s_statistics_spw_link_parity_err_dly = '0') and (s_spacewire_read_registers.spw_link_status_reg.spw_err_parity = '1')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_parity_err_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_parity_err_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_parity_err_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_parity_err_cnt) + 1);
+				end if;
+			end if;
+			s_statistics_spw_link_parity_err_dly <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
+			-- check if a spw link disconnect occurred (rising edge)
+			if ((s_statistics_spw_link_disconnect_dly = '0') and (s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect = '1')) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_disconnect_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_disconnect_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_disconnect_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_disconnect_cnt) + 1);
+				end if;
+			end if;
+			s_statistics_spw_link_disconnect_dly <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
+			-- check if a eep occurred (high level)
+			if ((s_rmap_spw_control.receiver.read = '1') and (s_rmap_spw_flag.receiver.flag = '1') and (s_rmap_spw_flag.receiver.data = x"01")) then
+				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt = x"FFFFFFFF") then
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt <= (others => '0');
+				else
+					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt <= std_logic_vector(unsigned(s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt) + 1);
+				end if;
+			end if;
+			-- check if a fee statistics clear was issued
+			if (s_spacewire_write_registers.fee_machine_config_reg.fee_statistics_clear = '1') then
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt       <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt      <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt       <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt      <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_escape_err_cnt <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_credit_err_cnt <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_parity_err_cnt <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_link_disconnect_cnt <= (others => '0');
+				s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt             <= (others => '0');
+			end if;
+		end if;
+	end process p_fee_statistics;
 
 	-- SpaceWire Controller Signals Assignments
 	s_spacewire_read_registers.spw_link_status_reg.spw_link_started    <= spw_link_status_started_i;
