@@ -543,6 +543,43 @@ void vSendLog ( const char * cDataIn ) {
 	}
 }
 
+void vLogSendErrorChars(char layer, char type, char subtype, char severity) {
+	/* Send Error to NUC */
+	char cLogSend[32];
+	memset(cLogSend,0,32);
+	cLogSend[0] = layer;
+	cLogSend[1] = ':';
+	cLogSend[2] = type;
+	cLogSend[3] = ':';
+	cLogSend[4] = subtype;
+	cLogSend[5] = ':';
+	cLogSend[6] = severity;
+	vSendLogError(cLogSend);	
+}
+
+void vSendLogError ( const char * cDataIn ) {
+    char cBufferLog[32] = "";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+    usiIdCMDLocal = usiGetIdCMD();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBufferLog, LOG_SPRINTFERROR, usiIdCMDLocal, cDataIn);
+    crc = ucCrc8wInit( cBufferLog , strlen(cBufferLog));
+    sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
+
+	bSuccees = bSendUART32v2(cBufferLog, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+			vCouldNotSendLog();
+	}
+}
+
 unsigned short int usiGetIdCMD ( void ) {
     if ( usiIdCMD > 65534 )
         usiIdCMD = 2;

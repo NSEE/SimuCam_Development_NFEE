@@ -1,5 +1,4 @@
-/*
- * simcam_tasks_priorities.h
+/* simcam_tasks_priorities.h
  *
  *  Created on: 28/11/2018
  *      Author: Tiago-Low
@@ -19,22 +18,22 @@
  * 40 -> MIN PRIORITY  */
 #define INITIALIZATION_TASK_PRIO        1
 #define INITIALIZATION_TASK_PRIO_FAIL   39
-#define RECEIVER_TASK_PRIO              32 	/* Never sleep - starving task (do not up the priority of this task)*/
-#define TIMEOUT_CHECKER_PRIO            30
+#define RECEIVER_TASK_PRIO              36 	/* Never sleep - starving task (do not up the priority of this task)*/
+#define TIMEOUT_CHECKER_PRIO            35
 #define RESERVED_FOR_TIMER              29  /* This timer will be used for retransmission purposes (THIS WILL NOT BE USED IN THE CODE, IS JUST TO REMEMBER THAT OS_TASK_TMR_PRIO IS 29)*/
 #define PARSER_TASK_PRIO				28
 #define OUT_ACK_TASK_PRIO				27
 #define SENDER_TASK_PRIO                26
 #define IN_ACK_TASK_PRIO				25
 
-#define PCP_MUTEX_PrePareseds           24   /* MUTEX Reader -> PARSER task*/
-#define PCP_MUTEX_B32_PRIO              23   /* MUTEX Buffer TX char[32]*/
-#define PCP_MUTEX_B64_PRIO              22   /* MUTEX Buffer TX char[64]*/
-#define PCP_MUTEX_B128_PRIO             21   /* MUTEX Buffer TX char[128]*/
-#define PCP_MUTEX_B128_PRIO_SENDER      20   /* MUTEX Buffer TX char[128]*/
-#define PCP_MUTEX_RECEIVER_ACK          19   /* MUTEX Reader -> Ack receiver control*/
-#define PCP_MUTEX_SENDER_ACK            18   /* MUTEX Reader -> Ack receiver control*/
-#define PCP_MUTEX_TX_UART_PRIO          17   /* MUTEX TX UART*/
+#define PCP_MUTEX_PrePareseds           13   /* MUTEX Reader -> PARSER task*/
+#define PCP_MUTEX_B32_PRIO              12   /* MUTEX Buffer TX char[32]*/
+#define PCP_MUTEX_B64_PRIO              11   /* MUTEX Buffer TX char[64]*/
+#define PCP_MUTEX_B128_PRIO             10   /* MUTEX Buffer TX char[128]*/
+#define PCP_MUTEX_B128_PRIO_SENDER      9   /* MUTEX Buffer TX char[128]*/
+#define PCP_MUTEX_RECEIVER_ACK          8   /* MUTEX Reader -> Ack receiver control*/
+#define PCP_MUTEX_SENDER_ACK            7   /* MUTEX Reader -> Ack receiver control*/
+#define PCP_MUTEX_TX_UART_PRIO          6   /* MUTEX TX UART*/
 
 /*  Sync reset task will have a very high priority
  *  but will be suspended when not in use [bndky]
@@ -42,17 +41,17 @@
 #define SYNC_RESET_HIGH_PRIO            2
 
 /* Main application priority */
-/* FEE 11 .. 16 */
-#define NFEE_TASK_BASE_PRIO             11
-#define DATA_COTROL_TASK_PRIO           10
-#define FEE_COTROL_TASK_PRIO            9
-#define MEB_TASK_PRIO                   8
-#define PCP_MUTEX_PUS_QUEUE             7
-#define LUT_TASK_PRIO            		6
+/* FEE 19 .. 24 */
+#define NFEE_TASK_BASE_PRIO             19
+#define DATA_COTROL_TASK_PRIO           18
+#define FEE_COTROL_TASK_PRIO            17
+#define MEB_TASK_PRIO                   16
+#define PCP_MUTEX_PUS_QUEUE             15
+#define LUT_TASK_PRIO            		14
 #define PCP_MUTEX_DMA_1                 5
 //#define PCP_MUTEX_DMA_0                 4
 
-#define STACK_MONITOR_TASK_PRIO			16   /* High*/
+#define STACK_MONITOR_TASK_PRIO			3   /* High*/
 
 /* --------------- Timers ------------------ */
 #define PERIOD_TIMER        4   /* In the BSP the Hz of the timer is 500 milli, period = 2 give me 2 sec */

@@ -44,6 +44,7 @@
 #define TURNOFF_SPRINTF         "?D:%hu"
 #define RESET_SPRINTF         	"?R:%hu"
 #define LOG_SPRINTF             "?L:%hu:%s"
+#define LOG_SPRINTFERROR        "!L:%hu:%s"
 //#define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu%s|%hhu;"
 #define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu"
 #define PUS_ADDER_SPRINTF       "%s:%hu"

@@ -7,6 +7,7 @@
 
 #ifndef SIM_MEB_TASK_H_
 #define SIM_MEB_TASK_H_
+#include "../driver/comm/comm.h"
 #include "../utils/queue_commands_list.h"
 #include "../simucam_definitions.h"
 #include "../utils/communication_configs.h"
@@ -44,7 +45,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
-
+void vPusType254run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL);
 
 void vMebChangeToConfig( TSimucam_MEB *pxMebCLocal );
 void vMebChangeToRunning( TSimucam_MEB *pxMebCLocal );
