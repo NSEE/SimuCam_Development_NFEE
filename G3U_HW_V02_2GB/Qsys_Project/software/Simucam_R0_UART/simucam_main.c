@@ -573,7 +573,7 @@ int main(void)
 	/* Hard-coded DEBUG configurations due to dificulties in acessing the SD card. TODO: Remove later. */
 	xDefaults.usiSyncPeriod     = 6250; /* ms */
 	xDefaults.usiRows           = 4510;
-	xDefaults.usiOLN            = 30;
+	xDefaults.usiOLN            = 50;
 	xDefaults.usiCols           = 2295;
 	xDefaults.usiPreScanSerial  = 0;
 	xDefaults.usiOverScanSerial = 0;
