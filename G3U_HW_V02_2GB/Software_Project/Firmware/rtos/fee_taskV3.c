@@ -747,8 +747,8 @@ void vFeeTaskV3(void *task_data) {
 
 					/*Modify time delays*/
 					bDpktGetPixelDelay(&pxNFee->xChannel.xDataPacket);
-					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( CHARGE_TIME );
-					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = pxNFee->xControl.xTrap.uliDT + pxNFee->xControl.xTrap.usiSH;
+					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( (alt_u32)(CHARGE_TIME * 1000) );
+					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = pxNFee->xControl.xTrap.xRestoreDelays.uliLineDelay + uliPxDelayCalcPeriodNs( pxNFee->xControl.xTrap.uliDT + pxNFee->xControl.xTrap.usiSH );
 					bDpktSetPixelDelay(&pxNFee->xChannel.xDataPacket);
 
 
