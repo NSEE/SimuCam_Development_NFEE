@@ -157,8 +157,8 @@ extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
 #define N_RETRIES_INI_INF       250
 #define N_RETRIES_COMM          1       /* N + 1 */
-#define INTERVAL_RETRIES        2000    /* Milliseconds */
-#define TIMEOUT_COMM            2000    /* Milliseconds */
+#define INTERVAL_RETRIES        3000    /* Milliseconds */
+#define TIMEOUT_COMM            5000    /* Milliseconds */
 #define TIMEOUT_COUNT           1//( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
 
 #define N_RET_MUTEX_TX                  2
@@ -180,7 +180,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer512;
 
-#define N_128   16
+#define N_128   32
 typedef struct {
     char buffer[128];
     bool bSent;     /* Indicates if it was already transmited */

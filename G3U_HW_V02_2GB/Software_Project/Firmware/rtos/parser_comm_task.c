@@ -15,8 +15,12 @@ void vParserCommTask(void *task_data) {
 	INT8U error_code;
 	tParserStates eParserMode;
 	unsigned char ucIL;
+	static tTMPus xTmPusL;
 	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
+
+	unsigned int uiEPinMilliSeconds;
+	unsigned int uiRTinMilliSeconds;
 
     #if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage )
@@ -166,8 +170,8 @@ void vParserCommTask(void *task_data) {
 									tTMPus xTmPusL;
 									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = 112;
-									xTmPusL.usiCat = 0;
+									xTmPusL.usiPid = xTcPusL.usiPusId;
+									xTmPusL.usiCat = xTcPusL.usiCat;
 									xTmPusL.usiType = 250;
 									xTmPusL.usiSubType = 35;
 									xTmPusL.ucNofValues = 0;
@@ -770,38 +774,29 @@ void vParserCommTask(void *task_data) {
 					case 254: /* srv-Type = 254 */
 						switch ( xTcPusL.usiSubType ) {
 							case 3:
-								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
-									unsigned int uiEPinMilliSeconds;
-									unsigned int uiRTinMilliSeconds;
-									tTMPus xTmPusL;
-									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = 112;
-									xTmPusL.usiCat = 0;
-									xTmPusL.usiType = 254;
-									xTmPusL.usiSubType = 4;
-									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
-									xTmPusL.ucNofValues++;
-									uiEPinMilliSeconds = (xSimMeb.ucEP * 1000);
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1� Word */
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2� Word */
-									xTmPusL.ucNofValues++;
-									uiRTinMilliSeconds = (xSimMeb.ucRT * 1000);
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
-									xTmPusL.ucNofValues++;
-									vSendPusTM128(xTmPusL);
-								} else {
-									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
-									#endif
-								}
+
+
+								xTmPusL.usiPusId = xTcPusL.usiPusId;
+								xTmPusL.usiPid = xTcPusL.usiPusId;
+								xTmPusL.usiCat = xTcPusL.usiCat;
+								xTmPusL.usiType = 254;
+								xTmPusL.usiSubType = 4;
+								xTmPusL.ucNofValues = 0;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
+								xTmPusL.ucNofValues++;
+								uiEPinMilliSeconds = (xSimMeb.ucEP * 1000);
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1� Word */
+								xTmPusL.ucNofValues++;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2� Word */
+								xTmPusL.ucNofValues++;
+								uiRTinMilliSeconds = (xSimMeb.ucRT * 1000);
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
+								xTmPusL.ucNofValues++;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */
+								xTmPusL.ucNofValues++;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
+								xTmPusL.ucNofValues++;
+								vSendPusTM128(xTmPusL);
 								break;
 							case 8:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
@@ -813,8 +808,8 @@ void vParserCommTask(void *task_data) {
 									bFeebGetMachineStatistics(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = 112;
-									xTmPusL.usiCat = 0;
+									xTmPusL.usiPid = xTcPusL.usiPusId;
+									xTmPusL.usiCat = xTcPusL.usiCat;
 									xTmPusL.usiType = 254;
 									xTmPusL.usiSubType = 9;
 									xTmPusL.ucNofValues = 0;
