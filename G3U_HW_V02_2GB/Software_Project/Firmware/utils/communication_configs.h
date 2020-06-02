@@ -111,7 +111,7 @@ extern OS_EVENT *xLutQ;
 
 
 /*Struct used to parse the received command through UART*/
-#define N_PREPARSED_ENTRIES     16
+#define N_PREPARSED_ENTRIES     32
 typedef struct {
     tErrorReceiver ucErrorFlag;
     char cType; /* ?(request):0 or !(reply):1*/
@@ -127,7 +127,7 @@ extern OS_EVENT *xMutexPreParsed;
 extern volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 extern volatile tPreParsed xPreParsedReader;
 
-#define N_ACKS_RECEIVED        8
+#define N_ACKS_RECEIVED        32
 typedef struct {
     char cType; /* If Zero is empty and available*/
     char cCommand;
@@ -171,7 +171,7 @@ extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 #define MAX_RETRIES_ACK_IN              40
 
 
-#define N_512   8
+#define N_512   16
 typedef struct {
     char buffer[512];
     bool bSent;     /* Indicates if it was already transmited */
@@ -180,7 +180,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer512;
 
-#define N_128   6
+#define N_128   16
 typedef struct {
     char buffer[128];
     bool bSent;     /* Indicates if it was already transmited */

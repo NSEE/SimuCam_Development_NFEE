@@ -795,7 +795,7 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
 									xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
+									vSendPusTM128(xTmPusL);
 								} else {
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -868,7 +868,7 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkParityErrCnt; /*Number of Parity Errors  2 Word*/
 									xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
+									vSendPusTM128(xTmPusL);
 									//bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
