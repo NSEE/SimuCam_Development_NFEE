@@ -19,6 +19,9 @@ void vParserCommTask(void *task_data) {
 	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
 
+	uint uRTCAL;
+	uint uCLT;
+
 	unsigned int uiEPinMilliSeconds;
 	unsigned int uiRTinMilliSeconds;
 
@@ -774,8 +777,6 @@ void vParserCommTask(void *task_data) {
 					case 254: /* srv-Type = 254 */
 						switch ( xTcPusL.usiSubType ) {
 							case 3:
-
-
 								xTmPusL.usiPusId = xTcPusL.usiPusId;
 								xTmPusL.usiPid = xTcPusL.usiPusId;
 								xTmPusL.usiCat = xTcPusL.usiCat;
@@ -789,11 +790,6 @@ void vParserCommTask(void *task_data) {
 								xTmPusL.ucNofValues++;
 								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2� Word */
 								xTmPusL.ucNofValues++;
-								uiRTinMilliSeconds = (xSimMeb.ucRT * 1000);
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
-								xTmPusL.ucNofValues++;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */
-								xTmPusL.ucNofValues++;
 								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
 								xTmPusL.ucNofValues++;
 								vSendPusTM128(xTmPusL);
@@ -805,7 +801,7 @@ void vParserCommTask(void *task_data) {
 									unsigned short int usiSPWRunning;
 									unsigned short int usiSPWConnecting;
 									unsigned short int usiSPWStarted;
-									bFeebGetMachineStatistics(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
 									xTmPusL.usiPid = xTcPusL.usiPusId;
@@ -817,6 +813,7 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xControl.eMode;
 									xTmPusL.ucNofValues++;
+									bSpwcGetLinkStatus(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == true) {
 										usiSPWRunning = 0b001;
 									} else {
@@ -835,6 +832,26 @@ void vParserCommTask(void *task_data) {
 									usiSPWStatusTotal = usiSPWRunning^usiSPWConnecting^usiSPWStarted;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=usiSPWStatusTotal;
 									xTmPusL.ucNofValues++;
+
+									bDpktGetPixelDelay(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+									bDpktGetPacketConfig(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+									if (xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd )
+										uCLT = 0;
+									else
+										uCLT = (xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart - xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd);
+									uRTCAL = (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay +
+									uCLT *
+									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth*
+									xDefaults.ulADCPixelDelay+
+									uCLT*
+									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay+
+									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliSkipDelay);
+									uiRTinMilliSeconds = (uRTCAL / 1000);
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */
+									xTmPusL.ucNofValues++;
+									bFeebGetMachineStatistics(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt >> 16; /*Incoming packets 1 Word*/
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt; /*Incoming packets 2 Word*/
