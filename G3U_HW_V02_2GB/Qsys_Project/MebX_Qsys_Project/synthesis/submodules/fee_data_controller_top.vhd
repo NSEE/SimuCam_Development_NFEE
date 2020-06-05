@@ -41,6 +41,7 @@ entity fee_data_controller_top is
 		fee_hk_mem_data_i                    : in  std_logic_vector(7 downto 0);
 		-- fee spw codec tx status
 		fee_spw_tx_ready_i                   : in  std_logic;
+		fee_spw_link_running_i               : in  std_logic;
 		-- data packet parameters
 		data_pkt_ccd_x_size_i                : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_y_size_i                : in  std_logic_vector(15 downto 0);
@@ -148,6 +149,9 @@ architecture RTL of fee_data_controller_top is
 	signal s_fee_clear_signal                       : std_logic;
 	signal s_fee_stop_signal                        : std_logic;
 	signal s_fee_start_signal                       : std_logic;
+	-- spw write masking
+	signal s_spw_tx_write                           : std_logic;
+	signal s_spw_write_mask                         : std_logic;
 
 begin
 
@@ -360,7 +364,7 @@ begin
 			errinj_spw_tx_data_i  => s_errinj_spw_tx_data,
 			fee_spw_tx_ready_i    => fee_spw_tx_ready_i,
 			errinj_spw_tx_ready_o => s_errinj_spw_tx_ready,
-			fee_spw_tx_write_o    => fee_spw_tx_write_o,
+			fee_spw_tx_write_o    => s_spw_tx_write,
 			fee_spw_tx_flag_o     => fee_spw_tx_flag_o,
 			fee_spw_tx_data_o     => fee_spw_tx_data_o
 		);
@@ -584,6 +588,7 @@ begin
 		if (rst_i = '1') then
 			s_dataman_sync    <= '0';
 			s_dataman_hk_only <= '0';
+			s_spw_write_mask  <= '0';
 		elsif rising_edge(clk_i) then
 			s_dataman_sync <= '0';
 			-- check if a sync signal was received
@@ -658,6 +663,15 @@ begin
 					end case;
 				end if;
 
+				-- check if the spw link is running
+				if (fee_spw_link_running_i = '1') then
+					-- the spw link is running, do not mask the codec write
+					s_spw_write_mask <= '1';
+				else
+					-- the spw link is not running, do mask the codec write
+					s_spw_write_mask <= '0';
+				end if;
+
 			end if;
 		end if;
 	end process p_data_manager_sync_gen;
@@ -700,5 +714,6 @@ begin
 	-- outputs generation
 	fee_frame_counter_o <= s_current_frame_counter;
 	fee_frame_number_o  <= s_current_frame_number;
+	fee_spw_tx_write_o  <= (s_spw_tx_write) and (s_spw_write_mask);
 
 end architecture RTL;
