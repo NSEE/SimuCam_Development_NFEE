@@ -835,17 +835,17 @@ void vParserCommTask(void *task_data) {
 
 									bDpktGetPixelDelay(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 									bDpktGetPacketConfig(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-									if (xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd )
+									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd )
 										uCLT = 0;
 									else
-										uCLT = (xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart - xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd);
+								    uCLT = (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd - xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart) + 1;
 									uRTCAL = (xDefaults.ulStartDelay  +
 									uCLT *
 									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth*
 									xDefaults.ulADCPixelDelay+
 									uCLT*
-									xDefaults.ulLineDelay+0*
-									//xDefaults.ulADCPixelDelay+
+									xDefaults.ulLineDelay+
+									( (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHeight + xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiOLN ) - uCLT)*
 									xDefaults.ulSkipDelay);
 									uiRTinMilliSeconds = (uRTCAL / 1000);
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */

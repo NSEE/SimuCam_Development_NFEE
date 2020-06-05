@@ -81,11 +81,4 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
 
-TNFee 	*xTempTNFee;
-bool    bBeforeSync_reg_0_config_temp;
-bool    bBeforeSync_reg_2_config_temp;
-bool    bBeforeSync_reg_3_config_temp;
-bool    bBeforeSync_reg_4_config_temp;
-bool    bBeforeSync_reg_5_config_temp;
-
 #endif /* RTOS_FEE_TASKV3_H_ */

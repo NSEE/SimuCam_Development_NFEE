@@ -19,6 +19,7 @@ void vFeeTaskV3(void *task_data) {
 	volatile TFEETransmission xTrans;
 	unsigned char ucEL = 0, ucSideFromMSG = 0;
 
+
 	/* Fee Instance Data Structure */
 	pxNFee = ( TNFee * ) task_data;
 
