@@ -44,6 +44,7 @@
 #define TURNOFF_SPRINTF         "?D:%hu"
 #define RESET_SPRINTF         	"?R:%hu"
 #define LOG_SPRINTF             "?L:%hu:%s"
+#define LOG_SPRINTFERROR        "!L:%hu:%s"
 //#define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu%s|%hhu;"
 #define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu"
 #define PUS_ADDER_SPRINTF       "%s:%hu"
@@ -110,7 +111,7 @@ extern OS_EVENT *xLutQ;
 
 
 /*Struct used to parse the received command through UART*/
-#define N_PREPARSED_ENTRIES     16
+#define N_PREPARSED_ENTRIES     32
 typedef struct {
     tErrorReceiver ucErrorFlag;
     char cType; /* ?(request):0 or !(reply):1*/
@@ -126,7 +127,7 @@ extern OS_EVENT *xMutexPreParsed;
 extern volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 extern volatile tPreParsed xPreParsedReader;
 
-#define N_ACKS_RECEIVED        8
+#define N_ACKS_RECEIVED        32
 typedef struct {
     char cType; /* If Zero is empty and available*/
     char cCommand;
@@ -156,8 +157,8 @@ extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
 #define N_RETRIES_INI_INF       250
 #define N_RETRIES_COMM          1       /* N + 1 */
-#define INTERVAL_RETRIES        2000    /* Milliseconds */
-#define TIMEOUT_COMM            2000    /* Milliseconds */
+#define INTERVAL_RETRIES        3000    /* Milliseconds */
+#define TIMEOUT_COMM            5000    /* Milliseconds */
 #define TIMEOUT_COUNT           1//( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
 
 #define N_RET_MUTEX_TX                  2
@@ -170,7 +171,7 @@ extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 #define MAX_RETRIES_ACK_IN              40
 
 
-#define N_512   8
+#define N_512   16
 typedef struct {
     char buffer[512];
     bool bSent;     /* Indicates if it was already transmited */
@@ -179,7 +180,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer512;
 
-#define N_128   6
+#define N_128   32
 typedef struct {
     char buffer[128];
     bool bSent;     /* Indicates if it was already transmited */

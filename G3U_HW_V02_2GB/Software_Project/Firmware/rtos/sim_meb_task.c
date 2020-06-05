@@ -71,7 +71,6 @@ void vSimMebTask(void *task_data) {
 
 				OSSemPend(xSemCommInit, 0, &error_code); /*Blocking*/
 				if ( error_code == OS_ERR_NONE ) {
-
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 						fprintf(fp,"MEB Task: FEE Controller and FEEs to RUN.\n");
@@ -107,6 +106,8 @@ void vSimMebTask(void *task_data) {
 					vEvtChangeMebMode();
 					pxMebC->eMode = sMebRun;
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(11,80,0,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 						fprintf(fp,"MEB Task: CRITICAL! Could no receive the sync semaphore from DTC, backing to Config Mode\n");
@@ -123,12 +124,13 @@ void vSimMebTask(void *task_data) {
 					fprintf(fp,"MEB Task: sMebConfig - Waiting for command.");
 				#endif
 				break;*/
-
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					/* Threat the command received in the Queue Message */
 					vPerformActionMebInConfig( uiCmdMeb.ulWord, pxMebC);
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(11,81,error_code,1);
 					/* Should never get here (blocking operation), critical failure */
 					vCouldNotGetCmdQueueMeb();
 				}
@@ -149,12 +151,16 @@ void vSimMebTask(void *task_data) {
 					vPerformActionMebInRunning( uiCmdMeb.ulWord, pxMebC);
 
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(11,81,error_code,1);
 					/* Should never get here (blocking operation), critical fail */
 					vCouldNotGetCmdQueueMeb();
 				}			
 				break;
 
 			default:
+				/* Send Error to NUC */
+				vLogSendErrorChars(11,80,1,2);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					debug(fp,"MEB Task: Unknown state, backing to Config Mode\n");
@@ -222,12 +228,16 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				break;
 
 			default:
+				/* Send Error to NUC */
+				vLogSendErrorChars(11,80,2,3);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdLocal.ucByte[2]);
 				#endif
 		}
 	} else {
+		/* Send Error to NUC */
+		vLogSendErrorChars(11,80,3,2);
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
@@ -260,6 +270,8 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 			case M_SYNC:
 			case M_PRE_MASTER:
 			case M_MASTER_SYNC:
+				/* Send Error to NUC */
+				vLogSendErrorChars(11,80,4,3);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
@@ -269,12 +281,16 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 				break;
 
 			default:
+				/* Send Error to NUC */
+				vLogSendErrorChars(11,80,2,3);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: Unknown command for the Config Mode (Queue xMebQ, cmd= %hhu)\n", uiCmdLocal.ucByte[2]);
 				#endif
 		}
 	} else {
+		/* Send Error to NUC */
+		vLogSendErrorChars(11,80,3,2);
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
@@ -331,8 +347,11 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
             }
 	    }
 	    OSMutexPost(xMutexPus);
-	} else
+	} else {
+		/* Send Error to NUC */
+		vLogSendErrorChars(11,82,error_code,1);
 		vCouldNotGetMutexMebPus();
+	}
 
 	if ( bSuccess == TRUE ) {
 		switch (pxMebCLocal->eMode) {
@@ -348,6 +367,8 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 				break;
 		}
 	} else {
+		/* Send Error to NUC */
+		vLogSendErrorChars(11,80,5,3);
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 			fprintf(fp,"MEB Task: vPusMebTask - Don't found Pus command in xPus.");
@@ -428,6 +449,18 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			bSyncPreIrqEnableBlankPulse(TRUE);
 			bSyncPreIrqEnableMasterPulse(TRUE);
 			break;
+		/*case 34:
+			usiFeeInstL = xPusL->usiValues[0];
+			char teste[32];
+			memset(teste,0,32);
+			teste[0] = xPusL->usiPusId;
+			teste[1] = 0x043;
+			teste[2] = 0x044;
+			teste[3] = 0x045;
+			teste[4] = 0x046;
+			fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+			bSendUART512v2(teste,xPusL->usiPusId);
+			break;*/
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
 			usiFeeInstL = xPusL->usiValues[0];
@@ -501,6 +534,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ulStart= (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
 			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
 			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
+			xDefaults.ulLineDelay = ulLine;
+			xDefaults.ulADCPixelDelay = ulPx;
+			xDefaults.ulStartDelay = ulStart;
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -628,9 +664,6 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 	}
 }
-
-
-
 
 /* This function should treat the PUS command in the Running Mode, need check all the things that is possible to update in this mode */
 void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
@@ -988,7 +1021,6 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 
 
-
 void vMebInit(TSimucam_MEB *pxMebCLocal) {
 	INT8U errorCodeL;
 
@@ -1075,6 +1107,8 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
 		}
 		OSMutexPost(xMutexTranferBuffer);
 	} else {
+		/* Send Error to NUC */
+		vLogSendErrorChars(11,83,error_code,1);
 		/* Couldn't get Mutex. (Should not get here since is a blocking call without timeout)*/
 		vFailGetxMutexSenderBuffer128();
 	}

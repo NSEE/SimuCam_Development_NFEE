@@ -19,7 +19,6 @@ void vFeeTaskV3(void *task_data) {
 	volatile TFEETransmission xTrans;
 	unsigned char ucEL = 0, ucSideFromMSG = 0;
 
-
 	/* Fee Instance Data Structure */
 	pxNFee = ( TNFee * ) task_data;
 
@@ -162,6 +161,8 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinConfig( pxNFee, uiCmdFEE.ulWord );
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -244,6 +245,8 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinOn( pxNFee, uiCmdFEE.ulWord );
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -318,6 +321,8 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinStandBy( pxNFee, uiCmdFEE.ulWord );
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -337,6 +342,8 @@ void vFeeTaskV3(void *task_data) {
 				/* Wait for sync, or any other command*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code != OS_ERR_NONE ) {
+					/* Send Error to NUC */
+					vLogSendErrorChars(54,81,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ (sFeeWaitingSync)\n", pxNFee->ucId);
@@ -591,6 +598,8 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdWaitBeforeSyncSignal( pxNFee, uiCmdFEE.ulWord );
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -784,7 +793,7 @@ void vFeeTaskV3(void *task_data) {
 
 				} else {
 					/*Normal Flow*/
-
+					
 					/*Reset Fee Buffer every Master Sync*/
 					if ( xGlobal.bPreMaster == TRUE ) {
 						/* Stop the module Double Buffer */
@@ -1074,6 +1083,8 @@ void vFeeTaskV3(void *task_data) {
 					}
 
 				} else {
+					/* Send Error to NUC */
+					vLogSendErrorChars(54,81,error_code,1);
 					/* Error while trying to read from the Queue*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -1154,6 +1165,8 @@ void vFeeTaskV3(void *task_data) {
 				/* Wait for sync, or any other command*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code != OS_ERR_NONE ) {
+					/* Send Error to NUC */
+					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ (redoutWaitSync)\n", pxNFee->ucId);
@@ -3217,6 +3230,8 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
+		/* Send Error to NUC */
+		vLogSendErrorChars(54,20,0,1);
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;
 	} else {
@@ -3242,6 +3257,8 @@ bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, u
 	bSuccesL = FALSE;
 	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
+		/* Send Error to NUC */
+		vLogSendErrorChars(54,20,0,1);
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;
 	} else {
@@ -3267,6 +3284,8 @@ bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned c
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xMebQ, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
+		/* Send Error to NUC */
+		vLogSendErrorChars(54,20,0,1);
 		vFailFromFEE();
 		bSuccesL = FALSE;
 	} else {
@@ -3292,6 +3311,8 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
+		/* Send Error to NUC */
+		vLogSendErrorChars(54,20,0,1);
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;
 	} else {
@@ -3621,7 +3642,6 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -3635,7 +3655,6 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
 			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
 			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
@@ -3644,13 +3663,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-
-
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
-
 			//todo: Tiago sync_sel[0] not implemented yet
-
 			/*Enable IRQ of FEE Buffer*/
 			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
@@ -4061,6 +4076,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 			break;
