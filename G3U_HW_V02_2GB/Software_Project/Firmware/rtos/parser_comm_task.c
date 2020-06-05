@@ -839,13 +839,14 @@ void vParserCommTask(void *task_data) {
 										uCLT = 0;
 									else
 										uCLT = (xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart - xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd);
-									uRTCAL = (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay +
+									uRTCAL = (xDefaults.ulStartDelay  +
 									uCLT *
 									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth*
 									xDefaults.ulADCPixelDelay+
 									uCLT*
-									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay+
-									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliSkipDelay);
+									xDefaults.ulLineDelay+0*
+									//xDefaults.ulADCPixelDelay+
+									xDefaults.ulSkipDelay);
 									uiRTinMilliSeconds = (uRTCAL / 1000);
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
 									xTmPusL.ucNofValues++;

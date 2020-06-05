@@ -41,6 +41,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
+void vPusType254conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
