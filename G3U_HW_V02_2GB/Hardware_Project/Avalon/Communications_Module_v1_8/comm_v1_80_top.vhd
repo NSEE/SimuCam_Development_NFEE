@@ -930,7 +930,7 @@ begin
 		elsif rising_edge(a_avs_clock) then
 			-- make statistics
 			-- check if a incoming packet occurred (high level)
-			if ((s_rmap_spw_control.receiver.read = '1') and (s_rmap_spw_flag.receiver.flag = '1')) then
+			if ((s_mux_rx_channel_command.rxread = '1') and (s_mux_rx_channel_status.rxflag = '1')) then
 				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt = x"FFFFFFFF") then
 					s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_pkts_cnt <= (others => '0');
 				else
@@ -938,7 +938,7 @@ begin
 				end if;
 			end if;
 			-- check if a incoming byte occurred (high level)
-			if ((s_rmap_spw_control.receiver.read = '1') and (s_rmap_spw_flag.receiver.flag = '0')) then
+			if ((s_mux_rx_channel_command.rxread = '1') and (s_mux_rx_channel_status.rxflag = '0')) then
 				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt = x"FFFFFFFF") then
 					s_spacewire_read_registers.fee_machine_statistics_reg.fee_incoming_bytes_cnt <= (others => '0');
 				else
@@ -946,7 +946,7 @@ begin
 				end if;
 			end if;
 			-- check if a outgoing packet occurred (high level)
-			if ((s_rmap_spw_control.transmitter.write = '1') and (s_rmap_spw_control.transmitter.flag = '1')) then
+			if ((s_mux_tx_channel_command.txwrite = '1') and (s_mux_tx_channel_command.txflag = '1')) then
 				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt = x"FFFFFFFF") then
 					s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_pkts_cnt <= (others => '0');
 				else
@@ -954,7 +954,7 @@ begin
 				end if;
 			end if;
 			-- check if a outgoing byte occurred (high level)
-			if ((s_rmap_spw_control.transmitter.write = '1') and (s_rmap_spw_control.transmitter.flag = '0')) then
+			if ((s_mux_tx_channel_command.txwrite = '1') and (s_mux_tx_channel_command.txflag = '0')) then
 				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt = x"FFFFFFFF") then
 					s_spacewire_read_registers.fee_machine_statistics_reg.fee_outgoing_bytes_cnt <= (others => '0');
 				else
@@ -998,7 +998,7 @@ begin
 			end if;
 			s_statistics_spw_link_disconnect_dly <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
 			-- check if a eep occurred (high level)
-			if ((s_rmap_spw_control.receiver.read = '1') and (s_rmap_spw_flag.receiver.flag = '1') and (s_rmap_spw_flag.receiver.data = x"01")) then
+			if (((s_mux_rx_channel_command.rxread = '1') and (s_mux_rx_channel_status.rxflag = '1') and (s_mux_rx_channel_status.rxdata = x"01")) or ((s_mux_tx_channel_command.txwrite = '1') and (s_mux_tx_channel_command.txflag = '1') and (s_mux_tx_channel_command.txdata = x"01"))) then
 				if (s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt = x"FFFFFFFF") then
 					s_spacewire_read_registers.fee_machine_statistics_reg.fee_spw_eep_cnt <= (others => '0');
 				else
