@@ -474,6 +474,7 @@ begin
 			fee_hk_mem_waitrequest_i                      => fee_hk_rmap_rd_waitrequest_i,
 			fee_hk_mem_data_i                             => fee_hk_rmap_readdata_i,
 			fee_spw_tx_ready_i                            => s_fee_data_controller_spw_txrdy,
+			fee_spw_link_running_i                        => s_spacewire_read_registers.spw_link_status_reg.spw_link_running,
 			data_pkt_ccd_x_size_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_x_size,
 			data_pkt_ccd_y_size_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_y_size,
 			data_pkt_data_y_size_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_data_y_size,

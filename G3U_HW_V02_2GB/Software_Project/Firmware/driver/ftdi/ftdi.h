@@ -22,6 +22,9 @@
 #define FTDI_WORD_SIZE_BYTES             32
 #define FTDI_WIN_AREA_WINDOING_SIZE      512
 #define FTDI_WIN_AREA_PAYLOAD_SIZE       8388608
+
+#define FTDI_MAX_HCCD_IMG_WIDTH          2295
+#define FTDI_MAX_HCCD_IMG_HEIGHT         4560
 //! [constants definition]
 
 //! [public module structs definition]
