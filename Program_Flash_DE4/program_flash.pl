@@ -44,6 +44,7 @@
 #   V1.0 :| Eric Chen         :| 10/06/06  :| Initial Version
 #   V1.1 :| Eric Chen         :| 10/08/20  :| Change Flash for one die
 #   V1.3 :| Rodrigo Franca    :| 19/10/30  :| Added options for DE4-230 and DE4-530 boards
+#   V1.4 :| Rodrigo Franca    :| 20/06/05  :| Removed cable option from flash programming
 # ============================================================================
 
 
@@ -75,7 +76,7 @@ sub	menu
 	until ($SELECT eq "D")# or $SELECT eq "0")
 	{
 		system "clear";
-		printf "DE4 Development Kit Flash Program Tools.  ver : 1.3.0.0\n";
+		printf "DE4 Development Kit Flash Program Tools.  ver : 1.4.0.0\n";
 		printf "\n";
 		printf "*************************   DE4-230 Board Menu   **************************\n";
 		printf "\n";
@@ -229,11 +230,13 @@ sub erase_flash
 {
 	# Load board update portal file into FPGA.
 	printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-	system "quartus_pgm -c USB-Blaster[USB-1] -m jtag -o p\\\;$flash_bup_SOF";
+	#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
+	system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
 	# Programming flash with the FPGA configuration.
 	printf "\nErase flash, please wait a few minutes ...\n\n";
-	system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-1]' --erase-all";
+	#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' --erase-all";
+	system "nios2-flash-programmer --base=$FLASH_0_BASE --erase-all";
 
 	printf "\nPress ENTER key to continuance... ";
 	$RESULT = <STDIN>;
@@ -303,12 +306,15 @@ sub program_sof
 			{
 				# Load board update portal file into FPGA.
 				printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-				system "quartus_pgm -c USB-Blaster[USB-1] -m jtag -o p\\\;$flash_bup_SOF";
+				#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
+				system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
 				# Programming flash with the FPGA configuration.
 				printf "\nProgram flash, please wait a few minutes ...\n\n";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-1]' $hw_image_file";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-1]' $pfl_bits_file";	
+				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $hw_image_file";
+				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $pfl_bits_file";
+				system "nios2-flash-programmer --base=$FLASH_0_BASE $hw_image_file";
+				system "nios2-flash-programmer --base=$FLASH_0_BASE $pfl_bits_file";
 			}
 			else
 			{
@@ -398,11 +404,13 @@ sub program_elf
 			{
 				# Load board update portal file into FPGA.
 				printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-				system "quartus_pgm -c USB-Blaster[USB-1] -m jtag -o p\\\;$flash_bup_SOF";
+				#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
+				system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
 				# Programming flash with the FPGA configuration.
 				printf "\nProgram flash, please wait a few minutes ...\n\n";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-1]' $sw_image_file";
+				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $sw_image_file";
+				system "nios2-flash-programmer --base=$FLASH_0_BASE $sw_image_file";
 			}
 			else
 			{
@@ -431,10 +439,12 @@ sub program_pfl
 	if (-e $pfl_bits_file)
 	{
 		printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-		system "quartus_pgm -c USB-Blaster[USB-1] -m jtag -o p\\\;$flash_bup_SOF";
+		#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
+		system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 	
 		printf "\nProgram flash, please wait a few minutes ...\n\n";
-		system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-1]' $pfl_bits_file";	
+		#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $pfl_bits_file";	
+		system "nios2-flash-programmer --base=$FLASH_0_BASE $pfl_bits_file";	
 	}
 	else
 	{
@@ -521,11 +531,13 @@ sub program_zip
 			{
 				# Load board update portal file into FPGA.
 				printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-				system "quartus_pgm -c USB-Blaster[USB-1] -m jtag -o p\\\;$flash_bup_SOF";
+				#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
+				system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
 				# Programming flash with the FPGA configuration.
 				printf "\nProgram flash, please wait a few minutes ...\n\n";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-1]' $zip_image_file";
+				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $zip_image_file";
+				system "nios2-flash-programmer --base=$FLASH_0_BASE $zip_image_file";
 			}
 			else
 			{
@@ -592,8 +604,10 @@ sub program_mac
 	
 	&generated_mac_address;
 	printf "Load board update portal file into FPGA, please wait ...\n";
-	system "quartus_pgm -c USB-Blaster[USB-1] -m jtag -o p\\\;$flash_bup_SOF";
-	system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-1]' $mac_srec_file";
+	#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
+	#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $mac_srec_file";
+	system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
+	system "nios2-flash-programmer --base=$FLASH_0_BASE $mac_srec_file";
 
 	printf "\nPress ENTER key to continuance... ";
 	$RESULT = <STDIN>;
