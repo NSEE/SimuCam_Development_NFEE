@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <sys/alt_stdio.h>
-#include <OS_CPU.H>
 
 
 #define ETH_FILE_NAME "DEF/ETH"

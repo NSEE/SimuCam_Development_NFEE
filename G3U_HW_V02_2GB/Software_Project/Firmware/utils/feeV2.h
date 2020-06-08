@@ -58,8 +58,6 @@ typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFu
 	redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
 	redoutTransmission, redoutEndSch, readoutWaitingFinishTransmission} tFEEStates;
 
-typedef enum { dsPattern = 0, dsSSD, dsWindowStack } tDataSource;
-
 
  /* Error Injection Control Register Struct */
 typedef struct DpktErrorCopy {
@@ -82,9 +80,7 @@ typedef struct FEEMemoryMap{
     TFullCcdMemMap xCcd[N_OF_CCD];   /* Memory map of the four Full CCDs (xLeft,xRight) */
 } TFEEMemoryMap;
 
-
 typedef struct TrapModeControl{
-	bool bEnabledSerial;
 	bool bEnabled;
 	bool bPumping;
 	bool bEmiting;
@@ -93,7 +89,6 @@ typedef struct TrapModeControl{
 	double dTotalWait;
 	alt_u32 uliDT;
 	alt_u16 usiSH;
-	TDpktPixelDelay xRestoreDelays;
 } TTrapModeControl;
 
 typedef enum { sLeft = 0, sRight, sBoth } tNFeeSide;
@@ -119,8 +114,6 @@ typedef struct FeeControl{
 
     TTrapModeControl xTrap;
     TDpktErrorCopy	xErrorSWCtrl;
-
-    tDataSource eDataSource;
 
 } TFeeControl;
 

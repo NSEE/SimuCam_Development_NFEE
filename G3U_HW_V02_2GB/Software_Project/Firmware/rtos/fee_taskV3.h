@@ -22,7 +22,6 @@
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/leds/leds.h"
 #include "../utils/communication_configs.h"
-#include "../utils/communication_utils.h"
 #include "../utils/error_handler_simucam.h"
 #include "../driver/comm/windowing/windowing.h"
 
@@ -81,11 +80,6 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
 
-TNFee 	*xTempTNFee;
-bool    bBeforeSync_reg_0_config_temp;
-bool    bBeforeSync_reg_2_config_temp;
-bool    bBeforeSync_reg_3_config_temp;
-bool    bBeforeSync_reg_4_config_temp;
-bool    bBeforeSync_reg_5_config_temp;
+
 
 #endif /* RTOS_FEE_TASKV3_H_ */

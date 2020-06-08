@@ -21,8 +21,6 @@ void vSendTurnOff ( void );
 void vSendBufferChar128( const char * cDataIn );
 void vSendReset ( void );
 void vSendLog ( const char * cDataIn );
-void vLogSendErrorChars(char layer, char type, char subtype, char severity);
-void vSendLogError ( const char * cDataIn );
 void vSendPusTM64 ( tTMPus xPcktPus );
 void vSendPusTM128 ( tTMPus xPcktPus );
 void vSendPusTM512 ( tTMPus xPcktPus );

@@ -1296,40 +1296,6 @@ bool bFeebGetMachineControl(TFeebChannel *pxFeebCh) {
 	return bStatus;
 }
 
-bool bFeebClearMachineStatistics(TFeebChannel *pxFeebCh){
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxFeebCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
-
-		vpxCommChannel->xFeeBuffer.xFeebMachineControl.bClear = TRUE;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bFeebGetMachineStatistics(TFeebChannel *pxFeebCh){
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxFeebCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
-
-		pxFeebCh->xFeebMachineStatistics = vpxCommChannel->xFeeBuffer.xFeebMachineStatistics;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
 bool bFeebStartCh(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -1456,9 +1422,7 @@ bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 			if (!bFeebGetMachineControl(pxFeebCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bFeebGetMachineStatistics(pxFeebCh)) {
-				bInitFail = TRUE;
-			}
+
 			if (!bInitFail) {
 				bStatus = TRUE;
 			}

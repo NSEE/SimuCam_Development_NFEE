@@ -428,13 +428,7 @@ void vSendEthConf ( void ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
+    usiIdCMDLocal = usiGetIdCMD();
 
     sprintf(cBufferETH, ETH_SPRINTF, ETH_CMD, usiIdCMDLocal, xConfEth.bDHCP,
                         xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3],
@@ -462,13 +456,7 @@ void vSendTurnOff ( void ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
+    usiIdCMDLocal = usiGetIdCMD();
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferTurnOff, TURNOFF_SPRINTF, usiIdCMDLocal);
@@ -491,13 +479,7 @@ void vSendBufferChar128( const char * cDataIn ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
+    usiIdCMDLocal = usiGetIdCMD();
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferL, cDataIn, usiIdCMDLocal);
@@ -521,13 +503,7 @@ void vSendReset ( void ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
+    usiIdCMDLocal = usiGetIdCMD();
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferTurnOff, RESET_SPRINTF, usiIdCMDLocal);
@@ -550,15 +526,7 @@ void vSendLog ( const char * cDataIn ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
-
+    usiIdCMDLocal = usiGetIdCMD();
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferLog, LOG_SPRINTF, usiIdCMDLocal, cDataIn);
@@ -566,49 +534,6 @@ void vSendLog ( const char * cDataIn ) {
     sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
 
 	bSuccees = bSendUART128v2(cBufferLog, usiIdCMDLocal);
-
-	if ( bSuccees != TRUE ) {
-		/*	Message wasn't send or could not insert in the (re)transmission buffer
-			this will not be returned, because the system should keep working, an error function shoudl be called
-			in order to print a message in the console, and maybe further implementation in the future*/
-			vCouldNotSendLog();
-	}
-}
-
-void vLogSendErrorChars(char layer, char type, char subtype, char severity) {
-	/* Send Error to NUC */
-	char cLogSend[32];
-	memset(cLogSend,0,32);
-	cLogSend[0] = layer;
-	cLogSend[1] = ':';
-	cLogSend[2] = type;
-	cLogSend[3] = ':';
-	cLogSend[4] = subtype;
-	cLogSend[5] = ':';
-	cLogSend[6] = severity;
-	vSendLogError(cLogSend);	
-}
-
-void vSendLogError ( const char * cDataIn ) {
-    char cBufferLog[32] = "";
-    unsigned char crc = 0;
-    unsigned short int  usiIdCMDLocal;
-	bool bSuccees = FALSE;
-
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
-
-	/* Creating the packet with the CRC */
-    sprintf(cBufferLog, LOG_SPRINTFERROR, usiIdCMDLocal, cDataIn);
-    crc = ucCrc8wInit( cBufferLog , strlen(cBufferLog));
-    sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
-
-	bSuccees = bSendUART32v2(cBufferLog, usiIdCMDLocal);
 
 	if ( bSuccees != TRUE ) {
 		/*	Message wasn't send or could not insert in the (re)transmission buffer
@@ -654,13 +579,7 @@ void vSendPusTM64 ( tTMPus xPcktPus ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
+    usiIdCMDLocal = usiGetIdCMD();
 
 	/* Start with the beginning of the PUS header values */
 	sprintf(cBufferPus, PUS_TM_SPRINTF, usiIdCMDLocal, xPcktPus.usiPid, xPcktPus.usiCat, xPcktPus.usiType, xPcktPus.usiSubType, xPcktPus.usiPusId );
@@ -691,13 +610,7 @@ void vSendPusTM128 ( tTMPus xPcktPus ) {
     unsigned short int usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
+    usiIdCMDLocal = usiGetIdCMD();
 
 	/* Start with the beginning of the PUS header values */
 	sprintf(cBufferPus, PUS_TM_SPRINTF, usiIdCMDLocal, xPcktPus.usiPid, xPcktPus.usiCat, xPcktPus.usiType, xPcktPus.usiSubType, xPcktPus.usiPusId );
@@ -729,13 +642,7 @@ void vSendPusTM512 ( tTMPus xPcktPus ) {
     unsigned short int usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-	#if OS_CRITICAL_METHOD == 3
-		OS_CPU_SR   cpu_sr;
-	#endif
-
-	OS_ENTER_CRITICAL();
-	usiIdCMDLocal = usiGetIdCMD();
-	OS_EXIT_CRITICAL();
+    usiIdCMDLocal = usiGetIdCMD();
 
 	/* Start with the beginning of the PUS header values */
 	sprintf(cBufferPus, PUS_TM_SPRINTF, usiIdCMDLocal, xPcktPus.usiPid, xPcktPus.usiCat, xPcktPus.usiType, xPcktPus.usiSubType, xPcktPus.usiPusId );

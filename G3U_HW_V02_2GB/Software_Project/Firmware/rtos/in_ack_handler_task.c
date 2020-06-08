@@ -142,9 +142,9 @@ bool bCheckInAck512( txReceivedACK *xRecAckL , bool *bFinished ) {
 
     bFound = FALSE;
     *bFinished = FALSE;
-//    OSMutexPend(xMutexBuffer128, 0, &error_code); /* Mas wait 1 tick = 1 ms */
-//    if ( error_code != OS_NO_ERR )
-//        return bFound;
+    OSMutexPend(xMutexBuffer128, 5, &error_code); /* Mas wait 1 tick = 1 ms */
+    if ( error_code != OS_NO_ERR )
+        return bFound;
 
     /* ---> At this point we have access to xBuffer128 */
 
@@ -163,7 +163,7 @@ bool bCheckInAck512( txReceivedACK *xRecAckL , bool *bFinished ) {
             break;
         }
     }
-    //OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
+    OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
     (*bFinished) = TRUE;
 
     return bFound;
@@ -177,9 +177,9 @@ bool bCheckInAck128( txReceivedACK *xRecAckL , bool *bFinished ) {
 
     bFound = FALSE;
     *bFinished = FALSE;
-//    OSMutexPend(xMutexBuffer128, 0, &error_code); /* Mas wait 1 tick = 1 ms */
-//    if ( error_code != OS_NO_ERR )
-//        return bFound;
+    OSMutexPend(xMutexBuffer128, 5, &error_code); /* Mas wait 1 tick = 1 ms */
+    if ( error_code != OS_NO_ERR )
+        return bFound;
 
     /* ---> At this point we have access to xBuffer128 */
 
@@ -198,7 +198,7 @@ bool bCheckInAck128( txReceivedACK *xRecAckL , bool *bFinished ) {
             break;
         }
     }
-    //OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
+    OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
     (*bFinished) = TRUE;
 
     return bFound;
@@ -212,9 +212,9 @@ bool bCheckInAck64( txReceivedACK *xRecAckL , bool *bFinished ) {
 
     bFound = FALSE;
     *bFinished = FALSE;
-//    OSMutexPend(xMutexBuffer64, 0, &error_code); /* Mas wait 1 tick = 1 ms */
-//    if ( error_code != OS_NO_ERR )
-//        return bFound;
+    OSMutexPend(xMutexBuffer64, 1, &error_code); /* Mas wait 1 tick = 1 ms */
+    if ( error_code != OS_NO_ERR )
+        return bFound;
 
     /* ---> At this point we have access to xBuffer128 */
 
@@ -233,7 +233,7 @@ bool bCheckInAck64( txReceivedACK *xRecAckL , bool *bFinished ) {
             break;
         }
     }
-    //OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer128*/
+    OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer128*/
     (*bFinished) = TRUE;
 
     return bFound;
@@ -248,9 +248,9 @@ bool bCheckInAck32( txReceivedACK *xRecAckL , bool *bFinished ) {
 
     bFound = FALSE;
     *bFinished = FALSE;
-//    OSMutexPend(xMutexBuffer32, 0, &error_code); /* Mas wait 1 tick = 1 ms */
-//    if ( error_code != OS_NO_ERR )
-//        return bFound;
+    OSMutexPend(xMutexBuffer32, 1, &error_code); /* Mas wait 1 tick = 1 ms */
+    if ( error_code != OS_NO_ERR )
+        return bFound;
 
     /* ---> At this point we have access to xBuffer128 */
 
@@ -269,7 +269,7 @@ bool bCheckInAck32( txReceivedACK *xRecAckL , bool *bFinished ) {
             break;
         }
     }
-    //OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xMutexBuffer32*/
+    OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xMutexBuffer32*/
     (*bFinished) = TRUE;
 
     return bFound;

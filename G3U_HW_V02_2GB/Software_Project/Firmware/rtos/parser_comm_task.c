@@ -15,15 +15,8 @@ void vParserCommTask(void *task_data) {
 	INT8U error_code;
 	tParserStates eParserMode;
 	unsigned char ucIL;
-	static tTMPus xTmPusL;
 	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
-
-	uint uRTCAL;
-	uint uCLT;
-
-	unsigned int uiEPinMilliSeconds;
-	unsigned int uiRTinMilliSeconds;
 
     #if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage )
@@ -143,18 +136,6 @@ void vParserCommTask(void *task_data) {
 
                     case 250: /* srv-Type = 250 */
 						switch ( xTcPusL.usiSubType ) {
-							case 70: /*Data source*/
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
-								xTcPusL.ucNofValues++;
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
-
-//								#if DEBUG_ON
-//								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-//									fprintf(fp,"Parser Task: TC_DATA_SOURCE\n");
-//								#endif
-
-								bSendMessagePUStoMebTask(&xTcPusL);
-								break;
 							case 29: /* TC_SYNCH_SOURCE */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -185,8 +166,8 @@ void vParserCommTask(void *task_data) {
 									tTMPus xTmPusL;
 									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPusId;
-									xTmPusL.usiCat = xTcPusL.usiCat;
+									xTmPusL.usiPid = 112;
+									xTmPusL.usiCat = 0;
 									xTmPusL.usiType = 250;
 									xTmPusL.usiSubType = 35;
 									xTmPusL.ucNofValues = 0;
@@ -239,8 +220,6 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDGEn;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg5ConfigReserved;
 									xTmPusL.ucNofValues++;
@@ -789,22 +768,38 @@ void vParserCommTask(void *task_data) {
 					case 254: /* srv-Type = 254 */
 						switch ( xTcPusL.usiSubType ) {
 							case 3:
-								xTmPusL.usiPusId = xTcPusL.usiPusId;
-								xTmPusL.usiPid = xTcPusL.usiPusId;
-								xTmPusL.usiCat = xTcPusL.usiCat;
-								xTmPusL.usiType = 254;
-								xTmPusL.usiSubType = 4;
-								xTmPusL.ucNofValues = 0;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
-								xTmPusL.ucNofValues++;
-								uiEPinMilliSeconds = (xSimMeb.ucEP * 1000);
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1� Word */
-								xTmPusL.ucNofValues++;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2� Word */
-								xTmPusL.ucNofValues++;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
-								xTmPusL.ucNofValues++;
-								vSendPusTM128(xTmPusL);
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								if ( usiFeeInstL <= N_OF_NFEE ) {
+									unsigned int uiEPinMilliSeconds;
+									unsigned int uiRTinMilliSeconds;
+									tTMPus xTmPusL;
+									xTmPusL.usiPusId = xTcPusL.usiPusId;
+									xTmPusL.usiPid = 112;
+									xTmPusL.usiCat = 0;
+									xTmPusL.usiType = 254;
+									xTmPusL.usiSubType = 4;
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
+									xTmPusL.ucNofValues++;
+									uiEPinMilliSeconds = (xSimMeb.ucEP * 1000);
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1� Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2� Word */
+									xTmPusL.ucNofValues++;
+									uiRTinMilliSeconds = (xSimMeb.ucRT * 1000);
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
+									xTmPusL.ucNofValues++;
+									vSendPusTM512(xTmPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
 								break;
 							case 8:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
@@ -813,11 +808,10 @@ void vParserCommTask(void *task_data) {
 									unsigned short int usiSPWRunning;
 									unsigned short int usiSPWConnecting;
 									unsigned short int usiSPWStarted;
-
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPusId;
-									xTmPusL.usiCat = xTcPusL.usiCat;
+									xTmPusL.usiPid = 112;
+									xTmPusL.usiCat = 0;
 									xTmPusL.usiType = 254;
 									xTmPusL.usiSubType = 9;
 									xTmPusL.ucNofValues = 0;
@@ -825,7 +819,6 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xControl.eMode;
 									xTmPusL.ucNofValues++;
-									bSpwcGetLinkStatus(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == true) {
 										usiSPWRunning = 0b001;
 									} else {
@@ -844,57 +837,39 @@ void vParserCommTask(void *task_data) {
 									usiSPWStatusTotal = usiSPWRunning^usiSPWConnecting^usiSPWStarted;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=usiSPWStatusTotal;
 									xTmPusL.ucNofValues++;
-
-									bDpktGetPixelDelay(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-									bDpktGetPacketConfig(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-									if (xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd )
-										uCLT = 0;
-									else
-										uCLT = (xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart - xDefaults.usiRows+xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd);
-									uRTCAL = (xDefaults.ulStartDelay  +
-									uCLT *
-									xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth*
-									xDefaults.ulADCPixelDelay+
-									uCLT*
-									xDefaults.ulLineDelay+0*
-									//xDefaults.ulADCPixelDelay+
-									xDefaults.ulSkipDelay);
-									uiRTinMilliSeconds = (uRTCAL / 1000);
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Incoming packets 1 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Incoming packets 2 Word*/
 									xTmPusL.ucNofValues++;
-									bFeebGetMachineStatistics(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt >> 16; /*Incoming packets 1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Outgoing packets 1 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt; /*Incoming packets 2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Outgoing packets 2 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliOutgoingPktsCnt >> 16; /*Outgoing packets 1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Number of fails  1 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliOutgoingPktsCnt; /*Outgoing packets 2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Number of fails  2 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwEepCnt >> 16; /*Number of EEP's  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error       1 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwEepCnt ; /*Number of EEP's  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error       2 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkCreditErrCnt >> 16; /*Number of Credit Errors  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  1 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkCreditErrCnt; /*Number of Credit Errors  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  2 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkDisconnectCnt >> 16; /*Number of Disconnect Errors  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  3 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkDisconnectCnt; /*Number of Disconnect Errors  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID       1 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkEscapeErrCnt >> 16; /*Number of Escape Errors  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID       2 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkEscapeErrCnt; /*Number of Escape Errors  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  1 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkParityErrCnt >> 16; /*Number of Parity Errors  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  2 Word*/
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkParityErrCnt; /*Number of Parity Errors  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  3 Word*/
 									xTmPusL.ucNofValues++;
-									vSendPusTM128(xTmPusL);
-									//bSendMessagePUStoMebTask(&xTcPusL);
+									vSendPusTM512(xTmPusL);
 								} else {
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )

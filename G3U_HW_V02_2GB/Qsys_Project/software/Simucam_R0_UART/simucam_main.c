@@ -573,7 +573,7 @@ int main(void)
 	/* Hard-coded DEBUG configurations due to dificulties in acessing the SD card. TODO: Remove later. */
 	xDefaults.usiSyncPeriod     = 6250; /* ms */
 	xDefaults.usiRows           = 4510;
-	xDefaults.usiOLN            = 50;
+	xDefaults.usiOLN            = 30;
 	xDefaults.usiCols           = 2295;
 	xDefaults.usiPreScanSerial  = 0;
 	xDefaults.usiOverScanSerial = 0;
@@ -764,7 +764,6 @@ bool bDdr2MemoryFastTest ( void ) {
 	usleep(1000000);
 	bDdr2SwitchMemory(DDR2_M1_ID);
 	bSuccess = TRUE;
-	vRstcHoldSimucamReset(0); /* Hold SimuCam Reset Signal - Enable "Watchdog" (t = 1000 ms) */
 	vpuliDdrMemAddr = (alt_u32 *)0x00000000; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
 	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
 	vpuliDdrMemAddr = (alt_u32 *)0x0FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
@@ -785,17 +784,16 @@ bool bDdr2MemoryFastTest ( void ) {
 	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
 	if (bSuccess) {
 		bM1Success = TRUE;
-		vRstcReleaseSimucamReset(0); /* Release SimuCam Reset Signal - Disable "Watchdog"*/
 #if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 1 Passed!\n");
-		}
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 1 Passed!\n");
+	}
 #endif
 	} else {
 #if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 1 Failure!\n");
-		}
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 1 Failure!\n");
+	}
 #endif
 	}
 
@@ -808,7 +806,6 @@ bool bDdr2MemoryFastTest ( void ) {
 	usleep(1000000);
 	bDdr2SwitchMemory(DDR2_M2_ID);
 	bSuccess = TRUE;
-	vRstcHoldSimucamReset(0); /* Hold SimuCam Reset Signal - Enable "Watchdog" (t = 1000 ms) */
 	vpuliDdrMemAddr = (alt_u32 *)0x00000000; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
 	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
 	vpuliDdrMemAddr = (alt_u32 *)0x0FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
@@ -829,17 +826,16 @@ bool bDdr2MemoryFastTest ( void ) {
 	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
 	if (bSuccess) {
 		bM2Success = TRUE;
-		vRstcReleaseSimucamReset(0); /* Release SimuCam Reset Signal - Disable "Watchdog"*/
 #if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 2 Passed!\n\n");
-		}
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 2 Passed!\n\n");
+	}
 #endif
 	} else {
 #if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 2 Failure!\n\n");
-		}
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "DDR2 Memory 2 Failure!\n\n");
+	}
 #endif
 	}
 

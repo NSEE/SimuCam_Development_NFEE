@@ -64,7 +64,7 @@ alt_u32 uliFTDInDataLeftInBuffer( void ){
 bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){
     bool bStatus = FALSE;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-    if ((ucFee < 6) && (ucCCD < 4) && (ucSide < 2) && (usiHalfWidth <= FTDI_MAX_HCCD_IMG_WIDTH ) && (usiHeight <= FTDI_MAX_HCCD_IMG_HEIGHT)) {
+    if ((ucFee < 6) && (ucCCD < 4) && (ucSide < 2) && (usiHalfWidth <= 2295 ) && (usiHeight <= 4540)) {
         vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdFeeNumber = ucFee;
         vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber = ucCCD;
         vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide = ucSide;
@@ -86,7 +86,7 @@ bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 u
 bool bFTDITransmitWindowArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight, alt_u32 uliLutLengthBytes){
     bool bStatus = FALSE;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-    if ((ucFee < 6) && (usiHalfWidth <= FTDI_MAX_HCCD_IMG_WIDTH ) && (usiHeight <= FTDI_MAX_HCCD_IMG_HEIGHT) && (uliLutLengthBytes <= FTDI_WIN_AREA_PAYLOAD_SIZE)) {
+    if ((ucFee < 6) && (usiHalfWidth <= 2295 ) && (usiHeight <= 4540) && (uliLutLengthBytes <= FTDI_WIN_AREA_PAYLOAD_SIZE)) {
         vpxFtdiModule->xFtdiLutTransControl.ucLutFeeNumber = ucFee;
         vpxFtdiModule->xFtdiLutTransControl.ucLutCcdNumber = 0;
         vpxFtdiModule->xFtdiLutTransControl.ucLutCcdSide = 0;
