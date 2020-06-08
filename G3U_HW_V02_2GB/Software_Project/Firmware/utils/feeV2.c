@@ -97,7 +97,6 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
     bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
 
-
     pxNfeeL->xControl.xTrap.bEnabled = FALSE;
     pxNfeeL->xControl.xTrap.bPumping = FALSE;
     pxNfeeL->xControl.xTrap.bEmiting = FALSE;

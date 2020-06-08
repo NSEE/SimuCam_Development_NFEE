@@ -94,6 +94,9 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt
 bool bFeebSetMachineControl(TFeebChannel *pxFeebCh);
 bool bFeebGetMachineControl(TFeebChannel *pxFeebCh);
 
+bool bFeebClearMachineStatistics(TFeebChannel *pxFeebCh);
+bool bFeebGetMachineStatistics(TFeebChannel *pxFeebCh);
+
 bool bFeebStartCh(TFeebChannel *pxFeebCh);
 bool bFeebStopCh(TFeebChannel *pxFeebCh);
 bool bFeebClrCh(TFeebChannel *pxFeebCh);

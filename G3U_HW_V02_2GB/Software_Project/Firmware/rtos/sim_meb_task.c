@@ -593,9 +593,6 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	}
 }
 
-
-
-
 /* This function should treat the PUS command in the Running Mode, need check all the things that is possible to update in this mode */
 void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
@@ -933,10 +930,6 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 	}
 }
-
-
-
-
 
 void vMebInit(TSimucam_MEB *pxMebCLocal) {
 	INT8U errorCodeL;

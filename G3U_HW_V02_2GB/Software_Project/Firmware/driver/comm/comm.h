@@ -129,8 +129,23 @@ typedef struct FeebMachineControl {
 	bool bStart; /* FEE Machine Start */
 	bool bBufferOverflowEn; /* FEE Buffer Overflow Enable */
 	bool bDigitaliseEn; /* FEE Digitalise Enable */
+	bool bReadoutEn; /* FEE Readout Enable */
 	bool bWindowingEn; /* FEE Windowing Enable */
+	bool bStatisticsClear; /* FEE Statistics Clear */
 } TFeebMachineControl;
+
+ /* FEE Machine Statistics Register Struct */
+typedef struct FeebMachineStatistics {
+	alt_u32 uliIncomingPktsCnt; /* FEE Incoming Packets Counter */
+	alt_u32 uliIncomingBytesCnt; /* FEE Incoming Bytes Counter */
+	alt_u32 uliOutgoingPktsCnt; /* FEE Outgoing Packets Counter */
+	alt_u32 uliOutgoingBytesCnt; /* FEE Outgoing Bytes Counter */
+	alt_u32 uliSpwLinkEscapeErrCnt; /* FEE SpW Link Escape Errors Counter */
+	alt_u32 uliSpwLinkCreditErrCnt; /* FEE SpW Link Credit Errors Counter */
+	alt_u32 uliSpwLinkParityErrCnt; /* FEE SpW Link Parity Errors Counter */
+	alt_u32 uliSpwLinkDisconnectCnt; /* FEE SpW Link Disconnects Counter */
+	alt_u32 uliSpwEepCnt; /* FEE SpaceWire EEPs Counter */
+} TFeebMachineStatistics;
 
 /* FEE Buffers Config Register Struct */
 typedef struct FeebBufferStatus {
@@ -340,6 +355,7 @@ typedef struct SpwcChannel {
 typedef struct FeebChannel {
 	TFeebDevAddr xFeebDevAddr;
 	TFeebMachineControl xFeebMachineControl;
+	TFeebMachineStatistics xFeebMachineStatistics;
 	TFeebBufferStatus xFeebBufferStatus;
 	TFeebIrqControl xFeebIrqControl;
 	TFeebIrqFlag xFeebIrqFlag;
