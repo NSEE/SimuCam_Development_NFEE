@@ -1355,15 +1355,15 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 
 			case M_BEFORE_MASTER:
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
+					vSync400Update( pxNFeeP );
+				}
 			case M_BEFORE_SYNC:
 				/*Do nothing*/
 				break;
 
 			case M_SYNC:
 			case M_PRE_MASTER:
-				if (M_PRE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_MASTER_SYNC:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -1687,15 +1687,15 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPReadoutSync( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
 				break;
 			case M_BEFORE_MASTER:
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
+					vSync400Update( pxNFeeP );
+				}
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
 				break;
 
 			case M_SYNC:
 			case M_PRE_MASTER:
-				if (M_PRE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_MASTER_SYNC:
 				/* Warning */
 					pxNFeeP->xControl.eState = redoutTransmission;
@@ -1786,14 +1786,14 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPWaitingSync( pxNFeeP, cmd );
 				break;
 			case M_BEFORE_MASTER:
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
+					vSync400Update( pxNFeeP );
+				}
 			case M_BEFORE_SYNC:
 				/*Do nothing*/
 				break;
 			case M_SYNC:
 			case M_PRE_MASTER:
-				if (M_PRE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 				break;
 			case M_MASTER_SYNC:
 				/*This block of code is used only for the On-Standby transitions, that will be done only in the master sync*/
@@ -1975,7 +1975,6 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			case M_BEFORE_MASTER:
 				/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
-
 				if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eMode ) {
 					pxNFeeP->xControl.eState =  pxNFeeP->xControl.eNextMode;
 
@@ -2016,6 +2015,11 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					}
 				}
+
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
+					vSync400Update( pxNFeeP );
+				}
+
 				break;
 
 			case M_BEFORE_SYNC:
@@ -2024,9 +2028,6 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			case M_SYNC:
 			case M_PRE_MASTER:
-				if (M_PRE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_MASTER_SYNC:
 				/*DO nothing for now*/
 				break;
@@ -2147,7 +2148,7 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case M_BEFORE_MASTER:
 				/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
-
+				
 				if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eMode ) {
 					pxNFeeP->xControl.eState =  pxNFeeP->xControl.eNextMode;
 
@@ -2168,13 +2169,14 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					}
 				}
+
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
+					vSync400Update( pxNFeeP );
+				}
 				break;
 			case M_BEFORE_SYNC:
 			case M_SYNC:
 			case M_PRE_MASTER:
-				if (M_PRE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_MASTER_SYNC:
 				/*DO nothing for now*/
 				break;
@@ -2261,11 +2263,11 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, uiCmdFEEL.ucByte[1], pxNFeeP->ucId);
 				break;
 			case M_BEFORE_SYNC:
-			case M_SYNC:
-			case M_PRE_MASTER:
-				if (M_PRE_MASTER == uiCmdFEEL.ucByte[2]) {
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
 					vSync400Update( pxNFeeP );
 				}
+			case M_SYNC:
+			case M_PRE_MASTER:
 			case M_MASTER_SYNC:
 				/*Do nothing for now*/
 				break;
@@ -2281,6 +2283,9 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					}
+				}
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
+					vSync400Update( pxNFeeP );
 				}
 				break;
 
@@ -2408,14 +2413,14 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_BEFORE_MASTER:
+				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
+					vSync400Update( pxNFeeP );
+				}
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
 				break;
 			case M_SYNC:
 			case M_PRE_MASTER:
-				if (M_PRE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_MASTER_SYNC:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
