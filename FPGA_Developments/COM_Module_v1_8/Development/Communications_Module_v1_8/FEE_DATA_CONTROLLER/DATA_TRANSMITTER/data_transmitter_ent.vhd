@@ -18,8 +18,10 @@ entity data_transmitter_ent is
 		hkdata_send_buffer_data_type_i        : in  std_logic_vector(1 downto 0);
 		left_imgdata_send_buffer_status_i     : in  t_fee_dpkt_send_buffer_status;
 		left_imgdata_send_buffer_data_type_i  : in  std_logic_vector(1 downto 0);
+		left_imgdata_send_buffer_data_end_i   : in  std_logic;
 		right_imgdata_send_buffer_status_i    : in  t_fee_dpkt_send_buffer_status;
 		right_imgdata_send_buffer_data_type_i : in  std_logic_vector(1 downto 0);
+		right_imgdata_send_buffer_data_end_i  : in  std_logic;
 		spw_tx_ready_i                        : in  std_logic;
 		windowing_enabled_i                   : in  std_logic;
 		windowing_packet_order_list_i         : in  std_logic_vector(511 downto 0);
@@ -203,7 +205,7 @@ begin
 									s_discard_data <= '1';
 								end if;
 								-- update packet information
-								if (send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) then
+								if ((send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) or (left_imgdata_send_buffer_data_end_i = '1')) then
 									s_last_packet <= '1';
 								end if;
 								s_data_length            <= std_logic_vector(unsigned(left_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
@@ -221,7 +223,7 @@ begin
 									s_discard_data <= '1';
 								end if;
 								-- update packet information
-								if (send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) then
+								if ((send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) or (right_imgdata_send_buffer_data_end_i = '1')) then
 									s_last_packet <= '1';
 								end if;
 								s_data_length            <= std_logic_vector(unsigned(right_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
@@ -258,7 +260,7 @@ begin
 													s_discard_data <= '1';
 												end if;
 												-- update packet information
-												if (send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) then
+												if ((send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) or (left_imgdata_send_buffer_data_end_i = '1')) then
 													s_last_packet <= '1';
 												end if;
 												s_data_length            <= std_logic_vector(unsigned(left_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
@@ -298,7 +300,7 @@ begin
 													s_discard_data <= '1';
 												end if;
 												-- update packet information
-												if (send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) then
+												if ((send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) or (right_imgdata_send_buffer_data_end_i = '1')) then
 													s_last_packet <= '1';
 												end if;
 												s_data_length            <= std_logic_vector(unsigned(right_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
@@ -334,7 +336,7 @@ begin
 										s_discard_data <= '1';
 									end if;
 									-- update packet information
-									if (send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) then
+									if ((send_buffer_cfg_length_i /= left_imgdata_send_buffer_status_i.stat_extended_usedw) or (left_imgdata_send_buffer_data_end_i = '1')) then
 										s_last_packet <= '1';
 									end if;
 									s_data_length            <= std_logic_vector(unsigned(left_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);
@@ -357,7 +359,7 @@ begin
 										s_discard_data <= '1';
 									end if;
 									-- update packet information
-									if (send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) then
+									if ((send_buffer_cfg_length_i /= right_imgdata_send_buffer_status_i.stat_extended_usedw) or (right_imgdata_send_buffer_data_end_i = '1')) then
 										s_last_packet <= '1';
 									end if;
 									s_data_length            <= std_logic_vector(unsigned(right_imgdata_send_buffer_status_i.stat_extended_usedw) - 10);

@@ -149,6 +149,7 @@ begin
 			avalon_slave_R_buffer_write        => s_avalon_buffer_R_stimuli_mm_write,
 			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
 			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest,
+			spw_data_tx_status_txrdy_i         => '1',
 			fee_codec_rmap_wr_waitrequest_i    => '0',
 			fee_codec_rmap_readdata_i          => (others => '0'),
 			fee_codec_rmap_rd_waitrequest_i    => '0',
@@ -202,10 +203,10 @@ begin
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
 				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
-					s_sync          <= '0';
-					v_sync_high     := '0';
---					v_sync_one_shot := '1'; -- comment this line to remove one-shot
-					v_sync_div_cnt  := 0;
+					s_sync         <= '0';
+					v_sync_high    := '0';
+					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot
+					v_sync_div_cnt := 0;
 				end if;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;

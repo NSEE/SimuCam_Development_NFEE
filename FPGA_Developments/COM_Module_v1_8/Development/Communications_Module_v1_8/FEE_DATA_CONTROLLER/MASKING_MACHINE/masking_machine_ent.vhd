@@ -47,7 +47,7 @@ entity masking_machine_ent is
 		window_mask_read_o            : out std_logic;
 		masking_buffer_almost_empty_o : out std_logic;
 		masking_buffer_empty_o        : out std_logic;
-		masking_buffer_rddata_o       : out std_logic_vector(8 downto 0)
+		masking_buffer_rddata_o       : out std_logic_vector(9 downto 0)
 	);
 end entity masking_machine_ent;
 
@@ -107,6 +107,7 @@ architecture RTL of masking_machine_ent is
 	type t_masking_fifo is record
 		data_imgbyte   : std_logic_vector(7 downto 0);
 		data_imgchange : std_logic;
+		data_imgend    : std_logic;
 		sclr           : std_logic;
 		wrreq          : std_logic;
 		full           : std_logic;
@@ -187,6 +188,7 @@ begin
 			clock            => clk_i,
 			data(7 downto 0) => s_masking_fifo.data_imgbyte,
 			data(8)          => s_masking_fifo.data_imgchange,
+			data(9)          => s_masking_fifo.data_imgend,
 			rdreq            => masking_buffer_rdreq_i,
 			sclr             => s_masking_fifo.sclr,
 			wrreq            => s_masking_fifo.wrreq,
@@ -205,6 +207,7 @@ begin
 			masking_buffer_overflowed_o    <= '0';
 			s_masking_fifo.data_imgbyte    <= (others => '0');
 			s_masking_fifo.data_imgchange  <= '0';
+			s_masking_fifo.data_imgend     <= '0';
 			s_masking_fifo.wrreq           <= '0';
 			s_masking_machine_state        <= STOPPED;
 			s_masking_machine_return_state <= STOPPED;
@@ -226,6 +229,7 @@ begin
 					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
+					s_masking_fifo.data_imgend     <= '0';
 					s_masking_fifo.wrreq           <= '0';
 					s_masking_machine_state        <= STOPPED;
 					s_masking_machine_return_state <= STOPPED;
@@ -248,6 +252,7 @@ begin
 					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
+					s_masking_fifo.data_imgend     <= '0';
 					s_masking_fifo.wrreq           <= '0';
 					s_masking_machine_state        <= NOT_STARTED;
 					s_masking_machine_return_state <= NOT_STARTED;
@@ -279,6 +284,7 @@ begin
 					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
+					s_masking_fifo.data_imgend     <= '0';
 					s_masking_fifo.wrreq           <= '0';
 					s_registered_window_data       <= (others => '0');
 					s_registered_window_mask       <= '0';
@@ -306,6 +312,7 @@ begin
 					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
+					s_masking_fifo.data_imgend     <= '0';
 					s_masking_fifo.wrreq           <= '0';
 					s_registered_window_data       <= (others => '0');
 					s_registered_window_mask       <= '0';
@@ -329,6 +336,7 @@ begin
 					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
+					s_masking_fifo.data_imgend     <= '0';
 					s_masking_fifo.wrreq           <= '0';
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
@@ -346,7 +354,7 @@ begin
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
 							-- check if the data need to be transmitted
---							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
+							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
@@ -375,6 +383,7 @@ begin
 					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
+					s_masking_fifo.data_imgend     <= '0';
 					s_masking_fifo.wrreq           <= '0';
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
@@ -392,7 +401,7 @@ begin
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
 							-- check if the data need to be transmitted
---							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
+							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
@@ -439,11 +448,15 @@ begin
 							-- check if it was the last ccd data line or the last ccd line
 							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_data_y_size_i) - 1)) then
 								-- the processed line was the last ccd data line
+								-- write img end flag
+								s_masking_fifo.data_imgend     <= '1';
 								-- write change command and return to waiting data
 								s_masking_machine_state        <= WRITE_CHANGE_CMD;
 								s_masking_machine_return_state <= WAITING_DATA;
 							elsif (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
 								-- the processed line was the last ccd line
+								-- write img end flag
+								s_masking_fifo.data_imgend     <= '1';
 								-- write change command and return to not started
 								s_masking_machine_state        <= WRITE_CHANGE_CMD;
 								s_masking_machine_return_state <= CCD_FINISHED;
@@ -461,6 +474,7 @@ begin
 					masking_buffer_overflowed_o   <= '0';
 					s_masking_fifo.data_imgbyte   <= (others => '0');
 					s_masking_fifo.data_imgchange <= '0';
+					s_masking_fifo.data_imgend    <= '0';
 					s_masking_fifo.wrreq          <= '0';
 					s_first_pixel                 <= '0';
 					s_data_fetched                <= '0';
@@ -483,6 +497,7 @@ begin
 					masking_buffer_overflowed_o    <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
+					s_masking_fifo.data_imgend     <= '0';
 					s_masking_fifo.wrreq           <= '0';
 					s_registered_window_data       <= (others => '0');
 					s_registered_window_mask       <= '0';
