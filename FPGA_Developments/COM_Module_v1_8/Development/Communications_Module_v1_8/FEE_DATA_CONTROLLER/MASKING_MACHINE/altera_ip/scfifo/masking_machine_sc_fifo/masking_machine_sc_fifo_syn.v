@@ -33,21 +33,21 @@
 //refer to the applicable agreement for further details.
 
 
-//scfifo ADD_RAM_OUTPUT_REGISTER="ON" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=256 LPM_SHOWAHEAD="OFF" LPM_WIDTH=9 LPM_WIDTHU=8 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV"
+//scfifo ADD_RAM_OUTPUT_REGISTER="ON" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=256 LPM_SHOWAHEAD="OFF" LPM_WIDTH=10 LPM_WIDTHU=8 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV"
 //VERSION_BEGIN 18.1 cbx_altdpram 2018:09:12:13:04:24:SJ cbx_altera_counter 2018:09:12:13:04:24:SJ cbx_altera_syncram 2018:09:12:13:04:24:SJ cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_fifo_common 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_scfifo 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
 
-//a_dpfifo ADD_RAM_OUTPUT_REGISTER="ON" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=256 LPM_SHOWAHEAD="OFF" lpm_width=9 lpm_widthu=8 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV"
+//a_dpfifo ADD_RAM_OUTPUT_REGISTER="ON" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=256 LPM_SHOWAHEAD="OFF" lpm_width=10 lpm_widthu=8 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV"
 //VERSION_BEGIN 18.1 cbx_altdpram 2018:09:12:13:04:24:SJ cbx_altera_counter 2018:09:12:13:04:24:SJ cbx_altera_syncram 2018:09:12:13:04:24:SJ cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_fifo_common 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_scfifo 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
 
-//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=256 NUMWORDS_B=256 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="CLOCK1" WIDTH_A=9 WIDTH_B=9 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=8 WIDTHAD_B=8 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 clock1 clocken1 data_a q_b wren_a
+//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=256 NUMWORDS_B=256 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="CLOCK1" WIDTH_A=10 WIDTH_B=10 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=8 WIDTHAD_B=8 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 clock1 clocken1 data_a q_b wren_a
 //VERSION_BEGIN 18.1 cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
-//synthesis_resources = ram_bits (AUTO) 2304 
+//synthesis_resources = ram_bits (AUTO) 2560 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -67,8 +67,8 @@ module  masking_machine_sc_fifo_altsyncram
 	input   clock0;
 	input   clock1;
 	input   clocken1;
-	input   [8:0]  data_a;
-	output   [8:0]  q_b;
+	input   [9:0]  data_a;
+	output   [9:0]  q_b;
 	input   wren_a;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
@@ -77,7 +77,7 @@ module  masking_machine_sc_fifo_altsyncram
 	tri1   clock0;
 	tri1   clock1;
 	tri1   clocken1;
-	tri1   [8:0]  data_a;
+	tri1   [9:0]  data_a;
 	tri0   wren_a;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
@@ -92,6 +92,7 @@ module  masking_machine_sc_fifo_altsyncram
 	wire  [0:0]   wire_ram_block1a_6portbdataout;
 	wire  [0:0]   wire_ram_block1a_7portbdataout;
 	wire  [0:0]   wire_ram_block1a_8portbdataout;
+	wire  [0:0]   wire_ram_block1a_9portbdataout;
 	wire  [7:0]  address_a_wire;
 	wire  [7:0]  address_b_wire;
 
@@ -150,7 +151,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_0.port_a_first_bit_number = 0,
 		ram_block1a_0.port_a_last_address = 255,
 		ram_block1a_0.port_a_logical_ram_depth = 256,
-		ram_block1a_0.port_a_logical_ram_width = 9,
+		ram_block1a_0.port_a_logical_ram_width = 10,
 		ram_block1a_0.port_b_address_clear = "none",
 		ram_block1a_0.port_b_address_clock = "clock1",
 		ram_block1a_0.port_b_address_width = 8,
@@ -161,7 +162,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_0.port_b_first_bit_number = 0,
 		ram_block1a_0.port_b_last_address = 255,
 		ram_block1a_0.port_b_logical_ram_depth = 256,
-		ram_block1a_0.port_b_logical_ram_width = 9,
+		ram_block1a_0.port_b_logical_ram_width = 10,
 		ram_block1a_0.port_b_read_enable_clock = "clock1",
 		ram_block1a_0.ram_block_type = "AUTO",
 		ram_block1a_0.lpm_type = "stratixiv_ram_block";
@@ -220,7 +221,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_1.port_a_first_bit_number = 1,
 		ram_block1a_1.port_a_last_address = 255,
 		ram_block1a_1.port_a_logical_ram_depth = 256,
-		ram_block1a_1.port_a_logical_ram_width = 9,
+		ram_block1a_1.port_a_logical_ram_width = 10,
 		ram_block1a_1.port_b_address_clear = "none",
 		ram_block1a_1.port_b_address_clock = "clock1",
 		ram_block1a_1.port_b_address_width = 8,
@@ -231,7 +232,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_1.port_b_first_bit_number = 1,
 		ram_block1a_1.port_b_last_address = 255,
 		ram_block1a_1.port_b_logical_ram_depth = 256,
-		ram_block1a_1.port_b_logical_ram_width = 9,
+		ram_block1a_1.port_b_logical_ram_width = 10,
 		ram_block1a_1.port_b_read_enable_clock = "clock1",
 		ram_block1a_1.ram_block_type = "AUTO",
 		ram_block1a_1.lpm_type = "stratixiv_ram_block";
@@ -290,7 +291,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_2.port_a_first_bit_number = 2,
 		ram_block1a_2.port_a_last_address = 255,
 		ram_block1a_2.port_a_logical_ram_depth = 256,
-		ram_block1a_2.port_a_logical_ram_width = 9,
+		ram_block1a_2.port_a_logical_ram_width = 10,
 		ram_block1a_2.port_b_address_clear = "none",
 		ram_block1a_2.port_b_address_clock = "clock1",
 		ram_block1a_2.port_b_address_width = 8,
@@ -301,7 +302,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_2.port_b_first_bit_number = 2,
 		ram_block1a_2.port_b_last_address = 255,
 		ram_block1a_2.port_b_logical_ram_depth = 256,
-		ram_block1a_2.port_b_logical_ram_width = 9,
+		ram_block1a_2.port_b_logical_ram_width = 10,
 		ram_block1a_2.port_b_read_enable_clock = "clock1",
 		ram_block1a_2.ram_block_type = "AUTO",
 		ram_block1a_2.lpm_type = "stratixiv_ram_block";
@@ -360,7 +361,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_3.port_a_first_bit_number = 3,
 		ram_block1a_3.port_a_last_address = 255,
 		ram_block1a_3.port_a_logical_ram_depth = 256,
-		ram_block1a_3.port_a_logical_ram_width = 9,
+		ram_block1a_3.port_a_logical_ram_width = 10,
 		ram_block1a_3.port_b_address_clear = "none",
 		ram_block1a_3.port_b_address_clock = "clock1",
 		ram_block1a_3.port_b_address_width = 8,
@@ -371,7 +372,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_3.port_b_first_bit_number = 3,
 		ram_block1a_3.port_b_last_address = 255,
 		ram_block1a_3.port_b_logical_ram_depth = 256,
-		ram_block1a_3.port_b_logical_ram_width = 9,
+		ram_block1a_3.port_b_logical_ram_width = 10,
 		ram_block1a_3.port_b_read_enable_clock = "clock1",
 		ram_block1a_3.ram_block_type = "AUTO",
 		ram_block1a_3.lpm_type = "stratixiv_ram_block";
@@ -430,7 +431,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_4.port_a_first_bit_number = 4,
 		ram_block1a_4.port_a_last_address = 255,
 		ram_block1a_4.port_a_logical_ram_depth = 256,
-		ram_block1a_4.port_a_logical_ram_width = 9,
+		ram_block1a_4.port_a_logical_ram_width = 10,
 		ram_block1a_4.port_b_address_clear = "none",
 		ram_block1a_4.port_b_address_clock = "clock1",
 		ram_block1a_4.port_b_address_width = 8,
@@ -441,7 +442,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_4.port_b_first_bit_number = 4,
 		ram_block1a_4.port_b_last_address = 255,
 		ram_block1a_4.port_b_logical_ram_depth = 256,
-		ram_block1a_4.port_b_logical_ram_width = 9,
+		ram_block1a_4.port_b_logical_ram_width = 10,
 		ram_block1a_4.port_b_read_enable_clock = "clock1",
 		ram_block1a_4.ram_block_type = "AUTO",
 		ram_block1a_4.lpm_type = "stratixiv_ram_block";
@@ -500,7 +501,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_5.port_a_first_bit_number = 5,
 		ram_block1a_5.port_a_last_address = 255,
 		ram_block1a_5.port_a_logical_ram_depth = 256,
-		ram_block1a_5.port_a_logical_ram_width = 9,
+		ram_block1a_5.port_a_logical_ram_width = 10,
 		ram_block1a_5.port_b_address_clear = "none",
 		ram_block1a_5.port_b_address_clock = "clock1",
 		ram_block1a_5.port_b_address_width = 8,
@@ -511,7 +512,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_5.port_b_first_bit_number = 5,
 		ram_block1a_5.port_b_last_address = 255,
 		ram_block1a_5.port_b_logical_ram_depth = 256,
-		ram_block1a_5.port_b_logical_ram_width = 9,
+		ram_block1a_5.port_b_logical_ram_width = 10,
 		ram_block1a_5.port_b_read_enable_clock = "clock1",
 		ram_block1a_5.ram_block_type = "AUTO",
 		ram_block1a_5.lpm_type = "stratixiv_ram_block";
@@ -570,7 +571,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_6.port_a_first_bit_number = 6,
 		ram_block1a_6.port_a_last_address = 255,
 		ram_block1a_6.port_a_logical_ram_depth = 256,
-		ram_block1a_6.port_a_logical_ram_width = 9,
+		ram_block1a_6.port_a_logical_ram_width = 10,
 		ram_block1a_6.port_b_address_clear = "none",
 		ram_block1a_6.port_b_address_clock = "clock1",
 		ram_block1a_6.port_b_address_width = 8,
@@ -581,7 +582,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_6.port_b_first_bit_number = 6,
 		ram_block1a_6.port_b_last_address = 255,
 		ram_block1a_6.port_b_logical_ram_depth = 256,
-		ram_block1a_6.port_b_logical_ram_width = 9,
+		ram_block1a_6.port_b_logical_ram_width = 10,
 		ram_block1a_6.port_b_read_enable_clock = "clock1",
 		ram_block1a_6.ram_block_type = "AUTO",
 		ram_block1a_6.lpm_type = "stratixiv_ram_block";
@@ -640,7 +641,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_7.port_a_first_bit_number = 7,
 		ram_block1a_7.port_a_last_address = 255,
 		ram_block1a_7.port_a_logical_ram_depth = 256,
-		ram_block1a_7.port_a_logical_ram_width = 9,
+		ram_block1a_7.port_a_logical_ram_width = 10,
 		ram_block1a_7.port_b_address_clear = "none",
 		ram_block1a_7.port_b_address_clock = "clock1",
 		ram_block1a_7.port_b_address_width = 8,
@@ -651,7 +652,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_7.port_b_first_bit_number = 7,
 		ram_block1a_7.port_b_last_address = 255,
 		ram_block1a_7.port_b_logical_ram_depth = 256,
-		ram_block1a_7.port_b_logical_ram_width = 9,
+		ram_block1a_7.port_b_logical_ram_width = 10,
 		ram_block1a_7.port_b_read_enable_clock = "clock1",
 		ram_block1a_7.ram_block_type = "AUTO",
 		ram_block1a_7.lpm_type = "stratixiv_ram_block";
@@ -710,7 +711,7 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_8.port_a_first_bit_number = 8,
 		ram_block1a_8.port_a_last_address = 255,
 		ram_block1a_8.port_a_logical_ram_depth = 256,
-		ram_block1a_8.port_a_logical_ram_width = 9,
+		ram_block1a_8.port_a_logical_ram_width = 10,
 		ram_block1a_8.port_b_address_clear = "none",
 		ram_block1a_8.port_b_address_clock = "clock1",
 		ram_block1a_8.port_b_address_width = 8,
@@ -721,14 +722,84 @@ module  masking_machine_sc_fifo_altsyncram
 		ram_block1a_8.port_b_first_bit_number = 8,
 		ram_block1a_8.port_b_last_address = 255,
 		ram_block1a_8.port_b_logical_ram_depth = 256,
-		ram_block1a_8.port_b_logical_ram_width = 9,
+		ram_block1a_8.port_b_logical_ram_width = 10,
 		ram_block1a_8.port_b_read_enable_clock = "clock1",
 		ram_block1a_8.ram_block_type = "AUTO",
 		ram_block1a_8.lpm_type = "stratixiv_ram_block";
+	stratixiv_ram_block   ram_block1a_9
+	( 
+	.clk0(clock0),
+	.clk1(clock1),
+	.dftout(),
+	.eccstatus(),
+	.ena0(wren_a),
+	.ena1(clocken1),
+	.portaaddr({address_a_wire[7:0]}),
+	.portadatain({data_a[9]}),
+	.portadataout(),
+	.portawe(wren_a),
+	.portbaddr({address_b_wire[7:0]}),
+	.portbdataout(wire_ram_block1a_9portbdataout[0:0]),
+	.portbre(1'b1)
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_off
+	`endif
+	,
+	.clr0(1'b0),
+	.clr1(1'b0),
+	.ena2(1'b1),
+	.ena3(1'b1),
+	.portaaddrstall(1'b0),
+	.portabyteenamasks({1{1'b1}}),
+	.portare(1'b1),
+	.portbaddrstall(1'b0),
+	.portbbyteenamasks({1{1'b1}}),
+	.portbdatain({1{1'b0}}),
+	.portbwe(1'b0)
+	`ifndef FORMAL_VERIFICATION
+	// synopsys translate_on
+	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
+	);
+	defparam
+		ram_block1a_9.clk0_core_clock_enable = "ena0",
+		ram_block1a_9.clk0_input_clock_enable = "none",
+		ram_block1a_9.clk1_core_clock_enable = "none",
+		ram_block1a_9.clk1_input_clock_enable = "none",
+		ram_block1a_9.clk1_output_clock_enable = "ena1",
+		ram_block1a_9.connectivity_checking = "OFF",
+		ram_block1a_9.logical_ram_name = "ALTSYNCRAM",
+		ram_block1a_9.mixed_port_feed_through_mode = "dont_care",
+		ram_block1a_9.operation_mode = "dual_port",
+		ram_block1a_9.port_a_address_width = 8,
+		ram_block1a_9.port_a_data_width = 1,
+		ram_block1a_9.port_a_first_address = 0,
+		ram_block1a_9.port_a_first_bit_number = 9,
+		ram_block1a_9.port_a_last_address = 255,
+		ram_block1a_9.port_a_logical_ram_depth = 256,
+		ram_block1a_9.port_a_logical_ram_width = 10,
+		ram_block1a_9.port_b_address_clear = "none",
+		ram_block1a_9.port_b_address_clock = "clock1",
+		ram_block1a_9.port_b_address_width = 8,
+		ram_block1a_9.port_b_data_out_clear = "none",
+		ram_block1a_9.port_b_data_out_clock = "clock1",
+		ram_block1a_9.port_b_data_width = 1,
+		ram_block1a_9.port_b_first_address = 0,
+		ram_block1a_9.port_b_first_bit_number = 9,
+		ram_block1a_9.port_b_last_address = 255,
+		ram_block1a_9.port_b_logical_ram_depth = 256,
+		ram_block1a_9.port_b_logical_ram_width = 10,
+		ram_block1a_9.port_b_read_enable_clock = "clock1",
+		ram_block1a_9.ram_block_type = "AUTO",
+		ram_block1a_9.lpm_type = "stratixiv_ram_block";
 	assign
 		address_a_wire = address_a,
 		address_b_wire = address_b,
-		q_b = {wire_ram_block1a_8portbdataout[0], wire_ram_block1a_7portbdataout[0], wire_ram_block1a_6portbdataout[0], wire_ram_block1a_5portbdataout[0], wire_ram_block1a_4portbdataout[0], wire_ram_block1a_3portbdataout[0], wire_ram_block1a_2portbdataout[0], wire_ram_block1a_1portbdataout[0], wire_ram_block1a_0portbdataout[0]};
+		q_b = {wire_ram_block1a_9portbdataout[0], wire_ram_block1a_8portbdataout[0], wire_ram_block1a_7portbdataout[0], wire_ram_block1a_6portbdataout[0], wire_ram_block1a_5portbdataout[0], wire_ram_block1a_4portbdataout[0], wire_ram_block1a_3portbdataout[0], wire_ram_block1a_2portbdataout[0], wire_ram_block1a_1portbdataout[0], wire_ram_block1a_0portbdataout[0]};
 endmodule //masking_machine_sc_fifo_altsyncram
 
 
@@ -1738,7 +1809,7 @@ module  masking_machine_sc_fifo_cntr12
 		updown_other_bits = ((~ external_cin) | updown_dir);
 endmodule //masking_machine_sc_fifo_cntr12
 
-//synthesis_resources = lut 23 ram_bits (AUTO) 2304 reg 37 
+//synthesis_resources = lut 23 ram_bits (AUTO) 2560 reg 37 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -1756,10 +1827,10 @@ module  masking_machine_sc_fifo_a_dpfifo
 	wreq) /* synthesis synthesis_clearbox=1 */;
 	input   aclr;
 	input   clock;
-	input   [8:0]  data;
+	input   [9:0]  data;
 	output   empty;
 	output   full;
-	output   [8:0]  q;
+	output   [9:0]  q;
 	input   rreq;
 	input   sclr;
 	output   [7:0]  usedw;
@@ -1773,7 +1844,7 @@ module  masking_machine_sc_fifo_a_dpfifo
 // synopsys translate_on
 `endif
 
-	wire  [8:0]   wire_FIFOram_q_b;
+	wire  [9:0]   wire_FIFOram_q_b;
 	reg	empty_dff;
 	reg	full_dff;
 	reg	[7:0]	low_addressa;
@@ -1916,7 +1987,7 @@ module  masking_machine_sc_fifo_a_dpfifo
 		wait_state = (usedw_will_be_1 & valid_wreq);
 endmodule //masking_machine_sc_fifo_a_dpfifo
 
-//synthesis_resources = lut 23 ram_bits (AUTO) 2304 reg 37 
+//synthesis_resources = lut 23 ram_bits (AUTO) 2560 reg 37 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -1934,10 +2005,10 @@ module  masking_machine_sc_fifo_scfifo
 	wrreq) /* synthesis synthesis_clearbox=1 */;
 	input   aclr;
 	input   clock;
-	input   [8:0]  data;
+	input   [9:0]  data;
 	output   empty;
 	output   full;
-	output   [8:0]  q;
+	output   [9:0]  q;
 	input   rdreq;
 	input   sclr;
 	output   [7:0]  usedw;
@@ -1953,7 +2024,7 @@ module  masking_machine_sc_fifo_scfifo
 
 	wire  wire_dpfifo_empty;
 	wire  wire_dpfifo_full;
-	wire  [8:0]   wire_dpfifo_q;
+	wire  [9:0]   wire_dpfifo_q;
 	wire  [7:0]   wire_dpfifo_usedw;
 
 	masking_machine_sc_fifo_a_dpfifo   dpfifo
@@ -1994,22 +2065,22 @@ module masking_machine_sc_fifo (
 
 	input	  aclr;
 	input	  clock;
-	input	[8:0]  data;
+	input	[9:0]  data;
 	input	  rdreq;
 	input	  sclr;
 	input	  wrreq;
 	output	  empty;
 	output	  full;
-	output	[8:0]  q;
+	output	[9:0]  q;
 	output	[7:0]  usedw;
 
 	wire  sub_wire0;
 	wire  sub_wire1;
-	wire [8:0] sub_wire2;
+	wire [9:0] sub_wire2;
 	wire [7:0] sub_wire3;
 	wire  empty = sub_wire0;
 	wire  full = sub_wire1;
-	wire [8:0] q = sub_wire2[8:0];
+	wire [9:0] q = sub_wire2[9:0];
 	wire [7:0] usedw = sub_wire3[7:0];
 
 	masking_machine_sc_fifo_scfifo	masking_machine_sc_fifo_scfifo_component (
@@ -2048,11 +2119,11 @@ endmodule
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: UsedW NUMERIC "1"
-// Retrieval info: PRIVATE: Width NUMERIC "9"
+// Retrieval info: PRIVATE: Width NUMERIC "10"
 // Retrieval info: PRIVATE: dc_aclr NUMERIC "0"
 // Retrieval info: PRIVATE: diff_widths NUMERIC "0"
 // Retrieval info: PRIVATE: msb_usedw NUMERIC "0"
-// Retrieval info: PRIVATE: output_width NUMERIC "9"
+// Retrieval info: PRIVATE: output_width NUMERIC "10"
 // Retrieval info: PRIVATE: rsEmpty NUMERIC "1"
 // Retrieval info: PRIVATE: rsFull NUMERIC "0"
 // Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
@@ -2067,30 +2138,30 @@ endmodule
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "256"
 // Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"
-// Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "9"
+// Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "10"
 // Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "8"
 // Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: USE_EAB STRING "ON"
 // Retrieval info: USED_PORT: aclr 0 0 0 0 INPUT NODEFVAL "aclr"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT NODEFVAL "clock"
-// Retrieval info: USED_PORT: data 0 0 9 0 INPUT NODEFVAL "data[8..0]"
+// Retrieval info: USED_PORT: data 0 0 10 0 INPUT NODEFVAL "data[9..0]"
 // Retrieval info: USED_PORT: empty 0 0 0 0 OUTPUT NODEFVAL "empty"
 // Retrieval info: USED_PORT: full 0 0 0 0 OUTPUT NODEFVAL "full"
-// Retrieval info: USED_PORT: q 0 0 9 0 OUTPUT NODEFVAL "q[8..0]"
+// Retrieval info: USED_PORT: q 0 0 10 0 OUTPUT NODEFVAL "q[9..0]"
 // Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
 // Retrieval info: USED_PORT: sclr 0 0 0 0 INPUT NODEFVAL "sclr"
 // Retrieval info: USED_PORT: usedw 0 0 8 0 OUTPUT NODEFVAL "usedw[7..0]"
 // Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
 // Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 // Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
-// Retrieval info: CONNECT: @data 0 0 9 0 data 0 0 9 0
+// Retrieval info: CONNECT: @data 0 0 10 0 data 0 0 10 0
 // Retrieval info: CONNECT: @rdreq 0 0 0 0 rdreq 0 0 0 0
 // Retrieval info: CONNECT: @sclr 0 0 0 0 sclr 0 0 0 0
 // Retrieval info: CONNECT: @wrreq 0 0 0 0 wrreq 0 0 0 0
 // Retrieval info: CONNECT: empty 0 0 0 0 @empty 0 0 0 0
 // Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
-// Retrieval info: CONNECT: q 0 0 9 0 @q 0 0 9 0
+// Retrieval info: CONNECT: q 0 0 10 0 @q 0 0 10 0
 // Retrieval info: CONNECT: usedw 0 0 8 0 @usedw 0 0 8 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL masking_machine_sc_fifo.vhd TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL masking_machine_sc_fifo.inc TRUE

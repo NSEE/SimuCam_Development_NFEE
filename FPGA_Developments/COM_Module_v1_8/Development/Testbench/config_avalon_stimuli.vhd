@@ -128,7 +128,7 @@ begin
 					avalon_mm_read_o                    <= '0';
 
 				-- data_packet_config_3_reg
-				when 1175 to 1176 =>
+				when 1125 to 1126 =>
 					-- register write
 					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#56#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
@@ -148,6 +148,15 @@ begin
 					avalon_mm_writedata_o(31 downto 24) <= x"02"; -- data_pkt_protocol_id
 					avalon_mm_read_o                    <= '0';
 
+				-- overflow
+				when 1175 to 1176 =>
+					-- register write
+					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#15#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o        <= '1';
+					avalon_mm_writedata_o    <= (others => '0');
+					avalon_mm_writedata_o(0) <= '0'; -- fee_buffer_overflow_en
+					avalon_mm_read_o         <= '0';
+
 				-- data_packet_config_5_reg
 				when 1200 to 1201 =>
 					-- register write
@@ -155,8 +164,8 @@ begin
 					avalon_mm_write_o                 <= '1';
 					avalon_mm_writedata_o             <= (others => '0');
 					avalon_mm_writedata_o(4 downto 0) <= c_DPKT_FULLIMAGE_PATTERN_MODE; -- data_pkt_fee_mode
---					avalon_mm_writedata_o(3 downto 0) <= c_FEE_FULLIMAGE_MODE; -- data_pkt_fee_mode
---					avalon_mm_writedata_o(3 downto 0) <= c_FEE_WINDOWING_MODE; -- data_pkt_fee_mode
+					--					avalon_mm_writedata_o(3 downto 0) <= c_FEE_FULLIMAGE_MODE; -- data_pkt_fee_mode
+					--					avalon_mm_writedata_o(3 downto 0) <= c_FEE_WINDOWING_MODE; -- data_pkt_fee_mode
 					avalon_mm_writedata_o(9 downto 8) <= std_logic_vector(to_unsigned(3, 2)); -- data_pkt_ccd_number
 					avalon_mm_read_o                  <= '0';
 
