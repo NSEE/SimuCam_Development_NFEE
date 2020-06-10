@@ -1,0 +1,523 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/COM_Module_v1_8/Development/Testbench
+Ecbuf_stimuli
+Z0 w1591757547
+Z1 DPx4 work 13 comm_cbuf_pkg 0 22 fEMIaGz08TS[J>fmb2YMl0
+Z2 DPx4 work 17 comm_avm_cbuf_pkg 0 22 b[0YHL[[>C=jbhYJhUdYP1
+Z3 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z5 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z6 dD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench
+Z7 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_stimuli.vhd
+Z8 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_stimuli.vhd
+l0
+L8
+VZRPe@h1z=E:UBNEW[8ToS1
+!s100 zlNk5gcPd3T`R^SWRS=0[1
+Z9 OV;C;10.5b;63
+32
+Z10 !s110 1591757550
+!i10b 1
+Z11 !s108 1591757550.000000
+Z12 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_stimuli.vhd|
+Z13 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_stimuli.vhd|
+!i113 1
+Z14 o-work work -2002 -explicit
+Z15 tExplicit 1 CvgOpt 0
+Artl
+R1
+R2
+R3
+R4
+R5
+Z16 DEx4 work 12 cbuf_stimuli 0 22 ZRPe@h1z=E:UBNEW[8ToS1
+l31
+L27
+V=n=TdiaA6i0>58XiJVd;D1
+!s100 7=2]>F?RHjBJcG9jdoUzl1
+R9
+32
+R10
+!i10b 1
+R11
+R12
+R13
+!i113 1
+R14
+R15
+Pcbuf_tb_avs_pkg
+R3
+R4
+R5
+w1591725317
+R6
+8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_pkg.vhd
+FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_pkg.vhd
+l0
+L5
+VOFTXG_0:_e[z]Z=08bbWe2
+!s100 jSnn]Ua0z`Wm=nRN2K83U0
+R9
+32
+Z17 !s110 1591736830
+!i10b 1
+Z18 !s108 1591736830.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_pkg.vhd|
+!s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_pkg.vhd|
+!i113 1
+R14
+R15
+Ecbuf_tb_avs_read_ent
+Z19 w1591745866
+Z20 DPx4 work 15 cbuf_tb_avs_pkg 0 22 OFTXG_0:_e[z]Z=08bbWe2
+R3
+R4
+R5
+R6
+Z21 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_read_ent.vhd
+Z22 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_read_ent.vhd
+l0
+L7
+VG]jdT3<@IhOa`8Q`khZEC3
+!s100 n=e7W]PIkH8jP>EEaf5=43
+R9
+32
+Z23 !s110 1591745872
+!i10b 1
+Z24 !s108 1591745872.000000
+Z25 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_read_ent.vhd|
+Z26 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_read_ent.vhd|
+!i113 1
+R14
+R15
+Artl
+R20
+R3
+R4
+R5
+Z27 DEx4 work 20 cbuf_tb_avs_read_ent 0 22 G]jdT3<@IhOa`8Q`khZEC3
+l19
+L17
+VWnHQZMBV4F]1CH2M^Zmlz3
+!s100 6P<D7^LV`Q[lKdN8UcfVi2
+R9
+32
+R23
+!i10b 1
+R24
+R25
+R26
+!i113 1
+R14
+R15
+Ecbuf_tb_avs_write_ent
+Z28 w1591745863
+R20
+R3
+R4
+R5
+R6
+Z29 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_write_ent.vhd
+Z30 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_write_ent.vhd
+l0
+L7
+VHbN;V29ejhh8dGXQLC:c52
+!s100 >51FK50MHf2FKK`:fO[Xl0
+R9
+32
+R23
+!i10b 1
+R24
+Z31 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_write_ent.vhd|
+Z32 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/cbuf_tb_avs_write_ent.vhd|
+!i113 1
+R14
+R15
+Artl
+R20
+R3
+R4
+R5
+Z33 DEx4 work 21 cbuf_tb_avs_write_ent 0 22 HbN;V29ejhh8dGXQLC:c52
+l21
+L17
+V_g]hfaPMc1[a[CHFQKZP80
+!s100 >6o`Y@flFz;KU2H2SlL?U1
+R9
+32
+R23
+!i10b 1
+R24
+R31
+R32
+!i113 1
+R14
+R15
+Pcomm_avm_cbuf_pkg
+R3
+R4
+R5
+Z34 w1591722224
+R6
+Z35 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_pkg.vhd
+Z36 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_pkg.vhd
+l0
+L5
+Vb[0YHL[[>C=jbhYJhUdYP1
+!s100 zRPHdk67;_=Vc^onKCcR<2
+R9
+32
+Z37 !s110 1591736829
+!i10b 1
+Z38 !s108 1591736829.000000
+Z39 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_pkg.vhd|
+Z40 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_pkg.vhd|
+!i113 1
+R14
+R15
+Bbody
+R2
+R3
+R4
+R5
+l0
+L101
+V_NW]2]9OoQ]oRaKJC]AFA2
+!s100 >1gXg>Y6eLf``99T17Un60
+R9
+32
+R37
+!i10b 1
+R38
+R39
+R40
+!i113 1
+R14
+R15
+Ecomm_avm_cbuf_reader_controller_ent
+Z41 w1591746387
+R1
+R2
+R3
+R4
+R5
+R6
+Z42 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_reader_controller_ent.vhd
+Z43 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_reader_controller_ent.vhd
+l0
+L8
+VI]ml9bX>z0QP_5dkPjUR50
+!s100 aadXEmMhTMH6c;Y892KGX0
+R9
+32
+Z44 !s110 1591746393
+!i10b 1
+Z45 !s108 1591746393.000000
+Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_reader_controller_ent.vhd|
+Z47 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_reader_controller_ent.vhd|
+!i113 1
+R14
+R15
+Artl
+R1
+R2
+R3
+R4
+R5
+Z48 DEx4 work 35 comm_avm_cbuf_reader_controller_ent 0 22 I]ml9bX>z0QP_5dkPjUR50
+l32
+L20
+VI_FJXm_95Z1_zP7DRa3cm1
+!s100 :mK_jNeYZEkTlCCbkbZ[93
+R9
+32
+R44
+!i10b 1
+R45
+R46
+R47
+!i113 1
+R14
+R15
+Ecomm_avm_cbuf_reader_ent
+Z49 w1590323134
+R2
+R3
+R4
+R5
+R6
+Z50 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_reader_ent.vhd
+Z51 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_reader_ent.vhd
+l0
+L7
+VTl<82DQSaBf2l@Y25:HBN0
+!s100 WAcV?_[`B7Ac`O60kcC>C1
+R9
+32
+R37
+!i10b 1
+R38
+Z52 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_reader_ent.vhd|
+Z53 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_reader_ent.vhd|
+!i113 1
+R14
+R15
+Artl
+R2
+R3
+R4
+R5
+Z54 DEx4 work 24 comm_avm_cbuf_reader_ent 0 22 Tl<82DQSaBf2l@Y25:HBN0
+l31
+L18
+Vbg@EBP5TcgoO6ldDUgPHR2
+!s100 fANeCWee^GMD^OAW:7XP^2
+R9
+32
+R37
+!i10b 1
+R38
+R52
+R53
+!i113 1
+R14
+R15
+Ecomm_avm_cbuf_writer_controller_ent
+Z55 w1591745706
+R1
+R2
+R3
+R4
+R5
+R6
+Z56 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_writer_controller_ent.vhd
+Z57 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_writer_controller_ent.vhd
+l0
+L8
+VNhh;K^2EI::M`KWfR[6Gc0
+!s100 ?Sdb3IIoY35AWGX1N7G8T0
+R9
+32
+Z58 !s110 1591745715
+!i10b 1
+Z59 !s108 1591745715.000000
+Z60 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_writer_controller_ent.vhd|
+Z61 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMMI_AMV_CBUF_CONTROLLER/comm_avm_cbuf_writer_controller_ent.vhd|
+!i113 1
+R14
+R15
+Artl
+R1
+R2
+R3
+R4
+R5
+Z62 DEx4 work 35 comm_avm_cbuf_writer_controller_ent 0 22 Nhh;K^2EI::M`KWfR[6Gc0
+l32
+L20
+Vali>Eg2zo7C=d1=zMd3im2
+!s100 1aN]`=g;nD>MS[XP7LHFa2
+R9
+32
+R58
+!i10b 1
+R59
+R60
+R61
+!i113 1
+R14
+R15
+Ecomm_avm_cbuf_writer_ent
+Z63 w1590323133
+R2
+R3
+R4
+R5
+R6
+Z64 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_writer_ent.vhd
+Z65 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_writer_ent.vhd
+l0
+L7
+VCG7KiE38OQ:F>8bHfQPQM0
+!s100 k=[OcUHl7DJ<XX<d4DN[k2
+R9
+32
+R17
+!i10b 1
+R18
+Z66 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_writer_ent.vhd|
+Z67 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/COMM_AVALON_MM_MASTER_CBUF/comm_avm_cbuf_writer_ent.vhd|
+!i113 1
+R14
+R15
+Artl
+R2
+R3
+R4
+R5
+Z68 DEx4 work 24 comm_avm_cbuf_writer_ent 0 22 CG7KiE38OQ:F>8bHfQPQM0
+l31
+L18
+VIU8haLzJF<?T8f[Je:X263
+!s100 mMHO3:S=`m]SfRoL:RPL03
+R9
+32
+R17
+!i10b 1
+R18
+R66
+R67
+!i113 1
+R14
+R15
+Pcomm_cbuf_pkg
+R2
+R3
+R4
+R5
+Z69 w1590368009
+R6
+Z70 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_pkg.vhd
+Z71 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_pkg.vhd
+l0
+L7
+VfEMIaGz08TS[J>fmb2YMl0
+!s100 b3mzX_c40RdAL`3cH4jz33
+R9
+32
+R37
+!i10b 1
+R38
+Z72 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_pkg.vhd|
+Z73 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_pkg.vhd|
+!i113 1
+R14
+R15
+Bbody
+R1
+R2
+R3
+R4
+R5
+l0
+L72
+VcTzLzIN8F47?AJKT0O;M53
+!s100 GELXn=?YZ2?gMGT?FV`fL3
+R9
+32
+R37
+!i10b 1
+R38
+R72
+R73
+!i113 1
+R14
+R15
+Ecomm_cbuf_top
+Z74 w1591757418
+R1
+R2
+R3
+R4
+R5
+R6
+Z75 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_top.vhd
+Z76 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_top.vhd
+l0
+L8
+Vo0Fd9cgeh=JlQ`NThEAmm1
+!s100 fg:L[NP^B0>OF7>;SfP1=3
+R9
+32
+Z77 !s110 1591757453
+!i10b 1
+Z78 !s108 1591757453.000000
+Z79 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_top.vhd|
+Z80 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/COMM_CIRCULAR_BUFFER/comm_cbuf_top.vhd|
+!i113 1
+R14
+R15
+Artl
+R68
+R54
+R62
+R48
+R1
+R2
+R3
+R4
+R5
+Z81 DEx4 work 13 comm_cbuf_top 0 22 o0Fd9cgeh=JlQ`NThEAmm1
+l50
+L31
+V1C]AW8<imRl`^9A:U4hnS2
+!s100 5zn@N8fm1SoIP;TN8:g_S2
+R9
+32
+R77
+!i10b 1
+R78
+R79
+R80
+!i113 1
+R14
+R15
+Etestbench_top
+Z82 w1591725058
+R1
+R2
+R20
+R3
+R4
+R5
+R6
+Z83 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/testbench_top.vhd
+Z84 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/testbench_top.vhd
+l0
+L9
+VOMdaSM^GE=FI;:;@z7]731
+!s100 5b_2mlnc;7kYcOMDcj<P61
+R9
+32
+Z85 !s110 1591736831
+!i10b 1
+Z86 !s108 1591736831.000000
+Z87 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/testbench_top.vhd|
+Z88 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/AVM_Circular_Buffer/Development/Testbench/testbench_top.vhd|
+!i113 1
+R14
+R15
+Artl
+R33
+R27
+R81
+R16
+R1
+R2
+R20
+R3
+R4
+R5
+DEx4 work 13 testbench_top 0 22 OMdaSM^GE=FI;:;@z7]731
+l41
+L12
+VBdz^do^=]P`Zj7kgA3kN81
+!s100 BzLIbSkkYIDP6E2A;Z=ZQ2
+R9
+32
+R85
+!i10b 1
+R86
+R87
+R88
+!i113 1
+R14
+R15
