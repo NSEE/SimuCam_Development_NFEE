@@ -117,6 +117,23 @@ typedef struct FeeControl{
 
 } TFeeControl;
 
+typedef struct RmapChanges{
+    bool 	bvStartvEnd;
+    bool 	bReadoutOrder;
+    bool 	bhEnd;
+    bool 	bPacketSize;
+    bool 	bSyncSenSelDigitase;
+} TRmapChanges;
+
+typedef struct RmapCopy{
+	TRmapChanges	xbRmapChanges;
+    TFEEMemoryMap 	xCopyMemMap;          	/* Memory map of the NFEE */
+    TFeeControl   	xCopyControl;         	/* Operation Control of the NFEE */
+    alt_u16 	  	usiCopyPacketLength; 	/* Data Packet Packet Length */
+	bool 		  	bCopyDigitaliseEn; 			/* FEE Digitalise Enable */
+	bool 			bCopyReadoutEn; 			/* FEE Readout Enable */
+} TRmapCopy;
+
 typedef struct NFee {
     unsigned char ucId;             /* ID of the NFEE instance */
     unsigned char ucSPWId;             /* ID of the SPW instance For This NFEE Instance */
@@ -124,6 +141,7 @@ typedef struct NFee {
     TFeeControl   xControl;         /* Operation Control of the NFEE */
     TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */
     TCommChannel xChannel;
+    TRmapCopy	 xCopyRmap;
 } TNFee;
 
 typedef struct FEETransmission{

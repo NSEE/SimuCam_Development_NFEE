@@ -79,6 +79,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
+void vApplyRmap( TNFee *pxNFeeP );
 
 
 

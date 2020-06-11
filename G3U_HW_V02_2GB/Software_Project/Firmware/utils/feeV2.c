@@ -105,6 +105,21 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.xTrap.usiNofSyncstoWait = 0;
     pxNfeeL->xControl.xTrap.ucICountSyncs = 0;
 
+    /* Just Initial Values */
+    pxNfeeL->xCopyRmap.xCopyControl = pxNfeeL->xControl;
+    pxNfeeL->xCopyRmap.xCopyMemMap = pxNfeeL->xMemMap;
+    pxNfeeL->xCopyRmap.usiCopyPacketLength = pxNfeeL->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength;
+    pxNfeeL->xCopyRmap.bCopyDigitaliseEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
+    pxNfeeL->xCopyRmap.bCopyReadoutEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
+
+    pxNfeeL->xCopyRmap.xbRmapChanges.bPacketSize = false;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bReadoutOrder = false;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = false;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bhEnd = false;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bvStartvEnd = false;
+
+
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */
