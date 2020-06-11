@@ -430,6 +430,12 @@ begin
 							else
 								-- ccd not ended, update row counter
 								s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
+								-- check if the last line to be transmitted was reached
+								if (s_ccd_row_cnt = fee_ccd_v_end_i) then
+									-- last line to be transmitted was reached
+									-- write img end flag
+									s_masking_fifo.data_imgend <= '1';
+								end if;
 							end if;
 						else
 							-- middle of a line, update column counter
