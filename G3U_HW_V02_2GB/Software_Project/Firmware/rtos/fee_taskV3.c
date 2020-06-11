@@ -5255,6 +5255,7 @@ void vSync400Update( TNFee *pxNFeeP ) {
 		pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = xSync400RMAP.xReg_0_400RMAP.usiVStart;
 		pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = xSync400RMAP.xReg_0_400RMAP.usiVEnd;
 		bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+		xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0    = false;
 	}
 	
 	if (xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 == true) { // reg_2_config -> ccd_readout_order[7:0]
@@ -5262,6 +5263,7 @@ void vSync400Update( TNFee *pxNFeeP ) {
 		pxNFeeP->xControl.ucROutOrder[1] = xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd;
 		pxNFeeP->xControl.ucROutOrder[2] = xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd;
 		pxNFeeP->xControl.ucROutOrder[3] = xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd;
+		xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2    = false;
 	}
 
 	if (xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5 == true) { // reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
