@@ -624,6 +624,8 @@ void vFeeTaskV3(void *task_data) {
 							/*Reset Fee Buffer every Master Sync*/
 							if ( xGlobal.bPreMaster == TRUE ) {
 
+
+
 								bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 								pxNFee->xControl.xTrap.usiSH = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
 								// *20 ns (time unit from RAMP map config sheet)
@@ -669,6 +671,8 @@ void vFeeTaskV3(void *task_data) {
 								pxNFee->xControl.xTrap.bPumping = TRUE;
 								pxNFee->xControl.eState = redoutWaitBeforeSyncSignal;
 
+								vApplyRmap(pxNFee);
+
 								/* Stop the module Double Buffer */
 								bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
 								/* Clear all buffer form the Double Buffer */
@@ -689,6 +693,8 @@ void vFeeTaskV3(void *task_data) {
 
 					/*Reset Fee Buffer every Master Sync*/
 					if ( xGlobal.bPreMaster == TRUE ) {
+						vApplyRmap(pxNFee);
+
 						/* Stop the module Double Buffer */
 						bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
 						/* Clear all buffer form the Double Buffer */
@@ -2199,6 +2205,8 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_BEFORE_MASTER:
+				vApplyRmap(pxNFeeP);
+				break;
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
 				break;
@@ -2341,6 +2349,8 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_BEFORE_MASTER:
+				vApplyRmap(pxNFeeP);
+
 				if ( pxNFeeP->xControl.eNextMode == pxNFeeP->xControl.eLastMode )
 					pxNFeeP->xControl.eState = redoutCycle_Out; /*Is time to start the preparation of the double buffer in order to transmit data just after sync arrives*/
 				else
@@ -3350,6 +3360,8 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3491,12 +3503,10 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -3506,26 +3516,28 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			break;
 		case 0x0C:// reg_3_config
-			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
+
+			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 			//todo: Tiago sync_sel[0] not implemented yet
-			/*Enable IRQ of FEE Buffer*/
-			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
+
+			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -3556,6 +3568,8 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3704,12 +3718,10 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
 		case 0x04:// reg_1_config
@@ -3720,31 +3732,29 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
-			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
-
+			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
-
 			//todo: Tiago sync_sel[0] not implemented yet
+			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
-			/*Enable IRQ of FEE Buffer*/
-			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -3775,6 +3785,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3926,12 +3938,10 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
 		case 0x04:// reg_1_config
@@ -3942,31 +3952,28 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			break;
 		case 0x0C:// reg_3_config
-			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
-
+			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
-
 			//todo: Tiago sync_sel[0] not implemented yet
+			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
-			/*Enable IRQ of FEE Buffer*/
-			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -3997,6 +4004,8 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4157,12 +4166,10 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -4172,31 +4179,29 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
-			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
-
+			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
-
 			//todo: Tiago sync_sel[0] not implemented yet
+			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
-			/*Enable IRQ of FEE Buffer*/
-			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4227,6 +4232,8 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4335,12 +4342,10 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
 		case 0x04:// reg_1_config
@@ -4351,31 +4356,29 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
-			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
-
+			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
-
 			//todo: Tiago sync_sel[0] not implemented yet
+			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
-			/*Enable IRQ of FEE Buffer*/
-			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4406,6 +4409,8 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4554,12 +4559,10 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
 		case 0x04:// reg_1_config
@@ -4570,31 +4573,29 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			break;
 		case 0x0C:// reg_3_config
-			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
-
+			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 
 			//todo: Tiago sync_sel[0] not implemented yet
+			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
-			/*Enable IRQ of FEE Buffer*/
-			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4625,6 +4626,8 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4775,12 +4778,10 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
 		case 0x04:// reg_1_config
@@ -4791,31 +4792,30 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
+
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
-			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
-			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
-
+			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 
 			//todo: Tiago sync_sel[0] not implemented yet
+			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
-			/*Enable IRQ of FEE Buffer*/
-			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4846,6 +4846,8 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
+			/*For consistency*/
+			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
