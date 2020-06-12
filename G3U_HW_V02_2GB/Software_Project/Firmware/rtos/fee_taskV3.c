@@ -59,6 +59,11 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
+				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFee->xMemMap.xCommon.ulHEnd;
+				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFee->xMemMap.xCommon.ulVStart;
+				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFee->xMemMap.xCommon.ulVEnd;
+
+
 				bFeebGetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 				//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
@@ -66,6 +71,9 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = TRUE;
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
+
+				pxNFee->xCopyRmap.bCopyDigitaliseEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
+				pxNFee->xCopyRmap.bCopyReadoutEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
 
 				/* Clear all FEE Machine Statistics */
 				bFeebClearMachineStatistics(&pxNFee->xChannel.xFeeBuffer);
@@ -671,7 +679,6 @@ void vFeeTaskV3(void *task_data) {
 								pxNFee->xControl.xTrap.bPumping = TRUE;
 								pxNFee->xControl.eState = redoutWaitBeforeSyncSignal;
 
-								vApplyRmap(pxNFee);
 
 								/* Stop the module Double Buffer */
 								bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
@@ -693,8 +700,6 @@ void vFeeTaskV3(void *task_data) {
 
 					/*Reset Fee Buffer every Master Sync*/
 					if ( xGlobal.bPreMaster == TRUE ) {
-						vApplyRmap(pxNFee);
-
 						/* Stop the module Double Buffer */
 						bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
 						/* Clear all buffer form the Double Buffer */
@@ -712,6 +717,8 @@ void vFeeTaskV3(void *task_data) {
 
 				/*If is master sync, check if need to configure error*/
 				if ( xGlobal.bPreMaster == TRUE ) {
+					vApplyRmap(pxNFee);
+
 					/*Check if this FEE is in Full*/
 					if ( (pxNFee->xControl.eMode == sFullPattern) || (pxNFee->xControl.eMode == sFullImage)) {
 						/*Check if there is any type of error enabled*/
@@ -726,9 +733,6 @@ void vFeeTaskV3(void *task_data) {
 						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
 						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
 						bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
-
-
-
 					}
 				}
 
@@ -1221,6 +1225,8 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 
 			case M_BEFORE_MASTER:
+				vApplyRmap(pxNFeeP);
+				break;
 			case M_BEFORE_SYNC:
 				/*Do nothing*/
 				break;
@@ -2450,6 +2456,8 @@ void vInitialConfig_DpktPacket( TNFee *pxNFeeP ) {
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
 	bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+	pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength;
 }
 
 /* Initializing the the values of the HK memory area, only during dev*/
@@ -3181,12 +3189,12 @@ bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh ) {
 	bFeebStartCh(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
-	bFeebGetMachineControl(pxFeebCh);
+	//bFeebGetMachineControl(pxFeebCh);
 	//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
-	pxFeebCh->xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
-	pxFeebCh->xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-	pxFeebCh->xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-	bFeebSetMachineControl(pxFeebCh);
+	//pxFeebCh->xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
+	//pxFeebCh->xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+	//pxFeebCh->xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
+	//bFeebSetMachineControl(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
@@ -3360,8 +3368,6 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3568,8 +3574,6 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -3785,8 +3789,6 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4004,8 +4006,6 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4232,8 +4232,6 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4409,8 +4407,6 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4626,8 +4622,6 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/
@@ -4846,8 +4840,6 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
-			/*For consistency*/
-			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
 				case eRmapModeOn: /*Mode On*/

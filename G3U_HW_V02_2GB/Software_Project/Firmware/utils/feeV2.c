@@ -112,11 +112,11 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xCopyRmap.bCopyDigitaliseEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
     pxNfeeL->xCopyRmap.bCopyReadoutEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
 
-    pxNfeeL->xCopyRmap.xbRmapChanges.bPacketSize = false;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bReadoutOrder = false;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = false;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bhEnd = false;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bvStartvEnd = false;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bPacketSize = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bReadoutOrder = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bhEnd = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bvStartvEnd = FALSE;
 
 
 

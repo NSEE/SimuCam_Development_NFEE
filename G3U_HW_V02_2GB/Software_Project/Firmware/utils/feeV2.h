@@ -118,20 +118,20 @@ typedef struct FeeControl{
 } TFeeControl;
 
 typedef struct RmapChanges{
-    bool 	bvStartvEnd;
-    bool 	bReadoutOrder;
-    bool 	bhEnd;
-    bool 	bPacketSize;
-    bool 	bSyncSenSelDigitase;
+    volatile bool 	bvStartvEnd;
+    volatile bool 	bReadoutOrder;
+    volatile bool 	bhEnd;
+    volatile bool 	bPacketSize;
+    volatile bool 	bSyncSenSelDigitase;
 } TRmapChanges;
 
 typedef struct RmapCopy{
-	TRmapChanges	xbRmapChanges;
-    TFEEMemoryMap 	xCopyMemMap;          	/* Memory map of the NFEE */
-    TFeeControl   	xCopyControl;         	/* Operation Control of the NFEE */
-    alt_u16 	  	usiCopyPacketLength; 	/* Data Packet Packet Length */
-	bool 		  	bCopyDigitaliseEn; 			/* FEE Digitalise Enable */
-	bool 			bCopyReadoutEn; 			/* FEE Readout Enable */
+	volatile TRmapChanges	xbRmapChanges;
+	volatile TFEEMemoryMap 	xCopyMemMap;          	/* Memory map of the NFEE */
+    volatile TFeeControl   	xCopyControl;         	/* Operation Control of the NFEE */
+    volatile alt_u16 	  	usiCopyPacketLength; 	/* Data Packet Packet Length */
+    volatile bool 		  	bCopyDigitaliseEn; 			/* FEE Digitalise Enable */
+	volatile bool 			bCopyReadoutEn; 			/* FEE Readout Enable */
 } TRmapCopy;
 
 typedef struct NFee {
