@@ -108,15 +108,15 @@ begin
 			-- Data Packet Config Register : Data Packet CCD X Size
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_x_size                          <= std_logic_vector(to_unsigned(2295, 16));
 			-- Data Packet Config Register : Data Packet CCD Y Size
-			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_y_size                          <= std_logic_vector(to_unsigned(4540, 16));
+			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_y_size                          <= std_logic_vector(to_unsigned(4560, 16));
 			-- Data Packet Config Register : Data Packet Data Y Size
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_data_y_size                         <= std_logic_vector(to_unsigned(4510, 16));
 			-- Data Packet Config Register : Data Packet Overscan Y Size
-			spacewire_write_registers_o.data_packet_config_reg.data_pkt_overscan_y_size                     <= std_logic_vector(to_unsigned(30, 16));
+			spacewire_write_registers_o.data_packet_config_reg.data_pkt_overscan_y_size                     <= std_logic_vector(to_unsigned(50, 16));
 			-- Data Packet Config Register : Data Packet CCD V-Start
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_start                         <= std_logic_vector(to_unsigned(0, 16));
 			-- Data Packet Config Register : Data Packet CCD V-End
-			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_end                           <= std_logic_vector(to_unsigned(4540, 16));
+			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_end                           <= std_logic_vector(to_unsigned(4539, 16));
 			-- Data Packet Config Register : Data Packet Packet Length
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length                       <= std_logic_vector(to_unsigned(32768, 16));
 			-- Data Packet Config Register : Data Packet Logical Address

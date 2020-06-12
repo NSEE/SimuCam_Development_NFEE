@@ -1,6 +1,73 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/comm_v1_80_testbench.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/COM_Module_v1_8/Development/Testbench/comm_v1_80_testbench.mpf
 # Loading project comm_v1_80_testbench
+# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
+# Compile of windowing_dataset_pkg.vhd was successful.
+# Compile of avalon_mm_windowing_pkg.vhd was successful.
+# Compile of avalon_mm_windowing_write_ent.vhd was successful.
+# Compile of windowing_data_sc_fifo.vhd was successful.
+# Compile of windowing_mask_sc_fifo.vhd was successful.
+# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
+# Compile of windowing_fifo_pkg.vhd was successful.
+# Compile of windowing_data_fifo_ent.vhd was successful.
+# Compile of windowing_mask_fifo_ent.vhd was successful.
+# Compile of windowing_buffer_ent.vhd was successful.
+# Compile of spwpkg.vhd was successful.
+# Compile of syncdff.vhd was successful.
+# Compile of spwram.vhd was successful.
+# Compile of spwrecv.vhd was successful.
+# Compile of streamtest.vhd was successful.
+# Compile of spwxmit.vhd was successful.
+# Compile of spwstream.vhd was successful.
+# Compile of spwrecvfront_generic.vhd was successful.
+# Compile of spwrecvfront_fast.vhd was successful.
+# Compile of spwlink.vhd was successful.
+# Compile of spwxmit_fast.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_codec.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of spw_data_dc_fifo.vhd was successful.
+# Compile of spw_timecode_dc_fifo.vhd was successful.
+# Compile of spw_clk_synchronization_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_sc_fifo.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of data_packet_data_writer_ent.vhd failed with 8 errors.
+# Compile of send_buffer_0_sc_fifo.vhd was successful.
+# Compile of send_buffer_1_sc_fifo.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of send_buffer_ent.vhd was successful.
+# Compile of data_transmitter_ent.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_imgdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_imgdata_controller_top.vhd failed with 2 errors.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of fee_data_controller_top.vhd was successful.
+# Compile of comm_v1_80_top.vhd was successful.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of avalon_buffer_L_stimuli.vhd was successful.
+# Compile of avalon_buffer_R_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 63 compiles, 2 failed with 10 errors.
+# Compile of data_packet_data_writer_ent.vhd was successful.
+# Compile of fee_imgdata_controller_top.vhd was successful.
+# 2 compiles, 0 failed with no errors.
 # Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_read_ent.vhd was successful.
@@ -65,14 +132,9 @@
 # Compile of avalon_buffer_R_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 63 compiles, 0 failed with no errors.
-# Compile of fee_data_controller_top.vhd was successful.
-# Compile of comm_v1_80_top.vhd was successful.
-# 2 compiles, 0 failed with no errors.
-# Compile of comm_v1_80_top.vhd was successful.
-# Compile of comm_v1_80_top.vhd was successful.
 vsim work.testbench_top
 # vsim work.testbench_top 
-# Start time: 03:57:50 on May 22,2020
+# Start time: 23:54:57 on Jun 08,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -138,159 +200,51 @@ vsim work.testbench_top
 # Loading work.spwrecvfront_generic(spwrecvfront_arch)
 # Loading work.spwram(spwram_arch)
 # Loading work.delay_block_ent(rtl)
-# ** Warning: Design size of 20838 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 21071 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
-add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/*
+add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/masking_machine_ent_inst/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: rfranca  Hostname: ASPIREV15-NBERF  ProcessID: 19880
-#           Attempting to use alternate WLF file "./wlftc81jgy".
+#           Attempting to use alternate WLF file "./wlfte77vcv".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftc81jgy
-add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/masking_machine_ent_inst/*
-add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/masking_machine_ent_inst/delay_machine_ent_inst/*
-# Compile of config_avalon_stimuli.vhd was successful.
+#           Using alternate file: ./wlfte77vcv
 restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13429 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
 run
-# Compile of config_avalon_stimuli.vhd was successful.
+add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/send_buffer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/data_transmitter_ent_inst/*
 restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13434 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-add wave -position insertpoint sim:/testbench_top/comm_v1_01_top_inst/fee_data_controller_top_inst/*
-# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
-restart
-# Loading work.avalon_mm_spacewire_write_ent(rtl)
-# ** Warning: Design size of 14293 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
 run
 # Compile of config_avalon_stimuli.vhd failed with 2 errors.
-# Compile of config_avalon_stimuli.vhd was successful with warnings.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13444 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Fatal: (vsim-3420) Array lengths do not match. Left is 4 (3 downto 0). Right is 5 (4 downto 0).
-#    Time: 6102500 ps  Iteration: 0  Process: /testbench_top/config_avalon_stimuli_inst/p_config_avalon_stimuli File: D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/config_avalon_stimuli.vhd
-# Fatal error in Process p_config_avalon_stimuli at D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/config_avalon_stimuli.vhd line 157
-# 
-# HDL call sequence:
-# Stopped at D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/config_avalon_stimuli.vhd 157 Process p_config_avalon_stimuli
-# 
 # Compile of config_avalon_stimuli.vhd was successful.
 restart
 # Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13444 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 13619 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # Compile of config_avalon_stimuli.vhd was successful.
 restart
 # Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13444 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 13619 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
+run
+run
+# Compile of data_packet_data_writer_ent.vhd was successful.
+restart
+# Loading work.data_packet_data_writer_ent(rtl)
+# ** Warning: Design size of 13664 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
 run
 # Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13444 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# Compile of delay_machine_ent.vhd was successful.
-# Compile of masking_machine_ent.vhd was successful.
+# Compile of testbench_top.vhd was successful.
 # 2 compiles, 0 failed with no errors.
 restart
-# Loading work.masking_machine_ent(rtl)
-# Loading work.delay_machine_ent(rtl)
-# ** Warning: Design size of 13689 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
+# Loading work.testbench_top(rtl)
 # Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13444 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13444 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# Compile of config_avalon_stimuli.vhd was successful.
-restart
-# Loading work.config_avalon_stimuli(rtl)
-# ** Warning: Design size of 13444 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 13671 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 run
-run
-# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
-# Compile of avalon_mm_spacewire_pkg.vhd was successful.
-# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
-# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
-# Compile of windowing_dataset_pkg.vhd was successful.
-# Compile of avalon_mm_windowing_pkg.vhd was successful.
-# Compile of avalon_mm_windowing_write_ent.vhd was successful.
-# Compile of windowing_data_sc_fifo.vhd was successful.
-# Compile of windowing_mask_sc_fifo.vhd was successful.
-# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
-# Compile of windowing_fifo_pkg.vhd was successful.
-# Compile of windowing_data_fifo_ent.vhd was successful.
-# Compile of windowing_mask_fifo_ent.vhd was successful.
-# Compile of windowing_buffer_ent.vhd was successful.
-# Compile of spwpkg.vhd was successful.
-# Compile of syncdff.vhd was successful.
-# Compile of spwram.vhd was successful.
-# Compile of spwrecv.vhd was successful.
-# Compile of streamtest.vhd was successful.
-# Compile of spwxmit.vhd was successful.
-# Compile of spwstream.vhd was successful.
-# Compile of spwrecvfront_generic.vhd was successful.
-# Compile of spwrecvfront_fast.vhd was successful.
-# Compile of spwlink.vhd was successful.
-# Compile of spwxmit_fast.vhd was successful.
-# Compile of spw_codec_pkg.vhd was successful.
-# Compile of spw_codec.vhd was successful.
-# Compile of spw_mux_ent.vhd was successful.
-# Compile of spw_data_dc_fifo.vhd was successful.
-# Compile of spw_timecode_dc_fifo.vhd was successful.
-# Compile of spw_clk_synchronization_ent.vhd was successful.
-# Compile of rmap_target_crc_pkg.vhd was successful.
-# Compile of rmap_target_pkg.vhd was successful.
-# Compile of rmap_target_command_ent.vhd was successful.
-# Compile of rmap_target_read_ent.vhd was successful.
-# Compile of rmap_target_reply_ent.vhd was successful.
-# Compile of rmap_target_write_ent.vhd was successful.
-# Compile of rmap_target_user_ent.vhd was successful.
-# Compile of rmap_target_top.vhd was successful.
-# Compile of fee_data_controller_pkg.vhd was successful.
-# Compile of delay_machine_ent.vhd was successful.
-# Compile of masking_machine_sc_fifo.vhd was successful.
-# Compile of masking_machine_ent.vhd was successful.
-# Compile of data_packet_header_gen_ent.vhd was successful.
-# Compile of data_packet_hk_writer_ent.vhd was successful.
-# Compile of data_packet_data_writer_ent.vhd was successful.
-# Compile of send_buffer_0_sc_fifo.vhd was successful.
-# Compile of send_buffer_1_sc_fifo.vhd was successful.
-# Compile of send_buffer_sc_1k_fifo.vhd was successful.
-# Compile of send_buffer_ent.vhd was successful.
-# Compile of data_transmitter_ent.vhd was successful.
-# Compile of error_injection_ent.vhd was successful.
-# Compile of fee_hkdata_manager_ent.vhd was successful.
-# Compile of fee_imgdata_manager_ent.vhd was successful.
-# Compile of fee_hkdata_controller_top.vhd was successful.
-# Compile of fee_imgdata_controller_top.vhd was successful.
-# Compile of fee_data_manager_ent.vhd was successful.
-# Compile of fee_data_controller_top.vhd was successful.
-# Compile of comm_v1_80_top.vhd was successful.
-# Compile of config_avalon_stimuli.vhd was successful.
-# Compile of avalon_buffer_L_stimuli.vhd was successful.
-# Compile of avalon_buffer_R_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 63 compiles, 0 failed with no errors.
-# End time: 04:36:05 on May 22,2020, Elapsed time: 0:38:15
-# Errors: 2, Warnings: 14
+# End time: 00:36:46 on Jun 09,2020, Elapsed time: 0:41:49
+# Errors: 0, Warnings: 7

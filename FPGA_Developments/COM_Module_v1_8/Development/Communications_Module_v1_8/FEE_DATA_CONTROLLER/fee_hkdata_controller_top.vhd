@@ -161,6 +161,8 @@ begin
 			buffer_change_i              => hkdata_send_buffer_control_i.change,
 			data_type_wrdata_i           => s_send_buffer_data_type_wrdata,
 			data_type_wrreq_i            => s_send_buffer_data_type_wrreq,
+			data_end_wrdata_i            => '0',
+			data_end_wrreq_i             => '0',
 			buffer_stat_almost_empty_o   => open,
 			buffer_stat_almost_full_o    => open,
 			buffer_stat_empty_o          => hkdata_send_buffer_status_o.stat_empty,
@@ -170,6 +172,7 @@ begin
 			buffer_rdready_o             => hkdata_send_buffer_status_o.rdready,
 			buffer_wrready_o             => s_send_buffer_wrready,
 			data_type_rddata_o           => hkdata_send_buffer_data_type_o,
+			data_end_rddata_o            => open,
 			double_buffer_empty_o        => hkdata_send_double_buffer_empty_o,
 			double_buffer_wrable_o       => open
 		);

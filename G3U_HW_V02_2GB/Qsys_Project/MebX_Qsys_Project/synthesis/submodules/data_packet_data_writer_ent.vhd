@@ -18,7 +18,7 @@ entity data_packet_data_writer_ent is
 		data_wr_length_i               : in  std_logic_vector(15 downto 0);
 		masking_buffer_almost_empty_i  : in  std_logic;
 		masking_buffer_empty_i         : in  std_logic;
-		masking_buffer_rddata_i        : in  std_logic_vector(8 downto 0);
+		masking_buffer_rddata_i        : in  std_logic_vector(9 downto 0);
 		send_buffer_stat_almost_full_i : in  std_logic;
 		send_buffer_stat_full_i        : in  std_logic;
 		send_buffer_wrready_i          : in  std_logic;
@@ -27,7 +27,9 @@ entity data_packet_data_writer_ent is
 		data_wr_data_changed_o         : out std_logic;
 		masking_buffer_rdreq_o         : out std_logic;
 		send_buffer_wrdata_o           : out std_logic_vector(7 downto 0);
-		send_buffer_wrreq_o            : out std_logic
+		send_buffer_wrreq_o            : out std_logic;
+		send_buffer_data_end_wrdata_o  : out std_logic;
+		send_buffer_data_end_wrreq_o   : out std_logic
 	);
 end entity data_packet_data_writer_ent;
 
@@ -48,6 +50,12 @@ architecture RTL of data_packet_data_writer_ent is
 
 	signal s_overflow_send_buffer : std_logic;
 
+	signal s_first_write : std_logic;
+
+	alias a_masking_buffer_rddata_imgbyte is masking_buffer_rddata_i(7 downto 0);
+	alias a_masking_buffer_rddata_imgchange is masking_buffer_rddata_i(8);
+	alias a_masking_buffer_rddata_imgend is masking_buffer_rddata_i(9);
+
 begin
 
 	p_data_packet_data_writer_FSM_state : process(clk_i, rst_i)
@@ -59,6 +67,7 @@ begin
 			v_data_writer_state    := STOPPED;
 			s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 			s_overflow_send_buffer <= '0';
+			s_first_write          <= '0';
 			-- Outputs Generation
 			data_wr_busy_o         <= '0';
 			data_wr_finished_o     <= '0';
@@ -76,6 +85,7 @@ begin
 					v_data_writer_state    := STOPPED;
 					s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					s_overflow_send_buffer <= '0';
+					s_first_write          <= '0';
 					-- Outputs Generation
 					data_wr_busy_o         <= '0';
 					data_wr_finished_o     <= '0';
@@ -98,10 +108,13 @@ begin
 					-- default internal signal values
 					s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					s_overflow_send_buffer <= '0';
+					s_first_write          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if a data write was requested
 					if (data_wr_start_i = '1') then
 						-- data write requested
+						-- set the first write flag
+						s_first_write       <= '1';
 						-- set the data counter
 						s_data_cnt          <= std_logic_vector(unsigned(data_wr_length_i) - 1);
 						-- go to wating buffer space
@@ -163,9 +176,10 @@ begin
 					v_data_writer_state := WAITING_SEND_BUFFER_SPACE;
 					-- default internal signal values
 					s_data_cnt          <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
+					s_first_write       <= '0';
 					-- conditional state transition and internal signal values
 					-- check if all the data was written or if a change command was read
-					if ((s_data_cnt = std_logic_vector(to_unsigned(0, s_data_cnt'length))) or (masking_buffer_rddata_i(8) = '1')) then
+					if ((s_data_cnt = std_logic_vector(to_unsigned(0, s_data_cnt'length))) or (a_masking_buffer_rddata_imgchange = '1')) then
 						-- all data written or a change command was read
 						-- go to data writter finish
 						s_data_writer_state <= DATA_WRITER_FINISH;
@@ -184,6 +198,7 @@ begin
 					-- default internal signal values
 					s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					s_overflow_send_buffer <= '0';
+					s_first_write          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if a data writter reset was requested
 					if (data_wr_reset_i = '1') then
@@ -209,25 +224,29 @@ begin
 					-- does nothing until a data write is requested
 					-- reset outputs
 					-- default output signals
-					data_wr_busy_o         <= '0';
-					data_wr_finished_o     <= '0';
-					data_wr_data_changed_o <= '0';
-					masking_buffer_rdreq_o <= '0';
-					send_buffer_wrdata_o   <= x"00";
-					send_buffer_wrreq_o    <= '0';
+					data_wr_busy_o                <= '0';
+					data_wr_finished_o            <= '0';
+					data_wr_data_changed_o        <= '0';
+					masking_buffer_rdreq_o        <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_SEND_BUFFER_SPACE"
 				when WAITING_SEND_BUFFER_SPACE =>
 					-- wait until the send buffer have available space
 					-- default output signals
-					data_wr_busy_o         <= '1';
-					data_wr_finished_o     <= '0';
-					data_wr_data_changed_o <= '0';
-					masking_buffer_rdreq_o <= '0';
+					data_wr_busy_o                <= '1';
+					data_wr_finished_o            <= '0';
+					data_wr_data_changed_o        <= '0';
+					masking_buffer_rdreq_o        <= '0';
 					-- clear send buffer write signal
-					send_buffer_wrdata_o   <= x"00";
-					send_buffer_wrreq_o    <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- state "FETCH_DATA"
@@ -235,25 +254,29 @@ begin
 					-- fetch data from the masking buffer
 					-- reset outputs
 					-- default output signals
-					data_wr_busy_o         <= '1';
-					data_wr_finished_o     <= '0';
-					data_wr_data_changed_o <= '0';
+					data_wr_busy_o                <= '1';
+					data_wr_finished_o            <= '0';
+					data_wr_data_changed_o        <= '0';
 					-- fetch data from masking buffer
-					masking_buffer_rdreq_o <= '1';
-					send_buffer_wrdata_o   <= x"00";
-					send_buffer_wrreq_o    <= '0';
+					masking_buffer_rdreq_o        <= '1';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- state "DELAY"
 				when DELAY =>
 					-- default state transition
 					-- default output signals
-					data_wr_busy_o         <= '1';
-					data_wr_finished_o     <= '0';
+					data_wr_busy_o                <= '1';
+					data_wr_finished_o            <= '0';
 					-- fetch data from masking buffer
-					masking_buffer_rdreq_o <= '0';
-					send_buffer_wrdata_o   <= x"00";
-					send_buffer_wrreq_o    <= '0';
+					masking_buffer_rdreq_o        <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>
@@ -264,10 +287,25 @@ begin
 					data_wr_data_changed_o <= '0';
 					masking_buffer_rdreq_o <= '0';
 					-- fill send buffer data with masking data
-					send_buffer_wrdata_o   <= masking_buffer_rddata_i(7 downto 0);
+					send_buffer_wrdata_o   <= a_masking_buffer_rddata_imgbyte;
+					-- check if it is the first write
+					if (s_first_write = '1') then
+						-- it is the first write
+						-- need to clear the img end on the send buffer
+						send_buffer_data_end_wrreq_o  <= '1';
+						send_buffer_data_end_wrdata_o <= '0';
+					-- check if need to write a img end to the send buffer
+					elsif (a_masking_buffer_rddata_imgend = '1') then
+						-- need to write a img end to the send buffer
+						send_buffer_data_end_wrreq_o  <= '1';
+						send_buffer_data_end_wrdata_o <= '1';
+					else
+						send_buffer_data_end_wrreq_o  <= '0';
+						send_buffer_data_end_wrdata_o <= '0';
+					end if;
 					-- write the send buffer data
 					-- check if a change command was read or the send buffer is being overflow (no need to write)
-					if ((masking_buffer_rddata_i(8) = '1') or (s_overflow_send_buffer = '1')) then
+					if ((a_masking_buffer_rddata_imgchange = '1') or (s_overflow_send_buffer = '1')) then
 						send_buffer_wrreq_o <= '0';
 					else
 						send_buffer_wrreq_o <= '1';
@@ -279,20 +317,22 @@ begin
 				when DATA_WRITER_FINISH =>
 					-- finish data writer unit operation
 					-- default output signals
-					data_wr_busy_o         <= '1';
+					data_wr_busy_o                <= '1';
 					-- indicate that the data writer is finished
-					data_wr_finished_o     <= '1';
+					data_wr_finished_o            <= '1';
 					-- check if the finish was because of a change command
-					if (masking_buffer_rddata_i(8) = '1') then
+					if (a_masking_buffer_rddata_imgchange = '1') then
 						-- finish was because of a change command
 						data_wr_data_changed_o <= '1';
 					else
 						-- finish was not because of a change command
 						data_wr_data_changed_o <= '0';
 					end if;
-					masking_buffer_rdreq_o <= '0';
-					send_buffer_wrreq_o    <= '0';
-					send_buffer_wrdata_o   <= x"00";
+					masking_buffer_rdreq_o        <= '0';
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- all the other states (not defined)
