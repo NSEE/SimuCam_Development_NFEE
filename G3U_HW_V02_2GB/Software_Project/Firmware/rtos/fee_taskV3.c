@@ -1355,9 +1355,6 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 
 			case M_BEFORE_MASTER:
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_BEFORE_SYNC:
 				/*Do nothing*/
 				break;
@@ -1687,9 +1684,6 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPReadoutSync( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
 				break;
 			case M_BEFORE_MASTER:
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
 				break;
@@ -1786,9 +1780,6 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPWaitingSync( pxNFeeP, cmd );
 				break;
 			case M_BEFORE_MASTER:
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_BEFORE_SYNC:
 				/*Do nothing*/
 				break;
@@ -2015,11 +2006,6 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					}
 				}
-
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
-
 				break;
 
 			case M_BEFORE_SYNC:
@@ -2170,9 +2156,6 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					}
 				}
 
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 				break;
 			case M_BEFORE_SYNC:
 			case M_SYNC:
@@ -2263,9 +2246,6 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, uiCmdFEEL.ucByte[1], pxNFeeP->ucId);
 				break;
 			case M_BEFORE_SYNC:
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_SYNC:
 			case M_PRE_MASTER:
 			case M_MASTER_SYNC:
@@ -2283,9 +2263,6 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					}
-				}
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
 				}
 				break;
 
@@ -2413,9 +2390,6 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_BEFORE_MASTER:
-				if (M_BEFORE_MASTER == uiCmdFEEL.ucByte[2]) {
-					vSync400Update( pxNFeeP );
-				}
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
 				break;
@@ -3451,17 +3425,12 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -3471,15 +3440,10 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
@@ -3497,14 +3461,10 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			//todo: Tiago sync_sel[0] not implemented yet
 
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
-			/* Run RMAP only in Sync400 */
-			xSync400RMAP.xReg_5_400RMAP.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			xSync400RMAP.xReg_5_400RMAP.bReadoutEn    = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5    = true;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -3676,17 +3636,12 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -3696,15 +3651,10 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			break;
 		case 0x0C:// reg_3_config
 			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
@@ -3717,13 +3667,10 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 			//todo: Tiago sync_sel[0] not implemented yet
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
-			xSync400RMAP.xReg_5_400RMAP.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			xSync400RMAP.xReg_5_400RMAP.bReadoutEn    = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5    = true;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -3902,17 +3849,12 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -3922,15 +3864,10 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
@@ -3948,13 +3885,10 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			//todo: Tiago sync_sel[0] not implemented yet
 
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
-			xSync400RMAP.xReg_5_400RMAP.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			xSync400RMAP.xReg_5_400RMAP.bReadoutEn    = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5    = true;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4136,17 +4070,12 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -4156,15 +4085,10 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
@@ -4182,10 +4106,10 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			//todo: Tiago sync_sel[0] not implemented yet
 
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4376,17 +4300,12 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -4396,15 +4315,10 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
@@ -4422,13 +4336,10 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			//todo: Tiago sync_sel[0] not implemented yet
 
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
-			xSync400RMAP.xReg_5_400RMAP.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			xSync400RMAP.xReg_5_400RMAP.bReadoutEn    = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5    = true;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4567,17 +4478,12 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -4587,15 +4493,10 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
@@ -4613,10 +4514,10 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			//todo: Tiago sync_sel[0] not implemented yet
 
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -4795,17 +4696,12 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -4815,15 +4711,10 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
@@ -4841,10 +4732,10 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			//todo: Tiago sync_sel[0] not implemented yet
 
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -5025,17 +4916,12 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
-			/*
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-			*/
-			xSync400RMAP.xReg_0_400RMAP.usiVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-			xSync400RMAP.xReg_0_400RMAP.usiVEnd   = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-			xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 = true;
 			break;
 		case 0x04:// reg_1_config
 			#if DEBUG_ON
@@ -5045,15 +4931,10 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
-			/*pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
 			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
 			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;*/
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-			xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-			xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 = true;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
 		case 0x0C:// reg_3_config
@@ -5071,13 +4952,10 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			//todo: Tiago sync_sel[0] not implemented yet
 
 			/*Enable IRQ of FEE Buffer*/
-			/*bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);*/
-			xSync400RMAP.xReg_5_400RMAP.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-			xSync400RMAP.xReg_5_400RMAP.bReadoutEn    = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-			xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5    = true;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
 			break;
 		case 0x18:// reg_6_config
 		case 0x1C:// reg_7_config
@@ -5247,30 +5125,3 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
-void vSync400Update( TNFee *pxNFeeP ) {
-	if (xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0 == true) { // reg_0_config (v_start and v_end)
-		pxNFeeP->xMemMap.xCommon.ulVStart = xSync400RMAP.xReg_0_400RMAP.usiVStart;
-		pxNFeeP->xMemMap.xCommon.ulVEnd = xSync400RMAP.xReg_0_400RMAP.usiVEnd;
-		bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-		pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = xSync400RMAP.xReg_0_400RMAP.usiVStart;
-		pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = xSync400RMAP.xReg_0_400RMAP.usiVEnd;
-		bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-		xSync400RMAP.xReg_0_400RMAP.bRMAPreg_0    = false;
-	}
-	
-	if (xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2 == true) { // reg_2_config -> ccd_readout_order[7:0]
-		pxNFeeP->xControl.ucROutOrder[0] = xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder1stCcd;
-		pxNFeeP->xControl.ucROutOrder[1] = xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder2ndCcd;
-		pxNFeeP->xControl.ucROutOrder[2] = xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder3rdCcd;
-		pxNFeeP->xControl.ucROutOrder[3] = xSync400RMAP.xReg_2_400RMAP.ucCcdReadoutOrder4thCcd;
-		xSync400RMAP.xReg_2_400RMAP.bRMAPreg_2    = false;
-	}
-
-	if (xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5 == true) { // reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
-		bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-		pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = xSync400RMAP.xReg_5_400RMAP.bDigitaliseEn;
-		pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = xSync400RMAP.xReg_5_400RMAP.bReadoutEn;
-		bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
-		xSync400RMAP.xReg_5_400RMAP.bRMAPreg_5    = false;
-	}
-}

@@ -82,34 +82,4 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
 void vSync400Update( TNFee *pxNFeeP );
 
-unsigned long ulVStartTemp;
-
-typedef struct Reg_0_400RMAP {
-	alt_u16 usiVStart; /* V Start Config Field for Sync400*/
-	alt_u16 usiVEnd;   /* V End Config Field for Sync400*/
-	bool bRMAPreg_0;   /* Received reg_0 by RMMAP*/
-} TReg_0_400RMAP;
-
-typedef struct Reg_2_400RMAP {
-	alt_u8 ucCcdReadoutOrder1stCcd; /* CCD Readout Order Config Field (1st CCD)  for Sync400*/
-	alt_u8 ucCcdReadoutOrder2ndCcd; /* CCD Readout Order Config Field (2nd CCD)  for Sync400*/
-	alt_u8 ucCcdReadoutOrder3rdCcd; /* CCD Readout Order Config Field (3rd CCD)  for Sync400*/
-	alt_u8 ucCcdReadoutOrder4thCcd; /* CCD Readout Order Config Field (4th CCD)  for Sync400*/
-	bool bRMAPreg_2;   /* Received reg_0 by RMMAP*/
-} TReg_2_400RMAP;
-
-typedef struct Reg_5_400RMAP {
-	bool bDigitaliseEn; /* FEE Digitalise Enable for Sync400*/
-	bool bReadoutEn;    /* FEE Readout Enable for Sync400*/
-	bool bRMAPreg_5;    /* Received reg_5 by RMMAP*/
-} TReg_5_400RMAP;
-
-typedef struct Sync400RMAP {
-	TReg_0_400RMAP xReg_0_400RMAP; /* Temporary reg_0 for Sync400 */
-	TReg_2_400RMAP xReg_2_400RMAP; /* Temporary reg_2 for Sync400 */
-    TReg_5_400RMAP xReg_5_400RMAP; /* Temporary reg_5 for Sync400 */
-} TSync400RMAP;
-
-TSync400RMAP xSync400RMAP;
-
 #endif /* RTOS_FEE_TASKV3_H_ */
