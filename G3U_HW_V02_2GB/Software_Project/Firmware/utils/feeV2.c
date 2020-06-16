@@ -75,7 +75,6 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
     bDpktSetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
 
-
     /*Copy to control what should be applied in the master Sync*/
     pxNfeeL->xControl.xErrorSWCtrl.bEnabled = FALSE;
     pxNfeeL->xControl.xErrorSWCtrl.bMissingData = FALSE;
@@ -85,8 +84,6 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt = 0;
     pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat = 0;
     pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt = 0;
-
-
 
     bDpktGetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
@@ -112,6 +109,18 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.xTrap.xRestoreDelays.uliSkipDelay = pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliSkipDelay;
     pxNfeeL->xControl.xTrap.xRestoreDelays.uliLineDelay = pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay;
 
+    /* Just Initial Values */
+    pxNfeeL->xCopyRmap.xCopyControl = pxNfeeL->xControl;
+    pxNfeeL->xCopyRmap.xCopyMemMap = pxNfeeL->xMemMap;
+    pxNfeeL->xCopyRmap.usiCopyPacketLength = pxNfeeL->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength;
+    pxNfeeL->xCopyRmap.bCopyDigitaliseEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
+    pxNfeeL->xCopyRmap.bCopyReadoutEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
+
+    pxNfeeL->xCopyRmap.xbRmapChanges.bPacketSize = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bReadoutOrder = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bhEnd = FALSE;
+    pxNfeeL->xCopyRmap.xbRmapChanges.bvStartvEnd = FALSE;
 
 }
 
@@ -244,9 +253,6 @@ bool bMemNewLimits( TNFee *pxNfeeL, unsigned short int usiVStart, unsigned short
 	return bSucess;
 
 }
-
-
-
 
 /* Update the memory mapping for the FEE due to the CCD informations */
 void vResetMemCCDFEE( TNFee *pxNfeeL ) {
