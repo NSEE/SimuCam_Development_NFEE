@@ -24,8 +24,6 @@ static volatile int viCh3HoldContext;
 static volatile int viCh4HoldContext;
 static volatile int viCh5HoldContext;
 static volatile int viCh6HoldContext;
-static volatile int viCh7HoldContext;
-static volatile int viCh8HoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -466,326 +464,6 @@ void vFeebCh6HandleIrq(void* pvContext) {
 
 }
 
-void vFeebCh7HandleIrq(void* pvContext) {
-//	//volatile int* pviHoldContext = (volatile int*) pvContext;
-//
-//	INT8U error_codel;
-//	tQMask uiCmdtoSend;
-//
-//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-//	uiCmdtoSend.ucByte[1] = 0;
-//	//uiCmdtoSend.ucByte[0] = 6;
-//	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[6];
-//
-//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-//
-//	// Check Irq Buffer Empty Flags
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(0);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-//	}
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(0);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-//	}
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(1);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-//	}
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(0);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
-//	}
-//
-//#if DEBUG_ON
-//	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
-//		fprintf(fp, "IntF6\n");
-//	}
-//#endif
-
-}
-
-void vFeebCh8HandleIrq(void* pvContext) {
-//	//volatile int* pviHoldContext = (volatile int*) pvContext;
-//
-//	INT8U error_codel;
-//	tQMask uiCmdtoSend;
-//
-//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-//	uiCmdtoSend.ucByte[1] = 0;
-//	//uiCmdtoSend.ucByte[0] = 7;
-//	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[7];
-//
-//	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-//
-//	// Check Irq Buffer Empty Flags
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(0);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-//	}
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(0);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-//	}
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(1);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-//	}
-//	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-//
-//		/*Sync the Meb task and tell that has a PUS command waiting*/
-//		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
-//		if (error_codel != OS_ERR_NONE) {
-//			vFailRequestDMAFromIRQ(0);
-//		}
-//
-//		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
-//	}
-//
-//#if DEBUG_ON
-//	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
-//		fprintf(fp, "IntF7\n");
-//	}
-//#endif
-
-}
-
-bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
-bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
-bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
-bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
-bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
-bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
-bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
-bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = FALSE;
-
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-
-	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-		switch (ucBufferSide) {
-		case eCommLeftBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		case eCommRightBuffer:
-			vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-	}
-
-	return bStatus;
-}
-
 bool vFeebInitIrq(alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	void* pvHoldContext;
@@ -873,34 +551,6 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_6_BUFFERS_IRQ, pvHoldContext, vFeebCh6HandleIrq);
-		bStatus = TRUE;
-		break;
-	case eCommSpwCh7:
-		// Recast the hold_context pointer to match the alt_irq_register() function
-		// prototype.
-		pvHoldContext = (void*) &viCh7HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
-		// Register the interrupt handler
-		alt_irq_register(COMM_CH_7_BUFFERS_IRQ, pvHoldContext, vFeebCh7HandleIrq);
-		bStatus = TRUE;
-		break;
-	case eCommSpwCh8:
-		// Recast the hold_context pointer to match the alt_irq_register() function
-		// prototype.
-		pvHoldContext = (void*) &viCh8HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
-		// Register the interrupt handler
-		alt_irq_register(COMM_CH_8_BUFFERS_IRQ, pvHoldContext, vFeebCh8HandleIrq);
 		bStatus = TRUE;
 		break;
 	default:
@@ -1093,34 +743,6 @@ bool bFeebGetCh6RightBufferEmpty(void) {
 	return bFlag;
 }
 
-bool bFeebGetCh7LeftBufferEmpty(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
-	return bFlag;
-}
-
-bool bFeebGetCh7RightBufferEmpty(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
-	return bFlag;
-}
-
-bool bFeebGetCh8LeftBufferEmpty(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
-	return bFlag;
-}
-
-bool bFeebGetCh8RightBufferEmpty(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
-	return bFlag;
-}
-
 bool bFeebGetCh1LeftFeeBusy(void) {
 	bool bFlag = FALSE;
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
@@ -1205,36 +827,7 @@ bool bFeebGetCh6RightFeeBusy(void) {
 	return bFlag;
 }
 
-bool bFeebGetCh7LeftFeeBusy(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
-	return bFlag;
-}
-
-bool bFeebGetCh7RightFeeBusy(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
-	return bFlag;
-}
-
-bool bFeebGetCh8LeftFeeBusy(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
-	return bFlag;
-}
-
-bool bFeebGetCh8RightFeeBusy(void) {
-	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
-	return bFlag;
-}
-
-bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
-		alt_u8 ucBufferSide) {
+bool bFeebGetBufferDataControl(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -1242,27 +835,16 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 
 		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
-		if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
-			switch (ucBufferSide) {
-			case eCommLeftBuffer:
-				vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucLeftBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-				bStatus = TRUE;
-				break;
-			case eCommRightBuffer:
-				vpxCommChannel->xFeeBuffer.xFeebBufferStatus.ucRightBufferSize = (alt_u8) (ucBufferSizeInBlocks - 1);
-				bStatus = TRUE;
-				break;
-			default:
-				bStatus = FALSE;
-				break;
-			}
-		}
+		pxFeebCh->xFeebBufferDataControl = vpxCommChannel->xFeeBuffer.xFeebBufferDataControl;
+
+		bStatus = TRUE;
+
 	}
 
 	return bStatus;
 }
 
-bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
+bool bFeebSetBufferDataControl(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -1270,7 +852,24 @@ bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
-		vpxCommChannel->xFeeBuffer.xFeebMachineControl = pxFeebCh->xFeebMachineControl;
+		vpxCommChannel->xFeeBuffer.xFeebBufferDataControl = pxFeebCh->xFeebBufferDataControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bFeebGetBufferDataStatus(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		pxFeebCh->xFeebBufferDataStatus = vpxCommChannel->xFeeBuffer.xFeebBufferDataStatus;
 
 		bStatus = TRUE;
 
@@ -1295,6 +894,24 @@ bool bFeebGetMachineControl(TFeebChannel *pxFeebCh) {
 
 	return bStatus;
 }
+
+bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		vpxCommChannel->xFeeBuffer.xFeebMachineControl = pxFeebCh->xFeebMachineControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 
 bool bFeebClearMachineStatistics(TFeebChannel *pxFeebCh){
 	bool bStatus = FALSE;
@@ -1426,18 +1043,6 @@ bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
-		case eCommSpwCh7:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
-			bValidCh = TRUE;
-			break;
-		case eCommSpwCh8:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
-			bValidCh = TRUE;
-			break;
 		default:
 			bValidCh = FALSE;
 			break;
@@ -1451,6 +1056,9 @@ bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 				bInitFail = TRUE;
 			}
 			if (!bFeebGetBuffersStatus(pxFeebCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bFeebGetBufferDataControl(pxFeebCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bFeebGetMachineControl(pxFeebCh)) {

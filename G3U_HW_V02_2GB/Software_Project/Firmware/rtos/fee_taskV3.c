@@ -891,10 +891,6 @@ void vFeeTaskV3(void *task_data) {
 				/* For now is fixed by this define, but at any moment it could change*/
 				//xTrans.ulSMD_MAX_BLOCKS = SDMA_MAX_BLOCKS;
 
-				/* (re)Configuring the size of the double buffer to the HW DataPacket*/
-				//vSetDoubleBufferLeftSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
-				//vSetDoubleBufferRightSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
-
 				/* Enable IRQ and clear the Double Buffer */
 				bEnableDbBuffer(pxNFee, &pxNFee->xChannel.xFeeBuffer);
 
@@ -2994,70 +2990,6 @@ void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mod
 	}
 }
 
-void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId ) {
-
-	switch (ucId) {
-		case 0:
-			bFeebCh1SetBufferSize( ucLength, 1);
-			break;
-		case 1:
-			bFeebCh2SetBufferSize( ucLength, 1);
-			break;
-		case 2:
-			bFeebCh3SetBufferSize( ucLength, 1);
-			break;
-		case 3:
-			bFeebCh4SetBufferSize( ucLength, 1);
-			break;
-		case 4:
-			bFeebCh5SetBufferSize( ucLength, 1);
-			break;
-		case 5:
-			bFeebCh6SetBufferSize( ucLength, 1);
-			break;
-		case 6:
-			bFeebCh7SetBufferSize( ucLength, 1);
-			break;
-		case 7:
-			bFeebCh8SetBufferSize( ucLength, 1);
-			break;
-		default:
-			break;
-	}
-}
-
-void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId ) {
-
-	switch (ucId) {
-		case 0:
-			bFeebCh1SetBufferSize( ucLength, 0);
-			break;
-		case 1:
-			bFeebCh2SetBufferSize( ucLength, 0);
-			break;
-		case 2:
-			bFeebCh3SetBufferSize( ucLength, 0);
-			break;
-		case 3:
-			bFeebCh4SetBufferSize( ucLength, 0);
-			break;
-		case 4:
-			bFeebCh5SetBufferSize( ucLength, 0);
-			break;
-		case 5:
-			bFeebCh6SetBufferSize( ucLength, 0);
-			break;
-		case 6:
-			bFeebCh7SetBufferSize( ucLength, 0);
-			break;
-		case 7:
-			bFeebCh8SetBufferSize( ucLength, 0);
-			break;
-		default:
-			break;
-	}
-}
-
 /* todo: Adicionar Timeout e colocar a tarefa para sleep*/
 void vWaitUntilBufferEmpty( unsigned char ucId ) {
 	unsigned char ucIcounter;
@@ -3081,12 +3013,6 @@ void vWaitUntilBufferEmpty( unsigned char ucId ) {
 			break;
 		case 5:
 			while ( ((bFeebGetCh6LeftFeeBusy()== TRUE) || (bFeebGetCh6RightFeeBusy()== TRUE)) && (ucIcounter<10)  ) {OSTimeDlyHMSM(0, 0, 0, 1); ucIcounter++;}
-			break;
-		case 6:
-			//while ( (bFeebGetCh7LeftFeeBusy()== TRUE) || (bFeebGetCh7RightFeeBusy()== TRUE)  ) {}
-			break;
-		case 7:
-			//while ( (bFeebGetCh8LeftFeeBusy()== TRUE) || (bFeebGetCh8RightFeeBusy()== TRUE)  ) {}
 			break;
 		default:
 			break;
@@ -3181,10 +3107,6 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = xTransL.ulSMD_MAX_BLOCKS;
 	}
 
-	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId);
-	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
-
-
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
@@ -3207,9 +3129,6 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	} else {
 		ulLengthBlocks = xTransL.ulSMD_MAX_BLOCKS;
 	}
-
-	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
-	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);

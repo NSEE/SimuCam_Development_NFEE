@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_USB3 "FTDI_UMFT601A_Module" v2.1
+# FTDI_USB3 "FTDI_UMFT601A_Module" v2.2
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_USB3
-set_module_property VERSION 2.1
+set_module_property VERSION 2.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -44,16 +44,13 @@ add_fileset_file ftdi_config_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON
 add_fileset_file ftdi_config_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_stimulli.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_stimulli.vhd
-add_fileset_file ftdi_data_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
-add_fileset_file ftdi_rx_data_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
-add_fileset_file ftdi_tx_data_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
+add_fileset_file ftdi_avm_usb3_pkg.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_pkg.vhd
+add_fileset_file ftdi_avm_usb3_reader_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_reader_ent.vhd
+add_fileset_file ftdi_avm_usb3_writer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_writer_ent.vhd
+add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_tx_avm_reader_controller_ent.vhd
+add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
-add_fileset_file ftdi_data_receiver_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
-add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
-add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
-add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
-add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
@@ -81,16 +78,13 @@ add_fileset_file ftdi_config_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON
 add_fileset_file ftdi_config_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
 add_fileset_file ftdi_config_avalon_mm_stimulli.vhd VHDL PATH Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_stimulli.vhd
-add_fileset_file ftdi_data_avalon_mm_pkg.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
-add_fileset_file ftdi_rx_data_avalon_mm_read_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
-add_fileset_file ftdi_tx_data_avalon_mm_write_ent.vhd VHDL PATH Ftdi_Usb3/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
+add_fileset_file ftdi_avm_usb3_pkg.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_pkg.vhd
+add_fileset_file ftdi_avm_usb3_reader_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_reader_ent.vhd
+add_fileset_file ftdi_avm_usb3_writer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_USB3/ftdi_avm_usb3_writer_ent.vhd
+add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_tx_avm_reader_controller_ent.vhd
+add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
-add_fileset_file ftdi_data_receiver_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
-add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
-add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
-add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
-add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
@@ -229,41 +223,38 @@ set_interface_assignment avalon_slave_config embeddedsw.configuration.isPrintabl
 
 
 # 
-# connection point avalon_slave_data
+# connection point avalon_master_data
 # 
-add_interface avalon_slave_data avalon end
-set_interface_property avalon_slave_data addressUnits WORDS
-set_interface_property avalon_slave_data associatedClock clock_sink
-set_interface_property avalon_slave_data associatedReset reset_sink
-set_interface_property avalon_slave_data bitsPerSymbol 8
-set_interface_property avalon_slave_data burstOnBurstBoundariesOnly false
-set_interface_property avalon_slave_data burstcountUnits WORDS
-set_interface_property avalon_slave_data explicitAddressSpan 0
-set_interface_property avalon_slave_data holdTime 0
-set_interface_property avalon_slave_data linewrapBursts false
-set_interface_property avalon_slave_data maximumPendingReadTransactions 0
-set_interface_property avalon_slave_data maximumPendingWriteTransactions 0
-set_interface_property avalon_slave_data readLatency 0
-set_interface_property avalon_slave_data readWaitTime 1
-set_interface_property avalon_slave_data setupTime 0
-set_interface_property avalon_slave_data timingUnits Cycles
-set_interface_property avalon_slave_data writeWaitTime 0
-set_interface_property avalon_slave_data ENABLED true
-set_interface_property avalon_slave_data EXPORT_OF ""
-set_interface_property avalon_slave_data PORT_NAME_MAP ""
-set_interface_property avalon_slave_data CMSIS_SVD_VARIABLES ""
-set_interface_property avalon_slave_data SVD_ADDRESS_GROUP ""
+add_interface avalon_master_data avalon start
+set_interface_property avalon_master_data addressUnits SYMBOLS
+set_interface_property avalon_master_data associatedClock clock_sink
+set_interface_property avalon_master_data associatedReset reset_sink
+set_interface_property avalon_master_data bitsPerSymbol 8
+set_interface_property avalon_master_data burstOnBurstBoundariesOnly false
+set_interface_property avalon_master_data burstcountUnits WORDS
+set_interface_property avalon_master_data doStreamReads false
+set_interface_property avalon_master_data doStreamWrites false
+set_interface_property avalon_master_data holdTime 0
+set_interface_property avalon_master_data linewrapBursts false
+set_interface_property avalon_master_data maximumPendingReadTransactions 0
+set_interface_property avalon_master_data maximumPendingWriteTransactions 0
+set_interface_property avalon_master_data readLatency 0
+set_interface_property avalon_master_data readWaitTime 1
+set_interface_property avalon_master_data setupTime 0
+set_interface_property avalon_master_data timingUnits Cycles
+set_interface_property avalon_master_data writeWaitTime 0
+set_interface_property avalon_master_data ENABLED true
+set_interface_property avalon_master_data EXPORT_OF ""
+set_interface_property avalon_master_data PORT_NAME_MAP ""
+set_interface_property avalon_master_data CMSIS_SVD_VARIABLES ""
+set_interface_property avalon_master_data SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_slave_data avalon_slave_data_address address Input 21
-add_interface_port avalon_slave_data avalon_slave_data_write write Input 1
-add_interface_port avalon_slave_data avalon_slave_data_read read Input 1
-add_interface_port avalon_slave_data avalon_slave_data_writedata writedata Input 256
-add_interface_port avalon_slave_data avalon_slave_data_readdata readdata Output 256
-add_interface_port avalon_slave_data avalon_slave_data_waitrequest waitrequest Output 1
-set_interface_assignment avalon_slave_data embeddedsw.configuration.isFlash 0
-set_interface_assignment avalon_slave_data embeddedsw.configuration.isMemoryDevice 0
-set_interface_assignment avalon_slave_data embeddedsw.configuration.isNonVolatileStorage 0
-set_interface_assignment avalon_slave_data embeddedsw.configuration.isPrintableDevice 0
+add_interface_port avalon_master_data avalon_master_data_readdata_i readdata Input 256
+add_interface_port avalon_master_data avalon_master_data_waitrequest_i waitrequest Input 1
+add_interface_port avalon_master_data avalon_master_data_address_o address Output 64
+add_interface_port avalon_master_data avalon_master_data_read_o read Output 1
+add_interface_port avalon_master_data avalon_master_data_write_o write Output 1
+add_interface_port avalon_master_data avalon_master_data_writedata_o writedata Output 256
 
 
 # 

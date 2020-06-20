@@ -55,8 +55,6 @@ void vInitialConfig_RMAPCodecConfig( TNFee *pxNFeeP );
 void vInitialConfig_DpktPacket( TNFee *pxNFeeP );
 void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP );
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode );
-void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId );
-void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId );
 void vWaitUntilBufferEmpty( unsigned char ucId );
 unsigned long int uliReturnMaskR( unsigned char ucChannel );
 unsigned long int uliReturnMaskG( unsigned char ucChannel );

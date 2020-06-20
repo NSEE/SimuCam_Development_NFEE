@@ -25,10 +25,6 @@
 #define COMM_CH_5_BUFFERS_IRQ           9
 #define COMM_CH_6_RMAP_IRQ              20
 #define COMM_CH_6_BUFFERS_IRQ           10
-#define COMM_CH_7_RMAP_IRQ              -1
-#define COMM_CH_7_BUFFERS_IRQ           -1
-#define COMM_CH_8_RMAP_IRQ              -1
-#define COMM_CH_8_BUFFERS_IRQ           -1
 
 // address
 #define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_1_BASE
@@ -37,16 +33,12 @@
 #define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_4_BASE
 #define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_5_BASE
 #define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_6_BASE
-#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_1_BASE
-#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_2_BASE
 #define COMM_RMAP_MEM_1_BASE_ADDR       RMAP_MEM_NFEE_COMM_1_BASE
 #define COMM_RMAP_MEM_2_BASE_ADDR       RMAP_MEM_NFEE_COMM_2_BASE
 #define COMM_RMAP_MEM_3_BASE_ADDR       RMAP_MEM_NFEE_COMM_3_BASE
 #define COMM_RMAP_MEM_4_BASE_ADDR       RMAP_MEM_NFEE_COMM_4_BASE
 #define COMM_RMAP_MEM_5_BASE_ADDR       RMAP_MEM_NFEE_COMM_5_BASE
 #define COMM_RMAP_MEM_6_BASE_ADDR       RMAP_MEM_NFEE_COMM_6_BASE
-#define COMM_RMAP_MEM_7_BASE_ADDR       RMAP_MEM_NFEE_COMM_1_BASE
-#define COMM_RMAP_MEM_8_BASE_ADDR       RMAP_MEM_NFEE_COMM_2_BASE
 
 // offsets
 //! [constants definition]
@@ -63,8 +55,6 @@ enum CommSpwCh {
 	eCommSpwCh4,
 	eCommSpwCh5,
 	eCommSpwCh6,
-	eCommSpwCh7,
-	eCommSpwCh8
 } ECommSpwCh;
 
 /* Comm Device Address Register Struct */
@@ -156,6 +146,26 @@ typedef struct FeebBufferStatus {
 	bool bRightFeeBusy; /* FEE Right Machine Busy */
 	bool bLeftFeeBusy; /* FEE Left Machine Busy */
 } TFeebBufferStatus;
+
+/* FEE Buffers Data Control Register Struct */
+typedef struct FeebBufferDataControl {
+	alt_u32 uliRightRdInitAddrHighDword; /* Right Initial Read Address [High Dword] */
+	alt_u32 uliRightRdInitAddrLowDword; /* Right Initial Read Address [Low Dword] */
+	alt_u32 uliRightRdDataLenghtBytes; /* Right Read Data Length [Bytes] */
+	bool bRightRdStart; /* Right Data Read Start */
+	bool bRightRdReset; /* Right Data Read Reset */
+	alt_u32 uliLeftRdInitAddrHighDword; /* Left Initial Read Address [High Dword] */
+	alt_u32 uliLeftRdInitAddrLowDword; /* Left Initial Read Address [Low Dword] */
+	alt_u32 uliLeftRdDataLenghtBytes; /* Left Read Data Length [Bytes] */
+	bool bLeftRdStart; /* Left Data Read Start */
+	bool bLeftRdReset; /* Left Data Read Reset */
+} TFeebBufferDataControl;
+
+/* FEE Buffers Data Status Register Struct */
+typedef struct FeebBufferDataStatus {
+	bool bRightRdBusy; /* Right Data Read Busy */
+	bool bLeftRdBusy; /* Left Data Read Busy */
+} TFeebBufferDataStatus;
 
 /* FEE Buffers IRQ Control Register Struct */
 typedef struct FeebIrqControl {
@@ -357,6 +367,8 @@ typedef struct FeebChannel {
 	TFeebMachineControl xFeebMachineControl;
 	TFeebMachineStatistics xFeebMachineStatistics;
 	TFeebBufferStatus xFeebBufferStatus;
+	TFeebBufferDataControl xFeebBufferDataControl;
+	TFeebBufferDataStatus xFeebBufferDataStatus;
 	TFeebIrqControl xFeebIrqControl;
 	TFeebIrqFlag xFeebIrqFlag;
 	TFeebIrqFlagClr xFeebIrqFlagClr;

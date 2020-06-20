@@ -143,7 +143,6 @@ typedef union qMask{
 
 #define M_FEE_DT_SOURCE 	0x76
 
-
 #define M_FEE_DMA_ACCESS    0x8F    /* This Command should be sent by the ISR of the Empty Buffer */
 
 #define M_FEE_CONFIG_FORCED		    0xA1 /* Indicates that should go to Config Mode */

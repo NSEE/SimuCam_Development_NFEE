@@ -136,6 +136,26 @@ typedef struct FtdiLutTransStatus {
   bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
 
+ /* FTDI Data Control Register Struct */
+typedef struct FtdiDataControl {
+  alt_u32 uliTxRdInitAddrHighDword; /* Tx Initial Read Address [High Dword] */
+  alt_u32 uliTxRdInitAddrLowDword; /* Tx Initial Read Address [Low Dword] */
+  alt_u32 uliTxRdDataLenghtBytes; /* Tx Read Data Length [Bytes] */
+  bool bTxRdStart; /* Tx Data Read Start */
+  bool bTxRdReset; /* Tx Data Read Reset */
+  alt_u32 uliRxWrInitAddrHighDword; /* Rx Initial Write Address [High Dword] */
+  alt_u32 uliRxWrInitAddrLowDword; /* Rx Initial Write Address [Low Dword] */
+  alt_u32 uliRxWrDataLenghtBytes; /* Rx Write Data Length [Bytes] */
+  bool bRxWrStart; /* Rx Data Write Start */
+  bool bRxWrReset; /* Rx Data Write Reset */
+} TFtdiDataControl;
+
+ /* FTDI Data Status Register Struct */
+typedef struct FtdiDataStatus {
+  bool bTxRdBusy; /* Tx Data Read Busy */
+  bool bRxWrBusy; /* Rx Data Write Busy */
+} TFtdiDataStatus;
+
  /* FTDI LUT CCD1 Windowing Configuration Struct */
 typedef struct FtdiLutCcd1WindCfg {
   alt_u32 uliCcd1WindowListPrt; /* CCD1 Window List Pointer */
@@ -252,6 +272,8 @@ typedef struct FtdiModule {
   TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
   TFtdiLutTransControl xFtdiLutTransControl;
   TFtdiLutTransStatus xFtdiLutTransStatus;
+  TFtdiDataControl xFtdiDataControl;
+  TFtdiDataStatus xFtdiDataStatus;
   TFtdiLutCcd1WindCfg xFtdiLutCcd1WindCfg;
   TFtdiLutCcd2WindCfg xFtdiLutCcd2WindCfg;
   TFtdiLutCcd3WindCfg xFtdiLutCcd3WindCfg;
