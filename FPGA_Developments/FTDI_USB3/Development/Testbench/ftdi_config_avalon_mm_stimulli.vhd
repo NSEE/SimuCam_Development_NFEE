@@ -35,30 +35,16 @@ begin
 			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop                  <= '0';
 			-- FTDI Module Control Register : Clear Module Memories
 			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_clear                 <= '0';
-			-- FTDI Module Control Register : Enable Module USB Loopback
-			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_loopback_en           <= '0';
 			-- FTDI IRQ Control Register : FTDI Global IRQ Enable
 			avs_config_wr_regs_o.ftdi_irq_control_reg.ftdi_global_irq_en                   <= '0';
-			-- FTDI Rx IRQ Control Register : Rx Buffer 0 Readable IRQ Enable
-			avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_0_rdable_irq_en              <= '0';
-			-- FTDI Rx IRQ Control Register : Rx Buffer 1 Readable IRQ Enable
-			avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_1_rdable_irq_en              <= '0';
-			-- FTDI Rx IRQ Control Register : Rx Last Buffer Readable IRQ Enable
-			avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_rdable_irq_en           <= '0';
-			-- FTDI Rx IRQ Control Register : Rx Last Buffer Empty IRQ Enable
-			avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_empty_irq_en            <= '0';
-			-- FTDI Rx IRQ Control Register : Rx Communication Error IRQ Enable
-			avs_config_wr_regs_o.rx_irq_control_reg.rx_comm_err_irq_en                     <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Buffer 0 Readable IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr     <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Buffer 1 Readable IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_1_rdable_irq_flag_clr     <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Last Buffer Readable IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_last_rdable_irq_flag_clr  <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Last Buffer Empty IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr   <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Communication Error IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr            <= '0';
+			-- FTDI Rx IRQ Control Register : Rx Half-CCD Received IRQ Flag
+			avs_config_wr_regs_o.rx_irq_control_reg.rx_hccd_received_irq_en                <= '0';
+			-- FTDI Rx IRQ Control Register : Rx Half-CCD Communication Error IRQ Enable
+			avs_config_wr_regs_o.rx_irq_control_reg.rx_hccd_comm_err_irq_en                <= '0';
+			-- FTDI Rx IRQ Flag Clear Register : Rx Half-CCD Received IRQ Flag Clear
+			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_hccd_received_irq_flag_clr       <= '0';
+			-- FTDI Rx IRQ Flag Clear Register : Rx Half-CCD Communication Error IRQ Flag Clear
+			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_hccd_comm_err_irq_flag_clr       <= '0';
 			-- FTDI Tx IRQ Control Register : Tx LUT Finished Transmission IRQ Enable
 			avs_config_wr_regs_o.tx_irq_control_reg.tx_lut_finished_irq_en                 <= '0';
 			-- FTDI Tx IRQ Control Register : Tx LUT Communication Error IRQ Enable
@@ -109,6 +95,26 @@ begin
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_abort_transmission              <= '0';
 			-- FTDI LUT Transmission Control Register : Reset LUT Controller
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_reset_controller                <= '0';
+			-- FTDI Tx Data Control Register : Tx Initial Read Address [High Dword]
+			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_high_dword         <= (others => '0');
+			-- FTDI Tx Data Control Register : Tx Initial Read Address [Low Dword]
+			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_low_dword          <= (others => '0');
+			-- FTDI Tx Data Control Register : Tx Read Data Length [Bytes]
+			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_data_length_bytes               <= (others => '0');
+			-- FTDI Tx Data Control Register : Tx Data Read Start
+			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_start                           <= '0';
+			-- FTDI Tx Data Control Register : Tx Data Read Reset
+			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_reset                           <= '0';
+			-- FTDI Rx Data Control Register : Rx Initial Write Address [High Dword]
+			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_initial_addr_high_dword         <= (others => '0');
+			-- FTDI Rx Data Control Register : Rx Initial Write Address [Low Dword]
+			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_initial_addr_low_dword          <= (others => '0');
+			-- FTDI Rx Data Control Register : Rx Write Data Length [Bytes]
+			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_data_length_bytes               <= (others => '0');
+			-- FTDI Rx Data Control Register : Rx Data Write Start
+			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_start                           <= '0';
+			-- FTDI Rx Data Control Register : Rx Data Write Reset
+			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_reset                           <= '0';
 			-- FTDI LUT CCD1 Windowing Configuration : CCD1 Window List Pointer
 			avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer       <= (others => '0');
 			-- FTDI LUT CCD1 Windowing Configuration : CCD1 Packet Order List Pointer
@@ -174,39 +180,42 @@ begin
 			-- Write Registers Triggers Reset
 
 			-- FTDI Module Control Register : Stop Module Operation
-			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_start                <= '0';
+			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_start            <= '0';
 			-- FTDI Module Control Register : Start Module Operation
-			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop                 <= '0';
+			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop             <= '0';
 			-- FTDI Module Control Register : Clear Module Memories
-			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_clear                <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Buffer 0 Readable IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr    <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Buffer 1 Readable IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_1_rdable_irq_flag_clr    <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Last Buffer Readable IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_last_rdable_irq_flag_clr <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Last Buffer Empty IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr  <= '0';
-			-- FTDI Rx IRQ Flag Clear Register : Rx Communication Error IRQ Flag Clear
-			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr           <= '0';
+			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_clear            <= '0';
+			-- FTDI Rx IRQ Flag Clear Register : Rx Half-CCD Received IRQ Flag Clear
+			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_hccd_received_irq_flag_clr  <= '0';
+			-- FTDI Rx IRQ Flag Clear Register : Rx Half-CCD Communication Error IRQ Flag Clear
+			avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_hccd_comm_err_irq_flag_clr  <= '0';
 			-- FTDI Tx IRQ Flag Clear Register : Tx LUT Finished Transmission IRQ Flag Clear
-			avs_config_wr_regs_o.tx_irq_flag_clear_reg.tx_lut_finished_irq_flag_clear     <= '0';
+			avs_config_wr_regs_o.tx_irq_flag_clear_reg.tx_lut_finished_irq_flag_clear <= '0';
 			-- FTDI Tx IRQ Flag Clear Register : Tx LUT Communication Error IRQ Flag Clear
-			avs_config_wr_regs_o.tx_irq_flag_clear_reg.tx_lut_comm_err_irq_flag_clear     <= '0';
+			avs_config_wr_regs_o.tx_irq_flag_clear_reg.tx_lut_comm_err_irq_flag_clear <= '0';
 			-- FTDI Half-CCD Request Control Register : Request Half-CCD
-			avs_config_wr_regs_o.hccd_req_control_reg.req_request_hccd                    <= '0';
+			avs_config_wr_regs_o.hccd_req_control_reg.req_request_hccd                <= '0';
 			-- FTDI Half-CCD Request Control Register : Abort Half-CCD Request
-			avs_config_wr_regs_o.hccd_req_control_reg.req_abort_hccd_req                  <= '0';
+			avs_config_wr_regs_o.hccd_req_control_reg.req_abort_hccd_req              <= '0';
 			-- FTDI Half-CCD Request Control Register : Reset Half-CCD Controller
-			avs_config_wr_regs_o.hccd_req_control_reg.req_reset_hccd_controller           <= '0';
+			avs_config_wr_regs_o.hccd_req_control_reg.req_reset_hccd_controller       <= '0';
 			-- FTDI LUT Transmission Control Register : Transmit LUT
-			avs_config_wr_regs_o.lut_trans_control_reg.lut_transmit                       <= '0';
+			avs_config_wr_regs_o.lut_trans_control_reg.lut_transmit                   <= '0';
 			-- FTDI LUT Transmission Control Register : Abort LUT Transmission
-			avs_config_wr_regs_o.lut_trans_control_reg.lut_abort_transmission             <= '0';
+			avs_config_wr_regs_o.lut_trans_control_reg.lut_abort_transmission         <= '0';
 			-- FTDI LUT Transmission Control Register : Reset LUT Controller
-			avs_config_wr_regs_o.lut_trans_control_reg.lut_reset_controller               <= '0';
+			avs_config_wr_regs_o.lut_trans_control_reg.lut_reset_controller           <= '0';
+			-- FTDI Tx Data Control Register : Tx Data Read Start
+			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_start                      <= '0';
+			-- FTDI Tx Data Control Register : Tx Data Read Reset
+			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_reset                      <= '0';
+			-- FTDI Rx Data Control Register : Rx Data Write Start
+			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_start                      <= '0';
+			-- FTDI Rx Data Control Register : Rx Data Write Reset
+			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_reset                      <= '0';
 
 		end procedure p_control_triggers;
+
 	begin
 		if (rst_i = '1') then
 
@@ -223,9 +232,7 @@ begin
 
 				when 5 =>
 					-- Stop the ftdi module
-					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop        <= '1';
-					-- Disable loopback the ftdi module
-					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_loopback_en <= '0';
+					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop <= '1';
 
 				when 10 =>
 					-- Clear the ftdi module
@@ -289,14 +296,14 @@ begin
 
 				when 25 =>
 					-- Enables IRQ
-					avs_config_wr_regs_o.ftdi_irq_control_reg.ftdi_global_irq_en        <= '1';
+					avs_config_wr_regs_o.ftdi_irq_control_reg.ftdi_global_irq_en    <= '1';
 					--					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_0_rdable_irq_en    <= '1';
 					--					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_1_rdable_irq_en    <= '1';
 					--					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_rdable_irq_en <= '1';
-					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_empty_irq_en <= '1';
-					avs_config_wr_regs_o.rx_irq_control_reg.rx_comm_err_irq_en          <= '1';
-					avs_config_wr_regs_o.tx_irq_control_reg.tx_lut_finished_irq_en      <= '1';
-					avs_config_wr_regs_o.tx_irq_control_reg.tx_lut_comm_err_irq_en      <= '1';
+					avs_config_wr_regs_o.rx_irq_control_reg.rx_hccd_received_irq_en <= '1';
+					avs_config_wr_regs_o.rx_irq_control_reg.rx_hccd_comm_err_irq_en <= '1';
+					avs_config_wr_regs_o.tx_irq_control_reg.tx_lut_finished_irq_en  <= '1';
+					avs_config_wr_regs_o.tx_irq_control_reg.tx_lut_comm_err_irq_en  <= '1';
 
 				when 450 =>
 					avs_config_wr_regs_o.lut_trans_control_reg.lut_reset_controller <= '1';

@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_USB3 "FTDI_UMFT601A_Module" v2.2
+# FTDI_USB3 "FTDI_UMFT601A_Module" v2.3
 #  2019.06.12.14:05:05
 # 
 # 
@@ -19,12 +19,12 @@ package require -exact qsys 16.1
 # module FTDI_USB3
 # 
 set_module_property DESCRIPTION ""
-set_module_property NAME FTDI_USB3
-set_module_property VERSION 2.2
+set_module_property NAME ftdi_usb3
+set_module_property VERSION 2.3
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
-set_module_property DISPLAY_NAME FTDI_UMFT601A_Module
+set_module_property DISPLAY_NAME ftdi_umft601a_module
 set_module_property INSTANTIATE_IN_SYSTEM_MODULE true
 set_module_property EDITABLE true
 set_module_property REPORT_TO_TALKBACK false
@@ -67,6 +67,9 @@ add_fileset_file ftdi_in_io_buffer_3b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/al
 add_fileset_file ftdi_out_io_buffer_5b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
 add_fileset_file flipflop_synchronizer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/flipflop_synchronizer_ent.vhd
 add_fileset_file ftdi_umft601a_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
+add_fileset_file ftdi_irq_manager_pkg.vhd VHDL PATH Ftdi_Usb3/IRQ_MANAGER/ftdi_irq_manager_pkg.vhd
+add_fileset_file ftdi_rx_irq_manager_ent.vhd VHDL PATH Ftdi_Usb3/IRQ_MANAGER/ftdi_rx_irq_manager_ent.vhd
+add_fileset_file ftdi_tx_irq_manager_ent.vhd VHDL PATH Ftdi_Usb3/IRQ_MANAGER/ftdi_tx_irq_manager_ent.vhd
 add_fileset_file ftdi_usb3_top.vhd VHDL PATH Ftdi_Usb3/ftdi_usb3_top.vhd TOP_LEVEL_FILE
 
 add_fileset SIM_VHDL SIM_VHDL "" ""
@@ -101,6 +104,9 @@ add_fileset_file ftdi_in_io_buffer_3b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/al
 add_fileset_file ftdi_out_io_buffer_5b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
 add_fileset_file flipflop_synchronizer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/flipflop_synchronizer_ent.vhd
 add_fileset_file ftdi_umft601a_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
+add_fileset_file ftdi_irq_manager_pkg.vhd VHDL PATH Ftdi_Usb3/IRQ_MANAGER/ftdi_irq_manager_pkg.vhd
+add_fileset_file ftdi_rx_irq_manager_ent.vhd VHDL PATH Ftdi_Usb3/IRQ_MANAGER/ftdi_rx_irq_manager_ent.vhd
+add_fileset_file ftdi_tx_irq_manager_ent.vhd VHDL PATH Ftdi_Usb3/IRQ_MANAGER/ftdi_tx_irq_manager_ent.vhd
 add_fileset_file ftdi_usb3_top.vhd VHDL PATH Ftdi_Usb3/ftdi_usb3_top.vhd TOP_LEVEL_FILE
 
 
@@ -118,28 +124,28 @@ add_fileset_file ftdi_usb3_top.vhd VHDL PATH Ftdi_Usb3/ftdi_usb3_top.vhd TOP_LEV
 # connection point clock_sink
 # 
 add_interface clock_sink clock end
-set_interface_property clock_sink clockRate 0
+set_interface_property clock_sink clockRate 100000000
 set_interface_property clock_sink ENABLED true
 set_interface_property clock_sink EXPORT_OF ""
 set_interface_property clock_sink PORT_NAME_MAP ""
 set_interface_property clock_sink CMSIS_SVD_VARIABLES ""
 set_interface_property clock_sink SVD_ADDRESS_GROUP ""
 
-add_interface_port clock_sink clock_sink_clk clk Input 1
+add_interface_port clock_sink clock_sink_clk_i clk Input 1
 
 
 # 
-# connection point ftdi_clock_sink
+# connection point umft601a_clock_sink
 # 
-add_interface ftdi_clock_sink clock end
-set_interface_property ftdi_clock_sink clockRate 0
-set_interface_property ftdi_clock_sink ENABLED true
-set_interface_property ftdi_clock_sink EXPORT_OF ""
-set_interface_property ftdi_clock_sink PORT_NAME_MAP ""
-set_interface_property ftdi_clock_sink CMSIS_SVD_VARIABLES ""
-set_interface_property ftdi_clock_sink SVD_ADDRESS_GROUP ""
+add_interface umft601a_clock_sink clock end
+set_interface_property umft601a_clock_sink clockRate 100000000
+set_interface_property umft601a_clock_sink ENABLED true
+set_interface_property umft601a_clock_sink EXPORT_OF ""
+set_interface_property umft601a_clock_sink PORT_NAME_MAP ""
+set_interface_property umft601a_clock_sink CMSIS_SVD_VARIABLES ""
+set_interface_property umft601a_clock_sink SVD_ADDRESS_GROUP ""
 
-add_interface_port ftdi_clock_sink ftdi_clock_sink_clk clk Input 1
+add_interface_port umft601a_clock_sink umft601a_clock_sink_clk_i clk Input 1
 
 
 # 
@@ -154,33 +160,33 @@ set_interface_property reset_sink PORT_NAME_MAP ""
 set_interface_property reset_sink CMSIS_SVD_VARIABLES ""
 set_interface_property reset_sink SVD_ADDRESS_GROUP ""
 
-add_interface_port reset_sink reset_sink_reset reset Input 1
+add_interface_port reset_sink reset_sink_reset_i reset Input 1
 
 
 # 
-# connection point conduit_umft_pins
+# connection point conduit_umft601a_pins
 # 
-add_interface conduit_umft_pins conduit end
-set_interface_property conduit_umft_pins associatedClock clock_sink
-set_interface_property conduit_umft_pins associatedReset reset_sink
-set_interface_property conduit_umft_pins ENABLED true
-set_interface_property conduit_umft_pins EXPORT_OF ""
-set_interface_property conduit_umft_pins PORT_NAME_MAP ""
-set_interface_property conduit_umft_pins CMSIS_SVD_VARIABLES ""
-set_interface_property conduit_umft_pins SVD_ADDRESS_GROUP ""
+add_interface conduit_umft601a_pins conduit end
+set_interface_property conduit_umft601a_pins associatedClock clock_sink
+set_interface_property conduit_umft601a_pins associatedReset reset_sink
+set_interface_property conduit_umft601a_pins ENABLED true
+set_interface_property conduit_umft601a_pins EXPORT_OF ""
+set_interface_property conduit_umft601a_pins PORT_NAME_MAP ""
+set_interface_property conduit_umft601a_pins CMSIS_SVD_VARIABLES ""
+set_interface_property conduit_umft601a_pins SVD_ADDRESS_GROUP ""
 
-add_interface_port conduit_umft_pins umft_data_bus umft_data_signal Bidir 32
-add_interface_port conduit_umft_pins umft_reset_n_pin umft_reset_n_signal Output 1
-add_interface_port conduit_umft_pins umft_rxf_n_pin umft_rxf_n_signal Input 1
-add_interface_port conduit_umft_pins umft_clock_pin umft_clock_signal Input 1
-add_interface_port conduit_umft_pins umft_wakeup_n_pin umft_wakeup_n_signal Bidir 1
-add_interface_port conduit_umft_pins umft_be_bus umft_be_signal Bidir 4
-add_interface_port conduit_umft_pins umft_txe_n_pin umft_txe_n_signal Input 1
-add_interface_port conduit_umft_pins umft_gpio_bus umft_gpio_bus_signal Bidir 2
-add_interface_port conduit_umft_pins umft_wr_n_pin umft_wr_n_signal Output 1
-add_interface_port conduit_umft_pins umft_rd_n_pin umft_rd_n_signal Output 1
-add_interface_port conduit_umft_pins umft_oe_n_pin umft_oe_n_signal Output 1
-add_interface_port conduit_umft_pins umft_siwu_n_pin umft_siwu_n_signal Output 1
+add_interface_port conduit_umft601a_pins umft601a_clock_pin_i umft_clock_signal Input 1
+add_interface_port conduit_umft601a_pins umft601a_txe_n_pin_i umft_txe_n_signal Input 1
+add_interface_port conduit_umft601a_pins umft601a_rxf_n_pin_i umft_rxf_n_signal Input 1
+add_interface_port conduit_umft601a_pins umft601a_data_bus_io umft_data_signal Bidir 32
+add_interface_port conduit_umft601a_pins umft601a_be_bus_io umft_be_signal Bidir 4
+add_interface_port conduit_umft601a_pins umft601a_wakeup_n_pin_io umft_wakeup_n_signal Bidir 1
+add_interface_port conduit_umft601a_pins umft601a_gpio_bus_io umft_gpio_bus_signal Bidir 2
+add_interface_port conduit_umft601a_pins umft601a_reset_n_pin_o umft_reset_n_signal Output 1
+add_interface_port conduit_umft601a_pins umft601a_wr_n_pin_o umft_wr_n_signal Output 1
+add_interface_port conduit_umft601a_pins umft601a_rd_n_pin_o umft_rd_n_signal Output 1
+add_interface_port conduit_umft601a_pins umft601a_oe_n_pin_o umft_oe_n_signal Output 1
+add_interface_port conduit_umft601a_pins umft601a_siwu_n_pin_o umft_siwu_n_signal Output 1
 
 
 # 
@@ -209,13 +215,13 @@ set_interface_property avalon_slave_config PORT_NAME_MAP ""
 set_interface_property avalon_slave_config CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_slave_config SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_slave_config avalon_slave_config_address address Input 8
-add_interface_port avalon_slave_config avalon_slave_config_write write Input 1
-add_interface_port avalon_slave_config avalon_slave_config_read read Input 1
-add_interface_port avalon_slave_config avalon_slave_config_readdata readdata Output 32
-add_interface_port avalon_slave_config avalon_slave_config_writedata writedata Input 32
-add_interface_port avalon_slave_config avalon_slave_config_waitrequest waitrequest Output 1
-add_interface_port avalon_slave_config avalon_slave_config_byteenable byteenable Input 4
+add_interface_port avalon_slave_config avalon_slave_config_address_i address Input 8
+add_interface_port avalon_slave_config avalon_slave_config_byteenable_i byteenable Input 4
+add_interface_port avalon_slave_config avalon_slave_config_write_i write Input 1
+add_interface_port avalon_slave_config avalon_slave_config_writedata_i writedata Input 32
+add_interface_port avalon_slave_config avalon_slave_config_read_i read Input 1
+add_interface_port avalon_slave_config avalon_slave_config_readdata_o readdata Output 32
+add_interface_port avalon_slave_config avalon_slave_config_waitrequest_o waitrequest Output 1
 set_interface_assignment avalon_slave_config embeddedsw.configuration.isFlash 0
 set_interface_assignment avalon_slave_config embeddedsw.configuration.isMemoryDevice 0
 set_interface_assignment avalon_slave_config embeddedsw.configuration.isNonVolatileStorage 0
@@ -258,38 +264,37 @@ add_interface_port avalon_master_data avalon_master_data_writedata_o writedata O
 
 
 # 
-# connection point ftdi_rx_interrupt_sender
+# connection point rx_interrupt_sender
 # 
-add_interface ftdi_rx_interrupt_sender interrupt end
-set_interface_property ftdi_rx_interrupt_sender associatedAddressablePoint ""
-set_interface_property ftdi_rx_interrupt_sender associatedClock clock_sink
-set_interface_property ftdi_rx_interrupt_sender associatedReset reset_sink
-set_interface_property ftdi_rx_interrupt_sender bridgedReceiverOffset ""
-set_interface_property ftdi_rx_interrupt_sender bridgesToReceiver ""
-set_interface_property ftdi_rx_interrupt_sender ENABLED true
-set_interface_property ftdi_rx_interrupt_sender EXPORT_OF ""
-set_interface_property ftdi_rx_interrupt_sender PORT_NAME_MAP ""
-set_interface_property ftdi_rx_interrupt_sender CMSIS_SVD_VARIABLES ""
-set_interface_property ftdi_rx_interrupt_sender SVD_ADDRESS_GROUP ""
+add_interface rx_interrupt_sender interrupt end
+set_interface_property rx_interrupt_sender associatedAddressablePoint ""
+set_interface_property rx_interrupt_sender associatedClock clock_sink
+set_interface_property rx_interrupt_sender associatedReset reset_sink
+set_interface_property rx_interrupt_sender bridgedReceiverOffset ""
+set_interface_property rx_interrupt_sender bridgesToReceiver ""
+set_interface_property rx_interrupt_sender ENABLED true
+set_interface_property rx_interrupt_sender EXPORT_OF ""
+set_interface_property rx_interrupt_sender PORT_NAME_MAP ""
+set_interface_property rx_interrupt_sender CMSIS_SVD_VARIABLES ""
+set_interface_property rx_interrupt_sender SVD_ADDRESS_GROUP ""
 
-add_interface_port ftdi_rx_interrupt_sender ftdi_rx_interrupt_sender_irq irq Output 1
+add_interface_port rx_interrupt_sender rx_interrupt_sender_irq_o irq Output 1
 
 
 # 
-# connection point ftdi_tx_interrupt_sender
+# connection point tx_interrupt_sender
 # 
-add_interface ftdi_tx_interrupt_sender interrupt end
-set_interface_property ftdi_tx_interrupt_sender associatedAddressablePoint ""
-set_interface_property ftdi_tx_interrupt_sender associatedClock clock_sink
-set_interface_property ftdi_tx_interrupt_sender associatedReset reset_sink
-set_interface_property ftdi_tx_interrupt_sender bridgedReceiverOffset ""
-set_interface_property ftdi_tx_interrupt_sender bridgesToReceiver ""
-set_interface_property ftdi_tx_interrupt_sender ENABLED true
-set_interface_property ftdi_tx_interrupt_sender EXPORT_OF ""
-set_interface_property ftdi_tx_interrupt_sender PORT_NAME_MAP ""
-set_interface_property ftdi_tx_interrupt_sender CMSIS_SVD_VARIABLES ""
-set_interface_property ftdi_tx_interrupt_sender SVD_ADDRESS_GROUP ""
+add_interface tx_interrupt_sender interrupt end
+set_interface_property tx_interrupt_sender associatedAddressablePoint ""
+set_interface_property tx_interrupt_sender associatedClock clock_sink
+set_interface_property tx_interrupt_sender associatedReset reset_sink
+set_interface_property tx_interrupt_sender bridgedReceiverOffset ""
+set_interface_property tx_interrupt_sender bridgesToReceiver ""
+set_interface_property tx_interrupt_sender ENABLED true
+set_interface_property tx_interrupt_sender EXPORT_OF ""
+set_interface_property tx_interrupt_sender PORT_NAME_MAP ""
+set_interface_property tx_interrupt_sender CMSIS_SVD_VARIABLES ""
+set_interface_property tx_interrupt_sender SVD_ADDRESS_GROUP ""
 
-add_interface_port ftdi_tx_interrupt_sender ftdi_tx_interrupt_sender_irq irq Output 1
-
+add_interface_port tx_interrupt_sender tx_interrupt_sender_irq_o irq Output 1
 

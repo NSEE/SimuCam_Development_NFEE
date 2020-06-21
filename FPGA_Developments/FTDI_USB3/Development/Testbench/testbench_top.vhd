@@ -104,41 +104,41 @@ begin
 			umft_txe_n_pin_o     => s_umft_txe_n_pin
 		);
 
-	USB_3_FTDI_top_inst : entity work.ftdi_usb3_top
+	ftdi_usb3_top_inst : entity work.ftdi_usb3_top
 		generic map(
 			g_FTDI_TESTBENCH_MODE => '1'
 		)
 		port map(
-			clock_sink_clk                   => clk100Avs,
-			ftdi_clock_sink_clk              => clk100Ftdi,
-			reset_sink_reset                 => rst,
-			umft_data_bus                    => s_umft_data_bus,
-			umft_reset_n_pin                 => s_umft_reset_n_pin,
-			umft_rxf_n_pin                   => s_umft_rxf_n_pin,
-			umft_clock_pin                   => '0',
-			umft_wakeup_n_pin                => s_umft_wakeup_n_pin,
-			umft_be_bus                      => s_umft_be_bus,
-			umft_txe_n_pin                   => s_umft_txe_n_pin,
-			umft_gpio_bus                    => s_umft_gpio_bus,
-			umft_wr_n_pin                    => s_umft_wr_n_pin,
-			umft_rd_n_pin                    => s_umft_rd_n_pin,
-			umft_oe_n_pin                    => s_umft_oe_n_pin,
-			umft_siwu_n_pin                  => s_umft_siwu_n_pin,
-			avalon_slave_config_address      => s_avalon_slave_config_address,
-			avalon_slave_config_write        => s_avalon_slave_config_write,
-			avalon_slave_config_read         => s_avalon_slave_config_read,
-			avalon_slave_config_readdata     => s_avalon_slave_config_readdata,
-			avalon_slave_config_writedata    => s_avalon_slave_config_writedata,
-			avalon_slave_config_waitrequest  => s_avalon_slave_config_waitrequest,
-			avalon_slave_config_byteenable   => s_avalon_slave_config_byteenable,
-			avalon_master_data_readdata_i    => (others => '0'),
-			avalon_master_data_waitrequest_i => '1',
-			avalon_master_data_address_o     => open,
-			avalon_master_data_read_o        => open,
-			avalon_master_data_write_o       => open,
-			avalon_master_data_writedata_o   => open,
-			ftdi_rx_interrupt_sender_irq     => open,
-			ftdi_tx_interrupt_sender_irq     => open
+			clock_sink_clk_i                  => clk100Avs,
+			umft601a_clock_sink_clk           => clk100Ftdi,
+			reset_sink_reset_i                => rst,
+			umft601a_clock_pin_i              => '0',
+			umft601a_txe_n_pin_i              => s_umft_txe_n_pin,
+			umft601a_rxf_n_pin_i              => s_umft_rxf_n_pin,
+			umft601a_data_bus_io              => s_umft_data_bus,
+			umft601a_be_bus_io                => s_umft_be_bus,
+			umft601a_wakeup_n_pin_io          => s_umft_wakeup_n_pin,
+			umft601a_gpio_bus_io              => s_umft_gpio_bus,
+			umft601a_reset_n_pin_o            => s_umft_reset_n_pin,
+			umft601a_wr_n_pin_o               => s_umft_wr_n_pin,
+			umft601a_rd_n_pin_o               => s_umft_rd_n_pin,
+			umft601a_oe_n_pin_o               => s_umft_oe_n_pin,
+			umft601a_siwu_n_pin_o             => s_umft_siwu_n_pin,
+			avalon_slave_config_address_i     => s_avalon_slave_config_address,
+			avalon_slave_config_byteenable_i  => s_avalon_slave_config_byteenable,
+			avalon_slave_config_write_i       => s_avalon_slave_config_write,
+			avalon_slave_config_writedata_i   => s_avalon_slave_config_writedata,
+			avalon_slave_config_read_i        => s_avalon_slave_config_read,
+			avalon_slave_config_readdata_o    => s_avalon_slave_config_readdata,
+			avalon_slave_config_waitrequest_o => s_avalon_slave_config_waitrequest,
+			avalon_master_data_readdata_i     => (others => '0'),
+			avalon_master_data_waitrequest_i  => '1',
+			avalon_master_data_address_o      => open,
+			avalon_master_data_write_o        => open,
+			avalon_master_data_writedata_o    => open,
+			avalon_master_data_read_o         => open,
+			rx_interrupt_sender_irq_o         => open,
+			tx_interrupt_sender_irq_o         => open
 		);
 
 end architecture RTL;
