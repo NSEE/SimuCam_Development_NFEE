@@ -24,8 +24,8 @@ entity ftdi_usb3_top is
 	);
 	port(
 		clock_sink_clk_i                  : in    std_logic                      := '0'; --          --               clock_sink.clk
-		umft601a_clock_sink_clk_i         : in    std_logic                      := '0'; --          --      umft601a_clock_sink.clk
 		reset_sink_reset_i                : in    std_logic                      := '0'; --          --               reset_sink.reset
+		umft601a_clock_sink_clk_i         : in    std_logic                      := '0'; --          --      umft601a_clock_sink.clk
 		umft601a_clock_pin_i              : in    std_logic                      := '1'; --          --    conduit_umft601a_pins.umft_clock_signal
 		umft601a_txe_n_pin_i              : in    std_logic                      := '1'; --          --                         .umft_txe_n_signal
 		umft601a_rxf_n_pin_i              : in    std_logic                      := '1'; --          --                         .umft_rxf_n_signal

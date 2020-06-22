@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_USB3 "FTDI_UMFT601A_Module" v2.3
+# ftdi_usb3 "ftdi_umft601a_module" v2.3
 #  2019.06.12.14:05:05
 # 
 # 
@@ -16,7 +16,7 @@ package require -exact qsys 16.1
 
 
 # 
-# module FTDI_USB3
+# module ftdi_usb3
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME ftdi_usb3
@@ -135,20 +135,6 @@ add_interface_port clock_sink clock_sink_clk_i clk Input 1
 
 
 # 
-# connection point umft601a_clock_sink
-# 
-add_interface umft601a_clock_sink clock end
-set_interface_property umft601a_clock_sink clockRate 100000000
-set_interface_property umft601a_clock_sink ENABLED true
-set_interface_property umft601a_clock_sink EXPORT_OF ""
-set_interface_property umft601a_clock_sink PORT_NAME_MAP ""
-set_interface_property umft601a_clock_sink CMSIS_SVD_VARIABLES ""
-set_interface_property umft601a_clock_sink SVD_ADDRESS_GROUP ""
-
-add_interface_port umft601a_clock_sink umft601a_clock_sink_clk_i clk Input 1
-
-
-# 
 # connection point reset_sink
 # 
 add_interface reset_sink reset end
@@ -161,6 +147,20 @@ set_interface_property reset_sink CMSIS_SVD_VARIABLES ""
 set_interface_property reset_sink SVD_ADDRESS_GROUP ""
 
 add_interface_port reset_sink reset_sink_reset_i reset Input 1
+
+
+# 
+# connection point umft601a_clock_sink
+# 
+add_interface umft601a_clock_sink clock end
+set_interface_property umft601a_clock_sink clockRate 100000000
+set_interface_property umft601a_clock_sink ENABLED true
+set_interface_property umft601a_clock_sink EXPORT_OF ""
+set_interface_property umft601a_clock_sink PORT_NAME_MAP ""
+set_interface_property umft601a_clock_sink CMSIS_SVD_VARIABLES ""
+set_interface_property umft601a_clock_sink SVD_ADDRESS_GROUP ""
+
+add_interface_port umft601a_clock_sink umft601a_clock_sink_clk_i clk Input 1
 
 
 # 
