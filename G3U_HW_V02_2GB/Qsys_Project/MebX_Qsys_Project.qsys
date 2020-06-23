@@ -13,12 +13,12 @@
    {
       datum _sortIndex
       {
-         value = "64";
+         value = "50";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -30,46 +30,20 @@
          type = "String";
       }
    }
-   element COMM_Pedreiro_v1_01_1
+   element Communication_Module_v2_Ch1
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element COMM_Pedreiro_v1_01_1.avalon_slave_L_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4294967296";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_1.avalon_slave_R_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4362076160";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_1.avalon_slave_windowing
+   element Communication_Module_v2_Ch1.avalon_mm_config_slave
    {
       datum baseAddress
       {
@@ -77,46 +51,20 @@
          type = "String";
       }
    }
-   element COMM_Pedreiro_v1_01_2
+   element Communication_Module_v2_Ch2
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "17";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element COMM_Pedreiro_v1_01_2.avalon_slave_L_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4429185024";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_2.avalon_slave_R_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4496293888";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_2.avalon_slave_windowing
+   element Communication_Module_v2_Ch2.avalon_mm_config_slave
    {
       datum baseAddress
       {
@@ -124,7 +72,49 @@
          type = "String";
       }
    }
-   element COMM_Pedreiro_v1_01_3
+   element Communication_Module_v2_Ch3
+   {
+      datum _sortIndex
+      {
+         value = "20";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element Communication_Module_v2_Ch3.avalon_mm_config_slave
+   {
+      datum baseAddress
+      {
+         value = "2164362240";
+         type = "String";
+      }
+   }
+   element Communication_Module_v2_Ch4
+   {
+      datum _sortIndex
+      {
+         value = "23";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element Communication_Module_v2_Ch4.avalon_mm_config_slave
+   {
+      datum baseAddress
+      {
+         value = "2164361216";
+         type = "String";
+      }
+   }
+   element Communication_Module_v2_Ch5
    {
       datum _sortIndex
       {
@@ -133,92 +123,40 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element COMM_Pedreiro_v1_01_3.avalon_slave_L_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4563402752";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_3.avalon_slave_R_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4630511616";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_3.avalon_slave_windowing
+   element Communication_Module_v2_Ch5.avalon_mm_config_slave
    {
       datum baseAddress
       {
-         value = "2164362240";
+         value = "2164360192";
          type = "String";
       }
    }
-   element COMM_Pedreiro_v1_01_4
+   element Communication_Module_v2_Ch6
    {
       datum _sortIndex
       {
-         value = "31";
+         value = "29";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element COMM_Pedreiro_v1_01_4.avalon_slave_L_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4697620480";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_4.avalon_slave_R_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4764729344";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_4.avalon_slave_windowing
+   element Communication_Module_v2_Ch6.avalon_mm_config_slave
    {
       datum baseAddress
       {
-         value = "2164361216";
+         value = "2164359168";
          type = "String";
       }
    }
-   element COMM_Pedreiro_v1_01_5
+   element FTDI_UMFT601A_Module
    {
       datum _sortIndex
       {
@@ -227,105 +165,11 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element COMM_Pedreiro_v1_01_5.avalon_slave_L_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4831838208";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_5.avalon_slave_R_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4898947072";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_5.avalon_slave_windowing
-   {
-      datum baseAddress
-      {
-         value = "2164360192";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_6
-   {
-      datum _sortIndex
-      {
-         value = "41";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element COMM_Pedreiro_v1_01_6.avalon_slave_L_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "4966055936";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_6.avalon_slave_R_buffer
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "5033164800";
-         type = "String";
-      }
-   }
-   element COMM_Pedreiro_v1_01_6.avalon_slave_windowing
-   {
-      datum baseAddress
-      {
-         value = "2164359168";
-         type = "String";
-      }
-   }
-   element FTDI_USB3_0
-   {
-      datum _sortIndex
-      {
-         value = "50";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element FTDI_USB3_0.avalon_slave_config
+   element FTDI_UMFT601A_Module.avalon_slave_config
    {
       datum _lockedAddress
       {
@@ -338,19 +182,6 @@
          type = "String";
       }
    }
-   element FTDI_USB3_0.avalon_slave_data
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "8589934592";
-         type = "String";
-      }
-   }
    element MebX_Qsys_Project
    {
       datum _originalDeviceFamily
@@ -431,33 +262,65 @@
          type = "String";
       }
    }
-   element RMAP_Echoing_0
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element RMAP_Echoing
    {
       datum _sortIndex
       {
-         value = "46";
+         value = "34";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element SEVEN_SEGMENT_CONTROLLER_0
+   element SEVEN_SEGMENT_CONTROLLER
    {
       datum _sortIndex
       {
-         value = "72";
+         value = "58";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave
+   element SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave
    {
       datum baseAddress
       {
@@ -469,12 +332,12 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -482,16 +345,42 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "16";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
    element SpaceWire_Channel_C
+   {
+      datum _sortIndex
+      {
+         value = "19";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SpaceWire_Channel_D
+   {
+      datum _sortIndex
+      {
+         value = "22";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SpaceWire_Channel_E
    {
       datum _sortIndex
       {
@@ -500,33 +389,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element SpaceWire_Channel_D
-   {
-      datum _sortIndex
-      {
-         value = "30";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element SpaceWire_Channel_E
-   {
-      datum _sortIndex
-      {
-         value = "35";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -534,12 +397,12 @@
    {
       datum _sortIndex
       {
-         value = "40";
+         value = "28";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -547,12 +410,12 @@
    {
       datum _sortIndex
       {
-         value = "43";
+         value = "31";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -560,12 +423,12 @@
    {
       datum _sortIndex
       {
-         value = "45";
+         value = "33";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -573,12 +436,12 @@
    {
       datum _sortIndex
       {
-         value = "44";
+         value = "32";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -591,7 +454,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -604,7 +467,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -617,7 +480,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -633,12 +496,12 @@
    {
       datum _sortIndex
       {
-         value = "49";
+         value = "35";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -646,12 +509,12 @@
    {
       datum _sortIndex
       {
-         value = "51";
+         value = "37";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -680,12 +543,12 @@
    {
       datum _sortIndex
       {
-         value = "67";
+         value = "53";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -701,12 +564,12 @@
    {
       datum _sortIndex
       {
-         value = "68";
+         value = "54";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -722,12 +585,12 @@
    {
       datum _sortIndex
       {
-         value = "69";
+         value = "55";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -743,12 +606,12 @@
    {
       datum _sortIndex
       {
-         value = "70";
+         value = "56";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -764,12 +627,12 @@
    {
       datum _sortIndex
       {
-         value = "71";
+         value = "57";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -790,7 +653,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -815,412 +678,6 @@
          type = "String";
       }
    }
-   element dma_comm_1_left
-   {
-      datum _sortIndex
-      {
-         value = "13";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_1_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2164367200";
-         type = "String";
-      }
-   }
-   element dma_comm_1_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366784";
-         type = "String";
-      }
-   }
-   element dma_comm_1_right
-   {
-      datum _sortIndex
-      {
-         value = "14";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_1_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2164367168";
-         type = "String";
-      }
-   }
-   element dma_comm_1_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366752";
-         type = "String";
-      }
-   }
-   element dma_comm_2_left
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_2_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2164367136";
-         type = "String";
-      }
-   }
-   element dma_comm_2_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366720";
-         type = "String";
-      }
-   }
-   element dma_comm_2_right
-   {
-      datum _sortIndex
-      {
-         value = "19";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_2_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2164367104";
-         type = "String";
-      }
-   }
-   element dma_comm_2_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366688";
-         type = "String";
-      }
-   }
-   element dma_comm_3_left
-   {
-      datum _sortIndex
-      {
-         value = "23";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_3_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2164367072";
-         type = "String";
-      }
-   }
-   element dma_comm_3_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366656";
-         type = "String";
-      }
-   }
-   element dma_comm_3_right
-   {
-      datum _sortIndex
-      {
-         value = "24";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_3_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2164367040";
-         type = "String";
-      }
-   }
-   element dma_comm_3_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366624";
-         type = "String";
-      }
-   }
-   element dma_comm_4_left
-   {
-      datum _sortIndex
-      {
-         value = "28";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_4_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2164367008";
-         type = "String";
-      }
-   }
-   element dma_comm_4_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366592";
-         type = "String";
-      }
-   }
-   element dma_comm_4_right
-   {
-      datum _sortIndex
-      {
-         value = "29";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_4_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2164366976";
-         type = "String";
-      }
-   }
-   element dma_comm_4_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366560";
-         type = "String";
-      }
-   }
-   element dma_comm_5_left
-   {
-      datum _sortIndex
-      {
-         value = "33";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_5_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2164366944";
-         type = "String";
-      }
-   }
-   element dma_comm_5_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366528";
-         type = "String";
-      }
-   }
-   element dma_comm_5_right
-   {
-      datum _sortIndex
-      {
-         value = "34";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_5_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2164366912";
-         type = "String";
-      }
-   }
-   element dma_comm_5_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366496";
-         type = "String";
-      }
-   }
-   element dma_comm_6_left
-   {
-      datum _sortIndex
-      {
-         value = "38";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_6_left.csr
-   {
-      datum baseAddress
-      {
-         value = "2164366880";
-         type = "String";
-      }
-   }
-   element dma_comm_6_left.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366464";
-         type = "String";
-      }
-   }
-   element dma_comm_6_right
-   {
-      datum _sortIndex
-      {
-         value = "39";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_comm_6_right.csr
-   {
-      datum baseAddress
-      {
-         value = "2164366848";
-         type = "String";
-      }
-   }
-   element dma_comm_6_right.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366432";
-         type = "String";
-      }
-   }
-   element dma_ftdi_rx_usb3
-   {
-      datum _sortIndex
-      {
-         value = "47";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_ftdi_rx_usb3.csr
-   {
-      datum baseAddress
-      {
-         value = "2164366816";
-         type = "String";
-      }
-   }
-   element dma_ftdi_rx_usb3.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366400";
-         type = "String";
-      }
-   }
-   element dma_ftdi_tx_usb3
-   {
-      datum _sortIndex
-      {
-         value = "48";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element dma_ftdi_tx_usb3.csr
-   {
-      datum baseAddress
-      {
-         value = "2164366368";
-         type = "String";
-      }
-   }
-   element dma_ftdi_tx_usb3.descriptor_slave
-   {
-      datum baseAddress
-      {
-         value = "2164366336";
-         type = "String";
-      }
-   }
    element ext_flash
    {
       datum _sortIndex
@@ -1230,7 +687,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1256,7 +713,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1282,7 +739,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1303,12 +760,12 @@
    {
       datum _sortIndex
       {
-         value = "59";
+         value = "45";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1324,12 +781,12 @@
    {
       datum _sortIndex
       {
-         value = "60";
+         value = "46";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1350,7 +807,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1371,12 +828,12 @@
    {
       datum _sortIndex
       {
-         value = "61";
+         value = "47";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1392,12 +849,12 @@
    {
       datum _sortIndex
       {
-         value = "62";
+         value = "48";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1418,7 +875,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1476,7 +933,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1566,7 +1023,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1587,12 +1044,12 @@
    {
       datum _sortIndex
       {
-         value = "54";
+         value = "40";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1608,12 +1065,12 @@
    {
       datum _sortIndex
       {
-         value = "55";
+         value = "41";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1629,12 +1086,12 @@
    {
       datum _sortIndex
       {
-         value = "56";
+         value = "42";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1650,12 +1107,12 @@
    {
       datum _sortIndex
       {
-         value = "57";
+         value = "43";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1671,12 +1128,12 @@
    {
       datum _sortIndex
       {
-         value = "58";
+         value = "44";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1692,12 +1149,12 @@
    {
       datum _sortIndex
       {
-         value = "79";
+         value = "65";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1713,12 +1170,12 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "15";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1734,12 +1191,12 @@
    {
       datum _sortIndex
       {
-         value = "22";
+         value = "18";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1755,12 +1212,12 @@
    {
       datum _sortIndex
       {
-         value = "27";
+         value = "21";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1776,12 +1233,12 @@
    {
       datum _sortIndex
       {
-         value = "32";
+         value = "24";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1797,12 +1254,12 @@
    {
       datum _sortIndex
       {
-         value = "37";
+         value = "27";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1818,12 +1275,12 @@
    {
       datum _sortIndex
       {
-         value = "42";
+         value = "30";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1839,12 +1296,12 @@
    {
       datum _sortIndex
       {
-         value = "78";
+         value = "64";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1860,12 +1317,12 @@
    {
       datum _sortIndex
       {
-         value = "81";
+         value = "67";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1886,12 +1343,12 @@
    {
       datum _sortIndex
       {
-         value = "73";
+         value = "59";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1907,12 +1364,12 @@
    {
       datum _sortIndex
       {
-         value = "74";
+         value = "60";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1928,12 +1385,12 @@
    {
       datum _sortIndex
       {
-         value = "75";
+         value = "61";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1949,12 +1406,12 @@
    {
       datum _sortIndex
       {
-         value = "76";
+         value = "62";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1970,12 +1427,12 @@
    {
       datum _sortIndex
       {
-         value = "77";
+         value = "63";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -1991,12 +1448,12 @@
    {
       datum _sortIndex
       {
-         value = "63";
+         value = "49";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2025,12 +1482,12 @@
    {
       datum _sortIndex
       {
-         value = "80";
+         value = "66";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2051,7 +1508,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2072,12 +1529,12 @@
    {
       datum _sortIndex
       {
-         value = "65";
+         value = "51";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2093,12 +1550,12 @@
    {
       datum _sortIndex
       {
-         value = "66";
+         value = "52";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2114,12 +1571,12 @@
    {
       datum _sortIndex
       {
-         value = "52";
+         value = "38";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2135,12 +1592,12 @@
    {
       datum _sortIndex
       {
-         value = "53";
+         value = "39";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2161,7 +1618,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -2193,81 +1650,63 @@
    dir="end" />
  <interface name="clk50" internal="clk_50.clk_in" type="clock" dir="end" />
  <interface
-   name="comm_a_conduit_end"
-   internal="COMM_Pedreiro_v1_01_1.spw_conduit_end" />
- <interface
-   name="comm_a_measurements_conduit_end"
-   internal="COMM_Pedreiro_v1_01_1.measurements_conduit_end"
+   name="comm_1_measurements"
+   internal="Communication_Module_v2_Ch1.conduit_end_comm_measurements"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_a_sync_end"
-   internal="COMM_Pedreiro_v1_01_1.sync_conduit_end"
+   name="comm_1_sync"
+   internal="Communication_Module_v2_Ch1.conduit_end_channel_sync"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_b_conduit_end"
-   internal="COMM_Pedreiro_v1_01_2.spw_conduit_end" />
- <interface
-   name="comm_b_measurements_conduit_end"
-   internal="COMM_Pedreiro_v1_01_2.measurements_conduit_end"
+   name="comm_2_measurements"
+   internal="Communication_Module_v2_Ch2.conduit_end_comm_measurements"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_b_sync_end"
-   internal="COMM_Pedreiro_v1_01_2.sync_conduit_end"
+   name="comm_2_sync"
+   internal="Communication_Module_v2_Ch2.conduit_end_channel_sync"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_c_conduit_end"
-   internal="COMM_Pedreiro_v1_01_3.spw_conduit_end" />
- <interface
-   name="comm_c_measurements_conduit_end"
-   internal="COMM_Pedreiro_v1_01_3.measurements_conduit_end"
+   name="comm_3_measurements"
+   internal="Communication_Module_v2_Ch3.conduit_end_comm_measurements"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_c_sync_end"
-   internal="COMM_Pedreiro_v1_01_3.sync_conduit_end"
+   name="comm_3_sync"
+   internal="Communication_Module_v2_Ch3.conduit_end_channel_sync"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_d_conduit_end"
-   internal="COMM_Pedreiro_v1_01_4.spw_conduit_end" />
- <interface
-   name="comm_d_measurements_conduit_end"
-   internal="COMM_Pedreiro_v1_01_4.measurements_conduit_end"
+   name="comm_4_measurements"
+   internal="Communication_Module_v2_Ch4.conduit_end_comm_measurements"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_d_sync_end"
-   internal="COMM_Pedreiro_v1_01_4.sync_conduit_end"
+   name="comm_4_sync"
+   internal="Communication_Module_v2_Ch4.conduit_end_channel_sync"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_e_conduit_end"
-   internal="COMM_Pedreiro_v1_01_5.spw_conduit_end" />
- <interface
-   name="comm_e_measurements_conduit_end"
-   internal="COMM_Pedreiro_v1_01_5.measurements_conduit_end"
+   name="comm_5_measurements"
+   internal="Communication_Module_v2_Ch5.conduit_end_comm_measurements"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_e_sync_end"
-   internal="COMM_Pedreiro_v1_01_5.sync_conduit_end"
+   name="comm_5_sync"
+   internal="Communication_Module_v2_Ch5.conduit_end_channel_sync"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_f_conduit_end"
-   internal="COMM_Pedreiro_v1_01_6.spw_conduit_end" />
- <interface
-   name="comm_f_measurements_conduit_end"
-   internal="COMM_Pedreiro_v1_01_6.measurements_conduit_end"
+   name="comm_6_measurements"
+   internal="Communication_Module_v2_Ch6.conduit_end_comm_measurements"
    type="conduit"
    dir="end" />
  <interface
-   name="comm_f_sync_end"
-   internal="COMM_Pedreiro_v1_01_6.sync_conduit_end"
+   name="comm_6_sync"
+   internal="Communication_Module_v2_Ch6.conduit_end_channel_sync"
    type="conduit"
    dir="end" />
  <interface
@@ -2519,7 +1958,7 @@
    dir="end" />
  <interface
    name="ssdp"
-   internal="SEVEN_SEGMENT_CONTROLLER_0.SSDP_conduit"
+   internal="SEVEN_SEGMENT_CONTROLLER.SSDP_conduit"
    type="conduit"
    dir="end" />
  <interface name="sync_in" internal="sync.sync_in" type="conduit" dir="end" />
@@ -2567,7 +2006,7 @@
    dir="end" />
  <interface
    name="umft601a_pins"
-   internal="FTDI_USB3_0.conduit_umft_pins"
+   internal="FTDI_UMFT601A_Module.conduit_umft601a_pins"
    type="conduit"
    dir="end" />
  <module
@@ -2579,39 +2018,43 @@
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
  </module>
  <module
-   name="COMM_Pedreiro_v1_01_1"
-   kind="COMM_Pedreiro_v1_01"
-   version="2.4"
+   name="Communication_Module_v2_Ch1"
+   kind="Communication_Module_v2"
+   version="1"
    enabled="1" />
  <module
-   name="COMM_Pedreiro_v1_01_2"
-   kind="COMM_Pedreiro_v1_01"
-   version="2.4"
+   name="Communication_Module_v2_Ch2"
+   kind="Communication_Module_v2"
+   version="1"
    enabled="1" />
  <module
-   name="COMM_Pedreiro_v1_01_3"
-   kind="COMM_Pedreiro_v1_01"
-   version="2.4"
+   name="Communication_Module_v2_Ch3"
+   kind="Communication_Module_v2"
+   version="1"
    enabled="1" />
  <module
-   name="COMM_Pedreiro_v1_01_4"
-   kind="COMM_Pedreiro_v1_01"
-   version="2.4"
+   name="Communication_Module_v2_Ch4"
+   kind="Communication_Module_v2"
+   version="1"
    enabled="1" />
  <module
-   name="COMM_Pedreiro_v1_01_5"
-   kind="COMM_Pedreiro_v1_01"
-   version="2.4"
+   name="Communication_Module_v2_Ch5"
+   kind="Communication_Module_v2"
+   version="1"
    enabled="1" />
  <module
-   name="COMM_Pedreiro_v1_01_6"
-   kind="COMM_Pedreiro_v1_01"
-   version="2.4"
+   name="Communication_Module_v2_Ch6"
+   kind="Communication_Module_v2"
+   version="1"
    enabled="1" />
- <module name="FTDI_USB3_0" kind="FTDI_USB3" version="2.1" enabled="1" />
- <module name="RMAP_Echoing_0" kind="RMAP_Echoing" version="1.0" enabled="1" />
  <module
-   name="SEVEN_SEGMENT_CONTROLLER_0"
+   name="FTDI_UMFT601A_Module"
+   kind="FTDI_UMFT601A_Module"
+   version="2.3"
+   enabled="1" />
+ <module name="RMAP_Echoing" kind="RMAP_Echoing" version="1.1" enabled="1" />
+ <module
+   name="SEVEN_SEGMENT_CONTROLLER"
    kind="SEVEN_SEGMENT_CONTROLLER"
    version="1.0"
    enabled="1" />
@@ -2792,664 +2235,6 @@
   <parameter name="MAX_PENDING_READS" value="8" />
   <parameter name="SLAVE_ADDRESS_WIDTH" value="29" />
   <parameter name="SUB_WINDOW_COUNT" value="1" />
- </module>
- <module
-   name="dma_comm_1_left"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_1.avalon_slave_L_buffer' start='0x100000000' end='0x104000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_1_right"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_1.avalon_slave_R_buffer' start='0x104000000' end='0x108000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_2_left"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_2.avalon_slave_L_buffer' start='0x108000000' end='0x10C000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_2_right"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_2.avalon_slave_R_buffer' start='0x10C000000' end='0x110000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_3_left"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_3.avalon_slave_L_buffer' start='0x110000000' end='0x114000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_3_right"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_3.avalon_slave_R_buffer' start='0x114000000' end='0x118000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_4_left"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_4.avalon_slave_L_buffer' start='0x118000000' end='0x11C000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_4_right"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_4.avalon_slave_R_buffer' start='0x11C000000' end='0x120000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_5_left"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_5.avalon_slave_L_buffer' start='0x120000000' end='0x124000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_5_right"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_5.avalon_slave_R_buffer' start='0x124000000' end='0x128000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_6_left"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_6.avalon_slave_L_buffer' start='0x128000000' end='0x12C000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_comm_6_right"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='COMM_Pedreiro_v1_01_6.avalon_slave_R_buffer' start='0x12C000000' end='0x130000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_ftdi_rx_usb3"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
- </module>
- <module
-   name="dma_ftdi_tx_usb3"
-   kind="altera_msgdma"
-   version="18.1"
-   enabled="1">
-  <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_MAP" value="" />
-  <parameter
-     name="AUTO_DESCRIPTOR_WRITE_MASTER_ADDRESS_WIDTH"
-     value="AddressWidth = -1" />
-  <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x204000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
-  <parameter name="BURST_ENABLE" value="0" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
-  <parameter name="CHANNEL_ENABLE" value="0" />
-  <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="128" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
-  <parameter name="ERROR_ENABLE" value="0" />
-  <parameter name="ERROR_WIDTH" value="8" />
-  <parameter name="EXPOSE_ST_PORT" value="0" />
-  <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="67108864" />
-  <parameter name="MAX_STRIDE" value="1" />
-  <parameter name="MODE" value="0" />
-  <parameter name="PACKET_ENABLE" value="0" />
-  <parameter name="PREFETCHER_DATA_WIDTH" value="32" />
-  <parameter name="PREFETCHER_ENABLE" value="0" />
-  <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
-  <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
-  <parameter name="RESPONSE_PORT" value="2" />
-  <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
-  <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module
    name="ext_flash"
@@ -4275,7 +3060,7 @@
   <parameter name="dataAddrWidth" value="32" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81000000' end='0x81004000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81004000' end='0x81008000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x81008000' end='0x8100C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x8100C000' end='0x81010000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81010000' end='0x81014000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81014000' end='0x81018000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='COMM_Pedreiro_v1_01_6.avalon_slave_windowing' start='0x81018000' end='0x81018400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_5.avalon_slave_windowing' start='0x81018400' end='0x81018800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_4.avalon_slave_windowing' start='0x81018800' end='0x81018C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_3.avalon_slave_windowing' start='0x81018C00' end='0x81019000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_2.avalon_slave_windowing' start='0x81019000' end='0x81019400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_1.avalon_slave_windowing' start='0x81019400' end='0x81019800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='FTDI_USB3_0.avalon_slave_config' start='0x81019800' end='0x81019C00' type='FTDI_USB3.avalon_slave_config' /><slave name='dma_ftdi_tx_usb3.descriptor_slave' start='0x81019C00' end='0x81019C20' type='altera_msgdma.descriptor_slave' /><slave name='dma_ftdi_tx_usb3.csr' start='0x81019C20' end='0x81019C40' type='altera_msgdma.csr' /><slave name='dma_ftdi_rx_usb3.descriptor_slave' start='0x81019C40' end='0x81019C60' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_6_right.descriptor_slave' start='0x81019C60' end='0x81019C80' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_6_left.descriptor_slave' start='0x81019C80' end='0x81019CA0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_5_right.descriptor_slave' start='0x81019CA0' end='0x81019CC0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_5_left.descriptor_slave' start='0x81019CC0' end='0x81019CE0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_4_right.descriptor_slave' start='0x81019CE0' end='0x81019D00' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_4_left.descriptor_slave' start='0x81019D00' end='0x81019D20' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_3_right.descriptor_slave' start='0x81019D20' end='0x81019D40' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_3_left.descriptor_slave' start='0x81019D40' end='0x81019D60' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_2_right.descriptor_slave' start='0x81019D60' end='0x81019D80' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_2_left.descriptor_slave' start='0x81019D80' end='0x81019DA0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_1_right.descriptor_slave' start='0x81019DA0' end='0x81019DC0' type='altera_msgdma.descriptor_slave' /><slave name='dma_comm_1_left.descriptor_slave' start='0x81019DC0' end='0x81019DE0' type='altera_msgdma.descriptor_slave' /><slave name='dma_ftdi_rx_usb3.csr' start='0x81019DE0' end='0x81019E00' type='altera_msgdma.csr' /><slave name='dma_comm_6_right.csr' start='0x81019E00' end='0x81019E20' type='altera_msgdma.csr' /><slave name='dma_comm_6_left.csr' start='0x81019E20' end='0x81019E40' type='altera_msgdma.csr' /><slave name='dma_comm_5_right.csr' start='0x81019E40' end='0x81019E60' type='altera_msgdma.csr' /><slave name='dma_comm_5_left.csr' start='0x81019E60' end='0x81019E80' type='altera_msgdma.csr' /><slave name='dma_comm_4_right.csr' start='0x81019E80' end='0x81019EA0' type='altera_msgdma.csr' /><slave name='dma_comm_4_left.csr' start='0x81019EA0' end='0x81019EC0' type='altera_msgdma.csr' /><slave name='dma_comm_3_right.csr' start='0x81019EC0' end='0x81019EE0' type='altera_msgdma.csr' /><slave name='dma_comm_3_left.csr' start='0x81019EE0' end='0x81019F00' type='altera_msgdma.csr' /><slave name='dma_comm_2_right.csr' start='0x81019F00' end='0x81019F20' type='altera_msgdma.csr' /><slave name='dma_comm_2_left.csr' start='0x81019F20' end='0x81019F40' type='altera_msgdma.csr' /><slave name='dma_comm_1_right.csr' start='0x81019F40' end='0x81019F60' type='altera_msgdma.csr' /><slave name='dma_comm_1_left.csr' start='0x81019F60' end='0x81019F80' type='altera_msgdma.csr' /><slave name='ddr2_address_span_extender.cntl' start='0x81019F80' end='0x81019F88' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81000000' end='0x81004000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81004000' end='0x81008000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x81008000' end='0x8100C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x8100C000' end='0x81010000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81010000' end='0x81014000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81014000' end='0x81018000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='Communication_Module_v2_Ch6.avalon_mm_config_slave' start='0x81018000' end='0x81018400' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch5.avalon_mm_config_slave' start='0x81018400' end='0x81018800' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch4.avalon_mm_config_slave' start='0x81018800' end='0x81018C00' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch3.avalon_mm_config_slave' start='0x81018C00' end='0x81019000' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch2.avalon_mm_config_slave' start='0x81019000' end='0x81019400' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch1.avalon_mm_config_slave' start='0x81019400' end='0x81019800' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='FTDI_UMFT601A_Module.avalon_slave_config' start='0x81019800' end='0x81019C00' type='FTDI_UMFT601A_Module.avalon_slave_config' /><slave name='ddr2_address_span_extender.cntl' start='0x81019F80' end='0x81019F88' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x81100000' end='0x81200000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -4777,6 +3562,240 @@
  <connection
    kind="avalon"
    version="18.1"
+   start="FTDI_UMFT601A_Module.avalon_master_data"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="FTDI_UMFT601A_Module.avalon_master_data"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch1.avalon_mm_left_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch2.avalon_mm_left_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch4.avalon_mm_left_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch5.avalon_mm_left_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch6.avalon_mm_left_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch1.avalon_mm_left_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch2.avalon_mm_left_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch4.avalon_mm_left_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch5.avalon_mm_left_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch6.avalon_mm_left_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch1.avalon_mm_right_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch2.avalon_mm_right_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch5.avalon_mm_right_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch6.avalon_mm_right_buffer_master"
+   end="m2_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch1.avalon_mm_right_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch2.avalon_mm_right_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch5.avalon_mm_right_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch6.avalon_mm_right_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
    start="rmap_mem_nfee_comm_1.avalon_mm_rmap_master"
    end="m2_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
@@ -4895,6 +3914,60 @@
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
+   end="Communication_Module_v2_Ch1.avalon_mm_config_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81019400" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="Communication_Module_v2_Ch2.avalon_mm_config_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81019000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="Communication_Module_v2_Ch3.avalon_mm_config_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81018c00" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="Communication_Module_v2_Ch4.avalon_mm_config_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81018800" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="Communication_Module_v2_Ch5.avalon_mm_config_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81018400" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
+   end="Communication_Module_v2_Ch6.avalon_mm_config_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81018000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="nios2_gen2_0.data_master"
    end="rmap_mem_nfee_comm_1.avalon_rmap_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x81014000" />
@@ -4949,63 +4022,9 @@
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="FTDI_USB3_0.avalon_slave_config">
+   end="FTDI_UMFT601A_Module.avalon_slave_config">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x81019800" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="COMM_Pedreiro_v1_01_1.avalon_slave_windowing">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019400" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="COMM_Pedreiro_v1_01_2.avalon_slave_windowing">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="COMM_Pedreiro_v1_01_3.avalon_slave_windowing">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81018c00" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="COMM_Pedreiro_v1_01_4.avalon_slave_windowing">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81018800" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="COMM_Pedreiro_v1_01_5.avalon_slave_windowing">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81018400" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="COMM_Pedreiro_v1_01_6.avalon_slave_windowing">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81018000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -5030,261 +4049,9 @@
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="dma_comm_1_left.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019f60" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_1_right.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019f40" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_2_left.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019f20" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_2_right.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019f00" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_3_left.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019ee0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_3_right.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019ec0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_4_left.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019ea0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_4_right.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019e80" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_5_left.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019e60" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_5_right.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019e40" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_6_left.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019e20" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_6_right.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019e00" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_ftdi_rx_usb3.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019de0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_ftdi_tx_usb3.csr">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019c20" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
    end="nios2_gen2_0.debug_mem_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x81218800" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_1_left.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019dc0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_1_right.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019da0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_2_left.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019d80" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_2_right.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019d60" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_3_left.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019d40" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_3_right.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019d20" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_4_left.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019d00" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_4_right.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019ce0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_5_left.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019cc0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_5_right.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019ca0" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_6_left.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019c80" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_comm_6_right.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019c60" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_ftdi_rx_usb3.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019c40" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="nios2_gen2_0.data_master"
-   end="dma_ftdi_tx_usb3.descriptor_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81019c00" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -5372,7 +4139,7 @@
    kind="avalon"
    version="18.1"
    start="clock_bridge_afi_50.m0"
-   end="SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave">
+   end="SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0a10" />
   <parameter name="defaultConnection" value="false" />
@@ -5648,384 +4415,6 @@
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_ftdi_rx_usb3.mm_read"
-   end="FTDI_USB3_0.avalon_slave_data">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000200000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_1_left.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_6_right.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_6_left.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_5_right.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_5_left.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_4_right.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_4_left.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_3_right.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_3_left.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_2_right.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_2_left.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_1_right.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_ftdi_tx_usb3.mm_read"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_1_left.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_1_right.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_2_left.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_2_right.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_3_left.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_3_right.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_4_left.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_4_right.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_5_left.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_5_right.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_6_left.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_6_right.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_ftdi_tx_usb3.mm_read"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_1_left.mm_write"
-   end="COMM_Pedreiro_v1_01_1.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_2_left.mm_write"
-   end="COMM_Pedreiro_v1_01_2.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000108000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_3_left.mm_write"
-   end="COMM_Pedreiro_v1_01_3.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000110000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_4_left.mm_write"
-   end="COMM_Pedreiro_v1_01_4.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000118000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_5_left.mm_write"
-   end="COMM_Pedreiro_v1_01_5.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000120000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_6_left.mm_write"
-   end="COMM_Pedreiro_v1_01_6.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000128000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_1_right.mm_write"
-   end="COMM_Pedreiro_v1_01_1.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000104000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_2_right.mm_write"
-   end="COMM_Pedreiro_v1_01_2.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010c000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_3_right.mm_write"
-   end="COMM_Pedreiro_v1_01_3.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000114000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_4_right.mm_write"
-   end="COMM_Pedreiro_v1_01_4.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000011c000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_5_right.mm_write"
-   end="COMM_Pedreiro_v1_01_5.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000124000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_comm_6_right.mm_write"
-   end="COMM_Pedreiro_v1_01_6.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000012c000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_ftdi_tx_usb3.mm_write"
-   end="FTDI_USB3_0.avalon_slave_data">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000200000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_ftdi_rx_usb3.mm_write"
-   end="m2_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80000000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_ftdi_rx_usb3.mm_write"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
    kind="clock"
    version="18.1"
    start="m2_ddr2_memory.afi_clk"
@@ -6049,7 +4438,7 @@
    kind="clock"
    version="18.1"
    start="clk_50.clk"
-   end="SEVEN_SEGMENT_CONTROLLER_0.SSDP_CLK" />
+   end="SEVEN_SEGMENT_CONTROLLER.SSDP_CLK" />
  <connection
    kind="clock"
    version="18.1"
@@ -6136,113 +4525,43 @@
  <connection
    kind="clock"
    version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_1_left.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_1_right.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_2_left.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_2_right.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_3_left.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_3_right.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_4_left.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_4_right.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_5_left.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_5_right.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_6_left.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_comm_6_right.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_ftdi_rx_usb3.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_100.clk"
-   end="dma_ftdi_tx_usb3.clock" />
- <connection
-   kind="clock"
-   version="18.1"
    start="clk_50.clk"
    end="rst_controller.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="FTDI_USB3_0.clock_sink" />
+   end="FTDI_UMFT601A_Module.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_1.clock_sink_100" />
+   end="Communication_Module_v2_Ch1.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_2.clock_sink_100" />
+   end="Communication_Module_v2_Ch2.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_3.clock_sink_100" />
+   end="Communication_Module_v2_Ch3.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_4.clock_sink_100" />
+   end="Communication_Module_v2_Ch4.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_5.clock_sink_100" />
+   end="Communication_Module_v2_Ch5.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_6.clock_sink_100" />
+   end="Communication_Module_v2_Ch6.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
@@ -6317,42 +4636,12 @@
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="RMAP_Echoing_0.clock_sink_100mhz" />
+   end="RMAP_Echoing.clock_sink_100mhz" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
    end="SpaceWire_Channel_H.clock_sink_100mhz" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_1.clock_sink_200" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_2.clock_sink_200" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_3.clock_sink_200" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_4.clock_sink_200" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_5.clock_sink_200" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_200.clk"
-   end="COMM_Pedreiro_v1_01_6.clock_sink_200" />
  <connection
    kind="clock"
    version="18.1"
@@ -6396,11 +4685,6 @@
  <connection
    kind="clock"
    version="18.1"
-   start="clk_ftdi.clk"
-   end="FTDI_USB3_0.ftdi_clock_sink" />
- <connection
-   kind="clock"
-   version="18.1"
    start="clk_50.clk"
    end="clock_bridge_afi_50.m0_clk" />
  <connection
@@ -6414,10 +4698,15 @@
    start="clk_100.clk"
    end="clock_bridge_afi_50.s0_clk" />
  <connection
+   kind="clock"
+   version="18.1"
+   start="clk_ftdi.clk"
+   end="FTDI_UMFT601A_Module.umft601a_clock_sink" />
+ <connection
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_1.conduit_end_channel_hk_in"
-   end="COMM_Pedreiro_v1_01_1.conduit_end_channel_hk_out">
+   end="Communication_Module_v2_Ch1.conduit_end_channel_hk_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6428,7 +4717,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_2.conduit_end_channel_hk_in"
-   end="COMM_Pedreiro_v1_01_2.conduit_end_channel_hk_out">
+   end="Communication_Module_v2_Ch2.conduit_end_channel_hk_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6439,7 +4728,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_3.conduit_end_channel_hk_in"
-   end="COMM_Pedreiro_v1_01_3.conduit_end_channel_hk_out">
+   end="Communication_Module_v2_Ch3.conduit_end_channel_hk_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6450,7 +4739,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_4.conduit_end_channel_hk_in"
-   end="COMM_Pedreiro_v1_01_4.conduit_end_channel_hk_out">
+   end="Communication_Module_v2_Ch4.conduit_end_channel_hk_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6461,7 +4750,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_6.conduit_end_channel_hk_in"
-   end="COMM_Pedreiro_v1_01_6.conduit_end_channel_hk_out">
+   end="Communication_Module_v2_Ch6.conduit_end_channel_hk_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6471,7 +4760,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="COMM_Pedreiro_v1_01_5.conduit_end_channel_hk_out"
+   start="Communication_Module_v2_Ch5.conduit_end_channel_hk_out"
    end="rmap_mem_nfee_comm_5.conduit_end_channel_hk_in">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6482,85 +4771,8 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="RMAP_Echoing_0.conduit_end_fee_0_rmap_echo_in"
-   end="COMM_Pedreiro_v1_01_1.conduit_end_fee_rmap_echo_out">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
-   start="RMAP_Echoing_0.conduit_end_fee_1_rmap_echo_in"
-   end="COMM_Pedreiro_v1_01_2.conduit_end_fee_rmap_echo_out">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
-   start="RMAP_Echoing_0.conduit_end_fee_3_rmap_echo_in"
-   end="COMM_Pedreiro_v1_01_4.conduit_end_fee_rmap_echo_out">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
-   start="RMAP_Echoing_0.conduit_end_fee_4_rmap_echo_in"
-   end="COMM_Pedreiro_v1_01_5.conduit_end_fee_rmap_echo_out">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
-   start="RMAP_Echoing_0.conduit_end_fee_5_rmap_echo_in"
-   end="COMM_Pedreiro_v1_01_6.conduit_end_fee_rmap_echo_out">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
-   start="COMM_Pedreiro_v1_01_3.conduit_end_fee_rmap_echo_out"
-   end="RMAP_Echoing_0.conduit_end_fee_2_rmap_echo_in">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
-   start="COMM_Pedreiro_v1_01_3.conduit_end_fee_rmap_master_codec"
-   end="rmap_mem_nfee_comm_3.conduit_end_fee_rmap_slave_0">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
    start="rmap_mem_nfee_comm_1.conduit_end_fee_rmap_slave_0"
-   end="COMM_Pedreiro_v1_01_1.conduit_end_fee_rmap_master_codec">
+   end="Communication_Module_v2_Ch1.conduit_end_rmap_mem_master_rmap_target">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6571,7 +4783,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_2.conduit_end_fee_rmap_slave_0"
-   end="COMM_Pedreiro_v1_01_2.conduit_end_fee_rmap_master_codec">
+   end="Communication_Module_v2_Ch2.conduit_end_rmap_mem_master_rmap_target">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6582,7 +4794,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_4.conduit_end_fee_rmap_slave_0"
-   end="COMM_Pedreiro_v1_01_4.conduit_end_fee_rmap_master_codec">
+   end="Communication_Module_v2_Ch4.conduit_end_rmap_mem_master_rmap_target">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6593,7 +4805,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_5.conduit_end_fee_rmap_slave_0"
-   end="COMM_Pedreiro_v1_01_5.conduit_end_fee_rmap_master_codec">
+   end="Communication_Module_v2_Ch5.conduit_end_rmap_mem_master_rmap_target">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6604,7 +4816,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_6.conduit_end_fee_rmap_slave_0"
-   end="COMM_Pedreiro_v1_01_6.conduit_end_fee_rmap_master_codec">
+   end="Communication_Module_v2_Ch6.conduit_end_rmap_mem_master_rmap_target">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6615,7 +4827,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_1.conduit_end_fee_rmap_slave_1"
-   end="COMM_Pedreiro_v1_01_1.conduit_end_fee_rmap_master_hk">
+   end="Communication_Module_v2_Ch1.conduit_end_rmap_mem_master_fee_hk">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6626,7 +4838,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_2.conduit_end_fee_rmap_slave_1"
-   end="COMM_Pedreiro_v1_01_2.conduit_end_fee_rmap_master_hk">
+   end="Communication_Module_v2_Ch2.conduit_end_rmap_mem_master_fee_hk">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6637,7 +4849,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_3.conduit_end_fee_rmap_slave_1"
-   end="COMM_Pedreiro_v1_01_3.conduit_end_fee_rmap_master_hk">
+   end="Communication_Module_v2_Ch3.conduit_end_rmap_mem_master_fee_hk">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6648,7 +4860,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_4.conduit_end_fee_rmap_slave_1"
-   end="COMM_Pedreiro_v1_01_4.conduit_end_fee_rmap_master_hk">
+   end="Communication_Module_v2_Ch4.conduit_end_rmap_mem_master_fee_hk">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6659,7 +4871,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_5.conduit_end_fee_rmap_slave_1"
-   end="COMM_Pedreiro_v1_01_5.conduit_end_fee_rmap_master_hk">
+   end="Communication_Module_v2_Ch5.conduit_end_rmap_mem_master_fee_hk">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6670,7 +4882,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_6.conduit_end_fee_rmap_slave_1"
-   end="COMM_Pedreiro_v1_01_6.conduit_end_fee_rmap_master_hk">
+   end="Communication_Module_v2_Ch6.conduit_end_rmap_mem_master_fee_hk">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6681,7 +4893,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_6.conduit_end_rmap_avm_configs_in"
-   end="COMM_Pedreiro_v1_01_6.conduit_end_rmap_avm_configs_out">
+   end="Communication_Module_v2_Ch6.conduit_end_rmap_avm_configs_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6692,7 +4904,7 @@
    kind="conduit"
    version="18.1"
    start="rmap_mem_nfee_comm_1.conduit_end_rmap_avm_configs_in"
-   end="COMM_Pedreiro_v1_01_1.conduit_end_rmap_avm_configs_out">
+   end="Communication_Module_v2_Ch1.conduit_end_rmap_avm_configs_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6702,7 +4914,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="COMM_Pedreiro_v1_01_2.conduit_end_rmap_avm_configs_out"
+   start="Communication_Module_v2_Ch2.conduit_end_rmap_avm_configs_out"
    end="rmap_mem_nfee_comm_2.conduit_end_rmap_avm_configs_in">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6713,7 +4925,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="COMM_Pedreiro_v1_01_3.conduit_end_rmap_avm_configs_out"
+   start="Communication_Module_v2_Ch3.conduit_end_rmap_avm_configs_out"
    end="rmap_mem_nfee_comm_3.conduit_end_rmap_avm_configs_in">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6724,7 +4936,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="COMM_Pedreiro_v1_01_4.conduit_end_rmap_avm_configs_out"
+   start="Communication_Module_v2_Ch4.conduit_end_rmap_avm_configs_out"
    end="rmap_mem_nfee_comm_4.conduit_end_rmap_avm_configs_in">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6735,7 +4947,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="COMM_Pedreiro_v1_01_5.conduit_end_rmap_avm_configs_out"
+   start="Communication_Module_v2_Ch5.conduit_end_rmap_avm_configs_out"
    end="rmap_mem_nfee_comm_5.conduit_end_rmap_avm_configs_in">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6746,8 +4958,85 @@
  <connection
    kind="conduit"
    version="18.1"
+   start="RMAP_Echoing.conduit_end_rmap_echo_0_in"
+   end="Communication_Module_v2_Ch1.conduit_end_rmap_echo_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_rmap_echo_1_in"
+   end="Communication_Module_v2_Ch2.conduit_end_rmap_echo_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_rmap_echo_3_in"
+   end="Communication_Module_v2_Ch4.conduit_end_rmap_echo_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_rmap_echo_4_in"
+   end="Communication_Module_v2_Ch5.conduit_end_rmap_echo_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="RMAP_Echoing.conduit_end_rmap_echo_5_in"
+   end="Communication_Module_v2_Ch6.conduit_end_rmap_echo_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.conduit_end_rmap_echo_out"
+   end="RMAP_Echoing.conduit_end_rmap_echo_2_in">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.conduit_end_rmap_mem_master_rmap_target"
+   end="rmap_mem_nfee_comm_3.conduit_end_fee_rmap_slave_0">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
    start="SpaceWire_Channel_A.conduit_end_spacewire_channel"
-   end="COMM_Pedreiro_v1_01_1.conduit_end_spacewire_controller">
+   end="Communication_Module_v2_Ch1.conduit_end_spacewire_controller">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6758,7 +5047,7 @@
    kind="conduit"
    version="18.1"
    start="SpaceWire_Channel_B.conduit_end_spacewire_channel"
-   end="COMM_Pedreiro_v1_01_2.conduit_end_spacewire_controller">
+   end="Communication_Module_v2_Ch2.conduit_end_spacewire_controller">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6769,7 +5058,7 @@
    kind="conduit"
    version="18.1"
    start="SpaceWire_Channel_D.conduit_end_spacewire_channel"
-   end="COMM_Pedreiro_v1_01_4.conduit_end_spacewire_controller">
+   end="Communication_Module_v2_Ch4.conduit_end_spacewire_controller">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6780,7 +5069,7 @@
    kind="conduit"
    version="18.1"
    start="SpaceWire_Channel_F.conduit_end_spacewire_channel"
-   end="COMM_Pedreiro_v1_01_6.conduit_end_spacewire_controller">
+   end="Communication_Module_v2_Ch6.conduit_end_spacewire_controller">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -6790,7 +5079,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="COMM_Pedreiro_v1_01_3.conduit_end_spacewire_controller"
+   start="Communication_Module_v2_Ch3.conduit_end_spacewire_controller"
    end="SpaceWire_Channel_C.conduit_end_spacewire_channel">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6801,7 +5090,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="COMM_Pedreiro_v1_01_5.conduit_end_spacewire_controller"
+   start="Communication_Module_v2_Ch5.conduit_end_spacewire_controller"
    end="SpaceWire_Channel_E.conduit_end_spacewire_channel">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6823,7 +5112,7 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="RMAP_Echoing_0.conduit_end_spacewire_controller"
+   start="RMAP_Echoing.conduit_end_spacewire_controller"
    end="SpaceWire_Channel_H.conduit_end_spacewire_channel">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -6835,57 +5124,43 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_1.buffers_interrupt_sender">
+   end="Communication_Module_v2_Ch1.feeb_interrupt_sender">
   <parameter name="irqNumber" value="5" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_2.buffers_interrupt_sender">
+   end="Communication_Module_v2_Ch2.feeb_interrupt_sender">
   <parameter name="irqNumber" value="6" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_3.buffers_interrupt_sender">
+   end="Communication_Module_v2_Ch3.feeb_interrupt_sender">
   <parameter name="irqNumber" value="7" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_4.buffers_interrupt_sender">
+   end="Communication_Module_v2_Ch4.feeb_interrupt_sender">
   <parameter name="irqNumber" value="8" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_5.buffers_interrupt_sender">
+   end="Communication_Module_v2_Ch5.feeb_interrupt_sender">
   <parameter name="irqNumber" value="9" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_6.buffers_interrupt_sender">
+   end="Communication_Module_v2_Ch6.feeb_interrupt_sender">
   <parameter name="irqNumber" value="10" />
- </connection>
- <connection
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
-   end="FTDI_USB3_0.ftdi_rx_interrupt_sender">
-  <parameter name="irqNumber" value="2" />
- </connection>
- <connection
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
-   end="FTDI_USB3_0.ftdi_tx_interrupt_sender">
-  <parameter name="irqNumber" value="3" />
  </connection>
  <connection
    kind="interrupt"
@@ -6926,43 +5201,50 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_1.rmap_interrupt_sender">
+   end="Communication_Module_v2_Ch1.rmap_interrupt_sender">
   <parameter name="irqNumber" value="15" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_2.rmap_interrupt_sender">
+   end="Communication_Module_v2_Ch2.rmap_interrupt_sender">
   <parameter name="irqNumber" value="16" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_3.rmap_interrupt_sender">
+   end="Communication_Module_v2_Ch3.rmap_interrupt_sender">
   <parameter name="irqNumber" value="17" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_4.rmap_interrupt_sender">
+   end="Communication_Module_v2_Ch4.rmap_interrupt_sender">
   <parameter name="irqNumber" value="18" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_5.rmap_interrupt_sender">
+   end="Communication_Module_v2_Ch5.rmap_interrupt_sender">
   <parameter name="irqNumber" value="19" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_6.rmap_interrupt_sender">
+   end="Communication_Module_v2_Ch6.rmap_interrupt_sender">
   <parameter name="irqNumber" value="20" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="FTDI_UMFT601A_Module.rx_interrupt_sender">
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="interrupt"
@@ -6972,10 +5254,17 @@
   <parameter name="irqNumber" value="11" />
  </connection>
  <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="FTDI_UMFT601A_Module.tx_interrupt_sender">
+  <parameter name="irqNumber" value="3" />
+ </connection>
+ <connection
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="SEVEN_SEGMENT_CONTROLLER_0.SSDP_RST" />
+   end="SEVEN_SEGMENT_CONTROLLER.SSDP_RST" />
  <connection
    kind="reset"
    version="18.1"
@@ -7196,77 +5485,7 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="dma_comm_1_left.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_1_right.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_2_left.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_2_right.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_3_left.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_3_right.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_4_right.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_4_left.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_5_left.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_5_right.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_6_left.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_comm_6_right.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_ftdi_rx_usb3.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="dma_ftdi_tx_usb3.reset_n" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_1.reset_sink" />
+   end="Communication_Module_v2_Ch1.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7276,32 +5495,32 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_2.reset_sink" />
+   end="Communication_Module_v2_Ch2.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_3.reset_sink" />
+   end="Communication_Module_v2_Ch3.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_4.reset_sink" />
+   end="Communication_Module_v2_Ch4.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_5.reset_sink" />
+   end="Communication_Module_v2_Ch5.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_6.reset_sink" />
+   end="Communication_Module_v2_Ch6.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="FTDI_USB3_0.reset_sink" />
+   end="FTDI_UMFT601A_Module.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7376,7 +5595,7 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7406,7 +5625,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch1"
-   end="COMM_Pedreiro_v1_01_1.reset_sink" />
+   end="Communication_Module_v2_Ch1.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7416,7 +5635,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch1"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7426,7 +5645,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch2"
-   end="COMM_Pedreiro_v1_01_2.reset_sink" />
+   end="Communication_Module_v2_Ch2.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7436,7 +5655,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch2"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7446,7 +5665,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch3"
-   end="COMM_Pedreiro_v1_01_3.reset_sink" />
+   end="Communication_Module_v2_Ch3.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7456,7 +5675,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch3"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7466,7 +5685,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch4"
-   end="COMM_Pedreiro_v1_01_4.reset_sink" />
+   end="Communication_Module_v2_Ch4.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7476,7 +5695,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch4"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7486,7 +5705,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch5"
-   end="COMM_Pedreiro_v1_01_5.reset_sink" />
+   end="Communication_Module_v2_Ch5.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7496,7 +5715,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch5"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7506,7 +5725,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch6"
-   end="COMM_Pedreiro_v1_01_6.reset_sink" />
+   end="Communication_Module_v2_Ch6.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7516,7 +5735,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch6"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7536,7 +5755,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch7"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -7546,7 +5765,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch8"
-   end="RMAP_Echoing_0.reset_sink" />
+   end="RMAP_Echoing.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

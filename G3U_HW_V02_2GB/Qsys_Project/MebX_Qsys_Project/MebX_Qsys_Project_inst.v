@@ -1,18 +1,18 @@
 	MebX_Qsys_Project u0 (
 		.button_export                                               (<connected-to-button_export>),                                               //                               button.export
 		.clk50_clk                                                   (<connected-to-clk50_clk>),                                                   //                                clk50.clk
-		.comm_a_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_a_measurements_conduit_end_measurements_channel_signal>), //      comm_a_measurements_conduit_end.measurements_channel_signal
-		.comm_a_sync_end_sync_channel_signal                         (<connected-to-comm_a_sync_end_sync_channel_signal>),                         //                      comm_a_sync_end.sync_channel_signal
-		.comm_b_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_b_measurements_conduit_end_measurements_channel_signal>), //      comm_b_measurements_conduit_end.measurements_channel_signal
-		.comm_b_sync_end_sync_channel_signal                         (<connected-to-comm_b_sync_end_sync_channel_signal>),                         //                      comm_b_sync_end.sync_channel_signal
-		.comm_c_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_c_measurements_conduit_end_measurements_channel_signal>), //      comm_c_measurements_conduit_end.measurements_channel_signal
-		.comm_c_sync_end_sync_channel_signal                         (<connected-to-comm_c_sync_end_sync_channel_signal>),                         //                      comm_c_sync_end.sync_channel_signal
-		.comm_d_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_d_measurements_conduit_end_measurements_channel_signal>), //      comm_d_measurements_conduit_end.measurements_channel_signal
-		.comm_d_sync_end_sync_channel_signal                         (<connected-to-comm_d_sync_end_sync_channel_signal>),                         //                      comm_d_sync_end.sync_channel_signal
-		.comm_e_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_e_measurements_conduit_end_measurements_channel_signal>), //      comm_e_measurements_conduit_end.measurements_channel_signal
-		.comm_e_sync_end_sync_channel_signal                         (<connected-to-comm_e_sync_end_sync_channel_signal>),                         //                      comm_e_sync_end.sync_channel_signal
-		.comm_f_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_f_measurements_conduit_end_measurements_channel_signal>), //      comm_f_measurements_conduit_end.measurements_channel_signal
-		.comm_f_sync_end_sync_channel_signal                         (<connected-to-comm_f_sync_end_sync_channel_signal>),                         //                      comm_f_sync_end.sync_channel_signal
+		.comm_1_measurements_measurements_signal                     (<connected-to-comm_1_measurements_measurements_signal>),                     //                  comm_1_measurements.measurements_signal
+		.comm_1_sync_sync_signal                                     (<connected-to-comm_1_sync_sync_signal>),                                     //                          comm_1_sync.sync_signal
+		.comm_2_measurements_measurements_signal                     (<connected-to-comm_2_measurements_measurements_signal>),                     //                  comm_2_measurements.measurements_signal
+		.comm_2_sync_sync_signal                                     (<connected-to-comm_2_sync_sync_signal>),                                     //                          comm_2_sync.sync_signal
+		.comm_3_measurements_measurements_signal                     (<connected-to-comm_3_measurements_measurements_signal>),                     //                  comm_3_measurements.measurements_signal
+		.comm_3_sync_sync_signal                                     (<connected-to-comm_3_sync_sync_signal>),                                     //                          comm_3_sync.sync_signal
+		.comm_4_measurements_measurements_signal                     (<connected-to-comm_4_measurements_measurements_signal>),                     //                  comm_4_measurements.measurements_signal
+		.comm_4_sync_sync_signal                                     (<connected-to-comm_4_sync_sync_signal>),                                     //                          comm_4_sync.sync_signal
+		.comm_5_measurements_measurements_signal                     (<connected-to-comm_5_measurements_measurements_signal>),                     //                  comm_5_measurements.measurements_signal
+		.comm_5_sync_sync_signal                                     (<connected-to-comm_5_sync_sync_signal>),                                     //                          comm_5_sync.sync_signal
+		.comm_6_measurements_measurements_signal                     (<connected-to-comm_6_measurements_measurements_signal>),                     //                  comm_6_measurements.measurements_signal
+		.comm_6_sync_sync_signal                                     (<connected-to-comm_6_sync_sync_signal>),                                     //                          comm_6_sync.sync_signal
 		.csense_adc_fo_export                                        (<connected-to-csense_adc_fo_export>),                                        //                        csense_adc_fo.export
 		.csense_cs_n_export                                          (<connected-to-csense_cs_n_export>),                                          //                          csense_cs_n.export
 		.csense_sck_export                                           (<connected-to-csense_sck_export>),                                           //                           csense_sck.export
@@ -160,14 +160,14 @@
 		.tristate_conduit_tcm_write_n_out                            (<connected-to-tristate_conduit_tcm_write_n_out>),                            //                                     .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                               (<connected-to-tristate_conduit_tcm_data_out>),                               //                                     .tcm_data_out
 		.tristate_conduit_tcm_chipselect_n_out                       (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                       //                                     .tcm_chipselect_n_out
-		.umft601a_pins_umft_data_signal                              (<connected-to-umft601a_pins_umft_data_signal>),                              //                        umft601a_pins.umft_data_signal
-		.umft601a_pins_umft_reset_n_signal                           (<connected-to-umft601a_pins_umft_reset_n_signal>),                           //                                     .umft_reset_n_signal
-		.umft601a_pins_umft_rxf_n_signal                             (<connected-to-umft601a_pins_umft_rxf_n_signal>),                             //                                     .umft_rxf_n_signal
-		.umft601a_pins_umft_clock_signal                             (<connected-to-umft601a_pins_umft_clock_signal>),                             //                                     .umft_clock_signal
-		.umft601a_pins_umft_wakeup_n_signal                          (<connected-to-umft601a_pins_umft_wakeup_n_signal>),                          //                                     .umft_wakeup_n_signal
-		.umft601a_pins_umft_be_signal                                (<connected-to-umft601a_pins_umft_be_signal>),                                //                                     .umft_be_signal
+		.umft601a_pins_umft_clock_signal                             (<connected-to-umft601a_pins_umft_clock_signal>),                             //                        umft601a_pins.umft_clock_signal
 		.umft601a_pins_umft_txe_n_signal                             (<connected-to-umft601a_pins_umft_txe_n_signal>),                             //                                     .umft_txe_n_signal
+		.umft601a_pins_umft_rxf_n_signal                             (<connected-to-umft601a_pins_umft_rxf_n_signal>),                             //                                     .umft_rxf_n_signal
+		.umft601a_pins_umft_data_signal                              (<connected-to-umft601a_pins_umft_data_signal>),                              //                                     .umft_data_signal
+		.umft601a_pins_umft_be_signal                                (<connected-to-umft601a_pins_umft_be_signal>),                                //                                     .umft_be_signal
+		.umft601a_pins_umft_wakeup_n_signal                          (<connected-to-umft601a_pins_umft_wakeup_n_signal>),                          //                                     .umft_wakeup_n_signal
 		.umft601a_pins_umft_gpio_bus_signal                          (<connected-to-umft601a_pins_umft_gpio_bus_signal>),                          //                                     .umft_gpio_bus_signal
+		.umft601a_pins_umft_reset_n_signal                           (<connected-to-umft601a_pins_umft_reset_n_signal>),                           //                                     .umft_reset_n_signal
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                     .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                     .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                     .umft_oe_n_signal

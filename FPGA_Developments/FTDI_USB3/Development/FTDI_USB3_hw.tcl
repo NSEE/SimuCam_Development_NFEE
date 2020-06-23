@@ -4,7 +4,7 @@
 
 
 # 
-# ftdi_usb3 "ftdi_umft601a_module" v2.3
+# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.3
 #  2019.06.12.14:05:05
 # 
 # 
@@ -16,15 +16,15 @@ package require -exact qsys 16.1
 
 
 # 
-# module ftdi_usb3
+# module FTDI_UMFT601A_Module
 # 
 set_module_property DESCRIPTION ""
-set_module_property NAME ftdi_usb3
+set_module_property NAME FTDI_UMFT601A_Module
 set_module_property VERSION 2.3
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
-set_module_property DISPLAY_NAME ftdi_umft601a_module
+set_module_property DISPLAY_NAME FTDI_UMFT601A_Module
 set_module_property INSTANTIATE_IN_SYSTEM_MODULE true
 set_module_property EDITABLE true
 set_module_property REPORT_TO_TALKBACK false

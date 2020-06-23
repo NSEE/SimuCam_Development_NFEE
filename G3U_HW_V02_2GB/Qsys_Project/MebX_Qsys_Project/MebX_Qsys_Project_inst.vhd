@@ -2,18 +2,18 @@
 		port (
 			button_export                                               : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                                   : in    std_logic                     := 'X';             -- clk
-			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_c_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_d_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_e_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_f_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
+			comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     -- measurements_signal
+			comm_1_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
+			comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     -- measurements_signal
+			comm_2_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
+			comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     -- measurements_signal
+			comm_3_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
+			comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     -- measurements_signal
+			comm_4_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
+			comm_5_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     -- measurements_signal
+			comm_5_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
+			comm_6_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     -- measurements_signal
+			comm_6_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
 			csense_adc_fo_export                                        : out   std_logic;                                        -- export
 			csense_cs_n_export                                          : out   std_logic_vector(1 downto 0);                     -- export
 			csense_sck_export                                           : out   std_logic;                                        -- export
@@ -161,14 +161,14 @@
 			tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
 			tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
-			umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
-			umft601a_pins_umft_reset_n_signal                           : out   std_logic;                                        -- umft_reset_n_signal
-			umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := 'X';             -- umft_rxf_n_signal
 			umft601a_pins_umft_clock_signal                             : in    std_logic                     := 'X';             -- umft_clock_signal
-			umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := 'X';             -- umft_wakeup_n_signal
-			umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- umft_be_signal
 			umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := 'X';             -- umft_txe_n_signal
+			umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := 'X';             -- umft_rxf_n_signal
+			umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
+			umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- umft_be_signal
+			umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := 'X';             -- umft_wakeup_n_signal
 			umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => 'X'); -- umft_gpio_bus_signal
+			umft601a_pins_umft_reset_n_signal                           : out   std_logic;                                        -- umft_reset_n_signal
 			umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        -- umft_oe_n_signal
@@ -180,18 +180,18 @@
 		port map (
 			button_export                                               => CONNECTED_TO_button_export,                                               --                               button.export
 			clk50_clk                                                   => CONNECTED_TO_clk50_clk,                                                   --                                clk50.clk
-			comm_a_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_a_measurements_conduit_end_measurements_channel_signal, --      comm_a_measurements_conduit_end.measurements_channel_signal
-			comm_a_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_a_sync_end_sync_channel_signal,                         --                      comm_a_sync_end.sync_channel_signal
-			comm_b_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_b_measurements_conduit_end_measurements_channel_signal, --      comm_b_measurements_conduit_end.measurements_channel_signal
-			comm_b_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_b_sync_end_sync_channel_signal,                         --                      comm_b_sync_end.sync_channel_signal
-			comm_c_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_c_measurements_conduit_end_measurements_channel_signal, --      comm_c_measurements_conduit_end.measurements_channel_signal
-			comm_c_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_c_sync_end_sync_channel_signal,                         --                      comm_c_sync_end.sync_channel_signal
-			comm_d_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_d_measurements_conduit_end_measurements_channel_signal, --      comm_d_measurements_conduit_end.measurements_channel_signal
-			comm_d_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_d_sync_end_sync_channel_signal,                         --                      comm_d_sync_end.sync_channel_signal
-			comm_e_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_e_measurements_conduit_end_measurements_channel_signal, --      comm_e_measurements_conduit_end.measurements_channel_signal
-			comm_e_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_e_sync_end_sync_channel_signal,                         --                      comm_e_sync_end.sync_channel_signal
-			comm_f_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_f_measurements_conduit_end_measurements_channel_signal, --      comm_f_measurements_conduit_end.measurements_channel_signal
-			comm_f_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_f_sync_end_sync_channel_signal,                         --                      comm_f_sync_end.sync_channel_signal
+			comm_1_measurements_measurements_signal                     => CONNECTED_TO_comm_1_measurements_measurements_signal,                     --                  comm_1_measurements.measurements_signal
+			comm_1_sync_sync_signal                                     => CONNECTED_TO_comm_1_sync_sync_signal,                                     --                          comm_1_sync.sync_signal
+			comm_2_measurements_measurements_signal                     => CONNECTED_TO_comm_2_measurements_measurements_signal,                     --                  comm_2_measurements.measurements_signal
+			comm_2_sync_sync_signal                                     => CONNECTED_TO_comm_2_sync_sync_signal,                                     --                          comm_2_sync.sync_signal
+			comm_3_measurements_measurements_signal                     => CONNECTED_TO_comm_3_measurements_measurements_signal,                     --                  comm_3_measurements.measurements_signal
+			comm_3_sync_sync_signal                                     => CONNECTED_TO_comm_3_sync_sync_signal,                                     --                          comm_3_sync.sync_signal
+			comm_4_measurements_measurements_signal                     => CONNECTED_TO_comm_4_measurements_measurements_signal,                     --                  comm_4_measurements.measurements_signal
+			comm_4_sync_sync_signal                                     => CONNECTED_TO_comm_4_sync_sync_signal,                                     --                          comm_4_sync.sync_signal
+			comm_5_measurements_measurements_signal                     => CONNECTED_TO_comm_5_measurements_measurements_signal,                     --                  comm_5_measurements.measurements_signal
+			comm_5_sync_sync_signal                                     => CONNECTED_TO_comm_5_sync_sync_signal,                                     --                          comm_5_sync.sync_signal
+			comm_6_measurements_measurements_signal                     => CONNECTED_TO_comm_6_measurements_measurements_signal,                     --                  comm_6_measurements.measurements_signal
+			comm_6_sync_sync_signal                                     => CONNECTED_TO_comm_6_sync_sync_signal,                                     --                          comm_6_sync.sync_signal
 			csense_adc_fo_export                                        => CONNECTED_TO_csense_adc_fo_export,                                        --                        csense_adc_fo.export
 			csense_cs_n_export                                          => CONNECTED_TO_csense_cs_n_export,                                          --                          csense_cs_n.export
 			csense_sck_export                                           => CONNECTED_TO_csense_sck_export,                                           --                           csense_sck.export
@@ -339,14 +339,14 @@
 			tristate_conduit_tcm_write_n_out                            => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                            --                                     .tcm_write_n_out
 			tristate_conduit_tcm_data_out                               => CONNECTED_TO_tristate_conduit_tcm_data_out,                               --                                     .tcm_data_out
 			tristate_conduit_tcm_chipselect_n_out                       => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                       --                                     .tcm_chipselect_n_out
-			umft601a_pins_umft_data_signal                              => CONNECTED_TO_umft601a_pins_umft_data_signal,                              --                        umft601a_pins.umft_data_signal
-			umft601a_pins_umft_reset_n_signal                           => CONNECTED_TO_umft601a_pins_umft_reset_n_signal,                           --                                     .umft_reset_n_signal
-			umft601a_pins_umft_rxf_n_signal                             => CONNECTED_TO_umft601a_pins_umft_rxf_n_signal,                             --                                     .umft_rxf_n_signal
-			umft601a_pins_umft_clock_signal                             => CONNECTED_TO_umft601a_pins_umft_clock_signal,                             --                                     .umft_clock_signal
-			umft601a_pins_umft_wakeup_n_signal                          => CONNECTED_TO_umft601a_pins_umft_wakeup_n_signal,                          --                                     .umft_wakeup_n_signal
-			umft601a_pins_umft_be_signal                                => CONNECTED_TO_umft601a_pins_umft_be_signal,                                --                                     .umft_be_signal
+			umft601a_pins_umft_clock_signal                             => CONNECTED_TO_umft601a_pins_umft_clock_signal,                             --                        umft601a_pins.umft_clock_signal
 			umft601a_pins_umft_txe_n_signal                             => CONNECTED_TO_umft601a_pins_umft_txe_n_signal,                             --                                     .umft_txe_n_signal
+			umft601a_pins_umft_rxf_n_signal                             => CONNECTED_TO_umft601a_pins_umft_rxf_n_signal,                             --                                     .umft_rxf_n_signal
+			umft601a_pins_umft_data_signal                              => CONNECTED_TO_umft601a_pins_umft_data_signal,                              --                                     .umft_data_signal
+			umft601a_pins_umft_be_signal                                => CONNECTED_TO_umft601a_pins_umft_be_signal,                                --                                     .umft_be_signal
+			umft601a_pins_umft_wakeup_n_signal                          => CONNECTED_TO_umft601a_pins_umft_wakeup_n_signal,                          --                                     .umft_wakeup_n_signal
 			umft601a_pins_umft_gpio_bus_signal                          => CONNECTED_TO_umft601a_pins_umft_gpio_bus_signal,                          --                                     .umft_gpio_bus_signal
+			umft601a_pins_umft_reset_n_signal                           => CONNECTED_TO_umft601a_pins_umft_reset_n_signal,                           --                                     .umft_reset_n_signal
 			umft601a_pins_umft_wr_n_signal                              => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                              --                                     .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                              --                                     .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                              --                                     .umft_oe_n_signal

@@ -127,9 +127,9 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		input  wire [31:0] rtcc_sdo_s1_readdata,                                                   //                                                                 .readdata
 		output wire [1:0]  sd_card_wp_n_s1_address,                                                //                                                  sd_card_wp_n_s1.address
 		input  wire [31:0] sd_card_wp_n_s1_readdata,                                               //                                                                 .readdata
-		output wire [0:0]  SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_address,                   //                     SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave.address
-		output wire        SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_write,                     //                                                                 .write
-		output wire [31:0] SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_writedata,                 //                                                                 .writedata
+		output wire [0:0]  SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_address,                     //                       SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave.address
+		output wire        SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_write,                       //                                                                 .write
+		output wire [31:0] SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_writedata,                   //                                                                 .writedata
 		output wire [7:0]  sync_avalon_mm_slave_address,                                           //                                             sync_avalon_mm_slave.address
 		output wire        sync_avalon_mm_slave_write,                                             //                                                                 .write
 		output wire        sync_avalon_mm_slave_read,                                              //                                                                 .read
@@ -170,33 +170,33 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 	wire         clock_bridge_afi_50_m0_translator_avalon_universal_master_0_write;                         // clock_bridge_afi_50_m0_translator:uav_write -> clock_bridge_afi_50_m0_agent:av_write
 	wire  [31:0] clock_bridge_afi_50_m0_translator_avalon_universal_master_0_writedata;                     // clock_bridge_afi_50_m0_translator:uav_writedata -> clock_bridge_afi_50_m0_agent:av_writedata
 	wire   [2:0] clock_bridge_afi_50_m0_translator_avalon_universal_master_0_burstcount;                    // clock_bridge_afi_50_m0_translator:uav_burstcount -> clock_bridge_afi_50_m0_agent:av_burstcount
-	wire  [31:0] seven_segment_controller_0_ssdp_avalon_slave_agent_m0_readdata;                            // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_readdata -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_readdata
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_m0_waitrequest;                         // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_waitrequest -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_waitrequest
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_m0_debugaccess;                         // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_debugaccess -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_debugaccess
-	wire  [11:0] seven_segment_controller_0_ssdp_avalon_slave_agent_m0_address;                             // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_address -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_address
-	wire   [3:0] seven_segment_controller_0_ssdp_avalon_slave_agent_m0_byteenable;                          // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_byteenable -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_byteenable
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_m0_read;                                // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_read -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_read
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_m0_readdatavalid;                       // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_readdatavalid -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_readdatavalid
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_m0_lock;                                // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_lock -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_lock
-	wire  [31:0] seven_segment_controller_0_ssdp_avalon_slave_agent_m0_writedata;                           // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_writedata -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_writedata
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_m0_write;                               // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_write -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_write
-	wire   [2:0] seven_segment_controller_0_ssdp_avalon_slave_agent_m0_burstcount;                          // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:m0_burstcount -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_translator:uav_burstcount
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_valid;                        // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_source_valid -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:in_valid
-	wire  [90:0] seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_data;                         // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_source_data -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:in_data
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_ready;                        // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:in_ready -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_source_ready
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_startofpacket;                // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_source_startofpacket -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:in_startofpacket
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_endofpacket;                  // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_source_endofpacket -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:in_endofpacket
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_valid;                     // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:out_valid -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_sink_valid
-	wire  [90:0] seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_data;                      // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:out_data -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_sink_data
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_ready;                     // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_sink_ready -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:out_ready
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_startofpacket;             // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:out_startofpacket -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_sink_startofpacket
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_endofpacket;               // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent_rsp_fifo:out_endofpacket -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rf_sink_endofpacket
-	wire         cmd_mux_src_valid;                                                                         // cmd_mux:src_valid -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:cp_valid
-	wire  [89:0] cmd_mux_src_data;                                                                          // cmd_mux:src_data -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:cp_data
-	wire         cmd_mux_src_ready;                                                                         // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:cp_ready -> cmd_mux:src_ready
-	wire  [29:0] cmd_mux_src_channel;                                                                       // cmd_mux:src_channel -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:cp_channel
-	wire         cmd_mux_src_startofpacket;                                                                 // cmd_mux:src_startofpacket -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:cp_startofpacket
-	wire         cmd_mux_src_endofpacket;                                                                   // cmd_mux:src_endofpacket -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:cp_endofpacket
+	wire  [31:0] seven_segment_controller_ssdp_avalon_slave_agent_m0_readdata;                              // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_readdata -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_readdata
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_m0_waitrequest;                           // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_waitrequest -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_waitrequest
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_m0_debugaccess;                           // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_debugaccess -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_debugaccess
+	wire  [11:0] seven_segment_controller_ssdp_avalon_slave_agent_m0_address;                               // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_address -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_address
+	wire   [3:0] seven_segment_controller_ssdp_avalon_slave_agent_m0_byteenable;                            // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_byteenable -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_byteenable
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_m0_read;                                  // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_read -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_read
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_m0_readdatavalid;                         // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_readdatavalid -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_readdatavalid
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_m0_lock;                                  // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_lock -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_lock
+	wire  [31:0] seven_segment_controller_ssdp_avalon_slave_agent_m0_writedata;                             // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_writedata -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_writedata
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_m0_write;                                 // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_write -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_write
+	wire   [2:0] seven_segment_controller_ssdp_avalon_slave_agent_m0_burstcount;                            // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:m0_burstcount -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_translator:uav_burstcount
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rf_source_valid;                          // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_source_valid -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:in_valid
+	wire  [90:0] seven_segment_controller_ssdp_avalon_slave_agent_rf_source_data;                           // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_source_data -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:in_data
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rf_source_ready;                          // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:in_ready -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_source_ready
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rf_source_startofpacket;                  // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_source_startofpacket -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:in_startofpacket
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rf_source_endofpacket;                    // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_source_endofpacket -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:in_endofpacket
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_valid;                       // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:out_valid -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_sink_valid
+	wire  [90:0] seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_data;                        // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:out_data -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_sink_data
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_ready;                       // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_sink_ready -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:out_ready
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_startofpacket;               // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:out_startofpacket -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_sink_startofpacket
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_endofpacket;                 // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent_rsp_fifo:out_endofpacket -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rf_sink_endofpacket
+	wire         cmd_mux_src_valid;                                                                         // cmd_mux:src_valid -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:cp_valid
+	wire  [89:0] cmd_mux_src_data;                                                                          // cmd_mux:src_data -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:cp_data
+	wire         cmd_mux_src_ready;                                                                         // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:cp_ready -> cmd_mux:src_ready
+	wire  [29:0] cmd_mux_src_channel;                                                                       // cmd_mux:src_channel -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:cp_channel
+	wire         cmd_mux_src_startofpacket;                                                                 // cmd_mux:src_startofpacket -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:cp_startofpacket
+	wire         cmd_mux_src_endofpacket;                                                                   // cmd_mux:src_endofpacket -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:cp_endofpacket
 	wire  [31:0] sync_avalon_mm_slave_agent_m0_readdata;                                                    // sync_avalon_mm_slave_translator:uav_readdata -> sync_avalon_mm_slave_agent:m0_readdata
 	wire         sync_avalon_mm_slave_agent_m0_waitrequest;                                                 // sync_avalon_mm_slave_translator:uav_waitrequest -> sync_avalon_mm_slave_agent:m0_waitrequest
 	wire         sync_avalon_mm_slave_agent_m0_debugaccess;                                                 // sync_avalon_mm_slave_agent:m0_debugaccess -> sync_avalon_mm_slave_translator:uav_debugaccess
@@ -985,11 +985,11 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 	wire         clock_bridge_afi_50_m0_agent_cp_ready;                                                     // router:sink_ready -> clock_bridge_afi_50_m0_agent:cp_ready
 	wire         clock_bridge_afi_50_m0_agent_cp_startofpacket;                                             // clock_bridge_afi_50_m0_agent:cp_startofpacket -> router:sink_startofpacket
 	wire         clock_bridge_afi_50_m0_agent_cp_endofpacket;                                               // clock_bridge_afi_50_m0_agent:cp_endofpacket -> router:sink_endofpacket
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rp_valid;                               // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rp_valid -> router_001:sink_valid
-	wire  [89:0] seven_segment_controller_0_ssdp_avalon_slave_agent_rp_data;                                // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rp_data -> router_001:sink_data
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rp_ready;                               // router_001:sink_ready -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rp_ready
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rp_startofpacket;                       // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rp_startofpacket -> router_001:sink_startofpacket
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rp_endofpacket;                         // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rp_endofpacket -> router_001:sink_endofpacket
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rp_valid;                                 // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rp_valid -> router_001:sink_valid
+	wire  [89:0] seven_segment_controller_ssdp_avalon_slave_agent_rp_data;                                  // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rp_data -> router_001:sink_data
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rp_ready;                                 // router_001:sink_ready -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rp_ready
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rp_startofpacket;                         // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rp_startofpacket -> router_001:sink_startofpacket
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rp_endofpacket;                           // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rp_endofpacket -> router_001:sink_endofpacket
 	wire         router_001_src_valid;                                                                      // router_001:src_valid -> rsp_demux:sink_valid
 	wire  [89:0] router_001_src_data;                                                                       // router_001:src_data -> rsp_demux:sink_data
 	wire         router_001_src_ready;                                                                      // rsp_demux:sink_ready -> router_001:src_ready
@@ -1699,13 +1699,13 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 	wire         rsp_demux_029_src0_startofpacket;                                                          // rsp_demux_029:src0_startofpacket -> rsp_mux:sink29_startofpacket
 	wire         rsp_demux_029_src0_endofpacket;                                                            // rsp_demux_029:src0_endofpacket -> rsp_mux:sink29_endofpacket
 	wire  [29:0] clock_bridge_afi_50_m0_limiter_cmd_valid_data;                                             // clock_bridge_afi_50_m0_limiter:cmd_src_valid -> cmd_demux:sink_valid
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_valid;                   // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter:in_0_valid
-	wire  [33:0] seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_data;                    // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rdata_fifo_src_data -> avalon_st_adapter:in_0_data
-	wire         seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_ready;                   // avalon_st_adapter:in_0_ready -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rdata_fifo_src_ready
-	wire         avalon_st_adapter_out_0_valid;                                                             // avalon_st_adapter:out_0_valid -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rdata_fifo_sink_valid
-	wire  [33:0] avalon_st_adapter_out_0_data;                                                              // avalon_st_adapter:out_0_data -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rdata_fifo_sink_data
-	wire         avalon_st_adapter_out_0_ready;                                                             // SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter:out_0_ready
-	wire   [0:0] avalon_st_adapter_out_0_error;                                                             // avalon_st_adapter:out_0_error -> SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_agent:rdata_fifo_sink_error
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_valid;                     // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter:in_0_valid
+	wire  [33:0] seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_data;                      // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rdata_fifo_src_data -> avalon_st_adapter:in_0_data
+	wire         seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_ready;                     // avalon_st_adapter:in_0_ready -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rdata_fifo_src_ready
+	wire         avalon_st_adapter_out_0_valid;                                                             // avalon_st_adapter:out_0_valid -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rdata_fifo_sink_valid
+	wire  [33:0] avalon_st_adapter_out_0_data;                                                              // avalon_st_adapter:out_0_data -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rdata_fifo_sink_data
+	wire         avalon_st_adapter_out_0_ready;                                                             // SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter:out_0_ready
+	wire   [0:0] avalon_st_adapter_out_0_error;                                                             // avalon_st_adapter:out_0_error -> SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_agent:rdata_fifo_sink_error
 	wire         sync_avalon_mm_slave_agent_rdata_fifo_src_valid;                                           // sync_avalon_mm_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter_001:in_0_valid
 	wire  [33:0] sync_avalon_mm_slave_agent_rdata_fifo_src_data;                                            // sync_avalon_mm_slave_agent:rdata_fifo_src_data -> avalon_st_adapter_001:in_0_data
 	wire         sync_avalon_mm_slave_agent_rdata_fifo_src_ready;                                           // avalon_st_adapter_001:in_0_ready -> sync_avalon_mm_slave_agent:rdata_fifo_src_ready
@@ -1996,42 +1996,42 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) seven_segment_controller_0_ssdp_avalon_slave_translator (
-		.clk                    (clk_50_clk_clk),                                                      //                      clk.clk
-		.reset                  (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),            //                    reset.reset
-		.uav_address            (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_address),       // avalon_universal_slave_0.address
-		.uav_burstcount         (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_burstcount),    //                         .burstcount
-		.uav_read               (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_read),          //                         .read
-		.uav_write              (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_write),         //                         .write
-		.uav_waitrequest        (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_waitrequest),   //                         .waitrequest
-		.uav_readdatavalid      (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_readdatavalid), //                         .readdatavalid
-		.uav_byteenable         (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_byteenable),    //                         .byteenable
-		.uav_readdata           (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_readdata),      //                         .readdata
-		.uav_writedata          (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_writedata),     //                         .writedata
-		.uav_lock               (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_lock),          //                         .lock
-		.uav_debugaccess        (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_debugaccess),   //                         .debugaccess
-		.av_address             (SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_address),                //      avalon_anti_slave_0.address
-		.av_write               (SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_write),                  //                         .write
-		.av_writedata           (SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_writedata),              //                         .writedata
-		.av_read                (),                                                                    //              (terminated)
-		.av_readdata            (32'b11011110101011011101111010101101),                                //              (terminated)
-		.av_begintransfer       (),                                                                    //              (terminated)
-		.av_beginbursttransfer  (),                                                                    //              (terminated)
-		.av_burstcount          (),                                                                    //              (terminated)
-		.av_byteenable          (),                                                                    //              (terminated)
-		.av_readdatavalid       (1'b0),                                                                //              (terminated)
-		.av_waitrequest         (1'b0),                                                                //              (terminated)
-		.av_writebyteenable     (),                                                                    //              (terminated)
-		.av_lock                (),                                                                    //              (terminated)
-		.av_chipselect          (),                                                                    //              (terminated)
-		.av_clken               (),                                                                    //              (terminated)
-		.uav_clken              (1'b0),                                                                //              (terminated)
-		.av_debugaccess         (),                                                                    //              (terminated)
-		.av_outputenable        (),                                                                    //              (terminated)
-		.uav_response           (),                                                                    //              (terminated)
-		.av_response            (2'b00),                                                               //              (terminated)
-		.uav_writeresponsevalid (),                                                                    //              (terminated)
-		.av_writeresponsevalid  (1'b0)                                                                 //              (terminated)
+	) seven_segment_controller_ssdp_avalon_slave_translator (
+		.clk                    (clk_50_clk_clk),                                                    //                      clk.clk
+		.reset                  (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),          //                    reset.reset
+		.uav_address            (seven_segment_controller_ssdp_avalon_slave_agent_m0_address),       // avalon_universal_slave_0.address
+		.uav_burstcount         (seven_segment_controller_ssdp_avalon_slave_agent_m0_burstcount),    //                         .burstcount
+		.uav_read               (seven_segment_controller_ssdp_avalon_slave_agent_m0_read),          //                         .read
+		.uav_write              (seven_segment_controller_ssdp_avalon_slave_agent_m0_write),         //                         .write
+		.uav_waitrequest        (seven_segment_controller_ssdp_avalon_slave_agent_m0_waitrequest),   //                         .waitrequest
+		.uav_readdatavalid      (seven_segment_controller_ssdp_avalon_slave_agent_m0_readdatavalid), //                         .readdatavalid
+		.uav_byteenable         (seven_segment_controller_ssdp_avalon_slave_agent_m0_byteenable),    //                         .byteenable
+		.uav_readdata           (seven_segment_controller_ssdp_avalon_slave_agent_m0_readdata),      //                         .readdata
+		.uav_writedata          (seven_segment_controller_ssdp_avalon_slave_agent_m0_writedata),     //                         .writedata
+		.uav_lock               (seven_segment_controller_ssdp_avalon_slave_agent_m0_lock),          //                         .lock
+		.uav_debugaccess        (seven_segment_controller_ssdp_avalon_slave_agent_m0_debugaccess),   //                         .debugaccess
+		.av_address             (SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_address),                //      avalon_anti_slave_0.address
+		.av_write               (SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_write),                  //                         .write
+		.av_writedata           (SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_writedata),              //                         .writedata
+		.av_read                (),                                                                  //              (terminated)
+		.av_readdata            (32'b11011110101011011101111010101101),                              //              (terminated)
+		.av_begintransfer       (),                                                                  //              (terminated)
+		.av_beginbursttransfer  (),                                                                  //              (terminated)
+		.av_burstcount          (),                                                                  //              (terminated)
+		.av_byteenable          (),                                                                  //              (terminated)
+		.av_readdatavalid       (1'b0),                                                              //              (terminated)
+		.av_waitrequest         (1'b0),                                                              //              (terminated)
+		.av_writebyteenable     (),                                                                  //              (terminated)
+		.av_lock                (),                                                                  //              (terminated)
+		.av_chipselect          (),                                                                  //              (terminated)
+		.av_clken               (),                                                                  //              (terminated)
+		.uav_clken              (1'b0),                                                              //              (terminated)
+		.av_debugaccess         (),                                                                  //              (terminated)
+		.av_outputenable        (),                                                                  //              (terminated)
+		.uav_response           (),                                                                  //              (terminated)
+		.av_response            (2'b00),                                                             //              (terminated)
+		.uav_writeresponsevalid (),                                                                  //              (terminated)
+		.av_writeresponsevalid  (1'b0)                                                               //              (terminated)
 	);
 
 	altera_merlin_slave_translator #(
@@ -4009,50 +4009,50 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
-	) seven_segment_controller_0_ssdp_avalon_slave_agent (
-		.clk                     (clk_50_clk_clk),                                                                //             clk.clk
-		.reset                   (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),                      //       clk_reset.reset
-		.m0_address              (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_lock),                    //                .lock
-		.m0_readdata             (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_read),                    //                .read
-		.m0_waitrequest          (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_writedata),               //                .writedata
-		.m0_write                (seven_segment_controller_0_ssdp_avalon_slave_agent_m0_write),                   //                .write
-		.rp_endofpacket          (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_ready),                   //                .ready
-		.rp_valid                (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_valid),                   //                .valid
-		.rp_data                 (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_data),                    //                .data
-		.rp_startofpacket        (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_src_ready),                                                             //              cp.ready
-		.cp_valid                (cmd_mux_src_valid),                                                             //                .valid
-		.cp_data                 (cmd_mux_src_data),                                                              //                .data
-		.cp_startofpacket        (cmd_mux_src_startofpacket),                                                     //                .startofpacket
-		.cp_endofpacket          (cmd_mux_src_endofpacket),                                                       //                .endofpacket
-		.cp_channel              (cmd_mux_src_channel),                                                           //                .channel
-		.rf_sink_ready           (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_out_0_ready),                                                 // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_out_0_valid),                                                 //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_out_0_data),                                                  //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_out_0_error),                                                 //                .error
-		.rdata_fifo_src_ready    (seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                                         //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                                           //     (terminated)
+	) seven_segment_controller_ssdp_avalon_slave_agent (
+		.clk                     (clk_50_clk_clk),                                                              //             clk.clk
+		.reset                   (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),                    //       clk_reset.reset
+		.m0_address              (seven_segment_controller_ssdp_avalon_slave_agent_m0_address),                 //              m0.address
+		.m0_burstcount           (seven_segment_controller_ssdp_avalon_slave_agent_m0_burstcount),              //                .burstcount
+		.m0_byteenable           (seven_segment_controller_ssdp_avalon_slave_agent_m0_byteenable),              //                .byteenable
+		.m0_debugaccess          (seven_segment_controller_ssdp_avalon_slave_agent_m0_debugaccess),             //                .debugaccess
+		.m0_lock                 (seven_segment_controller_ssdp_avalon_slave_agent_m0_lock),                    //                .lock
+		.m0_readdata             (seven_segment_controller_ssdp_avalon_slave_agent_m0_readdata),                //                .readdata
+		.m0_readdatavalid        (seven_segment_controller_ssdp_avalon_slave_agent_m0_readdatavalid),           //                .readdatavalid
+		.m0_read                 (seven_segment_controller_ssdp_avalon_slave_agent_m0_read),                    //                .read
+		.m0_waitrequest          (seven_segment_controller_ssdp_avalon_slave_agent_m0_waitrequest),             //                .waitrequest
+		.m0_writedata            (seven_segment_controller_ssdp_avalon_slave_agent_m0_writedata),               //                .writedata
+		.m0_write                (seven_segment_controller_ssdp_avalon_slave_agent_m0_write),                   //                .write
+		.rp_endofpacket          (seven_segment_controller_ssdp_avalon_slave_agent_rp_endofpacket),             //              rp.endofpacket
+		.rp_ready                (seven_segment_controller_ssdp_avalon_slave_agent_rp_ready),                   //                .ready
+		.rp_valid                (seven_segment_controller_ssdp_avalon_slave_agent_rp_valid),                   //                .valid
+		.rp_data                 (seven_segment_controller_ssdp_avalon_slave_agent_rp_data),                    //                .data
+		.rp_startofpacket        (seven_segment_controller_ssdp_avalon_slave_agent_rp_startofpacket),           //                .startofpacket
+		.cp_ready                (cmd_mux_src_ready),                                                           //              cp.ready
+		.cp_valid                (cmd_mux_src_valid),                                                           //                .valid
+		.cp_data                 (cmd_mux_src_data),                                                            //                .data
+		.cp_startofpacket        (cmd_mux_src_startofpacket),                                                   //                .startofpacket
+		.cp_endofpacket          (cmd_mux_src_endofpacket),                                                     //                .endofpacket
+		.cp_channel              (cmd_mux_src_channel),                                                         //                .channel
+		.rf_sink_ready           (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_ready),         //         rf_sink.ready
+		.rf_sink_valid           (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_valid),         //                .valid
+		.rf_sink_startofpacket   (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_startofpacket), //                .startofpacket
+		.rf_sink_endofpacket     (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
+		.rf_sink_data            (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_data),          //                .data
+		.rf_source_ready         (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_ready),            //       rf_source.ready
+		.rf_source_valid         (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_valid),            //                .valid
+		.rf_source_startofpacket (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_startofpacket),    //                .startofpacket
+		.rf_source_endofpacket   (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_endofpacket),      //                .endofpacket
+		.rf_source_data          (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_data),             //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_out_0_ready),                                               // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_out_0_valid),                                               //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_out_0_data),                                                //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_out_0_error),                                               //                .error
+		.rdata_fifo_src_ready    (seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_valid),       //                .valid
+		.rdata_fifo_src_data     (seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_data),        //                .data
+		.m0_response             (2'b00),                                                                       //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                                         //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -4068,32 +4068,32 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo (
-		.clk               (clk_50_clk_clk),                                                                //       clk.clk
-		.reset             (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),                      // clk_reset.reset
-		.in_data           (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_data),             //        in.data
-		.in_valid          (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_valid),            //          .valid
-		.in_ready          (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_ready),            //          .ready
-		.in_startofpacket  (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_startofpacket),    //          .startofpacket
-		.in_endofpacket    (seven_segment_controller_0_ssdp_avalon_slave_agent_rf_source_endofpacket),      //          .endofpacket
-		.out_data          (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_data),          //       out.data
-		.out_valid         (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_valid),         //          .valid
-		.out_ready         (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_ready),         //          .ready
-		.out_startofpacket (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_startofpacket), //          .startofpacket
-		.out_endofpacket   (seven_segment_controller_0_ssdp_avalon_slave_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
-		.csr_address       (2'b00),                                                                         // (terminated)
-		.csr_read          (1'b0),                                                                          // (terminated)
-		.csr_write         (1'b0),                                                                          // (terminated)
-		.csr_readdata      (),                                                                              // (terminated)
-		.csr_writedata     (32'b00000000000000000000000000000000),                                          // (terminated)
-		.almost_full_data  (),                                                                              // (terminated)
-		.almost_empty_data (),                                                                              // (terminated)
-		.in_empty          (1'b0),                                                                          // (terminated)
-		.out_empty         (),                                                                              // (terminated)
-		.in_error          (1'b0),                                                                          // (terminated)
-		.out_error         (),                                                                              // (terminated)
-		.in_channel        (1'b0),                                                                          // (terminated)
-		.out_channel       ()                                                                               // (terminated)
+	) seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo (
+		.clk               (clk_50_clk_clk),                                                              //       clk.clk
+		.reset             (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),                    // clk_reset.reset
+		.in_data           (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_data),             //        in.data
+		.in_valid          (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_valid),            //          .valid
+		.in_ready          (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_ready),            //          .ready
+		.in_startofpacket  (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_startofpacket),    //          .startofpacket
+		.in_endofpacket    (seven_segment_controller_ssdp_avalon_slave_agent_rf_source_endofpacket),      //          .endofpacket
+		.out_data          (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_data),          //       out.data
+		.out_valid         (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_valid),         //          .valid
+		.out_ready         (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_ready),         //          .ready
+		.out_startofpacket (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_startofpacket), //          .startofpacket
+		.out_endofpacket   (seven_segment_controller_ssdp_avalon_slave_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
+		.csr_address       (2'b00),                                                                       // (terminated)
+		.csr_read          (1'b0),                                                                        // (terminated)
+		.csr_write         (1'b0),                                                                        // (terminated)
+		.csr_readdata      (),                                                                            // (terminated)
+		.csr_writedata     (32'b00000000000000000000000000000000),                                        // (terminated)
+		.almost_full_data  (),                                                                            // (terminated)
+		.almost_empty_data (),                                                                            // (terminated)
+		.in_empty          (1'b0),                                                                        // (terminated)
+		.out_empty         (),                                                                            // (terminated)
+		.in_error          (1'b0),                                                                        // (terminated)
+		.out_error         (),                                                                            // (terminated)
+		.in_channel        (1'b0),                                                                        // (terminated)
+		.out_channel       ()                                                                             // (terminated)
 	);
 
 	altera_merlin_slave_agent #(
@@ -7738,19 +7738,19 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_router_001 router_001 (
-		.sink_ready         (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_ready),         //      sink.ready
-		.sink_valid         (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_valid),         //          .valid
-		.sink_data          (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_data),          //          .data
-		.sink_startofpacket (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_startofpacket), //          .startofpacket
-		.sink_endofpacket   (seven_segment_controller_0_ssdp_avalon_slave_agent_rp_endofpacket),   //          .endofpacket
-		.clk                (clk_50_clk_clk),                                                      //       clk.clk
-		.reset              (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),            // clk_reset.reset
-		.src_ready          (router_001_src_ready),                                                //       src.ready
-		.src_valid          (router_001_src_valid),                                                //          .valid
-		.src_data           (router_001_src_data),                                                 //          .data
-		.src_channel        (router_001_src_channel),                                              //          .channel
-		.src_startofpacket  (router_001_src_startofpacket),                                        //          .startofpacket
-		.src_endofpacket    (router_001_src_endofpacket)                                           //          .endofpacket
+		.sink_ready         (seven_segment_controller_ssdp_avalon_slave_agent_rp_ready),         //      sink.ready
+		.sink_valid         (seven_segment_controller_ssdp_avalon_slave_agent_rp_valid),         //          .valid
+		.sink_data          (seven_segment_controller_ssdp_avalon_slave_agent_rp_data),          //          .data
+		.sink_startofpacket (seven_segment_controller_ssdp_avalon_slave_agent_rp_startofpacket), //          .startofpacket
+		.sink_endofpacket   (seven_segment_controller_ssdp_avalon_slave_agent_rp_endofpacket),   //          .endofpacket
+		.clk                (clk_50_clk_clk),                                                    //       clk.clk
+		.reset              (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),          // clk_reset.reset
+		.src_ready          (router_001_src_ready),                                              //       src.ready
+		.src_valid          (router_001_src_valid),                                              //          .valid
+		.src_data           (router_001_src_data),                                               //          .data
+		.src_channel        (router_001_src_channel),                                            //          .channel
+		.src_startofpacket  (router_001_src_startofpacket),                                      //          .startofpacket
+		.src_endofpacket    (router_001_src_endofpacket)                                         //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_router_001 router_002 (
@@ -9687,15 +9687,15 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.outUseReady     (1),
 		.outReadyLatency (0)
 	) avalon_st_adapter (
-		.in_clk_0_clk   (clk_50_clk_clk),                                                          // in_clk_0.clk
-		.in_rst_0_reset (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),                // in_rst_0.reset
-		.in_0_data      (seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_data),  //     in_0.data
-		.in_0_valid     (seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_valid), //         .valid
-		.in_0_ready     (seven_segment_controller_0_ssdp_avalon_slave_agent_rdata_fifo_src_ready), //         .ready
-		.out_0_data     (avalon_st_adapter_out_0_data),                                            //    out_0.data
-		.out_0_valid    (avalon_st_adapter_out_0_valid),                                           //         .valid
-		.out_0_ready    (avalon_st_adapter_out_0_ready),                                           //         .ready
-		.out_0_error    (avalon_st_adapter_out_0_error)                                            //         .error
+		.in_clk_0_clk   (clk_50_clk_clk),                                                        // in_clk_0.clk
+		.in_rst_0_reset (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset),              // in_rst_0.reset
+		.in_0_data      (seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_data),  //     in_0.data
+		.in_0_valid     (seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_valid), //         .valid
+		.in_0_ready     (seven_segment_controller_ssdp_avalon_slave_agent_rdata_fifo_src_ready), //         .ready
+		.out_0_data     (avalon_st_adapter_out_0_data),                                          //    out_0.data
+		.out_0_valid    (avalon_st_adapter_out_0_valid),                                         //         .valid
+		.out_0_ready    (avalon_st_adapter_out_0_ready),                                         //         .ready
+		.out_0_error    (avalon_st_adapter_out_0_error)                                          //         .error
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter #(
