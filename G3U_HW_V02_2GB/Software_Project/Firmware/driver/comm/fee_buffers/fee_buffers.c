@@ -48,7 +48,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	//uiCmdtoSend.ucByte[0] = 0;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
@@ -118,7 +118,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	//uiCmdtoSend.ucByte[0] = 1;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
@@ -190,7 +190,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	//uiCmdtoSend.ucByte[0] = 2;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
@@ -261,7 +261,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	//uiCmdtoSend.ucByte[0] = 3;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
@@ -332,7 +332,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	//uiCmdtoSend.ucByte[0] = 4;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
@@ -404,7 +404,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	//uiCmdtoSend.ucByte[0] = 5;
 	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
 
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
@@ -473,7 +473,7 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh1HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 		// Clear all flags
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
@@ -487,7 +487,7 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh2HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 		// Clear all flags
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
@@ -501,7 +501,7 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh3HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 		// Clear all flags
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
@@ -515,7 +515,7 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh4HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 		// Clear all flags
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
@@ -529,7 +529,7 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh5HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 		// Clear all flags
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
@@ -543,7 +543,7 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
 		pvHoldContext = (void*) &viCh6HoldContext;
-		vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 		// Clear all flags
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
@@ -567,7 +567,7 @@ bool bFeebSetIrqControl(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebIrqControl = pxFeebCh->xFeebIrqControl;
 
@@ -584,7 +584,7 @@ bool bFeebGetIrqControl(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebIrqControl = vpxCommChannel->xFeeBuffer.xFeebIrqControl;
 
@@ -601,7 +601,7 @@ bool bFeebGetIrqFlags(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebIrqFlag = vpxCommChannel->xFeeBuffer.xFeebIrqFlag;
 
@@ -618,7 +618,7 @@ bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebBufferStatus = vpxCommChannel->xFeeBuffer.xFeebBufferStatus;
 
@@ -635,7 +635,7 @@ bool bFeebGetLeftBufferEmpty(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
 
@@ -650,7 +650,7 @@ bool bFeebGetRightBufferEmpty(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
 
@@ -661,168 +661,168 @@ bool bFeebGetRightBufferEmpty(TFeebChannel *pxFeebCh) {
 
 bool bFeebGetCh1LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh1RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh2LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh2RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh3LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh3RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh4LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh4RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh5LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh5RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh6LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh6RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightBufferEmpty;
 	return bFlag;
 }
 
 bool bFeebGetCh1LeftFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh1RightFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh2LeftFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh2RightFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh3LeftFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh3RightFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh4LeftFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh4RightFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh5LeftFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh5RightFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh6LeftFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bLeftFeeBusy;
 	return bFlag;
 }
 
 bool bFeebGetCh6RightFeeBusy(void) {
 	bool bFlag = FALSE;
-	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 	bFlag = vpxCommChannel->xFeeBuffer.xFeebBufferStatus.bRightFeeBusy;
 	return bFlag;
 }
@@ -833,7 +833,7 @@ bool bFeebGetBufferDataControl(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebBufferDataControl = vpxCommChannel->xFeeBuffer.xFeebBufferDataControl;
 
@@ -850,7 +850,7 @@ bool bFeebSetBufferDataControl(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebBufferDataControl = pxFeebCh->xFeebBufferDataControl;
 
@@ -867,7 +867,7 @@ bool bFeebGetBufferDataStatus(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebBufferDataStatus = vpxCommChannel->xFeeBuffer.xFeebBufferDataStatus;
 
@@ -884,7 +884,7 @@ bool bFeebGetMachineControl(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebMachineControl = vpxCommChannel->xFeeBuffer.xFeebMachineControl;
 
@@ -901,7 +901,7 @@ bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebMachineControl = pxFeebCh->xFeebMachineControl;
 
@@ -912,14 +912,13 @@ bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
 	return bStatus;
 }
 
-
-bool bFeebClearMachineStatistics(TFeebChannel *pxFeebCh){
+bool bFeebClearMachineStatistics(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebMachineControl.bClear = TRUE;
 
@@ -930,13 +929,13 @@ bool bFeebClearMachineStatistics(TFeebChannel *pxFeebCh){
 	return bStatus;
 }
 
-bool bFeebGetMachineStatistics(TFeebChannel *pxFeebCh){
+bool bFeebGetMachineStatistics(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		pxFeebCh->xFeebMachineStatistics = vpxCommChannel->xFeeBuffer.xFeebMachineStatistics;
 
@@ -953,7 +952,7 @@ bool bFeebStartCh(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebMachineControl.bStart = TRUE;
 
@@ -970,7 +969,7 @@ bool bFeebStopCh(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebMachineControl.bStop = TRUE;
 
@@ -987,7 +986,7 @@ bool bFeebClrCh(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 
 		vpxCommChannel->xFeeBuffer.xFeebMachineControl.bClear = TRUE;
 
@@ -1008,39 +1007,39 @@ bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
+			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_1_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_1_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
+			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_2_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_2_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
+			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_3_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_3_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
+			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_4_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_4_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
+			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
-			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
+			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		default:

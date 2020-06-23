@@ -77,5 +77,6 @@ bool vLoadDebugConfs( void );
 
 #if DEBUG_ON
 	void vShowEthConfig( void );
+	void vShowDebugConfig( void );
 #endif
 #endif /* CONFIGS_SIMUCAM_H_ */

@@ -9,5 +9,4 @@ bool TEMP_Read(alt_8 *pFpgaTemp, alt_8 *pBoardTemp);
 void sense_log(void);
 bool sense_log_temp(alt_u8 *FpgaTemp, alt_u8 *BoardTemp);
 
-
 #endif /*__SENSE.H__*/

@@ -8,8 +8,7 @@
 #include "reset.h"
 
 //! [private function prototypes]
-static void vRstcWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
-		alt_u32 uliValue);
+static void vRstcWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset, alt_u32 uliValue);
 static alt_u32 uliRstReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [private function prototypes]
 
@@ -66,8 +65,7 @@ void vRstcHoldDeviceReset(alt_u32 usiRstMask) {
 //! [public functions]
 
 //! [private functions]
-static void vRstcWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
-		alt_u32 uliValue) {
+static void vRstcWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset, alt_u32 uliValue) {
 	*(puliAddr + uliOffset) = uliValue;
 }
 

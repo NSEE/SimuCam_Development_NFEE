@@ -57,8 +57,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 	default:
 		bSuccess = FALSE;
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		sprintf(cDebugBuffer, "DR2 Memory ID not identified!! Aborting Test \n");
 		debug(fp, cDebugBuffer)
 		;
 #endif
@@ -73,12 +72,10 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 	usleep(20 * 1000);
 	for (iI = 0; iI < 256 && bSuccess; iI++) {
 		ucControlAddr = iI;
-		bSuccess = I2C_Read(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr,
-				ucControlAddr, &ucValue);
+		bSuccess = I2C_Read(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr, ucControlAddr, &ucValue);
 		if (bSuccess) {
 #if DEBUG_ON
-			sprintf(cDebugBuffer, "EEPROM[%03d]=%02Xh\n", ucControlAddr,
-					ucValue);
+			sprintf(cDebugBuffer, "EEPROM[%03d]=%02Xh\n", ucControlAddr, ucValue);
 			debug(fp, cDebugBuffer);
 #endif
 		} else {
@@ -107,16 +104,14 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 	alt_u8 ucWriteData = 0x12, ucTestAddr = 128;
 	alt_u8 ucReadData;
 	usleep(20 * 1000);
-	bSuccess = I2C_Write(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr,
-			ucTestAddr, ucWriteData);
+	bSuccess = I2C_Write(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr, ucTestAddr, ucWriteData);
 	if (!bSuccess) {
 #if DEBUG_ON
 		sprintf(cDebugBuffer, "Failed to write EEPROM\n");
 		debug(fp, cDebugBuffer);
 #endif
 	} else {
-		bSuccess = I2C_Read(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr,
-				ucTestAddr, &ucReadData);
+		bSuccess = I2C_Read(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr, ucTestAddr, &ucReadData);
 		if (!bSuccess) {
 #if DEBUG_ON
 			sprintf(cDebugBuffer, "Failed to read EEPROM for verify\n");
@@ -126,9 +121,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 			if (ucReadData != ucWriteData) {
 				bSuccess = FALSE;
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"Verify EEPROM write fail, ReadData=%02Xh, WriteData=%02Xh\n",
-						ucReadData, ucWriteData);
+				sprintf(cDebugBuffer, "Verify EEPROM write fail, ReadData=%02Xh, WriteData=%02Xh\n", ucReadData, ucWriteData);
 				debug(fp, cDebugBuffer);
 #endif
 			}
@@ -191,8 +184,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 	default:
 		bSuccess = FALSE;
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DR2 Memory ID not identified!! Aborting Dump \n");
+		sprintf(cDebugBuffer, "DR2 Memory ID not identified!! Aborting Dump \n");
 		debug(fp, cDebugBuffer)
 		;
 #endif
@@ -200,21 +192,17 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 	}
 
 	alt_u8 ucSZData[256];
-	bSuccess = I2C_MultipleRead(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr,
-			ucSZData, sizeof(ucSZData));
+	bSuccess = I2C_MultipleRead(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr, ucSZData, sizeof(ucSZData));
 	if (bSuccess) {
 		for (iI = 0; iI < 256 && bSuccess; iI++) {
 			if (iI == 0) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Number of SPD Bytes Used)\n" "EEPROM[%03d]=%02Xh ",
-						iI, ucSZData[iI]);
+				sprintf(cDebugBuffer, "(Number of SPD Bytes Used)\n" "EEPROM[%03d]=%02Xh ", iI, ucSZData[iI]);
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 1) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Total Number of Bytes in SPD Device, Log2(N))\n");
+				sprintf(cDebugBuffer, "(Total Number of Bytes in SPD Device, Log2(N))\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 2) {
@@ -224,20 +212,17 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 #endif
 			} else if (iI == 3) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Number of Row Addresses on Assembly)\n");
+				sprintf(cDebugBuffer, "(Number of Row Addresses on Assembly)\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 4) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Number of Column Addresses on Assembly)\n");
+				sprintf(cDebugBuffer, "(Number of Column Addresses on Assembly)\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 5) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(DIMM Height and Module Rank Number[b2b1b0+1])\n");
+				sprintf(cDebugBuffer, "(DIMM Height and Module Rank Number[b2b1b0+1])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 6) {
@@ -252,8 +237,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 #endif
 			} else if (iI == 16) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Burst Lengths Supported[bitmap: x x x x 8 4 x x])\n");
+				sprintf(cDebugBuffer, "(Burst Lengths Supported[bitmap: x x x x 8 4 x x])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 13) {
@@ -273,14 +257,12 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 #endif
 			} else if (iI == 18) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(CAS lantencies supported[bitmap: x x 5 4 3 2 x x])\n");
+				sprintf(cDebugBuffer, "(CAS lantencies supported[bitmap: x x 5 4 3 2 x x])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 20) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(DIMM Type: x x Mini-UDIMM Mini-RDIMM Micro-DIMM SO-DIMM UDIMMM RDIMM)\n");
+				sprintf(cDebugBuffer, "(DIMM Type: x x Mini-UDIMM Mini-RDIMM Micro-DIMM SO-DIMM UDIMMM RDIMM)\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 22) {
@@ -290,62 +272,52 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 #endif
 			} else if (iI == 27) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Minimun row precharge time[tRP;nsx4])\n");
+				sprintf(cDebugBuffer, "(Minimun row precharge time[tRP;nsx4])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 28) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Minimun row active-row activce delay[tRRD;nsx4])\n");
+				sprintf(cDebugBuffer, "(Minimun row active-row activce delay[tRRD;nsx4])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 29) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Minimun RAS to CAS delay[tRCD;nsx4])\n");
+				sprintf(cDebugBuffer, "(Minimun RAS to CAS delay[tRCD;nsx4])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 30) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Minimun acive to precharge time[tRAS;ns])\n");
+				sprintf(cDebugBuffer, "(Minimun acive to precharge time[tRAS;ns])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 31) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Size of each rank[bitmap:512MB,256MB,128MB,16GB,8GB,4GB,2GB,1GB)\n");
+				sprintf(cDebugBuffer, "(Size of each rank[bitmap:512MB,256MB,128MB,16GB,8GB,4GB,2GB,1GB)\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 36) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Minimun write receovery time[tWR;nsx4])\n");
+				sprintf(cDebugBuffer, "(Minimun write receovery time[tWR;nsx4])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 37) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Internal write to read command delay[tWTR;nsx4])\n");
+				sprintf(cDebugBuffer, "(Internal write to read command delay[tWTR;nsx4])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 38) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Internal read to precharge command delay[tRTP;nsx4])\n");
+				sprintf(cDebugBuffer, "(Internal read to precharge command delay[tRTP;nsx4])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 41) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Minimun activce to active/refresh time[tRC;ns])\n");
+				sprintf(cDebugBuffer, "(Minimun activce to active/refresh time[tRC;ns])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 42) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Minimun refresh to active/refresh time[tRFC;ns])\n");
+				sprintf(cDebugBuffer, "(Minimun refresh to active/refresh time[tRFC;ns])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 62) {
@@ -365,8 +337,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 #endif
 			} else if (iI == 72) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Module manufacturing location[Vendor-specific code])\n");
+				sprintf(cDebugBuffer, "(Module manufacturing location[Vendor-specific code])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 73) {
@@ -381,8 +352,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 #endif
 			} else if (iI == 93) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(Manufacture Years since 2000[0-255])\n");
+				sprintf(cDebugBuffer, "(Manufacture Years since 2000[0-255])\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 94) {
@@ -392,8 +362,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 #endif
 			} else if (iI == 95) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"(95~98[4-bytes]: Module serial number)\n");
+				sprintf(cDebugBuffer, "(95~98[4-bytes]: Module serial number)\n");
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (iI == 99) {
@@ -439,8 +408,7 @@ bool bDdr2SwitchMemory(alt_u8 ucMemoryId) {
 	default:
 		bSuccess = FALSE;
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DR2 Memory ID not identified!! Error switching memories!! \n");
+		sprintf(cDebugBuffer, "DR2 Memory ID not identified!! Error switching memories!! \n");
 		debug(fp, cDebugBuffer)
 		;
 #endif
@@ -487,8 +455,7 @@ bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId) {
 	default:
 		bSuccess = FALSE;
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		sprintf(cDebugBuffer, "DR2 Memory ID not identified!! Aborting Test \n");
 		debug(fp, cDebugBuffer)
 		;
 #endif
@@ -562,9 +529,7 @@ bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId) {
 	iTimeElapsed = alt_nticks() - iTimeStart;
 	if (bSuccess) {
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DDR2 write test pass, size=%lu bytes, %.3f sec\n", uliByteLen,
-				(float) iTimeElapsed / (float) alt_ticks_per_second());
+		sprintf(cDebugBuffer, "DDR2 write test pass, size=%lu bytes, %.3f sec\n", uliByteLen, (float) iTimeElapsed / (float) alt_ticks_per_second());
 		debug(fp, cDebugBuffer);
 #endif
 	} else {
@@ -619,8 +584,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 	default:
 		bSuccess = FALSE;
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		sprintf(cDebugBuffer, "DR2 Memory ID not identified!! Aborting Test \n");
 		debug(fp, cDebugBuffer)
 		;
 #endif
@@ -667,10 +631,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 		for (iI = 0; iI < iNItemNum && bSuccess; iI++) {
 			if (*pxSrc++ != *pxDes++) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"verify ng, read=%08Xh, expected=%08Xh, WordIndex=%Xh\n",
-						(int) *(pxSrc - 1), (int) xSZData[iI],
-						(iNPos / ciMyDataSize) + iI);
+				sprintf(cDebugBuffer, "verify ng, read=%08Xh, expected=%08Xh, WordIndex=%Xh\n", (int) *(pxSrc - 1), (int) xSZData[iI], (iNPos / ciMyDataSize) + iI);
 				debug(fp, cDebugBuffer);
 #endif
 				bSuccess = FALSE;
@@ -693,9 +654,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 	iTimeElapsed = alt_nticks() - iTimeStart;
 	if (bSuccess) {
 #if DEBUG_ON
-		sprintf(cDebugBuffer, "DDR2 read test pass, size=%ld bytes, %.3f sec\n",
-				uliByteLen,
-				(float) iTimeElapsed / (float) alt_ticks_per_second());
+		sprintf(cDebugBuffer, "DDR2 read test pass, size=%ld bytes, %.3f sec\n", uliByteLen, (float) iTimeElapsed / (float) alt_ticks_per_second());
 		debug(fp, cDebugBuffer);
 #endif
 	} else {
@@ -752,8 +711,7 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	default:
 		bSuccess = FALSE;
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		sprintf(cDebugBuffer, "DR2 Memory ID not identified!! Aborting Test \n");
 		debug(fp, cDebugBuffer)
 		;
 #endif
@@ -789,12 +747,9 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	int TimeStart, TimeElapsed = 0;
 
 	TimeStart = alt_nticks();
-	for (puliDestination = (alt_u32*) uliDdr2Base;
-			(alt_u32) puliDestination < uliMemoryEndAddress;
-			puliDestination++) {
+	for (puliDestination = (alt_u32*) uliDdr2Base; (alt_u32) puliDestination < uliMemoryEndAddress; puliDestination++) {
 		*puliDestination = uliXorshift32(&uliCurrentState);
-		if ((bVerbose == DDR2_VERBOSE)
-				& ((alt_u32) puliDestination > uliNextMilestone)) {
+		if ((bVerbose == DDR2_VERBOSE) & ((alt_u32) puliDestination > uliNextMilestone)) {
 #if DEBUG_ON
 			sprintf(cDebugBuffer, "..%02d%%..", ucPercentage);
 			debug(fp, cDebugBuffer);
@@ -815,16 +770,12 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 		if (bTime == TRUE) {
 			TimeElapsed = alt_nticks() - TimeStart;
 #if DEBUG_ON
-			sprintf(cDebugBuffer,
-					"DDR2 write test pass, size=%ld bytes, %.3f sec\n",
-					uliByteLen,
-					(float) TimeElapsed / (float) alt_ticks_per_second());
+			sprintf(cDebugBuffer, "DDR2 write test pass, size=%ld bytes, %.3f sec\n", uliByteLen, (float) TimeElapsed / (float) alt_ticks_per_second());
 			debug(fp, cDebugBuffer);
 #endif
 		} else {
 #if DEBUG_ON
-			sprintf(cDebugBuffer, "DDR2 write test pass, size=%ld bytes\n",
-					uliByteLen);
+			sprintf(cDebugBuffer, "DDR2 write test pass, size=%ld bytes\n", uliByteLen);
 			debug(fp, cDebugBuffer);
 #endif
 		}
@@ -882,8 +833,7 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	default:
 		bSuccess = FALSE;
 #if DEBUG_ON
-		sprintf(cDebugBuffer,
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		sprintf(cDebugBuffer, "DR2 Memory ID not identified!! Aborting Test \n");
 		debug(fp, cDebugBuffer)
 		;
 #endif
@@ -919,20 +869,17 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	int TimeStart, TimeElapsed = 0;
 
 	TimeStart = alt_nticks();
-	for (puliSource = (alt_u32*) uliDdr2Base;
-			(alt_u32) puliSource < uliMemoryEndAddress; puliSource++) {
+	for (puliSource = (alt_u32*) uliDdr2Base; (alt_u32) puliSource < uliMemoryEndAddress; puliSource++) {
 		if (uliXorshift32(&uliCurrentState) != *puliSource) {
 			bSuccess = FALSE;
 			if (bVerbose == DDR2_VERBOSE) {
 #if DEBUG_ON
-				sprintf(cDebugBuffer, "Failed to read adress 0x%08lX\n",
-						(alt_u32)puliSource);
+				sprintf(cDebugBuffer, "Failed to read adress 0x%08lX\n", (alt_u32) puliSource);
 				debug(fp, cDebugBuffer);
 #endif
 			}
 		}
-		if ((bVerbose == DDR2_VERBOSE)
-				&& ((alt_u32) puliSource > uliNextMilestone)) {
+		if ((bVerbose == DDR2_VERBOSE) && ((alt_u32) puliSource > uliNextMilestone)) {
 #if DEBUG_ON
 			sprintf(cDebugBuffer, "..%02d%%..", ucPercentage);
 			debug(fp, cDebugBuffer);
@@ -952,16 +899,12 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 		if (bTime == TRUE) {
 			TimeElapsed = alt_nticks() - TimeStart;
 #if DEBUG_ON
-			sprintf(cDebugBuffer,
-					"DDR2 read test pass, size=%lu bytes, %.3f sec\n",
-					uliByteLen,
-					(float) TimeElapsed / (float) alt_ticks_per_second());
+			sprintf(cDebugBuffer, "DDR2 read test pass, size=%lu bytes, %.3f sec\n", uliByteLen, (float) TimeElapsed / (float) alt_ticks_per_second());
 			debug(fp, cDebugBuffer);
 #endif
 		} else {
 #if DEBUG_ON
-			sprintf(cDebugBuffer, "DDR2 read test pass, size=%lu bytes\n",
-					uliByteLen);
+			sprintf(cDebugBuffer, "DDR2 read test pass, size=%lu bytes\n", uliByteLen);
 			debug(fp, cDebugBuffer);
 #endif
 		}

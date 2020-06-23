@@ -21,22 +21,15 @@
 //! [constants definition]
 
 enum RmapCcdReadoutOrder {
-	eRmapCcdRdOrder1st = 0b00,
-	eRmapCcdRdOrder2nd = 0b01,
-	eRmapCcdRdOrder3rd = 0b10,
-	eRmapCcdRdOrder4th = 0b11
+	eRmapCcdRdOrder1st = 0b00, eRmapCcdRdOrder2nd = 0b01, eRmapCcdRdOrder3rd = 0b10, eRmapCcdRdOrder4th = 0b11
 } ERmapCcdReadoutOrder;
 
 enum RmapSyncSel {
-	eRmapSyncSelExternal = 0,
-	eRmapSyncSelInternal = 1
+	eRmapSyncSelExternal = 0, eRmapSyncSelInternal = 1
 } ERmapSyncSel;
 
 enum RmapSensorSel {
-	eRmapSenSelReserved = 0b00,
-	eRmapSenSelFRight = 0b01,
-	eRmapSenSelELeft = 0b10,
-	eRmapSenSelEFBoth = 0b11
+	eRmapSenSelReserved = 0b00, eRmapSenSelFRight = 0b01, eRmapSenSelELeft = 0b10, eRmapSenSelEFBoth = 0b11
 } ERmapSensorSel;
 
 enum RmapCcdMode {

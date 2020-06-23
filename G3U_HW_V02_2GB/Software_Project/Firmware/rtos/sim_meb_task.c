@@ -193,7 +193,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
-					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) COMM_CHANNEL_1_BASE_ADDR;
+					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
@@ -205,7 +205,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) COMM_CHANNEL_1_BASE_ADDR;
+					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
@@ -621,11 +621,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
 			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
-
-
-
 			bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[5] == 1 );
-			bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
@@ -971,7 +967,6 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
 				bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[11] == 1 );
-				bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 				bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 				if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/

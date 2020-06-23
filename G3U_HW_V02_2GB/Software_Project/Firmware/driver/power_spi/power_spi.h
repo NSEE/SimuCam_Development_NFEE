@@ -41,5 +41,4 @@
 #define POWER_DEVICE_NUM   2
 bool POWER_SPI_RW(alt_u8 IcIndex, alt_u8 NextChannel, bool bEN, bool bSIGN, bool bSGL, alt_u32 *pValue);
 
-
 #endif /*POWER_SPI_H_*/

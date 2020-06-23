@@ -42,6 +42,20 @@
 #define DDR2_TIME                       TRUE
 #define DDR2_NO_TIME                    FALSE
 
+#define DDR2_M1_BASE_ADDR               (alt_u64)0x0000000000000000
+#define DDR2_M1_SPAN                    (alt_u32)0x7FFFFFFF
+#define DDR2_M2_BASE_ADDR               (alt_u64)0x0000000080000000
+#define DDR2_M2_SPAN                    (alt_u32)x7FFFFFFF
+
+union Ddr2MemoryAddress {
+	alt_u64 ulliMemAddr64b;
+	alt_u32 uliMemAddr32b[2];
+};
+
+enum Ddr2DdrMemId {
+	eDdr2Memory1 = 0, eDdr2Memory2
+} EUartDdrMemId;
+
 /* prototype */
 bool bDdr2EepromTest(alt_u8 ucMemoryId);
 bool bDdr2EepromDump(alt_u8 ucMemoryId);

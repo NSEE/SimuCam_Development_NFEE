@@ -27,12 +27,12 @@
 #define COMM_CH_6_BUFFERS_IRQ           10
 
 // address
-#define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_1_BASE
-#define COMM_CHANNEL_2_BASE_ADDR        COMM_PEDREIRO_V1_01_2_BASE
-#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_3_BASE
-#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_4_BASE
-#define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_5_BASE
-#define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_6_BASE
+#define COMM_CH_1_BASE_ADDR             COMMUNICATION_MODULE_V2_CH1_BASE
+#define COMM_CH_2_BASE_ADDR             COMMUNICATION_MODULE_V2_CH2_BASE
+#define COMM_CH_3_BASE_ADDR             COMMUNICATION_MODULE_V2_CH3_BASE
+#define COMM_CH_4_BASE_ADDR             COMMUNICATION_MODULE_V2_CH4_BASE
+#define COMM_CH_5_BASE_ADDR             COMMUNICATION_MODULE_V2_CH5_BASE
+#define COMM_CH_6_BASE_ADDR             COMMUNICATION_MODULE_V2_CH6_BASE
 #define COMM_RMAP_MEM_1_BASE_ADDR       RMAP_MEM_NFEE_COMM_1_BASE
 #define COMM_RMAP_MEM_2_BASE_ADDR       RMAP_MEM_NFEE_COMM_2_BASE
 #define COMM_RMAP_MEM_3_BASE_ADDR       RMAP_MEM_NFEE_COMM_3_BASE
@@ -49,12 +49,7 @@ enum CommBufferSide {
 } ECommBufferSide;
 
 enum CommSpwCh {
-	eCommSpwCh1 = 0,
-	eCommSpwCh2,
-	eCommSpwCh3,
-	eCommSpwCh4,
-	eCommSpwCh5,
-	eCommSpwCh6,
+	eCommSpwCh1 = 0, eCommSpwCh2, eCommSpwCh3, eCommSpwCh4, eCommSpwCh5, eCommSpwCh6,
 } ECommSpwCh;
 
 /* Comm Device Address Register Struct */
@@ -124,7 +119,7 @@ typedef struct FeebMachineControl {
 	bool bStatisticsClear; /* FEE Statistics Clear */
 } TFeebMachineControl;
 
- /* FEE Machine Statistics Register Struct */
+/* FEE Machine Statistics Register Struct */
 typedef struct FeebMachineStatistics {
 	alt_u32 uliIncomingPktsCnt; /* FEE Incoming Packets Counter */
 	alt_u32 uliIncomingBytesCnt; /* FEE Incoming Bytes Counter */

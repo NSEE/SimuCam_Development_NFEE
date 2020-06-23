@@ -17,23 +17,23 @@
 
 /* Data Packet Mode */
 enum DpktMode {
-	eDpktOff                      = 0u,  /* N-FEE Off Mode */
-	eDpktOn                       = 1u,  /* N-FEE On Mode */
-	eDpktFullImagePattern         = 2u,  /* N-FEE Full-Image Pattern Mode */
-	eDpktWindowingPattern         = 3u,  /* N-FEE Windowing Pattern Mode */
-	eDpktStandby                  = 4u,  /* N-FEE Standby Mode */
-	eDpktFullImagePatternMode     = 5u,  /* N-FEE Full-Image Mode / Pattern Mode */
-	eDpktFullImageSsdMode         = 6u,  /* N-FEE Full-Image Mode / SSD Mode */
-	eDpktWindowingPatternMode     = 7u,  /* N-FEE Windowing Mode / Pattern Mode */
-	eDpktWindowingSsdImgMode      = 8u,  /* N-FEE Windowing Mode / SSD Image Mode */
-	eDpktWindowingSsdWinMode      = 9u,  /* N-FEE Windowing Mode / SSD Window Mode */
-	eDpktPerformanceTest          = 10u, /* N-FEE Performance Test Mode */
+	eDpktOff = 0u, /* N-FEE Off Mode */
+	eDpktOn = 1u, /* N-FEE On Mode */
+	eDpktFullImagePattern = 2u, /* N-FEE Full-Image Pattern Mode */
+	eDpktWindowingPattern = 3u, /* N-FEE Windowing Pattern Mode */
+	eDpktStandby = 4u, /* N-FEE Standby Mode */
+	eDpktFullImagePatternMode = 5u, /* N-FEE Full-Image Mode / Pattern Mode */
+	eDpktFullImageSsdMode = 6u, /* N-FEE Full-Image Mode / SSD Mode */
+	eDpktWindowingPatternMode = 7u, /* N-FEE Windowing Mode / Pattern Mode */
+	eDpktWindowingSsdImgMode = 8u, /* N-FEE Windowing Mode / SSD Image Mode */
+	eDpktWindowingSsdWinMode = 9u, /* N-FEE Windowing Mode / SSD Window Mode */
+	eDpktPerformanceTest = 10u, /* N-FEE Performance Test Mode */
 	eDpktParallelTrapPumping1Pump = 11u, /* N-FEE Parallel Trap Pumping 1 Mode / Pumping Mode */
 	eDpktParallelTrapPumping1Data = 12u, /* N-FEE Parallel Trap Pumping 1 Mode / Data Emiting Mode  */
 	eDpktParallelTrapPumping2Pump = 13u, /* N-FEE Parallel Trap Pumping 2 Mode / Pumping Mode */
 	eDpktParallelTrapPumping2Data = 14u, /* N-FEE Parallel Trap Pumping 2 Mode / Data Emiting Mode  */
-	eDpktSerialTrapPumping1       = 15u, /* N-FEE Serial Trap Pumping 1 Mode */
-	eDpktSerialTrapPumping2       = 16u, /* N-FEE Serial Trap Pumping 2 Mode */
+	eDpktSerialTrapPumping1 = 15u, /* N-FEE Serial Trap Pumping 1 Mode */
+	eDpktSerialTrapPumping2 = 16u, /* N-FEE Serial Trap Pumping 2 Mode */
 } EDpktMode;
 
 //! [public module structs definition]

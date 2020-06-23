@@ -1,15 +1,15 @@
-  /**
-  * @file   leds.h
-  * @Author Rodrigo França (rodrigo.franca@maua.br | rodmarfra@gmail.com)
-  * @date   Maio, 2017
-  * @brief  Header File para acesso aos leds do painel MEB e da placa DE4 via Avalon
-  *
-  * Exemplo de utilização:
-  *  LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_0_MASK | LEDS_BOARD_7_MASK);
-  *  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_STATUS_2_MASK | LEDS_SPW_D_MASK);
-  *
-  */
- 
+/**
+ * @file   leds.h
+ * @Author Rodrigo França (rodrigo.franca@maua.br | rodmarfra@gmail.com)
+ * @date   Maio, 2017
+ * @brief  Header File para acesso aos leds do painel MEB e da placa DE4 via Avalon
+ *
+ * Exemplo de utilização:
+ *  LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_0_MASK | LEDS_BOARD_7_MASK);
+ *  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_STATUS_2_MASK | LEDS_SPW_D_MASK);
+ *
+ */
+
 #ifndef LEDS_H_
 #define LEDS_H_
 

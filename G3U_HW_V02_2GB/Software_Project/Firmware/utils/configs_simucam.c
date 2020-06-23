@@ -228,7 +228,16 @@ bool vLoadDefaultETHConf( void ){
 	}
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
-		xConfEth.siPortPUS = 17000;
+
+		/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
+		 *fc:f7:63:4d:1f:42*/
+		xConfEth.ucMAC[0] = 0xFC;
+		xConfEth.ucMAC[1] = 0xF7;
+		xConfEth.ucMAC[2] = 0x63;
+		xConfEth.ucMAC[3] = 0x4D;
+		xConfEth.ucMAC[4] = 0x1F;
+		xConfEth.ucMAC[5] = 0x42;
+
 		/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
 		 *192.168.0.5*/
 		xConfEth.ucIP[0] = 192;
@@ -244,61 +253,26 @@ bool vLoadDefaultETHConf( void ){
 		xConfEth.ucGTW[3] = 1;
 
 		/*ucSubNet[0].ucSubNet[1].ucSubNet[2].ucSubNet[3]
-		 *192.168.0.5*/
+		 *255.255.255.0*/
 		xConfEth.ucSubNet[0] = 255;
 		xConfEth.ucSubNet[1] = 255;
 		xConfEth.ucSubNet[2] = 255;
 		xConfEth.ucSubNet[3] = 0;
 
+		/*ucDNS[0].ucDNS[1].ucDNS[2].ucDNS[3]
+		 *8.8.8.8*/
+		xConfEth.ucDNS[0] = 8;
+		xConfEth.ucDNS[1] = 8;
+		xConfEth.ucDNS[2] = 8;
+		xConfEth.ucDNS[3] = 8;
 
-		/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
-		 *fc:f7:63:4d:1f:42*/
-		xConfEth.ucMAC[0] = 0xFC;
-		xConfEth.ucMAC[1] = 0xF7;
-		xConfEth.ucMAC[2] = 0x63;
-		xConfEth.ucMAC[3] = 0x4D;
-		xConfEth.ucMAC[4] = 0x1F;
-		xConfEth.ucMAC[5] = 0x42;
+		xConfEth.siPortPUS = 17000;
 
 		xConfEth.bDHCP = FALSE;
 	}
 
 	return bSuccess;
 }
-
-#if DEBUG_ON
-	void vShowEthConfig( void ) {
-		char buffer[40];
-
-		debug(fp, "Ethernet loaded configuration.\n");
-
-		memset(buffer,0,40);
-		sprintf(buffer, "MAC: %x : %x : %x : %x : %x : %x \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
-		debug(fp, buffer );
-
-		memset(buffer,0,40);
-		sprintf(buffer, "IP: %i . %i . %i . %i \n",xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3] );
-		debug(fp, buffer );
-
-		memset(buffer,0,40);
-		sprintf(buffer, "GTW: %i . %i . %i . %i \n",xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3] );
-		debug(fp, buffer );
-
-		memset(buffer,0,40);
-		sprintf(buffer, "Sub: %i . %i . %i . %i \n",xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3] );
-		debug(fp, buffer );
-
-		memset(buffer,0,40);
-		sprintf(buffer, "DNS: %i . %i . %i . %i \n",xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3] );
-		debug(fp, buffer );
-
-		memset(buffer,0,40);
-		sprintf(buffer, "Porta PUS: %i\n", xConfEth.siPortPUS );
-		debug(fp, buffer );
-
-	}
-#endif
-
 
 /* Load debug values from SD Card, only used during the development */
 bool vLoadDebugConfs( void ){
@@ -766,10 +740,113 @@ bool vLoadDebugConfs( void ){
 	}
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
-		/* Load default? */
+
+		xDefaults.usiSyncPeriod     = 6250; /* ms */
+		xDefaults.usiRows           = 4510;
+		xDefaults.usiOLN            = 50;
+		xDefaults.usiCols           = 2295;
+		xDefaults.usiPreScanSerial  = 0;
+		xDefaults.usiOverScanSerial = 0;
+		xDefaults.ulStartDelay      = 0; /* ms */
+		xDefaults.ulSkipDelay       = 110000; /* ns */
+		xDefaults.ulLineDelay       = 90000; /* ns */
+		xDefaults.ulADCPixelDelay   = 333; /* ns */
+		xDefaults.bBufferOverflowEn = FALSE;
+		xDefaults.ucRmapKey         = 209; /* 0xD1 */
+		xDefaults.ucLogicalAddr     = 81; /* 0x51 */
+		xDefaults.bSpwLinkStart     = FALSE;
+		xDefaults.usiLinkNFEE0      = 0;
+		xDefaults.usiGuardNFEEDelay = 50; /* ms */
+		xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
+		xDefaults.usiPatternType    = 0; /* Official URD */
+		xDefaults.usiDataProtId     = 240; /* 0xF0 */
+		xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
+		xDefaults.ucReadOutOrder[0] = 0;
+		xDefaults.ucReadOutOrder[1] = 1;
+		xDefaults.ucReadOutOrder[2] = 2;
+		xDefaults.ucReadOutOrder[3] = 3;
+		xDefaults.usiSpwPLength     = 32140; /* 32k LESIA */
+		xDefaults.usiPreBtSync      = 200; /* ms */
 
 	}
 
 	return bSuccess;
 }
 
+#if DEBUG_ON
+	void vShowEthConfig( void ) {
+
+		fprintf(fp, "Ethernet loaded configurations:\n");
+
+		fprintf(fp, "  MAC: %02X:%02X:%02X:%02X:%02X:%02X \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
+
+		fprintf(fp, "  IP: %i.%i.%i.%i \n", xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
+
+		fprintf(fp, "  GTW: %i.%i.%i.%i \n", xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3]);
+
+		fprintf(fp, "  Sub: %i.%i.%i.%i \n", xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3]);
+
+		fprintf(fp, "  DNS: %i.%i.%i.%i \n", xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3]);
+
+		fprintf(fp, "  Server Port: %i\n", xConfEth.siPortPUS);
+
+		fprintf(fp, "  Use DHCP: %i\n", xConfEth.bDHCP);
+
+		fprintf(fp, "\n");
+
+	}
+
+	void vShowDebugConfig(void) {
+
+		fprintf(fp, "Debug loaded configurations:\n");
+
+		fprintf(fp, "  SimuCam sync period: %u [ms] \n", xDefaults.usiSyncPeriod);
+
+		fprintf(fp, "  CCD image lines: %u \n", xDefaults.usiRows);
+
+		fprintf(fp, "  CCD parallel overscan lines: %u \n", xDefaults.usiOLN);
+
+		fprintf(fp, "  CCD columns: %u \n", xDefaults.usiCols);
+
+		fprintf(fp, "  CCD serial prescan columns: %u \n", xDefaults.usiPreScanSerial);
+
+		fprintf(fp, "  CCD serial overscan columns: %u \n", xDefaults.usiOverScanSerial);
+
+		fprintf(fp, "  CCD start readout delay: %lu [ms] \n", xDefaults.ulStartDelay);
+
+		fprintf(fp, "  CCD line skip delay: %lu [ns] \n", xDefaults.ulSkipDelay);
+
+		fprintf(fp, "  CCD line transfer delay %lu [ns] \n", xDefaults.ulLineDelay);
+
+		fprintf(fp, "  CCD ADC and pixel transfer delay: %lu [ns] \n", xDefaults.ulADCPixelDelay);
+
+		fprintf(fp, "  Output buffer overflow enable: %u \n", xDefaults.bBufferOverflowEn);
+
+		fprintf(fp, "  SimuCam RMAP key: 0x%02X \n", xDefaults.ucRmapKey);
+
+		fprintf(fp, "  SimuCam logical address: 0x%02X \n", xDefaults.ucLogicalAddr);
+
+		fprintf(fp, "  Configure SpW links as link started: %u \n", xDefaults.bSpwLinkStart);
+
+		fprintf(fp, "  SpW Link for the FEE-0: %u \n", xDefaults.usiLinkNFEE0);
+
+		fprintf(fp, "  N-FEE guard delay: %u [ms] \n", xDefaults.usiGuardNFEEDelay);
+
+		fprintf(fp, "  Messages debug level: %u \n", xDefaults.usiDebugLevel);
+
+		fprintf(fp, "  Generated pattern type: %u \n", xDefaults.usiPatternType);
+
+		fprintf(fp, "  Data packet protocol ID: 0x%02X \n", xDefaults.usiDataProtId);
+
+		fprintf(fp, "  DPU logical address: 0x%02X \n", xDefaults.usiDpuLogicalAddr);
+
+		fprintf(fp, "  CCDs readout order: %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);
+
+		fprintf(fp, "  Data packet length: %u [B] \n", xDefaults.usiSpwPLength);
+
+		fprintf(fp, "  SimuCam pre-sync time: %u [ms] \n", xDefaults.usiPreBtSync);
+
+		fprintf(fp, "\n");
+
+	}
+#endif

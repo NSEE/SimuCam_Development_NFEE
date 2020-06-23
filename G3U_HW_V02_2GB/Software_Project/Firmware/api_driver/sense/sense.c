@@ -34,9 +34,7 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 					bSuccess = FALSE;
 				} else if (Channel != i) {
 #if DEBUG_ON
-					sprintf(cDebugBuffer,
-							"[%d]Unexpected Channel. Expected:%d, Read:%d\r\n",
-							i, i, Channel);
+					sprintf(cDebugBuffer, "[%d]Unexpected Channel. Expected:%d, Read:%d\r\n", i, i, Channel);
 					debug(fp, cDebugBuffer);
 #endif
 					bSuccess = FALSE;
@@ -73,15 +71,13 @@ bool TEMP_Read(alt_8 *pFpgaTemp, alt_8 *pBoardTemp) {
 	char Data;
 
 	// read local temp
-	bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x00,
-			(alt_u8 *) &Data);
+	bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x00, (alt_u8 *) &Data);
 	if (bSuccess)
 		BoardTemp = Data;
 
 	// read remote temp
 	if (bSuccess) {
-		bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x01,
-				(alt_u8 *) &Data);
+		bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x01, (alt_u8 *) &Data);
 		if (bSuccess)
 			FpgaTemp = Data;
 	}
@@ -110,13 +106,10 @@ void sense_log(void) {
 	float fVolDrop, fCurrent, fPower, fVol;
 	alt_u32 szVol[POWER_PORT_NUM];
 	alt_u32 SIG, MSB, RESULT;
-	float szRes[] = { 0.003, 0.001, 0.003, 0.003, 0.003, 0.003, 0.003, 0.003,
-			0.003, 0.003, 0.003, 0.003 };
-	float szRefVol[] = { 0.9, 0.9, 3.0, 0.9, 1.8, 2.5, 1.8, 2.5, 1.1, 1.4, 3.3,
-			2.5 };
-	char szName[][64] = { "VCCD_PLL", "VCC0P9", "GPIO_VCCIOPD", "VCCHIP",
-			"VCC1P8_34R", "HSMA_VCCIO", "VCC1P8_78R", "VCCA_PLL", "VCCL_GXB",
-			"VCCH_GXB", "VCC3P3_HSMC", "HSMB_VCCIO", };
+	float szRes[] = { 0.003, 0.001, 0.003, 0.003, 0.003, 0.003, 0.003, 0.003, 0.003, 0.003, 0.003, 0.003 };
+	float szRefVol[] = { 0.9, 0.9, 3.0, 0.9, 1.8, 2.5, 1.8, 2.5, 1.1, 1.4, 3.3, 2.5 };
+	char szName[][64] =
+			{ "VCCD_PLL", "VCC0P9", "GPIO_VCCIOPD", "VCCHIP", "VCC1P8_34R", "HSMA_VCCIO", "VCC1P8_78R", "VCCA_PLL", "VCCL_GXB", "VCCH_GXB", "VCC3P3_HSMC", "HSMB_VCCIO", };
 
 	// show power
 	bSuccess = POWER_Read(szVol);
@@ -132,8 +125,7 @@ void sense_log(void) {
 			if (SIG && MSB) {
 				fVol = fRef * 0.5;
 #if DEBUG_ON
-				sprintf(cDebugBuffer, "[%s:%06XH,Over]\r\n  VolDrop:%f(V)\r\n",
-						szName[i], (int) szVol[i], fVol);
+				sprintf(cDebugBuffer, "[%s:%06XH,Over]\r\n  VolDrop:%f(V)\r\n", szName[i], (int) szVol[i], fVol);
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (SIG && !MSB) {
@@ -141,9 +133,7 @@ void sense_log(void) {
 				fCurrent = fVolDrop / szRes[i];
 				fPower = szRefVol[i] * fCurrent;
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"[%s:%06XH,Pos]\r\n  VolDrop:%f(V), Current:%f(A), Power:%f(W)\r\n",
-						szName[i], (int) szVol[i], fVolDrop, fCurrent, fPower);
+				sprintf(cDebugBuffer, "[%s:%06XH,Pos]\r\n  VolDrop:%f(V), Current:%f(A), Power:%f(W)\r\n", szName[i], (int) szVol[i], fVolDrop, fCurrent, fPower);
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (!SIG && MSB) {
@@ -151,16 +141,13 @@ void sense_log(void) {
 				fCurrent = fVolDrop / szRes[i];
 				fPower = szRefVol[i] * fCurrent;
 #if DEBUG_ON
-				sprintf(cDebugBuffer,
-						"[%s:%06XH,Neg]\r\n  VolDrop:%f(V), Current:%f(A), Power:%f(W)\r\n",
-						szName[i], (int) szVol[i], fVolDrop, fCurrent, fPower);
+				sprintf(cDebugBuffer, "[%s:%06XH,Neg]\r\n  VolDrop:%f(V), Current:%f(A), Power:%f(W)\r\n", szName[i], (int) szVol[i], fVolDrop, fCurrent, fPower);
 				debug(fp, cDebugBuffer);
 #endif
 			} else if (!SIG && !MSB) {
 				fVol = -fRef * 0.5;
 #if DEBUG_ON
-				sprintf(cDebugBuffer, "[%s:%06XH,Under]\r\n  VolDrop:%f(V)\r\n",
-						szName[i], (int) szVol[i], fVol);
+				sprintf(cDebugBuffer, "[%s:%06XH,Under]\r\n  VolDrop:%f(V)\r\n", szName[i], (int) szVol[i], fVol);
 				debug(fp, cDebugBuffer);
 #endif
 			}

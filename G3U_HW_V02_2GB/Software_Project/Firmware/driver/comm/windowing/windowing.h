@@ -24,8 +24,8 @@
 //! [public module structs definition]
 
 //! [public function prototypes]
-bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh);  /* Copy the meb windowing parameters from the memory address to the specified channel */
-bool bWindCopyCcdXWindowingConfig(alt_u8 ucCommCh);  /* Copy the ccdx windowing configurations the specified channel to the ftdi module */
+bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh); /* Copy the meb windowing parameters from the memory address to the specified channel */
+bool bWindCopyCcdXWindowingConfig(alt_u8 ucCommCh); /* Copy the ccdx windowing configurations the specified channel to the ftdi module */
 bool bWindClearWindowingArea(alt_u8 ucMemoryId, alt_u32 uliWindowingAreaAddr, alt_u32 uliWinAreaLengthBytes);
 bool bWindSetWindowingAreaOffset(alt_u8 ucCommCh, alt_u8 ucMemoryId, alt_u32 uliWindowingAreaAddr);
 

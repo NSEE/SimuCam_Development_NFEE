@@ -10,13 +10,13 @@
 #include "data_control_taskV2.h"
 
 
-//void vFTDIClear( void );
-//void vFTDIAbort( void );
+//void vFtdiClearModule( void );
+//void vFtdiAbortOperation( void );
 //alt_u8 ucGetError( void );
 //alt_u16 usiFTDInDataLeftInBuffer( void );
-//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-//bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
+//bool bSdmaFtdiDmaTransfer(eDdr2Memory1, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
+//bool bSdmaFtdiDmaTransfer(eDdr2Memory2, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
+//bool bFtdiRequestHalfCcdImg( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
 //bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 //void vRxBuffer0FullIRQHandler(void);
 //void vRxBuffer1FullIRQHandler(void);
@@ -80,8 +80,8 @@ void vDataControlTaskV2(void *task_data) {
 				/* Reset FTDI DMA */
 				bSdmaResetFtdiDma(TRUE);
 
-				vFTDIStop();
-				vFTDIClear();
+				vFtdiStopModule();
+				vFtdiClearModule();
 
 				pxDataC->sMode = sMebConfig;
 				break;
@@ -111,9 +111,9 @@ void vDataControlTaskV2(void *task_data) {
 				pxDataC->usiEPn = 0;
 				pxDataC->bFirstMaster = TRUE;
 
-				vFTDIStop(); // [rfranca]
-				vFTDIClear();
-				vFTDIStart();
+				vFtdiStopModule(); // [rfranca]
+				vFtdiClearModule();
+				vFtdiStartModule();
 
 				pxDataC->sMode = sMebRun;
 				pxDataC->sRunMode = sSubInit;
@@ -264,12 +264,12 @@ void vDataControlTaskV2(void *task_data) {
 							if ( error_code == OS_NO_ERR ) {
 
 								/* Send Clear command to the FTDI Control Block */
-								vFTDIStop(); // [rfranca]
-								vFTDIClear();
-								vFTDIStart();
+								vFtdiStopModule(); // [rfranca]
+								vFtdiClearModule();
+								vFtdiStartModule();
 								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
-								vFTDIResetFullImage();
-								bSuccess = bFTDIRequestFullImage( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
+								vFtdiResetHalfCcdImg();
+								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();
@@ -305,9 +305,9 @@ void vDataControlTaskV2(void *task_data) {
 						uliSizeTranfer = pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST;
 
 						if ( ucMemUsing == 0 )
-							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
+							bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory1, (alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
 						else
-							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
+							bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory2, (alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
 
 						/* Check if was possible to schedule the transfer in the DMA*/
 						if ( bDmaReturn == TRUE ) {
@@ -324,9 +324,9 @@ void vDataControlTaskV2(void *task_data) {
 								 * - Abort
 								 * - Clear
 								 * - Start*/
-								vFTDIAbort();
-								vFTDIClear();
-								vFTDIStart();
+								vFtdiAbortOperation();
+								vFtdiClearModule();
+								vFtdiStartModule();
 								/*Will increment and keep going*/
 								pxDataC->sRunMode = sWaitForEmptyBufferIRQ;
 							}
@@ -355,8 +355,8 @@ void vDataControlTaskV2(void *task_data) {
 				case sWaitForEmptyBufferIRQ:
 
 					/* [rfranca] */
-					vFTDIResetFullImage();
-					vFTDIClear();
+					vFtdiResetHalfCcdImg();
+					vFtdiClearModule();
 
 					/* Default: 0-> left; 1-> right; */
 					ucSubCCDSide = ( ucSubCCDSide + 1 ) % 2;
@@ -436,7 +436,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 	switch (uiCmdLocal.ucByte[2]) {
 		case M_DATA_CONFIG_FORCED:
 		case M_DATA_CONFIG:
-			vFTDIAbort();
+			vFtdiAbortOperation();
 			pxDTCP->sMode = sMebToConfig;
 			break;
 
@@ -469,10 +469,10 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 				#endif
 
 				/*If Master sync arrives earlier, send message but restart the update, don't back to config*/
-				vFTDIAbort();
-				vFTDIStop(); //todo: RFranca
-				vFTDIClear();
-				vFTDIStart();
+				vFtdiAbortOperation();
+				vFtdiStopModule(); //todo: RFranca
+				vFtdiClearModule();
+				vFtdiStartModule();
 
 				pxDTCP->sRunMode = sSubMemUpdated;
 			}
@@ -492,10 +492,10 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			#endif
 
 			/*If Master sync arrives earlier, send message but restart the update, don't back to config*/
-			vFTDIAbort();
-			vFTDIStop(); //todo: RFranca
-			vFTDIClear();
-			vFTDIStart();
+			vFtdiAbortOperation();
+			vFtdiStopModule(); //todo: RFranca
+			vFtdiClearModule();
+			vFtdiStartModule();
 			if ( pxDTCP->bFirstMaster == FALSE )
 				pxDTCP->usiEPn++;
 			else
@@ -535,10 +535,10 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			#endif
 
 			/*If an error accours, abort the actual operation and go to the next*/
-			vFTDIAbort();
-			vFTDIStop(); //todo: RFranca
-			vFTDIClear();
-			vFTDIStart();
+			vFtdiAbortOperation();
+			vFtdiStopModule(); //todo: RFranca
+			vFtdiClearModule();
+			vFtdiStartModule();
 			pxDTCP->sRunMode = sWaitForEmptyBufferIRQ;
 			break;
 
@@ -735,7 +735,7 @@ void vRxCommErrorIRQHandler(void) {
 	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_DATA_FTDI_ERROR;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = ucFTDIGetError();
+	uiCmdtoSend.ucByte[0] = ucFtdiGetRxErrorCode();
 
 	/*Sync the Meb task and tell that has a PUS command waiting*/
 	error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
@@ -745,11 +745,3 @@ void vRxCommErrorIRQHandler(void) {
 	
 }
 
-/* Mocsk */
-//void vFTDIClear( void ){}
-//void vFTDIAbort( void ){}
-//alt_u8 ucGetError( void ){return 20;}
-//alt_u16 usiFTDInDataLeftInBuffer( void ){return 20;}
-//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
-//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
-//bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){return TRUE;}

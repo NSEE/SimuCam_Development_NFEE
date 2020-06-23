@@ -17,8 +17,13 @@ extern OS_EVENT *xNfeeSchedule;
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
 
 //! [constants definition]
-// address
-// bit masks
+#define FEEB_PIXEL_BLOCK_SIZE_BYTES      (alt_u32)136
+#define FEEB_TRANSFER_MIN_BLOCKS         (alt_u32)1
+#define FEEB_TRANSFER_MAX_BLOCKS         (alt_u32)493447
+#define FEEB_TRANSFER_MIN_BYTES          (alt_u32)(FEEB_PIXEL_BLOCK_SIZE_BYTES * FEEB_TRANSFER_MIN_BLOCKS)
+#define FEEB_TRANSFER_MAX_BYTES          (alt_u32)(FEEB_PIXEL_BLOCK_SIZE_BYTES * FEEB_TRANSFER_MAX_BLOCKS)
+#define FEEB_DATA_ACCESS_WIDTH_BYTES     (alt_u32)32
+#define FEEB_DATA_TRANSFER_SIZE_MASK     (alt_u32)0xFFFFFFE0
 //! [constants definition]
 
 //! [public module structs definition]

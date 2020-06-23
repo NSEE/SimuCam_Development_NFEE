@@ -16,7 +16,6 @@
 #include "rtos/initialization_task.h"
 #include <sys/ioctl.h>
 
-
 #include "includes.h"
 
 #if DEBUG_ON
@@ -494,7 +493,6 @@ void vVariablesInitialization ( void ) {
 	}
 }
 
-bool bDdr2MemoryFastTest ( void );
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
 void bInitFTDI(void);
 
@@ -535,15 +533,15 @@ int main(void)
 
 	OSInit();
 
-	/* Initialization of basic HW */
-	vInitSimucamBasicHW();
-
 	/* Test of some critical IPCores HW interfaces in the Simucam */
 	bIniSimucamStatus = bTestSimucamCriticalHW();
 	if (bIniSimucamStatus == FALSE) {
 		vFailTestCriticasParts();
 		return -1;
 	}
+
+	/* Initialization of basic HW */
+	vInitSimucamBasicHW();
 
 	/* Log file Initialization in the SDCard */
 	bIniSimucamStatus = bInitializeSDCard();
@@ -599,28 +597,8 @@ int main(void)
 	xDefaults.usiPreBtSync      = 200; /* ms */
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
-		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
-		fprintf(fp, "xDefaults.bBufferOverflowEn %u \n", xDefaults.bBufferOverflowEn);
-		fprintf(fp, "xDefaults.bSpwLinkStart %u \n", xDefaults.bSpwLinkStart);
-		fprintf(fp, "xDefaults.ucLogicalAddr %u \n", xDefaults.ucLogicalAddr);
-		fprintf(fp, "xDefaults.ucReadOutOrder %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);
-		fprintf(fp, "xDefaults.ucRmapKey %u \n", xDefaults.ucRmapKey);
-		fprintf(fp, "xDefaults.ulStartDelay %lu [ms]\n", xDefaults.ulStartDelay);
-		fprintf(fp, "xDefaults.ulSkipDelay %lu [ns]\n", xDefaults.ulSkipDelay);
-		fprintf(fp, "xDefaults.ulLineDelay %lu [ns]\n", xDefaults.ulLineDelay);
-		fprintf(fp, "xDefaults.ulADCPixelDelay %lu [ns]\n", xDefaults.ulADCPixelDelay);
-		fprintf(fp, "xDefaults.usiCols %u \n", xDefaults.usiCols);
-		fprintf(fp, "xDefaults.usiRows %u \n", xDefaults.usiRows);
-		fprintf(fp, "xDefaults.usiOLN %u \n", xDefaults.usiOLN);
-		fprintf(fp, "xDefaults.usiOverScanSerial %u \n", xDefaults.usiOverScanSerial);
-		fprintf(fp, "xDefaults.usiPreScanSerial %u \n", xDefaults.usiPreScanSerial);
-		fprintf(fp, "xDefaults.usiDataProtId %u \n", xDefaults.usiDataProtId);
-		fprintf(fp, "xDefaults.usiDebugLevel %u \n", xDefaults.usiDebugLevel);
-		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
-		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
-		fprintf(fp, "xDefaults.usiSpwPLength %u \n", xDefaults.usiSpwPLength);
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		vShowDebugConfig();
 	}
 	#endif
 
@@ -699,8 +677,6 @@ int main(void)
 
 	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 
-	bDdr2MemoryFastTest();
-
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
 
@@ -740,113 +716,6 @@ int main(void)
 	}
   
 	return 0;
-}
-
-bool bDdr2MemoryFastTest ( void ) {
-	bool bSuccess = FALSE;
-	bool bM1Success = FALSE;
-	bool bM2Success = FALSE;
-	volatile alt_u32 *vpuliDdrMemAddr = NULL;
-
-	/* Write data into ddr2 memory 1 and ddr2 memory 2 to check if they are working*/
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	debug(fp, "Starting DDR2 Memories test (fast):\n");
-	}
-#endif
-
-	/* Ddr2 Memory 1 */
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	debug(fp, "Testing DDR2 Memory 1...\n");
-	}
-#endif
-	usleep(1000000);
-	bDdr2SwitchMemory(DDR2_M1_ID);
-	bSuccess = TRUE;
-	vRstcHoldSimucamReset(0); /* Hold SimuCam Reset Signal - Enable "Watchdog" (t = 1000 ms) */
-	vpuliDdrMemAddr = (alt_u32 *)0x00000000; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x0FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x1FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x2FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x3FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x4FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x5FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x6FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x7FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	if (bSuccess) {
-		bM1Success = TRUE;
-		vRstcReleaseSimucamReset(0); /* Release SimuCam Reset Signal - Disable "Watchdog"*/
-#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 1 Passed!\n");
-		}
-#endif
-	} else {
-#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 1 Failure!\n");
-		}
-#endif
-	}
-
-	/* Ddr2 Memory 2 */
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	debug(fp, "Testing DDR2 Memory 2...\n");
-	}
-#endif
-	usleep(1000000);
-	bDdr2SwitchMemory(DDR2_M2_ID);
-	bSuccess = TRUE;
-	vRstcHoldSimucamReset(0); /* Hold SimuCam Reset Signal - Enable "Watchdog" (t = 1000 ms) */
-	vpuliDdrMemAddr = (alt_u32 *)0x00000000; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x0FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x1FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x2FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x3FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x4FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x5FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x6FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0x55555555;
-	if (*vpuliDdrMemAddr != (alt_u32)0x55555555) { bSuccess = FALSE; }
-	vpuliDdrMemAddr = (alt_u32 *)0x7FFFFFFF; *vpuliDdrMemAddr = (alt_u32)0xAAAAAAAA;
-	if (*vpuliDdrMemAddr != (alt_u32)0xAAAAAAAA) { bSuccess = FALSE; }
-	if (bSuccess) {
-		bM2Success = TRUE;
-		vRstcReleaseSimucamReset(0); /* Release SimuCam Reset Signal - Disable "Watchdog"*/
-#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 2 Passed!\n\n");
-		}
-#endif
-	} else {
-#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			debug(fp, "DDR2 Memory 2 Failure!\n\n");
-		}
-#endif
-	}
-
-	bSuccess = FALSE;
-	if ((bM1Success) && (bM2Success)) { bSuccess = TRUE; }
-
-	return ( bSuccess );
 }
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
@@ -924,15 +793,12 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 
 void bInitFTDI(void){
 
-	vFTDIIrqRxBuff0RdableEn(TRUE);
-	vFTDIIrqRxBuff1RdableEn(TRUE);
-	vFTDIIrqRxBuffLastRdableEn(TRUE);
-	vFTDIIrqRxBuffLastEmptyEn(TRUE);
-	vFTDIIrqRxCommErrEn(TRUE);
-	vFTDIIrqTxFinishedEn(TRUE);
-	vFTDIIrqTxCommErrEn(TRUE);
-	vFTDIIrqGlobalEn(TRUE);
-	bFTDIIrqRxBuffInit();
-	bFTDIIrqTxBuffInit();
+	vFtdiIrqRxHccdReceivedEn(TRUE);
+	vFtdiIrqRxHccdCommErrEn(TRUE);
+	vFtdiIrqTxLutFinishedEn(TRUE);
+	vFtdiIrqTxLutCommErrEn(TRUE);
+	vFtdiIrqGlobalEn(TRUE);
+	bFtdiRxIrqInit();
+	bFtdiTxIrqInit();
 
 }

@@ -65,7 +65,7 @@ void vSyncHandleIrq(void* pvContext) {
 
 //	volatile int* pviSyncHoldContext = (volatile int*) pvContext;
 
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = FALSE;
@@ -86,7 +86,7 @@ void vSyncHandleIrq(void* pvContext) {
 	if (vpxSyncModule->xSyncIrqFlag.bNormalPulseIrqFlag) {
 		vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = TRUE;
 		/* Sync Normal Pulse IRQ routine */
-		
+
 		uiCmdtoSend.ucByte[2] = M_SYNC;
 		xGlobal.bPreMaster = FALSE;
 		xGlobal.ucEP0_3++;
@@ -94,7 +94,7 @@ void vSyncHandleIrq(void* pvContext) {
 	} else if (vpxSyncModule->xSyncIrqFlag.bMasterPulseIrqFlag) {
 		vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
 		/* Sync Master Pulse IRQ routine */
-		
+
 		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
 		xGlobal.bPreMaster = FALSE;
 		xGlobal.ucEP0_3 = 0;
@@ -102,9 +102,9 @@ void vSyncHandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 
 		/* Send Priority message to the Meb Task to indicate the Sync */
-		error_codel = OSQPostFront(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendMsgMasterSyncDTC( );
+		error_codel = OSQPostFront(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendMsgMasterSyncDTC();
 		}
 	} else if (vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag) {
 		vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = TRUE;
@@ -116,9 +116,9 @@ void vSyncHandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 
 		/* Send Priority message to the Meb Task to indicate the Sync */
-		error_codel = OSQPostFront(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendMsgMasterSyncDTC( );
+		error_codel = OSQPostFront(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendMsgMasterSyncDTC();
 		}
 
 	}
@@ -126,25 +126,25 @@ void vSyncHandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
 
 	/* Send Priority message to the LUT Task to indicate the Sync */
-	error_codel = OSQPostFront(xLutQ, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgMasterSyncLut( );
+	error_codel = OSQPostFront(xLutQ, (void *) uiCmdtoSend.ulWord);
+	if (error_codel != OS_ERR_NONE) {
+		vFailSendMsgMasterSyncLut();
 	}
 
 	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
 
 	/* Send Priority message to the Meb Task to indicate the Sync */
-	error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgMasterSyncMeb( );
+	error_codel = OSQPostFront(xMebQ, (void *) uiCmdtoSend.ulWord);
+	if (error_codel != OS_ERR_NONE) {
+		vFailSendMsgMasterSyncMeb();
 	}
 
-	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+	for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
 		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
 			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
-			if ( error_codel != OS_ERR_NONE ) {
-				vFailSendMsgSync( ucIL );
+			error_codel = OSQPostFront(xFeeQ[ucIL], (void *) uiCmdtoSend.ulWord);
+			if (error_codel != OS_ERR_NONE) {
+				vFailSendMsgSync(ucIL);
 			}
 		}
 	}
@@ -168,10 +168,10 @@ void vSyncPreHandleIrq(void* pvContext) {
 	volatile unsigned char ucIL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
-	
+
 //	volatile int* pviPreSyncHoldContext = (volatile int*) pvContext;
 
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = TRUE;
@@ -180,40 +180,40 @@ void vSyncPreHandleIrq(void* pvContext) {
 		vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
 		/* Sync Master Pulse IRQ routine */
 		/* Pre-Sync Blank Pulse IRQ routine */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			fprintf(fp,"Pre-Master Sync Signal\n");
+#if DEBUG_ON
+		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+			fprintf(fp, "Pre-Master Sync Signal\n");
 		}
-		#endif
+#endif
 		uiCmdtoSend.ucByte[2] = M_BEFORE_MASTER;
 	} else if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
 		// Check Sync Irq Flags
 		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
 		/* Pre-Sync Blank Pulse IRQ routine */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			fprintf(fp,"Pre-Sync Signal\n");
+#if DEBUG_ON
+		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+			fprintf(fp, "Pre-Sync Signal\n");
 		}
-		#endif
+#endif
 		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
 	}
-	
-	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+
+	for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
 		//if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
-			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
-			if ( error_codel != OS_ERR_NONE ) {
-				vFailSendMsgSync( ucIL );
-			}
+		uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+		error_codel = OSQPostFront(xFeeQ[ucIL], (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendMsgSync(ucIL);
+		}
 		//}
 	}
 
 	uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
 
 	/* Send Priority message to the LUT Task to indicate the Sync */
-	error_codel = OSQPostFront(xLutQ, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgMasterSyncLut( );
+	error_codel = OSQPostFront(xLutQ, (void *) uiCmdtoSend.ulWord);
+	if (error_codel != OS_ERR_NONE) {
+		vFailSendMsgMasterSyncLut();
 	}
 
 }
@@ -239,7 +239,7 @@ void vSyncInitIrq(void) {
 	// Recast the viSyncHoldContext pointer to match the alt_irq_register() function
 	// prototype.
 	void* hold_context_ptr = (void*) &viSyncHoldContext;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	// Clear all flags
 	vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
 	vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = TRUE;
@@ -264,7 +264,7 @@ void vSyncPreInitIrq(void) {
 	// Recast the viPreSyncHoldContext pointer to match the alt_irq_register() function
 	// prototype.
 	void* hold_context_ptr = (void*) &viPreSyncHoldContext;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	// Clear all flags
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreNormalPulseIrqFlagClr = TRUE;
@@ -288,7 +288,7 @@ void vSyncPreInitIrq(void) {
  */
 bool bSyncStatusExtnIrq(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xSyncStatus.bIntExtN;
 	return bResult;
 }
@@ -306,7 +306,7 @@ bool bSyncStatusExtnIrq(void) {
  */
 alt_u8 ucSyncStatusState(void) {
 	alt_u8 ucResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	ucResult = vpxSyncModule->xSyncStatus.ucState;
 	return ucResult;
 }
@@ -324,7 +324,7 @@ alt_u8 ucSyncStatusState(void) {
  */
 alt_u8 ucSyncStatusErrorCode(void) {
 	alt_u8 ucResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	ucResult = vpxSyncModule->xSyncStatus.ucErrorCode;
 	return ucResult;
 }
@@ -342,7 +342,7 @@ alt_u8 ucSyncStatusErrorCode(void) {
  */
 alt_u8 ucSyncStatusCycleNumber(void) {
 	alt_u8 ucResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	ucResult = vpxSyncModule->xSyncStatus.ucCycleNumber;
 	return ucResult;
 }
@@ -360,7 +360,7 @@ alt_u8 ucSyncStatusCycleNumber(void) {
  * @retval bool TRUE
  */
 bool bSyncSetMbt(alt_u32 uliValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliValue;
 	return TRUE;
 }
@@ -377,7 +377,7 @@ bool bSyncSetMbt(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetBt(alt_u32 uliValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncConfig.uliBlankTime = uliValue;
 	return TRUE;
 }
@@ -394,7 +394,7 @@ bool bSyncSetBt(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetPreBt(alt_u32 uliValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncConfig.uliPreBlankTime = uliValue;
 	return TRUE;
 }
@@ -411,7 +411,7 @@ bool bSyncSetPreBt(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetPer(alt_u32 uliValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncConfig.uliPeriod = uliValue;
 	return TRUE;
 }
@@ -428,7 +428,7 @@ bool bSyncSetPer(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetOst(alt_u32 uliValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncConfig.uliOneShotTime = uliValue;
 	return TRUE;
 }
@@ -445,7 +445,7 @@ bool bSyncSetOst(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetPolarity(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = bValue;
 	return TRUE;
 }
@@ -464,7 +464,7 @@ bool bSyncSetPolarity(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncSetNCycles(alt_u8 ucValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = ucValue;
 	return TRUE;
 }
@@ -483,7 +483,7 @@ bool bSyncSetNCycles(alt_u8 ucValue) {
 alt_u32 uliSyncGetMbt(void) {
 	alt_u32 uliAux;
 
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	uliAux = vpxSyncModule->xSyncConfig.uliMasterBlankTime;
 	return uliAux;
 }
@@ -502,7 +502,7 @@ alt_u32 uliSyncGetMbt(void) {
 alt_u32 uliSyncGetBt(void) {
 	alt_u32 uliAux;
 
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	uliAux = vpxSyncModule->xSyncConfig.uliBlankTime;
 	return uliAux;
 }
@@ -521,7 +521,7 @@ alt_u32 uliSyncGetBt(void) {
 alt_u32 uliSyncGetPer(void) {
 	alt_u32 uliAux;
 
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	uliAux = vpxSyncModule->xSyncConfig.uliPeriod;
 	return uliAux;
 }
@@ -540,7 +540,7 @@ alt_u32 uliSyncGetPer(void) {
 alt_u32 uliSyncGetOst(void) {
 	alt_u32 uliAux;
 
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	uliAux = vpxSyncModule->xSyncConfig.uliOneShotTime;
 	return uliAux;
 }
@@ -559,7 +559,7 @@ alt_u32 uliSyncGetOst(void) {
  * @retval bool TRUE
  */
 bool bSyncErrInj(alt_u32 uliValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncErrorInjection.uliErrorInjection = uliValue;
 	return TRUE;
 }
@@ -577,7 +577,7 @@ bool bSyncErrInj(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrIntern(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bIntExtN = bValue;
 	return TRUE;
 }
@@ -595,7 +595,7 @@ bool bSyncCtrIntern(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrStart(void) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bStart = SYNC_BIT_ON;
 	return TRUE;
 }
@@ -613,7 +613,7 @@ bool bSyncCtrStart(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrReset(void) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bReset = SYNC_BIT_ON;
 	return TRUE;
 }
@@ -631,7 +631,7 @@ bool bSyncCtrReset(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrOneShot(void) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bOneShot = SYNC_BIT_ON;
 	return TRUE;
 }
@@ -649,7 +649,7 @@ bool bSyncCtrOneShot(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrErrInj(void) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bErrInj = SYNC_BIT_ON;
 	return TRUE;
 }
@@ -666,7 +666,7 @@ bool bSyncCtrErrInj(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrSyncOutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bOutEn = bValue;
 	return TRUE;
 }
@@ -683,7 +683,7 @@ bool bSyncCtrSyncOutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh1OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel1En = bValue;
 	return TRUE;
 }
@@ -700,7 +700,7 @@ bool bSyncCtrCh1OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh2OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel2En = bValue;
 	return TRUE;
 }
@@ -717,7 +717,7 @@ bool bSyncCtrCh2OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh3OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel3En = bValue;
 	return TRUE;
 }
@@ -734,7 +734,7 @@ bool bSyncCtrCh3OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh4OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel4En = bValue;
 	return TRUE;
 }
@@ -751,7 +751,7 @@ bool bSyncCtrCh4OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh5OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel5En = bValue;
 	return TRUE;
 }
@@ -768,7 +768,7 @@ bool bSyncCtrCh5OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh6OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel6En = bValue;
 	return TRUE;
 }
@@ -785,7 +785,7 @@ bool bSyncCtrCh6OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh7OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel7En = bValue;
 	return TRUE;
 }
@@ -802,7 +802,7 @@ bool bSyncCtrCh7OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh8OutEnable(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bChannel8En = bValue;
 	return TRUE;
 }
@@ -820,7 +820,7 @@ bool bSyncCtrCh8OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqEnableError(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqEn.bErrorIrqEn = bValue;
 	return TRUE;
 }
@@ -837,7 +837,7 @@ bool bSyncIrqEnableError(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqEnableBlankPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqEn.bBlankPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -854,7 +854,7 @@ bool bSyncIrqEnableBlankPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqEnableMasterPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqEn.bMasterPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -871,7 +871,7 @@ bool bSyncIrqEnableMasterPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqEnableNormalPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqEn.bNormalPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -888,7 +888,7 @@ bool bSyncIrqEnableNormalPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqEnableLastPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqEn.bLastPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -906,7 +906,7 @@ bool bSyncIrqEnableLastPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrError(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqFlagClr.bErrorIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -923,7 +923,7 @@ bool bSyncIrqFlagClrError(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrBlankPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -940,7 +940,7 @@ bool bSyncIrqFlagClrBlankPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrMasterPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -957,7 +957,7 @@ bool bSyncIrqFlagClrMasterPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrNormalPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -974,7 +974,7 @@ bool bSyncIrqFlagClrNormalPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrLastPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -993,7 +993,7 @@ bool bSyncIrqFlagClrLastPulse(bool bValue) {
  */
 bool bSyncIrqFlagError(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xSyncIrqFlag.bErrorIrqFlag;
 	return bResult;
 }
@@ -1011,7 +1011,7 @@ bool bSyncIrqFlagError(void) {
  */
 bool bSyncIrqFlagBlankPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xSyncIrqFlag.bBlankPulseIrqFlag;
 	return bResult;
 }
@@ -1029,7 +1029,7 @@ bool bSyncIrqFlagBlankPulse(void) {
  */
 bool bSyncIrqFlagMasterPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xSyncIrqFlag.bMasterPulseIrqFlag;
 	return bResult;
 }
@@ -1047,7 +1047,7 @@ bool bSyncIrqFlagMasterPulse(void) {
  */
 bool bSyncIrqFlagNormalPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xSyncIrqFlag.bNormalPulseIrqFlag;
 	return bResult;
 }
@@ -1065,7 +1065,7 @@ bool bSyncIrqFlagNormalPulse(void) {
  */
 bool bSyncIrqFlagLastPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag;
 	return bResult;
 }
@@ -1082,7 +1082,7 @@ bool bSyncIrqFlagLastPulse(void) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqEnableBlankPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqEn.bPreBlankPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -1099,7 +1099,7 @@ bool bSyncPreIrqEnableBlankPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqEnableMasterPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqEn.bPreMasterPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -1116,7 +1116,7 @@ bool bSyncPreIrqEnableMasterPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqEnableNormalPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqEn.bPreNormalPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -1133,7 +1133,7 @@ bool bSyncPreIrqEnableNormalPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqEnableLastPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqEn.bPreLastPulseIrqEn = bValue;
 	return TRUE;
 }
@@ -1151,7 +1151,7 @@ bool bSyncPreIrqEnableLastPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqFlagClrBlankPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -1168,7 +1168,7 @@ bool bSyncPreIrqFlagClrBlankPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqFlagClrMasterPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -1185,7 +1185,7 @@ bool bSyncPreIrqFlagClrMasterPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqFlagClrNormalPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreNormalPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -1202,7 +1202,7 @@ bool bSyncPreIrqFlagClrNormalPulse(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncPreIrqFlagClrLastPulse(bool bValue) {
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xPreSyncIrqFlagClr.bPreLastPulseIrqFlagClr = bValue;
 	return TRUE;
 }
@@ -1221,7 +1221,7 @@ bool bSyncPreIrqFlagClrLastPulse(bool bValue) {
  */
 bool bSyncPreIrqFlagBlankPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag;
 	return bResult;
 }
@@ -1239,7 +1239,7 @@ bool bSyncPreIrqFlagBlankPulse(void) {
  */
 bool bSyncPreIrqFlagMasterPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag;
 	return bResult;
 }
@@ -1257,7 +1257,7 @@ bool bSyncPreIrqFlagMasterPulse(void) {
  */
 bool bSyncPreIrqFlagNormalPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreNormalPulseIrqFlag;
 	return bResult;
 }
@@ -1275,7 +1275,7 @@ bool bSyncPreIrqFlagNormalPulse(void) {
  */
 bool bSyncPreIrqFlagLastPulse(void) {
 	bool bResult;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreLastPulseIrqFlag;
 	return bResult;
 }
@@ -1283,46 +1283,46 @@ bool bSyncPreIrqFlagLastPulse(void) {
 /* Configure the entire Sync Period for a N-FEE (default: 25.0 s) */
 bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 	bool bSuccess;
-	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
-	
-	if ( cusiSyncNFeeSyncPeriodMs <= usiSyncPeriodMs ) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+
+	if (cusiSyncNFeeSyncPeriodMs <= usiSyncPeriodMs) {
 
 		const alt_u16 cusiLastPulsePeriodMs = usiSyncPeriodMs - (cusiSyncNFeeNormalPulseDurationMs * (cusiSyncNFeeNumberOfPulses - 1));
-		
+
 		vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncNFeeNumberOfPulses;
 		vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncNFeePulsePolarity;
-		vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs( 100 );
-		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs( cusiSyncNFeeNormalPulseDurationMs - cusiSyncNFeeMasterBlankTimeMs );
-		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs( cusiSyncNFeeNormalPulseDurationMs - cusiSyncNFeeNormalBlankTimeMs );
-		vpxSyncModule->xSyncConfig.uliLastBlankTime = uliPerCalcPeriodMs( cusiLastPulsePeriodMs - cusiSyncNFeeMasterBlankTimeMs );
-		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs( cusiSyncNFeeNormalPulseDurationMs );
-		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs( cusiLastPulsePeriodMs );
-		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs( cusiSyncNFeeMasterDetectionTimeMs );
-		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs( cusiSyncNFeeOneShotTimeMs );
+		vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs(100);
+		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs(cusiSyncNFeeNormalPulseDurationMs - cusiSyncNFeeMasterBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs(cusiSyncNFeeNormalPulseDurationMs - cusiSyncNFeeNormalBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliLastBlankTime = uliPerCalcPeriodMs(cusiLastPulsePeriodMs - cusiSyncNFeeMasterBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs(cusiSyncNFeeNormalPulseDurationMs);
+		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs(cusiLastPulsePeriodMs);
+		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs(cusiSyncNFeeMasterDetectionTimeMs);
+		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncNFeeOneShotTimeMs);
 
 #if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nSync Module Configuration:\n");
-		fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
-		fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
-		fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPreBlankTime ));
-		fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime ));
-		fprintf(fp, "xSyncModule.uliBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliBlankTime ));
-		fprintf(fp, "xSyncModule.uliLastBlankTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliLastPeriod - vpxSyncModule->xSyncConfig.uliLastBlankTime ));
-		fprintf(fp, "xSyncModule.uliPeriod = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliPeriod ));
-		fprintf(fp, "xSyncModule.uliLastPeriod = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliLastPeriod ));
-		fprintf(fp, "xSyncModule.uliMasterDetectionTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliMasterDetectionTime ));
-		fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs( vpxSyncModule->xSyncConfig.uliOneShotTime ));
-		fprintf(fp, "\n");
-}
+		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
+			fprintf(fp, "\nSync Module Configuration:\n");
+			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
+			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
+			fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPreBlankTime));
+			fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime));
+			fprintf(fp, "xSyncModule.uliBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliBlankTime));
+			fprintf(fp, "xSyncModule.uliLastBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod - vpxSyncModule->xSyncConfig.uliLastBlankTime));
+			fprintf(fp, "xSyncModule.uliPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod));
+			fprintf(fp, "xSyncModule.uliLastPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod));
+			fprintf(fp, "xSyncModule.uliMasterDetectionTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliMasterDetectionTime));
+			fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliOneShotTime));
+			fprintf(fp, "\n");
+		}
 #endif
 
 		bSuccess = TRUE;
 	} else {
 #if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nSync Module Configuration Failure!! Period is to small\n");
-}
+		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
+			fprintf(fp, "\nSync Module Configuration Failure!! Period is to small\n");
+		}
 #endif
 	}
 

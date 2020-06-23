@@ -29,7 +29,7 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		vpxCommChannel->xDataPacket.xDpktDataPacketConfig = pxDpktCh->xDpktDataPacketConfig;
 
@@ -46,7 +46,7 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		pxDpktCh->xDpktDataPacketConfig = vpxCommChannel->xDataPacket.xDpktDataPacketConfig;
 
@@ -63,7 +63,7 @@ bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		vpxCommChannel->xDataPacket.xDpktDataPacketErrors = pxDpktCh->xDpktDataPacketErrors;
 
@@ -80,7 +80,7 @@ bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		pxDpktCh->xDpktDataPacketErrors = vpxCommChannel->xDataPacket.xDpktDataPacketErrors;
 
@@ -97,7 +97,7 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		pxDpktCh->xDpktDataPacketHeader = vpxCommChannel->xDataPacket.xDpktDataPacketHeader;
 
@@ -114,7 +114,7 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		vpxCommChannel->xDataPacket.xDpktPixelDelay = pxDpktCh->xDpktPixelDelay;
 
@@ -130,7 +130,7 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		pxDpktCh->xDpktPixelDelay = vpxCommChannel->xDataPacket.xDpktPixelDelay;
 
@@ -147,7 +147,7 @@ bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		vpxCommChannel->xDataPacket.xDpktErrorInjection = pxDpktCh->xDpktErrorInjection;
 
@@ -163,7 +163,7 @@ bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		pxDpktCh->xDpktErrorInjection = vpxCommChannel->xDataPacket.xDpktErrorInjection;
 
@@ -180,7 +180,7 @@ bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		vpxCommChannel->xDataPacket.xDpktWindowingParam = pxDpktCh->xDpktWindowingParam;
 
@@ -196,7 +196,7 @@ bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh) {
 
 	if (pxDpktCh != NULL) {
 
-		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		pxDpktCh->xDpktWindowingParam = vpxCommChannel->xDataPacket.xDpktWindowingParam;
 
@@ -217,39 +217,39 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_1_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_1_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_2_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_2_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_3_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_3_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_4_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_4_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
-			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
 		default:
@@ -289,42 +289,42 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
  * Return the necessary delay value for a
  * Pixel Delay period in uliPeriodNs ns.
  */
-alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs){
+alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs) {
 
-    /*
-     * Delay = PxDelay * ClkCycles@100MHz
-     * PxDelay = Delay / ClkCycles@100MHz
-     *
-     * ClkCycles@100MHz = 10 ns
-     *
-     * Delay[ns] / 10 = Delay[ns] * 1e-1
-     * PxDelay = Delay[ns] * 1e-1
-     */
+	/*
+	 * Delay = PxDelay * ClkCycles@100MHz
+	 * PxDelay = Delay / ClkCycles@100MHz
+	 *
+	 * ClkCycles@100MHz = 10 ns
+	 *
+	 * Delay[ns] / 10 = Delay[ns] * 1e-1
+	 * PxDelay = Delay[ns] * 1e-1
+	 */
 
-    alt_u32 uliPxDelay;
-    //    uliPxDelay = (alt_u32) ((float) uliPeriodNs * 1e-1);
-    uliPxDelay = (alt_u32) ( uliPeriodNs / (alt_u32)10 );
+	alt_u32 uliPxDelay;
+	//    uliPxDelay = (alt_u32) ((float) uliPeriodNs * 1e-1);
+	uliPxDelay = (alt_u32) (uliPeriodNs / (alt_u32) 10);
 
-    return uliPxDelay;
+	return uliPxDelay;
 }
 
-alt_u32 uliPxDelayCalcPeriodMs(alt_u32 uliPeriodMs){
+alt_u32 uliPxDelayCalcPeriodMs(alt_u32 uliPeriodMs) {
 
-    /*
-     * Delay = PxDelay * ClkCycles@100MHz
-     * PxDelay = Delay / ClkCycles@100MHz
-     *
-     * ClkCycles@100MHz = 10 ns = 1e-5 ms
-     *
-     * Delay[ms] / 1e-5 = Delay[ms] * 1e+5
-     * PxDelay = Delay[ms] * 1e+5
-     */
+	/*
+	 * Delay = PxDelay * ClkCycles@100MHz
+	 * PxDelay = Delay / ClkCycles@100MHz
+	 *
+	 * ClkCycles@100MHz = 10 ns = 1e-5 ms
+	 *
+	 * Delay[ms] / 1e-5 = Delay[ms] * 1e+5
+	 * PxDelay = Delay[ms] * 1e+5
+	 */
 
-    alt_u32 uliPxDelay;
-    //    uliPxDelay = (alt_u32) ((float) uliPeriodMs * 1e+5);
-    uliPxDelay = (alt_u32) ( uliPeriodMs * (alt_u32)100000 );
+	alt_u32 uliPxDelay;
+	//    uliPxDelay = (alt_u32) ((float) uliPeriodMs * 1e+5);
+	uliPxDelay = (alt_u32) (uliPeriodMs * (alt_u32) 100000);
 
-    return uliPxDelay;
+	return uliPxDelay;
 }
 
 //! [public functions]

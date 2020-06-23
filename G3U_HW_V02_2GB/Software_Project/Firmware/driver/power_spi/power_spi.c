@@ -39,8 +39,7 @@
 #define SPI_SDO       (IORD_ALTERA_AVALON_PIO_DATA(CSENSE_SDO_BASE) & 0x01)
 #define SPI_DELAY     usleep(15)  // based on 50MHZ of CPU clock
 // Note. SCK: typical 19.2KHZ (53 ms)
-bool POWER_SPI_RW(alt_u8 IcIndex, alt_u8 NextChannel, bool bEN, bool bSIGN,
-		bool bSGL, alt_u32 *pValue) {
+bool POWER_SPI_RW(alt_u8 IcIndex, alt_u8 NextChannel, bool bEN, bool bSIGN, bool bSGL, alt_u32 *pValue) {
 	bool bSuccess;
 	alt_u8 Config8;
 	alt_u32 Value32 = 0, Mask32;

@@ -1,4 +1,4 @@
- /**
+/**
  * @file   seven_seg.c
  * @Author Rodrigo França (rodrigo.franca@maua.br | rodmarfra@gmail.com)
  * @date   Fevereiro, 2017
@@ -28,36 +28,36 @@ alt_u8 SspdConfigControl = 0x00;
  * @retval FALSE : Configuração não especificada
  *
  */
-bool bSSDisplayConfig(alt_u8 SsdpConfig){
+bool bSSDisplayConfig(alt_u8 SsdpConfig) {
 
-    switch(SsdpConfig){
-	    case SSDP_NORMAL_MODE:
-	        SspdConfigControl = (SSDP_ON_MASK | SSDP_UNLOCK_MASK);
-	    break;
-		
-	    case SSDP_TEST_MODE:
-	        SspdConfigControl = (SSDP_ON_MASK | SSDP_TEST_MASK);
-	    break;
-		
-	    case SSDP_LOCK:
-	        SspdConfigControl &= (~SSDP_UNLOCK_MASK);
-	    break;
-		
-	    case SSDP_UNLOCK:
-	        SspdConfigControl |= SSDP_UNLOCK_MASK;
-	    break;
-		
-	    case SSDP_OFF:
-	        SspdConfigControl = SSDP_OFF_MASK;
-	    break;
-		
-		default:
-		    return FALSE;
+	switch (SsdpConfig) {
+	case SSDP_NORMAL_MODE:
+		SspdConfigControl = (SSDP_ON_MASK | SSDP_UNLOCK_MASK);
+		break;
+
+	case SSDP_TEST_MODE:
+		SspdConfigControl = (SSDP_ON_MASK | SSDP_TEST_MASK);
+		break;
+
+	case SSDP_LOCK:
+		SspdConfigControl &= (~SSDP_UNLOCK_MASK);
+		break;
+
+	case SSDP_UNLOCK:
+		SspdConfigControl |= SSDP_UNLOCK_MASK;
+		break;
+
+	case SSDP_OFF:
+		SspdConfigControl = SSDP_OFF_MASK;
+		break;
+
+	default:
+		return FALSE;
 	}
 
-	alt_u32 *pSsdpAddr = (alt_u32 *)SSDP_BASE;
+	alt_u32 *pSsdpAddr = (alt_u32 *) SSDP_BASE;
 	*(pSsdpAddr + SSDP_CONTROL_REG_OFFSET) = (alt_u32) SspdConfigControl;
-	
+
 	return TRUE;
 }
 
@@ -73,11 +73,11 @@ bool bSSDisplayConfig(alt_u8 SsdpConfig){
  * @retval TRUE : Sucesso
  *
  */
-bool bSSDisplayUpdate(alt_u8 SsdpData){
+bool bSSDisplayUpdate(alt_u8 SsdpData) {
 
-	alt_u32 *pSsdpAddr = (alt_u32 *)SSDP_BASE;
+	alt_u32 *pSsdpAddr = (alt_u32 *) SSDP_BASE;
 	*(pSsdpAddr + SSDP_DATA_REG_OFFSET) = (alt_u32) SsdpData;
-	
+
 	return TRUE;
 }
 

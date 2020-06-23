@@ -84,20 +84,20 @@ void vLutHandlerTask(void *task_data) {
 				if ( ucIReq < N_OF_NFEE ) {
 					if ( pxMebC->xLut.bUpdatedRam[ucIReq] == TRUE ) {
 
-						vFTDIAbort();
-						vFTDIClear();
-						vFTDIStart();
+						vFtdiAbortOperation();
+						vFtdiClearModule();
+						vFtdiStartModule();
 
 						/*Request send LUT to the NUC*/
-						vFTDIResetWindowArea();
+						vFtdiResetLutWinArea();
 						bWindCopyCcdXWindowingConfig(ucIReq);
-						bSuccess = bFTDITransmitWindowArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight, pxMebC->xLut.ulSize);
+						bSuccess = bFtdiTransmitLutWinArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight, pxMebC->xLut.ulSize);
 						if ( bSuccess == TRUE ) {
 
 							if (pxMebC->xLut.ucDdrNumber == 0) {
-								bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
+								bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory1, (alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
 							} else {
-								bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
+								bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory2, (alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
 							}
 
 							if ( bDmaReturn == TRUE ) {
@@ -157,7 +157,7 @@ void vLutHandlerTask(void *task_data) {
 					pxMebC->xLut.bFakingLUT[ucIL] = FALSE;
 				}
 
-				vFTDIResetWindowArea();
+				vFtdiResetLutWinArea();
 
 				pxMebC->xLut.eState = sRunLut;
 				break;
@@ -203,9 +203,9 @@ void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 			break;
 
 		case M_LUT_FTDI_ERROR:
-			vFTDIAbort();
-			vFTDIClear();
-			vFTDIStart();
+			vFtdiAbortOperation();
+			vFtdiClearModule();
+			vFtdiStartModule();
 			break;
 
 		case M_BEFORE_SYNC:
@@ -249,9 +249,9 @@ void vQCmdLUTWaitIRQFinish( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 			break;
 
 		case M_LUT_FTDI_ERROR:
-			vFTDIAbort();
-			vFTDIClear();
-			vFTDIStart();
+			vFtdiAbortOperation();
+			vFtdiClearModule();
+			vFtdiStartModule();
 			pxMebCP->xLut.eState = sRequestFTDI;
 			break;
 
