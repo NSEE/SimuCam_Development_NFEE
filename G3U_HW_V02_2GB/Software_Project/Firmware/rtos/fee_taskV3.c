@@ -89,6 +89,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
+				/* Sends information to the NUC that it enter CONFIG mode */
+				vSendFEEStatus(pxNFee->ucId, 1);
+
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x00; /*Off*/
@@ -187,6 +190,9 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+
+				/* Sends information to the NUC that it left CONFIG mode */
+				vSendFEEStatus(pxNFee->ucId, 0);
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
