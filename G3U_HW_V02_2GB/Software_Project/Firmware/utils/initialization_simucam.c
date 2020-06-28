@@ -40,9 +40,13 @@ void vInitSimucamBasicHW(void)
 
 	vRstcHoldDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 	vRstcReleaseDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
-
+ 
+	/* Disable LVDS drivers and isolator */
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
+	
+	/* Set LVDS pre-emphasys to hi */
+	bSetPreEmphasys(LVDS_PEM_HI);
 
 	/* Turn on all Panel Leds */
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );

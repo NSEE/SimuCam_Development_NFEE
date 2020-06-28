@@ -282,7 +282,7 @@ set_location_assignment PIN_AC6 -to OSC_50_Bank5
 set_location_assignment PIN_AB6 -to OSC_50_Bank6
 set_location_assignment PIN_A19 -to OSC_50_Bank7
 set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
-set_global_assignment -name UNIPHY_TEMP_VER_CODE 1100477761
+set_global_assignment -name UNIPHY_TEMP_VER_CODE 893171190
 set_location_assignment PIN_AC11 -to EXT_IO
 
 set_location_assignment PIN_AN18 -to TEMP_SMCLK
@@ -2030,52 +2030,36 @@ set_location_assignment PIN_V11 -to HSMB_BUFFER_PEM1
 set_instance_assignment -name IO_STANDARD "2.5 V" -to HSMB_BUFFER_PEM1
 set_location_assignment PIN_D5 -to HSMB_LVDS_RX_SPWA_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWA_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWA_DI_P
 set_location_assignment PIN_D10 -to HSMB_LVDS_RX_SPWA_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWA_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWA_SI_P
 set_location_assignment PIN_D9 -to HSMB_LVDS_RX_SPWB_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWB_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWB_DI_P
 set_location_assignment PIN_D8 -to HSMB_LVDS_RX_SPWB_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWB_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWB_SI_P
 set_location_assignment PIN_D7 -to HSMB_LVDS_RX_SPWC_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWC_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWC_DI_P
 set_location_assignment PIN_F10 -to HSMB_LVDS_RX_SPWC_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWC_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWC_SI_P
 set_location_assignment PIN_G5 -to HSMB_LVDS_RX_SPWD_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWD_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWD_DI_P
 set_location_assignment PIN_G6 -to HSMB_LVDS_RX_SPWD_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWD_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWD_SI_P
 set_location_assignment PIN_F7 -to HSMB_LVDS_RX_SPWE_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWE_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWE_DI_P
 set_location_assignment PIN_G8 -to HSMB_LVDS_RX_SPWE_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWE_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWE_SI_P
 set_location_assignment PIN_G9 -to HSMB_LVDS_RX_SPWF_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWF_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWF_DI_P
 set_location_assignment PIN_N6 -to HSMB_LVDS_RX_SPWF_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWF_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWF_SI_P
 set_location_assignment PIN_M6 -to HSMB_LVDS_RX_SPWG_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWG_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWG_DI_P
 set_location_assignment PIN_R6 -to HSMB_LVDS_RX_SPWG_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWG_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWG_SI_P
 set_location_assignment PIN_R7 -to HSMB_LVDS_RX_SPWH_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWH_DI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWH_DI_P
 set_location_assignment PIN_V6 -to HSMB_LVDS_RX_SPWH_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWH_SI_P
-set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWH_SI_P
 set_location_assignment PIN_N11 -to HSMB_LVDS_TX_SPWA_DO_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWA_DO_P
 set_location_assignment PIN_N12 -to HSMB_LVDS_TX_SPWA_SO_P
