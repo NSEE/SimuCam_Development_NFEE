@@ -125,8 +125,6 @@ architecture rtl of comm_v1_80_top is
 
 	-- signals
 
-	signal rst_n : std_logic;
-
 	-- interrupt edge detection signals
 	signal s_R_buffer_0_empty_delayed    : std_logic;
 	signal s_R_buffer_1_empty_delayed    : std_logic;
@@ -581,7 +579,7 @@ begin
 		)
 		port map(
 			clk_i                      => a_avs_clock,
-			reset_n_i                  => rst_n,
+			rst_i                      => a_reset,
 			spw_flag_i                 => s_rmap_spw_flag,
 			mem_flag_i                 => s_rmap_mem_flag,
 			spw_control_o              => s_rmap_spw_control,

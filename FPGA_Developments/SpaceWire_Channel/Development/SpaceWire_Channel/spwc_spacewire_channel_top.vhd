@@ -70,21 +70,64 @@ architecture rtl of spwc_spacewire_channel_top is
 	-- Signals --
 
 	-- SpaceWirew Codec Clock Synchronization Signals (200 MHz)
-	signal s_spw_codec_link_command_clk200    : t_spwc_codec_link_command;
-	signal s_spw_codec_link_status_clk200     : t_spwc_codec_link_status;
-	signal s_spw_codec_link_error_clk200      : t_spwc_codec_link_error;
-	signal s_spw_codec_timecode_rx_clk200     : t_spwc_codec_timecode_rx;
-	signal s_spw_codec_data_rx_status_clk200  : t_spwc_codec_data_rx_status;
-	signal s_spw_codec_data_tx_status_clk200  : t_spwc_codec_data_tx_status;
-	signal s_spw_codec_timecode_tx_clk200     : t_spwc_codec_timecode_tx;
-	signal s_spw_codec_data_rx_command_clk200 : t_spwc_codec_data_rx_command;
-	signal s_spw_codec_data_tx_command_clk200 : t_spwc_codec_data_tx_command;
+	signal s_spw_codec_link_command_spw    : t_spwc_codec_link_command;
+	signal s_spw_codec_link_status_spw     : t_spwc_codec_link_status;
+	signal s_spw_codec_link_error_spw      : t_spwc_codec_link_error;
+	signal s_spw_codec_timecode_rx_spw     : t_spwc_codec_timecode_rx;
+	signal s_spw_codec_data_rx_status_spw  : t_spwc_codec_data_rx_status;
+	signal s_spw_codec_data_tx_status_spw  : t_spwc_codec_data_tx_status;
+	signal s_spw_codec_timecode_tx_spw     : t_spwc_codec_timecode_tx;
+	signal s_spw_codec_data_rx_command_spw : t_spwc_codec_data_rx_command;
+	signal s_spw_codec_data_tx_command_spw : t_spwc_codec_data_tx_command;
 
 begin
 
 	-- Entities Instantiation --
 
 	-- SpaceWire Codec Clock Domain Synchronization Instantiation
+	spwc_clk_synchronization_top_inst : entity work.spwc_clk_synchronization_top
+		port map(
+			clk_avs_i                               => a_avs_clock,
+			clk_spw_i                               => a_spw_clock,
+			rst_i                                   => a_reset,
+			spw_codec_link_command_avs_i.autostart  => spw_link_command_autostart_i,
+			spw_codec_link_command_avs_i.linkstart  => spw_link_command_linkstart_i,
+			spw_codec_link_command_avs_i.linkdis    => spw_link_command_linkdis_i,
+			spw_codec_link_command_avs_i.txdivcnt   => spw_link_command_txdivcnt_i,
+			spw_codec_timecode_tx_avs_i.tick_in     => spw_timecode_tx_tick_in_i,
+			spw_codec_timecode_tx_avs_i.ctrl_in     => spw_timecode_tx_ctrl_in_i,
+			spw_codec_timecode_tx_avs_i.time_in     => spw_timecode_tx_time_in_i,
+			spw_codec_data_rx_command_avs_i.rxread  => spw_data_rx_command_rxread_i,
+			spw_codec_data_tx_command_avs_i.txwrite => spw_data_tx_command_txwrite_i,
+			spw_codec_data_tx_command_avs_i.txflag  => spw_data_tx_command_txflag_i,
+			spw_codec_data_tx_command_avs_i.txdata  => spw_data_tx_command_txdata_i,
+			spw_codec_link_status_spw_i             => s_spw_codec_link_status_spw,
+			spw_codec_link_error_spw_i              => s_spw_codec_link_error_spw,
+			spw_codec_timecode_rx_spw_i             => s_spw_codec_timecode_rx_spw,
+			spw_codec_data_rx_status_spw_i          => s_spw_codec_data_rx_status_spw,
+			spw_codec_data_tx_status_spw_i          => s_spw_codec_data_tx_status_spw,
+			spw_codec_link_status_avs_o.started     => spw_link_status_started_o,
+			spw_codec_link_status_avs_o.connecting  => spw_link_status_connecting_o,
+			spw_codec_link_status_avs_o.running     => spw_link_status_running_o,
+			spw_codec_link_error_avs_o.errdisc      => spw_link_error_errdisc_o,
+			spw_codec_link_error_avs_o.errpar       => spw_link_error_errpar_o,
+			spw_codec_link_error_avs_o.erresc       => spw_link_error_erresc_o,
+			spw_codec_link_error_avs_o.errcred      => spw_link_error_errcred_o,
+			spw_codec_timecode_rx_avs_o.tick_out    => spw_timecode_rx_tick_out_o,
+			spw_codec_timecode_rx_avs_o.ctrl_out    => spw_timecode_rx_ctrl_out_o,
+			spw_codec_timecode_rx_avs_o.time_out    => spw_timecode_rx_time_out_o,
+			spw_codec_data_rx_status_avs_o.rxvalid  => spw_data_rx_status_rxvalid_o,
+			spw_codec_data_rx_status_avs_o.rxhalff  => spw_data_rx_status_rxhalff_o,
+			spw_codec_data_rx_status_avs_o.rxflag   => spw_data_rx_status_rxflag_o,
+			spw_codec_data_rx_status_avs_o.rxdata   => spw_data_rx_status_rxdata_o,
+			spw_codec_data_tx_status_avs_o.txrdy    => spw_data_tx_status_txrdy_o,
+			spw_codec_data_tx_status_avs_o.txhalff  => spw_data_tx_status_txhalff_o,
+			spw_codec_link_command_spw_o            => s_spw_codec_link_command_spw,
+			spw_codec_timecode_tx_spw_o             => s_spw_codec_timecode_tx_spw,
+			spw_codec_data_rx_command_spw_o         => s_spw_codec_data_rx_command_spw,
+			spw_codec_data_tx_command_spw_o         => s_spw_codec_data_tx_command_spw
+		);
+
 	spwc_clk_synchronization_ent_inst : entity work.spwc_clk_synchronization_ent
 		port map(
 			clk_100_i                                  => a_avs_clock,
@@ -101,11 +144,11 @@ begin
 			spw_codec_data_tx_command_clk100_i.txwrite => spw_data_tx_command_txwrite_i,
 			spw_codec_data_tx_command_clk100_i.txflag  => spw_data_tx_command_txflag_i,
 			spw_codec_data_tx_command_clk100_i.txdata  => spw_data_tx_command_txdata_i,
-			spw_codec_link_status_clk200_i             => s_spw_codec_link_status_clk200,
-			spw_codec_link_error_clk200_i              => s_spw_codec_link_error_clk200,
-			spw_codec_timecode_rx_clk200_i             => s_spw_codec_timecode_rx_clk200,
-			spw_codec_data_rx_status_clk200_i          => s_spw_codec_data_rx_status_clk200,
-			spw_codec_data_tx_status_clk200_i          => s_spw_codec_data_tx_status_clk200,
+			spw_codec_link_status_clk200_i             => s_spw_codec_link_status_spw,
+			spw_codec_link_error_clk200_i              => s_spw_codec_link_error_spw,
+			spw_codec_timecode_rx_clk200_i             => s_spw_codec_timecode_rx_spw,
+			spw_codec_data_rx_status_clk200_i          => s_spw_codec_data_rx_status_spw,
+			spw_codec_data_tx_status_clk200_i          => s_spw_codec_data_tx_status_spw,
 			spw_codec_link_status_clk100_o.started     => spw_link_status_started_o,
 			spw_codec_link_status_clk100_o.connecting  => spw_link_status_connecting_o,
 			spw_codec_link_status_clk100_o.running     => spw_link_status_running_o,
@@ -122,10 +165,10 @@ begin
 			spw_codec_data_rx_status_clk100_o.rxdata   => spw_data_rx_status_rxdata_o,
 			spw_codec_data_tx_status_clk100_o.txrdy    => spw_data_tx_status_txrdy_o,
 			spw_codec_data_tx_status_clk100_o.txhalff  => spw_data_tx_status_txhalff_o,
-			spw_codec_link_command_clk200_o            => s_spw_codec_link_command_clk200,
-			spw_codec_timecode_tx_clk200_o             => s_spw_codec_timecode_tx_clk200,
-			spw_codec_data_rx_command_clk200_o         => s_spw_codec_data_rx_command_clk200,
-			spw_codec_data_tx_command_clk200_o         => s_spw_codec_data_tx_command_clk200
+			spw_codec_link_command_clk200_o            => s_spw_codec_link_command_spw,
+			spw_codec_timecode_tx_clk200_o             => s_spw_codec_timecode_tx_spw,
+			spw_codec_data_rx_command_clk200_o         => s_spw_codec_data_rx_command_spw,
+			spw_codec_data_tx_command_clk200_o         => s_spw_codec_data_tx_command_spw
 		);
 
 	-- SpaceWire Codec Instantiation 
@@ -133,19 +176,19 @@ begin
 		port map(
 			clk_200_i                         => a_spw_clock,
 			rst_i                             => a_reset,
-			spw_codec_link_command_i          => s_spw_codec_link_command_clk200,
+			spw_codec_link_command_i          => s_spw_codec_link_command_spw,
 			spw_codec_ds_encoding_rx_i.spw_di => spw_data_in_i,
 			spw_codec_ds_encoding_rx_i.spw_si => spw_strobe_in_i,
-			spw_codec_timecode_tx_i           => s_spw_codec_timecode_tx_clk200,
-			spw_codec_data_rx_command_i       => s_spw_codec_data_rx_command_clk200,
-			spw_codec_data_tx_command_i       => s_spw_codec_data_tx_command_clk200,
-			spw_codec_link_status_o           => s_spw_codec_link_status_clk200,
+			spw_codec_timecode_tx_i           => s_spw_codec_timecode_tx_spw,
+			spw_codec_data_rx_command_i       => s_spw_codec_data_rx_command_spw,
+			spw_codec_data_tx_command_i       => s_spw_codec_data_tx_command_spw,
+			spw_codec_link_status_o           => s_spw_codec_link_status_spw,
 			spw_codec_ds_encoding_tx_o.spw_do => spw_data_out_o,
 			spw_codec_ds_encoding_tx_o.spw_so => spw_strobe_out_o,
-			spw_codec_link_error_o            => s_spw_codec_link_error_clk200,
-			spw_codec_timecode_rx_o           => s_spw_codec_timecode_rx_clk200,
-			spw_codec_data_rx_status_o        => s_spw_codec_data_rx_status_clk200,
-			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_clk200
+			spw_codec_link_error_o            => s_spw_codec_link_error_spw,
+			spw_codec_timecode_rx_o           => s_spw_codec_timecode_rx_spw,
+			spw_codec_data_rx_status_o        => s_spw_codec_data_rx_status_spw,
+			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_spw
 		);
 
 	-- SpaceWire LEDs Controller Instantiation
@@ -153,9 +196,9 @@ begin
 		port map(
 			clk_i                                         => a_spw_clock,
 			rst_i                                         => a_reset,
-			leds_channel_status_i.link_status_running     => s_spw_codec_link_status_clk200.running,
-			leds_channel_status_i.data_rx_command_rxread  => s_spw_codec_data_rx_command_clk200.rxread,
-			leds_channel_status_i.data_tx_command_txwrite => s_spw_codec_data_tx_command_clk200.txwrite,
+			leds_channel_status_i.link_status_running     => s_spw_codec_link_status_spw.running,
+			leds_channel_status_i.data_rx_command_rxread  => s_spw_codec_data_rx_command_spw.rxread,
+			leds_channel_status_i.data_tx_command_txwrite => s_spw_codec_data_tx_command_spw.txwrite,
 			leds_control_o.red_status_led                 => spw_red_status_led_o,
 			leds_control_o.green_status_led               => spw_green_status_led_o
 		);
