@@ -23,6 +23,7 @@ void vSendReset ( void );
 void vSendLog ( const char * cDataIn );
 void vLogSendErrorChars(char layer, char type, char subtype, char severity);
 void vSendLogError ( const char * cDataIn );
+void vSendFEEStatus ( char cFEENumber, char cConfigMode );
 void vSendPusTM64 ( tTMPus xPcktPus );
 void vSendPusTM128 ( tTMPus xPcktPus );
 void vSendPusTM512 ( tTMPus xPcktPus );
