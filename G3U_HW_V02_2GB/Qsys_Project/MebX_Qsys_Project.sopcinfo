@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.06.09.11:49:44 -->
+ <!-- 2020.06.28.00:04:45 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1591714176</value>
+  <value>1593313480</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -16460,7 +16460,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_A"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -16969,7 +16969,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_B"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -17478,7 +17478,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_C"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -17987,7 +17987,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_D"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -18496,7 +18496,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_E"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -19005,7 +19005,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_F"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -19514,7 +19514,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_G"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_G">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -20023,7 +20023,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_H"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    path="SpaceWire_Channel_H">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -115249,7 +115249,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1591714176</value>
+   <value>1593313480</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -115269,7 +115269,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1591714176</value>
+   <value>1593313480</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -115285,7 +115285,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1591714176</value>
+   <value>1593313480</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -135475,7 +135475,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>SpaceWire_Channel</displayName>
-  <version>1.0</version>
+  <version>1.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>

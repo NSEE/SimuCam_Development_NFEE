@@ -62,7 +62,7 @@ entity rmap_target_top is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i                      : in  std_logic; --! Local rmap clock
-		reset_n_i                  : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		rst_i                      : in  std_logic; --! Reset = '0': no reset; Reset = '1': reset active
 
 		spw_flag_i                 : in  t_rmap_target_spw_flag;
 		mem_flag_i                 : in  t_rmap_target_mem_flag;
@@ -126,7 +126,7 @@ begin
 		)
 		port map(
 			clk_i                                 => clk_i,
-			reset_n_i                             => reset_n_i,
+			rst_i                                 => rst_i,
 			flags_i                               => s_rmap_target_flags,
 			error_i                               => s_rmap_target_rmap_error,
 			codecdata_i.target_logical_address    => s_rmap_target_rmap_data.target_logical_address,
@@ -145,7 +145,7 @@ begin
 	rmap_target_command_ent_inst : entity work.rmap_target_command_ent
 		port map(
 			clk_i                                  => clk_i,
-			reset_n_i                              => reset_n_i,
+			rst_i                                  => rst_i,
 			control_i                              => s_rmap_target_control.command_parsing,
 			spw_flag_i                             => spw_flag_i.receiver,
 			flags_o                                => s_rmap_target_flags.command_parsing,
@@ -171,7 +171,7 @@ begin
 		)
 		port map(
 			clk_i                                             => clk_i,
-			reset_n_i                                         => reset_n_i,
+			rst_i                                             => rst_i,
 			control_i                                         => s_rmap_target_control.write_operation,
 			headerdata_i.instruction_verify_data_before_write => s_rmap_target_rmap_data.instructions.command.verify_data_before_write,
 			headerdata_i.instruction_increment_address        => s_rmap_target_rmap_data.instructions.command.increment_address,
@@ -195,7 +195,7 @@ begin
 		)
 		port map(
 			clk_i                                      => clk_i,
-			reset_n_i                                  => reset_n_i,
+			rst_i                                      => rst_i,
 			control_i                                  => s_rmap_target_control.read_operation,
 			headerdata_i.instruction_increment_address => s_rmap_target_rmap_data.instructions.command.increment_address,
 			headerdata_i.extended_address              => s_rmap_target_rmap_data.extended_address,
@@ -213,7 +213,7 @@ begin
 	rmap_target_reply_ent_inst : entity work.rmap_target_reply_ent
 		port map(
 			clk_i                                  => clk_i,
-			reset_n_i                              => reset_n_i,
+			rst_i                                  => rst_i,
 			control_i                              => s_rmap_target_control.reply_geneneration,
 			headerdata_i.reply_spw_address         => s_rmap_target_rmap_data.reply_address,
 			headerdata_i.initiator_logical_address => s_rmap_target_rmap_data.initiator_logical_address,
@@ -232,13 +232,13 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, rst_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
 	--	p_rmap_target_top_process : process(clk_i)
 	--	begin
-	--		if (reset_n_i = '0') then       -- asynchronous reset
+	--		if (rst_i = '1') then       -- asynchronous reset
 	--			-- reset to default value
 	--
 	--		elsif (rising_edge(clk_i)) then -- synchronous process

@@ -12,8 +12,6 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-use work.spw_codec_pkg.all;
-
 entity spwg_spw_glutton_top is
 	port(
 		reset_i                       : in  std_logic                    := '0'; --          --                       reset_sink.reset

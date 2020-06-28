@@ -2618,42 +2618,42 @@
  <module
    name="SpaceWire_Channel_A"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Channel_B"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Channel_C"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Channel_D"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Channel_E"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Channel_F"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Channel_G"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Channel_H"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SpaceWire_Glutton_0"
