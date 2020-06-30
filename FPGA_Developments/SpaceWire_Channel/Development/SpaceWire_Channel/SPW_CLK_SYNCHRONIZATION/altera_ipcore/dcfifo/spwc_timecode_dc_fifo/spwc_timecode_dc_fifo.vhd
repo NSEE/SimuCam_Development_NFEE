@@ -109,7 +109,7 @@ BEGIN
 	GENERIC MAP (
 		intended_device_family => "Stratix IV",
 		lpm_numwords => 4,
-		lpm_showahead => "OFF",
+		lpm_showahead => "ON",
 		lpm_type => "dcfifo",
 		lpm_width => 8,
 		lpm_widthu => 2,
@@ -177,7 +177,7 @@ END SYN;
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "4"
--- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
+-- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo"
 -- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "8"
 -- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "2"
