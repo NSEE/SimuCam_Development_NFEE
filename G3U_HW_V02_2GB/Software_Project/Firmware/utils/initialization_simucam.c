@@ -45,8 +45,8 @@ void vInitSimucamBasicHW(void)
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
 	
-	/* Set LVDS pre-emphasys to hi */
-	bSetPreEmphasys(LVDS_PEM_HI);
+	/* Set LVDS pre-emphasys to mid */
+	bSetPreEmphasys(LVDS_PEM_MID);
 
 	/* Turn on all Panel Leds */
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );

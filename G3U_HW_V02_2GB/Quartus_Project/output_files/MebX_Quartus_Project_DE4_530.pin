@@ -1323,7 +1323,7 @@ altera_reserved_tms          : N27       : input  : 2.5 V             :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : N28       :        :                   :         : 1A        :                
 LED_DE4[4]                   : N29       : output : 2.5 V             :         : 1A        : Y              
 LED_DE4[7]                   : N30       : output : 2.5 V             :         : 1A        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : N31       :        :                   :         : 1A        :                
+FSM_A[0]                     : N31       : output : 2.5 V             :         : 1A        : N              
 VCCIO1C                      : N32       : power  :                   : 2.5V    : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N33       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N34       :        :                   :         : 1C        :                
@@ -1398,7 +1398,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :      
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
-FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                
