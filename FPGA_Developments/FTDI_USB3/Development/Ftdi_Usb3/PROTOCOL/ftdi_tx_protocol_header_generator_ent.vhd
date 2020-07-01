@@ -11,6 +11,7 @@ entity ftdi_tx_protocol_header_generator_ent is
 		rst_i                         : in  std_logic;
 		data_tx_stop_i                : in  std_logic;
 		data_tx_start_i               : in  std_logic;
+		header_generator_abort_i      : in  std_logic;
 		header_generator_start_i      : in  std_logic;
 		header_generator_reset_i      : in  std_logic;
 		header_data_i                 : in  t_ftdi_prot_header_fields;
@@ -43,6 +44,7 @@ architecture RTL of ftdi_tx_protocol_header_generator_ent is
 		HEADER_TX_PAYLOAD_LENGTH,       -- write the payload length to the tx fifo
 		HEADER_TX_HEADER_CRC,           -- write the header crc to the tx fifo
 		HEADER_TX_END_OF_HEADER,        -- write a end of header to the tx fifo
+		HEADER_TX_ABORT,                -- abort a header transmission (stop sending data)
 		FINISH_HEADER_TX                -- finish the header transmission
 	);
 	signal s_ftdi_tx_prot_header_generator_state : t_ftdi_tx_prot_header_generator_fsm;
@@ -188,6 +190,15 @@ begin
 				-- default internal signal values
 				-- conditional state transition
 
+				-- state "HEADER_TX_ABORT"
+				when HEADER_TX_ABORT =>
+					-- abort a header transmission (stop sending data)
+					-- default state transition
+					s_ftdi_tx_prot_header_generator_state <= FINISH_HEADER_TX;
+					v_ftdi_tx_prot_header_generator_state := FINISH_HEADER_TX;
+				-- default internal signal values
+				-- conditional state transition
+
 				-- state "FINISH_HEADER_TX"
 				when FINISH_HEADER_TX =>
 					-- finish the header transmission
@@ -209,6 +220,10 @@ begin
 			if (data_tx_stop_i = '1') then
 				s_ftdi_tx_prot_header_generator_state <= STOPPED;
 				v_ftdi_tx_prot_header_generator_state := STOPPED;
+			-- check if an abort was received and the header generator is not stopped or in idle or in abort or finished
+			elsif ((header_generator_abort_i = '1') and ((s_ftdi_tx_prot_header_generator_state /= STOPPED) and (s_ftdi_tx_prot_header_generator_state /= IDLE) and (s_ftdi_tx_prot_header_generator_state /= HEADER_TX_ABORT) and (s_ftdi_tx_prot_header_generator_state /= FINISH_HEADER_TX))) then
+				s_ftdi_tx_prot_header_generator_state <= HEADER_TX_ABORT;
+				v_ftdi_tx_prot_header_generator_state := HEADER_TX_ABORT;
 			end if;
 
 			-- Output generation FSM
@@ -349,6 +364,18 @@ begin
 					tx_dc_data_fifo_wrdata_data_o <= c_FTDI_PROT_END_OF_HEADER;
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
 					tx_dc_data_fifo_wrreq_o       <= '1';
+				-- conditional output signals
+
+				-- state "HEADER_TX_ABORT"
+				when HEADER_TX_ABORT =>
+					-- abort a header transmission (stop sending data)
+					-- default output signals
+					header_generator_busy_o       <= '1';
+					v_header_dword                := (others => '0');
+					s_header_crc32                <= (others => '0');
+					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+					tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					tx_dc_data_fifo_wrreq_o       <= '0';
 				-- conditional output signals
 
 				-- state "FINISH_HEADER_TX"
