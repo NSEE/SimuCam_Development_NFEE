@@ -74,8 +74,25 @@ set_global_assignment -name ENABLE_SIGNALTAP OFF
 
 
 
+set_global_assignment -name OPTIMIZATION_TECHNIQUE SPEED
+set_global_assignment -name PHYSICAL_SYNTHESIS_COMBO_LOGIC ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_RETIMING ON
+set_global_assignment -name ROUTER_LCELL_INSERTION_AND_LOGIC_DUPLICATION ON
+set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL MAXIMUM
+set_global_assignment -name ROUTER_CLOCKING_TOPOLOGY_ANALYSIS ON
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP ON
+set_global_assignment -name MUX_RESTRUCTURE OFF
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name BLOCK_RAM_AND_MLAB_EQUIVALENT_POWER_UP_CONDITIONS "DONT CARE"
+set_global_assignment -name BLOCK_RAM_AND_MLAB_EQUIVALENT_PAUSED_READ_CAPABILITIES "DONT CARE"
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
+set_global_assignment -name ECO_REGENERATE_REPORT ON
 
-set_global_assignment -name OPTIMIZATION_MODE BALANCED
+set_global_assignment -name QII_AUTO_PACKED_REGISTERS NORMAL
+set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
+set_global_assignment -name STATE_MACHINE_PROCESSING "ONE-HOT"
 set_location_assignment PIN_U31 -to ETH_RX_p[0]
 set_location_assignment PIN_T30 -to ETH_TX_p[0]
 set_location_assignment PIN_W32 -to ETH_MDIO[0]
@@ -282,9 +299,9 @@ set_location_assignment PIN_AC6 -to OSC_50_Bank5
 set_location_assignment PIN_AB6 -to OSC_50_Bank6
 set_location_assignment PIN_A19 -to OSC_50_Bank7
 set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
-set_global_assignment -name UNIPHY_TEMP_VER_CODE 578648128
-set_location_assignment PIN_AC11 -to EXT_IO
+set_global_assignment -name UNIPHY_TEMP_VER_CODE 1058959168
 
+set_location_assignment PIN_AC11 -to EXT_IO
 set_location_assignment PIN_AN18 -to TEMP_SMCLK
 set_location_assignment PIN_AP18 -to TEMP_SMDAT
 set_location_assignment PIN_AP19 -to TEMP_INT_n
@@ -421,6 +438,7 @@ set_location_assignment PIN_AV25 -to M1_DDR2_SA[0]
 set_location_assignment PIN_AW25 -to M1_DDR2_SA[1]
 set_location_assignment PIN_AG25 -to M1_DDR2_oct_rdn
 set_location_assignment PIN_AF25 -to M1_DDR2_oct_rup
+set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
 set_instance_assignment -name FAST_OUTPUT_ENABLE_REGISTER ON -to * -disable
 set_instance_assignment -name FAST_INPUT_REGISTER ON -to * -disable
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to * -disable
@@ -2018,36 +2036,52 @@ set_location_assignment PIN_V11 -to HSMB_BUFFER_PEM1
 set_instance_assignment -name IO_STANDARD "2.5 V" -to HSMB_BUFFER_PEM1
 set_location_assignment PIN_D5 -to HSMB_LVDS_RX_SPWA_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWA_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWA_DI_P
 set_location_assignment PIN_D10 -to HSMB_LVDS_RX_SPWA_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWA_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWA_SI_P
 set_location_assignment PIN_D9 -to HSMB_LVDS_RX_SPWB_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWB_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWB_DI_P
 set_location_assignment PIN_D8 -to HSMB_LVDS_RX_SPWB_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWB_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWB_SI_P
 set_location_assignment PIN_D7 -to HSMB_LVDS_RX_SPWC_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWC_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWC_DI_P
 set_location_assignment PIN_F10 -to HSMB_LVDS_RX_SPWC_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWC_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWC_SI_P
 set_location_assignment PIN_G5 -to HSMB_LVDS_RX_SPWD_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWD_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWD_DI_P
 set_location_assignment PIN_G6 -to HSMB_LVDS_RX_SPWD_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWD_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWD_SI_P
 set_location_assignment PIN_F7 -to HSMB_LVDS_RX_SPWE_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWE_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWE_DI_P
 set_location_assignment PIN_G8 -to HSMB_LVDS_RX_SPWE_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWE_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWE_SI_P
 set_location_assignment PIN_G9 -to HSMB_LVDS_RX_SPWF_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWF_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWF_DI_P
 set_location_assignment PIN_N6 -to HSMB_LVDS_RX_SPWF_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWF_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWF_SI_P
 set_location_assignment PIN_M6 -to HSMB_LVDS_RX_SPWG_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWG_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWG_DI_P
 set_location_assignment PIN_R6 -to HSMB_LVDS_RX_SPWG_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWG_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWG_SI_P
 set_location_assignment PIN_R7 -to HSMB_LVDS_RX_SPWH_DI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWH_DI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWH_DI_P
 set_location_assignment PIN_V6 -to HSMB_LVDS_RX_SPWH_SI_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWH_SI_P
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWH_SI_P
 set_location_assignment PIN_N11 -to HSMB_LVDS_TX_SPWA_DO_P
 set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWA_DO_P
 set_location_assignment PIN_N12 -to HSMB_LVDS_TX_SPWA_SO_P
@@ -2176,25 +2210,6 @@ set_location_assignment PIN_AD10 -to JP3_GPIO0_D32_IO
 set_location_assignment PIN_AD9 -to JP3_GPIO0_D33_IO
 set_location_assignment PIN_AD12 -to JP3_GPIO0_D34_IO
 set_location_assignment PIN_AD13 -to JP3_GPIO0_D35_IO
-set_global_assignment -name SDC_FILE UMFT601A_MC245.sdc
-set_global_assignment -name IPX_FILE user_components.ipx
-set_global_assignment -name QIP_FILE ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.qip
-set_global_assignment -name SOURCE_FILE ../Hardware_Project/IPCore/pll_125.cmp
-set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/pll_125.qip
-set_global_assignment -name VHDL_FILE ../Hardware_Project/IPCore/FIFO_Codec/fifo_codec.vhd
-set_global_assignment -name SOURCE_FILE ../Hardware_Project/IPCore/FIFO_Codec/fifo_codec.cmp
-set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/FIFO_Codec/fifo_codec.qip
-set_global_assignment -name CDF_FILE output_files/Chain1.cdf
-set_global_assignment -name SOURCE_FILE ../Hardware_Project/IPCore/PLL.cmp
-set_global_assignment -name VHDL_FILE ../Hardware_Project/IPCore/LVDS/TX_LVDS.vhd
-set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/LVDS/TX_LVDS.qip
-set_global_assignment -name SOURCE_FILE ../Hardware_Project/IPCore/LVDS/TX_LVDS.cmp
-set_global_assignment -name VHDL_FILE ../Hardware_Project/IPCore/LVDS/RX_LVDS.vhd
-set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/LVDS/RX_LVDS.qip
-set_global_assignment -name SOURCE_FILE ../Hardware_Project/IPCore/LVDS/RX_LVDS.cmp
-set_global_assignment -name VHDL_FILE ../Hardware_Project/MebX_TopLevel.vhd
-set_global_assignment -name SDC_FILE DE4_DDR2.sdc
-set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/PLL.qip
 set_instance_assignment -name IO_STANDARD "2.5 V" -to FTDI_DATA[31]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to FTDI_DATA[30]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to FTDI_DATA[29]
@@ -2305,7 +2320,8 @@ set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FTDI_GPIO
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FTDI_RD_N
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FTDI_OE_N
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FTDI_SIWU_N
-set_global_assignment -name BLOCK_RAM_AND_MLAB_EQUIVALENT_POWER_UP_CONDITIONS "DONT CARE"
-set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
-set_global_assignment -name ECO_REGENERATE_REPORT ON
+set_global_assignment -name SDC_FILE UMFT601A_MC245.sdc
+set_global_assignment -name IPX_FILE user_components.ipx
+set_global_assignment -name QIP_FILE ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.qip
+set_global_assignment -name VHDL_FILE ../Hardware_Project/MebX_TopLevel.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
