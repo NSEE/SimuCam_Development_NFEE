@@ -1,12 +1,4 @@
-../SpaceWire_Channel/SPW_CODEC/altera_ip/altlvds_tx/spwc_spw_tx_altlvds_tx/spwc_spw_tx_altlvds_tx.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/altera_ip/altlvds_tx/spwc_spw_tx_altlvds_tx/spwc_spw_tx_altlvds_tx.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity spwc_spw_tx_altlvds_tx
--- Compiling architecture SYN of spwc_spw_tx_altlvds_tx
-
-} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd
+../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -61,6 +53,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwxmit_fast
 -- Compiling architecture spwxmit_fast_arch of spwxmit_fast
 
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/altera_ip/altiobuf/spwc_spw_tx_altiobuf/spwc_spw_tx_altiobuf.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/altera_ip/altiobuf/spwc_spw_tx_altiobuf/spwc_spw_tx_altiobuf.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spwc_spw_tx_altiobuf_iobuf_out_vmt
+-- Compiling architecture RTL of spwc_spw_tx_altiobuf_iobuf_out_vmt
+-- Compiling entity spwc_spw_tx_altiobuf
+-- Compiling architecture RTL of spwc_spw_tx_altiobuf
+
 } {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecv.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecv.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -71,7 +73,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwrecv
 -- Compiling architecture spwrecv_arch of spwrecv
 
-} {} {}} ../SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_leds_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none {D:\rfranca\Development\GitHub\SimuCam_Development3\FPGA_Developments\SpaceWire_Channel\Development\SpaceWire_Channel\SPW_LEDS_CONTROLLER\spwc_leds_controller_ent.vhd}
+} {} {}} ../SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_leds_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_leds_controller_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -103,25 +105,24 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwxmit
 -- Compiling architecture spwxmit_arch of spwxmit
 
-} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_commands_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_commands_ent.vhd
+} {} {}} ../SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_spw_leds_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_spw_leds_controller_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwc_leds_controller_pkg
+-- Compiling entity spwc_spw_leds_controller_ent
+-- Compiling architecture RTL of spwc_spw_leds_controller_ent
+
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spwc_codec_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spwc_codec_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
 -- Loading package spwpkg
--- Loading package spwc_codec_pkg
--- Compiling entity spwc_clk_synchronization_commands_ent
--- Compiling architecture RTL of spwc_clk_synchronization_commands_ent
--- Loading entity spwc_command_dc_fifo
-
-} {} {}} ../SpaceWire_Channel/SPW_CODEC/altera_ip/altlvds_rx/spwc_spw_rx_altlvds_rx/spwc_spw_rx_altlvds_rx.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/altera_ip/altlvds_rx/spwc_spw_rx_altlvds_rx/spwc_spw_rx_altlvds_rx.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity spwc_spw_rx_altlvds_rx
--- Compiling architecture SYN of spwc_spw_rx_altlvds_rx
+-- Compiling package spwc_codec_pkg
 
 } {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_commands_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_commands_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -135,24 +136,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of spwc_clk_synchronization_commands_ent
 -- Loading entity spwc_command_dc_fifo
 
-} {} {}} ../SpaceWire_Channel/SPW_CODEC/spwc_codec_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spwc_codec_pkg.vhd
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_commands_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_commands_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
 -- Loading package spwpkg
--- Compiling package spwc_codec_pkg
-
-} {} {}} ../SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_spw_leds_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_spw_leds_controller_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package spwc_leds_controller_pkg
--- Compiling entity spwc_spw_leds_controller_ent
--- Compiling architecture RTL of spwc_spw_leds_controller_ent
+-- Loading package spwc_codec_pkg
+-- Compiling entity spwc_clk_synchronization_commands_ent
+-- Compiling architecture RTL of spwc_clk_synchronization_commands_ent
+-- Loading entity spwc_command_dc_fifo
 
 } {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwstream.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwstream.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -163,44 +157,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package spwpkg
 -- Compiling entity spwstream
 -- Compiling architecture spwstream_arch of spwstream
-
-} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_status_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_status_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package spwpkg
--- Loading package spwc_codec_pkg
--- Compiling entity spwc_clk_synchronization_status_ent
--- Compiling architecture RTL of spwc_clk_synchronization_status_ent
--- Loading entity spwc_status_dc_fifo
-
-} {} {}} ../SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_leds_controller_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none {D:\rfranca\Development\GitHub\SimuCam_Development3\FPGA_Developments\SpaceWire_Channel\Development\SpaceWire_Channel\SPW_LEDS_CONTROLLER\spwc_leds_controller_pkg.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package spwc_leds_controller_pkg
--- Compiling package body spwc_leds_controller_pkg
--- Loading package spwc_leds_controller_pkg
-
-} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_data_dc_fifo/spwc_data_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_data_dc_fifo/spwc_data_dc_fifo.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity spwc_data_dc_fifo
--- Compiling architecture SYN of spwc_data_dc_fifo
-
-} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_timecode_dc_fifo/spwc_timecode_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_timecode_dc_fifo/spwc_timecode_dc_fifo.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity spwc_timecode_dc_fifo
--- Compiling architecture SYN of spwc_timecode_dc_fifo
 
 } {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_status_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_status_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -214,7 +170,45 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of spwc_clk_synchronization_status_ent
 -- Loading entity spwc_status_dc_fifo
 
-} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_timecode_dc_fifo/spwc_timecode_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_timecode_dc_fifo/spwc_timecode_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spwc_timecode_dc_fifo
+-- Compiling architecture SYN of spwc_timecode_dc_fifo
+
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_data_dc_fifo/spwc_data_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_data_dc_fifo/spwc_data_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spwc_data_dc_fifo
+-- Compiling architecture SYN of spwc_data_dc_fifo
+
+} {} {}} ../SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_leds_controller_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_LEDS_CONTROLLER/spwc_leds_controller_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package spwc_leds_controller_pkg
+-- Compiling package body spwc_leds_controller_pkg
+-- Loading package spwc_leds_controller_pkg
+
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_status_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_status_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Loading package spwc_codec_pkg
+-- Compiling entity spwc_clk_synchronization_status_ent
+-- Compiling architecture RTL of spwc_clk_synchronization_status_ent
+-- Loading entity spwc_status_dc_fifo
+
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -231,16 +225,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity spwc_clk_synchronization_tx_timecode_ent
 -- Loading entity spwc_clk_synchronization_rx_timecode_ent
 
-} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package spwpkg
--- Compiling entity spwrecvfront_fast
--- Compiling architecture spwrecvfront_arch of spwrecvfront_fast
-
 } {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwlink.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwlink.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -251,7 +235,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwlink
 -- Compiling architecture spwlink_arch of spwlink
 
-} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwrecvfront_fast
+-- Compiling architecture spwrecvfront_arch of spwrecvfront_fast
+
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -299,6 +293,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity spwc_spacewire_channel_top
 -- Loading entity spwstream
 
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_status_dc_fifo/spwc_status_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_status_dc_fifo/spwc_status_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spwc_status_dc_fifo
+-- Compiling architecture SYN of spwc_status_dc_fifo
+
 } {} {}} ../SpaceWire_Channel/SPW_LEDS_CONTROLLER/altera_ip/altiobuf/spwc_leds_out_altiobuf/spwc_leds_out_altiobuf.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_LEDS_CONTROLLER/altera_ip/altiobuf/spwc_leds_out_altiobuf/spwc_leds_out_altiobuf.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -309,15 +311,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwc_leds_out_altiobuf
 -- Compiling architecture RTL of spwc_leds_out_altiobuf
 
-} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_status_dc_fifo/spwc_status_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spwc_status_dc_fifo/spwc_status_dc_fifo.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity spwc_status_dc_fifo
--- Compiling architecture SYN of spwc_status_dc_fifo
-
-} {} {}} ../Testbench/testbench_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/Testbench/testbench_synchronization_top.vhd
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/testbench_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/testbench_synchronization_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -331,6 +325,13 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity config_avs_stimuli
 -- Loading entity spwc_clk_synchronization_top
 
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwpkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwpkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package spwpkg
+
 } {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/streamtest.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/streamtest.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -341,14 +342,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity streamtest
 -- Compiling architecture streamtest_arch of streamtest
 
-} {} {}} ../SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwpkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/spacewire_light_codec/spwpkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling package spwpkg
-
-} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/testbench_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/testbench_synchronization_top.vhd
+} {} {}} ../Testbench/testbench_synchronization_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/Testbench/testbench_synchronization_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -375,8 +369,8 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture rtl of spwc_spacewire_channel_top
 -- Loading entity spwc_clk_synchronization_top
 -- Loading entity spwc_codec_ent
--- Loading entity spwc_spw_rx_altlvds_rx
--- Loading entity spwc_spw_tx_altlvds_tx
+-- Loading entity spwc_spw_rx_altiobuf
+-- Loading entity spwc_spw_tx_altiobuf
 -- Loading entity spwc_leds_controller_ent
 -- Loading entity spwc_leds_out_altiobuf
 
@@ -388,7 +382,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity syncdff
 -- Compiling architecture syncdff_arch of syncdff
 
-} {} {}} ../Testbench/config_spw_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_spw_stimuli.vhd
+} {} {}} ../SpaceWire_Channel/SPW_CODEC/altera_ip/altiobuf/spwc_spw_rx_altiobuf/spwc_spw_rx_altiobuf.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CODEC/altera_ip/altiobuf/spwc_spw_rx_altiobuf/spwc_spw_rx_altiobuf.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spwc_spw_rx_altiobuf_iobuf_in_iti
+-- Compiling architecture RTL of spwc_spw_rx_altiobuf_iobuf_in_iti
+-- Compiling entity spwc_spw_rx_altiobuf
+-- Compiling architecture RTL of spwc_spw_rx_altiobuf
+
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_spw_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_spw_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -399,7 +403,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity config_spw_stimuli
 -- Compiling architecture RTL of config_spw_stimuli
 
-} {} {}} ../Testbench/config_avs_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_avs_stimuli.vhd
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_avs_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_avs_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -410,7 +414,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity config_avs_stimuli
 -- Compiling architecture RTL of config_avs_stimuli
 
-} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd
+} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -434,7 +438,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of spwc_clk_synchronization_rx_timecode_ent
 -- Loading entity spwc_timecode_dc_fifo
 
-} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd
+} {} {}} ../SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/SpaceWire_Channel/SPW_CLK_SYNCHRONIZATION/spwc_clk_synchronization_rx_data_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -446,7 +450,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of spwc_clk_synchronization_rx_data_ent
 -- Loading entity spwc_data_dc_fifo
 
-} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_avs_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_avs_stimuli.vhd
+} {} {}} ../Testbench/config_avs_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_avs_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -457,7 +461,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity config_avs_stimuli
 -- Compiling architecture RTL of config_avs_stimuli
 
-} {} {}} D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_spw_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_spw_stimuli.vhd
+} {} {}} ../Testbench/config_spw_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/Testbench/config_spw_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO

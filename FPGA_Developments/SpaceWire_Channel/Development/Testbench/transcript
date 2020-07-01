@@ -1,3 +1,74 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
 # OpenFile D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/SpaceWire_Channel/Development/Testbench/SpaceWire_Channel.mpf
 # Loading project SpaceWire_Channel
+# Compile of spwpkg.vhd was successful.
+# Compile of spwlink.vhd was successful.
+# Compile of spwram.vhd was successful.
+# Compile of spwrecv.vhd was successful.
+# Compile of spwrecvfront_fast.vhd was successful.
+# Compile of spwrecvfront_generic.vhd was successful.
+# Compile of spwstream.vhd was successful.
+# Compile of spwxmit.vhd was successful.
+# Compile of spwxmit_fast.vhd was successful.
+# Compile of streamtest.vhd was successful.
+# Compile of syncdff.vhd was successful.
+# Compile of spwc_spw_rx_altlvds_rx.vhd was successful.
+# Compile of spwc_spw_tx_altlvds_tx.vhd was successful.
+# Compile of spwc_codec_pkg.vhd was successful.
+# Compile of spwc_codec.vhd was successful.
+# Compile of spwc_command_dc_fifo.vhd was successful.
+# Compile of spwc_status_dc_fifo.vhd was successful.
+# Compile of spwc_data_dc_fifo.vhd was successful.
+# Compile of spwc_timecode_dc_fifo.vhd was successful.
+# Compile of spwc_clk_synchronization_tx_timecode_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_rx_timecode_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_tx_data_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_rx_data_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_commands_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_status_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_top.vhd was successful.
+# Compile of spwc_leds_out_altiobuf.vhd was successful.
+# Compile of spwc_leds_controller_pkg.vhd was successful.
+# Compile of spwc_leds_controller_ent.vhd was successful.
+# Compile of spwc_spacewire_channel_top.vhd failed with 7 errors.
+# Compile of config_avs_stimuli.vhd was successful.
+# Compile of config_spw_stimuli.vhd was successful.
+# Compile of testbench_synchronization_top.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 34 compiles, 1 failed with 7 errors.
+# Compile of spwpkg.vhd was successful.
+# Compile of spwlink.vhd was successful.
+# Compile of spwram.vhd was successful.
+# Compile of spwrecv.vhd was successful.
+# Compile of spwrecvfront_fast.vhd was successful.
+# Compile of spwrecvfront_generic.vhd was successful.
+# Compile of spwstream.vhd was successful.
+# Compile of spwxmit.vhd was successful.
+# Compile of spwxmit_fast.vhd was successful.
+# Compile of streamtest.vhd was successful.
+# Compile of syncdff.vhd was successful.
+# Compile of spwc_spw_rx_altiobuf.vhd was successful.
+# Compile of spwc_spw_tx_altiobuf.vhd was successful.
+# Compile of spwc_codec_pkg.vhd was successful.
+# Compile of spwc_codec.vhd was successful.
+# Compile of spwc_command_dc_fifo.vhd was successful.
+# Compile of spwc_status_dc_fifo.vhd was successful.
+# Compile of spwc_data_dc_fifo.vhd was successful.
+# Compile of spwc_timecode_dc_fifo.vhd was successful.
+# Compile of spwc_clk_synchronization_tx_timecode_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_rx_timecode_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_tx_data_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_rx_data_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_commands_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_status_ent.vhd was successful.
+# Compile of spwc_clk_synchronization_top.vhd was successful.
+# Compile of spwc_leds_out_altiobuf.vhd was successful.
+# Compile of spwc_leds_controller_pkg.vhd was successful.
+# Compile of spwc_leds_controller_ent.vhd was successful.
+# Compile of spwc_spacewire_channel_top.vhd was successful.
+# Compile of config_avs_stimuli.vhd was successful.
+# Compile of config_spw_stimuli.vhd was successful.
+# Compile of testbench_synchronization_top.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 34 compiles, 0 failed with no errors.
+# Compile of testbench_top.vhd was successful.
