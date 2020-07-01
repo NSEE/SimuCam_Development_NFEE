@@ -16,7 +16,7 @@ bool bTestSimucamCriticalHW( void ) {
 	 * SDcard para criar logs e pegar defaults
 	 */
 
-	bSuccess = bSdmaInitCh1Dmas();
+	bSuccess = bSdmaInitComm1Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -26,7 +26,7 @@ bool bTestSimucamCriticalHW( void ) {
 		return bSuccess;
 	}
 
-	bSuccess = bSdmaInitCh2Dmas();
+	bSuccess = bSdmaInitComm2Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -36,7 +36,7 @@ bool bTestSimucamCriticalHW( void ) {
 		return bSuccess;
 	}
 
-	bSuccess = bSdmaInitCh3Dmas();
+	bSuccess = bSdmaInitComm3Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -46,7 +46,7 @@ bool bTestSimucamCriticalHW( void ) {
 		return bSuccess;
 	}
 
-	bSuccess = bSdmaInitCh4Dmas();
+	bSuccess = bSdmaInitComm4Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -56,7 +56,7 @@ bool bTestSimucamCriticalHW( void ) {
 		return bSuccess;
 	}
 
-	bSuccess = bSdmaInitCh5Dmas();
+	bSuccess = bSdmaInitComm5Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -66,7 +66,7 @@ bool bTestSimucamCriticalHW( void ) {
 		return bSuccess;
 	}
 
-	bSuccess = bSdmaInitCh6Dmas();
+	bSuccess = bSdmaInitComm6Dmas();
 	if (bSuccess==FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

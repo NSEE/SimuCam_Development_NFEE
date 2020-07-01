@@ -140,6 +140,12 @@ typedef struct FtdiLutTransStatus {
   bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
 
+ /* FTDI Payload Delay Register Struct */
+typedef struct FtdiPayloadDelay {
+  alt_u16 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
+  alt_u16 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
+} TFtdiPayloadDelay;
+
  /* FTDI Tx Data Control Register Struct */
 typedef struct FtdiTxDataControl {
   alt_u32 uliTxRdInitAddrHighDword; /* Tx Initial Read Address [High Dword] */
@@ -284,6 +290,7 @@ typedef struct FtdiModule {
   TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
   TFtdiLutTransControl xFtdiLutTransControl;
   TFtdiLutTransStatus xFtdiLutTransStatus;
+  TFtdiPayloadDelay xFtdiPayloadDelay;
   TFtdiTxDataControl xFtdiTxDataControl;
   TFtdiTxDataStatus xFtdiTxDataStatus;
   TFtdiRxDataControl xFtdiRxDataControl;

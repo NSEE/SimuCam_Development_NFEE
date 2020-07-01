@@ -14,8 +14,8 @@
 //void vFTDIAbort( void );
 //alt_u8 ucGetError( void );
 //alt_u16 usiFTDInDataLeftInBuffer( void );
-//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
+//bool bSdmaFtdiDmaTransfer(eDdr2Memory1, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
+//bool bSdmaFtdiDmaTransfer(eDdr2Memory2, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
 //bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
 //bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 //void vRxBuffer0FullIRQHandler(void);
@@ -305,9 +305,9 @@ void vDataControlTaskV2(void *task_data) {
 						uliSizeTranfer = pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST;
 
 						if ( ucMemUsing == 0 )
-							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
+							bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory1, (alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
 						else
-							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
+							bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory2, (alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
 
 						/* Check if was possible to schedule the transfer in the DMA*/
 						if ( bDmaReturn == TRUE ) {
@@ -750,6 +750,6 @@ void vRxCommErrorIRQHandler(void) {
 //void vFTDIAbort( void ){}
 //alt_u8 ucGetError( void ){return 20;}
 //alt_u16 usiFTDInDataLeftInBuffer( void ){return 20;}
-//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
-//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
+//bool bSdmaFtdiDmaTransfer(eDdr2Memory1, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
+//bool bSdmaFtdiDmaTransfer(eDdr2Memory2, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
 //bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){return TRUE;}

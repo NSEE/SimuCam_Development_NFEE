@@ -95,9 +95,9 @@ void vLutHandlerTask(void *task_data) {
 						if ( bSuccess == TRUE ) {
 
 							if (pxMebC->xLut.ucDdrNumber == 0) {
-								bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
+								bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory1, (alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
 							} else {
-								bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
+								bDmaReturn = bSdmaFtdiDmaTransfer(eDdr2Memory2, (alt_u32 *)pxMebC->xLut.ulInitialAddr[ucIReq], (alt_u32)pxMebC->xLut.ulSize, eSdmaTxFtdi);
 							}
 
 							if ( bDmaReturn == TRUE ) {

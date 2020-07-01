@@ -157,7 +157,27 @@ typedef struct FeebBufferStatus {
 	bool bLeftFeeBusy; /* FEE Left Machine Busy */
 } TFeebBufferStatus;
 
-/* FEE Buffers IRQ Control Register Struct */
+ /* FEE Buffers Data Control Register Struct */
+typedef struct FeebBufferDataControl {
+  alt_u32 uliRightRdInitAddrHighDword; /* Right Initial Read Address [High Dword] */
+  alt_u32 uliRightRdInitAddrLowDword; /* Right Initial Read Address [Low Dword] */
+  alt_u32 uliRightRdDataLenghtBytes; /* Right Read Data Length [Bytes] */
+  bool bRightRdStart; /* Right Data Read Start */
+  bool bRightRdReset; /* Right Data Read Reset */
+  alt_u32 uliLeftRdInitAddrHighDword; /* Left Initial Read Address [High Dword] */
+  alt_u32 uliLeftRdInitAddrLowDword; /* Left Initial Read Address [Low Dword] */
+  alt_u32 uliLeftRdDataLenghtBytes; /* Left Read Data Length [Bytes] */
+  bool bLeftRdStart; /* Left Data Read Start */
+  bool bLeftRdReset; /* Left Data Read Reset */
+} TFeebBufferDataControl;
+
+ /* FEE Buffers Data Status Register Struct */
+typedef struct FeebBufferDataStatus {
+  bool bRightRdBusy; /* Right Data Read Busy */
+  bool bLeftRdBusy; /* Left Data Read Busy */
+} TFeebBufferDataStatus;
+
+ /* FEE Buffers IRQ Control Register Struct */
 typedef struct FeebIrqControl {
 	bool bRightBufferEmptyEn; /* FEE Right Buffer Empty IRQ Enable */
 	bool bLeftBufferEmptyEn; /* FEE Left Buffer Empty IRQ Enable */
@@ -357,6 +377,8 @@ typedef struct FeebChannel {
 	TFeebMachineControl xFeebMachineControl;
 	TFeebMachineStatistics xFeebMachineStatistics;
 	TFeebBufferStatus xFeebBufferStatus;
+	TFeebBufferDataControl xFeebBufferDataControl;
+	TFeebBufferDataStatus xFeebBufferDataStatus;
 	TFeebIrqControl xFeebIrqControl;
 	TFeebIrqFlag xFeebIrqFlag;
 	TFeebIrqFlagClr xFeebIrqFlagClr;

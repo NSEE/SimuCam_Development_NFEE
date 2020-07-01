@@ -31,7 +31,7 @@ enum SdmaBufferSide {
 } ESdmaBufferSide;
 
 enum SdmaChBufferId {
-	eSdmaCh1Buffer = 0, eSdmaCh2Buffer, eSdmaCh3Buffer, eSdmaCh4Buffer, eSdmaCh5Buffer, eSdmaCh6Buffer,
+	eSdmaCh1Buffer = 0, eSdmaCh2Buffer, eSdmaCh3Buffer, eSdmaCh4Buffer, eSdmaCh5Buffer, eSdmaCh6Buffer, eSdmaCh7Buffer, eSdmaCh8Buffer
 } ESdmaChBufferId;
 
 enum SdmaFtdiOperation {

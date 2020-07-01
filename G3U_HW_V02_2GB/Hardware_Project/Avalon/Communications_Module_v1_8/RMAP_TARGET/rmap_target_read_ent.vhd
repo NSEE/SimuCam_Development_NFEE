@@ -66,8 +66,8 @@ entity rmap_target_read_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i              : in  std_logic; --! Local rmap clock
-		reset_n_i          : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
-
+		rst_i              : in  std_logic; --! Reset = '0': no reset; Reset = '1': reset active
+		--
 		control_i          : in  t_rmap_target_read_control;
 		headerdata_i       : in  t_rmap_target_read_headerdata;
 		spw_flag_i         : in  t_rmap_target_spw_tx_flag;
@@ -131,7 +131,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, rst_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -143,11 +143,11 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_read_state
-	p_rmap_target_read_FSM_state : process(clk_i, reset_n_i)
+	p_rmap_target_read_FSM_state : process(clk_i, rst_i)
 		variable v_rmap_target_read_state : t_rmap_target_read_state := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (rst_i = '1') then
 			s_rmap_target_read_state      <= IDLE;
 			v_rmap_target_read_state      := IDLE;
 			s_rmap_target_read_next_state <= IDLE;
@@ -329,7 +329,7 @@ begin
 			-- Begin of RMAP Target Read Finite State Machine
 			-- (output generation)
 			--=============================================================================
-			-- read: s_rmap_target_read_state, reset_n_i
+			-- read: s_rmap_target_read_state, rst_i
 			-- write:
 			-- r/w:
 			case (v_rmap_target_read_state) is
@@ -428,7 +428,7 @@ begin
 						mem_byte_address_o <= s_read_address;
 					end if;
 					-- set memory read request
-					mem_control_o.read <= '1';
+					mem_control_o.read            <= '1';
 				-- conditional output signals
 
 				-- state "READ_NOT_OK"

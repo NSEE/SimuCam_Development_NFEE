@@ -60,22 +60,28 @@ bool bSdmaResetCommDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait) {
 
 	switch (ucChBufferId) {
 	case eSdmaCh1Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_1_BASE_ADDR);
 		break;
 	case eSdmaCh2Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_2_BASE_ADDR);
 		break;
 	case eSdmaCh3Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_3_BASE_ADDR);
 		break;
 	case eSdmaCh4Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_4_BASE_ADDR);
 		break;
 	case eSdmaCh5Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_5_BASE_ADDR);
 		break;
 	case eSdmaCh6Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_6_BASE_ADDR);
+		break;
+	case eSdmaCh7Buffer:
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_7_BASE_ADDR);
+		break;
+	case eSdmaCh8Buffer:
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_8_BASE_ADDR);
 		break;
 	default:
 		vpxCommChannel = NULL;
@@ -187,27 +193,35 @@ bool bSdmaCommDmaTransfer(alt_u8 ucDdrMemId, alt_u32 *uliDdrInitialAddr, alt_u32
 
 	switch (ucChBufferId) {
 	case eSdmaCh1Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_1_BASE_ADDR);
 		bChannelFlag = TRUE;
 		break;
 	case eSdmaCh2Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_2_BASE_ADDR);
 		bChannelFlag = TRUE;
 		break;
 	case eSdmaCh3Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_3_BASE_ADDR);
 		bChannelFlag = TRUE;
 		break;
 	case eSdmaCh4Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_4_BASE_ADDR);
 		bChannelFlag = TRUE;
 		break;
 	case eSdmaCh5Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_5_BASE_ADDR);
 		bChannelFlag = TRUE;
 		break;
 	case eSdmaCh6Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_6_BASE_ADDR);
+		bChannelFlag = TRUE;
+		break;
+	case eSdmaCh7Buffer:
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_7_BASE_ADDR);
+		bChannelFlag = TRUE;
+		break;
+	case eSdmaCh8Buffer:
+		vpxCommChannel = (TCommChannel *) (COMM_CHANNEL_8_BASE_ADDR);
 		bChannelFlag = TRUE;
 		break;
 	default:
