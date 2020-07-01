@@ -88,7 +88,6 @@ architecture rtl of ftdi_usb3_top is
 	signal s_avm_slave_wr_control_address : std_logic_vector((c_FTDI_AVM_USB3_ADRESS_SIZE - 1) downto 0);
 
 	-- Tx Data Buffer Signals
-	signal s_tx_dbuffer_data_loaded : std_logic;
 	signal s_tx_dbuffer_wrdata      : std_logic_vector(255 downto 0);
 	signal s_tx_dbuffer_wrreq       : std_logic;
 	signal s_tx_dbuffer_rdreq       : std_logic;
@@ -655,6 +654,7 @@ begin
 			s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag           <= '0';
 			s_rx_buffer_0_rdable_delayed                                           <= '0';
 			s_rx_buffer_1_rdable_delayed                                           <= '0';
+			s_rx_dbuffer_rdable_delayed                                            <= '0';
 			s_rx_payload_written_delayed                                           <= '0';
 			s_rx_buffer_empty_delayed                                              <= '0';
 			s_rx_comm_err_delayed                                                  <= '0';

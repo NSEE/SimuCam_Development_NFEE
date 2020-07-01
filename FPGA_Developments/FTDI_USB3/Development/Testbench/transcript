@@ -35,43 +35,9 @@
 # Compile of rx_data_stimulli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 33 compiles, 0 failed with no errors.
-# Compile of ftdi_config_avalon_mm_registers_pkg.vhd was successful.
-# Compile of ftdi_config_avalon_mm_pkg.vhd was successful.
-# Compile of ftdi_config_avalon_mm_read_ent.vhd was successful.
-# Compile of ftdi_config_avalon_mm_write_ent.vhd was successful.
-# Compile of ftdi_avm_usb3_pkg.vhd was successful.
-# Compile of ftdi_avm_usb3_writer_ent.vhd was successful.
-# Compile of ftdi_avm_usb3_reader_ent.vhd was successful.
-# Compile of ftdi_rx_avm_writer_controller_ent.vhd was successful.
-# Compile of ftdi_tx_avm_reader_controller_ent.vhd was successful.
-# Compile of data_buffer_sc_fifo.vhd was successful.
-# Compile of data_buffer_ent.vhd was successful.
-# Compile of delay_block_ent.vhd was successful.
-# Compile of ftdi_protocol_pkg.vhd was successful.
-# Compile of ftdi_protocol_crc_pkg.vhd was successful.
-# Compile of ftdi_tx_protocol_header_generator_ent.vhd was successful.
-# Compile of ftdi_rx_protocol_header_parser_ent.vhd was successful.
-# Compile of ftdi_tx_protocol_payload_writer_ent.vhd was successful.
-# Compile of ftdi_rx_protocol_payload_reader_ent.vhd was successful.
-# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_top.vhd was successful.
-# Compile of ftdi_data_dc_fifo.vhd was successful.
-# Compile of ftdi_inout_io_buffer_39b.vhd was successful.
-# Compile of ftdi_in_io_buffer_3b.vhd was successful.
-# Compile of ftdi_out_io_buffer_5b.vhd was successful.
-# Compile of flipflop_synchronizer_ent.vhd was successful.
-# Compile of ftdi_umft601a_controller_ent.vhd was successful.
-# Compile of ftdi_config_avalon_mm_stimulli.vhd was successful.
-# Compile of ftdi_usb3_top.vhd was successful.
-# Compile of usb3_fifo_master_stimuli.vhd was successful.
-# Compile of tx_data_stimulli.vhd was successful.
-# Compile of rx_data_stimulli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 33 compiles, 0 failed with no errors.
 vsim work.testbench_top
 # vsim work.testbench_top 
-# Start time: 21:56:35 on Jun 30,2020
+# Start time: 16:40:09 on Jul 01,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -127,15 +93,16 @@ vsim work.testbench_top
 # Loading work.ftdi_out_io_buffer_5b(rtl)
 # Loading work.ftdi_out_io_buffer_5b_iobuf_out_5ts(rtl)
 # Loading work.flipflop_synchronizer_ent(rtl)
-# ** Warning: Design size of 17034 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 17115 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
-add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_lut_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: rfranca  Hostname: NSEE-H125-01  ProcessID: 52268
-#           Attempting to use alternate WLF file "./wlftyg24ya".
+#           Attempting to use alternate WLF file "./wlfttrtsxs".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftyg24ya
-add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_lut_controller_ent_inst/timeout_delay_block_ent_inst/*
+#           Using alternate file: ./wlfttrtsxs
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_img_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_tx_protocol_header_generator_ent_inst/*
 restart
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -186,13 +153,10 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
 # Compile of ftdi_config_avalon_mm_stimulli.vhd was successful.
-# 2 compiles, 0 failed with no errors.
 restart
 # Loading work.ftdi_config_avalon_mm_stimulli(rtl)
-# Loading work.ftdi_protocol_lut_controller_ent(rtl)
-# ** Warning: Design size of 11273 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 10947 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -243,66 +207,168 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
+# Compile of ftdi_protocol_pkg.vhd was successful.
 restart
-# Loading work.ftdi_protocol_lut_controller_ent(rtl)
-# ** Warning: Design size of 11007 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-add wave -position insertpoint  \
-sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_lut_controller_ent_inst/s_timeout_delay_ended
+# Loading work.ftdi_protocol_pkg(body)
+# ** Fatal: (vsim-3982) Invalid record element size 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst File: D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd Line: 129
+# FATAL ERROR while loading design
+# Compile of ftdi_config_avalon_mm_registers_pkg.vhd was successful.
+# Compile of ftdi_config_avalon_mm_pkg.vhd was successful.
+# Compile of ftdi_config_avalon_mm_read_ent.vhd was successful.
+# Compile of ftdi_config_avalon_mm_write_ent.vhd was successful.
+# Compile of ftdi_avm_usb3_pkg.vhd was successful.
+# Compile of ftdi_avm_usb3_writer_ent.vhd was successful.
+# Compile of ftdi_avm_usb3_reader_ent.vhd was successful.
+# Compile of ftdi_rx_avm_writer_controller_ent.vhd was successful.
+# Compile of ftdi_tx_avm_reader_controller_ent.vhd was successful.
+# Compile of data_buffer_sc_fifo.vhd was successful.
+# Compile of data_buffer_ent.vhd was successful.
+# Compile of delay_block_ent.vhd was successful.
+# Compile of ftdi_protocol_pkg.vhd was successful.
+# Compile of ftdi_protocol_crc_pkg.vhd was successful.
+# Compile of ftdi_tx_protocol_header_generator_ent.vhd was successful.
+# Compile of ftdi_rx_protocol_header_parser_ent.vhd was successful.
+# Compile of ftdi_tx_protocol_payload_writer_ent.vhd was successful.
+# Compile of ftdi_rx_protocol_payload_reader_ent.vhd was successful.
+# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
 # Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-restart
+# Compile of ftdi_protocol_top.vhd was successful.
+# Compile of ftdi_data_dc_fifo.vhd was successful.
+# Compile of ftdi_inout_io_buffer_39b.vhd was successful.
+# Compile of ftdi_in_io_buffer_3b.vhd was successful.
+# Compile of ftdi_out_io_buffer_5b.vhd was successful.
+# Compile of flipflop_synchronizer_ent.vhd was successful.
+# Compile of ftdi_umft601a_controller_ent.vhd was successful.
+# Compile of ftdi_config_avalon_mm_stimulli.vhd was successful.
+# Compile of ftdi_usb3_top.vhd was successful.
+# Compile of usb3_fifo_master_stimuli.vhd was successful.
+# Compile of tx_data_stimulli.vhd was successful.
+# Compile of rx_data_stimulli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 33 compiles, 0 failed with no errors.
+vsim work.testbench_top
+# vsim work.testbench_top 
+# Start time: 16:40:09 on Jul 01,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ftdi_config_avalon_mm_registers_pkg(body)
+# Loading work.ftdi_protocol_pkg(body)
+# Loading work.ftdi_config_avalon_mm_pkg
+# Loading work.ftdi_avm_usb3_pkg(body)
+# Loading work.testbench_top(rtl)
+# Loading work.tx_data_stimulli(rtl)
+# Loading work.rx_data_stimulli(rtl)
+# Loading work.usb3_fifo_master_stimuli(rtl)
+# Loading work.ftdi_inout_io_buffer_39b(rtl)
+# Loading work.ftdi_inout_io_buffer_39b_iobuf_bidir_ruo(rtl)
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading stratixiv.stratixiv_atom_pack(body)
+# Loading stratixiv.stratixiv_io_ibuf(arch)
+# Loading ieee.std_logic_arith(body)
+# Loading stratixiv.stratixiv_io_obuf(arch)
+# Loading work.ftdi_usb3_top(rtl)
+# Loading work.ftdi_config_avalon_mm_stimulli(rtl)
+# Loading work.ftdi_avm_usb3_reader_ent(rtl)
+# Loading work.ftdi_tx_avm_reader_controller_ent(rtl)
+# Loading work.data_buffer_ent(rtl)
+# Loading work.data_buffer_sc_fifo(syn)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.scfifo(behavior)
+# Loading work.ftdi_avm_usb3_writer_ent(rtl)
+# Loading work.ftdi_rx_avm_writer_controller_ent(rtl)
+# Loading work.ftdi_protocol_crc_pkg(body)
+# Loading work.ftdi_protocol_top(rtl)
+# Loading work.ftdi_protocol_img_controller_ent(rtl)
+# Loading work.delay_block_ent(rtl)
 # Loading work.ftdi_protocol_lut_controller_ent(rtl)
-# ** Warning: Design size of 11023 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Loading work.ftdi_tx_protocol_header_generator_ent(rtl)
+# Loading work.ftdi_rx_protocol_header_parser_ent(rtl)
+# Loading work.ftdi_tx_protocol_payload_writer_ent(rtl)
+# Loading work.ftdi_rx_protocol_payload_reader_ent(rtl)
+# Loading work.ftdi_umft601a_controller_ent(rtl)
+# Loading work.ftdi_data_dc_fifo(syn)
+# Loading altera_mf.altera_mf_hint_evaluation(body)
+# Loading altera_mf.dcfifo(behavior)
+# Loading altera_mf.dcfifo_mixed_widths(behavior)
+# Loading altera_mf.dcfifo_async(behavior)
+# Loading altera_mf.dcfifo_dffpipe(behavior)
+# Loading altera_mf.dcfifo_fefifo(behavior)
+# Loading altera_mf.dcfifo_sync(behavior)
+# Loading altera_mf.dcfifo_low_latency(behavior)
+# Loading work.ftdi_in_io_buffer_3b(rtl)
+# Loading work.ftdi_in_io_buffer_3b_iobuf_in_c5i(rtl)
+# Loading work.ftdi_out_io_buffer_5b(rtl)
+# Loading work.ftdi_out_io_buffer_5b_iobuf_out_5ts(rtl)
+# Loading work.flipflop_synchronizer_ent(rtl)
+# ** Warning: Design size of 17115 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: rfranca  Hostname: NSEE-H125-01  ProcessID: 52268
+#           Attempting to use alternate WLF file "./wlftnx1qr8".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftnx1qr8
+restart
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
+# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# Loading work.ftdi_protocol_img_controller_ent(rtl)
+# Loading work.ftdi_protocol_lut_controller_ent(rtl)
+# ** Warning: Design size of 12139 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -353,7 +419,236 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_tx_protocol_header_generator_ent_inst/*
+restart
+# Compile of ftdi_config_avalon_mm_registers_pkg.vhd was successful.
+# Compile of ftdi_config_avalon_mm_pkg.vhd was successful.
+# Compile of ftdi_config_avalon_mm_read_ent.vhd was successful.
+# Compile of ftdi_config_avalon_mm_write_ent.vhd was successful.
+# Compile of ftdi_avm_usb3_pkg.vhd was successful.
+# Compile of ftdi_avm_usb3_writer_ent.vhd was successful.
+# Compile of ftdi_avm_usb3_reader_ent.vhd was successful.
+# Compile of ftdi_rx_avm_writer_controller_ent.vhd was successful.
+# Compile of ftdi_tx_avm_reader_controller_ent.vhd was successful.
+# Compile of data_buffer_sc_fifo.vhd was successful.
+# Compile of data_buffer_ent.vhd was successful.
+# Compile of delay_block_ent.vhd was successful.
+# Compile of ftdi_protocol_pkg.vhd was successful.
+# Compile of ftdi_protocol_crc_pkg.vhd was successful.
+# Compile of ftdi_tx_protocol_header_generator_ent.vhd was successful.
+# Compile of ftdi_rx_protocol_header_parser_ent.vhd was successful.
+# Compile of ftdi_tx_protocol_payload_writer_ent.vhd was successful.
+# Compile of ftdi_rx_protocol_payload_reader_ent.vhd was successful.
+# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
+# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
+# Compile of ftdi_protocol_top.vhd was successful.
+# Compile of ftdi_data_dc_fifo.vhd was successful.
+# Compile of ftdi_inout_io_buffer_39b.vhd was successful.
+# Compile of ftdi_in_io_buffer_3b.vhd was successful.
+# Compile of ftdi_out_io_buffer_5b.vhd was successful.
+# Compile of flipflop_synchronizer_ent.vhd was successful.
+# Compile of ftdi_umft601a_controller_ent.vhd was successful.
+# Compile of ftdi_config_avalon_mm_stimulli.vhd was successful.
+# Compile of ftdi_usb3_top.vhd was successful.
+# Compile of usb3_fifo_master_stimuli.vhd was successful.
+# Compile of tx_data_stimulli.vhd was successful.
+# Compile of rx_data_stimulli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 33 compiles, 0 failed with no errors.
+restart
+# Loading work.ftdi_config_avalon_mm_registers_pkg(body)
+# Loading work.ftdi_protocol_pkg(body)
+# Loading work.ftdi_config_avalon_mm_pkg
+# Loading work.ftdi_avm_usb3_pkg(body)
+# Loading work.testbench_top(rtl)
+# Loading work.tx_data_stimulli(rtl)
+# Loading work.rx_data_stimulli(rtl)
+# Loading work.usb3_fifo_master_stimuli(rtl)
+# Loading work.ftdi_inout_io_buffer_39b(rtl)
+# Loading work.ftdi_inout_io_buffer_39b_iobuf_bidir_ruo(rtl)
+# Loading work.ftdi_usb3_top(rtl)
+# Loading work.ftdi_config_avalon_mm_stimulli(rtl)
+# Loading work.ftdi_avm_usb3_reader_ent(rtl)
+# Loading work.ftdi_tx_avm_reader_controller_ent(rtl)
+# Loading work.data_buffer_ent(rtl)
+# Loading work.data_buffer_sc_fifo(syn)
+# Loading work.ftdi_avm_usb3_writer_ent(rtl)
+# Loading work.ftdi_rx_avm_writer_controller_ent(rtl)
+# Loading work.ftdi_protocol_crc_pkg(body)
+# Loading work.ftdi_protocol_top(rtl)
+# Loading work.ftdi_protocol_img_controller_ent(rtl)
+# Loading work.delay_block_ent(rtl)
+# Loading work.ftdi_protocol_lut_controller_ent(rtl)
+# Loading work.ftdi_tx_protocol_header_generator_ent(rtl)
+# Loading work.ftdi_rx_protocol_header_parser_ent(rtl)
+# Loading work.ftdi_tx_protocol_payload_writer_ent(rtl)
+# Loading work.ftdi_rx_protocol_payload_reader_ent(rtl)
+# Loading work.ftdi_umft601a_controller_ent(rtl)
+# Loading work.ftdi_data_dc_fifo(syn)
+# Loading work.ftdi_in_io_buffer_3b(rtl)
+# Loading work.ftdi_in_io_buffer_3b_iobuf_in_c5i(rtl)
+# Loading work.ftdi_out_io_buffer_5b(rtl)
+# Loading work.ftdi_out_io_buffer_5b_iobuf_out_5ts(rtl)
+# Loading work.flipflop_synchronizer_ent(rtl)
+# ** Warning: Design size of 15412 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
+# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# Loading work.ftdi_protocol_img_controller_ent(rtl)
+# Loading work.ftdi_protocol_lut_controller_ent(rtl)
+# ** Warning: Design size of 12141 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_img_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_lut_controller_ent_inst/*
+restart
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_rx_protocol_header_parser_ent_inst/*
 add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_tx_protocol_payload_writer_ent_inst/*
 add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_rx_protocol_payload_reader_ent_inst/*
@@ -407,11 +702,8 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/*
 restart
-# Loading work.ftdi_protocol_lut_controller_ent(rtl)
-# ** Warning: Design size of 11019 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
 run
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
@@ -461,297 +753,393 @@ run
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_protocol_top.vhd was successful.
-restart
-# Loading work.ftdi_protocol_top(rtl)
-# ** Warning: Design size of 10681 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-restart
-# Loading work.ftdi_protocol_lut_controller_ent(rtl)
-# ** Warning: Design size of 10995 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_lut_controller_ent_inst/s_timeout_delay_ended'. 
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-restart
-# Loading work.ftdi_protocol_lut_controller_ent(rtl)
-# ** Warning: Design size of 11019 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-restart
-# Loading work.ftdi_protocol_lut_controller_ent(rtl)
-# ** Warning: Design size of 11021 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-run
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
-# Compile of ftdi_tx_protocol_header_generator_ent.vhd was successful.
-# Compile of ftdi_tx_protocol_payload_writer_ent.vhd was successful.
-# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_top.vhd failed with 2 errors.
-# 5 compiles, 1 failed with 2 errors.
-# Compile of ftdi_config_avalon_mm_registers_pkg.vhd was successful.
-# Compile of ftdi_config_avalon_mm_pkg.vhd was successful.
-# Compile of ftdi_config_avalon_mm_read_ent.vhd was successful.
-# Compile of ftdi_config_avalon_mm_write_ent.vhd was successful.
-# Compile of ftdi_avm_usb3_pkg.vhd was successful.
-# Compile of ftdi_avm_usb3_writer_ent.vhd was successful.
-# Compile of ftdi_avm_usb3_reader_ent.vhd was successful.
-# Compile of ftdi_rx_avm_writer_controller_ent.vhd was successful.
-# Compile of ftdi_tx_avm_reader_controller_ent.vhd was successful.
-# Compile of data_buffer_sc_fifo.vhd was successful.
-# Compile of data_buffer_ent.vhd was successful.
-# Compile of delay_block_ent.vhd was successful.
-# Compile of ftdi_protocol_pkg.vhd was successful.
-# Compile of ftdi_protocol_crc_pkg.vhd was successful.
-# Compile of ftdi_tx_protocol_header_generator_ent.vhd was successful.
-# Compile of ftdi_rx_protocol_header_parser_ent.vhd was successful.
-# Compile of ftdi_tx_protocol_payload_writer_ent.vhd was successful.
-# Compile of ftdi_rx_protocol_payload_reader_ent.vhd was successful.
-# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_top.vhd failed with 2 errors.
-# Compile of ftdi_data_dc_fifo.vhd was successful.
-# Compile of ftdi_inout_io_buffer_39b.vhd was successful.
-# Compile of ftdi_in_io_buffer_3b.vhd was successful.
-# Compile of ftdi_out_io_buffer_5b.vhd was successful.
-# Compile of flipflop_synchronizer_ent.vhd was successful.
-# Compile of ftdi_umft601a_controller_ent.vhd was successful.
-# Compile of ftdi_config_avalon_mm_stimulli.vhd was successful.
 # Compile of ftdi_usb3_top.vhd was successful.
-# Compile of usb3_fifo_master_stimuli.vhd was successful.
-# Compile of tx_data_stimulli.vhd was successful.
-# Compile of rx_data_stimulli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 33 compiles, 1 failed with 2 errors.
-# Compile of ftdi_protocol_top.vhd was successful.
-# Compile of ftdi_config_avalon_mm_registers_pkg.vhd was successful.
-# Compile of ftdi_config_avalon_mm_pkg.vhd was successful.
-# Compile of ftdi_config_avalon_mm_read_ent.vhd was successful.
-# Compile of ftdi_config_avalon_mm_write_ent.vhd was successful.
-# Compile of ftdi_avm_usb3_pkg.vhd was successful.
-# Compile of ftdi_avm_usb3_writer_ent.vhd was successful.
-# Compile of ftdi_avm_usb3_reader_ent.vhd was successful.
-# Compile of ftdi_rx_avm_writer_controller_ent.vhd was successful.
-# Compile of ftdi_tx_avm_reader_controller_ent.vhd was successful.
-# Compile of data_buffer_sc_fifo.vhd was successful.
-# Compile of data_buffer_ent.vhd was successful.
-# Compile of delay_block_ent.vhd was successful.
-# Compile of ftdi_protocol_pkg.vhd was successful.
-# Compile of ftdi_protocol_crc_pkg.vhd was successful.
-# Compile of ftdi_tx_protocol_header_generator_ent.vhd was successful.
-# Compile of ftdi_rx_protocol_header_parser_ent.vhd was successful.
-# Compile of ftdi_tx_protocol_payload_writer_ent.vhd was successful.
-# Compile of ftdi_rx_protocol_payload_reader_ent.vhd was successful.
-# Compile of ftdi_protocol_img_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
-# Compile of ftdi_protocol_top.vhd was successful.
-# Compile of ftdi_data_dc_fifo.vhd was successful.
-# Compile of ftdi_inout_io_buffer_39b.vhd was successful.
-# Compile of ftdi_in_io_buffer_3b.vhd was successful.
-# Compile of ftdi_out_io_buffer_5b.vhd was successful.
-# Compile of flipflop_synchronizer_ent.vhd was successful.
-# Compile of ftdi_umft601a_controller_ent.vhd was successful.
-# Compile of ftdi_config_avalon_mm_stimulli.vhd was successful.
+restart
+# Loading work.ftdi_usb3_top(rtl)
+# ** Warning: Design size of 10863 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
 # Compile of ftdi_usb3_top.vhd was successful.
-# Compile of usb3_fifo_master_stimuli.vhd was successful.
-# Compile of tx_data_stimulli.vhd was successful.
-# Compile of rx_data_stimulli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 33 compiles, 0 failed with no errors.
-# End time: 01:00:17 on Jul 01,2020, Elapsed time: 3:03:42
-# Errors: 1, Warnings: 251
+restart
+# Loading work.ftdi_usb3_top(rtl)
+# ** Warning: Design size of 10859 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/USB_3_FTDI_top_inst/s_tx_dbuffer_data_loaded'. 
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+restart
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_avm_usb3_reader_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_tx_avm_reader_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/tx_data_buffer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_avm_usb3_writer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_rx_avm_writer_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/*
+restart
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of ftdi_umft601a_controller_ent.vhd was successful.
+restart
+# Loading work.ftdi_umft601a_controller_ent(rtl)
+# ** Warning: Design size of 11016 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# Compile of ftdi_umft601a_controller_ent.vhd was successful.
+restart
+# Loading work.ftdi_umft601a_controller_ent(rtl)
+# ** Warning: Design size of 11018 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_avm_usb3_reader_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_tx_avm_reader_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/tx_data_buffer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_avm_usb3_writer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_rx_avm_writer_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/rx_data_buffer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_img_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_protocol_lut_controller_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_tx_protocol_header_generator_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_rx_protocol_header_parser_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_tx_protocol_payload_writer_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_protocol_top_inst/ftdi_rx_protocol_payload_reader_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/*
+restart
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_rx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench_top/USB_3_FTDI_top_inst/ftdi_umft601a_controller_ent_inst/ftdi_tx_data_dc_fifo_inst/dcfifo_component/DCFIFO_MW/LOWLATENCY_FIFO/LOWLATENCY
+# End time: 17:14:55 on Jul 01,2020, Elapsed time: 0:34:46
+# Errors: 2, Warnings: 398

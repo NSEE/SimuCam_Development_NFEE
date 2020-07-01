@@ -79,49 +79,49 @@ package ftdi_protocol_pkg is
 	end record t_ftdi_prot_halfccd_req_config;
 
 	constant c_FTDI_PROT_HEADER_IMG_SEL_RESET : t_ftdi_prot_header_img_sel := (
-		fee_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_IMG_SEL_FEE_NUMBER_SIZE)),
-		ccd_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_IMG_SEL_CCD_NUMBER_SIZE)),
+		fee_number => (others => '0'),
+		ccd_number => (others => '0'),
 		ccd_side   => '0'
 	);
 
 	constant c_FTDI_PROT_HEADER_IMG_SIZE_RESET : t_ftdi_prot_header_img_size := (
-		ccd_height => std_logic_vector(to_unsigned(1, c_FTDI_PROT_IMG_SIZE_CCD_HEIGHT_SIZE)),
-		ccd_width  => std_logic_vector(to_unsigned(1, c_FTDI_PROT_IMG_SIZE_CCD_WIDTH_SIZE))
+		ccd_height => (others => '0'),
+		ccd_width  => (others => '0')
 	);
 
 	constant c_FTDI_PROT_HEADER_RESET : t_ftdi_prot_header_fields := (
 		package_id      => x"00000000",
 		image_selection => c_FTDI_PROT_HEADER_IMG_SEL_RESET,
 		image_size      => c_FTDI_PROT_HEADER_IMG_SIZE_RESET,
-		exposure_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_EXPOSURE_NUMBER_SIZE)),
-		payload_length  => std_logic_vector(to_unsigned(0, c_FTDI_PROT_PAYLOAD_LENGTH_SIZE))
+		exposure_number => (others => '0'),
+		payload_length  => (others => '0')
 	);
 
 	constant c_FTDI_PROT_HEADER_IMG_SEL_ACK_NACK : t_ftdi_prot_header_img_sel := (
-		fee_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_IMG_SEL_FEE_NUMBER_SIZE)),
-		ccd_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_IMG_SEL_CCD_NUMBER_SIZE)),
+		fee_number => (others => '0'),
+		ccd_number => (others => '0'),
 		ccd_side   => '0'
 	);
 
 	constant c_FTDI_PROT_HEADER_IMG_SIZE_ACK_NACK : t_ftdi_prot_header_img_size := (
-		ccd_height => std_logic_vector(to_unsigned(0, c_FTDI_PROT_IMG_SIZE_CCD_HEIGHT_SIZE)),
-		ccd_width  => std_logic_vector(to_unsigned(0, c_FTDI_PROT_IMG_SIZE_CCD_WIDTH_SIZE))
+		ccd_height => (others => '0'),
+		ccd_width  => (others => '0')
 	);
 
 	constant c_FTDI_PROT_HEADER_ACK_OK : t_ftdi_prot_header_fields := (
 		package_id      => c_FTDI_PROT_PKG_ID_ACK_OK,
 		image_selection => c_FTDI_PROT_HEADER_IMG_SEL_ACK_NACK,
 		image_size      => c_FTDI_PROT_HEADER_IMG_SIZE_ACK_NACK,
-		exposure_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_EXPOSURE_NUMBER_SIZE)),
-		payload_length  => std_logic_vector(to_unsigned(0, c_FTDI_PROT_PAYLOAD_LENGTH_SIZE))
+		exposure_number => (others => '0'),
+		payload_length  => (others => '0')
 	);
 
 	constant c_FTDI_PROT_HEADER_NACK_ERROR : t_ftdi_prot_header_fields := (
 		package_id      => c_FTDI_PROT_PKG_ID_NACK_ERROR,
 		image_selection => c_FTDI_PROT_HEADER_IMG_SEL_ACK_NACK,
 		image_size      => c_FTDI_PROT_HEADER_IMG_SIZE_ACK_NACK,
-		exposure_number => std_logic_vector(to_unsigned(0, c_FTDI_PROT_EXPOSURE_NUMBER_SIZE)),
-		payload_length  => std_logic_vector(to_unsigned(0, c_FTDI_PROT_PAYLOAD_LENGTH_SIZE))
+		exposure_number => (others => '0'),
+		payload_length  => (others => '0')
 	);
 
 	type t_ftdi_lut_winparams_ccdx_wincfg is record
