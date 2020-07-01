@@ -1,17 +1,17 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/Usb3FtdiTesbench.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/FTDI_USB3/Development/Testbench/Usb3FtdiTesbench.mpf
 # Loading project Usb3FtdiTesbench
 # Compile of ftdi_config_avalon_mm_registers_pkg.vhd was successful.
 # Compile of ftdi_config_avalon_mm_pkg.vhd was successful.
 # Compile of ftdi_config_avalon_mm_read_ent.vhd was successful.
 # Compile of ftdi_config_avalon_mm_write_ent.vhd was successful.
-# Compile of ftdi_data_avalon_mm_pkg.vhd was successful.
-# Compile of ftdi_rx_data_avalon_mm_read_ent.vhd was successful.
-# Compile of ftdi_tx_data_avalon_mm_write_ent.vhd was successful.
+# Compile of ftdi_avm_usb3_pkg.vhd was successful.
+# Compile of ftdi_avm_usb3_writer_ent.vhd was successful.
+# Compile of ftdi_avm_usb3_reader_ent.vhd was successful.
+# Compile of ftdi_rx_avm_writer_controller_ent.vhd was successful.
+# Compile of ftdi_tx_avm_reader_controller_ent.vhd was successful.
 # Compile of data_buffer_sc_fifo.vhd was successful.
 # Compile of data_buffer_ent.vhd was successful.
-# Compile of ftdi_data_receiver_ent.vhd was successful.
-# Compile of ftdi_data_transmitter_ent.vhd was successful.
 # Compile of delay_block_ent.vhd was successful.
 # Compile of ftdi_protocol_pkg.vhd was successful.
 # Compile of ftdi_protocol_crc_pkg.vhd was successful.
@@ -22,9 +22,6 @@
 # Compile of ftdi_protocol_img_controller_ent.vhd was successful.
 # Compile of ftdi_protocol_lut_controller_ent.vhd was successful.
 # Compile of ftdi_protocol_top.vhd was successful.
-# Compile of ftdi_data_loopback_ent.vhd was successful.
-# Compile of ftdi_tx_data_mux_ent.vhd was successful.
-# Compile of ftdi_rx_data_mux_ent.vhd was successful.
 # Compile of ftdi_data_dc_fifo.vhd was successful.
 # Compile of ftdi_inout_io_buffer_39b.vhd was successful.
 # Compile of ftdi_in_io_buffer_3b.vhd was successful.
@@ -32,9 +29,32 @@
 # Compile of flipflop_synchronizer_ent.vhd was successful.
 # Compile of ftdi_umft601a_controller_ent.vhd was successful.
 # Compile of ftdi_config_avalon_mm_stimulli.vhd was successful.
-# Compile of ftdi_usb3_top.vhd was successful.
+# Compile of ftdi_usb3_top.vhd failed with 29 errors.
 # Compile of usb3_fifo_master_stimuli.vhd was successful.
 # Compile of tx_data_stimulli.vhd was successful.
 # Compile of rx_data_stimulli.vhd was successful.
+# Compile of testbench_top.vhd failed with 14 errors.
+# 33 compiles, 5 failed with 43 errors.
+# Compile of ftdi_usb3_top.vhd failed with 14 errors.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 2 compiles, 2 failed with 21 errors.
+# Compile of ftdi_usb3_top.vhd failed with 10 errors.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 2 compiles, 2 failed with 17 errors.
+# Compile of ftdi_usb3_top.vhd failed with 6 errors.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 2 compiles, 2 failed with 13 errors.
+# Compile of ftdi_usb3_top.vhd was successful.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 2 compiles, 1 failed with 7 errors.
+# Compile of ftdi_usb3_top.vhd failed with 11 errors.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 2 compiles, 2 failed with 18 errors.
+# Compile of ftdi_usb3_top.vhd failed with 6 errors.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 2 compiles, 2 failed with 13 errors.
+# Compile of ftdi_usb3_top.vhd was successful.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 2 compiles, 1 failed with 7 errors.
+# Compile of testbench_top.vhd failed with 7 errors.
 # Compile of testbench_top.vhd was successful.
-# 36 compiles, 0 failed with no errors.

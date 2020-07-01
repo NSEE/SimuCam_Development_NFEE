@@ -1262,6 +1262,57 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 	return bStatus;
 }
 
+bool bFeebGetBufferDataControl(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		pxFeebCh->xFeebBufferDataControl = vpxCommChannel->xFeeBuffer.xFeebBufferDataControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bFeebSetBufferDataControl(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		vpxCommChannel->xFeeBuffer.xFeebBufferDataControl = pxFeebCh->xFeebBufferDataControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bFeebGetBufferDataStatus(TFeebChannel *pxFeebCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+
+		pxFeebCh->xFeebBufferDataStatus = vpxCommChannel->xFeeBuffer.xFeebBufferDataStatus;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bFeebSetMachineControl(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;

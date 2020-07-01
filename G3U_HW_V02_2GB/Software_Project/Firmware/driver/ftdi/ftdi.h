@@ -18,8 +18,12 @@
 #define FTDI_RX_BUFFER_IRQ               2
 #define FTDI_TX_BUFFER_IRQ               3
 #define FTDI_MODULE_BASE_ADDR            FTDI_USB3_0_BASE
-#define FTDI_BUFFER_SIZE_TRANSFER        67108864
-#define FTDI_WORD_SIZE_BYTES             32
+
+#define FTDI_TRANSFER_MIN_BYTES          (alt_u32)32
+#define FTDI_TRANSFER_MAX_BYTES          (alt_u32)67108864
+#define FTDI_DATA_ACCESS_WIDTH_BYTES     (alt_u32)32
+#define FTDI_DATA_TRANSFER_SIZE_MASK     (alt_u32)0xFFFFFFE0
+
 #define FTDI_WIN_AREA_WINDOING_SIZE      512
 #define FTDI_WIN_AREA_PAYLOAD_SIZE       8388608
 
@@ -135,6 +139,34 @@ typedef struct FtdiLutTransStatus {
   bool bLutTransmitted; /* LUT Transmitted */
   bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
+
+ /* FTDI Tx Data Control Register Struct */
+typedef struct FtdiTxDataControl {
+  alt_u32 uliTxRdInitAddrHighDword; /* Tx Initial Read Address [High Dword] */
+  alt_u32 uliTxRdInitAddrLowDword; /* Tx Initial Read Address [Low Dword] */
+  alt_u32 uliTxRdDataLenghtBytes; /* Tx Read Data Length [Bytes] */
+  bool bTxRdStart; /* Tx Data Read Start */
+  bool bTxRdReset; /* Tx Data Read Reset */
+} TFtdiTxDataControl;
+
+ /* FTDI Tx Data Status Register Struct */
+typedef struct FtdiTxDataStatus {
+  bool bTxRdBusy; /* Tx Data Read Busy */
+} TFtdiTxDataStatus;
+
+ /* FTDI Rx Data Control Register Struct */
+typedef struct FtdiRxDataControl {
+  alt_u32 uliRxWrInitAddrHighDword; /* Rx Initial Write Address [High Dword] */
+  alt_u32 uliRxWrInitAddrLowDword; /* Rx Initial Write Address [Low Dword] */
+  alt_u32 uliRxWrDataLenghtBytes; /* Rx Write Data Length [Bytes] */
+  bool bRxWrStart; /* Rx Data Write Start */
+  bool bRxWrReset; /* Rx Data Write Reset */
+} TFtdiRxDataControl;
+
+ /* FTDI Rx Data Status Register Struct */
+typedef struct FtdiRxDataStatus {
+  bool bRxWrBusy; /* Rx Data Write Busy */
+} TFtdiRxDataStatus;
 
  /* FTDI LUT CCD1 Windowing Configuration Struct */
 typedef struct FtdiLutCcd1WindCfg {
@@ -252,6 +284,10 @@ typedef struct FtdiModule {
   TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
   TFtdiLutTransControl xFtdiLutTransControl;
   TFtdiLutTransStatus xFtdiLutTransStatus;
+  TFtdiTxDataControl xFtdiTxDataControl;
+  TFtdiTxDataStatus xFtdiTxDataStatus;
+  TFtdiRxDataControl xFtdiRxDataControl;
+  TFtdiRxDataStatus xFtdiRxDataStatus;
   TFtdiLutCcd1WindCfg xFtdiLutCcd1WindCfg;
   TFtdiLutCcd2WindCfg xFtdiLutCcd2WindCfg;
   TFtdiLutCcd3WindCfg xFtdiLutCcd3WindCfg;

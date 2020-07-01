@@ -131,12 +131,12 @@ begin
 			avalon_slave_config_writedata   => s_avalon_slave_config_writedata,
 			avalon_slave_config_waitrequest => s_avalon_slave_config_waitrequest,
 			avalon_slave_config_byteenable  => s_avalon_slave_config_byteenable,
-			avalon_slave_data_address       => s_avalon_slave_data_address,
-			avalon_slave_data_write         => s_avalon_slave_data_write,
-			avalon_slave_data_read          => s_avalon_slave_data_read,
-			avalon_slave_data_writedata     => s_avalon_slave_data_writedata,
-			avalon_slave_data_readdata      => s_avalon_slave_data_readdata,
-			avalon_slave_data_waitrequest   => s_avalon_slave_data_waitrequest,
+			avalon_master_data_readdata     => (others => '0'),
+			avalon_master_data_waitrequest  => '1',
+			avalon_master_data_address      => open,
+			avalon_master_data_write        => open,
+			avalon_master_data_writedata    => open,
+			avalon_master_data_read         => open,
 			ftdi_rx_interrupt_sender_irq    => open,
 			ftdi_tx_interrupt_sender_irq    => open
 		);
