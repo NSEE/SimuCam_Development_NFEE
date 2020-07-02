@@ -33,7 +33,7 @@
 //refer to the applicable agreement for further details.
 
 
-//dcfifo_mixed_widths DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=16 LPM_SHOWAHEAD="OFF" LPM_WIDTH=9 LPM_WIDTH_R=9 LPM_WIDTHU=4 LPM_WIDTHU_R=4 OVERFLOW_CHECKING="ON" RDSYNC_DELAYPIPE=4 READ_ACLR_SYNCH="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" WRITE_ACLR_SYNCH="ON" WRSYNC_DELAYPIPE=4 aclr data q rdclk rdempty rdreq rdusedw wrclk wrfull wrreq wrusedw INTENDED_DEVICE_FAMILY="Stratix IV" ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
+//dcfifo_mixed_widths DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=16 LPM_SHOWAHEAD="ON" LPM_WIDTH=9 LPM_WIDTH_R=9 LPM_WIDTHU=4 LPM_WIDTHU_R=4 OVERFLOW_CHECKING="ON" RDSYNC_DELAYPIPE=4 READ_ACLR_SYNCH="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" WRITE_ACLR_SYNCH="ON" WRSYNC_DELAYPIPE=4 aclr data q rdclk rdempty rdreq rdusedw wrclk wrfull wrreq wrusedw INTENDED_DEVICE_FAMILY="Stratix IV" ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
 //VERSION_BEGIN 18.1 cbx_a_gray2bin 2018:09:12:13:04:24:SJ cbx_a_graycounter 2018:09:12:13:04:24:SJ cbx_altdpram 2018:09:12:13:04:24:SJ cbx_altera_counter 2018:09:12:13:04:24:SJ cbx_altera_gray_counter 2018:09:12:13:04:24:SJ cbx_altera_syncram 2018:09:12:13:04:24:SJ cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_dcfifo 2018:09:12:13:04:24:SJ cbx_fifo_common 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_scfifo 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
@@ -264,7 +264,7 @@ module  spwc_data_dc_fifo_a_graycounter1
 endmodule //spwc_data_dc_fifo_a_graycounter1
 
 
-//altsyncram ADDRESS_ACLR_B="CLEAR1" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="CLEAR1" OUTDATA_REG_B="CLOCK1" WIDTH_A=9 WIDTH_B=9 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=4 WIDTHAD_B=4 aclr1 address_a address_b addressstall_b clock0 clock1 clocken1 data_a q_b wren_a
+//altsyncram ADDRESS_ACLR_B="CLEAR1" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" OPERATION_MODE="DUAL_PORT" OUTDATA_REG_B="UNREGISTERED" WIDTH_A=9 WIDTH_B=9 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=4 WIDTHAD_B=4 aclr1 address_a address_b addressstall_b clock0 clock1 data_a q_b wren_a
 //VERSION_BEGIN 18.1 cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
 //synthesis_resources = ram_bits (AUTO) 144 
@@ -280,7 +280,6 @@ module  spwc_data_dc_fifo_altsyncram
 	addressstall_b,
 	clock0,
 	clock1,
-	clocken1,
 	data_a,
 	q_b,
 	wren_a) /* synthesis synthesis_clearbox=1 */;
@@ -290,7 +289,6 @@ module  spwc_data_dc_fifo_altsyncram
 	input   addressstall_b;
 	input   clock0;
 	input   clock1;
-	input   clocken1;
 	input   [8:0]  data_a;
 	output   [8:0]  q_b;
 	input   wren_a;
@@ -302,7 +300,6 @@ module  spwc_data_dc_fifo_altsyncram
 	tri0   addressstall_b;
 	tri1   clock0;
 	tri1   clock1;
-	tri1   clocken1;
 	tri1   [8:0]  data_a;
 	tri0   wren_a;
 `ifndef ALTERA_RESERVED_QIS
@@ -328,7 +325,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[0]}),
 	.portadataout(),
@@ -343,6 +339,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -365,7 +362,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_0.clk0_input_clock_enable = "none",
 		ram_block9a_0.clk1_core_clock_enable = "none",
 		ram_block9a_0.clk1_input_clock_enable = "none",
-		ram_block9a_0.clk1_output_clock_enable = "ena1",
 		ram_block9a_0.connectivity_checking = "OFF",
 		ram_block9a_0.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_0.mixed_port_feed_through_mode = "dont_care",
@@ -380,8 +376,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_0.port_b_address_clear = "clear1",
 		ram_block9a_0.port_b_address_clock = "clock1",
 		ram_block9a_0.port_b_address_width = 4,
-		ram_block9a_0.port_b_data_out_clear = "clear1",
-		ram_block9a_0.port_b_data_out_clock = "clock1",
+		ram_block9a_0.port_b_data_out_clear = "none",
 		ram_block9a_0.port_b_data_width = 1,
 		ram_block9a_0.port_b_first_address = 0,
 		ram_block9a_0.port_b_first_bit_number = 0,
@@ -398,7 +393,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[1]}),
 	.portadataout(),
@@ -413,6 +407,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -435,7 +430,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_1.clk0_input_clock_enable = "none",
 		ram_block9a_1.clk1_core_clock_enable = "none",
 		ram_block9a_1.clk1_input_clock_enable = "none",
-		ram_block9a_1.clk1_output_clock_enable = "ena1",
 		ram_block9a_1.connectivity_checking = "OFF",
 		ram_block9a_1.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_1.mixed_port_feed_through_mode = "dont_care",
@@ -450,8 +444,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_1.port_b_address_clear = "clear1",
 		ram_block9a_1.port_b_address_clock = "clock1",
 		ram_block9a_1.port_b_address_width = 4,
-		ram_block9a_1.port_b_data_out_clear = "clear1",
-		ram_block9a_1.port_b_data_out_clock = "clock1",
+		ram_block9a_1.port_b_data_out_clear = "none",
 		ram_block9a_1.port_b_data_width = 1,
 		ram_block9a_1.port_b_first_address = 0,
 		ram_block9a_1.port_b_first_bit_number = 1,
@@ -468,7 +461,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[2]}),
 	.portadataout(),
@@ -483,6 +475,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -505,7 +498,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_2.clk0_input_clock_enable = "none",
 		ram_block9a_2.clk1_core_clock_enable = "none",
 		ram_block9a_2.clk1_input_clock_enable = "none",
-		ram_block9a_2.clk1_output_clock_enable = "ena1",
 		ram_block9a_2.connectivity_checking = "OFF",
 		ram_block9a_2.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_2.mixed_port_feed_through_mode = "dont_care",
@@ -520,8 +512,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_2.port_b_address_clear = "clear1",
 		ram_block9a_2.port_b_address_clock = "clock1",
 		ram_block9a_2.port_b_address_width = 4,
-		ram_block9a_2.port_b_data_out_clear = "clear1",
-		ram_block9a_2.port_b_data_out_clock = "clock1",
+		ram_block9a_2.port_b_data_out_clear = "none",
 		ram_block9a_2.port_b_data_width = 1,
 		ram_block9a_2.port_b_first_address = 0,
 		ram_block9a_2.port_b_first_bit_number = 2,
@@ -538,7 +529,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[3]}),
 	.portadataout(),
@@ -553,6 +543,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -575,7 +566,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_3.clk0_input_clock_enable = "none",
 		ram_block9a_3.clk1_core_clock_enable = "none",
 		ram_block9a_3.clk1_input_clock_enable = "none",
-		ram_block9a_3.clk1_output_clock_enable = "ena1",
 		ram_block9a_3.connectivity_checking = "OFF",
 		ram_block9a_3.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_3.mixed_port_feed_through_mode = "dont_care",
@@ -590,8 +580,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_3.port_b_address_clear = "clear1",
 		ram_block9a_3.port_b_address_clock = "clock1",
 		ram_block9a_3.port_b_address_width = 4,
-		ram_block9a_3.port_b_data_out_clear = "clear1",
-		ram_block9a_3.port_b_data_out_clock = "clock1",
+		ram_block9a_3.port_b_data_out_clear = "none",
 		ram_block9a_3.port_b_data_width = 1,
 		ram_block9a_3.port_b_first_address = 0,
 		ram_block9a_3.port_b_first_bit_number = 3,
@@ -608,7 +597,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[4]}),
 	.portadataout(),
@@ -623,6 +611,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -645,7 +634,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_4.clk0_input_clock_enable = "none",
 		ram_block9a_4.clk1_core_clock_enable = "none",
 		ram_block9a_4.clk1_input_clock_enable = "none",
-		ram_block9a_4.clk1_output_clock_enable = "ena1",
 		ram_block9a_4.connectivity_checking = "OFF",
 		ram_block9a_4.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_4.mixed_port_feed_through_mode = "dont_care",
@@ -660,8 +648,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_4.port_b_address_clear = "clear1",
 		ram_block9a_4.port_b_address_clock = "clock1",
 		ram_block9a_4.port_b_address_width = 4,
-		ram_block9a_4.port_b_data_out_clear = "clear1",
-		ram_block9a_4.port_b_data_out_clock = "clock1",
+		ram_block9a_4.port_b_data_out_clear = "none",
 		ram_block9a_4.port_b_data_width = 1,
 		ram_block9a_4.port_b_first_address = 0,
 		ram_block9a_4.port_b_first_bit_number = 4,
@@ -678,7 +665,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[5]}),
 	.portadataout(),
@@ -693,6 +679,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -715,7 +702,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_5.clk0_input_clock_enable = "none",
 		ram_block9a_5.clk1_core_clock_enable = "none",
 		ram_block9a_5.clk1_input_clock_enable = "none",
-		ram_block9a_5.clk1_output_clock_enable = "ena1",
 		ram_block9a_5.connectivity_checking = "OFF",
 		ram_block9a_5.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_5.mixed_port_feed_through_mode = "dont_care",
@@ -730,8 +716,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_5.port_b_address_clear = "clear1",
 		ram_block9a_5.port_b_address_clock = "clock1",
 		ram_block9a_5.port_b_address_width = 4,
-		ram_block9a_5.port_b_data_out_clear = "clear1",
-		ram_block9a_5.port_b_data_out_clock = "clock1",
+		ram_block9a_5.port_b_data_out_clear = "none",
 		ram_block9a_5.port_b_data_width = 1,
 		ram_block9a_5.port_b_first_address = 0,
 		ram_block9a_5.port_b_first_bit_number = 5,
@@ -748,7 +733,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[6]}),
 	.portadataout(),
@@ -763,6 +747,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -785,7 +770,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_6.clk0_input_clock_enable = "none",
 		ram_block9a_6.clk1_core_clock_enable = "none",
 		ram_block9a_6.clk1_input_clock_enable = "none",
-		ram_block9a_6.clk1_output_clock_enable = "ena1",
 		ram_block9a_6.connectivity_checking = "OFF",
 		ram_block9a_6.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_6.mixed_port_feed_through_mode = "dont_care",
@@ -800,8 +784,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_6.port_b_address_clear = "clear1",
 		ram_block9a_6.port_b_address_clock = "clock1",
 		ram_block9a_6.port_b_address_width = 4,
-		ram_block9a_6.port_b_data_out_clear = "clear1",
-		ram_block9a_6.port_b_data_out_clock = "clock1",
+		ram_block9a_6.port_b_data_out_clear = "none",
 		ram_block9a_6.port_b_data_width = 1,
 		ram_block9a_6.port_b_first_address = 0,
 		ram_block9a_6.port_b_first_bit_number = 6,
@@ -818,7 +801,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[7]}),
 	.portadataout(),
@@ -833,6 +815,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -855,7 +838,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_7.clk0_input_clock_enable = "none",
 		ram_block9a_7.clk1_core_clock_enable = "none",
 		ram_block9a_7.clk1_input_clock_enable = "none",
-		ram_block9a_7.clk1_output_clock_enable = "ena1",
 		ram_block9a_7.connectivity_checking = "OFF",
 		ram_block9a_7.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_7.mixed_port_feed_through_mode = "dont_care",
@@ -870,8 +852,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_7.port_b_address_clear = "clear1",
 		ram_block9a_7.port_b_address_clock = "clock1",
 		ram_block9a_7.port_b_address_width = 4,
-		ram_block9a_7.port_b_data_out_clear = "clear1",
-		ram_block9a_7.port_b_data_out_clock = "clock1",
+		ram_block9a_7.port_b_data_out_clear = "none",
 		ram_block9a_7.port_b_data_width = 1,
 		ram_block9a_7.port_b_first_address = 0,
 		ram_block9a_7.port_b_first_bit_number = 7,
@@ -888,7 +869,6 @@ module  spwc_data_dc_fifo_altsyncram
 	.clr1(aclr1),
 	.dftout(),
 	.eccstatus(),
-	.ena1(clocken1),
 	.portaaddr({address_a_wire[3:0]}),
 	.portadatain({data_a[8]}),
 	.portadataout(),
@@ -903,6 +883,7 @@ module  spwc_data_dc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.ena0(1'b1),
+	.ena1(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -925,7 +906,6 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_8.clk0_input_clock_enable = "none",
 		ram_block9a_8.clk1_core_clock_enable = "none",
 		ram_block9a_8.clk1_input_clock_enable = "none",
-		ram_block9a_8.clk1_output_clock_enable = "ena1",
 		ram_block9a_8.connectivity_checking = "OFF",
 		ram_block9a_8.logical_ram_name = "ALTSYNCRAM",
 		ram_block9a_8.mixed_port_feed_through_mode = "dont_care",
@@ -940,8 +920,7 @@ module  spwc_data_dc_fifo_altsyncram
 		ram_block9a_8.port_b_address_clear = "clear1",
 		ram_block9a_8.port_b_address_clock = "clock1",
 		ram_block9a_8.port_b_address_width = 4,
-		ram_block9a_8.port_b_data_out_clear = "clear1",
-		ram_block9a_8.port_b_data_out_clock = "clock1",
+		ram_block9a_8.port_b_data_out_clear = "none",
 		ram_block9a_8.port_b_data_width = 1,
 		ram_block9a_8.port_b_first_address = 0,
 		ram_block9a_8.port_b_first_bit_number = 8,
@@ -1408,7 +1387,6 @@ module  spwc_data_dc_fifo_dcfifo
 	.addressstall_b((~ valid_rdreq)),
 	.clock0(wrclk),
 	.clock1(rdclk),
-	.clocken1(valid_rdreq),
 	.data_a(data),
 	.q_b(wire_fifo_ram_q_b),
 	.wren_a(valid_wrreq));
@@ -1593,7 +1571,7 @@ endmodule
 // Retrieval info: PRIVATE: Full NUMERIC "1"
 // Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 // Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
-// Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
+// Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: Optimize NUMERIC "0"
@@ -1617,7 +1595,7 @@ endmodule
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "16"
-// Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
+// Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo"
 // Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "9"
 // Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "4"

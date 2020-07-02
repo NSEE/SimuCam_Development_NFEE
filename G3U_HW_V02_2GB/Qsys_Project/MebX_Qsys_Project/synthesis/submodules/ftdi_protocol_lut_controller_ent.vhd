@@ -147,6 +147,7 @@ begin
 			-- outputs reset
 			trans_lut_transmitted_o          <= '0';
 			trans_lut_controller_busy_o      <= '0';
+			header_generator_abort_o         <= '0';
 			header_generator_start_o         <= '0';
 			header_generator_reset_o         <= '0';
 			header_generator_data_o          <= c_FTDI_PROT_HEADER_RESET;
@@ -604,6 +605,7 @@ begin
 			-- Default Outputs
 			trans_lut_transmitted_o       <= '0';
 			trans_lut_controller_busy_o   <= '0';
+			header_generator_abort_o      <= '0';
 			header_generator_start_o      <= '0';
 			header_generator_reset_o      <= '0';
 			header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;

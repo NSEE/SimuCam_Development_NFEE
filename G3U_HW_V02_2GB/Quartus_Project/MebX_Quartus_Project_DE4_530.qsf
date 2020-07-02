@@ -299,7 +299,7 @@ set_location_assignment PIN_AC6 -to OSC_50_Bank5
 set_location_assignment PIN_AB6 -to OSC_50_Bank6
 set_location_assignment PIN_A19 -to OSC_50_Bank7
 set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
-set_global_assignment -name UNIPHY_TEMP_VER_CODE 1058959168
+set_global_assignment -name UNIPHY_TEMP_VER_CODE 500951686
 
 set_location_assignment PIN_AC11 -to EXT_IO
 set_location_assignment PIN_AN18 -to TEMP_SMCLK
@@ -2324,4 +2324,148 @@ set_global_assignment -name SDC_FILE UMFT601A_MC245.sdc
 set_global_assignment -name IPX_FILE user_components.ipx
 set_global_assignment -name QIP_FILE ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.qip
 set_global_assignment -name VHDL_FILE ../Hardware_Project/MebX_TopLevel.vhd
+set_location_assignment PIN_C5 -to HSMB_LVDS_RX_SPWA_DI_N
+set_location_assignment PIN_C10 -to HSMB_LVDS_RX_SPWA_SI_N
+set_location_assignment PIN_C9 -to HSMB_LVDS_RX_SPWB_DI_N
+set_location_assignment PIN_C8 -to HSMB_LVDS_RX_SPWB_SI_N
+set_location_assignment PIN_C7 -to HSMB_LVDS_RX_SPWC_DI_N
+set_location_assignment PIN_E10 -to HSMB_LVDS_RX_SPWC_SI_N
+set_location_assignment PIN_F5 -to HSMB_LVDS_RX_SPWD_DI_N
+set_location_assignment PIN_F6 -to HSMB_LVDS_RX_SPWD_SI_N
+set_location_assignment PIN_E7 -to HSMB_LVDS_RX_SPWE_DI_N
+set_location_assignment PIN_F8 -to HSMB_LVDS_RX_SPWE_SI_N
+set_location_assignment PIN_F9 -to HSMB_LVDS_RX_SPWF_DI_N
+set_location_assignment PIN_N5 -to HSMB_LVDS_RX_SPWF_SI_N
+set_location_assignment PIN_L5 -to HSMB_LVDS_RX_SPWG_DI_N
+set_location_assignment PIN_R5 -to HSMB_LVDS_RX_SPWG_SI_N
+set_location_assignment PIN_P6 -to HSMB_LVDS_RX_SPWH_DI_N
+set_location_assignment PIN_U5 -to HSMB_LVDS_RX_SPWH_SI_N
+set_location_assignment PIN_N10 -to HSMB_LVDS_TX_SPWA_DO_N
+set_location_assignment PIN_M12 -to HSMB_LVDS_TX_SPWA_SO_N
+set_location_assignment PIN_J9 -to HSMB_LVDS_TX_SPWB_DO_N
+set_location_assignment PIN_J10 -to HSMB_LVDS_TX_SPWB_SO_N
+set_location_assignment PIN_P13 -to HSMB_LVDS_TX_SPWC_DO_N
+set_location_assignment PIN_G7 -to HSMB_LVDS_TX_SPWC_SO_N
+set_location_assignment PIN_R11 -to HSMB_LVDS_TX_SPWD_DO_N
+set_location_assignment PIN_T12 -to HSMB_LVDS_TX_SPWD_SO_N
+set_location_assignment PIN_L11 -to HSMB_LVDS_TX_SPWE_DO_N
+set_location_assignment PIN_P8 -to HSMB_LVDS_TX_SPWE_SO_N
+set_location_assignment PIN_L10 -to HSMB_LVDS_TX_SPWF_DO_N
+set_location_assignment PIN_M7 -to HSMB_LVDS_TX_SPWF_SO_N
+set_location_assignment PIN_V9 -to HSMB_LVDS_TX_SPWG_DO_N
+set_location_assignment PIN_R10 -to HSMB_LVDS_TX_SPWG_SO_N
+set_location_assignment PIN_R8 -to HSMB_LVDS_TX_SPWH_DO_N
+set_location_assignment PIN_T9 -to HSMB_LVDS_TX_SPWH_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWA_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWA_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWB_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWB_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWC_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWC_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWD_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWD_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWE_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWE_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWF_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWF_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWG_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWG_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWH_DI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_RX_SPWH_SI_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWA_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWA_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWB_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWB_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWC_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWC_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWD_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWD_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWE_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWE_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWF_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWF_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWG_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWG_SO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWH_DO_N
+set_instance_assignment -name IO_STANDARD LVDS -to HSMB_LVDS_TX_SPWH_SO_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWA_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWA_SI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWB_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWB_SI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWC_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWC_SI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWD_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWD_SI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWE_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWE_SI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWF_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWF_SI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWG_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWG_SI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWH_DI_N
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to HSMB_LVDS_RX_SPWH_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWH_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWH_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWH_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWH_DI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWG_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWG_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWG_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWG_DI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWF_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWF_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWF_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWF_DI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWE_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWE_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWE_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWE_DI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWD_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWD_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWD_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWD_DI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWC_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWC_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWC_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWC_DI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWB_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWB_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWB_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWB_DI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWA_SI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWA_SI_N
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWA_DI_P
+set_instance_assignment -name FAST_INPUT_REGISTER ON -to HSMB_LVDS_RX_SPWA_DI_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWH_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWH_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWH_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWH_DO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWG_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWG_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWG_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWG_DO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWF_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWF_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWF_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWF_DO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWE_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWE_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWE_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWE_DO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWD_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWD_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWD_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWD_DO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWC_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWC_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWC_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWC_DO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWB_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWB_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWB_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWB_DO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_SO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_SO_N
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_DO_P
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_DO_N
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

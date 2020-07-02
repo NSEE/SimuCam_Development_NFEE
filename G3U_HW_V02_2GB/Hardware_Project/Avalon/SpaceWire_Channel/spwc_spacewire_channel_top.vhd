@@ -20,10 +20,14 @@ entity spwc_spacewire_channel_top is
 		reset_i                       : in  std_logic                    := '0'; --          --                    reset_sink.reset
 		clk_100_i                     : in  std_logic                    := '0'; --          --             clock_sink_100mhz.clk
 		clk_200_i                     : in  std_logic                    := '0'; --          --             clock_sink_200mhz.clk
-		spw_lvds_data_in_i            : in  std_logic                    := '0'; --          --    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		spw_lvds_strobe_in_i          : in  std_logic                    := '0'; --          --                              .spw_lvds_strobe_in_signal
-		spw_lvds_data_out_o           : out std_logic; --                                    --                              .spw_lvds_data_out_signal
-		spw_lvds_strobe_out_o         : out std_logic; --                                    --                              .spw_lvds_strobe_out_signal
+		spw_lvds_p_data_in_i          : in  std_logic                    := '0'; --          --    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		spw_lvds_n_data_in_i          : in  std_logic                    := '0'; --          --                              .spw_lvds_n_data_in_signal		
+		spw_lvds_p_strobe_in_i        : in  std_logic                    := '0'; --          --                              .spw_lvds_p_strobe_in_signal
+		spw_lvds_n_strobe_in_i        : in  std_logic                    := '0'; --          --                              .spw_lvds_n_strobe_in_signal		
+		spw_lvds_p_data_out_o         : out std_logic; --                                    --                              .spw_lvds_p_data_out_signal
+		spw_lvds_n_data_out_o         : out std_logic; --                                    --                              .spw_lvds_n_data_out_signal		
+		spw_lvds_p_strobe_out_o       : out std_logic; --                                    --                              .spw_lvds_p_strobe_out_signal
+		spw_lvds_n_strobe_out_o       : out std_logic; --                                    --                              .spw_lvds_n_strobe_out_signal		
 		spw_rx_enable_i               : in  std_logic                    := '0'; --          --  conduit_end_spacewire_enable.spw_rx_enable_signal
 		spw_tx_enable_i               : in  std_logic                    := '0'; --          --                              .spw_tx_enable_signal
 		spw_red_status_led_o          : out std_logic; --                                    --    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -161,22 +165,26 @@ begin
 			spw_codec_data_tx_status_o  => s_spw_codec_data_tx_status_spw
 		);
 
-	-- SpaceWire Data-Strobe Inputs ALTLVDS_RX Instantiation
-	spwc_spw_rx_altlvds_rx_inst : entity work.spwc_spw_rx_altlvds_rx
+	-- SpaceWire Data-Strobe Rx Diferential Inputs ALTIOBUF Instantiation
+	spwc_spw_rx_altiobuf_inst : entity work.spwc_spw_rx_altiobuf
 		port map(
-			rx_in(0)  => spw_lvds_data_in_i,
-			rx_in(1)  => spw_lvds_strobe_in_i,
-			rx_out(0) => s_spw_logical_data_in,
-			rx_out(1) => s_spw_logical_strobe_in
+			datain(0)   => spw_lvds_p_data_in_i,
+			datain(1)   => spw_lvds_p_strobe_in_i,
+			datain_b(0) => spw_lvds_n_data_in_i,
+			datain_b(1) => spw_lvds_n_strobe_in_i,
+			dataout(0)  => s_spw_logical_data_in,
+			dataout(1)  => s_spw_logical_strobe_in
 		);
 
-	-- SpaceWire Data-Strobe Outputs ALTLVDS_TX Instantiation
-	spwc_spw_tx_altlvds_tx_inst : entity work.spwc_spw_tx_altlvds_tx
+	-- SpaceWire Data-Strobe Tx Diferential Outputs ALTIOBUF Instantiation
+	spwc_spw_tx_altiobuf_inst : entity work.spwc_spw_tx_altiobuf
 		port map(
-			tx_in(0)  => s_spw_logical_data_out,
-			tx_in(1)  => s_spw_logical_strobe_out,
-			tx_out(0) => spw_lvds_data_out_o,
-			tx_out(1) => spw_lvds_strobe_out_o
+			datain(0)    => s_spw_logical_data_out,
+			datain(1)    => s_spw_logical_strobe_out,
+			dataout(0)   => spw_lvds_p_data_out_o,
+			dataout(1)   => spw_lvds_p_strobe_out_o,
+			dataout_b(0) => spw_lvds_n_data_out_o,
+			dataout_b(1) => spw_lvds_n_strobe_out_o
 		);
 
 	-- SpaceWire LEDs Controller Instantiation

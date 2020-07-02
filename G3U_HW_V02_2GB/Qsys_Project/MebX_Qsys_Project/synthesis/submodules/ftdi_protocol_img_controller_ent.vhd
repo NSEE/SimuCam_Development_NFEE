@@ -178,9 +178,11 @@ begin
 			rly_half_ccd_image_length_bytes_o    <= (others => '0');
 			rly_half_ccd_received_o              <= '0';
 			rly_half_ccd_controller_busy_o       <= '0';
+			header_generator_abort_o             <= '0';
 			header_generator_start_o             <= '0';
 			header_generator_reset_o             <= '0';
 			header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+			header_parser_abort_o                <= '0';
 			header_parser_start_o                <= '0';
 			header_parser_reset_o                <= '0';
 			payload_writer_abort_o               <= '0';

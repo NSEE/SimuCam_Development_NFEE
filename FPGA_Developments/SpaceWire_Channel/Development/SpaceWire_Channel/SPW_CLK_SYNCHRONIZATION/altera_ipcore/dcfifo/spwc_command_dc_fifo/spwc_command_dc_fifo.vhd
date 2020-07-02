@@ -17,6 +17,7 @@
 -- 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 -- ************************************************************
 
+
 --Copyright (C) 2018  Intel Corporation. All rights reserved.
 --Your use of Intel Corporation's design tools, logic functions 
 --and other software and tools, and its AMPP partner logic 
@@ -31,6 +32,7 @@
 --Intel and sold by Intel or its authorized distributors.  Please
 --refer to the applicable agreement for further details.
 
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
@@ -38,96 +40,102 @@ LIBRARY altera_mf;
 USE altera_mf.all;
 
 ENTITY spwc_command_dc_fifo IS
-	PORT(
-		aclr    : IN  STD_LOGIC := '0';
-		data    : IN  STD_LOGIC_VECTOR(10 DOWNTO 0);
-		rdclk   : IN  STD_LOGIC;
-		rdreq   : IN  STD_LOGIC;
-		wrclk   : IN  STD_LOGIC;
-		wrreq   : IN  STD_LOGIC;
-		q       : OUT STD_LOGIC_VECTOR(10 DOWNTO 0);
-		rdempty : OUT STD_LOGIC;
-		rdusedw : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-		wrfull  : OUT STD_LOGIC;
-		wrusedw : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
+	PORT
+	(
+		aclr		: IN STD_LOGIC  := '0';
+		data		: IN STD_LOGIC_VECTOR (10 DOWNTO 0);
+		rdclk		: IN STD_LOGIC ;
+		rdreq		: IN STD_LOGIC ;
+		wrclk		: IN STD_LOGIC ;
+		wrreq		: IN STD_LOGIC ;
+		q		: OUT STD_LOGIC_VECTOR (10 DOWNTO 0);
+		rdempty		: OUT STD_LOGIC ;
+		rdusedw		: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+		wrfull		: OUT STD_LOGIC ;
+		wrusedw		: OUT STD_LOGIC_VECTOR (2 DOWNTO 0)
 	);
 END spwc_command_dc_fifo;
 
+
 ARCHITECTURE SYN OF spwc_command_dc_fifo IS
 
-	SIGNAL sub_wire0 : STD_LOGIC_VECTOR(10 DOWNTO 0);
-	SIGNAL sub_wire1 : STD_LOGIC;
-	SIGNAL sub_wire2 : STD_LOGIC_VECTOR(2 DOWNTO 0);
-	SIGNAL sub_wire3 : STD_LOGIC;
-	SIGNAL sub_wire4 : STD_LOGIC_VECTOR(2 DOWNTO 0);
+	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (10 DOWNTO 0);
+	SIGNAL sub_wire1	: STD_LOGIC ;
+	SIGNAL sub_wire2	: STD_LOGIC_VECTOR (2 DOWNTO 0);
+	SIGNAL sub_wire3	: STD_LOGIC ;
+	SIGNAL sub_wire4	: STD_LOGIC_VECTOR (2 DOWNTO 0);
+
+
 
 	COMPONENT dcfifo
-		GENERIC(
-			intended_device_family : STRING;
-			lpm_numwords           : NATURAL;
-			lpm_showahead          : STRING;
-			lpm_type               : STRING;
-			lpm_width              : NATURAL;
-			lpm_widthu             : NATURAL;
-			overflow_checking      : STRING;
-			rdsync_delaypipe       : NATURAL;
-			read_aclr_synch        : STRING;
-			underflow_checking     : STRING;
-			use_eab                : STRING;
-			write_aclr_synch       : STRING;
-			wrsync_delaypipe       : NATURAL
-		);
-		PORT(
-			aclr    : IN  STD_LOGIC;
-			data    : IN  STD_LOGIC_VECTOR(10 DOWNTO 0);
-			rdclk   : IN  STD_LOGIC;
-			rdreq   : IN  STD_LOGIC;
-			wrclk   : IN  STD_LOGIC;
-			wrreq   : IN  STD_LOGIC;
-			q       : OUT STD_LOGIC_VECTOR(10 DOWNTO 0);
-			rdempty : OUT STD_LOGIC;
-			rdusedw : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-			wrfull  : OUT STD_LOGIC;
-			wrusedw : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
-		);
+	GENERIC (
+		intended_device_family		: STRING;
+		lpm_numwords		: NATURAL;
+		lpm_showahead		: STRING;
+		lpm_type		: STRING;
+		lpm_width		: NATURAL;
+		lpm_widthu		: NATURAL;
+		overflow_checking		: STRING;
+		rdsync_delaypipe		: NATURAL;
+		read_aclr_synch		: STRING;
+		underflow_checking		: STRING;
+		use_eab		: STRING;
+		write_aclr_synch		: STRING;
+		wrsync_delaypipe		: NATURAL
+	);
+	PORT (
+			aclr	: IN STD_LOGIC ;
+			data	: IN STD_LOGIC_VECTOR (10 DOWNTO 0);
+			rdclk	: IN STD_LOGIC ;
+			rdreq	: IN STD_LOGIC ;
+			wrclk	: IN STD_LOGIC ;
+			wrreq	: IN STD_LOGIC ;
+			q	: OUT STD_LOGIC_VECTOR (10 DOWNTO 0);
+			rdempty	: OUT STD_LOGIC ;
+			rdusedw	: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+			wrfull	: OUT STD_LOGIC ;
+			wrusedw	: OUT STD_LOGIC_VECTOR (2 DOWNTO 0)
+	);
 	END COMPONENT;
 
 BEGIN
-	q       <= sub_wire0(10 DOWNTO 0);
-	rdempty <= sub_wire1;
-	rdusedw <= sub_wire2(2 DOWNTO 0);
-	wrfull  <= sub_wire3;
-	wrusedw <= sub_wire4(2 DOWNTO 0);
+	q    <= sub_wire0(10 DOWNTO 0);
+	rdempty    <= sub_wire1;
+	rdusedw    <= sub_wire2(2 DOWNTO 0);
+	wrfull    <= sub_wire3;
+	wrusedw    <= sub_wire4(2 DOWNTO 0);
 
 	dcfifo_component : dcfifo
-		GENERIC MAP(
-			intended_device_family => "Stratix IV",
-			lpm_numwords           => 8,
-			lpm_showahead          => "ON",
-			lpm_type               => "dcfifo",
-			lpm_width              => 11,
-			lpm_widthu             => 3,
-			overflow_checking      => "ON",
-			rdsync_delaypipe       => 4,
-			read_aclr_synch        => "ON",
-			underflow_checking     => "ON",
-			use_eab                => "ON",
-			write_aclr_synch       => "ON",
-			wrsync_delaypipe       => 4
-		)
-		PORT MAP(
-			aclr    => aclr,
-			data    => data,
-			rdclk   => rdclk,
-			rdreq   => rdreq,
-			wrclk   => wrclk,
-			wrreq   => wrreq,
-			q       => sub_wire0,
-			rdempty => sub_wire1,
-			rdusedw => sub_wire2,
-			wrfull  => sub_wire3,
-			wrusedw => sub_wire4
-		);
+	GENERIC MAP (
+		intended_device_family => "Stratix IV",
+		lpm_numwords => 8,
+		lpm_showahead => "ON",
+		lpm_type => "dcfifo",
+		lpm_width => 11,
+		lpm_widthu => 3,
+		overflow_checking => "ON",
+		rdsync_delaypipe => 4,
+		read_aclr_synch => "ON",
+		underflow_checking => "ON",
+		use_eab => "ON",
+		write_aclr_synch => "ON",
+		wrsync_delaypipe => 4
+	)
+	PORT MAP (
+		aclr => aclr,
+		data => data,
+		rdclk => rdclk,
+		rdreq => rdreq,
+		wrclk => wrclk,
+		wrreq => wrreq,
+		q => sub_wire0,
+		rdempty => sub_wire1,
+		rdusedw => sub_wire2,
+		wrfull => sub_wire3,
+		wrusedw => sub_wire4
+	);
+
+
 
 END SYN;
 

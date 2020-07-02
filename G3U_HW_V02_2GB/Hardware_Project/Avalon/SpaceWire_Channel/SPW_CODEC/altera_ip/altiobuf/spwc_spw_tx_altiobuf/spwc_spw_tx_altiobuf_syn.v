@@ -33,13 +33,13 @@
 //refer to the applicable agreement for further details.
 
 
-//altiobuf_out DEVICE_FAMILY="Stratix IV" ENABLE_BUS_HOLD="FALSE" LEFT_SHIFT_SERIES_TERMINATION_CONTROL="FALSE" NUMBER_OF_CHANNELS=2 OPEN_DRAIN_OUTPUT="FALSE" PSEUDO_DIFFERENTIAL_MODE="TRUE" USE_DIFFERENTIAL_MODE="TRUE" USE_OE="FALSE" USE_TERMINATION_CONTROL="FALSE" datain dataout dataout_b
+//altiobuf_out DEVICE_FAMILY="Stratix IV" ENABLE_BUS_HOLD="FALSE" LEFT_SHIFT_SERIES_TERMINATION_CONTROL="FALSE" NUMBER_OF_CHANNELS=2 OPEN_DRAIN_OUTPUT="FALSE" PSEUDO_DIFFERENTIAL_MODE="FALSE" USE_DIFFERENTIAL_MODE="TRUE" USE_OE="FALSE" USE_TERMINATION_CONTROL="FALSE" datain dataout dataout_b
 //VERSION_BEGIN 18.1 cbx_altiobuf_out 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
-//synthesis_resources = stratixiv_io_obuf 4 stratixiv_pseudo_diff_out 2 
+//synthesis_resources = stratixiv_io_obuf 2 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -52,76 +52,17 @@ module  spwc_spw_tx_altiobuf_iobuf_out
 	output   [1:0]  dataout;
 	output   [1:0]  dataout_b;
 
-	wire  [1:0]   wire_obuf_ba_i;
-	wire  [1:0]   wire_obuf_ba_o;
-	wire  [1:0]   wire_obuf_ba_oe;
 	wire  [1:0]   wire_obufa_i;
 	wire  [1:0]   wire_obufa_o;
+	wire  [1:0]   wire_obufa_obar;
 	wire  [1:0]   wire_obufa_oe;
-	wire  [1:0]   wire_pseudo_diffa_i;
-	wire  [1:0]   wire_pseudo_diffa_o;
-	wire  [1:0]   wire_pseudo_diffa_obar;
-	wire [1:0]  oe_b;
 	wire  [1:0]  oe_w;
 
-	stratixiv_io_obuf   obuf_ba_0
-	( 
-	.i(wire_obuf_ba_i[0:0]),
-	.o(wire_obuf_ba_o[0:0]),
-	.obar(),
-	.oe(wire_obuf_ba_oe[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.dynamicterminationcontrol(1'b0),
-	.parallelterminationcontrol({14{1'b0}}),
-	.seriesterminationcontrol({14{1'b0}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	// synopsys translate_off
-	,
-	.devoe(1'b1)
-	// synopsys translate_on
-	);
-	defparam
-		obuf_ba_0.bus_hold = "false",
-		obuf_ba_0.open_drain_output = "false",
-		obuf_ba_0.lpm_type = "stratixiv_io_obuf";
-	stratixiv_io_obuf   obuf_ba_1
-	( 
-	.i(wire_obuf_ba_i[1:1]),
-	.o(wire_obuf_ba_o[1:1]),
-	.obar(),
-	.oe(wire_obuf_ba_oe[1:1])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.dynamicterminationcontrol(1'b0),
-	.parallelterminationcontrol({14{1'b0}}),
-	.seriesterminationcontrol({14{1'b0}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	// synopsys translate_off
-	,
-	.devoe(1'b1)
-	// synopsys translate_on
-	);
-	defparam
-		obuf_ba_1.bus_hold = "false",
-		obuf_ba_1.open_drain_output = "false",
-		obuf_ba_1.lpm_type = "stratixiv_io_obuf";
-	assign
-		wire_obuf_ba_i = wire_pseudo_diffa_obar,
-		wire_obuf_ba_oe = oe_b;
 	stratixiv_io_obuf   obufa_0
 	( 
 	.i(wire_obufa_i[0:0]),
 	.o(wire_obufa_o[0:0]),
-	.obar(),
+	.obar(wire_obufa_obar[0:0]),
 	.oe(wire_obufa_oe[0:0])
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_off
@@ -147,7 +88,7 @@ module  spwc_spw_tx_altiobuf_iobuf_out
 	( 
 	.i(wire_obufa_i[1:1]),
 	.o(wire_obufa_o[1:1]),
-	.obar(),
+	.obar(wire_obufa_obar[1:1]),
 	.oe(wire_obufa_oe[1:1])
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_off
@@ -170,24 +111,11 @@ module  spwc_spw_tx_altiobuf_iobuf_out
 		obufa_1.shift_series_termination_control = "false",
 		obufa_1.lpm_type = "stratixiv_io_obuf";
 	assign
-		wire_obufa_i = wire_pseudo_diffa_o,
+		wire_obufa_i = datain,
 		wire_obufa_oe = oe_w;
-	stratixiv_pseudo_diff_out   pseudo_diffa_0
-	( 
-	.i(wire_pseudo_diffa_i[0:0]),
-	.o(wire_pseudo_diffa_o[0:0]),
-	.obar(wire_pseudo_diffa_obar[0:0]));
-	stratixiv_pseudo_diff_out   pseudo_diffa_1
-	( 
-	.i(wire_pseudo_diffa_i[1:1]),
-	.o(wire_pseudo_diffa_o[1:1]),
-	.obar(wire_pseudo_diffa_obar[1:1]));
-	assign
-		wire_pseudo_diffa_i = datain;
 	assign
 		dataout = wire_obufa_o,
-		dataout_b = wire_obuf_ba_o,
-		oe_b = {2{1'b1}},
+		dataout_b = wire_obufa_obar,
 		oe_w = {2{1'b1}};
 endmodule //spwc_spw_tx_altiobuf_iobuf_out
 //VALID FILE
@@ -228,7 +156,7 @@ endmodule
 // Retrieval info: CONSTANT: left_shift_series_termination_control STRING "FALSE"
 // Retrieval info: CONSTANT: number_of_channels NUMERIC "2"
 // Retrieval info: CONSTANT: open_drain_output STRING "FALSE"
-// Retrieval info: CONSTANT: pseudo_differential_mode STRING "TRUE"
+// Retrieval info: CONSTANT: pseudo_differential_mode STRING "FALSE"
 // Retrieval info: CONSTANT: use_differential_mode STRING "TRUE"
 // Retrieval info: CONSTANT: use_oe STRING "FALSE"
 // Retrieval info: CONSTANT: use_termination_control STRING "FALSE"

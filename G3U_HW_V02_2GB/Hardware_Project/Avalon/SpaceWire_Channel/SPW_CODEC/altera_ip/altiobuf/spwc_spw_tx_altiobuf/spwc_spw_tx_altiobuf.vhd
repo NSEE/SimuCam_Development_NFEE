@@ -33,35 +33,31 @@
 --refer to the applicable agreement for further details.
 
 
---altiobuf_out CBX_AUTO_BLACKBOX="ALL" DEVICE_FAMILY="Stratix IV" ENABLE_BUS_HOLD="FALSE" LEFT_SHIFT_SERIES_TERMINATION_CONTROL="FALSE" NUMBER_OF_CHANNELS=2 OPEN_DRAIN_OUTPUT="FALSE" PSEUDO_DIFFERENTIAL_MODE="TRUE" USE_DIFFERENTIAL_MODE="TRUE" USE_OE="FALSE" USE_TERMINATION_CONTROL="FALSE" datain dataout dataout_b
+--altiobuf_out CBX_AUTO_BLACKBOX="ALL" DEVICE_FAMILY="Stratix IV" ENABLE_BUS_HOLD="FALSE" LEFT_SHIFT_SERIES_TERMINATION_CONTROL="FALSE" NUMBER_OF_CHANNELS=2 OPEN_DRAIN_OUTPUT="FALSE" PSEUDO_DIFFERENTIAL_MODE="FALSE" USE_DIFFERENTIAL_MODE="TRUE" USE_OE="FALSE" USE_TERMINATION_CONTROL="FALSE" datain dataout dataout_b
 --VERSION_BEGIN 18.1 cbx_altiobuf_out 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ  VERSION_END
 
  LIBRARY stratixiv;
  USE stratixiv.all;
 
---synthesis_resources = stratixiv_io_obuf 4 stratixiv_pseudo_diff_out 2 
+--synthesis_resources = stratixiv_io_obuf 2 
  LIBRARY ieee;
  USE ieee.std_logic_1164.all;
 
- ENTITY  spwc_spw_tx_altiobuf_iobuf_out_vmt IS 
+ ENTITY  spwc_spw_tx_altiobuf_iobuf_out_apt IS 
 	 PORT 
 	 ( 
 		 datain	:	IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
 		 dataout	:	OUT  STD_LOGIC_VECTOR (1 DOWNTO 0);
 		 dataout_b	:	OUT  STD_LOGIC_VECTOR (1 DOWNTO 0)
 	 ); 
- END spwc_spw_tx_altiobuf_iobuf_out_vmt;
+ END spwc_spw_tx_altiobuf_iobuf_out_apt;
 
- ARCHITECTURE RTL OF spwc_spw_tx_altiobuf_iobuf_out_vmt IS
+ ARCHITECTURE RTL OF spwc_spw_tx_altiobuf_iobuf_out_apt IS
 
-	 SIGNAL  wire_obuf_ba_o	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
-	 SIGNAL  wire_obuf_ba_oe	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
+	 SIGNAL  wire_obufa_i	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
 	 SIGNAL  wire_obufa_o	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
+	 SIGNAL  wire_obufa_obar	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
 	 SIGNAL  wire_obufa_oe	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
-	 SIGNAL  wire_pseudo_diffa_i	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
-	 SIGNAL  wire_pseudo_diffa_o	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
-	 SIGNAL  wire_pseudo_diffa_obar	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
-	 SIGNAL  oe_b	:	STD_LOGIC_VECTOR (1 DOWNTO 0);
 	 SIGNAL  oe_w :	STD_LOGIC_VECTOR (1 DOWNTO 0);
 	 COMPONENT  stratixiv_io_obuf
 	 GENERIC 
@@ -83,35 +79,14 @@
 		seriesterminationcontrol	:	IN STD_LOGIC_VECTOR(13 DOWNTO 0) := (OTHERS => '0')
 	 ); 
 	 END COMPONENT;
-	 COMPONENT  stratixiv_pseudo_diff_out
-	 PORT
-	 ( 
-		i	:	IN STD_LOGIC := '0';
-		o	:	OUT STD_LOGIC;
-		obar	:	OUT STD_LOGIC
-	 ); 
-	 END COMPONENT;
  BEGIN
 
 	dataout <= wire_obufa_o;
-	dataout_b <= wire_obuf_ba_o;
-	oe_b <= (OTHERS => '1');
+	dataout_b <= wire_obufa_obar;
 	oe_w <= (OTHERS => '1');
-	wire_obuf_ba_oe <= oe_b;
-	loop0 : FOR i IN 0 TO 1 GENERATE 
-	  obuf_ba :  stratixiv_io_obuf
-	  GENERIC MAP (
-		bus_hold => "false",
-		open_drain_output => "false"
-	  )
-	  PORT MAP ( 
-		i => wire_pseudo_diffa_obar(i),
-		o => wire_obuf_ba_o(i),
-		oe => wire_obuf_ba_oe(i)
-	  );
-	END GENERATE loop0;
+	wire_obufa_i <= datain;
 	wire_obufa_oe <= oe_w;
-	loop1 : FOR i IN 0 TO 1 GENERATE 
+	loop0 : FOR i IN 0 TO 1 GENERATE 
 	  obufa :  stratixiv_io_obuf
 	  GENERIC MAP (
 		bus_hold => "false",
@@ -119,22 +94,14 @@
 		shift_series_termination_control => "false"
 	  )
 	  PORT MAP ( 
-		i => wire_pseudo_diffa_o(i),
+		i => wire_obufa_i(i),
 		o => wire_obufa_o(i),
+		obar => wire_obufa_obar(i),
 		oe => wire_obufa_oe(i)
 	  );
-	END GENERATE loop1;
-	wire_pseudo_diffa_i <= datain;
-	loop2 : FOR i IN 0 TO 1 GENERATE 
-	  pseudo_diffa :  stratixiv_pseudo_diff_out
-	  PORT MAP ( 
-		i => wire_pseudo_diffa_i(i),
-		o => wire_pseudo_diffa_o(i),
-		obar => wire_pseudo_diffa_obar(i)
-	  );
-	END GENERATE loop2;
+	END GENERATE loop0;
 
- END RTL; --spwc_spw_tx_altiobuf_iobuf_out_vmt
+ END RTL; --spwc_spw_tx_altiobuf_iobuf_out_apt
 --VALID FILE
 
 
@@ -158,7 +125,7 @@ ARCHITECTURE RTL OF spwc_spw_tx_altiobuf IS
 
 
 
-	COMPONENT spwc_spw_tx_altiobuf_iobuf_out_vmt
+	COMPONENT spwc_spw_tx_altiobuf_iobuf_out_apt
 	PORT (
 			datain	: IN STD_LOGIC_VECTOR (1 DOWNTO 0);
 			dataout	: OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
@@ -170,7 +137,7 @@ BEGIN
 	dataout    <= sub_wire0(1 DOWNTO 0);
 	dataout_b    <= sub_wire1(1 DOWNTO 0);
 
-	spwc_spw_tx_altiobuf_iobuf_out_vmt_component : spwc_spw_tx_altiobuf_iobuf_out_vmt
+	spwc_spw_tx_altiobuf_iobuf_out_apt_component : spwc_spw_tx_altiobuf_iobuf_out_apt
 	PORT MAP (
 		datain => datain,
 		dataout => sub_wire0,
@@ -192,7 +159,7 @@ END RTL;
 -- Retrieval info: CONSTANT: left_shift_series_termination_control STRING "FALSE"
 -- Retrieval info: CONSTANT: number_of_channels NUMERIC "2"
 -- Retrieval info: CONSTANT: open_drain_output STRING "FALSE"
--- Retrieval info: CONSTANT: pseudo_differential_mode STRING "TRUE"
+-- Retrieval info: CONSTANT: pseudo_differential_mode STRING "FALSE"
 -- Retrieval info: CONSTANT: use_differential_mode STRING "TRUE"
 -- Retrieval info: CONSTANT: use_oe STRING "FALSE"
 -- Retrieval info: CONSTANT: use_termination_control STRING "FALSE"

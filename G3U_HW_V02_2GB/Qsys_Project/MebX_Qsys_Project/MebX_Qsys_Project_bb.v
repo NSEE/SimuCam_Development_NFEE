@@ -92,54 +92,102 @@ module MebX_Qsys_Project (
 	sd_card_ip_b_SD_dat3,
 	sd_card_ip_o_SD_clock,
 	sd_card_wp_n_io_export,
+	spwc_a_enable_spw_rx_enable_signal,
+	spwc_a_enable_spw_tx_enable_signal,
 	spwc_a_leds_spw_red_status_led_signal,
 	spwc_a_leds_spw_green_status_led_signal,
-	spwc_a_lvds_spw_lvds_data_in_signal,
-	spwc_a_lvds_spw_lvds_data_out_signal,
-	spwc_a_lvds_spw_lvds_strobe_out_signal,
-	spwc_a_lvds_spw_lvds_strobe_in_signal,
+	spwc_a_lvds_spw_lvds_p_data_in_signal,
+	spwc_a_lvds_spw_lvds_n_data_in_signal,
+	spwc_a_lvds_spw_lvds_p_data_out_signal,
+	spwc_a_lvds_spw_lvds_n_data_out_signal,
+	spwc_a_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_a_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_a_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_a_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_b_enable_spw_rx_enable_signal,
+	spwc_b_enable_spw_tx_enable_signal,
 	spwc_b_leds_spw_red_status_led_signal,
 	spwc_b_leds_spw_green_status_led_signal,
-	spwc_b_lvds_spw_lvds_data_in_signal,
-	spwc_b_lvds_spw_lvds_data_out_signal,
-	spwc_b_lvds_spw_lvds_strobe_out_signal,
-	spwc_b_lvds_spw_lvds_strobe_in_signal,
+	spwc_b_lvds_spw_lvds_p_data_in_signal,
+	spwc_b_lvds_spw_lvds_n_data_in_signal,
+	spwc_b_lvds_spw_lvds_p_data_out_signal,
+	spwc_b_lvds_spw_lvds_n_data_out_signal,
+	spwc_b_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_b_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_b_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_b_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_c_enable_spw_rx_enable_signal,
+	spwc_c_enable_spw_tx_enable_signal,
 	spwc_c_leds_spw_red_status_led_signal,
 	spwc_c_leds_spw_green_status_led_signal,
-	spwc_c_lvds_spw_lvds_data_in_signal,
-	spwc_c_lvds_spw_lvds_data_out_signal,
-	spwc_c_lvds_spw_lvds_strobe_out_signal,
-	spwc_c_lvds_spw_lvds_strobe_in_signal,
+	spwc_c_lvds_spw_lvds_p_data_in_signal,
+	spwc_c_lvds_spw_lvds_n_data_in_signal,
+	spwc_c_lvds_spw_lvds_p_data_out_signal,
+	spwc_c_lvds_spw_lvds_n_data_out_signal,
+	spwc_c_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_c_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_c_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_c_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_d_enable_spw_rx_enable_signal,
+	spwc_d_enable_spw_tx_enable_signal,
 	spwc_d_leds_spw_red_status_led_signal,
 	spwc_d_leds_spw_green_status_led_signal,
-	spwc_d_lvds_spw_lvds_data_in_signal,
-	spwc_d_lvds_spw_lvds_data_out_signal,
-	spwc_d_lvds_spw_lvds_strobe_out_signal,
-	spwc_d_lvds_spw_lvds_strobe_in_signal,
+	spwc_d_lvds_spw_lvds_p_data_in_signal,
+	spwc_d_lvds_spw_lvds_n_data_in_signal,
+	spwc_d_lvds_spw_lvds_p_data_out_signal,
+	spwc_d_lvds_spw_lvds_n_data_out_signal,
+	spwc_d_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_d_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_d_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_d_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_e_enable_spw_rx_enable_signal,
+	spwc_e_enable_spw_tx_enable_signal,
 	spwc_e_leds_spw_red_status_led_signal,
 	spwc_e_leds_spw_green_status_led_signal,
-	spwc_e_lvds_spw_lvds_data_in_signal,
-	spwc_e_lvds_spw_lvds_data_out_signal,
-	spwc_e_lvds_spw_lvds_strobe_out_signal,
-	spwc_e_lvds_spw_lvds_strobe_in_signal,
+	spwc_e_lvds_spw_lvds_p_data_in_signal,
+	spwc_e_lvds_spw_lvds_n_data_in_signal,
+	spwc_e_lvds_spw_lvds_p_data_out_signal,
+	spwc_e_lvds_spw_lvds_n_data_out_signal,
+	spwc_e_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_e_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_e_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_e_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_f_enable_spw_rx_enable_signal,
+	spwc_f_enable_spw_tx_enable_signal,
 	spwc_f_leds_spw_red_status_led_signal,
 	spwc_f_leds_spw_green_status_led_signal,
-	spwc_f_lvds_spw_lvds_data_in_signal,
-	spwc_f_lvds_spw_lvds_data_out_signal,
-	spwc_f_lvds_spw_lvds_strobe_out_signal,
-	spwc_f_lvds_spw_lvds_strobe_in_signal,
+	spwc_f_lvds_spw_lvds_p_data_in_signal,
+	spwc_f_lvds_spw_lvds_n_data_in_signal,
+	spwc_f_lvds_spw_lvds_p_data_out_signal,
+	spwc_f_lvds_spw_lvds_n_data_out_signal,
+	spwc_f_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_f_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_f_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_f_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_g_enable_spw_rx_enable_signal,
+	spwc_g_enable_spw_tx_enable_signal,
 	spwc_g_leds_spw_red_status_led_signal,
 	spwc_g_leds_spw_green_status_led_signal,
-	spwc_g_lvds_spw_lvds_data_in_signal,
-	spwc_g_lvds_spw_lvds_data_out_signal,
-	spwc_g_lvds_spw_lvds_strobe_out_signal,
-	spwc_g_lvds_spw_lvds_strobe_in_signal,
+	spwc_g_lvds_spw_lvds_p_data_in_signal,
+	spwc_g_lvds_spw_lvds_n_data_in_signal,
+	spwc_g_lvds_spw_lvds_p_data_out_signal,
+	spwc_g_lvds_spw_lvds_n_data_out_signal,
+	spwc_g_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_g_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_g_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_g_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_h_enable_spw_rx_enable_signal,
+	spwc_h_enable_spw_tx_enable_signal,
 	spwc_h_leds_spw_red_status_led_signal,
 	spwc_h_leds_spw_green_status_led_signal,
-	spwc_h_lvds_spw_lvds_data_in_signal,
-	spwc_h_lvds_spw_lvds_data_out_signal,
-	spwc_h_lvds_spw_lvds_strobe_out_signal,
-	spwc_h_lvds_spw_lvds_strobe_in_signal,
+	spwc_h_lvds_spw_lvds_p_data_in_signal,
+	spwc_h_lvds_spw_lvds_n_data_in_signal,
+	spwc_h_lvds_spw_lvds_p_data_out_signal,
+	spwc_h_lvds_spw_lvds_n_data_out_signal,
+	spwc_h_lvds_spw_lvds_p_strobe_out_signal,
+	spwc_h_lvds_spw_lvds_n_strobe_out_signal,
+	spwc_h_lvds_spw_lvds_p_strobe_in_signal,
+	spwc_h_lvds_spw_lvds_n_strobe_in_signal,
 	sync_in_conduit,
 	sync_out_conduit,
 	sync_spw1_conduit,
@@ -170,23 +218,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	spwc_h_enable_spw_rx_enable_signal,
-	spwc_h_enable_spw_tx_enable_signal,
-	spwc_g_enable_spw_rx_enable_signal,
-	spwc_g_enable_spw_tx_enable_signal,
-	spwc_f_enable_spw_rx_enable_signal,
-	spwc_f_enable_spw_tx_enable_signal,
-	spwc_e_enable_spw_rx_enable_signal,
-	spwc_e_enable_spw_tx_enable_signal,
-	spwc_d_enable_spw_rx_enable_signal,
-	spwc_d_enable_spw_tx_enable_signal,
-	spwc_c_enable_spw_rx_enable_signal,
-	spwc_c_enable_spw_tx_enable_signal,
-	spwc_b_enable_spw_rx_enable_signal,
-	spwc_b_enable_spw_tx_enable_signal,
-	spwc_a_enable_spw_rx_enable_signal,
-	spwc_a_enable_spw_tx_enable_signal);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -280,54 +312,102 @@ module MebX_Qsys_Project (
 	inout		sd_card_ip_b_SD_dat3;
 	output		sd_card_ip_o_SD_clock;
 	input		sd_card_wp_n_io_export;
+	input		spwc_a_enable_spw_rx_enable_signal;
+	input		spwc_a_enable_spw_tx_enable_signal;
 	output		spwc_a_leds_spw_red_status_led_signal;
 	output		spwc_a_leds_spw_green_status_led_signal;
-	input		spwc_a_lvds_spw_lvds_data_in_signal;
-	output		spwc_a_lvds_spw_lvds_data_out_signal;
-	output		spwc_a_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_a_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_a_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_a_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_a_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_a_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_a_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_a_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_a_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_a_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_b_enable_spw_rx_enable_signal;
+	input		spwc_b_enable_spw_tx_enable_signal;
 	output		spwc_b_leds_spw_red_status_led_signal;
 	output		spwc_b_leds_spw_green_status_led_signal;
-	input		spwc_b_lvds_spw_lvds_data_in_signal;
-	output		spwc_b_lvds_spw_lvds_data_out_signal;
-	output		spwc_b_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_b_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_b_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_b_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_b_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_b_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_b_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_b_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_b_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_b_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_c_enable_spw_rx_enable_signal;
+	input		spwc_c_enable_spw_tx_enable_signal;
 	output		spwc_c_leds_spw_red_status_led_signal;
 	output		spwc_c_leds_spw_green_status_led_signal;
-	input		spwc_c_lvds_spw_lvds_data_in_signal;
-	output		spwc_c_lvds_spw_lvds_data_out_signal;
-	output		spwc_c_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_c_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_c_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_c_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_c_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_c_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_c_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_c_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_c_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_c_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_d_enable_spw_rx_enable_signal;
+	input		spwc_d_enable_spw_tx_enable_signal;
 	output		spwc_d_leds_spw_red_status_led_signal;
 	output		spwc_d_leds_spw_green_status_led_signal;
-	input		spwc_d_lvds_spw_lvds_data_in_signal;
-	output		spwc_d_lvds_spw_lvds_data_out_signal;
-	output		spwc_d_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_d_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_d_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_d_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_d_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_d_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_d_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_d_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_d_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_d_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_e_enable_spw_rx_enable_signal;
+	input		spwc_e_enable_spw_tx_enable_signal;
 	output		spwc_e_leds_spw_red_status_led_signal;
 	output		spwc_e_leds_spw_green_status_led_signal;
-	input		spwc_e_lvds_spw_lvds_data_in_signal;
-	output		spwc_e_lvds_spw_lvds_data_out_signal;
-	output		spwc_e_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_e_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_e_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_e_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_e_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_e_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_e_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_e_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_e_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_e_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_f_enable_spw_rx_enable_signal;
+	input		spwc_f_enable_spw_tx_enable_signal;
 	output		spwc_f_leds_spw_red_status_led_signal;
 	output		spwc_f_leds_spw_green_status_led_signal;
-	input		spwc_f_lvds_spw_lvds_data_in_signal;
-	output		spwc_f_lvds_spw_lvds_data_out_signal;
-	output		spwc_f_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_f_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_f_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_f_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_f_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_f_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_f_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_f_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_f_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_f_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_g_enable_spw_rx_enable_signal;
+	input		spwc_g_enable_spw_tx_enable_signal;
 	output		spwc_g_leds_spw_red_status_led_signal;
 	output		spwc_g_leds_spw_green_status_led_signal;
-	input		spwc_g_lvds_spw_lvds_data_in_signal;
-	output		spwc_g_lvds_spw_lvds_data_out_signal;
-	output		spwc_g_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_g_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_g_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_g_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_g_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_g_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_g_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_g_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_g_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_g_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_h_enable_spw_rx_enable_signal;
+	input		spwc_h_enable_spw_tx_enable_signal;
 	output		spwc_h_leds_spw_red_status_led_signal;
 	output		spwc_h_leds_spw_green_status_led_signal;
-	input		spwc_h_lvds_spw_lvds_data_in_signal;
-	output		spwc_h_lvds_spw_lvds_data_out_signal;
-	output		spwc_h_lvds_spw_lvds_strobe_out_signal;
-	input		spwc_h_lvds_spw_lvds_strobe_in_signal;
+	input		spwc_h_lvds_spw_lvds_p_data_in_signal;
+	input		spwc_h_lvds_spw_lvds_n_data_in_signal;
+	output		spwc_h_lvds_spw_lvds_p_data_out_signal;
+	output		spwc_h_lvds_spw_lvds_n_data_out_signal;
+	output		spwc_h_lvds_spw_lvds_p_strobe_out_signal;
+	output		spwc_h_lvds_spw_lvds_n_strobe_out_signal;
+	input		spwc_h_lvds_spw_lvds_p_strobe_in_signal;
+	input		spwc_h_lvds_spw_lvds_n_strobe_in_signal;
 	input		sync_in_conduit;
 	output		sync_out_conduit;
 	output		sync_spw1_conduit;
@@ -359,20 +439,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		spwc_h_enable_spw_rx_enable_signal;
-	input		spwc_h_enable_spw_tx_enable_signal;
-	input		spwc_g_enable_spw_rx_enable_signal;
-	input		spwc_g_enable_spw_tx_enable_signal;
-	input		spwc_f_enable_spw_rx_enable_signal;
-	input		spwc_f_enable_spw_tx_enable_signal;
-	input		spwc_e_enable_spw_rx_enable_signal;
-	input		spwc_e_enable_spw_tx_enable_signal;
-	input		spwc_d_enable_spw_rx_enable_signal;
-	input		spwc_d_enable_spw_tx_enable_signal;
-	input		spwc_c_enable_spw_rx_enable_signal;
-	input		spwc_c_enable_spw_tx_enable_signal;
-	input		spwc_b_enable_spw_rx_enable_signal;
-	input		spwc_b_enable_spw_tx_enable_signal;
-	input		spwc_a_enable_spw_rx_enable_signal;
-	input		spwc_a_enable_spw_tx_enable_signal;
 endmodule

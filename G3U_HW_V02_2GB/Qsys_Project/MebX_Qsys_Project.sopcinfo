@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.07.01.01:18:34 -->
+ <!-- 2020.07.01.17:31:07 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1593577113</value>
+  <value>1593635467</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -15370,7 +15370,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_A"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -15596,28 +15596,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -15930,7 +15954,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_B"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -16156,28 +16180,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -16490,7 +16538,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_C"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -16716,28 +16764,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -17050,7 +17122,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_D"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -17276,28 +17348,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -17610,7 +17706,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_E"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -17836,28 +17932,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -18170,7 +18290,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_F"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -18396,28 +18516,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -18730,7 +18874,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_G"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_G">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -18956,28 +19100,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -19290,7 +19458,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_H"
    kind="SpaceWire_Channel"
-   version="1.2"
+   version="1.3"
    path="SpaceWire_Channel_H">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -19516,28 +19684,52 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>spw_lvds_data_in_i</name>
+    <name>spw_lvds_p_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_data_in_signal</role>
+    <role>spw_lvds_p_data_in_signal</role>
    </port>
    <port>
-    <name>spw_lvds_data_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_data_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_out_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>spw_lvds_strobe_out_signal</role>
-   </port>
-   <port>
-    <name>spw_lvds_strobe_in_i</name>
+    <name>spw_lvds_n_data_in_i</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>spw_lvds_strobe_in_signal</role>
+    <role>spw_lvds_n_data_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_data_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_data_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_out_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_out_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_p_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_p_strobe_in_signal</role>
+   </port>
+   <port>
+    <name>spw_lvds_n_strobe_in_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_lvds_n_strobe_in_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_spacewire_enable" kind="conduit_end" version="18.1">
@@ -86083,7 +86275,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1593577113</value>
+   <value>1593635467</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -86103,7 +86295,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1593577113</value>
+   <value>1593635467</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -86119,7 +86311,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1593577113</value>
+   <value>1593635467</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -103204,7 +103396,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>SpaceWire_Channel</displayName>
-  <version>1.2</version>
+  <version>1.3</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>

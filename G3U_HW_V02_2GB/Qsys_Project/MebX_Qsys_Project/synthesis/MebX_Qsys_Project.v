@@ -100,66 +100,98 @@ module MebX_Qsys_Project (
 		input  wire        spwc_a_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_a_leds_spw_red_status_led_signal,                       //                          spwc_a_leds.spw_red_status_led_signal
 		output wire        spwc_a_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_a_lvds_spw_lvds_data_in_signal,                         //                          spwc_a_lvds.spw_lvds_data_in_signal
-		output wire        spwc_a_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_a_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_a_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_a_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_a_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_a_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_a_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_a_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_a_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_a_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_a_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_a_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        spwc_b_enable_spw_rx_enable_signal,                          //                        spwc_b_enable.spw_rx_enable_signal
 		input  wire        spwc_b_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_b_leds_spw_red_status_led_signal,                       //                          spwc_b_leds.spw_red_status_led_signal
 		output wire        spwc_b_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_b_lvds_spw_lvds_data_in_signal,                         //                          spwc_b_lvds.spw_lvds_data_in_signal
-		output wire        spwc_b_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_b_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_b_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_b_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_b_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_b_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_b_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_b_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_b_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_b_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_b_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_b_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        spwc_c_enable_spw_rx_enable_signal,                          //                        spwc_c_enable.spw_rx_enable_signal
 		input  wire        spwc_c_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_c_leds_spw_red_status_led_signal,                       //                          spwc_c_leds.spw_red_status_led_signal
 		output wire        spwc_c_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_c_lvds_spw_lvds_data_in_signal,                         //                          spwc_c_lvds.spw_lvds_data_in_signal
-		output wire        spwc_c_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_c_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_c_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_c_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_c_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_c_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_c_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_c_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_c_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_c_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_c_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_c_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        spwc_d_enable_spw_rx_enable_signal,                          //                        spwc_d_enable.spw_rx_enable_signal
 		input  wire        spwc_d_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_d_leds_spw_red_status_led_signal,                       //                          spwc_d_leds.spw_red_status_led_signal
 		output wire        spwc_d_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_d_lvds_spw_lvds_data_in_signal,                         //                          spwc_d_lvds.spw_lvds_data_in_signal
-		output wire        spwc_d_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_d_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_d_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_d_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_d_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_d_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_d_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_d_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_d_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_d_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_d_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_d_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        spwc_e_enable_spw_rx_enable_signal,                          //                        spwc_e_enable.spw_rx_enable_signal
 		input  wire        spwc_e_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_e_leds_spw_red_status_led_signal,                       //                          spwc_e_leds.spw_red_status_led_signal
 		output wire        spwc_e_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_e_lvds_spw_lvds_data_in_signal,                         //                          spwc_e_lvds.spw_lvds_data_in_signal
-		output wire        spwc_e_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_e_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_e_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_e_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_e_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_e_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_e_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_e_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_e_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_e_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_e_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_e_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        spwc_f_enable_spw_rx_enable_signal,                          //                        spwc_f_enable.spw_rx_enable_signal
 		input  wire        spwc_f_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_f_leds_spw_red_status_led_signal,                       //                          spwc_f_leds.spw_red_status_led_signal
 		output wire        spwc_f_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_f_lvds_spw_lvds_data_in_signal,                         //                          spwc_f_lvds.spw_lvds_data_in_signal
-		output wire        spwc_f_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_f_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_f_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_f_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_f_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_f_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_f_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_f_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_f_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_f_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_f_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_f_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        spwc_g_enable_spw_rx_enable_signal,                          //                        spwc_g_enable.spw_rx_enable_signal
 		input  wire        spwc_g_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_g_leds_spw_red_status_led_signal,                       //                          spwc_g_leds.spw_red_status_led_signal
 		output wire        spwc_g_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_g_lvds_spw_lvds_data_in_signal,                         //                          spwc_g_lvds.spw_lvds_data_in_signal
-		output wire        spwc_g_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_g_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_g_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_g_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_g_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_g_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_g_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_g_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_g_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_g_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_g_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_g_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        spwc_h_enable_spw_rx_enable_signal,                          //                        spwc_h_enable.spw_rx_enable_signal
 		input  wire        spwc_h_enable_spw_tx_enable_signal,                          //                                     .spw_tx_enable_signal
 		output wire        spwc_h_leds_spw_red_status_led_signal,                       //                          spwc_h_leds.spw_red_status_led_signal
 		output wire        spwc_h_leds_spw_green_status_led_signal,                     //                                     .spw_green_status_led_signal
-		input  wire        spwc_h_lvds_spw_lvds_data_in_signal,                         //                          spwc_h_lvds.spw_lvds_data_in_signal
-		output wire        spwc_h_lvds_spw_lvds_data_out_signal,                        //                                     .spw_lvds_data_out_signal
-		output wire        spwc_h_lvds_spw_lvds_strobe_out_signal,                      //                                     .spw_lvds_strobe_out_signal
-		input  wire        spwc_h_lvds_spw_lvds_strobe_in_signal,                       //                                     .spw_lvds_strobe_in_signal
+		input  wire        spwc_h_lvds_spw_lvds_p_data_in_signal,                       //                          spwc_h_lvds.spw_lvds_p_data_in_signal
+		input  wire        spwc_h_lvds_spw_lvds_n_data_in_signal,                       //                                     .spw_lvds_n_data_in_signal
+		output wire        spwc_h_lvds_spw_lvds_p_data_out_signal,                      //                                     .spw_lvds_p_data_out_signal
+		output wire        spwc_h_lvds_spw_lvds_n_data_out_signal,                      //                                     .spw_lvds_n_data_out_signal
+		output wire        spwc_h_lvds_spw_lvds_p_strobe_out_signal,                    //                                     .spw_lvds_p_strobe_out_signal
+		output wire        spwc_h_lvds_spw_lvds_n_strobe_out_signal,                    //                                     .spw_lvds_n_strobe_out_signal
+		input  wire        spwc_h_lvds_spw_lvds_p_strobe_in_signal,                     //                                     .spw_lvds_p_strobe_in_signal
+		input  wire        spwc_h_lvds_spw_lvds_n_strobe_in_signal,                     //                                     .spw_lvds_n_strobe_in_signal
 		input  wire        sync_in_conduit,                                             //                              sync_in.conduit
 		output wire        sync_out_conduit,                                            //                             sync_out.conduit
 		output wire        sync_spw1_conduit,                                           //                            sync_spw1.conduit
@@ -1871,10 +1903,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_010_reset_out_reset),                                                        //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                           //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_a_lvds_spw_lvds_data_in_signal),                                                       //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_a_lvds_spw_lvds_data_out_signal),                                                      //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_a_lvds_spw_lvds_strobe_out_signal),                                                    //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_a_lvds_spw_lvds_strobe_in_signal),                                                     //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_a_lvds_spw_lvds_p_data_in_signal),                                                     //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_a_lvds_spw_lvds_n_data_in_signal),                                                     //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_a_lvds_spw_lvds_p_data_out_signal),                                                    //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_a_lvds_spw_lvds_n_data_out_signal),                                                    //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_a_lvds_spw_lvds_p_strobe_out_signal),                                                  //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_a_lvds_spw_lvds_n_strobe_out_signal),                                                  //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_a_lvds_spw_lvds_p_strobe_in_signal),                                                   //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_a_lvds_spw_lvds_n_strobe_in_signal),                                                   //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_a_enable_spw_rx_enable_signal),                                                        //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_a_enable_spw_tx_enable_signal),                                                        //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_a_leds_spw_red_status_led_signal),                                                     //    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -1912,10 +1948,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_011_reset_out_reset),                                                        //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                           //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_b_lvds_spw_lvds_data_in_signal),                                                       //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_b_lvds_spw_lvds_data_out_signal),                                                      //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_b_lvds_spw_lvds_strobe_out_signal),                                                    //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_b_lvds_spw_lvds_strobe_in_signal),                                                     //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_b_lvds_spw_lvds_p_data_in_signal),                                                     //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_b_lvds_spw_lvds_n_data_in_signal),                                                     //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_b_lvds_spw_lvds_p_data_out_signal),                                                    //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_b_lvds_spw_lvds_n_data_out_signal),                                                    //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_b_lvds_spw_lvds_p_strobe_out_signal),                                                  //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_b_lvds_spw_lvds_n_strobe_out_signal),                                                  //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_b_lvds_spw_lvds_p_strobe_in_signal),                                                   //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_b_lvds_spw_lvds_n_strobe_in_signal),                                                   //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_b_enable_spw_rx_enable_signal),                                                        //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_b_enable_spw_tx_enable_signal),                                                        //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_b_leds_spw_red_status_led_signal),                                                     //    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -1953,10 +1993,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_012_reset_out_reset),                                                        //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                           //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_c_lvds_spw_lvds_data_in_signal),                                                       //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_c_lvds_spw_lvds_data_out_signal),                                                      //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_c_lvds_spw_lvds_strobe_out_signal),                                                    //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_c_lvds_spw_lvds_strobe_in_signal),                                                     //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_c_lvds_spw_lvds_p_data_in_signal),                                                     //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_c_lvds_spw_lvds_n_data_in_signal),                                                     //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_c_lvds_spw_lvds_p_data_out_signal),                                                    //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_c_lvds_spw_lvds_n_data_out_signal),                                                    //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_c_lvds_spw_lvds_p_strobe_out_signal),                                                  //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_c_lvds_spw_lvds_n_strobe_out_signal),                                                  //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_c_lvds_spw_lvds_p_strobe_in_signal),                                                   //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_c_lvds_spw_lvds_n_strobe_in_signal),                                                   //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_c_enable_spw_rx_enable_signal),                                                        //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_c_enable_spw_tx_enable_signal),                                                        //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_c_leds_spw_red_status_led_signal),                                                     //    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -1994,10 +2038,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_013_reset_out_reset),                                                        //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                           //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_d_lvds_spw_lvds_data_in_signal),                                                       //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_d_lvds_spw_lvds_data_out_signal),                                                      //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_d_lvds_spw_lvds_strobe_out_signal),                                                    //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_d_lvds_spw_lvds_strobe_in_signal),                                                     //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_d_lvds_spw_lvds_p_data_in_signal),                                                     //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_d_lvds_spw_lvds_n_data_in_signal),                                                     //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_d_lvds_spw_lvds_p_data_out_signal),                                                    //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_d_lvds_spw_lvds_n_data_out_signal),                                                    //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_d_lvds_spw_lvds_p_strobe_out_signal),                                                  //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_d_lvds_spw_lvds_n_strobe_out_signal),                                                  //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_d_lvds_spw_lvds_p_strobe_in_signal),                                                   //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_d_lvds_spw_lvds_n_strobe_in_signal),                                                   //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_d_enable_spw_rx_enable_signal),                                                        //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_d_enable_spw_tx_enable_signal),                                                        //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_d_leds_spw_red_status_led_signal),                                                     //    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -2035,10 +2083,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_014_reset_out_reset),                                                        //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                           //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_e_lvds_spw_lvds_data_in_signal),                                                       //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_e_lvds_spw_lvds_data_out_signal),                                                      //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_e_lvds_spw_lvds_strobe_out_signal),                                                    //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_e_lvds_spw_lvds_strobe_in_signal),                                                     //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_e_lvds_spw_lvds_p_data_in_signal),                                                     //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_e_lvds_spw_lvds_n_data_in_signal),                                                     //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_e_lvds_spw_lvds_p_data_out_signal),                                                    //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_e_lvds_spw_lvds_n_data_out_signal),                                                    //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_e_lvds_spw_lvds_p_strobe_out_signal),                                                  //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_e_lvds_spw_lvds_n_strobe_out_signal),                                                  //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_e_lvds_spw_lvds_p_strobe_in_signal),                                                   //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_e_lvds_spw_lvds_n_strobe_in_signal),                                                   //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_e_enable_spw_rx_enable_signal),                                                        //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_e_enable_spw_tx_enable_signal),                                                        //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_e_leds_spw_red_status_led_signal),                                                     //    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -2076,10 +2128,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_015_reset_out_reset),                                                        //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                           //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_f_lvds_spw_lvds_data_in_signal),                                                       //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_f_lvds_spw_lvds_data_out_signal),                                                      //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_f_lvds_spw_lvds_strobe_out_signal),                                                    //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_f_lvds_spw_lvds_strobe_in_signal),                                                     //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_f_lvds_spw_lvds_p_data_in_signal),                                                     //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_f_lvds_spw_lvds_n_data_in_signal),                                                     //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_f_lvds_spw_lvds_p_data_out_signal),                                                    //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_f_lvds_spw_lvds_n_data_out_signal),                                                    //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_f_lvds_spw_lvds_p_strobe_out_signal),                                                  //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_f_lvds_spw_lvds_n_strobe_out_signal),                                                  //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_f_lvds_spw_lvds_p_strobe_in_signal),                                                   //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_f_lvds_spw_lvds_n_strobe_in_signal),                                                   //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_f_enable_spw_rx_enable_signal),                                                        //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_f_enable_spw_tx_enable_signal),                                                        //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_f_leds_spw_red_status_led_signal),                                                     //    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -2117,10 +2173,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_016_reset_out_reset),                                                      //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                              //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_g_lvds_spw_lvds_data_in_signal),                                                     //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_g_lvds_spw_lvds_data_out_signal),                                                    //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_g_lvds_spw_lvds_strobe_out_signal),                                                  //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_g_lvds_spw_lvds_strobe_in_signal),                                                   //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_g_lvds_spw_lvds_p_data_in_signal),                                                   //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_g_lvds_spw_lvds_n_data_in_signal),                                                   //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_g_lvds_spw_lvds_p_data_out_signal),                                                  //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_g_lvds_spw_lvds_n_data_out_signal),                                                  //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_g_lvds_spw_lvds_p_strobe_out_signal),                                                //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_g_lvds_spw_lvds_n_strobe_out_signal),                                                //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_g_lvds_spw_lvds_p_strobe_in_signal),                                                 //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_g_lvds_spw_lvds_n_strobe_in_signal),                                                 //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_g_enable_spw_rx_enable_signal),                                                      //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_g_enable_spw_tx_enable_signal),                                                      //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_g_leds_spw_red_status_led_signal),                                                   //    conduit_end_spacewire_leds.spw_red_status_led_signal
@@ -2158,10 +2218,14 @@ module MebX_Qsys_Project (
 		.reset_i                       (rst_controller_017_reset_out_reset),                                                  //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                     //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                          //             clock_sink_200mhz.clk
-		.spw_lvds_data_in_i            (spwc_h_lvds_spw_lvds_data_in_signal),                                                 //    conduit_end_spacewire_lvds.spw_lvds_data_in_signal
-		.spw_lvds_data_out_o           (spwc_h_lvds_spw_lvds_data_out_signal),                                                //                              .spw_lvds_data_out_signal
-		.spw_lvds_strobe_out_o         (spwc_h_lvds_spw_lvds_strobe_out_signal),                                              //                              .spw_lvds_strobe_out_signal
-		.spw_lvds_strobe_in_i          (spwc_h_lvds_spw_lvds_strobe_in_signal),                                               //                              .spw_lvds_strobe_in_signal
+		.spw_lvds_p_data_in_i          (spwc_h_lvds_spw_lvds_p_data_in_signal),                                               //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		.spw_lvds_n_data_in_i          (spwc_h_lvds_spw_lvds_n_data_in_signal),                                               //                              .spw_lvds_n_data_in_signal
+		.spw_lvds_p_data_out_o         (spwc_h_lvds_spw_lvds_p_data_out_signal),                                              //                              .spw_lvds_p_data_out_signal
+		.spw_lvds_n_data_out_o         (spwc_h_lvds_spw_lvds_n_data_out_signal),                                              //                              .spw_lvds_n_data_out_signal
+		.spw_lvds_p_strobe_out_o       (spwc_h_lvds_spw_lvds_p_strobe_out_signal),                                            //                              .spw_lvds_p_strobe_out_signal
+		.spw_lvds_n_strobe_out_o       (spwc_h_lvds_spw_lvds_n_strobe_out_signal),                                            //                              .spw_lvds_n_strobe_out_signal
+		.spw_lvds_p_strobe_in_i        (spwc_h_lvds_spw_lvds_p_strobe_in_signal),                                             //                              .spw_lvds_p_strobe_in_signal
+		.spw_lvds_n_strobe_in_i        (spwc_h_lvds_spw_lvds_n_strobe_in_signal),                                             //                              .spw_lvds_n_strobe_in_signal
 		.spw_rx_enable_i               (spwc_h_enable_spw_rx_enable_signal),                                                  //  conduit_end_spacewire_enable.spw_rx_enable_signal
 		.spw_tx_enable_i               (spwc_h_enable_spw_tx_enable_signal),                                                  //                              .spw_tx_enable_signal
 		.spw_red_status_led_o          (spwc_h_leds_spw_red_status_led_signal),                                               //    conduit_end_spacewire_leds.spw_red_status_led_signal
