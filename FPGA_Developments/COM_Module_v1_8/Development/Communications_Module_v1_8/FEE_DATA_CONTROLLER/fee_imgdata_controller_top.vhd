@@ -65,8 +65,6 @@ entity fee_imgdata_controller_top is
 		fee_window_mask_read_o             : out std_logic;
 		-- fee imgdata send buffer status
 		imgdata_send_buffer_status_o       : out t_fee_dpkt_send_buffer_status;
-		imgdata_send_buffer_data_type_o    : out std_logic_vector(1 downto 0);
-		imgdata_send_buffer_data_end_o     : out std_logic;
 		imgdata_send_double_buffer_empty_o : out std_logic
 	);
 end entity fee_imgdata_controller_top;
@@ -267,8 +265,8 @@ begin
 			buffer_rddata_o              => imgdata_send_buffer_status_o.rddata,
 			buffer_rdready_o             => imgdata_send_buffer_status_o.rdready,
 			buffer_wrready_o             => s_send_buffer_wrready,
-			data_type_rddata_o           => imgdata_send_buffer_data_type_o,
-			data_end_rddata_o            => imgdata_send_buffer_data_end_o,
+			data_type_rddata_o           => imgdata_send_buffer_status_o.rddata_type,
+			data_end_rddata_o            => imgdata_send_buffer_status_o.rddata_end,
 			double_buffer_empty_o        => imgdata_send_double_buffer_empty_o,
 			double_buffer_wrable_o       => s_send_double_buffer_wrable
 		);

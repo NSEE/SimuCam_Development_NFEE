@@ -63,18 +63,20 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_data_writer_state    <= STOPPED;
-			v_data_writer_state    := STOPPED;
-			s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
-			s_overflow_send_buffer <= '0';
-			s_first_write          <= '0';
+			s_data_writer_state           <= STOPPED;
+			v_data_writer_state           := STOPPED;
+			s_data_cnt                    <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
+			s_overflow_send_buffer        <= '0';
+			s_first_write                 <= '0';
 			-- Outputs Generation
-			data_wr_busy_o         <= '0';
-			data_wr_finished_o     <= '0';
-			data_wr_data_changed_o <= '0';
-			masking_buffer_rdreq_o <= '0';
-			send_buffer_wrdata_o   <= x"00";
-			send_buffer_wrreq_o    <= '0';
+			data_wr_busy_o                <= '0';
+			data_wr_finished_o            <= '0';
+			data_wr_data_changed_o        <= '0';
+			masking_buffer_rdreq_o        <= '0';
+			send_buffer_wrdata_o          <= x"00";
+			send_buffer_wrreq_o           <= '0';
+			send_buffer_data_end_wrdata_o <= '0';
+			send_buffer_data_end_wrreq_o  <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_data_writer_state) is
@@ -288,6 +290,13 @@ begin
 					masking_buffer_rdreq_o <= '0';
 					-- fill send buffer data with masking data
 					send_buffer_wrdata_o   <= a_masking_buffer_rddata_imgbyte;
+					-- write the send buffer data
+					-- check if a change command was read or the send buffer is being overflow (no need to write)
+					if ((a_masking_buffer_rddata_imgchange = '1') or (s_overflow_send_buffer = '1')) then
+						send_buffer_wrreq_o <= '0';
+					else
+						send_buffer_wrreq_o <= '1';
+					end if;
 					-- check if it is the first write
 					if (s_first_write = '1') then
 						-- it is the first write
@@ -303,14 +312,6 @@ begin
 						send_buffer_data_end_wrreq_o  <= '0';
 						send_buffer_data_end_wrdata_o <= '0';
 					end if;
-					-- write the send buffer data
-					-- check if a change command was read or the send buffer is being overflow (no need to write)
-					if ((a_masking_buffer_rddata_imgchange = '1') or (s_overflow_send_buffer = '1')) then
-						send_buffer_wrreq_o <= '0';
-					else
-						send_buffer_wrreq_o <= '1';
-					end if;
-
 				-- conditional output signals
 
 				-- state "DATA_WRITER_FINISH"

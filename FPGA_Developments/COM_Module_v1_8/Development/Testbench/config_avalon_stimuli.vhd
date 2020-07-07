@@ -110,7 +110,7 @@ begin
 				-- data_packet_config_1_reg
 				when 1050 to 1051 =>
 					-- register write
-					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#54#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#60#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
 					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(25, 16)); -- data_pkt_ccd_x_size
@@ -120,7 +120,7 @@ begin
 				-- data_packet_config_2_reg
 				when 1100 to 1101 =>
 					-- register write
-					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#55#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#61#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
 					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(35, 16)); -- data_pkt_data_y_size
@@ -130,7 +130,7 @@ begin
 				-- data_packet_config_3_reg
 				when 1125 to 1126 =>
 					-- register write
-					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#56#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#62#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
 					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(0, 16)); -- data_pkt_ccd_v_start
@@ -140,10 +140,11 @@ begin
 				-- data_packet_config_4_reg
 				when 1150 to 1151 =>
 					-- register write
-					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#57#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#63#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
-					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(1024, 16)); -- data_pkt_packet_length
+--					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(1024, 16)); -- data_pkt_packet_length
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(128, 16)); -- data_pkt_packet_length
 					avalon_mm_writedata_o(23 downto 16) <= x"25"; -- data_pkt_logical_addr
 					avalon_mm_writedata_o(31 downto 24) <= x"02"; -- data_pkt_protocol_id
 					avalon_mm_read_o                    <= '0';
@@ -160,12 +161,12 @@ begin
 				-- data_packet_config_5_reg
 				when 1200 to 1201 =>
 					-- register write
-					avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#58#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#64#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                 <= '1';
 					avalon_mm_writedata_o             <= (others => '0');
-					avalon_mm_writedata_o(4 downto 0) <= c_DPKT_FULLIMAGE_PATTERN_MODE; -- data_pkt_fee_mode
-					--					avalon_mm_writedata_o(3 downto 0) <= c_FEE_FULLIMAGE_MODE; -- data_pkt_fee_mode
-					--					avalon_mm_writedata_o(3 downto 0) <= c_FEE_WINDOWING_MODE; -- data_pkt_fee_mode
+--					avalon_mm_writedata_o(4 downto 0) <= c_DPKT_FULLIMAGE_PATTERN_MODE; -- data_pkt_fee_mode
+--										avalon_mm_writedata_o(4 downto 0) <= c_DPKT_FULLIMAGE_MODE_SSD_MODE; -- data_pkt_fee_mode
+										avalon_mm_writedata_o(4 downto 0) <= c_DPKT_WINDOWING_PATTERN_MODE; -- data_pkt_fee_mode
 					avalon_mm_writedata_o(9 downto 8) <= std_logic_vector(to_unsigned(3, 2)); -- data_pkt_ccd_number
 					avalon_mm_read_o                  <= '0';
 
@@ -199,7 +200,7 @@ begin
 				-- data_packet_pixel_delay_1_reg
 				when 1210 to 1211 =>
 					-- register write
-					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#5C#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#68#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
 					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(1000, 32)); -- data_pkt_start_delay
@@ -208,7 +209,7 @@ begin
 				-- data_packet_pixel_delay_2_reg
 				when 1220 to 1221 =>
 					-- register write
-					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#5D#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#69#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
 					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(500, 32)); -- data_pkt_skip_delay
@@ -217,7 +218,7 @@ begin
 				-- data_packet_pixel_delay_3_reg
 				when 1230 to 1231 =>
 					-- register write
-					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#5E#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#6A#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
 					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(100, 32)); -- data_pkt_line_delay
@@ -226,7 +227,7 @@ begin
 				-- data_packet_pixel_delay_4_reg
 				when 1240 to 1241 =>
 					-- register write
-					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#5F#, g_ADDRESS_WIDTH));
+					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#6B#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= (others => '0');
 					avalon_mm_writedata_o <= std_logic_vector(to_unsigned(50, 32)); -- data_pkt_adc_delay
@@ -264,6 +265,36 @@ begin
 					avalon_mm_write_o        <= '1';
 					avalon_mm_writedata_o    <= (others => '0');
 					avalon_mm_writedata_o(0) <= '1'; -- FEE Readout Enable
+					avalon_mm_read_o         <= '0';
+
+				when 1400 to 1401 =>
+					-- register write
+					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#2A#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o     <= '1';
+					avalon_mm_writedata_o <= (others => '1'); -- right_rd_data_length_bytes
+					avalon_mm_read_o      <= '0';
+
+				when 1450 to 1451 =>
+					-- register write
+					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#2B#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o        <= '1';
+					avalon_mm_writedata_o    <= (others => '0');
+					avalon_mm_writedata_o(0) <= '1'; -- right_rd_start
+					avalon_mm_read_o         <= '0';
+
+				when 1500 to 1501 =>
+					-- register write
+					avalon_mm_address_o   <= std_logic_vector(to_unsigned(16#2F#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o     <= '1';
+					avalon_mm_writedata_o <= (others => '1'); -- left_rd_data_length_bytes
+					avalon_mm_read_o      <= '0';
+
+				when 1550 to 1551 =>
+					-- register write
+					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#30#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o        <= '1';
+					avalon_mm_writedata_o    <= (others => '0');
+					avalon_mm_writedata_o(0) <= '1'; -- left_rd_start
 					avalon_mm_read_o         <= '0';
 
 				--				-- fee_windowing_buffers_config_reg

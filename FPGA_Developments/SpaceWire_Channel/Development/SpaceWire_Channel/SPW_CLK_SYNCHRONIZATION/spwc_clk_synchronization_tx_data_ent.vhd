@@ -79,7 +79,8 @@ begin
 		end if;
 	end process p_clk_synchronization_tx_data_spw;
 
-	data_status_avs_o.txrdy   <= not (s_data_dc_fifo_avs_wrfull);
+	--	data_status_avs_o.txrdy   <= not (s_data_dc_fifo_avs_wrfull);
+	data_status_avs_o.txrdy   <= not (s_data_dc_fifo_avs_wrusedw(3));
 	data_status_avs_o.txhalff <= s_data_dc_fifo_avs_wrusedw(3);
 
 end architecture RTL;

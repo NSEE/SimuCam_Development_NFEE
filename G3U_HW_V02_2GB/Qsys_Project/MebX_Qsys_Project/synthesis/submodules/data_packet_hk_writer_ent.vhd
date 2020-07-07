@@ -25,7 +25,9 @@ entity data_packet_hk_writer_ent is
 		hk_mem_byte_address_o          : out std_logic_vector(31 downto 0);
 		hk_mem_read_o                  : out std_logic;
 		send_buffer_wrdata_o           : out std_logic_vector(7 downto 0);
-		send_buffer_wrreq_o            : out std_logic
+		send_buffer_wrreq_o            : out std_logic;
+		send_buffer_data_end_wrdata_o  : out std_logic;
+		send_buffer_data_end_wrreq_o   : out std_logic
 	);
 end entity data_packet_hk_writer_ent;
 
@@ -56,17 +58,19 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_housekeeping_writer_state <= STOPPED;
-			v_housekeeping_writer_state := STOPPED;
-			s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
-			s_overflow_send_buffer      <= '0';
+			s_housekeeping_writer_state   <= STOPPED;
+			v_housekeeping_writer_state   := STOPPED;
+			s_housekepping_addr           <= c_HK_RESET_BYTE_ADDR;
+			s_overflow_send_buffer        <= '0';
 			-- Outputs Generation
-			housekeeping_wr_busy_o      <= '0';
-			housekeeping_wr_finished_o  <= '0';
-			hk_mem_byte_address_o       <= c_HK_RESET_BYTE_ADDR;
-			hk_mem_read_o               <= '0';
-			send_buffer_wrdata_o        <= x"00";
-			send_buffer_wrreq_o         <= '0';
+			housekeeping_wr_busy_o        <= '0';
+			housekeeping_wr_finished_o    <= '0';
+			hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+			hk_mem_read_o                 <= '0';
+			send_buffer_wrdata_o          <= x"00";
+			send_buffer_wrreq_o           <= '0';
+			send_buffer_data_end_wrdata_o <= '0';
+			send_buffer_data_end_wrreq_o  <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_housekeeping_writer_state) is
@@ -206,25 +210,29 @@ begin
 					-- does nothing until a housekeeping write is requested
 					-- reset outputs
 					-- default output signals
-					housekeeping_wr_busy_o     <= '0';
-					housekeeping_wr_finished_o <= '0';
-					hk_mem_byte_address_o      <= c_HK_RESET_BYTE_ADDR;
-					hk_mem_read_o              <= '0';
-					send_buffer_wrdata_o       <= x"00";
-					send_buffer_wrreq_o        <= '0';
+					housekeeping_wr_busy_o        <= '0';
+					housekeeping_wr_finished_o    <= '0';
+					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_read_o                 <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_SEND_BUFFER_SPACE"
 				when WAITING_SEND_BUFFER_SPACE =>
 					-- wait until the send buffer have available space
 					-- default output signals
-					housekeeping_wr_busy_o     <= '1';
-					housekeeping_wr_finished_o <= '0';
-					hk_mem_byte_address_o      <= c_HK_RESET_BYTE_ADDR;
-					hk_mem_read_o              <= '0';
+					housekeeping_wr_busy_o        <= '1';
+					housekeeping_wr_finished_o    <= '0';
+					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_read_o                 <= '0';
 					-- clear send buffer write signal
-					send_buffer_wrdata_o       <= x"00";
-					send_buffer_wrreq_o        <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- state "READ_HOUSEKEEPING"
@@ -232,25 +240,27 @@ begin
 					-- fetch hk memory data, wait for valid data in memory
 					-- reset outputs
 					-- default output signals
-					housekeeping_wr_busy_o     <= '1';
-					housekeeping_wr_finished_o <= '0';
+					housekeeping_wr_busy_o        <= '1';
+					housekeeping_wr_finished_o    <= '0';
 					-- fetch data from masking buffer
-					hk_mem_byte_address_o      <= s_housekepping_addr;
-					hk_mem_read_o              <= '1';
-					send_buffer_wrdata_o       <= x"00";
-					send_buffer_wrreq_o        <= '0';
+					hk_mem_byte_address_o         <= s_housekepping_addr;
+					hk_mem_read_o                 <= '1';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- state "WRITE_HOUSEKEEPING"
 				when WRITE_HOUSEKEEPING =>
 					-- write housekeeping data to send buffer
 					-- default output signals
-					housekeeping_wr_busy_o     <= '1';
-					housekeeping_wr_finished_o <= '0';
-					hk_mem_byte_address_o      <= c_HK_RESET_BYTE_ADDR;
-					hk_mem_read_o              <= '0';
+					housekeeping_wr_busy_o        <= '1';
+					housekeeping_wr_finished_o    <= '0';
+					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_read_o                 <= '0';
 					-- fill send buffer data with masking data
-					send_buffer_wrdata_o       <= hk_mem_data_i;
+					send_buffer_wrdata_o          <= hk_mem_data_i;
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then
@@ -258,19 +268,24 @@ begin
 					else
 						send_buffer_wrreq_o <= '1';
 					end if;
+					-- write a data end on the send buffer (last packet)
+					send_buffer_data_end_wrreq_o  <= '1';
+					send_buffer_data_end_wrdata_o <= '1';
 				-- conditional output signals
 
 				-- state "HOUSEKEEPING_WRITER_FINISH"
 				when HOUSEKEEPING_WRITER_FINISH =>
 					-- finish housekeeping writer unit operation
 					-- default output signals
-					housekeeping_wr_busy_o     <= '1';
+					housekeeping_wr_busy_o        <= '1';
 					-- indicate that the housekeeping writer is finished
-					housekeeping_wr_finished_o <= '1';
-					hk_mem_byte_address_o      <= c_HK_RESET_BYTE_ADDR;
-					hk_mem_read_o              <= '0';
-					send_buffer_wrreq_o        <= '0';
-					send_buffer_wrdata_o       <= x"00";
+					housekeeping_wr_finished_o    <= '1';
+					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_read_o                 <= '0';
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_data_end_wrreq_o  <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
 				-- conditional output signals
 
 				-- all the other states (not defined)
