@@ -33,21 +33,21 @@
 //refer to the applicable agreement for further details.
 
 
-//scfifo ADD_RAM_OUTPUT_REGISTER="ON" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=32 LPM_SHOWAHEAD="OFF" LPM_WIDTH=256 LPM_WIDTHU=5 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV"
+//scfifo ADD_RAM_OUTPUT_REGISTER="ON" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=32 LPM_SHOWAHEAD="OFF" LPM_WIDTH=256 LPM_WIDTHU=5 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="M9K" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=M9K"
 //VERSION_BEGIN 18.1 cbx_altdpram 2018:09:12:13:04:24:SJ cbx_altera_counter 2018:09:12:13:04:24:SJ cbx_altera_syncram 2018:09:12:13:04:24:SJ cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_fifo_common 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_scfifo 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
 
-//a_dpfifo ADD_RAM_OUTPUT_REGISTER="ON" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=32 LPM_SHOWAHEAD="OFF" lpm_width=256 lpm_widthu=5 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV"
+//a_dpfifo ADD_RAM_OUTPUT_REGISTER="ON" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=32 LPM_SHOWAHEAD="OFF" lpm_width=256 lpm_widthu=5 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=M9K"
 //VERSION_BEGIN 18.1 cbx_altdpram 2018:09:12:13:04:24:SJ cbx_altera_counter 2018:09:12:13:04:24:SJ cbx_altera_syncram 2018:09:12:13:04:24:SJ cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_fifo_common 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_scfifo 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
 
-//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=32 NUMWORDS_B=32 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="CLOCK1" WIDTH_A=256 WIDTH_B=256 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=5 WIDTHAD_B=5 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 clock1 clocken1 data_a q_b wren_a
+//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=32 NUMWORDS_B=32 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="CLOCK1" RAM_BLOCK_TYPE="M9K" WIDTH_A=256 WIDTH_B=256 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=5 WIDTHAD_B=5 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 clock1 clocken1 data_a q_b wren_a
 //VERSION_BEGIN 18.1 cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
-//synthesis_resources = ram_bits (AUTO) 8192 
+//synthesis_resources = M9K 8 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -348,6 +348,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[0]}),
@@ -362,7 +363,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -382,7 +382,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_0.clk0_core_clock_enable = "none",
+		ram_block1a_0.clk0_core_clock_enable = "ena0",
 		ram_block1a_0.clk0_input_clock_enable = "none",
 		ram_block1a_0.clk1_core_clock_enable = "none",
 		ram_block1a_0.clk1_input_clock_enable = "none",
@@ -410,7 +410,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_0.port_b_logical_ram_depth = 32,
 		ram_block1a_0.port_b_logical_ram_width = 256,
 		ram_block1a_0.port_b_read_enable_clock = "clock1",
-		ram_block1a_0.ram_block_type = "AUTO",
+		ram_block1a_0.ram_block_type = "M9K",
 		ram_block1a_0.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_1
 	( 
@@ -418,6 +418,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[1]}),
@@ -432,7 +433,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -452,7 +452,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_1.clk0_core_clock_enable = "none",
+		ram_block1a_1.clk0_core_clock_enable = "ena0",
 		ram_block1a_1.clk0_input_clock_enable = "none",
 		ram_block1a_1.clk1_core_clock_enable = "none",
 		ram_block1a_1.clk1_input_clock_enable = "none",
@@ -480,7 +480,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_1.port_b_logical_ram_depth = 32,
 		ram_block1a_1.port_b_logical_ram_width = 256,
 		ram_block1a_1.port_b_read_enable_clock = "clock1",
-		ram_block1a_1.ram_block_type = "AUTO",
+		ram_block1a_1.ram_block_type = "M9K",
 		ram_block1a_1.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_2
 	( 
@@ -488,6 +488,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[2]}),
@@ -502,7 +503,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -522,7 +522,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_2.clk0_core_clock_enable = "none",
+		ram_block1a_2.clk0_core_clock_enable = "ena0",
 		ram_block1a_2.clk0_input_clock_enable = "none",
 		ram_block1a_2.clk1_core_clock_enable = "none",
 		ram_block1a_2.clk1_input_clock_enable = "none",
@@ -550,7 +550,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_2.port_b_logical_ram_depth = 32,
 		ram_block1a_2.port_b_logical_ram_width = 256,
 		ram_block1a_2.port_b_read_enable_clock = "clock1",
-		ram_block1a_2.ram_block_type = "AUTO",
+		ram_block1a_2.ram_block_type = "M9K",
 		ram_block1a_2.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_3
 	( 
@@ -558,6 +558,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[3]}),
@@ -572,7 +573,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -592,7 +592,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_3.clk0_core_clock_enable = "none",
+		ram_block1a_3.clk0_core_clock_enable = "ena0",
 		ram_block1a_3.clk0_input_clock_enable = "none",
 		ram_block1a_3.clk1_core_clock_enable = "none",
 		ram_block1a_3.clk1_input_clock_enable = "none",
@@ -620,7 +620,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_3.port_b_logical_ram_depth = 32,
 		ram_block1a_3.port_b_logical_ram_width = 256,
 		ram_block1a_3.port_b_read_enable_clock = "clock1",
-		ram_block1a_3.ram_block_type = "AUTO",
+		ram_block1a_3.ram_block_type = "M9K",
 		ram_block1a_3.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_4
 	( 
@@ -628,6 +628,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[4]}),
@@ -642,7 +643,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -662,7 +662,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_4.clk0_core_clock_enable = "none",
+		ram_block1a_4.clk0_core_clock_enable = "ena0",
 		ram_block1a_4.clk0_input_clock_enable = "none",
 		ram_block1a_4.clk1_core_clock_enable = "none",
 		ram_block1a_4.clk1_input_clock_enable = "none",
@@ -690,7 +690,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_4.port_b_logical_ram_depth = 32,
 		ram_block1a_4.port_b_logical_ram_width = 256,
 		ram_block1a_4.port_b_read_enable_clock = "clock1",
-		ram_block1a_4.ram_block_type = "AUTO",
+		ram_block1a_4.ram_block_type = "M9K",
 		ram_block1a_4.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_5
 	( 
@@ -698,6 +698,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[5]}),
@@ -712,7 +713,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -732,7 +732,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_5.clk0_core_clock_enable = "none",
+		ram_block1a_5.clk0_core_clock_enable = "ena0",
 		ram_block1a_5.clk0_input_clock_enable = "none",
 		ram_block1a_5.clk1_core_clock_enable = "none",
 		ram_block1a_5.clk1_input_clock_enable = "none",
@@ -760,7 +760,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_5.port_b_logical_ram_depth = 32,
 		ram_block1a_5.port_b_logical_ram_width = 256,
 		ram_block1a_5.port_b_read_enable_clock = "clock1",
-		ram_block1a_5.ram_block_type = "AUTO",
+		ram_block1a_5.ram_block_type = "M9K",
 		ram_block1a_5.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_6
 	( 
@@ -768,6 +768,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[6]}),
@@ -782,7 +783,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -802,7 +802,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_6.clk0_core_clock_enable = "none",
+		ram_block1a_6.clk0_core_clock_enable = "ena0",
 		ram_block1a_6.clk0_input_clock_enable = "none",
 		ram_block1a_6.clk1_core_clock_enable = "none",
 		ram_block1a_6.clk1_input_clock_enable = "none",
@@ -830,7 +830,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_6.port_b_logical_ram_depth = 32,
 		ram_block1a_6.port_b_logical_ram_width = 256,
 		ram_block1a_6.port_b_read_enable_clock = "clock1",
-		ram_block1a_6.ram_block_type = "AUTO",
+		ram_block1a_6.ram_block_type = "M9K",
 		ram_block1a_6.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_7
 	( 
@@ -838,6 +838,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[7]}),
@@ -852,7 +853,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -872,7 +872,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_7.clk0_core_clock_enable = "none",
+		ram_block1a_7.clk0_core_clock_enable = "ena0",
 		ram_block1a_7.clk0_input_clock_enable = "none",
 		ram_block1a_7.clk1_core_clock_enable = "none",
 		ram_block1a_7.clk1_input_clock_enable = "none",
@@ -900,7 +900,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_7.port_b_logical_ram_depth = 32,
 		ram_block1a_7.port_b_logical_ram_width = 256,
 		ram_block1a_7.port_b_read_enable_clock = "clock1",
-		ram_block1a_7.ram_block_type = "AUTO",
+		ram_block1a_7.ram_block_type = "M9K",
 		ram_block1a_7.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_8
 	( 
@@ -908,6 +908,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[8]}),
@@ -922,7 +923,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -942,7 +942,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_8.clk0_core_clock_enable = "none",
+		ram_block1a_8.clk0_core_clock_enable = "ena0",
 		ram_block1a_8.clk0_input_clock_enable = "none",
 		ram_block1a_8.clk1_core_clock_enable = "none",
 		ram_block1a_8.clk1_input_clock_enable = "none",
@@ -970,7 +970,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_8.port_b_logical_ram_depth = 32,
 		ram_block1a_8.port_b_logical_ram_width = 256,
 		ram_block1a_8.port_b_read_enable_clock = "clock1",
-		ram_block1a_8.ram_block_type = "AUTO",
+		ram_block1a_8.ram_block_type = "M9K",
 		ram_block1a_8.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_9
 	( 
@@ -978,6 +978,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[9]}),
@@ -992,7 +993,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1012,7 +1012,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_9.clk0_core_clock_enable = "none",
+		ram_block1a_9.clk0_core_clock_enable = "ena0",
 		ram_block1a_9.clk0_input_clock_enable = "none",
 		ram_block1a_9.clk1_core_clock_enable = "none",
 		ram_block1a_9.clk1_input_clock_enable = "none",
@@ -1040,7 +1040,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_9.port_b_logical_ram_depth = 32,
 		ram_block1a_9.port_b_logical_ram_width = 256,
 		ram_block1a_9.port_b_read_enable_clock = "clock1",
-		ram_block1a_9.ram_block_type = "AUTO",
+		ram_block1a_9.ram_block_type = "M9K",
 		ram_block1a_9.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_10
 	( 
@@ -1048,6 +1048,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[10]}),
@@ -1062,7 +1063,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1082,7 +1082,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_10.clk0_core_clock_enable = "none",
+		ram_block1a_10.clk0_core_clock_enable = "ena0",
 		ram_block1a_10.clk0_input_clock_enable = "none",
 		ram_block1a_10.clk1_core_clock_enable = "none",
 		ram_block1a_10.clk1_input_clock_enable = "none",
@@ -1110,7 +1110,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_10.port_b_logical_ram_depth = 32,
 		ram_block1a_10.port_b_logical_ram_width = 256,
 		ram_block1a_10.port_b_read_enable_clock = "clock1",
-		ram_block1a_10.ram_block_type = "AUTO",
+		ram_block1a_10.ram_block_type = "M9K",
 		ram_block1a_10.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_11
 	( 
@@ -1118,6 +1118,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[11]}),
@@ -1132,7 +1133,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1152,7 +1152,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_11.clk0_core_clock_enable = "none",
+		ram_block1a_11.clk0_core_clock_enable = "ena0",
 		ram_block1a_11.clk0_input_clock_enable = "none",
 		ram_block1a_11.clk1_core_clock_enable = "none",
 		ram_block1a_11.clk1_input_clock_enable = "none",
@@ -1180,7 +1180,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_11.port_b_logical_ram_depth = 32,
 		ram_block1a_11.port_b_logical_ram_width = 256,
 		ram_block1a_11.port_b_read_enable_clock = "clock1",
-		ram_block1a_11.ram_block_type = "AUTO",
+		ram_block1a_11.ram_block_type = "M9K",
 		ram_block1a_11.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_12
 	( 
@@ -1188,6 +1188,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[12]}),
@@ -1202,7 +1203,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1222,7 +1222,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_12.clk0_core_clock_enable = "none",
+		ram_block1a_12.clk0_core_clock_enable = "ena0",
 		ram_block1a_12.clk0_input_clock_enable = "none",
 		ram_block1a_12.clk1_core_clock_enable = "none",
 		ram_block1a_12.clk1_input_clock_enable = "none",
@@ -1250,7 +1250,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_12.port_b_logical_ram_depth = 32,
 		ram_block1a_12.port_b_logical_ram_width = 256,
 		ram_block1a_12.port_b_read_enable_clock = "clock1",
-		ram_block1a_12.ram_block_type = "AUTO",
+		ram_block1a_12.ram_block_type = "M9K",
 		ram_block1a_12.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_13
 	( 
@@ -1258,6 +1258,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[13]}),
@@ -1272,7 +1273,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1292,7 +1292,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_13.clk0_core_clock_enable = "none",
+		ram_block1a_13.clk0_core_clock_enable = "ena0",
 		ram_block1a_13.clk0_input_clock_enable = "none",
 		ram_block1a_13.clk1_core_clock_enable = "none",
 		ram_block1a_13.clk1_input_clock_enable = "none",
@@ -1320,7 +1320,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_13.port_b_logical_ram_depth = 32,
 		ram_block1a_13.port_b_logical_ram_width = 256,
 		ram_block1a_13.port_b_read_enable_clock = "clock1",
-		ram_block1a_13.ram_block_type = "AUTO",
+		ram_block1a_13.ram_block_type = "M9K",
 		ram_block1a_13.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_14
 	( 
@@ -1328,6 +1328,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[14]}),
@@ -1342,7 +1343,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1362,7 +1362,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_14.clk0_core_clock_enable = "none",
+		ram_block1a_14.clk0_core_clock_enable = "ena0",
 		ram_block1a_14.clk0_input_clock_enable = "none",
 		ram_block1a_14.clk1_core_clock_enable = "none",
 		ram_block1a_14.clk1_input_clock_enable = "none",
@@ -1390,7 +1390,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_14.port_b_logical_ram_depth = 32,
 		ram_block1a_14.port_b_logical_ram_width = 256,
 		ram_block1a_14.port_b_read_enable_clock = "clock1",
-		ram_block1a_14.ram_block_type = "AUTO",
+		ram_block1a_14.ram_block_type = "M9K",
 		ram_block1a_14.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_15
 	( 
@@ -1398,6 +1398,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[15]}),
@@ -1412,7 +1413,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1432,7 +1432,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_15.clk0_core_clock_enable = "none",
+		ram_block1a_15.clk0_core_clock_enable = "ena0",
 		ram_block1a_15.clk0_input_clock_enable = "none",
 		ram_block1a_15.clk1_core_clock_enable = "none",
 		ram_block1a_15.clk1_input_clock_enable = "none",
@@ -1460,7 +1460,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_15.port_b_logical_ram_depth = 32,
 		ram_block1a_15.port_b_logical_ram_width = 256,
 		ram_block1a_15.port_b_read_enable_clock = "clock1",
-		ram_block1a_15.ram_block_type = "AUTO",
+		ram_block1a_15.ram_block_type = "M9K",
 		ram_block1a_15.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_16
 	( 
@@ -1468,6 +1468,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[16]}),
@@ -1482,7 +1483,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1502,7 +1502,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_16.clk0_core_clock_enable = "none",
+		ram_block1a_16.clk0_core_clock_enable = "ena0",
 		ram_block1a_16.clk0_input_clock_enable = "none",
 		ram_block1a_16.clk1_core_clock_enable = "none",
 		ram_block1a_16.clk1_input_clock_enable = "none",
@@ -1530,7 +1530,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_16.port_b_logical_ram_depth = 32,
 		ram_block1a_16.port_b_logical_ram_width = 256,
 		ram_block1a_16.port_b_read_enable_clock = "clock1",
-		ram_block1a_16.ram_block_type = "AUTO",
+		ram_block1a_16.ram_block_type = "M9K",
 		ram_block1a_16.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_17
 	( 
@@ -1538,6 +1538,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[17]}),
@@ -1552,7 +1553,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1572,7 +1572,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_17.clk0_core_clock_enable = "none",
+		ram_block1a_17.clk0_core_clock_enable = "ena0",
 		ram_block1a_17.clk0_input_clock_enable = "none",
 		ram_block1a_17.clk1_core_clock_enable = "none",
 		ram_block1a_17.clk1_input_clock_enable = "none",
@@ -1600,7 +1600,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_17.port_b_logical_ram_depth = 32,
 		ram_block1a_17.port_b_logical_ram_width = 256,
 		ram_block1a_17.port_b_read_enable_clock = "clock1",
-		ram_block1a_17.ram_block_type = "AUTO",
+		ram_block1a_17.ram_block_type = "M9K",
 		ram_block1a_17.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_18
 	( 
@@ -1608,6 +1608,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[18]}),
@@ -1622,7 +1623,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1642,7 +1642,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_18.clk0_core_clock_enable = "none",
+		ram_block1a_18.clk0_core_clock_enable = "ena0",
 		ram_block1a_18.clk0_input_clock_enable = "none",
 		ram_block1a_18.clk1_core_clock_enable = "none",
 		ram_block1a_18.clk1_input_clock_enable = "none",
@@ -1670,7 +1670,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_18.port_b_logical_ram_depth = 32,
 		ram_block1a_18.port_b_logical_ram_width = 256,
 		ram_block1a_18.port_b_read_enable_clock = "clock1",
-		ram_block1a_18.ram_block_type = "AUTO",
+		ram_block1a_18.ram_block_type = "M9K",
 		ram_block1a_18.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_19
 	( 
@@ -1678,6 +1678,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[19]}),
@@ -1692,7 +1693,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1712,7 +1712,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_19.clk0_core_clock_enable = "none",
+		ram_block1a_19.clk0_core_clock_enable = "ena0",
 		ram_block1a_19.clk0_input_clock_enable = "none",
 		ram_block1a_19.clk1_core_clock_enable = "none",
 		ram_block1a_19.clk1_input_clock_enable = "none",
@@ -1740,7 +1740,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_19.port_b_logical_ram_depth = 32,
 		ram_block1a_19.port_b_logical_ram_width = 256,
 		ram_block1a_19.port_b_read_enable_clock = "clock1",
-		ram_block1a_19.ram_block_type = "AUTO",
+		ram_block1a_19.ram_block_type = "M9K",
 		ram_block1a_19.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_20
 	( 
@@ -1748,6 +1748,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[20]}),
@@ -1762,7 +1763,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1782,7 +1782,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_20.clk0_core_clock_enable = "none",
+		ram_block1a_20.clk0_core_clock_enable = "ena0",
 		ram_block1a_20.clk0_input_clock_enable = "none",
 		ram_block1a_20.clk1_core_clock_enable = "none",
 		ram_block1a_20.clk1_input_clock_enable = "none",
@@ -1810,7 +1810,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_20.port_b_logical_ram_depth = 32,
 		ram_block1a_20.port_b_logical_ram_width = 256,
 		ram_block1a_20.port_b_read_enable_clock = "clock1",
-		ram_block1a_20.ram_block_type = "AUTO",
+		ram_block1a_20.ram_block_type = "M9K",
 		ram_block1a_20.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_21
 	( 
@@ -1818,6 +1818,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[21]}),
@@ -1832,7 +1833,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1852,7 +1852,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_21.clk0_core_clock_enable = "none",
+		ram_block1a_21.clk0_core_clock_enable = "ena0",
 		ram_block1a_21.clk0_input_clock_enable = "none",
 		ram_block1a_21.clk1_core_clock_enable = "none",
 		ram_block1a_21.clk1_input_clock_enable = "none",
@@ -1880,7 +1880,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_21.port_b_logical_ram_depth = 32,
 		ram_block1a_21.port_b_logical_ram_width = 256,
 		ram_block1a_21.port_b_read_enable_clock = "clock1",
-		ram_block1a_21.ram_block_type = "AUTO",
+		ram_block1a_21.ram_block_type = "M9K",
 		ram_block1a_21.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_22
 	( 
@@ -1888,6 +1888,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[22]}),
@@ -1902,7 +1903,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1922,7 +1922,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_22.clk0_core_clock_enable = "none",
+		ram_block1a_22.clk0_core_clock_enable = "ena0",
 		ram_block1a_22.clk0_input_clock_enable = "none",
 		ram_block1a_22.clk1_core_clock_enable = "none",
 		ram_block1a_22.clk1_input_clock_enable = "none",
@@ -1950,7 +1950,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_22.port_b_logical_ram_depth = 32,
 		ram_block1a_22.port_b_logical_ram_width = 256,
 		ram_block1a_22.port_b_read_enable_clock = "clock1",
-		ram_block1a_22.ram_block_type = "AUTO",
+		ram_block1a_22.ram_block_type = "M9K",
 		ram_block1a_22.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_23
 	( 
@@ -1958,6 +1958,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[23]}),
@@ -1972,7 +1973,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -1992,7 +1992,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_23.clk0_core_clock_enable = "none",
+		ram_block1a_23.clk0_core_clock_enable = "ena0",
 		ram_block1a_23.clk0_input_clock_enable = "none",
 		ram_block1a_23.clk1_core_clock_enable = "none",
 		ram_block1a_23.clk1_input_clock_enable = "none",
@@ -2020,7 +2020,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_23.port_b_logical_ram_depth = 32,
 		ram_block1a_23.port_b_logical_ram_width = 256,
 		ram_block1a_23.port_b_read_enable_clock = "clock1",
-		ram_block1a_23.ram_block_type = "AUTO",
+		ram_block1a_23.ram_block_type = "M9K",
 		ram_block1a_23.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_24
 	( 
@@ -2028,6 +2028,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[24]}),
@@ -2042,7 +2043,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2062,7 +2062,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_24.clk0_core_clock_enable = "none",
+		ram_block1a_24.clk0_core_clock_enable = "ena0",
 		ram_block1a_24.clk0_input_clock_enable = "none",
 		ram_block1a_24.clk1_core_clock_enable = "none",
 		ram_block1a_24.clk1_input_clock_enable = "none",
@@ -2090,7 +2090,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_24.port_b_logical_ram_depth = 32,
 		ram_block1a_24.port_b_logical_ram_width = 256,
 		ram_block1a_24.port_b_read_enable_clock = "clock1",
-		ram_block1a_24.ram_block_type = "AUTO",
+		ram_block1a_24.ram_block_type = "M9K",
 		ram_block1a_24.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_25
 	( 
@@ -2098,6 +2098,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[25]}),
@@ -2112,7 +2113,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2132,7 +2132,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_25.clk0_core_clock_enable = "none",
+		ram_block1a_25.clk0_core_clock_enable = "ena0",
 		ram_block1a_25.clk0_input_clock_enable = "none",
 		ram_block1a_25.clk1_core_clock_enable = "none",
 		ram_block1a_25.clk1_input_clock_enable = "none",
@@ -2160,7 +2160,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_25.port_b_logical_ram_depth = 32,
 		ram_block1a_25.port_b_logical_ram_width = 256,
 		ram_block1a_25.port_b_read_enable_clock = "clock1",
-		ram_block1a_25.ram_block_type = "AUTO",
+		ram_block1a_25.ram_block_type = "M9K",
 		ram_block1a_25.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_26
 	( 
@@ -2168,6 +2168,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[26]}),
@@ -2182,7 +2183,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2202,7 +2202,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_26.clk0_core_clock_enable = "none",
+		ram_block1a_26.clk0_core_clock_enable = "ena0",
 		ram_block1a_26.clk0_input_clock_enable = "none",
 		ram_block1a_26.clk1_core_clock_enable = "none",
 		ram_block1a_26.clk1_input_clock_enable = "none",
@@ -2230,7 +2230,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_26.port_b_logical_ram_depth = 32,
 		ram_block1a_26.port_b_logical_ram_width = 256,
 		ram_block1a_26.port_b_read_enable_clock = "clock1",
-		ram_block1a_26.ram_block_type = "AUTO",
+		ram_block1a_26.ram_block_type = "M9K",
 		ram_block1a_26.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_27
 	( 
@@ -2238,6 +2238,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[27]}),
@@ -2252,7 +2253,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2272,7 +2272,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_27.clk0_core_clock_enable = "none",
+		ram_block1a_27.clk0_core_clock_enable = "ena0",
 		ram_block1a_27.clk0_input_clock_enable = "none",
 		ram_block1a_27.clk1_core_clock_enable = "none",
 		ram_block1a_27.clk1_input_clock_enable = "none",
@@ -2300,7 +2300,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_27.port_b_logical_ram_depth = 32,
 		ram_block1a_27.port_b_logical_ram_width = 256,
 		ram_block1a_27.port_b_read_enable_clock = "clock1",
-		ram_block1a_27.ram_block_type = "AUTO",
+		ram_block1a_27.ram_block_type = "M9K",
 		ram_block1a_27.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_28
 	( 
@@ -2308,6 +2308,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[28]}),
@@ -2322,7 +2323,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2342,7 +2342,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_28.clk0_core_clock_enable = "none",
+		ram_block1a_28.clk0_core_clock_enable = "ena0",
 		ram_block1a_28.clk0_input_clock_enable = "none",
 		ram_block1a_28.clk1_core_clock_enable = "none",
 		ram_block1a_28.clk1_input_clock_enable = "none",
@@ -2370,7 +2370,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_28.port_b_logical_ram_depth = 32,
 		ram_block1a_28.port_b_logical_ram_width = 256,
 		ram_block1a_28.port_b_read_enable_clock = "clock1",
-		ram_block1a_28.ram_block_type = "AUTO",
+		ram_block1a_28.ram_block_type = "M9K",
 		ram_block1a_28.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_29
 	( 
@@ -2378,6 +2378,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[29]}),
@@ -2392,7 +2393,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2412,7 +2412,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_29.clk0_core_clock_enable = "none",
+		ram_block1a_29.clk0_core_clock_enable = "ena0",
 		ram_block1a_29.clk0_input_clock_enable = "none",
 		ram_block1a_29.clk1_core_clock_enable = "none",
 		ram_block1a_29.clk1_input_clock_enable = "none",
@@ -2440,7 +2440,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_29.port_b_logical_ram_depth = 32,
 		ram_block1a_29.port_b_logical_ram_width = 256,
 		ram_block1a_29.port_b_read_enable_clock = "clock1",
-		ram_block1a_29.ram_block_type = "AUTO",
+		ram_block1a_29.ram_block_type = "M9K",
 		ram_block1a_29.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_30
 	( 
@@ -2448,6 +2448,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[30]}),
@@ -2462,7 +2463,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2482,7 +2482,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_30.clk0_core_clock_enable = "none",
+		ram_block1a_30.clk0_core_clock_enable = "ena0",
 		ram_block1a_30.clk0_input_clock_enable = "none",
 		ram_block1a_30.clk1_core_clock_enable = "none",
 		ram_block1a_30.clk1_input_clock_enable = "none",
@@ -2510,7 +2510,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_30.port_b_logical_ram_depth = 32,
 		ram_block1a_30.port_b_logical_ram_width = 256,
 		ram_block1a_30.port_b_read_enable_clock = "clock1",
-		ram_block1a_30.ram_block_type = "AUTO",
+		ram_block1a_30.ram_block_type = "M9K",
 		ram_block1a_30.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_31
 	( 
@@ -2518,6 +2518,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[31]}),
@@ -2532,7 +2533,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2552,7 +2552,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_31.clk0_core_clock_enable = "none",
+		ram_block1a_31.clk0_core_clock_enable = "ena0",
 		ram_block1a_31.clk0_input_clock_enable = "none",
 		ram_block1a_31.clk1_core_clock_enable = "none",
 		ram_block1a_31.clk1_input_clock_enable = "none",
@@ -2580,7 +2580,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_31.port_b_logical_ram_depth = 32,
 		ram_block1a_31.port_b_logical_ram_width = 256,
 		ram_block1a_31.port_b_read_enable_clock = "clock1",
-		ram_block1a_31.ram_block_type = "AUTO",
+		ram_block1a_31.ram_block_type = "M9K",
 		ram_block1a_31.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_32
 	( 
@@ -2588,6 +2588,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[32]}),
@@ -2602,7 +2603,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2622,7 +2622,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_32.clk0_core_clock_enable = "none",
+		ram_block1a_32.clk0_core_clock_enable = "ena0",
 		ram_block1a_32.clk0_input_clock_enable = "none",
 		ram_block1a_32.clk1_core_clock_enable = "none",
 		ram_block1a_32.clk1_input_clock_enable = "none",
@@ -2650,7 +2650,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_32.port_b_logical_ram_depth = 32,
 		ram_block1a_32.port_b_logical_ram_width = 256,
 		ram_block1a_32.port_b_read_enable_clock = "clock1",
-		ram_block1a_32.ram_block_type = "AUTO",
+		ram_block1a_32.ram_block_type = "M9K",
 		ram_block1a_32.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_33
 	( 
@@ -2658,6 +2658,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[33]}),
@@ -2672,7 +2673,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2692,7 +2692,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_33.clk0_core_clock_enable = "none",
+		ram_block1a_33.clk0_core_clock_enable = "ena0",
 		ram_block1a_33.clk0_input_clock_enable = "none",
 		ram_block1a_33.clk1_core_clock_enable = "none",
 		ram_block1a_33.clk1_input_clock_enable = "none",
@@ -2720,7 +2720,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_33.port_b_logical_ram_depth = 32,
 		ram_block1a_33.port_b_logical_ram_width = 256,
 		ram_block1a_33.port_b_read_enable_clock = "clock1",
-		ram_block1a_33.ram_block_type = "AUTO",
+		ram_block1a_33.ram_block_type = "M9K",
 		ram_block1a_33.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_34
 	( 
@@ -2728,6 +2728,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[34]}),
@@ -2742,7 +2743,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2762,7 +2762,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_34.clk0_core_clock_enable = "none",
+		ram_block1a_34.clk0_core_clock_enable = "ena0",
 		ram_block1a_34.clk0_input_clock_enable = "none",
 		ram_block1a_34.clk1_core_clock_enable = "none",
 		ram_block1a_34.clk1_input_clock_enable = "none",
@@ -2790,7 +2790,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_34.port_b_logical_ram_depth = 32,
 		ram_block1a_34.port_b_logical_ram_width = 256,
 		ram_block1a_34.port_b_read_enable_clock = "clock1",
-		ram_block1a_34.ram_block_type = "AUTO",
+		ram_block1a_34.ram_block_type = "M9K",
 		ram_block1a_34.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_35
 	( 
@@ -2798,6 +2798,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[35]}),
@@ -2812,7 +2813,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2832,7 +2832,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_35.clk0_core_clock_enable = "none",
+		ram_block1a_35.clk0_core_clock_enable = "ena0",
 		ram_block1a_35.clk0_input_clock_enable = "none",
 		ram_block1a_35.clk1_core_clock_enable = "none",
 		ram_block1a_35.clk1_input_clock_enable = "none",
@@ -2860,7 +2860,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_35.port_b_logical_ram_depth = 32,
 		ram_block1a_35.port_b_logical_ram_width = 256,
 		ram_block1a_35.port_b_read_enable_clock = "clock1",
-		ram_block1a_35.ram_block_type = "AUTO",
+		ram_block1a_35.ram_block_type = "M9K",
 		ram_block1a_35.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_36
 	( 
@@ -2868,6 +2868,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[36]}),
@@ -2882,7 +2883,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2902,7 +2902,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_36.clk0_core_clock_enable = "none",
+		ram_block1a_36.clk0_core_clock_enable = "ena0",
 		ram_block1a_36.clk0_input_clock_enable = "none",
 		ram_block1a_36.clk1_core_clock_enable = "none",
 		ram_block1a_36.clk1_input_clock_enable = "none",
@@ -2930,7 +2930,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_36.port_b_logical_ram_depth = 32,
 		ram_block1a_36.port_b_logical_ram_width = 256,
 		ram_block1a_36.port_b_read_enable_clock = "clock1",
-		ram_block1a_36.ram_block_type = "AUTO",
+		ram_block1a_36.ram_block_type = "M9K",
 		ram_block1a_36.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_37
 	( 
@@ -2938,6 +2938,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[37]}),
@@ -2952,7 +2953,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -2972,7 +2972,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_37.clk0_core_clock_enable = "none",
+		ram_block1a_37.clk0_core_clock_enable = "ena0",
 		ram_block1a_37.clk0_input_clock_enable = "none",
 		ram_block1a_37.clk1_core_clock_enable = "none",
 		ram_block1a_37.clk1_input_clock_enable = "none",
@@ -3000,7 +3000,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_37.port_b_logical_ram_depth = 32,
 		ram_block1a_37.port_b_logical_ram_width = 256,
 		ram_block1a_37.port_b_read_enable_clock = "clock1",
-		ram_block1a_37.ram_block_type = "AUTO",
+		ram_block1a_37.ram_block_type = "M9K",
 		ram_block1a_37.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_38
 	( 
@@ -3008,6 +3008,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[38]}),
@@ -3022,7 +3023,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3042,7 +3042,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_38.clk0_core_clock_enable = "none",
+		ram_block1a_38.clk0_core_clock_enable = "ena0",
 		ram_block1a_38.clk0_input_clock_enable = "none",
 		ram_block1a_38.clk1_core_clock_enable = "none",
 		ram_block1a_38.clk1_input_clock_enable = "none",
@@ -3070,7 +3070,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_38.port_b_logical_ram_depth = 32,
 		ram_block1a_38.port_b_logical_ram_width = 256,
 		ram_block1a_38.port_b_read_enable_clock = "clock1",
-		ram_block1a_38.ram_block_type = "AUTO",
+		ram_block1a_38.ram_block_type = "M9K",
 		ram_block1a_38.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_39
 	( 
@@ -3078,6 +3078,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[39]}),
@@ -3092,7 +3093,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3112,7 +3112,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_39.clk0_core_clock_enable = "none",
+		ram_block1a_39.clk0_core_clock_enable = "ena0",
 		ram_block1a_39.clk0_input_clock_enable = "none",
 		ram_block1a_39.clk1_core_clock_enable = "none",
 		ram_block1a_39.clk1_input_clock_enable = "none",
@@ -3140,7 +3140,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_39.port_b_logical_ram_depth = 32,
 		ram_block1a_39.port_b_logical_ram_width = 256,
 		ram_block1a_39.port_b_read_enable_clock = "clock1",
-		ram_block1a_39.ram_block_type = "AUTO",
+		ram_block1a_39.ram_block_type = "M9K",
 		ram_block1a_39.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_40
 	( 
@@ -3148,6 +3148,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[40]}),
@@ -3162,7 +3163,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3182,7 +3182,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_40.clk0_core_clock_enable = "none",
+		ram_block1a_40.clk0_core_clock_enable = "ena0",
 		ram_block1a_40.clk0_input_clock_enable = "none",
 		ram_block1a_40.clk1_core_clock_enable = "none",
 		ram_block1a_40.clk1_input_clock_enable = "none",
@@ -3210,7 +3210,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_40.port_b_logical_ram_depth = 32,
 		ram_block1a_40.port_b_logical_ram_width = 256,
 		ram_block1a_40.port_b_read_enable_clock = "clock1",
-		ram_block1a_40.ram_block_type = "AUTO",
+		ram_block1a_40.ram_block_type = "M9K",
 		ram_block1a_40.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_41
 	( 
@@ -3218,6 +3218,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[41]}),
@@ -3232,7 +3233,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3252,7 +3252,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_41.clk0_core_clock_enable = "none",
+		ram_block1a_41.clk0_core_clock_enable = "ena0",
 		ram_block1a_41.clk0_input_clock_enable = "none",
 		ram_block1a_41.clk1_core_clock_enable = "none",
 		ram_block1a_41.clk1_input_clock_enable = "none",
@@ -3280,7 +3280,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_41.port_b_logical_ram_depth = 32,
 		ram_block1a_41.port_b_logical_ram_width = 256,
 		ram_block1a_41.port_b_read_enable_clock = "clock1",
-		ram_block1a_41.ram_block_type = "AUTO",
+		ram_block1a_41.ram_block_type = "M9K",
 		ram_block1a_41.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_42
 	( 
@@ -3288,6 +3288,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[42]}),
@@ -3302,7 +3303,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3322,7 +3322,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_42.clk0_core_clock_enable = "none",
+		ram_block1a_42.clk0_core_clock_enable = "ena0",
 		ram_block1a_42.clk0_input_clock_enable = "none",
 		ram_block1a_42.clk1_core_clock_enable = "none",
 		ram_block1a_42.clk1_input_clock_enable = "none",
@@ -3350,7 +3350,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_42.port_b_logical_ram_depth = 32,
 		ram_block1a_42.port_b_logical_ram_width = 256,
 		ram_block1a_42.port_b_read_enable_clock = "clock1",
-		ram_block1a_42.ram_block_type = "AUTO",
+		ram_block1a_42.ram_block_type = "M9K",
 		ram_block1a_42.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_43
 	( 
@@ -3358,6 +3358,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[43]}),
@@ -3372,7 +3373,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3392,7 +3392,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_43.clk0_core_clock_enable = "none",
+		ram_block1a_43.clk0_core_clock_enable = "ena0",
 		ram_block1a_43.clk0_input_clock_enable = "none",
 		ram_block1a_43.clk1_core_clock_enable = "none",
 		ram_block1a_43.clk1_input_clock_enable = "none",
@@ -3420,7 +3420,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_43.port_b_logical_ram_depth = 32,
 		ram_block1a_43.port_b_logical_ram_width = 256,
 		ram_block1a_43.port_b_read_enable_clock = "clock1",
-		ram_block1a_43.ram_block_type = "AUTO",
+		ram_block1a_43.ram_block_type = "M9K",
 		ram_block1a_43.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_44
 	( 
@@ -3428,6 +3428,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[44]}),
@@ -3442,7 +3443,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3462,7 +3462,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_44.clk0_core_clock_enable = "none",
+		ram_block1a_44.clk0_core_clock_enable = "ena0",
 		ram_block1a_44.clk0_input_clock_enable = "none",
 		ram_block1a_44.clk1_core_clock_enable = "none",
 		ram_block1a_44.clk1_input_clock_enable = "none",
@@ -3490,7 +3490,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_44.port_b_logical_ram_depth = 32,
 		ram_block1a_44.port_b_logical_ram_width = 256,
 		ram_block1a_44.port_b_read_enable_clock = "clock1",
-		ram_block1a_44.ram_block_type = "AUTO",
+		ram_block1a_44.ram_block_type = "M9K",
 		ram_block1a_44.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_45
 	( 
@@ -3498,6 +3498,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[45]}),
@@ -3512,7 +3513,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3532,7 +3532,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_45.clk0_core_clock_enable = "none",
+		ram_block1a_45.clk0_core_clock_enable = "ena0",
 		ram_block1a_45.clk0_input_clock_enable = "none",
 		ram_block1a_45.clk1_core_clock_enable = "none",
 		ram_block1a_45.clk1_input_clock_enable = "none",
@@ -3560,7 +3560,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_45.port_b_logical_ram_depth = 32,
 		ram_block1a_45.port_b_logical_ram_width = 256,
 		ram_block1a_45.port_b_read_enable_clock = "clock1",
-		ram_block1a_45.ram_block_type = "AUTO",
+		ram_block1a_45.ram_block_type = "M9K",
 		ram_block1a_45.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_46
 	( 
@@ -3568,6 +3568,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[46]}),
@@ -3582,7 +3583,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3602,7 +3602,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_46.clk0_core_clock_enable = "none",
+		ram_block1a_46.clk0_core_clock_enable = "ena0",
 		ram_block1a_46.clk0_input_clock_enable = "none",
 		ram_block1a_46.clk1_core_clock_enable = "none",
 		ram_block1a_46.clk1_input_clock_enable = "none",
@@ -3630,7 +3630,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_46.port_b_logical_ram_depth = 32,
 		ram_block1a_46.port_b_logical_ram_width = 256,
 		ram_block1a_46.port_b_read_enable_clock = "clock1",
-		ram_block1a_46.ram_block_type = "AUTO",
+		ram_block1a_46.ram_block_type = "M9K",
 		ram_block1a_46.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_47
 	( 
@@ -3638,6 +3638,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[47]}),
@@ -3652,7 +3653,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3672,7 +3672,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_47.clk0_core_clock_enable = "none",
+		ram_block1a_47.clk0_core_clock_enable = "ena0",
 		ram_block1a_47.clk0_input_clock_enable = "none",
 		ram_block1a_47.clk1_core_clock_enable = "none",
 		ram_block1a_47.clk1_input_clock_enable = "none",
@@ -3700,7 +3700,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_47.port_b_logical_ram_depth = 32,
 		ram_block1a_47.port_b_logical_ram_width = 256,
 		ram_block1a_47.port_b_read_enable_clock = "clock1",
-		ram_block1a_47.ram_block_type = "AUTO",
+		ram_block1a_47.ram_block_type = "M9K",
 		ram_block1a_47.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_48
 	( 
@@ -3708,6 +3708,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[48]}),
@@ -3722,7 +3723,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3742,7 +3742,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_48.clk0_core_clock_enable = "none",
+		ram_block1a_48.clk0_core_clock_enable = "ena0",
 		ram_block1a_48.clk0_input_clock_enable = "none",
 		ram_block1a_48.clk1_core_clock_enable = "none",
 		ram_block1a_48.clk1_input_clock_enable = "none",
@@ -3770,7 +3770,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_48.port_b_logical_ram_depth = 32,
 		ram_block1a_48.port_b_logical_ram_width = 256,
 		ram_block1a_48.port_b_read_enable_clock = "clock1",
-		ram_block1a_48.ram_block_type = "AUTO",
+		ram_block1a_48.ram_block_type = "M9K",
 		ram_block1a_48.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_49
 	( 
@@ -3778,6 +3778,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[49]}),
@@ -3792,7 +3793,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3812,7 +3812,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_49.clk0_core_clock_enable = "none",
+		ram_block1a_49.clk0_core_clock_enable = "ena0",
 		ram_block1a_49.clk0_input_clock_enable = "none",
 		ram_block1a_49.clk1_core_clock_enable = "none",
 		ram_block1a_49.clk1_input_clock_enable = "none",
@@ -3840,7 +3840,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_49.port_b_logical_ram_depth = 32,
 		ram_block1a_49.port_b_logical_ram_width = 256,
 		ram_block1a_49.port_b_read_enable_clock = "clock1",
-		ram_block1a_49.ram_block_type = "AUTO",
+		ram_block1a_49.ram_block_type = "M9K",
 		ram_block1a_49.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_50
 	( 
@@ -3848,6 +3848,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[50]}),
@@ -3862,7 +3863,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3882,7 +3882,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_50.clk0_core_clock_enable = "none",
+		ram_block1a_50.clk0_core_clock_enable = "ena0",
 		ram_block1a_50.clk0_input_clock_enable = "none",
 		ram_block1a_50.clk1_core_clock_enable = "none",
 		ram_block1a_50.clk1_input_clock_enable = "none",
@@ -3910,7 +3910,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_50.port_b_logical_ram_depth = 32,
 		ram_block1a_50.port_b_logical_ram_width = 256,
 		ram_block1a_50.port_b_read_enable_clock = "clock1",
-		ram_block1a_50.ram_block_type = "AUTO",
+		ram_block1a_50.ram_block_type = "M9K",
 		ram_block1a_50.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_51
 	( 
@@ -3918,6 +3918,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[51]}),
@@ -3932,7 +3933,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -3952,7 +3952,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_51.clk0_core_clock_enable = "none",
+		ram_block1a_51.clk0_core_clock_enable = "ena0",
 		ram_block1a_51.clk0_input_clock_enable = "none",
 		ram_block1a_51.clk1_core_clock_enable = "none",
 		ram_block1a_51.clk1_input_clock_enable = "none",
@@ -3980,7 +3980,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_51.port_b_logical_ram_depth = 32,
 		ram_block1a_51.port_b_logical_ram_width = 256,
 		ram_block1a_51.port_b_read_enable_clock = "clock1",
-		ram_block1a_51.ram_block_type = "AUTO",
+		ram_block1a_51.ram_block_type = "M9K",
 		ram_block1a_51.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_52
 	( 
@@ -3988,6 +3988,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[52]}),
@@ -4002,7 +4003,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4022,7 +4022,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_52.clk0_core_clock_enable = "none",
+		ram_block1a_52.clk0_core_clock_enable = "ena0",
 		ram_block1a_52.clk0_input_clock_enable = "none",
 		ram_block1a_52.clk1_core_clock_enable = "none",
 		ram_block1a_52.clk1_input_clock_enable = "none",
@@ -4050,7 +4050,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_52.port_b_logical_ram_depth = 32,
 		ram_block1a_52.port_b_logical_ram_width = 256,
 		ram_block1a_52.port_b_read_enable_clock = "clock1",
-		ram_block1a_52.ram_block_type = "AUTO",
+		ram_block1a_52.ram_block_type = "M9K",
 		ram_block1a_52.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_53
 	( 
@@ -4058,6 +4058,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[53]}),
@@ -4072,7 +4073,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4092,7 +4092,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_53.clk0_core_clock_enable = "none",
+		ram_block1a_53.clk0_core_clock_enable = "ena0",
 		ram_block1a_53.clk0_input_clock_enable = "none",
 		ram_block1a_53.clk1_core_clock_enable = "none",
 		ram_block1a_53.clk1_input_clock_enable = "none",
@@ -4120,7 +4120,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_53.port_b_logical_ram_depth = 32,
 		ram_block1a_53.port_b_logical_ram_width = 256,
 		ram_block1a_53.port_b_read_enable_clock = "clock1",
-		ram_block1a_53.ram_block_type = "AUTO",
+		ram_block1a_53.ram_block_type = "M9K",
 		ram_block1a_53.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_54
 	( 
@@ -4128,6 +4128,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[54]}),
@@ -4142,7 +4143,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4162,7 +4162,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_54.clk0_core_clock_enable = "none",
+		ram_block1a_54.clk0_core_clock_enable = "ena0",
 		ram_block1a_54.clk0_input_clock_enable = "none",
 		ram_block1a_54.clk1_core_clock_enable = "none",
 		ram_block1a_54.clk1_input_clock_enable = "none",
@@ -4190,7 +4190,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_54.port_b_logical_ram_depth = 32,
 		ram_block1a_54.port_b_logical_ram_width = 256,
 		ram_block1a_54.port_b_read_enable_clock = "clock1",
-		ram_block1a_54.ram_block_type = "AUTO",
+		ram_block1a_54.ram_block_type = "M9K",
 		ram_block1a_54.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_55
 	( 
@@ -4198,6 +4198,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[55]}),
@@ -4212,7 +4213,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4232,7 +4232,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_55.clk0_core_clock_enable = "none",
+		ram_block1a_55.clk0_core_clock_enable = "ena0",
 		ram_block1a_55.clk0_input_clock_enable = "none",
 		ram_block1a_55.clk1_core_clock_enable = "none",
 		ram_block1a_55.clk1_input_clock_enable = "none",
@@ -4260,7 +4260,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_55.port_b_logical_ram_depth = 32,
 		ram_block1a_55.port_b_logical_ram_width = 256,
 		ram_block1a_55.port_b_read_enable_clock = "clock1",
-		ram_block1a_55.ram_block_type = "AUTO",
+		ram_block1a_55.ram_block_type = "M9K",
 		ram_block1a_55.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_56
 	( 
@@ -4268,6 +4268,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[56]}),
@@ -4282,7 +4283,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4302,7 +4302,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_56.clk0_core_clock_enable = "none",
+		ram_block1a_56.clk0_core_clock_enable = "ena0",
 		ram_block1a_56.clk0_input_clock_enable = "none",
 		ram_block1a_56.clk1_core_clock_enable = "none",
 		ram_block1a_56.clk1_input_clock_enable = "none",
@@ -4330,7 +4330,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_56.port_b_logical_ram_depth = 32,
 		ram_block1a_56.port_b_logical_ram_width = 256,
 		ram_block1a_56.port_b_read_enable_clock = "clock1",
-		ram_block1a_56.ram_block_type = "AUTO",
+		ram_block1a_56.ram_block_type = "M9K",
 		ram_block1a_56.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_57
 	( 
@@ -4338,6 +4338,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[57]}),
@@ -4352,7 +4353,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4372,7 +4372,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_57.clk0_core_clock_enable = "none",
+		ram_block1a_57.clk0_core_clock_enable = "ena0",
 		ram_block1a_57.clk0_input_clock_enable = "none",
 		ram_block1a_57.clk1_core_clock_enable = "none",
 		ram_block1a_57.clk1_input_clock_enable = "none",
@@ -4400,7 +4400,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_57.port_b_logical_ram_depth = 32,
 		ram_block1a_57.port_b_logical_ram_width = 256,
 		ram_block1a_57.port_b_read_enable_clock = "clock1",
-		ram_block1a_57.ram_block_type = "AUTO",
+		ram_block1a_57.ram_block_type = "M9K",
 		ram_block1a_57.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_58
 	( 
@@ -4408,6 +4408,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[58]}),
@@ -4422,7 +4423,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4442,7 +4442,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_58.clk0_core_clock_enable = "none",
+		ram_block1a_58.clk0_core_clock_enable = "ena0",
 		ram_block1a_58.clk0_input_clock_enable = "none",
 		ram_block1a_58.clk1_core_clock_enable = "none",
 		ram_block1a_58.clk1_input_clock_enable = "none",
@@ -4470,7 +4470,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_58.port_b_logical_ram_depth = 32,
 		ram_block1a_58.port_b_logical_ram_width = 256,
 		ram_block1a_58.port_b_read_enable_clock = "clock1",
-		ram_block1a_58.ram_block_type = "AUTO",
+		ram_block1a_58.ram_block_type = "M9K",
 		ram_block1a_58.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_59
 	( 
@@ -4478,6 +4478,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[59]}),
@@ -4492,7 +4493,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4512,7 +4512,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_59.clk0_core_clock_enable = "none",
+		ram_block1a_59.clk0_core_clock_enable = "ena0",
 		ram_block1a_59.clk0_input_clock_enable = "none",
 		ram_block1a_59.clk1_core_clock_enable = "none",
 		ram_block1a_59.clk1_input_clock_enable = "none",
@@ -4540,7 +4540,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_59.port_b_logical_ram_depth = 32,
 		ram_block1a_59.port_b_logical_ram_width = 256,
 		ram_block1a_59.port_b_read_enable_clock = "clock1",
-		ram_block1a_59.ram_block_type = "AUTO",
+		ram_block1a_59.ram_block_type = "M9K",
 		ram_block1a_59.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_60
 	( 
@@ -4548,6 +4548,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[60]}),
@@ -4562,7 +4563,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4582,7 +4582,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_60.clk0_core_clock_enable = "none",
+		ram_block1a_60.clk0_core_clock_enable = "ena0",
 		ram_block1a_60.clk0_input_clock_enable = "none",
 		ram_block1a_60.clk1_core_clock_enable = "none",
 		ram_block1a_60.clk1_input_clock_enable = "none",
@@ -4610,7 +4610,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_60.port_b_logical_ram_depth = 32,
 		ram_block1a_60.port_b_logical_ram_width = 256,
 		ram_block1a_60.port_b_read_enable_clock = "clock1",
-		ram_block1a_60.ram_block_type = "AUTO",
+		ram_block1a_60.ram_block_type = "M9K",
 		ram_block1a_60.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_61
 	( 
@@ -4618,6 +4618,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[61]}),
@@ -4632,7 +4633,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4652,7 +4652,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_61.clk0_core_clock_enable = "none",
+		ram_block1a_61.clk0_core_clock_enable = "ena0",
 		ram_block1a_61.clk0_input_clock_enable = "none",
 		ram_block1a_61.clk1_core_clock_enable = "none",
 		ram_block1a_61.clk1_input_clock_enable = "none",
@@ -4680,7 +4680,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_61.port_b_logical_ram_depth = 32,
 		ram_block1a_61.port_b_logical_ram_width = 256,
 		ram_block1a_61.port_b_read_enable_clock = "clock1",
-		ram_block1a_61.ram_block_type = "AUTO",
+		ram_block1a_61.ram_block_type = "M9K",
 		ram_block1a_61.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_62
 	( 
@@ -4688,6 +4688,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[62]}),
@@ -4702,7 +4703,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4722,7 +4722,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_62.clk0_core_clock_enable = "none",
+		ram_block1a_62.clk0_core_clock_enable = "ena0",
 		ram_block1a_62.clk0_input_clock_enable = "none",
 		ram_block1a_62.clk1_core_clock_enable = "none",
 		ram_block1a_62.clk1_input_clock_enable = "none",
@@ -4750,7 +4750,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_62.port_b_logical_ram_depth = 32,
 		ram_block1a_62.port_b_logical_ram_width = 256,
 		ram_block1a_62.port_b_read_enable_clock = "clock1",
-		ram_block1a_62.ram_block_type = "AUTO",
+		ram_block1a_62.ram_block_type = "M9K",
 		ram_block1a_62.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_63
 	( 
@@ -4758,6 +4758,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[63]}),
@@ -4772,7 +4773,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4792,7 +4792,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_63.clk0_core_clock_enable = "none",
+		ram_block1a_63.clk0_core_clock_enable = "ena0",
 		ram_block1a_63.clk0_input_clock_enable = "none",
 		ram_block1a_63.clk1_core_clock_enable = "none",
 		ram_block1a_63.clk1_input_clock_enable = "none",
@@ -4820,7 +4820,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_63.port_b_logical_ram_depth = 32,
 		ram_block1a_63.port_b_logical_ram_width = 256,
 		ram_block1a_63.port_b_read_enable_clock = "clock1",
-		ram_block1a_63.ram_block_type = "AUTO",
+		ram_block1a_63.ram_block_type = "M9K",
 		ram_block1a_63.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_64
 	( 
@@ -4828,6 +4828,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[64]}),
@@ -4842,7 +4843,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4862,7 +4862,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_64.clk0_core_clock_enable = "none",
+		ram_block1a_64.clk0_core_clock_enable = "ena0",
 		ram_block1a_64.clk0_input_clock_enable = "none",
 		ram_block1a_64.clk1_core_clock_enable = "none",
 		ram_block1a_64.clk1_input_clock_enable = "none",
@@ -4890,7 +4890,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_64.port_b_logical_ram_depth = 32,
 		ram_block1a_64.port_b_logical_ram_width = 256,
 		ram_block1a_64.port_b_read_enable_clock = "clock1",
-		ram_block1a_64.ram_block_type = "AUTO",
+		ram_block1a_64.ram_block_type = "M9K",
 		ram_block1a_64.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_65
 	( 
@@ -4898,6 +4898,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[65]}),
@@ -4912,7 +4913,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -4932,7 +4932,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_65.clk0_core_clock_enable = "none",
+		ram_block1a_65.clk0_core_clock_enable = "ena0",
 		ram_block1a_65.clk0_input_clock_enable = "none",
 		ram_block1a_65.clk1_core_clock_enable = "none",
 		ram_block1a_65.clk1_input_clock_enable = "none",
@@ -4960,7 +4960,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_65.port_b_logical_ram_depth = 32,
 		ram_block1a_65.port_b_logical_ram_width = 256,
 		ram_block1a_65.port_b_read_enable_clock = "clock1",
-		ram_block1a_65.ram_block_type = "AUTO",
+		ram_block1a_65.ram_block_type = "M9K",
 		ram_block1a_65.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_66
 	( 
@@ -4968,6 +4968,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[66]}),
@@ -4982,7 +4983,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5002,7 +5002,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_66.clk0_core_clock_enable = "none",
+		ram_block1a_66.clk0_core_clock_enable = "ena0",
 		ram_block1a_66.clk0_input_clock_enable = "none",
 		ram_block1a_66.clk1_core_clock_enable = "none",
 		ram_block1a_66.clk1_input_clock_enable = "none",
@@ -5030,7 +5030,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_66.port_b_logical_ram_depth = 32,
 		ram_block1a_66.port_b_logical_ram_width = 256,
 		ram_block1a_66.port_b_read_enable_clock = "clock1",
-		ram_block1a_66.ram_block_type = "AUTO",
+		ram_block1a_66.ram_block_type = "M9K",
 		ram_block1a_66.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_67
 	( 
@@ -5038,6 +5038,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[67]}),
@@ -5052,7 +5053,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5072,7 +5072,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_67.clk0_core_clock_enable = "none",
+		ram_block1a_67.clk0_core_clock_enable = "ena0",
 		ram_block1a_67.clk0_input_clock_enable = "none",
 		ram_block1a_67.clk1_core_clock_enable = "none",
 		ram_block1a_67.clk1_input_clock_enable = "none",
@@ -5100,7 +5100,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_67.port_b_logical_ram_depth = 32,
 		ram_block1a_67.port_b_logical_ram_width = 256,
 		ram_block1a_67.port_b_read_enable_clock = "clock1",
-		ram_block1a_67.ram_block_type = "AUTO",
+		ram_block1a_67.ram_block_type = "M9K",
 		ram_block1a_67.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_68
 	( 
@@ -5108,6 +5108,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[68]}),
@@ -5122,7 +5123,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5142,7 +5142,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_68.clk0_core_clock_enable = "none",
+		ram_block1a_68.clk0_core_clock_enable = "ena0",
 		ram_block1a_68.clk0_input_clock_enable = "none",
 		ram_block1a_68.clk1_core_clock_enable = "none",
 		ram_block1a_68.clk1_input_clock_enable = "none",
@@ -5170,7 +5170,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_68.port_b_logical_ram_depth = 32,
 		ram_block1a_68.port_b_logical_ram_width = 256,
 		ram_block1a_68.port_b_read_enable_clock = "clock1",
-		ram_block1a_68.ram_block_type = "AUTO",
+		ram_block1a_68.ram_block_type = "M9K",
 		ram_block1a_68.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_69
 	( 
@@ -5178,6 +5178,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[69]}),
@@ -5192,7 +5193,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5212,7 +5212,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_69.clk0_core_clock_enable = "none",
+		ram_block1a_69.clk0_core_clock_enable = "ena0",
 		ram_block1a_69.clk0_input_clock_enable = "none",
 		ram_block1a_69.clk1_core_clock_enable = "none",
 		ram_block1a_69.clk1_input_clock_enable = "none",
@@ -5240,7 +5240,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_69.port_b_logical_ram_depth = 32,
 		ram_block1a_69.port_b_logical_ram_width = 256,
 		ram_block1a_69.port_b_read_enable_clock = "clock1",
-		ram_block1a_69.ram_block_type = "AUTO",
+		ram_block1a_69.ram_block_type = "M9K",
 		ram_block1a_69.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_70
 	( 
@@ -5248,6 +5248,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[70]}),
@@ -5262,7 +5263,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5282,7 +5282,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_70.clk0_core_clock_enable = "none",
+		ram_block1a_70.clk0_core_clock_enable = "ena0",
 		ram_block1a_70.clk0_input_clock_enable = "none",
 		ram_block1a_70.clk1_core_clock_enable = "none",
 		ram_block1a_70.clk1_input_clock_enable = "none",
@@ -5310,7 +5310,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_70.port_b_logical_ram_depth = 32,
 		ram_block1a_70.port_b_logical_ram_width = 256,
 		ram_block1a_70.port_b_read_enable_clock = "clock1",
-		ram_block1a_70.ram_block_type = "AUTO",
+		ram_block1a_70.ram_block_type = "M9K",
 		ram_block1a_70.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_71
 	( 
@@ -5318,6 +5318,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[71]}),
@@ -5332,7 +5333,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5352,7 +5352,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_71.clk0_core_clock_enable = "none",
+		ram_block1a_71.clk0_core_clock_enable = "ena0",
 		ram_block1a_71.clk0_input_clock_enable = "none",
 		ram_block1a_71.clk1_core_clock_enable = "none",
 		ram_block1a_71.clk1_input_clock_enable = "none",
@@ -5380,7 +5380,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_71.port_b_logical_ram_depth = 32,
 		ram_block1a_71.port_b_logical_ram_width = 256,
 		ram_block1a_71.port_b_read_enable_clock = "clock1",
-		ram_block1a_71.ram_block_type = "AUTO",
+		ram_block1a_71.ram_block_type = "M9K",
 		ram_block1a_71.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_72
 	( 
@@ -5388,6 +5388,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[72]}),
@@ -5402,7 +5403,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5422,7 +5422,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_72.clk0_core_clock_enable = "none",
+		ram_block1a_72.clk0_core_clock_enable = "ena0",
 		ram_block1a_72.clk0_input_clock_enable = "none",
 		ram_block1a_72.clk1_core_clock_enable = "none",
 		ram_block1a_72.clk1_input_clock_enable = "none",
@@ -5450,7 +5450,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_72.port_b_logical_ram_depth = 32,
 		ram_block1a_72.port_b_logical_ram_width = 256,
 		ram_block1a_72.port_b_read_enable_clock = "clock1",
-		ram_block1a_72.ram_block_type = "AUTO",
+		ram_block1a_72.ram_block_type = "M9K",
 		ram_block1a_72.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_73
 	( 
@@ -5458,6 +5458,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[73]}),
@@ -5472,7 +5473,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5492,7 +5492,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_73.clk0_core_clock_enable = "none",
+		ram_block1a_73.clk0_core_clock_enable = "ena0",
 		ram_block1a_73.clk0_input_clock_enable = "none",
 		ram_block1a_73.clk1_core_clock_enable = "none",
 		ram_block1a_73.clk1_input_clock_enable = "none",
@@ -5520,7 +5520,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_73.port_b_logical_ram_depth = 32,
 		ram_block1a_73.port_b_logical_ram_width = 256,
 		ram_block1a_73.port_b_read_enable_clock = "clock1",
-		ram_block1a_73.ram_block_type = "AUTO",
+		ram_block1a_73.ram_block_type = "M9K",
 		ram_block1a_73.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_74
 	( 
@@ -5528,6 +5528,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[74]}),
@@ -5542,7 +5543,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5562,7 +5562,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_74.clk0_core_clock_enable = "none",
+		ram_block1a_74.clk0_core_clock_enable = "ena0",
 		ram_block1a_74.clk0_input_clock_enable = "none",
 		ram_block1a_74.clk1_core_clock_enable = "none",
 		ram_block1a_74.clk1_input_clock_enable = "none",
@@ -5590,7 +5590,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_74.port_b_logical_ram_depth = 32,
 		ram_block1a_74.port_b_logical_ram_width = 256,
 		ram_block1a_74.port_b_read_enable_clock = "clock1",
-		ram_block1a_74.ram_block_type = "AUTO",
+		ram_block1a_74.ram_block_type = "M9K",
 		ram_block1a_74.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_75
 	( 
@@ -5598,6 +5598,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[75]}),
@@ -5612,7 +5613,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5632,7 +5632,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_75.clk0_core_clock_enable = "none",
+		ram_block1a_75.clk0_core_clock_enable = "ena0",
 		ram_block1a_75.clk0_input_clock_enable = "none",
 		ram_block1a_75.clk1_core_clock_enable = "none",
 		ram_block1a_75.clk1_input_clock_enable = "none",
@@ -5660,7 +5660,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_75.port_b_logical_ram_depth = 32,
 		ram_block1a_75.port_b_logical_ram_width = 256,
 		ram_block1a_75.port_b_read_enable_clock = "clock1",
-		ram_block1a_75.ram_block_type = "AUTO",
+		ram_block1a_75.ram_block_type = "M9K",
 		ram_block1a_75.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_76
 	( 
@@ -5668,6 +5668,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[76]}),
@@ -5682,7 +5683,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5702,7 +5702,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_76.clk0_core_clock_enable = "none",
+		ram_block1a_76.clk0_core_clock_enable = "ena0",
 		ram_block1a_76.clk0_input_clock_enable = "none",
 		ram_block1a_76.clk1_core_clock_enable = "none",
 		ram_block1a_76.clk1_input_clock_enable = "none",
@@ -5730,7 +5730,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_76.port_b_logical_ram_depth = 32,
 		ram_block1a_76.port_b_logical_ram_width = 256,
 		ram_block1a_76.port_b_read_enable_clock = "clock1",
-		ram_block1a_76.ram_block_type = "AUTO",
+		ram_block1a_76.ram_block_type = "M9K",
 		ram_block1a_76.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_77
 	( 
@@ -5738,6 +5738,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[77]}),
@@ -5752,7 +5753,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5772,7 +5772,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_77.clk0_core_clock_enable = "none",
+		ram_block1a_77.clk0_core_clock_enable = "ena0",
 		ram_block1a_77.clk0_input_clock_enable = "none",
 		ram_block1a_77.clk1_core_clock_enable = "none",
 		ram_block1a_77.clk1_input_clock_enable = "none",
@@ -5800,7 +5800,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_77.port_b_logical_ram_depth = 32,
 		ram_block1a_77.port_b_logical_ram_width = 256,
 		ram_block1a_77.port_b_read_enable_clock = "clock1",
-		ram_block1a_77.ram_block_type = "AUTO",
+		ram_block1a_77.ram_block_type = "M9K",
 		ram_block1a_77.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_78
 	( 
@@ -5808,6 +5808,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[78]}),
@@ -5822,7 +5823,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5842,7 +5842,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_78.clk0_core_clock_enable = "none",
+		ram_block1a_78.clk0_core_clock_enable = "ena0",
 		ram_block1a_78.clk0_input_clock_enable = "none",
 		ram_block1a_78.clk1_core_clock_enable = "none",
 		ram_block1a_78.clk1_input_clock_enable = "none",
@@ -5870,7 +5870,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_78.port_b_logical_ram_depth = 32,
 		ram_block1a_78.port_b_logical_ram_width = 256,
 		ram_block1a_78.port_b_read_enable_clock = "clock1",
-		ram_block1a_78.ram_block_type = "AUTO",
+		ram_block1a_78.ram_block_type = "M9K",
 		ram_block1a_78.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_79
 	( 
@@ -5878,6 +5878,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[79]}),
@@ -5892,7 +5893,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5912,7 +5912,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_79.clk0_core_clock_enable = "none",
+		ram_block1a_79.clk0_core_clock_enable = "ena0",
 		ram_block1a_79.clk0_input_clock_enable = "none",
 		ram_block1a_79.clk1_core_clock_enable = "none",
 		ram_block1a_79.clk1_input_clock_enable = "none",
@@ -5940,7 +5940,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_79.port_b_logical_ram_depth = 32,
 		ram_block1a_79.port_b_logical_ram_width = 256,
 		ram_block1a_79.port_b_read_enable_clock = "clock1",
-		ram_block1a_79.ram_block_type = "AUTO",
+		ram_block1a_79.ram_block_type = "M9K",
 		ram_block1a_79.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_80
 	( 
@@ -5948,6 +5948,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[80]}),
@@ -5962,7 +5963,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -5982,7 +5982,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_80.clk0_core_clock_enable = "none",
+		ram_block1a_80.clk0_core_clock_enable = "ena0",
 		ram_block1a_80.clk0_input_clock_enable = "none",
 		ram_block1a_80.clk1_core_clock_enable = "none",
 		ram_block1a_80.clk1_input_clock_enable = "none",
@@ -6010,7 +6010,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_80.port_b_logical_ram_depth = 32,
 		ram_block1a_80.port_b_logical_ram_width = 256,
 		ram_block1a_80.port_b_read_enable_clock = "clock1",
-		ram_block1a_80.ram_block_type = "AUTO",
+		ram_block1a_80.ram_block_type = "M9K",
 		ram_block1a_80.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_81
 	( 
@@ -6018,6 +6018,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[81]}),
@@ -6032,7 +6033,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6052,7 +6052,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_81.clk0_core_clock_enable = "none",
+		ram_block1a_81.clk0_core_clock_enable = "ena0",
 		ram_block1a_81.clk0_input_clock_enable = "none",
 		ram_block1a_81.clk1_core_clock_enable = "none",
 		ram_block1a_81.clk1_input_clock_enable = "none",
@@ -6080,7 +6080,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_81.port_b_logical_ram_depth = 32,
 		ram_block1a_81.port_b_logical_ram_width = 256,
 		ram_block1a_81.port_b_read_enable_clock = "clock1",
-		ram_block1a_81.ram_block_type = "AUTO",
+		ram_block1a_81.ram_block_type = "M9K",
 		ram_block1a_81.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_82
 	( 
@@ -6088,6 +6088,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[82]}),
@@ -6102,7 +6103,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6122,7 +6122,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_82.clk0_core_clock_enable = "none",
+		ram_block1a_82.clk0_core_clock_enable = "ena0",
 		ram_block1a_82.clk0_input_clock_enable = "none",
 		ram_block1a_82.clk1_core_clock_enable = "none",
 		ram_block1a_82.clk1_input_clock_enable = "none",
@@ -6150,7 +6150,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_82.port_b_logical_ram_depth = 32,
 		ram_block1a_82.port_b_logical_ram_width = 256,
 		ram_block1a_82.port_b_read_enable_clock = "clock1",
-		ram_block1a_82.ram_block_type = "AUTO",
+		ram_block1a_82.ram_block_type = "M9K",
 		ram_block1a_82.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_83
 	( 
@@ -6158,6 +6158,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[83]}),
@@ -6172,7 +6173,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6192,7 +6192,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_83.clk0_core_clock_enable = "none",
+		ram_block1a_83.clk0_core_clock_enable = "ena0",
 		ram_block1a_83.clk0_input_clock_enable = "none",
 		ram_block1a_83.clk1_core_clock_enable = "none",
 		ram_block1a_83.clk1_input_clock_enable = "none",
@@ -6220,7 +6220,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_83.port_b_logical_ram_depth = 32,
 		ram_block1a_83.port_b_logical_ram_width = 256,
 		ram_block1a_83.port_b_read_enable_clock = "clock1",
-		ram_block1a_83.ram_block_type = "AUTO",
+		ram_block1a_83.ram_block_type = "M9K",
 		ram_block1a_83.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_84
 	( 
@@ -6228,6 +6228,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[84]}),
@@ -6242,7 +6243,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6262,7 +6262,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_84.clk0_core_clock_enable = "none",
+		ram_block1a_84.clk0_core_clock_enable = "ena0",
 		ram_block1a_84.clk0_input_clock_enable = "none",
 		ram_block1a_84.clk1_core_clock_enable = "none",
 		ram_block1a_84.clk1_input_clock_enable = "none",
@@ -6290,7 +6290,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_84.port_b_logical_ram_depth = 32,
 		ram_block1a_84.port_b_logical_ram_width = 256,
 		ram_block1a_84.port_b_read_enable_clock = "clock1",
-		ram_block1a_84.ram_block_type = "AUTO",
+		ram_block1a_84.ram_block_type = "M9K",
 		ram_block1a_84.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_85
 	( 
@@ -6298,6 +6298,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[85]}),
@@ -6312,7 +6313,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6332,7 +6332,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_85.clk0_core_clock_enable = "none",
+		ram_block1a_85.clk0_core_clock_enable = "ena0",
 		ram_block1a_85.clk0_input_clock_enable = "none",
 		ram_block1a_85.clk1_core_clock_enable = "none",
 		ram_block1a_85.clk1_input_clock_enable = "none",
@@ -6360,7 +6360,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_85.port_b_logical_ram_depth = 32,
 		ram_block1a_85.port_b_logical_ram_width = 256,
 		ram_block1a_85.port_b_read_enable_clock = "clock1",
-		ram_block1a_85.ram_block_type = "AUTO",
+		ram_block1a_85.ram_block_type = "M9K",
 		ram_block1a_85.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_86
 	( 
@@ -6368,6 +6368,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[86]}),
@@ -6382,7 +6383,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6402,7 +6402,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_86.clk0_core_clock_enable = "none",
+		ram_block1a_86.clk0_core_clock_enable = "ena0",
 		ram_block1a_86.clk0_input_clock_enable = "none",
 		ram_block1a_86.clk1_core_clock_enable = "none",
 		ram_block1a_86.clk1_input_clock_enable = "none",
@@ -6430,7 +6430,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_86.port_b_logical_ram_depth = 32,
 		ram_block1a_86.port_b_logical_ram_width = 256,
 		ram_block1a_86.port_b_read_enable_clock = "clock1",
-		ram_block1a_86.ram_block_type = "AUTO",
+		ram_block1a_86.ram_block_type = "M9K",
 		ram_block1a_86.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_87
 	( 
@@ -6438,6 +6438,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[87]}),
@@ -6452,7 +6453,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6472,7 +6472,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_87.clk0_core_clock_enable = "none",
+		ram_block1a_87.clk0_core_clock_enable = "ena0",
 		ram_block1a_87.clk0_input_clock_enable = "none",
 		ram_block1a_87.clk1_core_clock_enable = "none",
 		ram_block1a_87.clk1_input_clock_enable = "none",
@@ -6500,7 +6500,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_87.port_b_logical_ram_depth = 32,
 		ram_block1a_87.port_b_logical_ram_width = 256,
 		ram_block1a_87.port_b_read_enable_clock = "clock1",
-		ram_block1a_87.ram_block_type = "AUTO",
+		ram_block1a_87.ram_block_type = "M9K",
 		ram_block1a_87.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_88
 	( 
@@ -6508,6 +6508,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[88]}),
@@ -6522,7 +6523,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6542,7 +6542,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_88.clk0_core_clock_enable = "none",
+		ram_block1a_88.clk0_core_clock_enable = "ena0",
 		ram_block1a_88.clk0_input_clock_enable = "none",
 		ram_block1a_88.clk1_core_clock_enable = "none",
 		ram_block1a_88.clk1_input_clock_enable = "none",
@@ -6570,7 +6570,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_88.port_b_logical_ram_depth = 32,
 		ram_block1a_88.port_b_logical_ram_width = 256,
 		ram_block1a_88.port_b_read_enable_clock = "clock1",
-		ram_block1a_88.ram_block_type = "AUTO",
+		ram_block1a_88.ram_block_type = "M9K",
 		ram_block1a_88.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_89
 	( 
@@ -6578,6 +6578,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[89]}),
@@ -6592,7 +6593,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6612,7 +6612,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_89.clk0_core_clock_enable = "none",
+		ram_block1a_89.clk0_core_clock_enable = "ena0",
 		ram_block1a_89.clk0_input_clock_enable = "none",
 		ram_block1a_89.clk1_core_clock_enable = "none",
 		ram_block1a_89.clk1_input_clock_enable = "none",
@@ -6640,7 +6640,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_89.port_b_logical_ram_depth = 32,
 		ram_block1a_89.port_b_logical_ram_width = 256,
 		ram_block1a_89.port_b_read_enable_clock = "clock1",
-		ram_block1a_89.ram_block_type = "AUTO",
+		ram_block1a_89.ram_block_type = "M9K",
 		ram_block1a_89.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_90
 	( 
@@ -6648,6 +6648,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[90]}),
@@ -6662,7 +6663,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6682,7 +6682,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_90.clk0_core_clock_enable = "none",
+		ram_block1a_90.clk0_core_clock_enable = "ena0",
 		ram_block1a_90.clk0_input_clock_enable = "none",
 		ram_block1a_90.clk1_core_clock_enable = "none",
 		ram_block1a_90.clk1_input_clock_enable = "none",
@@ -6710,7 +6710,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_90.port_b_logical_ram_depth = 32,
 		ram_block1a_90.port_b_logical_ram_width = 256,
 		ram_block1a_90.port_b_read_enable_clock = "clock1",
-		ram_block1a_90.ram_block_type = "AUTO",
+		ram_block1a_90.ram_block_type = "M9K",
 		ram_block1a_90.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_91
 	( 
@@ -6718,6 +6718,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[91]}),
@@ -6732,7 +6733,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6752,7 +6752,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_91.clk0_core_clock_enable = "none",
+		ram_block1a_91.clk0_core_clock_enable = "ena0",
 		ram_block1a_91.clk0_input_clock_enable = "none",
 		ram_block1a_91.clk1_core_clock_enable = "none",
 		ram_block1a_91.clk1_input_clock_enable = "none",
@@ -6780,7 +6780,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_91.port_b_logical_ram_depth = 32,
 		ram_block1a_91.port_b_logical_ram_width = 256,
 		ram_block1a_91.port_b_read_enable_clock = "clock1",
-		ram_block1a_91.ram_block_type = "AUTO",
+		ram_block1a_91.ram_block_type = "M9K",
 		ram_block1a_91.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_92
 	( 
@@ -6788,6 +6788,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[92]}),
@@ -6802,7 +6803,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6822,7 +6822,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_92.clk0_core_clock_enable = "none",
+		ram_block1a_92.clk0_core_clock_enable = "ena0",
 		ram_block1a_92.clk0_input_clock_enable = "none",
 		ram_block1a_92.clk1_core_clock_enable = "none",
 		ram_block1a_92.clk1_input_clock_enable = "none",
@@ -6850,7 +6850,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_92.port_b_logical_ram_depth = 32,
 		ram_block1a_92.port_b_logical_ram_width = 256,
 		ram_block1a_92.port_b_read_enable_clock = "clock1",
-		ram_block1a_92.ram_block_type = "AUTO",
+		ram_block1a_92.ram_block_type = "M9K",
 		ram_block1a_92.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_93
 	( 
@@ -6858,6 +6858,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[93]}),
@@ -6872,7 +6873,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6892,7 +6892,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_93.clk0_core_clock_enable = "none",
+		ram_block1a_93.clk0_core_clock_enable = "ena0",
 		ram_block1a_93.clk0_input_clock_enable = "none",
 		ram_block1a_93.clk1_core_clock_enable = "none",
 		ram_block1a_93.clk1_input_clock_enable = "none",
@@ -6920,7 +6920,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_93.port_b_logical_ram_depth = 32,
 		ram_block1a_93.port_b_logical_ram_width = 256,
 		ram_block1a_93.port_b_read_enable_clock = "clock1",
-		ram_block1a_93.ram_block_type = "AUTO",
+		ram_block1a_93.ram_block_type = "M9K",
 		ram_block1a_93.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_94
 	( 
@@ -6928,6 +6928,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[94]}),
@@ -6942,7 +6943,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -6962,7 +6962,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_94.clk0_core_clock_enable = "none",
+		ram_block1a_94.clk0_core_clock_enable = "ena0",
 		ram_block1a_94.clk0_input_clock_enable = "none",
 		ram_block1a_94.clk1_core_clock_enable = "none",
 		ram_block1a_94.clk1_input_clock_enable = "none",
@@ -6990,7 +6990,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_94.port_b_logical_ram_depth = 32,
 		ram_block1a_94.port_b_logical_ram_width = 256,
 		ram_block1a_94.port_b_read_enable_clock = "clock1",
-		ram_block1a_94.ram_block_type = "AUTO",
+		ram_block1a_94.ram_block_type = "M9K",
 		ram_block1a_94.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_95
 	( 
@@ -6998,6 +6998,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[95]}),
@@ -7012,7 +7013,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7032,7 +7032,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_95.clk0_core_clock_enable = "none",
+		ram_block1a_95.clk0_core_clock_enable = "ena0",
 		ram_block1a_95.clk0_input_clock_enable = "none",
 		ram_block1a_95.clk1_core_clock_enable = "none",
 		ram_block1a_95.clk1_input_clock_enable = "none",
@@ -7060,7 +7060,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_95.port_b_logical_ram_depth = 32,
 		ram_block1a_95.port_b_logical_ram_width = 256,
 		ram_block1a_95.port_b_read_enable_clock = "clock1",
-		ram_block1a_95.ram_block_type = "AUTO",
+		ram_block1a_95.ram_block_type = "M9K",
 		ram_block1a_95.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_96
 	( 
@@ -7068,6 +7068,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[96]}),
@@ -7082,7 +7083,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7102,7 +7102,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_96.clk0_core_clock_enable = "none",
+		ram_block1a_96.clk0_core_clock_enable = "ena0",
 		ram_block1a_96.clk0_input_clock_enable = "none",
 		ram_block1a_96.clk1_core_clock_enable = "none",
 		ram_block1a_96.clk1_input_clock_enable = "none",
@@ -7130,7 +7130,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_96.port_b_logical_ram_depth = 32,
 		ram_block1a_96.port_b_logical_ram_width = 256,
 		ram_block1a_96.port_b_read_enable_clock = "clock1",
-		ram_block1a_96.ram_block_type = "AUTO",
+		ram_block1a_96.ram_block_type = "M9K",
 		ram_block1a_96.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_97
 	( 
@@ -7138,6 +7138,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[97]}),
@@ -7152,7 +7153,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7172,7 +7172,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_97.clk0_core_clock_enable = "none",
+		ram_block1a_97.clk0_core_clock_enable = "ena0",
 		ram_block1a_97.clk0_input_clock_enable = "none",
 		ram_block1a_97.clk1_core_clock_enable = "none",
 		ram_block1a_97.clk1_input_clock_enable = "none",
@@ -7200,7 +7200,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_97.port_b_logical_ram_depth = 32,
 		ram_block1a_97.port_b_logical_ram_width = 256,
 		ram_block1a_97.port_b_read_enable_clock = "clock1",
-		ram_block1a_97.ram_block_type = "AUTO",
+		ram_block1a_97.ram_block_type = "M9K",
 		ram_block1a_97.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_98
 	( 
@@ -7208,6 +7208,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[98]}),
@@ -7222,7 +7223,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7242,7 +7242,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_98.clk0_core_clock_enable = "none",
+		ram_block1a_98.clk0_core_clock_enable = "ena0",
 		ram_block1a_98.clk0_input_clock_enable = "none",
 		ram_block1a_98.clk1_core_clock_enable = "none",
 		ram_block1a_98.clk1_input_clock_enable = "none",
@@ -7270,7 +7270,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_98.port_b_logical_ram_depth = 32,
 		ram_block1a_98.port_b_logical_ram_width = 256,
 		ram_block1a_98.port_b_read_enable_clock = "clock1",
-		ram_block1a_98.ram_block_type = "AUTO",
+		ram_block1a_98.ram_block_type = "M9K",
 		ram_block1a_98.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_99
 	( 
@@ -7278,6 +7278,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[99]}),
@@ -7292,7 +7293,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7312,7 +7312,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_99.clk0_core_clock_enable = "none",
+		ram_block1a_99.clk0_core_clock_enable = "ena0",
 		ram_block1a_99.clk0_input_clock_enable = "none",
 		ram_block1a_99.clk1_core_clock_enable = "none",
 		ram_block1a_99.clk1_input_clock_enable = "none",
@@ -7340,7 +7340,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_99.port_b_logical_ram_depth = 32,
 		ram_block1a_99.port_b_logical_ram_width = 256,
 		ram_block1a_99.port_b_read_enable_clock = "clock1",
-		ram_block1a_99.ram_block_type = "AUTO",
+		ram_block1a_99.ram_block_type = "M9K",
 		ram_block1a_99.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_100
 	( 
@@ -7348,6 +7348,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[100]}),
@@ -7362,7 +7363,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7382,7 +7382,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_100.clk0_core_clock_enable = "none",
+		ram_block1a_100.clk0_core_clock_enable = "ena0",
 		ram_block1a_100.clk0_input_clock_enable = "none",
 		ram_block1a_100.clk1_core_clock_enable = "none",
 		ram_block1a_100.clk1_input_clock_enable = "none",
@@ -7410,7 +7410,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_100.port_b_logical_ram_depth = 32,
 		ram_block1a_100.port_b_logical_ram_width = 256,
 		ram_block1a_100.port_b_read_enable_clock = "clock1",
-		ram_block1a_100.ram_block_type = "AUTO",
+		ram_block1a_100.ram_block_type = "M9K",
 		ram_block1a_100.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_101
 	( 
@@ -7418,6 +7418,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[101]}),
@@ -7432,7 +7433,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7452,7 +7452,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_101.clk0_core_clock_enable = "none",
+		ram_block1a_101.clk0_core_clock_enable = "ena0",
 		ram_block1a_101.clk0_input_clock_enable = "none",
 		ram_block1a_101.clk1_core_clock_enable = "none",
 		ram_block1a_101.clk1_input_clock_enable = "none",
@@ -7480,7 +7480,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_101.port_b_logical_ram_depth = 32,
 		ram_block1a_101.port_b_logical_ram_width = 256,
 		ram_block1a_101.port_b_read_enable_clock = "clock1",
-		ram_block1a_101.ram_block_type = "AUTO",
+		ram_block1a_101.ram_block_type = "M9K",
 		ram_block1a_101.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_102
 	( 
@@ -7488,6 +7488,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[102]}),
@@ -7502,7 +7503,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7522,7 +7522,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_102.clk0_core_clock_enable = "none",
+		ram_block1a_102.clk0_core_clock_enable = "ena0",
 		ram_block1a_102.clk0_input_clock_enable = "none",
 		ram_block1a_102.clk1_core_clock_enable = "none",
 		ram_block1a_102.clk1_input_clock_enable = "none",
@@ -7550,7 +7550,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_102.port_b_logical_ram_depth = 32,
 		ram_block1a_102.port_b_logical_ram_width = 256,
 		ram_block1a_102.port_b_read_enable_clock = "clock1",
-		ram_block1a_102.ram_block_type = "AUTO",
+		ram_block1a_102.ram_block_type = "M9K",
 		ram_block1a_102.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_103
 	( 
@@ -7558,6 +7558,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[103]}),
@@ -7572,7 +7573,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7592,7 +7592,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_103.clk0_core_clock_enable = "none",
+		ram_block1a_103.clk0_core_clock_enable = "ena0",
 		ram_block1a_103.clk0_input_clock_enable = "none",
 		ram_block1a_103.clk1_core_clock_enable = "none",
 		ram_block1a_103.clk1_input_clock_enable = "none",
@@ -7620,7 +7620,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_103.port_b_logical_ram_depth = 32,
 		ram_block1a_103.port_b_logical_ram_width = 256,
 		ram_block1a_103.port_b_read_enable_clock = "clock1",
-		ram_block1a_103.ram_block_type = "AUTO",
+		ram_block1a_103.ram_block_type = "M9K",
 		ram_block1a_103.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_104
 	( 
@@ -7628,6 +7628,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[104]}),
@@ -7642,7 +7643,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7662,7 +7662,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_104.clk0_core_clock_enable = "none",
+		ram_block1a_104.clk0_core_clock_enable = "ena0",
 		ram_block1a_104.clk0_input_clock_enable = "none",
 		ram_block1a_104.clk1_core_clock_enable = "none",
 		ram_block1a_104.clk1_input_clock_enable = "none",
@@ -7690,7 +7690,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_104.port_b_logical_ram_depth = 32,
 		ram_block1a_104.port_b_logical_ram_width = 256,
 		ram_block1a_104.port_b_read_enable_clock = "clock1",
-		ram_block1a_104.ram_block_type = "AUTO",
+		ram_block1a_104.ram_block_type = "M9K",
 		ram_block1a_104.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_105
 	( 
@@ -7698,6 +7698,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[105]}),
@@ -7712,7 +7713,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7732,7 +7732,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_105.clk0_core_clock_enable = "none",
+		ram_block1a_105.clk0_core_clock_enable = "ena0",
 		ram_block1a_105.clk0_input_clock_enable = "none",
 		ram_block1a_105.clk1_core_clock_enable = "none",
 		ram_block1a_105.clk1_input_clock_enable = "none",
@@ -7760,7 +7760,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_105.port_b_logical_ram_depth = 32,
 		ram_block1a_105.port_b_logical_ram_width = 256,
 		ram_block1a_105.port_b_read_enable_clock = "clock1",
-		ram_block1a_105.ram_block_type = "AUTO",
+		ram_block1a_105.ram_block_type = "M9K",
 		ram_block1a_105.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_106
 	( 
@@ -7768,6 +7768,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[106]}),
@@ -7782,7 +7783,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7802,7 +7802,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_106.clk0_core_clock_enable = "none",
+		ram_block1a_106.clk0_core_clock_enable = "ena0",
 		ram_block1a_106.clk0_input_clock_enable = "none",
 		ram_block1a_106.clk1_core_clock_enable = "none",
 		ram_block1a_106.clk1_input_clock_enable = "none",
@@ -7830,7 +7830,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_106.port_b_logical_ram_depth = 32,
 		ram_block1a_106.port_b_logical_ram_width = 256,
 		ram_block1a_106.port_b_read_enable_clock = "clock1",
-		ram_block1a_106.ram_block_type = "AUTO",
+		ram_block1a_106.ram_block_type = "M9K",
 		ram_block1a_106.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_107
 	( 
@@ -7838,6 +7838,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[107]}),
@@ -7852,7 +7853,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7872,7 +7872,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_107.clk0_core_clock_enable = "none",
+		ram_block1a_107.clk0_core_clock_enable = "ena0",
 		ram_block1a_107.clk0_input_clock_enable = "none",
 		ram_block1a_107.clk1_core_clock_enable = "none",
 		ram_block1a_107.clk1_input_clock_enable = "none",
@@ -7900,7 +7900,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_107.port_b_logical_ram_depth = 32,
 		ram_block1a_107.port_b_logical_ram_width = 256,
 		ram_block1a_107.port_b_read_enable_clock = "clock1",
-		ram_block1a_107.ram_block_type = "AUTO",
+		ram_block1a_107.ram_block_type = "M9K",
 		ram_block1a_107.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_108
 	( 
@@ -7908,6 +7908,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[108]}),
@@ -7922,7 +7923,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -7942,7 +7942,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_108.clk0_core_clock_enable = "none",
+		ram_block1a_108.clk0_core_clock_enable = "ena0",
 		ram_block1a_108.clk0_input_clock_enable = "none",
 		ram_block1a_108.clk1_core_clock_enable = "none",
 		ram_block1a_108.clk1_input_clock_enable = "none",
@@ -7970,7 +7970,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_108.port_b_logical_ram_depth = 32,
 		ram_block1a_108.port_b_logical_ram_width = 256,
 		ram_block1a_108.port_b_read_enable_clock = "clock1",
-		ram_block1a_108.ram_block_type = "AUTO",
+		ram_block1a_108.ram_block_type = "M9K",
 		ram_block1a_108.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_109
 	( 
@@ -7978,6 +7978,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[109]}),
@@ -7992,7 +7993,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8012,7 +8012,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_109.clk0_core_clock_enable = "none",
+		ram_block1a_109.clk0_core_clock_enable = "ena0",
 		ram_block1a_109.clk0_input_clock_enable = "none",
 		ram_block1a_109.clk1_core_clock_enable = "none",
 		ram_block1a_109.clk1_input_clock_enable = "none",
@@ -8040,7 +8040,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_109.port_b_logical_ram_depth = 32,
 		ram_block1a_109.port_b_logical_ram_width = 256,
 		ram_block1a_109.port_b_read_enable_clock = "clock1",
-		ram_block1a_109.ram_block_type = "AUTO",
+		ram_block1a_109.ram_block_type = "M9K",
 		ram_block1a_109.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_110
 	( 
@@ -8048,6 +8048,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[110]}),
@@ -8062,7 +8063,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8082,7 +8082,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_110.clk0_core_clock_enable = "none",
+		ram_block1a_110.clk0_core_clock_enable = "ena0",
 		ram_block1a_110.clk0_input_clock_enable = "none",
 		ram_block1a_110.clk1_core_clock_enable = "none",
 		ram_block1a_110.clk1_input_clock_enable = "none",
@@ -8110,7 +8110,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_110.port_b_logical_ram_depth = 32,
 		ram_block1a_110.port_b_logical_ram_width = 256,
 		ram_block1a_110.port_b_read_enable_clock = "clock1",
-		ram_block1a_110.ram_block_type = "AUTO",
+		ram_block1a_110.ram_block_type = "M9K",
 		ram_block1a_110.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_111
 	( 
@@ -8118,6 +8118,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[111]}),
@@ -8132,7 +8133,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8152,7 +8152,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_111.clk0_core_clock_enable = "none",
+		ram_block1a_111.clk0_core_clock_enable = "ena0",
 		ram_block1a_111.clk0_input_clock_enable = "none",
 		ram_block1a_111.clk1_core_clock_enable = "none",
 		ram_block1a_111.clk1_input_clock_enable = "none",
@@ -8180,7 +8180,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_111.port_b_logical_ram_depth = 32,
 		ram_block1a_111.port_b_logical_ram_width = 256,
 		ram_block1a_111.port_b_read_enable_clock = "clock1",
-		ram_block1a_111.ram_block_type = "AUTO",
+		ram_block1a_111.ram_block_type = "M9K",
 		ram_block1a_111.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_112
 	( 
@@ -8188,6 +8188,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[112]}),
@@ -8202,7 +8203,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8222,7 +8222,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_112.clk0_core_clock_enable = "none",
+		ram_block1a_112.clk0_core_clock_enable = "ena0",
 		ram_block1a_112.clk0_input_clock_enable = "none",
 		ram_block1a_112.clk1_core_clock_enable = "none",
 		ram_block1a_112.clk1_input_clock_enable = "none",
@@ -8250,7 +8250,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_112.port_b_logical_ram_depth = 32,
 		ram_block1a_112.port_b_logical_ram_width = 256,
 		ram_block1a_112.port_b_read_enable_clock = "clock1",
-		ram_block1a_112.ram_block_type = "AUTO",
+		ram_block1a_112.ram_block_type = "M9K",
 		ram_block1a_112.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_113
 	( 
@@ -8258,6 +8258,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[113]}),
@@ -8272,7 +8273,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8292,7 +8292,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_113.clk0_core_clock_enable = "none",
+		ram_block1a_113.clk0_core_clock_enable = "ena0",
 		ram_block1a_113.clk0_input_clock_enable = "none",
 		ram_block1a_113.clk1_core_clock_enable = "none",
 		ram_block1a_113.clk1_input_clock_enable = "none",
@@ -8320,7 +8320,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_113.port_b_logical_ram_depth = 32,
 		ram_block1a_113.port_b_logical_ram_width = 256,
 		ram_block1a_113.port_b_read_enable_clock = "clock1",
-		ram_block1a_113.ram_block_type = "AUTO",
+		ram_block1a_113.ram_block_type = "M9K",
 		ram_block1a_113.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_114
 	( 
@@ -8328,6 +8328,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[114]}),
@@ -8342,7 +8343,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8362,7 +8362,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_114.clk0_core_clock_enable = "none",
+		ram_block1a_114.clk0_core_clock_enable = "ena0",
 		ram_block1a_114.clk0_input_clock_enable = "none",
 		ram_block1a_114.clk1_core_clock_enable = "none",
 		ram_block1a_114.clk1_input_clock_enable = "none",
@@ -8390,7 +8390,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_114.port_b_logical_ram_depth = 32,
 		ram_block1a_114.port_b_logical_ram_width = 256,
 		ram_block1a_114.port_b_read_enable_clock = "clock1",
-		ram_block1a_114.ram_block_type = "AUTO",
+		ram_block1a_114.ram_block_type = "M9K",
 		ram_block1a_114.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_115
 	( 
@@ -8398,6 +8398,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[115]}),
@@ -8412,7 +8413,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8432,7 +8432,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_115.clk0_core_clock_enable = "none",
+		ram_block1a_115.clk0_core_clock_enable = "ena0",
 		ram_block1a_115.clk0_input_clock_enable = "none",
 		ram_block1a_115.clk1_core_clock_enable = "none",
 		ram_block1a_115.clk1_input_clock_enable = "none",
@@ -8460,7 +8460,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_115.port_b_logical_ram_depth = 32,
 		ram_block1a_115.port_b_logical_ram_width = 256,
 		ram_block1a_115.port_b_read_enable_clock = "clock1",
-		ram_block1a_115.ram_block_type = "AUTO",
+		ram_block1a_115.ram_block_type = "M9K",
 		ram_block1a_115.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_116
 	( 
@@ -8468,6 +8468,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[116]}),
@@ -8482,7 +8483,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8502,7 +8502,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_116.clk0_core_clock_enable = "none",
+		ram_block1a_116.clk0_core_clock_enable = "ena0",
 		ram_block1a_116.clk0_input_clock_enable = "none",
 		ram_block1a_116.clk1_core_clock_enable = "none",
 		ram_block1a_116.clk1_input_clock_enable = "none",
@@ -8530,7 +8530,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_116.port_b_logical_ram_depth = 32,
 		ram_block1a_116.port_b_logical_ram_width = 256,
 		ram_block1a_116.port_b_read_enable_clock = "clock1",
-		ram_block1a_116.ram_block_type = "AUTO",
+		ram_block1a_116.ram_block_type = "M9K",
 		ram_block1a_116.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_117
 	( 
@@ -8538,6 +8538,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[117]}),
@@ -8552,7 +8553,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8572,7 +8572,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_117.clk0_core_clock_enable = "none",
+		ram_block1a_117.clk0_core_clock_enable = "ena0",
 		ram_block1a_117.clk0_input_clock_enable = "none",
 		ram_block1a_117.clk1_core_clock_enable = "none",
 		ram_block1a_117.clk1_input_clock_enable = "none",
@@ -8600,7 +8600,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_117.port_b_logical_ram_depth = 32,
 		ram_block1a_117.port_b_logical_ram_width = 256,
 		ram_block1a_117.port_b_read_enable_clock = "clock1",
-		ram_block1a_117.ram_block_type = "AUTO",
+		ram_block1a_117.ram_block_type = "M9K",
 		ram_block1a_117.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_118
 	( 
@@ -8608,6 +8608,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[118]}),
@@ -8622,7 +8623,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8642,7 +8642,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_118.clk0_core_clock_enable = "none",
+		ram_block1a_118.clk0_core_clock_enable = "ena0",
 		ram_block1a_118.clk0_input_clock_enable = "none",
 		ram_block1a_118.clk1_core_clock_enable = "none",
 		ram_block1a_118.clk1_input_clock_enable = "none",
@@ -8670,7 +8670,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_118.port_b_logical_ram_depth = 32,
 		ram_block1a_118.port_b_logical_ram_width = 256,
 		ram_block1a_118.port_b_read_enable_clock = "clock1",
-		ram_block1a_118.ram_block_type = "AUTO",
+		ram_block1a_118.ram_block_type = "M9K",
 		ram_block1a_118.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_119
 	( 
@@ -8678,6 +8678,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[119]}),
@@ -8692,7 +8693,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8712,7 +8712,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_119.clk0_core_clock_enable = "none",
+		ram_block1a_119.clk0_core_clock_enable = "ena0",
 		ram_block1a_119.clk0_input_clock_enable = "none",
 		ram_block1a_119.clk1_core_clock_enable = "none",
 		ram_block1a_119.clk1_input_clock_enable = "none",
@@ -8740,7 +8740,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_119.port_b_logical_ram_depth = 32,
 		ram_block1a_119.port_b_logical_ram_width = 256,
 		ram_block1a_119.port_b_read_enable_clock = "clock1",
-		ram_block1a_119.ram_block_type = "AUTO",
+		ram_block1a_119.ram_block_type = "M9K",
 		ram_block1a_119.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_120
 	( 
@@ -8748,6 +8748,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[120]}),
@@ -8762,7 +8763,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8782,7 +8782,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_120.clk0_core_clock_enable = "none",
+		ram_block1a_120.clk0_core_clock_enable = "ena0",
 		ram_block1a_120.clk0_input_clock_enable = "none",
 		ram_block1a_120.clk1_core_clock_enable = "none",
 		ram_block1a_120.clk1_input_clock_enable = "none",
@@ -8810,7 +8810,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_120.port_b_logical_ram_depth = 32,
 		ram_block1a_120.port_b_logical_ram_width = 256,
 		ram_block1a_120.port_b_read_enable_clock = "clock1",
-		ram_block1a_120.ram_block_type = "AUTO",
+		ram_block1a_120.ram_block_type = "M9K",
 		ram_block1a_120.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_121
 	( 
@@ -8818,6 +8818,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[121]}),
@@ -8832,7 +8833,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8852,7 +8852,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_121.clk0_core_clock_enable = "none",
+		ram_block1a_121.clk0_core_clock_enable = "ena0",
 		ram_block1a_121.clk0_input_clock_enable = "none",
 		ram_block1a_121.clk1_core_clock_enable = "none",
 		ram_block1a_121.clk1_input_clock_enable = "none",
@@ -8880,7 +8880,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_121.port_b_logical_ram_depth = 32,
 		ram_block1a_121.port_b_logical_ram_width = 256,
 		ram_block1a_121.port_b_read_enable_clock = "clock1",
-		ram_block1a_121.ram_block_type = "AUTO",
+		ram_block1a_121.ram_block_type = "M9K",
 		ram_block1a_121.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_122
 	( 
@@ -8888,6 +8888,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[122]}),
@@ -8902,7 +8903,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8922,7 +8922,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_122.clk0_core_clock_enable = "none",
+		ram_block1a_122.clk0_core_clock_enable = "ena0",
 		ram_block1a_122.clk0_input_clock_enable = "none",
 		ram_block1a_122.clk1_core_clock_enable = "none",
 		ram_block1a_122.clk1_input_clock_enable = "none",
@@ -8950,7 +8950,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_122.port_b_logical_ram_depth = 32,
 		ram_block1a_122.port_b_logical_ram_width = 256,
 		ram_block1a_122.port_b_read_enable_clock = "clock1",
-		ram_block1a_122.ram_block_type = "AUTO",
+		ram_block1a_122.ram_block_type = "M9K",
 		ram_block1a_122.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_123
 	( 
@@ -8958,6 +8958,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[123]}),
@@ -8972,7 +8973,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -8992,7 +8992,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_123.clk0_core_clock_enable = "none",
+		ram_block1a_123.clk0_core_clock_enable = "ena0",
 		ram_block1a_123.clk0_input_clock_enable = "none",
 		ram_block1a_123.clk1_core_clock_enable = "none",
 		ram_block1a_123.clk1_input_clock_enable = "none",
@@ -9020,7 +9020,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_123.port_b_logical_ram_depth = 32,
 		ram_block1a_123.port_b_logical_ram_width = 256,
 		ram_block1a_123.port_b_read_enable_clock = "clock1",
-		ram_block1a_123.ram_block_type = "AUTO",
+		ram_block1a_123.ram_block_type = "M9K",
 		ram_block1a_123.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_124
 	( 
@@ -9028,6 +9028,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[124]}),
@@ -9042,7 +9043,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9062,7 +9062,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_124.clk0_core_clock_enable = "none",
+		ram_block1a_124.clk0_core_clock_enable = "ena0",
 		ram_block1a_124.clk0_input_clock_enable = "none",
 		ram_block1a_124.clk1_core_clock_enable = "none",
 		ram_block1a_124.clk1_input_clock_enable = "none",
@@ -9090,7 +9090,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_124.port_b_logical_ram_depth = 32,
 		ram_block1a_124.port_b_logical_ram_width = 256,
 		ram_block1a_124.port_b_read_enable_clock = "clock1",
-		ram_block1a_124.ram_block_type = "AUTO",
+		ram_block1a_124.ram_block_type = "M9K",
 		ram_block1a_124.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_125
 	( 
@@ -9098,6 +9098,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[125]}),
@@ -9112,7 +9113,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9132,7 +9132,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_125.clk0_core_clock_enable = "none",
+		ram_block1a_125.clk0_core_clock_enable = "ena0",
 		ram_block1a_125.clk0_input_clock_enable = "none",
 		ram_block1a_125.clk1_core_clock_enable = "none",
 		ram_block1a_125.clk1_input_clock_enable = "none",
@@ -9160,7 +9160,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_125.port_b_logical_ram_depth = 32,
 		ram_block1a_125.port_b_logical_ram_width = 256,
 		ram_block1a_125.port_b_read_enable_clock = "clock1",
-		ram_block1a_125.ram_block_type = "AUTO",
+		ram_block1a_125.ram_block_type = "M9K",
 		ram_block1a_125.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_126
 	( 
@@ -9168,6 +9168,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[126]}),
@@ -9182,7 +9183,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9202,7 +9202,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_126.clk0_core_clock_enable = "none",
+		ram_block1a_126.clk0_core_clock_enable = "ena0",
 		ram_block1a_126.clk0_input_clock_enable = "none",
 		ram_block1a_126.clk1_core_clock_enable = "none",
 		ram_block1a_126.clk1_input_clock_enable = "none",
@@ -9230,7 +9230,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_126.port_b_logical_ram_depth = 32,
 		ram_block1a_126.port_b_logical_ram_width = 256,
 		ram_block1a_126.port_b_read_enable_clock = "clock1",
-		ram_block1a_126.ram_block_type = "AUTO",
+		ram_block1a_126.ram_block_type = "M9K",
 		ram_block1a_126.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_127
 	( 
@@ -9238,6 +9238,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[127]}),
@@ -9252,7 +9253,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9272,7 +9272,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_127.clk0_core_clock_enable = "none",
+		ram_block1a_127.clk0_core_clock_enable = "ena0",
 		ram_block1a_127.clk0_input_clock_enable = "none",
 		ram_block1a_127.clk1_core_clock_enable = "none",
 		ram_block1a_127.clk1_input_clock_enable = "none",
@@ -9300,7 +9300,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_127.port_b_logical_ram_depth = 32,
 		ram_block1a_127.port_b_logical_ram_width = 256,
 		ram_block1a_127.port_b_read_enable_clock = "clock1",
-		ram_block1a_127.ram_block_type = "AUTO",
+		ram_block1a_127.ram_block_type = "M9K",
 		ram_block1a_127.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_128
 	( 
@@ -9308,6 +9308,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[128]}),
@@ -9322,7 +9323,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9342,7 +9342,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_128.clk0_core_clock_enable = "none",
+		ram_block1a_128.clk0_core_clock_enable = "ena0",
 		ram_block1a_128.clk0_input_clock_enable = "none",
 		ram_block1a_128.clk1_core_clock_enable = "none",
 		ram_block1a_128.clk1_input_clock_enable = "none",
@@ -9370,7 +9370,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_128.port_b_logical_ram_depth = 32,
 		ram_block1a_128.port_b_logical_ram_width = 256,
 		ram_block1a_128.port_b_read_enable_clock = "clock1",
-		ram_block1a_128.ram_block_type = "AUTO",
+		ram_block1a_128.ram_block_type = "M9K",
 		ram_block1a_128.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_129
 	( 
@@ -9378,6 +9378,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[129]}),
@@ -9392,7 +9393,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9412,7 +9412,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_129.clk0_core_clock_enable = "none",
+		ram_block1a_129.clk0_core_clock_enable = "ena0",
 		ram_block1a_129.clk0_input_clock_enable = "none",
 		ram_block1a_129.clk1_core_clock_enable = "none",
 		ram_block1a_129.clk1_input_clock_enable = "none",
@@ -9440,7 +9440,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_129.port_b_logical_ram_depth = 32,
 		ram_block1a_129.port_b_logical_ram_width = 256,
 		ram_block1a_129.port_b_read_enable_clock = "clock1",
-		ram_block1a_129.ram_block_type = "AUTO",
+		ram_block1a_129.ram_block_type = "M9K",
 		ram_block1a_129.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_130
 	( 
@@ -9448,6 +9448,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[130]}),
@@ -9462,7 +9463,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9482,7 +9482,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_130.clk0_core_clock_enable = "none",
+		ram_block1a_130.clk0_core_clock_enable = "ena0",
 		ram_block1a_130.clk0_input_clock_enable = "none",
 		ram_block1a_130.clk1_core_clock_enable = "none",
 		ram_block1a_130.clk1_input_clock_enable = "none",
@@ -9510,7 +9510,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_130.port_b_logical_ram_depth = 32,
 		ram_block1a_130.port_b_logical_ram_width = 256,
 		ram_block1a_130.port_b_read_enable_clock = "clock1",
-		ram_block1a_130.ram_block_type = "AUTO",
+		ram_block1a_130.ram_block_type = "M9K",
 		ram_block1a_130.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_131
 	( 
@@ -9518,6 +9518,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[131]}),
@@ -9532,7 +9533,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9552,7 +9552,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_131.clk0_core_clock_enable = "none",
+		ram_block1a_131.clk0_core_clock_enable = "ena0",
 		ram_block1a_131.clk0_input_clock_enable = "none",
 		ram_block1a_131.clk1_core_clock_enable = "none",
 		ram_block1a_131.clk1_input_clock_enable = "none",
@@ -9580,7 +9580,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_131.port_b_logical_ram_depth = 32,
 		ram_block1a_131.port_b_logical_ram_width = 256,
 		ram_block1a_131.port_b_read_enable_clock = "clock1",
-		ram_block1a_131.ram_block_type = "AUTO",
+		ram_block1a_131.ram_block_type = "M9K",
 		ram_block1a_131.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_132
 	( 
@@ -9588,6 +9588,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[132]}),
@@ -9602,7 +9603,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9622,7 +9622,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_132.clk0_core_clock_enable = "none",
+		ram_block1a_132.clk0_core_clock_enable = "ena0",
 		ram_block1a_132.clk0_input_clock_enable = "none",
 		ram_block1a_132.clk1_core_clock_enable = "none",
 		ram_block1a_132.clk1_input_clock_enable = "none",
@@ -9650,7 +9650,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_132.port_b_logical_ram_depth = 32,
 		ram_block1a_132.port_b_logical_ram_width = 256,
 		ram_block1a_132.port_b_read_enable_clock = "clock1",
-		ram_block1a_132.ram_block_type = "AUTO",
+		ram_block1a_132.ram_block_type = "M9K",
 		ram_block1a_132.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_133
 	( 
@@ -9658,6 +9658,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[133]}),
@@ -9672,7 +9673,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9692,7 +9692,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_133.clk0_core_clock_enable = "none",
+		ram_block1a_133.clk0_core_clock_enable = "ena0",
 		ram_block1a_133.clk0_input_clock_enable = "none",
 		ram_block1a_133.clk1_core_clock_enable = "none",
 		ram_block1a_133.clk1_input_clock_enable = "none",
@@ -9720,7 +9720,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_133.port_b_logical_ram_depth = 32,
 		ram_block1a_133.port_b_logical_ram_width = 256,
 		ram_block1a_133.port_b_read_enable_clock = "clock1",
-		ram_block1a_133.ram_block_type = "AUTO",
+		ram_block1a_133.ram_block_type = "M9K",
 		ram_block1a_133.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_134
 	( 
@@ -9728,6 +9728,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[134]}),
@@ -9742,7 +9743,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9762,7 +9762,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_134.clk0_core_clock_enable = "none",
+		ram_block1a_134.clk0_core_clock_enable = "ena0",
 		ram_block1a_134.clk0_input_clock_enable = "none",
 		ram_block1a_134.clk1_core_clock_enable = "none",
 		ram_block1a_134.clk1_input_clock_enable = "none",
@@ -9790,7 +9790,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_134.port_b_logical_ram_depth = 32,
 		ram_block1a_134.port_b_logical_ram_width = 256,
 		ram_block1a_134.port_b_read_enable_clock = "clock1",
-		ram_block1a_134.ram_block_type = "AUTO",
+		ram_block1a_134.ram_block_type = "M9K",
 		ram_block1a_134.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_135
 	( 
@@ -9798,6 +9798,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[135]}),
@@ -9812,7 +9813,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9832,7 +9832,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_135.clk0_core_clock_enable = "none",
+		ram_block1a_135.clk0_core_clock_enable = "ena0",
 		ram_block1a_135.clk0_input_clock_enable = "none",
 		ram_block1a_135.clk1_core_clock_enable = "none",
 		ram_block1a_135.clk1_input_clock_enable = "none",
@@ -9860,7 +9860,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_135.port_b_logical_ram_depth = 32,
 		ram_block1a_135.port_b_logical_ram_width = 256,
 		ram_block1a_135.port_b_read_enable_clock = "clock1",
-		ram_block1a_135.ram_block_type = "AUTO",
+		ram_block1a_135.ram_block_type = "M9K",
 		ram_block1a_135.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_136
 	( 
@@ -9868,6 +9868,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[136]}),
@@ -9882,7 +9883,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9902,7 +9902,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_136.clk0_core_clock_enable = "none",
+		ram_block1a_136.clk0_core_clock_enable = "ena0",
 		ram_block1a_136.clk0_input_clock_enable = "none",
 		ram_block1a_136.clk1_core_clock_enable = "none",
 		ram_block1a_136.clk1_input_clock_enable = "none",
@@ -9930,7 +9930,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_136.port_b_logical_ram_depth = 32,
 		ram_block1a_136.port_b_logical_ram_width = 256,
 		ram_block1a_136.port_b_read_enable_clock = "clock1",
-		ram_block1a_136.ram_block_type = "AUTO",
+		ram_block1a_136.ram_block_type = "M9K",
 		ram_block1a_136.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_137
 	( 
@@ -9938,6 +9938,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[137]}),
@@ -9952,7 +9953,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -9972,7 +9972,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_137.clk0_core_clock_enable = "none",
+		ram_block1a_137.clk0_core_clock_enable = "ena0",
 		ram_block1a_137.clk0_input_clock_enable = "none",
 		ram_block1a_137.clk1_core_clock_enable = "none",
 		ram_block1a_137.clk1_input_clock_enable = "none",
@@ -10000,7 +10000,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_137.port_b_logical_ram_depth = 32,
 		ram_block1a_137.port_b_logical_ram_width = 256,
 		ram_block1a_137.port_b_read_enable_clock = "clock1",
-		ram_block1a_137.ram_block_type = "AUTO",
+		ram_block1a_137.ram_block_type = "M9K",
 		ram_block1a_137.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_138
 	( 
@@ -10008,6 +10008,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[138]}),
@@ -10022,7 +10023,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10042,7 +10042,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_138.clk0_core_clock_enable = "none",
+		ram_block1a_138.clk0_core_clock_enable = "ena0",
 		ram_block1a_138.clk0_input_clock_enable = "none",
 		ram_block1a_138.clk1_core_clock_enable = "none",
 		ram_block1a_138.clk1_input_clock_enable = "none",
@@ -10070,7 +10070,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_138.port_b_logical_ram_depth = 32,
 		ram_block1a_138.port_b_logical_ram_width = 256,
 		ram_block1a_138.port_b_read_enable_clock = "clock1",
-		ram_block1a_138.ram_block_type = "AUTO",
+		ram_block1a_138.ram_block_type = "M9K",
 		ram_block1a_138.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_139
 	( 
@@ -10078,6 +10078,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[139]}),
@@ -10092,7 +10093,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10112,7 +10112,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_139.clk0_core_clock_enable = "none",
+		ram_block1a_139.clk0_core_clock_enable = "ena0",
 		ram_block1a_139.clk0_input_clock_enable = "none",
 		ram_block1a_139.clk1_core_clock_enable = "none",
 		ram_block1a_139.clk1_input_clock_enable = "none",
@@ -10140,7 +10140,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_139.port_b_logical_ram_depth = 32,
 		ram_block1a_139.port_b_logical_ram_width = 256,
 		ram_block1a_139.port_b_read_enable_clock = "clock1",
-		ram_block1a_139.ram_block_type = "AUTO",
+		ram_block1a_139.ram_block_type = "M9K",
 		ram_block1a_139.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_140
 	( 
@@ -10148,6 +10148,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[140]}),
@@ -10162,7 +10163,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10182,7 +10182,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_140.clk0_core_clock_enable = "none",
+		ram_block1a_140.clk0_core_clock_enable = "ena0",
 		ram_block1a_140.clk0_input_clock_enable = "none",
 		ram_block1a_140.clk1_core_clock_enable = "none",
 		ram_block1a_140.clk1_input_clock_enable = "none",
@@ -10210,7 +10210,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_140.port_b_logical_ram_depth = 32,
 		ram_block1a_140.port_b_logical_ram_width = 256,
 		ram_block1a_140.port_b_read_enable_clock = "clock1",
-		ram_block1a_140.ram_block_type = "AUTO",
+		ram_block1a_140.ram_block_type = "M9K",
 		ram_block1a_140.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_141
 	( 
@@ -10218,6 +10218,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[141]}),
@@ -10232,7 +10233,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10252,7 +10252,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_141.clk0_core_clock_enable = "none",
+		ram_block1a_141.clk0_core_clock_enable = "ena0",
 		ram_block1a_141.clk0_input_clock_enable = "none",
 		ram_block1a_141.clk1_core_clock_enable = "none",
 		ram_block1a_141.clk1_input_clock_enable = "none",
@@ -10280,7 +10280,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_141.port_b_logical_ram_depth = 32,
 		ram_block1a_141.port_b_logical_ram_width = 256,
 		ram_block1a_141.port_b_read_enable_clock = "clock1",
-		ram_block1a_141.ram_block_type = "AUTO",
+		ram_block1a_141.ram_block_type = "M9K",
 		ram_block1a_141.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_142
 	( 
@@ -10288,6 +10288,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[142]}),
@@ -10302,7 +10303,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10322,7 +10322,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_142.clk0_core_clock_enable = "none",
+		ram_block1a_142.clk0_core_clock_enable = "ena0",
 		ram_block1a_142.clk0_input_clock_enable = "none",
 		ram_block1a_142.clk1_core_clock_enable = "none",
 		ram_block1a_142.clk1_input_clock_enable = "none",
@@ -10350,7 +10350,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_142.port_b_logical_ram_depth = 32,
 		ram_block1a_142.port_b_logical_ram_width = 256,
 		ram_block1a_142.port_b_read_enable_clock = "clock1",
-		ram_block1a_142.ram_block_type = "AUTO",
+		ram_block1a_142.ram_block_type = "M9K",
 		ram_block1a_142.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_143
 	( 
@@ -10358,6 +10358,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[143]}),
@@ -10372,7 +10373,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10392,7 +10392,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_143.clk0_core_clock_enable = "none",
+		ram_block1a_143.clk0_core_clock_enable = "ena0",
 		ram_block1a_143.clk0_input_clock_enable = "none",
 		ram_block1a_143.clk1_core_clock_enable = "none",
 		ram_block1a_143.clk1_input_clock_enable = "none",
@@ -10420,7 +10420,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_143.port_b_logical_ram_depth = 32,
 		ram_block1a_143.port_b_logical_ram_width = 256,
 		ram_block1a_143.port_b_read_enable_clock = "clock1",
-		ram_block1a_143.ram_block_type = "AUTO",
+		ram_block1a_143.ram_block_type = "M9K",
 		ram_block1a_143.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_144
 	( 
@@ -10428,6 +10428,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[144]}),
@@ -10442,7 +10443,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10462,7 +10462,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_144.clk0_core_clock_enable = "none",
+		ram_block1a_144.clk0_core_clock_enable = "ena0",
 		ram_block1a_144.clk0_input_clock_enable = "none",
 		ram_block1a_144.clk1_core_clock_enable = "none",
 		ram_block1a_144.clk1_input_clock_enable = "none",
@@ -10490,7 +10490,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_144.port_b_logical_ram_depth = 32,
 		ram_block1a_144.port_b_logical_ram_width = 256,
 		ram_block1a_144.port_b_read_enable_clock = "clock1",
-		ram_block1a_144.ram_block_type = "AUTO",
+		ram_block1a_144.ram_block_type = "M9K",
 		ram_block1a_144.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_145
 	( 
@@ -10498,6 +10498,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[145]}),
@@ -10512,7 +10513,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10532,7 +10532,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_145.clk0_core_clock_enable = "none",
+		ram_block1a_145.clk0_core_clock_enable = "ena0",
 		ram_block1a_145.clk0_input_clock_enable = "none",
 		ram_block1a_145.clk1_core_clock_enable = "none",
 		ram_block1a_145.clk1_input_clock_enable = "none",
@@ -10560,7 +10560,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_145.port_b_logical_ram_depth = 32,
 		ram_block1a_145.port_b_logical_ram_width = 256,
 		ram_block1a_145.port_b_read_enable_clock = "clock1",
-		ram_block1a_145.ram_block_type = "AUTO",
+		ram_block1a_145.ram_block_type = "M9K",
 		ram_block1a_145.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_146
 	( 
@@ -10568,6 +10568,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[146]}),
@@ -10582,7 +10583,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10602,7 +10602,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_146.clk0_core_clock_enable = "none",
+		ram_block1a_146.clk0_core_clock_enable = "ena0",
 		ram_block1a_146.clk0_input_clock_enable = "none",
 		ram_block1a_146.clk1_core_clock_enable = "none",
 		ram_block1a_146.clk1_input_clock_enable = "none",
@@ -10630,7 +10630,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_146.port_b_logical_ram_depth = 32,
 		ram_block1a_146.port_b_logical_ram_width = 256,
 		ram_block1a_146.port_b_read_enable_clock = "clock1",
-		ram_block1a_146.ram_block_type = "AUTO",
+		ram_block1a_146.ram_block_type = "M9K",
 		ram_block1a_146.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_147
 	( 
@@ -10638,6 +10638,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[147]}),
@@ -10652,7 +10653,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10672,7 +10672,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_147.clk0_core_clock_enable = "none",
+		ram_block1a_147.clk0_core_clock_enable = "ena0",
 		ram_block1a_147.clk0_input_clock_enable = "none",
 		ram_block1a_147.clk1_core_clock_enable = "none",
 		ram_block1a_147.clk1_input_clock_enable = "none",
@@ -10700,7 +10700,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_147.port_b_logical_ram_depth = 32,
 		ram_block1a_147.port_b_logical_ram_width = 256,
 		ram_block1a_147.port_b_read_enable_clock = "clock1",
-		ram_block1a_147.ram_block_type = "AUTO",
+		ram_block1a_147.ram_block_type = "M9K",
 		ram_block1a_147.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_148
 	( 
@@ -10708,6 +10708,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[148]}),
@@ -10722,7 +10723,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10742,7 +10742,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_148.clk0_core_clock_enable = "none",
+		ram_block1a_148.clk0_core_clock_enable = "ena0",
 		ram_block1a_148.clk0_input_clock_enable = "none",
 		ram_block1a_148.clk1_core_clock_enable = "none",
 		ram_block1a_148.clk1_input_clock_enable = "none",
@@ -10770,7 +10770,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_148.port_b_logical_ram_depth = 32,
 		ram_block1a_148.port_b_logical_ram_width = 256,
 		ram_block1a_148.port_b_read_enable_clock = "clock1",
-		ram_block1a_148.ram_block_type = "AUTO",
+		ram_block1a_148.ram_block_type = "M9K",
 		ram_block1a_148.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_149
 	( 
@@ -10778,6 +10778,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[149]}),
@@ -10792,7 +10793,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10812,7 +10812,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_149.clk0_core_clock_enable = "none",
+		ram_block1a_149.clk0_core_clock_enable = "ena0",
 		ram_block1a_149.clk0_input_clock_enable = "none",
 		ram_block1a_149.clk1_core_clock_enable = "none",
 		ram_block1a_149.clk1_input_clock_enable = "none",
@@ -10840,7 +10840,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_149.port_b_logical_ram_depth = 32,
 		ram_block1a_149.port_b_logical_ram_width = 256,
 		ram_block1a_149.port_b_read_enable_clock = "clock1",
-		ram_block1a_149.ram_block_type = "AUTO",
+		ram_block1a_149.ram_block_type = "M9K",
 		ram_block1a_149.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_150
 	( 
@@ -10848,6 +10848,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[150]}),
@@ -10862,7 +10863,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10882,7 +10882,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_150.clk0_core_clock_enable = "none",
+		ram_block1a_150.clk0_core_clock_enable = "ena0",
 		ram_block1a_150.clk0_input_clock_enable = "none",
 		ram_block1a_150.clk1_core_clock_enable = "none",
 		ram_block1a_150.clk1_input_clock_enable = "none",
@@ -10910,7 +10910,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_150.port_b_logical_ram_depth = 32,
 		ram_block1a_150.port_b_logical_ram_width = 256,
 		ram_block1a_150.port_b_read_enable_clock = "clock1",
-		ram_block1a_150.ram_block_type = "AUTO",
+		ram_block1a_150.ram_block_type = "M9K",
 		ram_block1a_150.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_151
 	( 
@@ -10918,6 +10918,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[151]}),
@@ -10932,7 +10933,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -10952,7 +10952,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_151.clk0_core_clock_enable = "none",
+		ram_block1a_151.clk0_core_clock_enable = "ena0",
 		ram_block1a_151.clk0_input_clock_enable = "none",
 		ram_block1a_151.clk1_core_clock_enable = "none",
 		ram_block1a_151.clk1_input_clock_enable = "none",
@@ -10980,7 +10980,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_151.port_b_logical_ram_depth = 32,
 		ram_block1a_151.port_b_logical_ram_width = 256,
 		ram_block1a_151.port_b_read_enable_clock = "clock1",
-		ram_block1a_151.ram_block_type = "AUTO",
+		ram_block1a_151.ram_block_type = "M9K",
 		ram_block1a_151.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_152
 	( 
@@ -10988,6 +10988,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[152]}),
@@ -11002,7 +11003,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11022,7 +11022,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_152.clk0_core_clock_enable = "none",
+		ram_block1a_152.clk0_core_clock_enable = "ena0",
 		ram_block1a_152.clk0_input_clock_enable = "none",
 		ram_block1a_152.clk1_core_clock_enable = "none",
 		ram_block1a_152.clk1_input_clock_enable = "none",
@@ -11050,7 +11050,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_152.port_b_logical_ram_depth = 32,
 		ram_block1a_152.port_b_logical_ram_width = 256,
 		ram_block1a_152.port_b_read_enable_clock = "clock1",
-		ram_block1a_152.ram_block_type = "AUTO",
+		ram_block1a_152.ram_block_type = "M9K",
 		ram_block1a_152.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_153
 	( 
@@ -11058,6 +11058,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[153]}),
@@ -11072,7 +11073,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11092,7 +11092,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_153.clk0_core_clock_enable = "none",
+		ram_block1a_153.clk0_core_clock_enable = "ena0",
 		ram_block1a_153.clk0_input_clock_enable = "none",
 		ram_block1a_153.clk1_core_clock_enable = "none",
 		ram_block1a_153.clk1_input_clock_enable = "none",
@@ -11120,7 +11120,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_153.port_b_logical_ram_depth = 32,
 		ram_block1a_153.port_b_logical_ram_width = 256,
 		ram_block1a_153.port_b_read_enable_clock = "clock1",
-		ram_block1a_153.ram_block_type = "AUTO",
+		ram_block1a_153.ram_block_type = "M9K",
 		ram_block1a_153.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_154
 	( 
@@ -11128,6 +11128,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[154]}),
@@ -11142,7 +11143,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11162,7 +11162,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_154.clk0_core_clock_enable = "none",
+		ram_block1a_154.clk0_core_clock_enable = "ena0",
 		ram_block1a_154.clk0_input_clock_enable = "none",
 		ram_block1a_154.clk1_core_clock_enable = "none",
 		ram_block1a_154.clk1_input_clock_enable = "none",
@@ -11190,7 +11190,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_154.port_b_logical_ram_depth = 32,
 		ram_block1a_154.port_b_logical_ram_width = 256,
 		ram_block1a_154.port_b_read_enable_clock = "clock1",
-		ram_block1a_154.ram_block_type = "AUTO",
+		ram_block1a_154.ram_block_type = "M9K",
 		ram_block1a_154.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_155
 	( 
@@ -11198,6 +11198,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[155]}),
@@ -11212,7 +11213,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11232,7 +11232,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_155.clk0_core_clock_enable = "none",
+		ram_block1a_155.clk0_core_clock_enable = "ena0",
 		ram_block1a_155.clk0_input_clock_enable = "none",
 		ram_block1a_155.clk1_core_clock_enable = "none",
 		ram_block1a_155.clk1_input_clock_enable = "none",
@@ -11260,7 +11260,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_155.port_b_logical_ram_depth = 32,
 		ram_block1a_155.port_b_logical_ram_width = 256,
 		ram_block1a_155.port_b_read_enable_clock = "clock1",
-		ram_block1a_155.ram_block_type = "AUTO",
+		ram_block1a_155.ram_block_type = "M9K",
 		ram_block1a_155.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_156
 	( 
@@ -11268,6 +11268,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[156]}),
@@ -11282,7 +11283,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11302,7 +11302,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_156.clk0_core_clock_enable = "none",
+		ram_block1a_156.clk0_core_clock_enable = "ena0",
 		ram_block1a_156.clk0_input_clock_enable = "none",
 		ram_block1a_156.clk1_core_clock_enable = "none",
 		ram_block1a_156.clk1_input_clock_enable = "none",
@@ -11330,7 +11330,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_156.port_b_logical_ram_depth = 32,
 		ram_block1a_156.port_b_logical_ram_width = 256,
 		ram_block1a_156.port_b_read_enable_clock = "clock1",
-		ram_block1a_156.ram_block_type = "AUTO",
+		ram_block1a_156.ram_block_type = "M9K",
 		ram_block1a_156.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_157
 	( 
@@ -11338,6 +11338,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[157]}),
@@ -11352,7 +11353,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11372,7 +11372,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_157.clk0_core_clock_enable = "none",
+		ram_block1a_157.clk0_core_clock_enable = "ena0",
 		ram_block1a_157.clk0_input_clock_enable = "none",
 		ram_block1a_157.clk1_core_clock_enable = "none",
 		ram_block1a_157.clk1_input_clock_enable = "none",
@@ -11400,7 +11400,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_157.port_b_logical_ram_depth = 32,
 		ram_block1a_157.port_b_logical_ram_width = 256,
 		ram_block1a_157.port_b_read_enable_clock = "clock1",
-		ram_block1a_157.ram_block_type = "AUTO",
+		ram_block1a_157.ram_block_type = "M9K",
 		ram_block1a_157.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_158
 	( 
@@ -11408,6 +11408,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[158]}),
@@ -11422,7 +11423,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11442,7 +11442,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_158.clk0_core_clock_enable = "none",
+		ram_block1a_158.clk0_core_clock_enable = "ena0",
 		ram_block1a_158.clk0_input_clock_enable = "none",
 		ram_block1a_158.clk1_core_clock_enable = "none",
 		ram_block1a_158.clk1_input_clock_enable = "none",
@@ -11470,7 +11470,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_158.port_b_logical_ram_depth = 32,
 		ram_block1a_158.port_b_logical_ram_width = 256,
 		ram_block1a_158.port_b_read_enable_clock = "clock1",
-		ram_block1a_158.ram_block_type = "AUTO",
+		ram_block1a_158.ram_block_type = "M9K",
 		ram_block1a_158.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_159
 	( 
@@ -11478,6 +11478,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[159]}),
@@ -11492,7 +11493,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11512,7 +11512,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_159.clk0_core_clock_enable = "none",
+		ram_block1a_159.clk0_core_clock_enable = "ena0",
 		ram_block1a_159.clk0_input_clock_enable = "none",
 		ram_block1a_159.clk1_core_clock_enable = "none",
 		ram_block1a_159.clk1_input_clock_enable = "none",
@@ -11540,7 +11540,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_159.port_b_logical_ram_depth = 32,
 		ram_block1a_159.port_b_logical_ram_width = 256,
 		ram_block1a_159.port_b_read_enable_clock = "clock1",
-		ram_block1a_159.ram_block_type = "AUTO",
+		ram_block1a_159.ram_block_type = "M9K",
 		ram_block1a_159.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_160
 	( 
@@ -11548,6 +11548,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[160]}),
@@ -11562,7 +11563,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11582,7 +11582,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_160.clk0_core_clock_enable = "none",
+		ram_block1a_160.clk0_core_clock_enable = "ena0",
 		ram_block1a_160.clk0_input_clock_enable = "none",
 		ram_block1a_160.clk1_core_clock_enable = "none",
 		ram_block1a_160.clk1_input_clock_enable = "none",
@@ -11610,7 +11610,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_160.port_b_logical_ram_depth = 32,
 		ram_block1a_160.port_b_logical_ram_width = 256,
 		ram_block1a_160.port_b_read_enable_clock = "clock1",
-		ram_block1a_160.ram_block_type = "AUTO",
+		ram_block1a_160.ram_block_type = "M9K",
 		ram_block1a_160.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_161
 	( 
@@ -11618,6 +11618,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[161]}),
@@ -11632,7 +11633,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11652,7 +11652,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_161.clk0_core_clock_enable = "none",
+		ram_block1a_161.clk0_core_clock_enable = "ena0",
 		ram_block1a_161.clk0_input_clock_enable = "none",
 		ram_block1a_161.clk1_core_clock_enable = "none",
 		ram_block1a_161.clk1_input_clock_enable = "none",
@@ -11680,7 +11680,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_161.port_b_logical_ram_depth = 32,
 		ram_block1a_161.port_b_logical_ram_width = 256,
 		ram_block1a_161.port_b_read_enable_clock = "clock1",
-		ram_block1a_161.ram_block_type = "AUTO",
+		ram_block1a_161.ram_block_type = "M9K",
 		ram_block1a_161.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_162
 	( 
@@ -11688,6 +11688,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[162]}),
@@ -11702,7 +11703,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11722,7 +11722,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_162.clk0_core_clock_enable = "none",
+		ram_block1a_162.clk0_core_clock_enable = "ena0",
 		ram_block1a_162.clk0_input_clock_enable = "none",
 		ram_block1a_162.clk1_core_clock_enable = "none",
 		ram_block1a_162.clk1_input_clock_enable = "none",
@@ -11750,7 +11750,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_162.port_b_logical_ram_depth = 32,
 		ram_block1a_162.port_b_logical_ram_width = 256,
 		ram_block1a_162.port_b_read_enable_clock = "clock1",
-		ram_block1a_162.ram_block_type = "AUTO",
+		ram_block1a_162.ram_block_type = "M9K",
 		ram_block1a_162.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_163
 	( 
@@ -11758,6 +11758,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[163]}),
@@ -11772,7 +11773,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11792,7 +11792,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_163.clk0_core_clock_enable = "none",
+		ram_block1a_163.clk0_core_clock_enable = "ena0",
 		ram_block1a_163.clk0_input_clock_enable = "none",
 		ram_block1a_163.clk1_core_clock_enable = "none",
 		ram_block1a_163.clk1_input_clock_enable = "none",
@@ -11820,7 +11820,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_163.port_b_logical_ram_depth = 32,
 		ram_block1a_163.port_b_logical_ram_width = 256,
 		ram_block1a_163.port_b_read_enable_clock = "clock1",
-		ram_block1a_163.ram_block_type = "AUTO",
+		ram_block1a_163.ram_block_type = "M9K",
 		ram_block1a_163.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_164
 	( 
@@ -11828,6 +11828,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[164]}),
@@ -11842,7 +11843,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11862,7 +11862,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_164.clk0_core_clock_enable = "none",
+		ram_block1a_164.clk0_core_clock_enable = "ena0",
 		ram_block1a_164.clk0_input_clock_enable = "none",
 		ram_block1a_164.clk1_core_clock_enable = "none",
 		ram_block1a_164.clk1_input_clock_enable = "none",
@@ -11890,7 +11890,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_164.port_b_logical_ram_depth = 32,
 		ram_block1a_164.port_b_logical_ram_width = 256,
 		ram_block1a_164.port_b_read_enable_clock = "clock1",
-		ram_block1a_164.ram_block_type = "AUTO",
+		ram_block1a_164.ram_block_type = "M9K",
 		ram_block1a_164.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_165
 	( 
@@ -11898,6 +11898,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[165]}),
@@ -11912,7 +11913,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -11932,7 +11932,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_165.clk0_core_clock_enable = "none",
+		ram_block1a_165.clk0_core_clock_enable = "ena0",
 		ram_block1a_165.clk0_input_clock_enable = "none",
 		ram_block1a_165.clk1_core_clock_enable = "none",
 		ram_block1a_165.clk1_input_clock_enable = "none",
@@ -11960,7 +11960,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_165.port_b_logical_ram_depth = 32,
 		ram_block1a_165.port_b_logical_ram_width = 256,
 		ram_block1a_165.port_b_read_enable_clock = "clock1",
-		ram_block1a_165.ram_block_type = "AUTO",
+		ram_block1a_165.ram_block_type = "M9K",
 		ram_block1a_165.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_166
 	( 
@@ -11968,6 +11968,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[166]}),
@@ -11982,7 +11983,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12002,7 +12002,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_166.clk0_core_clock_enable = "none",
+		ram_block1a_166.clk0_core_clock_enable = "ena0",
 		ram_block1a_166.clk0_input_clock_enable = "none",
 		ram_block1a_166.clk1_core_clock_enable = "none",
 		ram_block1a_166.clk1_input_clock_enable = "none",
@@ -12030,7 +12030,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_166.port_b_logical_ram_depth = 32,
 		ram_block1a_166.port_b_logical_ram_width = 256,
 		ram_block1a_166.port_b_read_enable_clock = "clock1",
-		ram_block1a_166.ram_block_type = "AUTO",
+		ram_block1a_166.ram_block_type = "M9K",
 		ram_block1a_166.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_167
 	( 
@@ -12038,6 +12038,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[167]}),
@@ -12052,7 +12053,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12072,7 +12072,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_167.clk0_core_clock_enable = "none",
+		ram_block1a_167.clk0_core_clock_enable = "ena0",
 		ram_block1a_167.clk0_input_clock_enable = "none",
 		ram_block1a_167.clk1_core_clock_enable = "none",
 		ram_block1a_167.clk1_input_clock_enable = "none",
@@ -12100,7 +12100,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_167.port_b_logical_ram_depth = 32,
 		ram_block1a_167.port_b_logical_ram_width = 256,
 		ram_block1a_167.port_b_read_enable_clock = "clock1",
-		ram_block1a_167.ram_block_type = "AUTO",
+		ram_block1a_167.ram_block_type = "M9K",
 		ram_block1a_167.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_168
 	( 
@@ -12108,6 +12108,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[168]}),
@@ -12122,7 +12123,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12142,7 +12142,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_168.clk0_core_clock_enable = "none",
+		ram_block1a_168.clk0_core_clock_enable = "ena0",
 		ram_block1a_168.clk0_input_clock_enable = "none",
 		ram_block1a_168.clk1_core_clock_enable = "none",
 		ram_block1a_168.clk1_input_clock_enable = "none",
@@ -12170,7 +12170,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_168.port_b_logical_ram_depth = 32,
 		ram_block1a_168.port_b_logical_ram_width = 256,
 		ram_block1a_168.port_b_read_enable_clock = "clock1",
-		ram_block1a_168.ram_block_type = "AUTO",
+		ram_block1a_168.ram_block_type = "M9K",
 		ram_block1a_168.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_169
 	( 
@@ -12178,6 +12178,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[169]}),
@@ -12192,7 +12193,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12212,7 +12212,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_169.clk0_core_clock_enable = "none",
+		ram_block1a_169.clk0_core_clock_enable = "ena0",
 		ram_block1a_169.clk0_input_clock_enable = "none",
 		ram_block1a_169.clk1_core_clock_enable = "none",
 		ram_block1a_169.clk1_input_clock_enable = "none",
@@ -12240,7 +12240,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_169.port_b_logical_ram_depth = 32,
 		ram_block1a_169.port_b_logical_ram_width = 256,
 		ram_block1a_169.port_b_read_enable_clock = "clock1",
-		ram_block1a_169.ram_block_type = "AUTO",
+		ram_block1a_169.ram_block_type = "M9K",
 		ram_block1a_169.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_170
 	( 
@@ -12248,6 +12248,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[170]}),
@@ -12262,7 +12263,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12282,7 +12282,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_170.clk0_core_clock_enable = "none",
+		ram_block1a_170.clk0_core_clock_enable = "ena0",
 		ram_block1a_170.clk0_input_clock_enable = "none",
 		ram_block1a_170.clk1_core_clock_enable = "none",
 		ram_block1a_170.clk1_input_clock_enable = "none",
@@ -12310,7 +12310,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_170.port_b_logical_ram_depth = 32,
 		ram_block1a_170.port_b_logical_ram_width = 256,
 		ram_block1a_170.port_b_read_enable_clock = "clock1",
-		ram_block1a_170.ram_block_type = "AUTO",
+		ram_block1a_170.ram_block_type = "M9K",
 		ram_block1a_170.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_171
 	( 
@@ -12318,6 +12318,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[171]}),
@@ -12332,7 +12333,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12352,7 +12352,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_171.clk0_core_clock_enable = "none",
+		ram_block1a_171.clk0_core_clock_enable = "ena0",
 		ram_block1a_171.clk0_input_clock_enable = "none",
 		ram_block1a_171.clk1_core_clock_enable = "none",
 		ram_block1a_171.clk1_input_clock_enable = "none",
@@ -12380,7 +12380,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_171.port_b_logical_ram_depth = 32,
 		ram_block1a_171.port_b_logical_ram_width = 256,
 		ram_block1a_171.port_b_read_enable_clock = "clock1",
-		ram_block1a_171.ram_block_type = "AUTO",
+		ram_block1a_171.ram_block_type = "M9K",
 		ram_block1a_171.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_172
 	( 
@@ -12388,6 +12388,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[172]}),
@@ -12402,7 +12403,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12422,7 +12422,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_172.clk0_core_clock_enable = "none",
+		ram_block1a_172.clk0_core_clock_enable = "ena0",
 		ram_block1a_172.clk0_input_clock_enable = "none",
 		ram_block1a_172.clk1_core_clock_enable = "none",
 		ram_block1a_172.clk1_input_clock_enable = "none",
@@ -12450,7 +12450,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_172.port_b_logical_ram_depth = 32,
 		ram_block1a_172.port_b_logical_ram_width = 256,
 		ram_block1a_172.port_b_read_enable_clock = "clock1",
-		ram_block1a_172.ram_block_type = "AUTO",
+		ram_block1a_172.ram_block_type = "M9K",
 		ram_block1a_172.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_173
 	( 
@@ -12458,6 +12458,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[173]}),
@@ -12472,7 +12473,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12492,7 +12492,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_173.clk0_core_clock_enable = "none",
+		ram_block1a_173.clk0_core_clock_enable = "ena0",
 		ram_block1a_173.clk0_input_clock_enable = "none",
 		ram_block1a_173.clk1_core_clock_enable = "none",
 		ram_block1a_173.clk1_input_clock_enable = "none",
@@ -12520,7 +12520,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_173.port_b_logical_ram_depth = 32,
 		ram_block1a_173.port_b_logical_ram_width = 256,
 		ram_block1a_173.port_b_read_enable_clock = "clock1",
-		ram_block1a_173.ram_block_type = "AUTO",
+		ram_block1a_173.ram_block_type = "M9K",
 		ram_block1a_173.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_174
 	( 
@@ -12528,6 +12528,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[174]}),
@@ -12542,7 +12543,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12562,7 +12562,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_174.clk0_core_clock_enable = "none",
+		ram_block1a_174.clk0_core_clock_enable = "ena0",
 		ram_block1a_174.clk0_input_clock_enable = "none",
 		ram_block1a_174.clk1_core_clock_enable = "none",
 		ram_block1a_174.clk1_input_clock_enable = "none",
@@ -12590,7 +12590,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_174.port_b_logical_ram_depth = 32,
 		ram_block1a_174.port_b_logical_ram_width = 256,
 		ram_block1a_174.port_b_read_enable_clock = "clock1",
-		ram_block1a_174.ram_block_type = "AUTO",
+		ram_block1a_174.ram_block_type = "M9K",
 		ram_block1a_174.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_175
 	( 
@@ -12598,6 +12598,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[175]}),
@@ -12612,7 +12613,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12632,7 +12632,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_175.clk0_core_clock_enable = "none",
+		ram_block1a_175.clk0_core_clock_enable = "ena0",
 		ram_block1a_175.clk0_input_clock_enable = "none",
 		ram_block1a_175.clk1_core_clock_enable = "none",
 		ram_block1a_175.clk1_input_clock_enable = "none",
@@ -12660,7 +12660,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_175.port_b_logical_ram_depth = 32,
 		ram_block1a_175.port_b_logical_ram_width = 256,
 		ram_block1a_175.port_b_read_enable_clock = "clock1",
-		ram_block1a_175.ram_block_type = "AUTO",
+		ram_block1a_175.ram_block_type = "M9K",
 		ram_block1a_175.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_176
 	( 
@@ -12668,6 +12668,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[176]}),
@@ -12682,7 +12683,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12702,7 +12702,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_176.clk0_core_clock_enable = "none",
+		ram_block1a_176.clk0_core_clock_enable = "ena0",
 		ram_block1a_176.clk0_input_clock_enable = "none",
 		ram_block1a_176.clk1_core_clock_enable = "none",
 		ram_block1a_176.clk1_input_clock_enable = "none",
@@ -12730,7 +12730,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_176.port_b_logical_ram_depth = 32,
 		ram_block1a_176.port_b_logical_ram_width = 256,
 		ram_block1a_176.port_b_read_enable_clock = "clock1",
-		ram_block1a_176.ram_block_type = "AUTO",
+		ram_block1a_176.ram_block_type = "M9K",
 		ram_block1a_176.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_177
 	( 
@@ -12738,6 +12738,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[177]}),
@@ -12752,7 +12753,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12772,7 +12772,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_177.clk0_core_clock_enable = "none",
+		ram_block1a_177.clk0_core_clock_enable = "ena0",
 		ram_block1a_177.clk0_input_clock_enable = "none",
 		ram_block1a_177.clk1_core_clock_enable = "none",
 		ram_block1a_177.clk1_input_clock_enable = "none",
@@ -12800,7 +12800,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_177.port_b_logical_ram_depth = 32,
 		ram_block1a_177.port_b_logical_ram_width = 256,
 		ram_block1a_177.port_b_read_enable_clock = "clock1",
-		ram_block1a_177.ram_block_type = "AUTO",
+		ram_block1a_177.ram_block_type = "M9K",
 		ram_block1a_177.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_178
 	( 
@@ -12808,6 +12808,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[178]}),
@@ -12822,7 +12823,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12842,7 +12842,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_178.clk0_core_clock_enable = "none",
+		ram_block1a_178.clk0_core_clock_enable = "ena0",
 		ram_block1a_178.clk0_input_clock_enable = "none",
 		ram_block1a_178.clk1_core_clock_enable = "none",
 		ram_block1a_178.clk1_input_clock_enable = "none",
@@ -12870,7 +12870,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_178.port_b_logical_ram_depth = 32,
 		ram_block1a_178.port_b_logical_ram_width = 256,
 		ram_block1a_178.port_b_read_enable_clock = "clock1",
-		ram_block1a_178.ram_block_type = "AUTO",
+		ram_block1a_178.ram_block_type = "M9K",
 		ram_block1a_178.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_179
 	( 
@@ -12878,6 +12878,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[179]}),
@@ -12892,7 +12893,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12912,7 +12912,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_179.clk0_core_clock_enable = "none",
+		ram_block1a_179.clk0_core_clock_enable = "ena0",
 		ram_block1a_179.clk0_input_clock_enable = "none",
 		ram_block1a_179.clk1_core_clock_enable = "none",
 		ram_block1a_179.clk1_input_clock_enable = "none",
@@ -12940,7 +12940,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_179.port_b_logical_ram_depth = 32,
 		ram_block1a_179.port_b_logical_ram_width = 256,
 		ram_block1a_179.port_b_read_enable_clock = "clock1",
-		ram_block1a_179.ram_block_type = "AUTO",
+		ram_block1a_179.ram_block_type = "M9K",
 		ram_block1a_179.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_180
 	( 
@@ -12948,6 +12948,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[180]}),
@@ -12962,7 +12963,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -12982,7 +12982,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_180.clk0_core_clock_enable = "none",
+		ram_block1a_180.clk0_core_clock_enable = "ena0",
 		ram_block1a_180.clk0_input_clock_enable = "none",
 		ram_block1a_180.clk1_core_clock_enable = "none",
 		ram_block1a_180.clk1_input_clock_enable = "none",
@@ -13010,7 +13010,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_180.port_b_logical_ram_depth = 32,
 		ram_block1a_180.port_b_logical_ram_width = 256,
 		ram_block1a_180.port_b_read_enable_clock = "clock1",
-		ram_block1a_180.ram_block_type = "AUTO",
+		ram_block1a_180.ram_block_type = "M9K",
 		ram_block1a_180.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_181
 	( 
@@ -13018,6 +13018,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[181]}),
@@ -13032,7 +13033,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13052,7 +13052,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_181.clk0_core_clock_enable = "none",
+		ram_block1a_181.clk0_core_clock_enable = "ena0",
 		ram_block1a_181.clk0_input_clock_enable = "none",
 		ram_block1a_181.clk1_core_clock_enable = "none",
 		ram_block1a_181.clk1_input_clock_enable = "none",
@@ -13080,7 +13080,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_181.port_b_logical_ram_depth = 32,
 		ram_block1a_181.port_b_logical_ram_width = 256,
 		ram_block1a_181.port_b_read_enable_clock = "clock1",
-		ram_block1a_181.ram_block_type = "AUTO",
+		ram_block1a_181.ram_block_type = "M9K",
 		ram_block1a_181.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_182
 	( 
@@ -13088,6 +13088,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[182]}),
@@ -13102,7 +13103,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13122,7 +13122,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_182.clk0_core_clock_enable = "none",
+		ram_block1a_182.clk0_core_clock_enable = "ena0",
 		ram_block1a_182.clk0_input_clock_enable = "none",
 		ram_block1a_182.clk1_core_clock_enable = "none",
 		ram_block1a_182.clk1_input_clock_enable = "none",
@@ -13150,7 +13150,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_182.port_b_logical_ram_depth = 32,
 		ram_block1a_182.port_b_logical_ram_width = 256,
 		ram_block1a_182.port_b_read_enable_clock = "clock1",
-		ram_block1a_182.ram_block_type = "AUTO",
+		ram_block1a_182.ram_block_type = "M9K",
 		ram_block1a_182.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_183
 	( 
@@ -13158,6 +13158,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[183]}),
@@ -13172,7 +13173,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13192,7 +13192,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_183.clk0_core_clock_enable = "none",
+		ram_block1a_183.clk0_core_clock_enable = "ena0",
 		ram_block1a_183.clk0_input_clock_enable = "none",
 		ram_block1a_183.clk1_core_clock_enable = "none",
 		ram_block1a_183.clk1_input_clock_enable = "none",
@@ -13220,7 +13220,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_183.port_b_logical_ram_depth = 32,
 		ram_block1a_183.port_b_logical_ram_width = 256,
 		ram_block1a_183.port_b_read_enable_clock = "clock1",
-		ram_block1a_183.ram_block_type = "AUTO",
+		ram_block1a_183.ram_block_type = "M9K",
 		ram_block1a_183.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_184
 	( 
@@ -13228,6 +13228,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[184]}),
@@ -13242,7 +13243,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13262,7 +13262,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_184.clk0_core_clock_enable = "none",
+		ram_block1a_184.clk0_core_clock_enable = "ena0",
 		ram_block1a_184.clk0_input_clock_enable = "none",
 		ram_block1a_184.clk1_core_clock_enable = "none",
 		ram_block1a_184.clk1_input_clock_enable = "none",
@@ -13290,7 +13290,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_184.port_b_logical_ram_depth = 32,
 		ram_block1a_184.port_b_logical_ram_width = 256,
 		ram_block1a_184.port_b_read_enable_clock = "clock1",
-		ram_block1a_184.ram_block_type = "AUTO",
+		ram_block1a_184.ram_block_type = "M9K",
 		ram_block1a_184.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_185
 	( 
@@ -13298,6 +13298,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[185]}),
@@ -13312,7 +13313,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13332,7 +13332,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_185.clk0_core_clock_enable = "none",
+		ram_block1a_185.clk0_core_clock_enable = "ena0",
 		ram_block1a_185.clk0_input_clock_enable = "none",
 		ram_block1a_185.clk1_core_clock_enable = "none",
 		ram_block1a_185.clk1_input_clock_enable = "none",
@@ -13360,7 +13360,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_185.port_b_logical_ram_depth = 32,
 		ram_block1a_185.port_b_logical_ram_width = 256,
 		ram_block1a_185.port_b_read_enable_clock = "clock1",
-		ram_block1a_185.ram_block_type = "AUTO",
+		ram_block1a_185.ram_block_type = "M9K",
 		ram_block1a_185.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_186
 	( 
@@ -13368,6 +13368,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[186]}),
@@ -13382,7 +13383,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13402,7 +13402,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_186.clk0_core_clock_enable = "none",
+		ram_block1a_186.clk0_core_clock_enable = "ena0",
 		ram_block1a_186.clk0_input_clock_enable = "none",
 		ram_block1a_186.clk1_core_clock_enable = "none",
 		ram_block1a_186.clk1_input_clock_enable = "none",
@@ -13430,7 +13430,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_186.port_b_logical_ram_depth = 32,
 		ram_block1a_186.port_b_logical_ram_width = 256,
 		ram_block1a_186.port_b_read_enable_clock = "clock1",
-		ram_block1a_186.ram_block_type = "AUTO",
+		ram_block1a_186.ram_block_type = "M9K",
 		ram_block1a_186.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_187
 	( 
@@ -13438,6 +13438,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[187]}),
@@ -13452,7 +13453,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13472,7 +13472,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_187.clk0_core_clock_enable = "none",
+		ram_block1a_187.clk0_core_clock_enable = "ena0",
 		ram_block1a_187.clk0_input_clock_enable = "none",
 		ram_block1a_187.clk1_core_clock_enable = "none",
 		ram_block1a_187.clk1_input_clock_enable = "none",
@@ -13500,7 +13500,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_187.port_b_logical_ram_depth = 32,
 		ram_block1a_187.port_b_logical_ram_width = 256,
 		ram_block1a_187.port_b_read_enable_clock = "clock1",
-		ram_block1a_187.ram_block_type = "AUTO",
+		ram_block1a_187.ram_block_type = "M9K",
 		ram_block1a_187.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_188
 	( 
@@ -13508,6 +13508,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[188]}),
@@ -13522,7 +13523,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13542,7 +13542,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_188.clk0_core_clock_enable = "none",
+		ram_block1a_188.clk0_core_clock_enable = "ena0",
 		ram_block1a_188.clk0_input_clock_enable = "none",
 		ram_block1a_188.clk1_core_clock_enable = "none",
 		ram_block1a_188.clk1_input_clock_enable = "none",
@@ -13570,7 +13570,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_188.port_b_logical_ram_depth = 32,
 		ram_block1a_188.port_b_logical_ram_width = 256,
 		ram_block1a_188.port_b_read_enable_clock = "clock1",
-		ram_block1a_188.ram_block_type = "AUTO",
+		ram_block1a_188.ram_block_type = "M9K",
 		ram_block1a_188.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_189
 	( 
@@ -13578,6 +13578,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[189]}),
@@ -13592,7 +13593,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13612,7 +13612,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_189.clk0_core_clock_enable = "none",
+		ram_block1a_189.clk0_core_clock_enable = "ena0",
 		ram_block1a_189.clk0_input_clock_enable = "none",
 		ram_block1a_189.clk1_core_clock_enable = "none",
 		ram_block1a_189.clk1_input_clock_enable = "none",
@@ -13640,7 +13640,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_189.port_b_logical_ram_depth = 32,
 		ram_block1a_189.port_b_logical_ram_width = 256,
 		ram_block1a_189.port_b_read_enable_clock = "clock1",
-		ram_block1a_189.ram_block_type = "AUTO",
+		ram_block1a_189.ram_block_type = "M9K",
 		ram_block1a_189.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_190
 	( 
@@ -13648,6 +13648,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[190]}),
@@ -13662,7 +13663,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13682,7 +13682,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_190.clk0_core_clock_enable = "none",
+		ram_block1a_190.clk0_core_clock_enable = "ena0",
 		ram_block1a_190.clk0_input_clock_enable = "none",
 		ram_block1a_190.clk1_core_clock_enable = "none",
 		ram_block1a_190.clk1_input_clock_enable = "none",
@@ -13710,7 +13710,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_190.port_b_logical_ram_depth = 32,
 		ram_block1a_190.port_b_logical_ram_width = 256,
 		ram_block1a_190.port_b_read_enable_clock = "clock1",
-		ram_block1a_190.ram_block_type = "AUTO",
+		ram_block1a_190.ram_block_type = "M9K",
 		ram_block1a_190.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_191
 	( 
@@ -13718,6 +13718,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[191]}),
@@ -13732,7 +13733,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13752,7 +13752,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_191.clk0_core_clock_enable = "none",
+		ram_block1a_191.clk0_core_clock_enable = "ena0",
 		ram_block1a_191.clk0_input_clock_enable = "none",
 		ram_block1a_191.clk1_core_clock_enable = "none",
 		ram_block1a_191.clk1_input_clock_enable = "none",
@@ -13780,7 +13780,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_191.port_b_logical_ram_depth = 32,
 		ram_block1a_191.port_b_logical_ram_width = 256,
 		ram_block1a_191.port_b_read_enable_clock = "clock1",
-		ram_block1a_191.ram_block_type = "AUTO",
+		ram_block1a_191.ram_block_type = "M9K",
 		ram_block1a_191.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_192
 	( 
@@ -13788,6 +13788,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[192]}),
@@ -13802,7 +13803,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13822,7 +13822,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_192.clk0_core_clock_enable = "none",
+		ram_block1a_192.clk0_core_clock_enable = "ena0",
 		ram_block1a_192.clk0_input_clock_enable = "none",
 		ram_block1a_192.clk1_core_clock_enable = "none",
 		ram_block1a_192.clk1_input_clock_enable = "none",
@@ -13850,7 +13850,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_192.port_b_logical_ram_depth = 32,
 		ram_block1a_192.port_b_logical_ram_width = 256,
 		ram_block1a_192.port_b_read_enable_clock = "clock1",
-		ram_block1a_192.ram_block_type = "AUTO",
+		ram_block1a_192.ram_block_type = "M9K",
 		ram_block1a_192.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_193
 	( 
@@ -13858,6 +13858,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[193]}),
@@ -13872,7 +13873,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13892,7 +13892,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_193.clk0_core_clock_enable = "none",
+		ram_block1a_193.clk0_core_clock_enable = "ena0",
 		ram_block1a_193.clk0_input_clock_enable = "none",
 		ram_block1a_193.clk1_core_clock_enable = "none",
 		ram_block1a_193.clk1_input_clock_enable = "none",
@@ -13920,7 +13920,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_193.port_b_logical_ram_depth = 32,
 		ram_block1a_193.port_b_logical_ram_width = 256,
 		ram_block1a_193.port_b_read_enable_clock = "clock1",
-		ram_block1a_193.ram_block_type = "AUTO",
+		ram_block1a_193.ram_block_type = "M9K",
 		ram_block1a_193.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_194
 	( 
@@ -13928,6 +13928,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[194]}),
@@ -13942,7 +13943,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -13962,7 +13962,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_194.clk0_core_clock_enable = "none",
+		ram_block1a_194.clk0_core_clock_enable = "ena0",
 		ram_block1a_194.clk0_input_clock_enable = "none",
 		ram_block1a_194.clk1_core_clock_enable = "none",
 		ram_block1a_194.clk1_input_clock_enable = "none",
@@ -13990,7 +13990,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_194.port_b_logical_ram_depth = 32,
 		ram_block1a_194.port_b_logical_ram_width = 256,
 		ram_block1a_194.port_b_read_enable_clock = "clock1",
-		ram_block1a_194.ram_block_type = "AUTO",
+		ram_block1a_194.ram_block_type = "M9K",
 		ram_block1a_194.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_195
 	( 
@@ -13998,6 +13998,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[195]}),
@@ -14012,7 +14013,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14032,7 +14032,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_195.clk0_core_clock_enable = "none",
+		ram_block1a_195.clk0_core_clock_enable = "ena0",
 		ram_block1a_195.clk0_input_clock_enable = "none",
 		ram_block1a_195.clk1_core_clock_enable = "none",
 		ram_block1a_195.clk1_input_clock_enable = "none",
@@ -14060,7 +14060,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_195.port_b_logical_ram_depth = 32,
 		ram_block1a_195.port_b_logical_ram_width = 256,
 		ram_block1a_195.port_b_read_enable_clock = "clock1",
-		ram_block1a_195.ram_block_type = "AUTO",
+		ram_block1a_195.ram_block_type = "M9K",
 		ram_block1a_195.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_196
 	( 
@@ -14068,6 +14068,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[196]}),
@@ -14082,7 +14083,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14102,7 +14102,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_196.clk0_core_clock_enable = "none",
+		ram_block1a_196.clk0_core_clock_enable = "ena0",
 		ram_block1a_196.clk0_input_clock_enable = "none",
 		ram_block1a_196.clk1_core_clock_enable = "none",
 		ram_block1a_196.clk1_input_clock_enable = "none",
@@ -14130,7 +14130,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_196.port_b_logical_ram_depth = 32,
 		ram_block1a_196.port_b_logical_ram_width = 256,
 		ram_block1a_196.port_b_read_enable_clock = "clock1",
-		ram_block1a_196.ram_block_type = "AUTO",
+		ram_block1a_196.ram_block_type = "M9K",
 		ram_block1a_196.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_197
 	( 
@@ -14138,6 +14138,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[197]}),
@@ -14152,7 +14153,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14172,7 +14172,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_197.clk0_core_clock_enable = "none",
+		ram_block1a_197.clk0_core_clock_enable = "ena0",
 		ram_block1a_197.clk0_input_clock_enable = "none",
 		ram_block1a_197.clk1_core_clock_enable = "none",
 		ram_block1a_197.clk1_input_clock_enable = "none",
@@ -14200,7 +14200,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_197.port_b_logical_ram_depth = 32,
 		ram_block1a_197.port_b_logical_ram_width = 256,
 		ram_block1a_197.port_b_read_enable_clock = "clock1",
-		ram_block1a_197.ram_block_type = "AUTO",
+		ram_block1a_197.ram_block_type = "M9K",
 		ram_block1a_197.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_198
 	( 
@@ -14208,6 +14208,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[198]}),
@@ -14222,7 +14223,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14242,7 +14242,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_198.clk0_core_clock_enable = "none",
+		ram_block1a_198.clk0_core_clock_enable = "ena0",
 		ram_block1a_198.clk0_input_clock_enable = "none",
 		ram_block1a_198.clk1_core_clock_enable = "none",
 		ram_block1a_198.clk1_input_clock_enable = "none",
@@ -14270,7 +14270,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_198.port_b_logical_ram_depth = 32,
 		ram_block1a_198.port_b_logical_ram_width = 256,
 		ram_block1a_198.port_b_read_enable_clock = "clock1",
-		ram_block1a_198.ram_block_type = "AUTO",
+		ram_block1a_198.ram_block_type = "M9K",
 		ram_block1a_198.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_199
 	( 
@@ -14278,6 +14278,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[199]}),
@@ -14292,7 +14293,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14312,7 +14312,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_199.clk0_core_clock_enable = "none",
+		ram_block1a_199.clk0_core_clock_enable = "ena0",
 		ram_block1a_199.clk0_input_clock_enable = "none",
 		ram_block1a_199.clk1_core_clock_enable = "none",
 		ram_block1a_199.clk1_input_clock_enable = "none",
@@ -14340,7 +14340,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_199.port_b_logical_ram_depth = 32,
 		ram_block1a_199.port_b_logical_ram_width = 256,
 		ram_block1a_199.port_b_read_enable_clock = "clock1",
-		ram_block1a_199.ram_block_type = "AUTO",
+		ram_block1a_199.ram_block_type = "M9K",
 		ram_block1a_199.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_200
 	( 
@@ -14348,6 +14348,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[200]}),
@@ -14362,7 +14363,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14382,7 +14382,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_200.clk0_core_clock_enable = "none",
+		ram_block1a_200.clk0_core_clock_enable = "ena0",
 		ram_block1a_200.clk0_input_clock_enable = "none",
 		ram_block1a_200.clk1_core_clock_enable = "none",
 		ram_block1a_200.clk1_input_clock_enable = "none",
@@ -14410,7 +14410,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_200.port_b_logical_ram_depth = 32,
 		ram_block1a_200.port_b_logical_ram_width = 256,
 		ram_block1a_200.port_b_read_enable_clock = "clock1",
-		ram_block1a_200.ram_block_type = "AUTO",
+		ram_block1a_200.ram_block_type = "M9K",
 		ram_block1a_200.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_201
 	( 
@@ -14418,6 +14418,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[201]}),
@@ -14432,7 +14433,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14452,7 +14452,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_201.clk0_core_clock_enable = "none",
+		ram_block1a_201.clk0_core_clock_enable = "ena0",
 		ram_block1a_201.clk0_input_clock_enable = "none",
 		ram_block1a_201.clk1_core_clock_enable = "none",
 		ram_block1a_201.clk1_input_clock_enable = "none",
@@ -14480,7 +14480,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_201.port_b_logical_ram_depth = 32,
 		ram_block1a_201.port_b_logical_ram_width = 256,
 		ram_block1a_201.port_b_read_enable_clock = "clock1",
-		ram_block1a_201.ram_block_type = "AUTO",
+		ram_block1a_201.ram_block_type = "M9K",
 		ram_block1a_201.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_202
 	( 
@@ -14488,6 +14488,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[202]}),
@@ -14502,7 +14503,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14522,7 +14522,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_202.clk0_core_clock_enable = "none",
+		ram_block1a_202.clk0_core_clock_enable = "ena0",
 		ram_block1a_202.clk0_input_clock_enable = "none",
 		ram_block1a_202.clk1_core_clock_enable = "none",
 		ram_block1a_202.clk1_input_clock_enable = "none",
@@ -14550,7 +14550,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_202.port_b_logical_ram_depth = 32,
 		ram_block1a_202.port_b_logical_ram_width = 256,
 		ram_block1a_202.port_b_read_enable_clock = "clock1",
-		ram_block1a_202.ram_block_type = "AUTO",
+		ram_block1a_202.ram_block_type = "M9K",
 		ram_block1a_202.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_203
 	( 
@@ -14558,6 +14558,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[203]}),
@@ -14572,7 +14573,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14592,7 +14592,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_203.clk0_core_clock_enable = "none",
+		ram_block1a_203.clk0_core_clock_enable = "ena0",
 		ram_block1a_203.clk0_input_clock_enable = "none",
 		ram_block1a_203.clk1_core_clock_enable = "none",
 		ram_block1a_203.clk1_input_clock_enable = "none",
@@ -14620,7 +14620,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_203.port_b_logical_ram_depth = 32,
 		ram_block1a_203.port_b_logical_ram_width = 256,
 		ram_block1a_203.port_b_read_enable_clock = "clock1",
-		ram_block1a_203.ram_block_type = "AUTO",
+		ram_block1a_203.ram_block_type = "M9K",
 		ram_block1a_203.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_204
 	( 
@@ -14628,6 +14628,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[204]}),
@@ -14642,7 +14643,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14662,7 +14662,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_204.clk0_core_clock_enable = "none",
+		ram_block1a_204.clk0_core_clock_enable = "ena0",
 		ram_block1a_204.clk0_input_clock_enable = "none",
 		ram_block1a_204.clk1_core_clock_enable = "none",
 		ram_block1a_204.clk1_input_clock_enable = "none",
@@ -14690,7 +14690,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_204.port_b_logical_ram_depth = 32,
 		ram_block1a_204.port_b_logical_ram_width = 256,
 		ram_block1a_204.port_b_read_enable_clock = "clock1",
-		ram_block1a_204.ram_block_type = "AUTO",
+		ram_block1a_204.ram_block_type = "M9K",
 		ram_block1a_204.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_205
 	( 
@@ -14698,6 +14698,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[205]}),
@@ -14712,7 +14713,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14732,7 +14732,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_205.clk0_core_clock_enable = "none",
+		ram_block1a_205.clk0_core_clock_enable = "ena0",
 		ram_block1a_205.clk0_input_clock_enable = "none",
 		ram_block1a_205.clk1_core_clock_enable = "none",
 		ram_block1a_205.clk1_input_clock_enable = "none",
@@ -14760,7 +14760,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_205.port_b_logical_ram_depth = 32,
 		ram_block1a_205.port_b_logical_ram_width = 256,
 		ram_block1a_205.port_b_read_enable_clock = "clock1",
-		ram_block1a_205.ram_block_type = "AUTO",
+		ram_block1a_205.ram_block_type = "M9K",
 		ram_block1a_205.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_206
 	( 
@@ -14768,6 +14768,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[206]}),
@@ -14782,7 +14783,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14802,7 +14802,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_206.clk0_core_clock_enable = "none",
+		ram_block1a_206.clk0_core_clock_enable = "ena0",
 		ram_block1a_206.clk0_input_clock_enable = "none",
 		ram_block1a_206.clk1_core_clock_enable = "none",
 		ram_block1a_206.clk1_input_clock_enable = "none",
@@ -14830,7 +14830,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_206.port_b_logical_ram_depth = 32,
 		ram_block1a_206.port_b_logical_ram_width = 256,
 		ram_block1a_206.port_b_read_enable_clock = "clock1",
-		ram_block1a_206.ram_block_type = "AUTO",
+		ram_block1a_206.ram_block_type = "M9K",
 		ram_block1a_206.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_207
 	( 
@@ -14838,6 +14838,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[207]}),
@@ -14852,7 +14853,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14872,7 +14872,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_207.clk0_core_clock_enable = "none",
+		ram_block1a_207.clk0_core_clock_enable = "ena0",
 		ram_block1a_207.clk0_input_clock_enable = "none",
 		ram_block1a_207.clk1_core_clock_enable = "none",
 		ram_block1a_207.clk1_input_clock_enable = "none",
@@ -14900,7 +14900,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_207.port_b_logical_ram_depth = 32,
 		ram_block1a_207.port_b_logical_ram_width = 256,
 		ram_block1a_207.port_b_read_enable_clock = "clock1",
-		ram_block1a_207.ram_block_type = "AUTO",
+		ram_block1a_207.ram_block_type = "M9K",
 		ram_block1a_207.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_208
 	( 
@@ -14908,6 +14908,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[208]}),
@@ -14922,7 +14923,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -14942,7 +14942,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_208.clk0_core_clock_enable = "none",
+		ram_block1a_208.clk0_core_clock_enable = "ena0",
 		ram_block1a_208.clk0_input_clock_enable = "none",
 		ram_block1a_208.clk1_core_clock_enable = "none",
 		ram_block1a_208.clk1_input_clock_enable = "none",
@@ -14970,7 +14970,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_208.port_b_logical_ram_depth = 32,
 		ram_block1a_208.port_b_logical_ram_width = 256,
 		ram_block1a_208.port_b_read_enable_clock = "clock1",
-		ram_block1a_208.ram_block_type = "AUTO",
+		ram_block1a_208.ram_block_type = "M9K",
 		ram_block1a_208.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_209
 	( 
@@ -14978,6 +14978,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[209]}),
@@ -14992,7 +14993,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15012,7 +15012,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_209.clk0_core_clock_enable = "none",
+		ram_block1a_209.clk0_core_clock_enable = "ena0",
 		ram_block1a_209.clk0_input_clock_enable = "none",
 		ram_block1a_209.clk1_core_clock_enable = "none",
 		ram_block1a_209.clk1_input_clock_enable = "none",
@@ -15040,7 +15040,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_209.port_b_logical_ram_depth = 32,
 		ram_block1a_209.port_b_logical_ram_width = 256,
 		ram_block1a_209.port_b_read_enable_clock = "clock1",
-		ram_block1a_209.ram_block_type = "AUTO",
+		ram_block1a_209.ram_block_type = "M9K",
 		ram_block1a_209.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_210
 	( 
@@ -15048,6 +15048,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[210]}),
@@ -15062,7 +15063,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15082,7 +15082,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_210.clk0_core_clock_enable = "none",
+		ram_block1a_210.clk0_core_clock_enable = "ena0",
 		ram_block1a_210.clk0_input_clock_enable = "none",
 		ram_block1a_210.clk1_core_clock_enable = "none",
 		ram_block1a_210.clk1_input_clock_enable = "none",
@@ -15110,7 +15110,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_210.port_b_logical_ram_depth = 32,
 		ram_block1a_210.port_b_logical_ram_width = 256,
 		ram_block1a_210.port_b_read_enable_clock = "clock1",
-		ram_block1a_210.ram_block_type = "AUTO",
+		ram_block1a_210.ram_block_type = "M9K",
 		ram_block1a_210.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_211
 	( 
@@ -15118,6 +15118,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[211]}),
@@ -15132,7 +15133,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15152,7 +15152,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_211.clk0_core_clock_enable = "none",
+		ram_block1a_211.clk0_core_clock_enable = "ena0",
 		ram_block1a_211.clk0_input_clock_enable = "none",
 		ram_block1a_211.clk1_core_clock_enable = "none",
 		ram_block1a_211.clk1_input_clock_enable = "none",
@@ -15180,7 +15180,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_211.port_b_logical_ram_depth = 32,
 		ram_block1a_211.port_b_logical_ram_width = 256,
 		ram_block1a_211.port_b_read_enable_clock = "clock1",
-		ram_block1a_211.ram_block_type = "AUTO",
+		ram_block1a_211.ram_block_type = "M9K",
 		ram_block1a_211.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_212
 	( 
@@ -15188,6 +15188,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[212]}),
@@ -15202,7 +15203,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15222,7 +15222,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_212.clk0_core_clock_enable = "none",
+		ram_block1a_212.clk0_core_clock_enable = "ena0",
 		ram_block1a_212.clk0_input_clock_enable = "none",
 		ram_block1a_212.clk1_core_clock_enable = "none",
 		ram_block1a_212.clk1_input_clock_enable = "none",
@@ -15250,7 +15250,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_212.port_b_logical_ram_depth = 32,
 		ram_block1a_212.port_b_logical_ram_width = 256,
 		ram_block1a_212.port_b_read_enable_clock = "clock1",
-		ram_block1a_212.ram_block_type = "AUTO",
+		ram_block1a_212.ram_block_type = "M9K",
 		ram_block1a_212.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_213
 	( 
@@ -15258,6 +15258,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[213]}),
@@ -15272,7 +15273,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15292,7 +15292,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_213.clk0_core_clock_enable = "none",
+		ram_block1a_213.clk0_core_clock_enable = "ena0",
 		ram_block1a_213.clk0_input_clock_enable = "none",
 		ram_block1a_213.clk1_core_clock_enable = "none",
 		ram_block1a_213.clk1_input_clock_enable = "none",
@@ -15320,7 +15320,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_213.port_b_logical_ram_depth = 32,
 		ram_block1a_213.port_b_logical_ram_width = 256,
 		ram_block1a_213.port_b_read_enable_clock = "clock1",
-		ram_block1a_213.ram_block_type = "AUTO",
+		ram_block1a_213.ram_block_type = "M9K",
 		ram_block1a_213.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_214
 	( 
@@ -15328,6 +15328,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[214]}),
@@ -15342,7 +15343,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15362,7 +15362,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_214.clk0_core_clock_enable = "none",
+		ram_block1a_214.clk0_core_clock_enable = "ena0",
 		ram_block1a_214.clk0_input_clock_enable = "none",
 		ram_block1a_214.clk1_core_clock_enable = "none",
 		ram_block1a_214.clk1_input_clock_enable = "none",
@@ -15390,7 +15390,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_214.port_b_logical_ram_depth = 32,
 		ram_block1a_214.port_b_logical_ram_width = 256,
 		ram_block1a_214.port_b_read_enable_clock = "clock1",
-		ram_block1a_214.ram_block_type = "AUTO",
+		ram_block1a_214.ram_block_type = "M9K",
 		ram_block1a_214.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_215
 	( 
@@ -15398,6 +15398,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[215]}),
@@ -15412,7 +15413,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15432,7 +15432,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_215.clk0_core_clock_enable = "none",
+		ram_block1a_215.clk0_core_clock_enable = "ena0",
 		ram_block1a_215.clk0_input_clock_enable = "none",
 		ram_block1a_215.clk1_core_clock_enable = "none",
 		ram_block1a_215.clk1_input_clock_enable = "none",
@@ -15460,7 +15460,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_215.port_b_logical_ram_depth = 32,
 		ram_block1a_215.port_b_logical_ram_width = 256,
 		ram_block1a_215.port_b_read_enable_clock = "clock1",
-		ram_block1a_215.ram_block_type = "AUTO",
+		ram_block1a_215.ram_block_type = "M9K",
 		ram_block1a_215.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_216
 	( 
@@ -15468,6 +15468,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[216]}),
@@ -15482,7 +15483,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15502,7 +15502,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_216.clk0_core_clock_enable = "none",
+		ram_block1a_216.clk0_core_clock_enable = "ena0",
 		ram_block1a_216.clk0_input_clock_enable = "none",
 		ram_block1a_216.clk1_core_clock_enable = "none",
 		ram_block1a_216.clk1_input_clock_enable = "none",
@@ -15530,7 +15530,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_216.port_b_logical_ram_depth = 32,
 		ram_block1a_216.port_b_logical_ram_width = 256,
 		ram_block1a_216.port_b_read_enable_clock = "clock1",
-		ram_block1a_216.ram_block_type = "AUTO",
+		ram_block1a_216.ram_block_type = "M9K",
 		ram_block1a_216.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_217
 	( 
@@ -15538,6 +15538,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[217]}),
@@ -15552,7 +15553,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15572,7 +15572,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_217.clk0_core_clock_enable = "none",
+		ram_block1a_217.clk0_core_clock_enable = "ena0",
 		ram_block1a_217.clk0_input_clock_enable = "none",
 		ram_block1a_217.clk1_core_clock_enable = "none",
 		ram_block1a_217.clk1_input_clock_enable = "none",
@@ -15600,7 +15600,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_217.port_b_logical_ram_depth = 32,
 		ram_block1a_217.port_b_logical_ram_width = 256,
 		ram_block1a_217.port_b_read_enable_clock = "clock1",
-		ram_block1a_217.ram_block_type = "AUTO",
+		ram_block1a_217.ram_block_type = "M9K",
 		ram_block1a_217.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_218
 	( 
@@ -15608,6 +15608,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[218]}),
@@ -15622,7 +15623,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15642,7 +15642,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_218.clk0_core_clock_enable = "none",
+		ram_block1a_218.clk0_core_clock_enable = "ena0",
 		ram_block1a_218.clk0_input_clock_enable = "none",
 		ram_block1a_218.clk1_core_clock_enable = "none",
 		ram_block1a_218.clk1_input_clock_enable = "none",
@@ -15670,7 +15670,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_218.port_b_logical_ram_depth = 32,
 		ram_block1a_218.port_b_logical_ram_width = 256,
 		ram_block1a_218.port_b_read_enable_clock = "clock1",
-		ram_block1a_218.ram_block_type = "AUTO",
+		ram_block1a_218.ram_block_type = "M9K",
 		ram_block1a_218.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_219
 	( 
@@ -15678,6 +15678,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[219]}),
@@ -15692,7 +15693,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15712,7 +15712,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_219.clk0_core_clock_enable = "none",
+		ram_block1a_219.clk0_core_clock_enable = "ena0",
 		ram_block1a_219.clk0_input_clock_enable = "none",
 		ram_block1a_219.clk1_core_clock_enable = "none",
 		ram_block1a_219.clk1_input_clock_enable = "none",
@@ -15740,7 +15740,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_219.port_b_logical_ram_depth = 32,
 		ram_block1a_219.port_b_logical_ram_width = 256,
 		ram_block1a_219.port_b_read_enable_clock = "clock1",
-		ram_block1a_219.ram_block_type = "AUTO",
+		ram_block1a_219.ram_block_type = "M9K",
 		ram_block1a_219.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_220
 	( 
@@ -15748,6 +15748,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[220]}),
@@ -15762,7 +15763,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15782,7 +15782,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_220.clk0_core_clock_enable = "none",
+		ram_block1a_220.clk0_core_clock_enable = "ena0",
 		ram_block1a_220.clk0_input_clock_enable = "none",
 		ram_block1a_220.clk1_core_clock_enable = "none",
 		ram_block1a_220.clk1_input_clock_enable = "none",
@@ -15810,7 +15810,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_220.port_b_logical_ram_depth = 32,
 		ram_block1a_220.port_b_logical_ram_width = 256,
 		ram_block1a_220.port_b_read_enable_clock = "clock1",
-		ram_block1a_220.ram_block_type = "AUTO",
+		ram_block1a_220.ram_block_type = "M9K",
 		ram_block1a_220.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_221
 	( 
@@ -15818,6 +15818,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[221]}),
@@ -15832,7 +15833,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15852,7 +15852,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_221.clk0_core_clock_enable = "none",
+		ram_block1a_221.clk0_core_clock_enable = "ena0",
 		ram_block1a_221.clk0_input_clock_enable = "none",
 		ram_block1a_221.clk1_core_clock_enable = "none",
 		ram_block1a_221.clk1_input_clock_enable = "none",
@@ -15880,7 +15880,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_221.port_b_logical_ram_depth = 32,
 		ram_block1a_221.port_b_logical_ram_width = 256,
 		ram_block1a_221.port_b_read_enable_clock = "clock1",
-		ram_block1a_221.ram_block_type = "AUTO",
+		ram_block1a_221.ram_block_type = "M9K",
 		ram_block1a_221.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_222
 	( 
@@ -15888,6 +15888,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[222]}),
@@ -15902,7 +15903,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15922,7 +15922,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_222.clk0_core_clock_enable = "none",
+		ram_block1a_222.clk0_core_clock_enable = "ena0",
 		ram_block1a_222.clk0_input_clock_enable = "none",
 		ram_block1a_222.clk1_core_clock_enable = "none",
 		ram_block1a_222.clk1_input_clock_enable = "none",
@@ -15950,7 +15950,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_222.port_b_logical_ram_depth = 32,
 		ram_block1a_222.port_b_logical_ram_width = 256,
 		ram_block1a_222.port_b_read_enable_clock = "clock1",
-		ram_block1a_222.ram_block_type = "AUTO",
+		ram_block1a_222.ram_block_type = "M9K",
 		ram_block1a_222.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_223
 	( 
@@ -15958,6 +15958,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[223]}),
@@ -15972,7 +15973,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -15992,7 +15992,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_223.clk0_core_clock_enable = "none",
+		ram_block1a_223.clk0_core_clock_enable = "ena0",
 		ram_block1a_223.clk0_input_clock_enable = "none",
 		ram_block1a_223.clk1_core_clock_enable = "none",
 		ram_block1a_223.clk1_input_clock_enable = "none",
@@ -16020,7 +16020,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_223.port_b_logical_ram_depth = 32,
 		ram_block1a_223.port_b_logical_ram_width = 256,
 		ram_block1a_223.port_b_read_enable_clock = "clock1",
-		ram_block1a_223.ram_block_type = "AUTO",
+		ram_block1a_223.ram_block_type = "M9K",
 		ram_block1a_223.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_224
 	( 
@@ -16028,6 +16028,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[224]}),
@@ -16042,7 +16043,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16062,7 +16062,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_224.clk0_core_clock_enable = "none",
+		ram_block1a_224.clk0_core_clock_enable = "ena0",
 		ram_block1a_224.clk0_input_clock_enable = "none",
 		ram_block1a_224.clk1_core_clock_enable = "none",
 		ram_block1a_224.clk1_input_clock_enable = "none",
@@ -16090,7 +16090,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_224.port_b_logical_ram_depth = 32,
 		ram_block1a_224.port_b_logical_ram_width = 256,
 		ram_block1a_224.port_b_read_enable_clock = "clock1",
-		ram_block1a_224.ram_block_type = "AUTO",
+		ram_block1a_224.ram_block_type = "M9K",
 		ram_block1a_224.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_225
 	( 
@@ -16098,6 +16098,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[225]}),
@@ -16112,7 +16113,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16132,7 +16132,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_225.clk0_core_clock_enable = "none",
+		ram_block1a_225.clk0_core_clock_enable = "ena0",
 		ram_block1a_225.clk0_input_clock_enable = "none",
 		ram_block1a_225.clk1_core_clock_enable = "none",
 		ram_block1a_225.clk1_input_clock_enable = "none",
@@ -16160,7 +16160,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_225.port_b_logical_ram_depth = 32,
 		ram_block1a_225.port_b_logical_ram_width = 256,
 		ram_block1a_225.port_b_read_enable_clock = "clock1",
-		ram_block1a_225.ram_block_type = "AUTO",
+		ram_block1a_225.ram_block_type = "M9K",
 		ram_block1a_225.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_226
 	( 
@@ -16168,6 +16168,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[226]}),
@@ -16182,7 +16183,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16202,7 +16202,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_226.clk0_core_clock_enable = "none",
+		ram_block1a_226.clk0_core_clock_enable = "ena0",
 		ram_block1a_226.clk0_input_clock_enable = "none",
 		ram_block1a_226.clk1_core_clock_enable = "none",
 		ram_block1a_226.clk1_input_clock_enable = "none",
@@ -16230,7 +16230,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_226.port_b_logical_ram_depth = 32,
 		ram_block1a_226.port_b_logical_ram_width = 256,
 		ram_block1a_226.port_b_read_enable_clock = "clock1",
-		ram_block1a_226.ram_block_type = "AUTO",
+		ram_block1a_226.ram_block_type = "M9K",
 		ram_block1a_226.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_227
 	( 
@@ -16238,6 +16238,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[227]}),
@@ -16252,7 +16253,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16272,7 +16272,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_227.clk0_core_clock_enable = "none",
+		ram_block1a_227.clk0_core_clock_enable = "ena0",
 		ram_block1a_227.clk0_input_clock_enable = "none",
 		ram_block1a_227.clk1_core_clock_enable = "none",
 		ram_block1a_227.clk1_input_clock_enable = "none",
@@ -16300,7 +16300,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_227.port_b_logical_ram_depth = 32,
 		ram_block1a_227.port_b_logical_ram_width = 256,
 		ram_block1a_227.port_b_read_enable_clock = "clock1",
-		ram_block1a_227.ram_block_type = "AUTO",
+		ram_block1a_227.ram_block_type = "M9K",
 		ram_block1a_227.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_228
 	( 
@@ -16308,6 +16308,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[228]}),
@@ -16322,7 +16323,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16342,7 +16342,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_228.clk0_core_clock_enable = "none",
+		ram_block1a_228.clk0_core_clock_enable = "ena0",
 		ram_block1a_228.clk0_input_clock_enable = "none",
 		ram_block1a_228.clk1_core_clock_enable = "none",
 		ram_block1a_228.clk1_input_clock_enable = "none",
@@ -16370,7 +16370,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_228.port_b_logical_ram_depth = 32,
 		ram_block1a_228.port_b_logical_ram_width = 256,
 		ram_block1a_228.port_b_read_enable_clock = "clock1",
-		ram_block1a_228.ram_block_type = "AUTO",
+		ram_block1a_228.ram_block_type = "M9K",
 		ram_block1a_228.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_229
 	( 
@@ -16378,6 +16378,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[229]}),
@@ -16392,7 +16393,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16412,7 +16412,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_229.clk0_core_clock_enable = "none",
+		ram_block1a_229.clk0_core_clock_enable = "ena0",
 		ram_block1a_229.clk0_input_clock_enable = "none",
 		ram_block1a_229.clk1_core_clock_enable = "none",
 		ram_block1a_229.clk1_input_clock_enable = "none",
@@ -16440,7 +16440,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_229.port_b_logical_ram_depth = 32,
 		ram_block1a_229.port_b_logical_ram_width = 256,
 		ram_block1a_229.port_b_read_enable_clock = "clock1",
-		ram_block1a_229.ram_block_type = "AUTO",
+		ram_block1a_229.ram_block_type = "M9K",
 		ram_block1a_229.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_230
 	( 
@@ -16448,6 +16448,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[230]}),
@@ -16462,7 +16463,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16482,7 +16482,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_230.clk0_core_clock_enable = "none",
+		ram_block1a_230.clk0_core_clock_enable = "ena0",
 		ram_block1a_230.clk0_input_clock_enable = "none",
 		ram_block1a_230.clk1_core_clock_enable = "none",
 		ram_block1a_230.clk1_input_clock_enable = "none",
@@ -16510,7 +16510,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_230.port_b_logical_ram_depth = 32,
 		ram_block1a_230.port_b_logical_ram_width = 256,
 		ram_block1a_230.port_b_read_enable_clock = "clock1",
-		ram_block1a_230.ram_block_type = "AUTO",
+		ram_block1a_230.ram_block_type = "M9K",
 		ram_block1a_230.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_231
 	( 
@@ -16518,6 +16518,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[231]}),
@@ -16532,7 +16533,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16552,7 +16552,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_231.clk0_core_clock_enable = "none",
+		ram_block1a_231.clk0_core_clock_enable = "ena0",
 		ram_block1a_231.clk0_input_clock_enable = "none",
 		ram_block1a_231.clk1_core_clock_enable = "none",
 		ram_block1a_231.clk1_input_clock_enable = "none",
@@ -16580,7 +16580,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_231.port_b_logical_ram_depth = 32,
 		ram_block1a_231.port_b_logical_ram_width = 256,
 		ram_block1a_231.port_b_read_enable_clock = "clock1",
-		ram_block1a_231.ram_block_type = "AUTO",
+		ram_block1a_231.ram_block_type = "M9K",
 		ram_block1a_231.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_232
 	( 
@@ -16588,6 +16588,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[232]}),
@@ -16602,7 +16603,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16622,7 +16622,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_232.clk0_core_clock_enable = "none",
+		ram_block1a_232.clk0_core_clock_enable = "ena0",
 		ram_block1a_232.clk0_input_clock_enable = "none",
 		ram_block1a_232.clk1_core_clock_enable = "none",
 		ram_block1a_232.clk1_input_clock_enable = "none",
@@ -16650,7 +16650,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_232.port_b_logical_ram_depth = 32,
 		ram_block1a_232.port_b_logical_ram_width = 256,
 		ram_block1a_232.port_b_read_enable_clock = "clock1",
-		ram_block1a_232.ram_block_type = "AUTO",
+		ram_block1a_232.ram_block_type = "M9K",
 		ram_block1a_232.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_233
 	( 
@@ -16658,6 +16658,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[233]}),
@@ -16672,7 +16673,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16692,7 +16692,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_233.clk0_core_clock_enable = "none",
+		ram_block1a_233.clk0_core_clock_enable = "ena0",
 		ram_block1a_233.clk0_input_clock_enable = "none",
 		ram_block1a_233.clk1_core_clock_enable = "none",
 		ram_block1a_233.clk1_input_clock_enable = "none",
@@ -16720,7 +16720,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_233.port_b_logical_ram_depth = 32,
 		ram_block1a_233.port_b_logical_ram_width = 256,
 		ram_block1a_233.port_b_read_enable_clock = "clock1",
-		ram_block1a_233.ram_block_type = "AUTO",
+		ram_block1a_233.ram_block_type = "M9K",
 		ram_block1a_233.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_234
 	( 
@@ -16728,6 +16728,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[234]}),
@@ -16742,7 +16743,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16762,7 +16762,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_234.clk0_core_clock_enable = "none",
+		ram_block1a_234.clk0_core_clock_enable = "ena0",
 		ram_block1a_234.clk0_input_clock_enable = "none",
 		ram_block1a_234.clk1_core_clock_enable = "none",
 		ram_block1a_234.clk1_input_clock_enable = "none",
@@ -16790,7 +16790,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_234.port_b_logical_ram_depth = 32,
 		ram_block1a_234.port_b_logical_ram_width = 256,
 		ram_block1a_234.port_b_read_enable_clock = "clock1",
-		ram_block1a_234.ram_block_type = "AUTO",
+		ram_block1a_234.ram_block_type = "M9K",
 		ram_block1a_234.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_235
 	( 
@@ -16798,6 +16798,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[235]}),
@@ -16812,7 +16813,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16832,7 +16832,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_235.clk0_core_clock_enable = "none",
+		ram_block1a_235.clk0_core_clock_enable = "ena0",
 		ram_block1a_235.clk0_input_clock_enable = "none",
 		ram_block1a_235.clk1_core_clock_enable = "none",
 		ram_block1a_235.clk1_input_clock_enable = "none",
@@ -16860,7 +16860,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_235.port_b_logical_ram_depth = 32,
 		ram_block1a_235.port_b_logical_ram_width = 256,
 		ram_block1a_235.port_b_read_enable_clock = "clock1",
-		ram_block1a_235.ram_block_type = "AUTO",
+		ram_block1a_235.ram_block_type = "M9K",
 		ram_block1a_235.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_236
 	( 
@@ -16868,6 +16868,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[236]}),
@@ -16882,7 +16883,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16902,7 +16902,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_236.clk0_core_clock_enable = "none",
+		ram_block1a_236.clk0_core_clock_enable = "ena0",
 		ram_block1a_236.clk0_input_clock_enable = "none",
 		ram_block1a_236.clk1_core_clock_enable = "none",
 		ram_block1a_236.clk1_input_clock_enable = "none",
@@ -16930,7 +16930,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_236.port_b_logical_ram_depth = 32,
 		ram_block1a_236.port_b_logical_ram_width = 256,
 		ram_block1a_236.port_b_read_enable_clock = "clock1",
-		ram_block1a_236.ram_block_type = "AUTO",
+		ram_block1a_236.ram_block_type = "M9K",
 		ram_block1a_236.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_237
 	( 
@@ -16938,6 +16938,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[237]}),
@@ -16952,7 +16953,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -16972,7 +16972,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_237.clk0_core_clock_enable = "none",
+		ram_block1a_237.clk0_core_clock_enable = "ena0",
 		ram_block1a_237.clk0_input_clock_enable = "none",
 		ram_block1a_237.clk1_core_clock_enable = "none",
 		ram_block1a_237.clk1_input_clock_enable = "none",
@@ -17000,7 +17000,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_237.port_b_logical_ram_depth = 32,
 		ram_block1a_237.port_b_logical_ram_width = 256,
 		ram_block1a_237.port_b_read_enable_clock = "clock1",
-		ram_block1a_237.ram_block_type = "AUTO",
+		ram_block1a_237.ram_block_type = "M9K",
 		ram_block1a_237.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_238
 	( 
@@ -17008,6 +17008,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[238]}),
@@ -17022,7 +17023,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17042,7 +17042,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_238.clk0_core_clock_enable = "none",
+		ram_block1a_238.clk0_core_clock_enable = "ena0",
 		ram_block1a_238.clk0_input_clock_enable = "none",
 		ram_block1a_238.clk1_core_clock_enable = "none",
 		ram_block1a_238.clk1_input_clock_enable = "none",
@@ -17070,7 +17070,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_238.port_b_logical_ram_depth = 32,
 		ram_block1a_238.port_b_logical_ram_width = 256,
 		ram_block1a_238.port_b_read_enable_clock = "clock1",
-		ram_block1a_238.ram_block_type = "AUTO",
+		ram_block1a_238.ram_block_type = "M9K",
 		ram_block1a_238.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_239
 	( 
@@ -17078,6 +17078,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[239]}),
@@ -17092,7 +17093,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17112,7 +17112,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_239.clk0_core_clock_enable = "none",
+		ram_block1a_239.clk0_core_clock_enable = "ena0",
 		ram_block1a_239.clk0_input_clock_enable = "none",
 		ram_block1a_239.clk1_core_clock_enable = "none",
 		ram_block1a_239.clk1_input_clock_enable = "none",
@@ -17140,7 +17140,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_239.port_b_logical_ram_depth = 32,
 		ram_block1a_239.port_b_logical_ram_width = 256,
 		ram_block1a_239.port_b_read_enable_clock = "clock1",
-		ram_block1a_239.ram_block_type = "AUTO",
+		ram_block1a_239.ram_block_type = "M9K",
 		ram_block1a_239.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_240
 	( 
@@ -17148,6 +17148,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[240]}),
@@ -17162,7 +17163,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17182,7 +17182,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_240.clk0_core_clock_enable = "none",
+		ram_block1a_240.clk0_core_clock_enable = "ena0",
 		ram_block1a_240.clk0_input_clock_enable = "none",
 		ram_block1a_240.clk1_core_clock_enable = "none",
 		ram_block1a_240.clk1_input_clock_enable = "none",
@@ -17210,7 +17210,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_240.port_b_logical_ram_depth = 32,
 		ram_block1a_240.port_b_logical_ram_width = 256,
 		ram_block1a_240.port_b_read_enable_clock = "clock1",
-		ram_block1a_240.ram_block_type = "AUTO",
+		ram_block1a_240.ram_block_type = "M9K",
 		ram_block1a_240.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_241
 	( 
@@ -17218,6 +17218,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[241]}),
@@ -17232,7 +17233,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17252,7 +17252,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_241.clk0_core_clock_enable = "none",
+		ram_block1a_241.clk0_core_clock_enable = "ena0",
 		ram_block1a_241.clk0_input_clock_enable = "none",
 		ram_block1a_241.clk1_core_clock_enable = "none",
 		ram_block1a_241.clk1_input_clock_enable = "none",
@@ -17280,7 +17280,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_241.port_b_logical_ram_depth = 32,
 		ram_block1a_241.port_b_logical_ram_width = 256,
 		ram_block1a_241.port_b_read_enable_clock = "clock1",
-		ram_block1a_241.ram_block_type = "AUTO",
+		ram_block1a_241.ram_block_type = "M9K",
 		ram_block1a_241.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_242
 	( 
@@ -17288,6 +17288,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[242]}),
@@ -17302,7 +17303,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17322,7 +17322,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_242.clk0_core_clock_enable = "none",
+		ram_block1a_242.clk0_core_clock_enable = "ena0",
 		ram_block1a_242.clk0_input_clock_enable = "none",
 		ram_block1a_242.clk1_core_clock_enable = "none",
 		ram_block1a_242.clk1_input_clock_enable = "none",
@@ -17350,7 +17350,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_242.port_b_logical_ram_depth = 32,
 		ram_block1a_242.port_b_logical_ram_width = 256,
 		ram_block1a_242.port_b_read_enable_clock = "clock1",
-		ram_block1a_242.ram_block_type = "AUTO",
+		ram_block1a_242.ram_block_type = "M9K",
 		ram_block1a_242.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_243
 	( 
@@ -17358,6 +17358,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[243]}),
@@ -17372,7 +17373,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17392,7 +17392,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_243.clk0_core_clock_enable = "none",
+		ram_block1a_243.clk0_core_clock_enable = "ena0",
 		ram_block1a_243.clk0_input_clock_enable = "none",
 		ram_block1a_243.clk1_core_clock_enable = "none",
 		ram_block1a_243.clk1_input_clock_enable = "none",
@@ -17420,7 +17420,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_243.port_b_logical_ram_depth = 32,
 		ram_block1a_243.port_b_logical_ram_width = 256,
 		ram_block1a_243.port_b_read_enable_clock = "clock1",
-		ram_block1a_243.ram_block_type = "AUTO",
+		ram_block1a_243.ram_block_type = "M9K",
 		ram_block1a_243.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_244
 	( 
@@ -17428,6 +17428,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[244]}),
@@ -17442,7 +17443,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17462,7 +17462,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_244.clk0_core_clock_enable = "none",
+		ram_block1a_244.clk0_core_clock_enable = "ena0",
 		ram_block1a_244.clk0_input_clock_enable = "none",
 		ram_block1a_244.clk1_core_clock_enable = "none",
 		ram_block1a_244.clk1_input_clock_enable = "none",
@@ -17490,7 +17490,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_244.port_b_logical_ram_depth = 32,
 		ram_block1a_244.port_b_logical_ram_width = 256,
 		ram_block1a_244.port_b_read_enable_clock = "clock1",
-		ram_block1a_244.ram_block_type = "AUTO",
+		ram_block1a_244.ram_block_type = "M9K",
 		ram_block1a_244.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_245
 	( 
@@ -17498,6 +17498,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[245]}),
@@ -17512,7 +17513,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17532,7 +17532,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_245.clk0_core_clock_enable = "none",
+		ram_block1a_245.clk0_core_clock_enable = "ena0",
 		ram_block1a_245.clk0_input_clock_enable = "none",
 		ram_block1a_245.clk1_core_clock_enable = "none",
 		ram_block1a_245.clk1_input_clock_enable = "none",
@@ -17560,7 +17560,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_245.port_b_logical_ram_depth = 32,
 		ram_block1a_245.port_b_logical_ram_width = 256,
 		ram_block1a_245.port_b_read_enable_clock = "clock1",
-		ram_block1a_245.ram_block_type = "AUTO",
+		ram_block1a_245.ram_block_type = "M9K",
 		ram_block1a_245.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_246
 	( 
@@ -17568,6 +17568,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[246]}),
@@ -17582,7 +17583,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17602,7 +17602,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_246.clk0_core_clock_enable = "none",
+		ram_block1a_246.clk0_core_clock_enable = "ena0",
 		ram_block1a_246.clk0_input_clock_enable = "none",
 		ram_block1a_246.clk1_core_clock_enable = "none",
 		ram_block1a_246.clk1_input_clock_enable = "none",
@@ -17630,7 +17630,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_246.port_b_logical_ram_depth = 32,
 		ram_block1a_246.port_b_logical_ram_width = 256,
 		ram_block1a_246.port_b_read_enable_clock = "clock1",
-		ram_block1a_246.ram_block_type = "AUTO",
+		ram_block1a_246.ram_block_type = "M9K",
 		ram_block1a_246.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_247
 	( 
@@ -17638,6 +17638,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[247]}),
@@ -17652,7 +17653,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17672,7 +17672,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_247.clk0_core_clock_enable = "none",
+		ram_block1a_247.clk0_core_clock_enable = "ena0",
 		ram_block1a_247.clk0_input_clock_enable = "none",
 		ram_block1a_247.clk1_core_clock_enable = "none",
 		ram_block1a_247.clk1_input_clock_enable = "none",
@@ -17700,7 +17700,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_247.port_b_logical_ram_depth = 32,
 		ram_block1a_247.port_b_logical_ram_width = 256,
 		ram_block1a_247.port_b_read_enable_clock = "clock1",
-		ram_block1a_247.ram_block_type = "AUTO",
+		ram_block1a_247.ram_block_type = "M9K",
 		ram_block1a_247.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_248
 	( 
@@ -17708,6 +17708,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[248]}),
@@ -17722,7 +17723,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17742,7 +17742,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_248.clk0_core_clock_enable = "none",
+		ram_block1a_248.clk0_core_clock_enable = "ena0",
 		ram_block1a_248.clk0_input_clock_enable = "none",
 		ram_block1a_248.clk1_core_clock_enable = "none",
 		ram_block1a_248.clk1_input_clock_enable = "none",
@@ -17770,7 +17770,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_248.port_b_logical_ram_depth = 32,
 		ram_block1a_248.port_b_logical_ram_width = 256,
 		ram_block1a_248.port_b_read_enable_clock = "clock1",
-		ram_block1a_248.ram_block_type = "AUTO",
+		ram_block1a_248.ram_block_type = "M9K",
 		ram_block1a_248.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_249
 	( 
@@ -17778,6 +17778,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[249]}),
@@ -17792,7 +17793,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17812,7 +17812,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_249.clk0_core_clock_enable = "none",
+		ram_block1a_249.clk0_core_clock_enable = "ena0",
 		ram_block1a_249.clk0_input_clock_enable = "none",
 		ram_block1a_249.clk1_core_clock_enable = "none",
 		ram_block1a_249.clk1_input_clock_enable = "none",
@@ -17840,7 +17840,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_249.port_b_logical_ram_depth = 32,
 		ram_block1a_249.port_b_logical_ram_width = 256,
 		ram_block1a_249.port_b_read_enable_clock = "clock1",
-		ram_block1a_249.ram_block_type = "AUTO",
+		ram_block1a_249.ram_block_type = "M9K",
 		ram_block1a_249.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_250
 	( 
@@ -17848,6 +17848,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[250]}),
@@ -17862,7 +17863,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17882,7 +17882,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_250.clk0_core_clock_enable = "none",
+		ram_block1a_250.clk0_core_clock_enable = "ena0",
 		ram_block1a_250.clk0_input_clock_enable = "none",
 		ram_block1a_250.clk1_core_clock_enable = "none",
 		ram_block1a_250.clk1_input_clock_enable = "none",
@@ -17910,7 +17910,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_250.port_b_logical_ram_depth = 32,
 		ram_block1a_250.port_b_logical_ram_width = 256,
 		ram_block1a_250.port_b_read_enable_clock = "clock1",
-		ram_block1a_250.ram_block_type = "AUTO",
+		ram_block1a_250.ram_block_type = "M9K",
 		ram_block1a_250.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_251
 	( 
@@ -17918,6 +17918,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[251]}),
@@ -17932,7 +17933,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -17952,7 +17952,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_251.clk0_core_clock_enable = "none",
+		ram_block1a_251.clk0_core_clock_enable = "ena0",
 		ram_block1a_251.clk0_input_clock_enable = "none",
 		ram_block1a_251.clk1_core_clock_enable = "none",
 		ram_block1a_251.clk1_input_clock_enable = "none",
@@ -17980,7 +17980,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_251.port_b_logical_ram_depth = 32,
 		ram_block1a_251.port_b_logical_ram_width = 256,
 		ram_block1a_251.port_b_read_enable_clock = "clock1",
-		ram_block1a_251.ram_block_type = "AUTO",
+		ram_block1a_251.ram_block_type = "M9K",
 		ram_block1a_251.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_252
 	( 
@@ -17988,6 +17988,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[252]}),
@@ -18002,7 +18003,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -18022,7 +18022,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_252.clk0_core_clock_enable = "none",
+		ram_block1a_252.clk0_core_clock_enable = "ena0",
 		ram_block1a_252.clk0_input_clock_enable = "none",
 		ram_block1a_252.clk1_core_clock_enable = "none",
 		ram_block1a_252.clk1_input_clock_enable = "none",
@@ -18050,7 +18050,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_252.port_b_logical_ram_depth = 32,
 		ram_block1a_252.port_b_logical_ram_width = 256,
 		ram_block1a_252.port_b_read_enable_clock = "clock1",
-		ram_block1a_252.ram_block_type = "AUTO",
+		ram_block1a_252.ram_block_type = "M9K",
 		ram_block1a_252.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_253
 	( 
@@ -18058,6 +18058,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[253]}),
@@ -18072,7 +18073,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -18092,7 +18092,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_253.clk0_core_clock_enable = "none",
+		ram_block1a_253.clk0_core_clock_enable = "ena0",
 		ram_block1a_253.clk0_input_clock_enable = "none",
 		ram_block1a_253.clk1_core_clock_enable = "none",
 		ram_block1a_253.clk1_input_clock_enable = "none",
@@ -18120,7 +18120,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_253.port_b_logical_ram_depth = 32,
 		ram_block1a_253.port_b_logical_ram_width = 256,
 		ram_block1a_253.port_b_read_enable_clock = "clock1",
-		ram_block1a_253.ram_block_type = "AUTO",
+		ram_block1a_253.ram_block_type = "M9K",
 		ram_block1a_253.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_254
 	( 
@@ -18128,6 +18128,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[254]}),
@@ -18142,7 +18143,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -18162,7 +18162,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_254.clk0_core_clock_enable = "none",
+		ram_block1a_254.clk0_core_clock_enable = "ena0",
 		ram_block1a_254.clk0_input_clock_enable = "none",
 		ram_block1a_254.clk1_core_clock_enable = "none",
 		ram_block1a_254.clk1_input_clock_enable = "none",
@@ -18190,7 +18190,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_254.port_b_logical_ram_depth = 32,
 		ram_block1a_254.port_b_logical_ram_width = 256,
 		ram_block1a_254.port_b_read_enable_clock = "clock1",
-		ram_block1a_254.ram_block_type = "AUTO",
+		ram_block1a_254.ram_block_type = "M9K",
 		ram_block1a_254.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_255
 	( 
@@ -18198,6 +18198,7 @@ module  data_buffer_sc_fifo_altsyncram
 	.clk1(clock1),
 	.dftout(),
 	.eccstatus(),
+	.ena0(wren_a),
 	.ena1(clocken1),
 	.portaaddr({address_a_wire[4:0]}),
 	.portadatain({data_a[255]}),
@@ -18212,7 +18213,6 @@ module  data_buffer_sc_fifo_altsyncram
 	,
 	.clr0(1'b0),
 	.clr1(1'b0),
-	.ena0(1'b1),
 	.ena2(1'b1),
 	.ena3(1'b1),
 	.portaaddrstall(1'b0),
@@ -18232,7 +18232,7 @@ module  data_buffer_sc_fifo_altsyncram
 	// synopsys translate_on
 	);
 	defparam
-		ram_block1a_255.clk0_core_clock_enable = "none",
+		ram_block1a_255.clk0_core_clock_enable = "ena0",
 		ram_block1a_255.clk0_input_clock_enable = "none",
 		ram_block1a_255.clk1_core_clock_enable = "none",
 		ram_block1a_255.clk1_input_clock_enable = "none",
@@ -18260,7 +18260,7 @@ module  data_buffer_sc_fifo_altsyncram
 		ram_block1a_255.port_b_logical_ram_depth = 32,
 		ram_block1a_255.port_b_logical_ram_width = 256,
 		ram_block1a_255.port_b_read_enable_clock = "clock1",
-		ram_block1a_255.ram_block_type = "AUTO",
+		ram_block1a_255.ram_block_type = "M9K",
 		ram_block1a_255.lpm_type = "stratixiv_ram_block";
 	assign
 		address_a_wire = address_a,
@@ -18982,7 +18982,7 @@ module  data_buffer_sc_fifo_cntr12
 		updown_other_bits = ((~ external_cin) | updown_dir);
 endmodule //data_buffer_sc_fifo_cntr12
 
-//synthesis_resources = lut 14 ram_bits (AUTO) 8192 reg 25 
+//synthesis_resources = lut 14 M9K 8 reg 25 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -19160,7 +19160,7 @@ module  data_buffer_sc_fifo_a_dpfifo
 		wait_state = (usedw_will_be_1 & valid_wreq);
 endmodule //data_buffer_sc_fifo_a_dpfifo
 
-//synthesis_resources = lut 14 ram_bits (AUTO) 8192 reg 25 
+//synthesis_resources = lut 14 M9K 8 reg 25 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -19277,7 +19277,7 @@ endmodule
 // Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "-1"
 // Retrieval info: PRIVATE: AlmostFull NUMERIC "0"
 // Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
-// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
+// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "1"
 // Retrieval info: PRIVATE: Clock NUMERIC "0"
 // Retrieval info: PRIVATE: Depth NUMERIC "32"
 // Retrieval info: PRIVATE: Empty NUMERIC "1"
@@ -19288,7 +19288,7 @@ endmodule
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: Optimize NUMERIC "1"
-// Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+// Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -19308,6 +19308,7 @@ endmodule
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "ON"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+// Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M9K"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "32"
 // Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"

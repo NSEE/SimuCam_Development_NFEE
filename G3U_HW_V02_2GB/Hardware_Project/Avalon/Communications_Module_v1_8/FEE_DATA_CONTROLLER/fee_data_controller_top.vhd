@@ -311,41 +311,6 @@ begin
 			imgdata_send_double_buffer_empty_o => s_right_imgdata_send_double_buffer_empty
 		);
 
-	--	-- data transmitter instantiation
-	--	data_transmitter_ent_inst : entity work.data_transmitter_ent
-	--		port map(
-	--			clk_i                                 => clk_i,
-	--			rst_i                                 => rst_i,
-	--			fee_clear_signal_i                    => s_fee_clear_signal,
-	--			fee_stop_signal_i                     => s_fee_stop_signal,
-	--			fee_start_signal_i                    => s_fee_start_signal,
-	--			send_buffer_cfg_length_i              => s_registered_dpkt_params.image.packet_length,
-	--			hkdata_send_buffer_status_i           => s_hkdata_send_buffer_status,
-	--			hkdata_send_buffer_data_type_i        => s_hkdata_send_buffer_data_type,
-	--			left_imgdata_send_buffer_status_i     => s_left_imgdata_send_buffer_status,
-	--			left_imgdata_send_buffer_data_type_i  => s_left_imgdata_send_buffer_data_type,
-	--			left_imgdata_send_buffer_data_end_i   => s_left_imgdata_send_buffer_data_end,
-	--			right_imgdata_send_buffer_status_i    => s_right_imgdata_send_buffer_status,
-	--			right_imgdata_send_buffer_data_type_i => s_right_imgdata_send_buffer_data_type,
-	--			right_imgdata_send_buffer_data_end_i  => s_right_imgdata_send_buffer_data_end,
-	--			spw_tx_ready_i                        => s_errinj_spw_tx_ready,
-	--			windowing_enabled_i                   => s_registered_dpkt_params.transmission.windowing_en,
-	----			windowing_packet_order_list_i         => s_registered_dpkt_params.windowing.packet_order_list,
-	--			windowing_packet_order_list_i         => x"55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555",
-	----			windowing_last_left_packet_i          => s_registered_dpkt_params.windowing.last_left_packet,
-	--			windowing_last_left_packet_i          => "0000000001",
-	----			windowing_last_right_packet_i         => s_registered_dpkt_params.windowing.last_right_packet,
-	--			windowing_last_right_packet_i         => "0000000001",
-	--			data_transmitter_busy_o               => s_data_transmitter_busy,
-	--			data_transmitter_finished_o           => s_data_transmitter_finished,
-	--			hkdata_send_buffer_control_o          => s_hkdata_send_buffer_control,
-	--			left_imgdata_send_buffer_control_o    => s_left_imgdata_send_buffer_control,
-	--			right_imgdata_send_buffer_control_o   => s_right_imgdata_send_buffer_control,
-	--			spw_tx_write_o                        => s_errinj_spw_tx_write,
-	--			spw_tx_flag_o                         => s_errinj_spw_tx_flag,
-	--			spw_tx_data_o                         => s_errinj_spw_tx_data
-	--		);
-
 	-- data transmitter top instantiation
 	comm_data_transmitter_top_inst : entity work.comm_data_transmitter_top
 		port map(

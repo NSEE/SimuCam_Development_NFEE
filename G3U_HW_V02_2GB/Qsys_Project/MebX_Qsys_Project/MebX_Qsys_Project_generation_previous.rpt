@@ -1,0 +1,163 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate D:\rfranca\Development\GitHub\SimuCam_Development4\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project.qsys --block-symbol-file --output-directory=D:\rfranca\Development\GitHub\SimuCam_Development4\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project --family="Stratix IV" --part=EP4SGX530KH40C2
+Progress: Loading Qsys_Project/MebX_Qsys_Project.qsys
+Progress: Reading input file
+Progress: Adding Altera_UP_SD_Card_Avalon_Interface_0 [Altera_UP_SD_Card_Avalon_Interface 18.0]
+Progress: Parameterizing module Altera_UP_SD_Card_Avalon_Interface_0
+Progress: Adding COMM_Pedreiro_v1_01_1 [COMM_Pedreiro_v1_01 2.5]
+Progress: Parameterizing module COMM_Pedreiro_v1_01_1
+Progress: Adding COMM_Pedreiro_v1_01_2 [COMM_Pedreiro_v1_01 2.5]
+Progress: Parameterizing module COMM_Pedreiro_v1_01_2
+Progress: Adding COMM_Pedreiro_v1_01_3 [COMM_Pedreiro_v1_01 2.5]
+Progress: Parameterizing module COMM_Pedreiro_v1_01_3
+Progress: Adding COMM_Pedreiro_v1_01_4 [COMM_Pedreiro_v1_01 2.5]
+Progress: Parameterizing module COMM_Pedreiro_v1_01_4
+Progress: Adding COMM_Pedreiro_v1_01_5 [COMM_Pedreiro_v1_01 2.5]
+Progress: Parameterizing module COMM_Pedreiro_v1_01_5
+Progress: Adding COMM_Pedreiro_v1_01_6 [COMM_Pedreiro_v1_01 2.5]
+Progress: Parameterizing module COMM_Pedreiro_v1_01_6
+Progress: Adding FTDI_USB3_0 [FTDI_USB3 2.2]
+Progress: Parameterizing module FTDI_USB3_0
+Progress: Adding RMAP_Echoing_0 [RMAP_Echoing 1.0]
+Progress: Parameterizing module RMAP_Echoing_0
+Progress: Adding SEVEN_SEGMENT_CONTROLLER_0 [SEVEN_SEGMENT_CONTROLLER 1.0]
+Progress: Parameterizing module SEVEN_SEGMENT_CONTROLLER_0
+Progress: Adding SpaceWire_Channel_A [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_A
+Progress: Adding SpaceWire_Channel_B [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_B
+Progress: Adding SpaceWire_Channel_C [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_C
+Progress: Adding SpaceWire_Channel_D [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_D
+Progress: Adding SpaceWire_Channel_E [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_E
+Progress: Adding SpaceWire_Channel_F [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_F
+Progress: Adding SpaceWire_Channel_G [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_G
+Progress: Adding SpaceWire_Channel_H [SpaceWire_Channel 1.3]
+Progress: Parameterizing module SpaceWire_Channel_H
+Progress: Adding SpaceWire_Glutton_0 [SpaceWire_Glutton 1]
+Progress: Parameterizing module SpaceWire_Glutton_0
+Progress: Adding clk_100 [clock_source 18.1]
+Progress: Parameterizing module clk_100
+Progress: Adding clk_200 [clock_source 18.1]
+Progress: Parameterizing module clk_200
+Progress: Adding clk_50 [clock_source 18.1]
+Progress: Parameterizing module clk_50
+Progress: Adding clk_ftdi [clock_source 18.1]
+Progress: Parameterizing module clk_ftdi
+Progress: Adding clock_bridge_afi_50 [altera_avalon_mm_clock_crossing_bridge 18.1]
+Progress: Parameterizing module clock_bridge_afi_50
+Progress: Adding csense_adc_fo [altera_avalon_pio 18.1]
+Progress: Parameterizing module csense_adc_fo
+Progress: Adding csense_cs_n [altera_avalon_pio 18.1]
+Progress: Parameterizing module csense_cs_n
+Progress: Adding csense_sck [altera_avalon_pio 18.1]
+Progress: Parameterizing module csense_sck
+Progress: Adding csense_sdi [altera_avalon_pio 18.1]
+Progress: Parameterizing module csense_sdi
+Progress: Adding csense_sdo [altera_avalon_pio 18.1]
+Progress: Parameterizing module csense_sdo
+Progress: Adding ddr2_address_span_extender [altera_address_span_extender 18.1]
+Progress: Parameterizing module ddr2_address_span_extender
+Progress: Adding ext_flash [altera_generic_tristate_controller 18.1]
+Progress: Parameterizing module ext_flash
+Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 18.1]
+Progress: Parameterizing module jtag_uart_0
+Progress: Adding m1_clock_bridge [altera_avalon_mm_clock_crossing_bridge 18.1]
+Progress: Parameterizing module m1_clock_bridge
+Progress: Adding m1_ddr2_i2c_scl [altera_avalon_pio 18.1]
+Progress: Parameterizing module m1_ddr2_i2c_scl
+Progress: Adding m1_ddr2_i2c_sda [altera_avalon_pio 18.1]
+Progress: Parameterizing module m1_ddr2_i2c_sda
+Progress: Adding m1_ddr2_memory [altera_mem_if_ddr2_emif 18.1]
+Progress: Parameterizing module m1_ddr2_memory
+Progress: Adding m2_ddr2_i2c_scl [altera_avalon_pio 18.1]
+Progress: Parameterizing module m2_ddr2_i2c_scl
+Progress: Adding m2_ddr2_i2c_sda [altera_avalon_pio 18.1]
+Progress: Parameterizing module m2_ddr2_i2c_sda
+Progress: Adding m2_ddr2_memory [altera_mem_if_ddr2_emif 18.1]
+Progress: Parameterizing module m2_ddr2_memory
+Progress: Adding nios2_gen2_0 [altera_nios2_gen2 18.1]
+Progress: Parameterizing module nios2_gen2_0
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 18.1]
+Progress: Parameterizing module onchip_memory
+Progress: Adding pio_BUTTON [altera_avalon_pio 18.1]
+Progress: Parameterizing module pio_BUTTON
+Progress: Adding pio_DIP [altera_avalon_pio 18.1]
+Progress: Parameterizing module pio_DIP
+Progress: Adding pio_EXT [altera_avalon_pio 18.1]
+Progress: Parameterizing module pio_EXT
+Progress: Adding pio_LED [altera_avalon_pio 18.1]
+Progress: Parameterizing module pio_LED
+Progress: Adding pio_LED_painel [altera_avalon_pio 18.1]
+Progress: Parameterizing module pio_LED_painel
+Progress: Adding pio_ctrl_io_lvds [altera_avalon_pio 18.1]
+Progress: Parameterizing module pio_ctrl_io_lvds
+Progress: Adding rmap_mem_nfee_comm_1 [RMAP_Memory_NFEE_Area 1.1]
+Progress: Parameterizing module rmap_mem_nfee_comm_1
+Progress: Adding rmap_mem_nfee_comm_2 [RMAP_Memory_NFEE_Area 1.1]
+Progress: Parameterizing module rmap_mem_nfee_comm_2
+Progress: Adding rmap_mem_nfee_comm_3 [RMAP_Memory_NFEE_Area 1.1]
+Progress: Parameterizing module rmap_mem_nfee_comm_3
+Progress: Adding rmap_mem_nfee_comm_4 [RMAP_Memory_NFEE_Area 1.1]
+Progress: Parameterizing module rmap_mem_nfee_comm_4
+Progress: Adding rmap_mem_nfee_comm_5 [RMAP_Memory_NFEE_Area 1.1]
+Progress: Parameterizing module rmap_mem_nfee_comm_5
+Progress: Adding rmap_mem_nfee_comm_6 [RMAP_Memory_NFEE_Area 1.1]
+Progress: Parameterizing module rmap_mem_nfee_comm_6
+Progress: Adding rs232_uart [altera_avalon_uart 18.1]
+Progress: Parameterizing module rs232_uart
+Progress: Adding rst_controller [rst_controller 1.5]
+Progress: Parameterizing module rst_controller
+Progress: Adding rtcc_alarm [altera_avalon_pio 18.1]
+Progress: Parameterizing module rtcc_alarm
+Progress: Adding rtcc_cs_n [altera_avalon_pio 18.1]
+Progress: Parameterizing module rtcc_cs_n
+Progress: Adding rtcc_sck [altera_avalon_pio 18.1]
+Progress: Parameterizing module rtcc_sck
+Progress: Adding rtcc_sdi [altera_avalon_pio 18.1]
+Progress: Parameterizing module rtcc_sdi
+Progress: Adding rtcc_sdo [altera_avalon_pio 18.1]
+Progress: Parameterizing module rtcc_sdo
+Progress: Adding sd_card_wp_n [altera_avalon_pio 18.1]
+Progress: Parameterizing module sd_card_wp_n
+Progress: Adding sync [Sync 1.6]
+Progress: Parameterizing module sync
+Progress: Adding sysid_qsys [altera_avalon_sysid_qsys 18.1]
+Progress: Parameterizing module sysid_qsys
+Progress: Adding temp_scl [altera_avalon_pio 18.1]
+Progress: Parameterizing module temp_scl
+Progress: Adding temp_sda [altera_avalon_pio 18.1]
+Progress: Parameterizing module temp_sda
+Progress: Adding timer_1ms [altera_avalon_timer 18.1]
+Progress: Parameterizing module timer_1ms
+Progress: Adding timer_1us [altera_avalon_timer 18.1]
+Progress: Parameterizing module timer_1us
+Progress: Adding tristate_conduit_bridge_0 [altera_tristate_conduit_bridge 18.1]
+Progress: Parameterizing module tristate_conduit_bridge_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: MebX_Qsys_Project.csense_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Warning: MebX_Qsys_Project.ext_flash: Properties (isFlash,isMemoryDevice,isNonVolatileStorage) have been set on interface uas - in composed mode these are ignored
+Info: MebX_Qsys_Project.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: MebX_Qsys_Project.m1_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m1_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Info: MebX_Qsys_Project.m2_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m2_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Warning: MebX_Qsys_Project.m2_ddr2_memory.pll_bridge: pll_bridge.pll_sharing cannot be both connected and exported
+Info: MebX_Qsys_Project.pio_BUTTON: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_DIP: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_EXT: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_alarm: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_card_wp_n: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: MebX_Qsys_Project.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Info: MebX_Qsys_Project.temp_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: qsys-generate succeeded.
+Info: Stopping: Create block symbol file (.bsf)

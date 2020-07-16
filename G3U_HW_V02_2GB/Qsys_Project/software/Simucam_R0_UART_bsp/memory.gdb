@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
 # SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
 #
-# Generated: Thu Jun 11 17:57:51 BRT 2020
+# Generated: Thu Jul 16 03:57:57 BRT 2020
 
 # DO NOT MODIFY THIS FILE
 #
@@ -47,7 +47,7 @@
 # by allowing GDB to cache memory contents on the host.
 
 # onchip_memory
-memory 0x81100000 0x81200000 cache
+memory 0x81100000 0x811b0000 cache
 
 # ext_flash
 memory 0x84000000 0x88000000 cache
