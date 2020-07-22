@@ -679,6 +679,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 			}
 		}
 	}
+	bStatus = TRUE;
 	return bStatus;
 }
 
@@ -909,6 +910,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u32 uliTransferSizeInBlo
 			}
 		}
 	}
+	bStatus = TRUE;
 	return bStatus;
 }
 
