@@ -55,8 +55,11 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
-bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh);
-bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh);
+bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh);
+bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh);
+
+bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh);
+bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh);
 bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh);

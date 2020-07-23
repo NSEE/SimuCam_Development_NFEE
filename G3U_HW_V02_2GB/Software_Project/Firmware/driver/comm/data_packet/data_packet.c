@@ -141,7 +141,7 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh) {
+bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -149,7 +149,7 @@ bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktErrorInjection = pxDpktCh->xDpktErrorInjection;
+		vpxCommChannel->xDataPacket.xDpktSpacewireErrInj = pxDpktCh->xDpktSpacewireErrInj;
 
 		bStatus = TRUE;
 	}
@@ -157,7 +157,7 @@ bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh) {
+bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -165,7 +165,40 @@ bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		pxDpktCh->xDpktErrorInjection = vpxCommChannel->xDataPacket.xDpktErrorInjection;
+		pxDpktCh->xDpktSpacewireErrInj = vpxCommChannel->xDataPacket.xDpktSpacewireErrInj;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj = pxDpktCh->xDpktTransmissionErrInj;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktTransmissionErrInj = vpxCommChannel->xDataPacket.xDpktTransmissionErrInj;
 
 		bStatus = TRUE;
 
@@ -282,7 +315,10 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 			if (!bDpktGetPixelDelay(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bDpktGetErrorInjection(pxDpktCh)) {
+			if (!bDpktGetSpacewireErrInj(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetTransmissionErrInj(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetWindowingParams(pxDpktCh)) {

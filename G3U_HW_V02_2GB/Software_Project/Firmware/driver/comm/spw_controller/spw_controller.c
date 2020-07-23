@@ -23,7 +23,7 @@
 //! [program memory private global variables]
 
 //! [public functions]
-bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
+bool bSpwcSetLinkConfig(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -40,7 +40,7 @@ bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 	return bStatus;
 }
 
-bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
+bool bSpwcGetLinkConfig(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -49,23 +49,6 @@ bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
 
 		pxSpwcCh->xSpwcLinkConfig = vpxCommChannel->xSpacewire.xSpwcLinkConfig;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxSpwcCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
-
-		pxSpwcCh->xSpwcLinkError = vpxCommChannel->xSpacewire.xSpwcLinkError;
 
 		bStatus = TRUE;
 
@@ -91,7 +74,58 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 	return bStatus;
 }
 
-bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
+bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxSpwcCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
+
+		pxSpwcCh->xSpwcLinkError = vpxCommChannel->xSpacewire.xSpwcLinkError;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bSpwcSetTimecodeConfig(TSpwcChannel *pxSpwcCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxSpwcCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
+
+		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig = pxSpwcCh->xSpwcTimecodeConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bSpwcGetTimecodeConfig(TSpwcChannel *pxSpwcCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxSpwcCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
+
+		pxSpwcCh->xSpwcTimecodeConfig = vpxCommChannel->xSpacewire.xSpwcTimecodeConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bSpwcGetTimecodeStatus(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -125,7 +159,7 @@ bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh) {
 	return bStatus;
 }
 
-bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable) {
+bool bSpwcEnableTimecodeTrans(TSpwcChannel *pxSpwcCh, bool bEnable) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -133,7 +167,7 @@ bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable) {
 
 		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
 
-		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig.bEnable = bEnable;
+		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = bEnable;
 
 		bStatus = TRUE;
 
@@ -205,16 +239,19 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 		}
 
 		if (bValidCh) {
-			if (!bSpwcGetLink(pxSpwcCh)) {
-				bInitFail = TRUE;
-			}
-			if (!bSpwcGetLinkError(pxSpwcCh)) {
+			if (!bSpwcGetLinkConfig(pxSpwcCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bSpwcGetLinkStatus(pxSpwcCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bSpwcGetTimecode(pxSpwcCh)) {
+			if (!bSpwcGetLinkError(pxSpwcCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bSpwcGetTimecodeConfig(pxSpwcCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bSpwcGetTimecodeStatus(pxSpwcCh)) {
 				bInitFail = TRUE;
 			}
 

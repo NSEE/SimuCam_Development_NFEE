@@ -108,7 +108,11 @@ typedef struct SpwcLinkError {
 /* SpaceWire Timecode Config Register Struct */
 typedef struct SpwcTimecodeConfig {
 	bool bClear; /* SpaceWire Timecode Clear */
-	bool bEnable; /* SpaceWire Timecode Enable */
+	bool bTransmissionEnable; /* SpaceWire Timecode Transmission Enable */
+	bool bSyncTriggerEnable; /* SpaceWire Timecode Sync Trigger Enable */
+	alt_u8 ucTimeOffset; /* SpaceWire Timecode Time Offset */
+	bool bSyncDelayTriggerEn; /* SpaceWire Timecode Sync Delay Trigger Enable */
+	alt_u32 uliSyncDelayValue; /* SpaceWire Timecode Sync Delay Value */
 } TSpwcTimecodeConfig;
 
 /* SpaceWire Timecode Status Register Struct */
@@ -130,7 +134,7 @@ typedef struct FeebMachineControl {
 	bool bBufferOverflowEn; /* FEE Buffer Overflow Enable */
 	bool bDigitaliseEn; /* FEE Digitalise Enable */
 	bool bReadoutEn; /* FEE Readout Enable */
-	bool bWindowingEn; /* FEE Windowing Enable */
+	bool bWindowListEn; /* FEE Window List Enable */
 	bool bStatisticsClear; /* FEE Statistics Clear */
 } TFeebMachineControl;
 
@@ -326,16 +330,23 @@ typedef struct DpktPixelDelay {
 	alt_u32 uliAdcDelay; /* Data Packet ADC Delay */
 } TDpktPixelDelay;
 
-/* Error Injection Control Register Struct */
-typedef struct DpktErrorInjection {
-	bool bTxDisabled; /* Error Injection Tx Disabled Enable */
-	bool bMissingPkts; /* Error Injection Missing Packets Enable */
-	bool bMissingData; /* Error Injection Missing Data Enable */
-	alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
-	alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
-	alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
-	alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
-} TDpktErrorInjection;
+/* SpaceWire Error Injection Control Register Struct */
+typedef struct DpktSpacewireErrInj {
+	bool bEepReceivedEn; /* Enable for "EEP Received" SpaceWire Error */
+	alt_u16 usiSequenceCnt; /* Sequence Counter of SpaceWire Error */
+	alt_u16 usiNRepeat; /* Number of Times the SpaceWire Error Repeats */
+} TDpktSpacewireErrInj;
+
+/* Transmission Error Injection Control Register Struct */
+typedef struct DpktTransmissionErrInj {
+	bool bTxDisabledEn; /* Enable for "Tx Disabled" Transmission Error */
+	bool bMissingPktsEn; /* Enable for "Missing Packets" Transmission Error */
+	bool bMissingDataEn; /* Enable for "Missing Data" Transmission Error */
+	alt_u8 ucFrameNum; /* Frame Number of Transmission Error */
+	alt_u16 usiSequenceCnt; /* Sequence Counter of Transmission Error */
+	alt_u16 usiDataCnt; /* Data Counter of Transmission Error */
+	alt_u16 usiNRepeat; /* Number of Times the Transmission Error Repeats */
+} TDpktTransmissionErrInj;
 
 /* Windowing Parameters Register Struct */
 typedef struct DpktWindowingParam {
@@ -408,7 +419,8 @@ typedef struct DpktChannel {
 	TDpktDataPacketErrors xDpktDataPacketErrors;
 	TDpktDataPacketHeader xDpktDataPacketHeader;
 	TDpktPixelDelay xDpktPixelDelay;
-	TDpktErrorInjection xDpktErrorInjection;
+	TDpktSpacewireErrInj xDpktSpacewireErrInj;
+	TDpktTransmissionErrInj xDpktTransmissionErrInj;
 	TDpktWindowingParam xDpktWindowingParam;
 } TDpktChannel;
 
