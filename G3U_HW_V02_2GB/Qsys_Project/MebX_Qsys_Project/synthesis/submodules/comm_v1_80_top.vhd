@@ -491,7 +491,7 @@ begin
 			fee_machine_start_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
 			fee_digitalise_en_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
 			fee_readout_en_i                              => s_spacewire_write_registers.fee_machine_config_reg.fee_readout_en,
-			fee_windowing_en_i                            => s_spacewire_write_registers.fee_machine_config_reg.fee_windowing_en,
+			fee_window_list_en_i                          => s_spacewire_write_registers.fee_machine_config_reg.fee_window_list_en,
 			fee_left_window_data_i                        => s_L_fee_data_controller_window_data_out,
 			fee_left_window_mask_i                        => s_L_fee_data_controller_window_mask_out,
 			fee_left_window_data_valid_i                  => s_L_fee_data_controller_window_data_valid,
@@ -542,13 +542,16 @@ begin
 			windowing_packet_order_list_i(31 downto 0)    => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_0,
 			windowing_last_left_packet_i                  => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_e_packet,
 			windowing_last_right_packet_i                 => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_f_packet,
-			errinj_tx_disabled_i                          => s_spacewire_write_registers.error_injection_control_reg.errinj_tx_disabled,
-			errinj_missing_pkts_i                         => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_pkts,
-			errinj_missing_data_i                         => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_data,
-			errinj_frame_num_i                            => s_spacewire_write_registers.error_injection_control_reg.errinj_frame_num,
-			errinj_sequence_cnt_i                         => s_spacewire_write_registers.error_injection_control_reg.errinj_sequence_cnt,
-			errinj_data_cnt_i                             => s_spacewire_write_registers.error_injection_control_reg.errinj_data_cnt,
-			errinj_n_repeat_i                             => s_spacewire_write_registers.error_injection_control_reg.errinj_n_repeat,
+			spw_errinj_eep_received_i                     => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_eep_received,
+			spw_errinj_sequence_cnt_i                     => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_sequence_cnt,
+			spw_errinj_n_repeat_i                         => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_n_repeat,
+			trans_errinj_tx_disabled_i                    => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_tx_disabled,
+			trans_errinj_missing_pkts_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_pkts,
+			trans_errinj_missing_data_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_data,
+			trans_errinj_frame_num_i                      => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_frame_num,
+			trans_errinj_sequence_cnt_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_sequence_cnt,
+			trans_errinj_data_cnt_i                       => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_data_cnt,
+			trans_errinj_n_repeat_i                       => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_n_repeat,
 			fee_machine_busy_o                            => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy,
 			fee_frame_counter_o                           => s_fee_frame_counter,
 			fee_frame_number_o                            => s_fee_frame_number,
@@ -736,51 +739,97 @@ begin
 	end process p_rmap_last_addr;
 
 	p_timecode_manager : process(a_avs_clock, a_reset) is
-		variable v_timecode_sended  : std_logic := '0';
-		variable v_timecode_cleared : std_logic := '0';
+		variable v_sync_delayed              : std_logic := '0';
+		variable v_timecode_trigger          : std_logic := '0';
+		variable v_timecode_extended_counter : unsigned(6 downto 0);
+		variable v_timecode_offset_counter   : unsigned(6 downto 0);
+		variable v_timecode_delay_cnt        : unsigned(31 downto 0);
+		variable v_timecode_cleared          : std_logic := '0';
 	begin
 		if (a_reset) = '1' then
-			s_timecode_tick    <= '0';
-			s_timecode_control <= (others => '0');
-			s_timecode_counter <= (others => '0');
-			v_timecode_sended  := '1';
-			v_timecode_cleared := '1';
+			s_timecode_tick             <= '0';
+			s_timecode_control          <= (others => '0');
+			s_timecode_counter          <= (others => '0');
+			v_sync_delayed              := '0';
+			v_timecode_trigger          := '0';
+			v_timecode_extended_counter := (others => '0');
+			v_timecode_offset_counter   := (others => '0');
+			v_timecode_delay_cnt        := (others => '0');
+			v_timecode_cleared          := '1';
 		elsif rising_edge(a_avs_clock) then
 
 			-- check if a timecode clear was issued
 			if (s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear = '1') then
 				-- timecode clear issued, clear timecode
-				s_timecode_control <= (others => '0');
-				s_timecode_counter <= (others => '0');
-				v_timecode_cleared := '1';
+				s_timecode_control          <= (others => '0');
+				s_timecode_counter          <= (others => '0');
+				v_timecode_extended_counter := (others => '0');
+				v_timecode_offset_counter   := (others => '0');
+				v_timecode_delay_cnt        := (others => '0');
+				v_timecode_cleared          := '1';
 			end if;
 
+			-- trigger timecode tick
 			s_timecode_tick <= '0';
-			-- check if a sync signal was issued
-			if (s_sync_channel = '1') then
-				-- sync issued, increment timecode and send by spw
-				if (v_timecode_sended = '0') then
-					v_timecode_sended  := '1';
-					-- check if the timecode transmission is enabled
-					if (s_spacewire_write_registers.spw_timecode_config_reg.timecode_en = '1') then
-						s_timecode_tick <= '1';
-					end if;
-					s_timecode_control <= (others => '0');
-					if (v_timecode_cleared = '1') then
-						v_timecode_cleared := '0';
-					else
-						if (s_timecode_counter = "111111") then
-							s_timecode_counter <= (others => '0');
-						else
-							s_timecode_counter <= std_logic_vector(unsigned(s_timecode_counter) + 1);
-						end if;
-					end if;
+
+			-- check if a sync signal was issued (rising edge in sync signal) 
+			if ((s_sync_channel = '1') and (v_sync_delayed = '0')) then
+				-- a sync signal was issued (rising edge in sync signal) 
+				-- check if the timecode sync trigger is enabled
+				if (s_spacewire_write_registers.spw_timecode_config_reg.timecode_sync_trigger_en = '1') then
+					-- the timecode sync trigger is enabled
+					-- set the timecode trigger
+					v_timecode_trigger := '1';
 				end if;
-			else
-				v_timecode_sended := '0';
+				-- check the sync delay trigger is enabled
+				if (s_spacewire_write_registers.spw_timecode_config_reg.timecode_sync_delay_trigger_en = '1') then
+					-- the sync delay trigger is enabled
+					-- update the timecode delay counter
+					v_timecode_delay_cnt := unsigned(s_spacewire_write_registers.spw_timecode_config_reg.timecode_sync_delay_value) + 1;
+				end if;
+				-- check if the timecode transmission is enabled and a timecode trigger did not happened (force the transmission of a timecode)
 			end if;
+
+			-- check if the timecode delay counter is not zero
+			if (v_timecode_delay_cnt /= 0) then
+				-- the timecode delay counter is not zero
+				-- decrement timecode delay counter
+				v_timecode_delay_cnt := v_timecode_delay_cnt - 1;
+				-- check if the timecode delay ended
+				if (v_timecode_delay_cnt = 0) then
+					-- the timecode delay ended
+					-- set the timecode trigger
+					v_timecode_trigger := '1';
+				end if;
+			end if;
+
+			-- check if a timecode trigger was issued 
+			if (v_timecode_trigger = '1') then
+				-- a timecode trigger was issued 
+				-- increment timecode and send by spw
+				-- clear the timecode trigger
+				v_timecode_trigger           := '0';
+				-- check if the timecode transmission is enabled
+				if (s_spacewire_write_registers.spw_timecode_config_reg.timecode_trans_en = '1') then
+					s_timecode_tick <= '1';
+				end if;
+				s_timecode_control           <= (others => '0');
+				if (v_timecode_cleared = '1') then
+					v_timecode_cleared := '0';
+				else
+					v_timecode_extended_counter    := v_timecode_extended_counter + 1;
+					v_timecode_extended_counter(6) := '0';
+				end if;
+				v_timecode_offset_counter    := v_timecode_extended_counter + unsigned(s_spacewire_write_registers.spw_timecode_config_reg.timecode_time_offset);
+				v_timecode_offset_counter(6) := '0';
+				s_timecode_counter           <= std_logic_vector(v_timecode_offset_counter(5 downto 0));
+			end if;
+
+			-- delay sync signal
+			v_sync_delayed := s_sync_channel;
 
 		end if;
+
 	end process p_timecode_manager;
 	s_current_timecode(7 downto 6)                                      <= s_timecode_control;
 	s_current_timecode(5 downto 0)                                      <= s_timecode_counter;

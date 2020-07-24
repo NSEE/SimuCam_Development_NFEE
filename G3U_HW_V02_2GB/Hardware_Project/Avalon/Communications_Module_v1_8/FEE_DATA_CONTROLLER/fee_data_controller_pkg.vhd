@@ -132,13 +132,21 @@ package fee_data_controller_pkg is
 
 	-- fee data packet transmission parameters record
 	type t_fee_dpkt_transmission_params is record
-		digitalise_en : std_logic;
-		windowing_en  : std_logic;
-		pattern_en    : std_logic;
+		digitalise_en  : std_logic;
+		window_list_en : std_logic;
+		windowing_en   : std_logic;
+		pattern_en     : std_logic;
 	end record t_fee_dpkt_transmission_params;
 
-	-- fee data packet error injection parameters record
-	type t_fee_dpkt_errinj_params is record
+	-- fee data packet spacewire error injection parameters record
+	type t_fee_dpkt_spw_errinj_params is record
+		eep_received : std_logic;
+		sequence_cnt : std_logic_vector(15 downto 0);
+		n_repeat     : std_logic_vector(15 downto 0);
+	end record t_fee_dpkt_spw_errinj_params;
+
+	-- fee data packet transmission error injection parameters record
+	type t_fee_dpkt_trans_errinj_params is record
 		tx_disabled  : std_logic;
 		missing_pkts : std_logic;
 		missing_data : std_logic;
@@ -146,7 +154,7 @@ package fee_data_controller_pkg is
 		sequence_cnt : std_logic_vector(15 downto 0);
 		data_cnt     : std_logic_vector(15 downto 0);
 		n_repeat     : std_logic_vector(15 downto 0);
-	end record t_fee_dpkt_errinj_params;
+	end record t_fee_dpkt_trans_errinj_params;
 
 	-- fee windowing parameters record
 	type t_fee_windowing_params is record
@@ -157,10 +165,11 @@ package fee_data_controller_pkg is
 
 	-- fee data packet registered parameters record
 	type t_fee_dpkt_registered_params is record
-		image           : t_fee_dpkt_image_params;
-		transmission    : t_fee_dpkt_transmission_params;
-		error_injection : t_fee_dpkt_errinj_params;
-		windowing       : t_fee_windowing_params;
+		image        : t_fee_dpkt_image_params;
+		transmission : t_fee_dpkt_transmission_params;
+		spw_errinj   : t_fee_dpkt_spw_errinj_params;
+		trans_errinj : t_fee_dpkt_trans_errinj_params;
+		windowing    : t_fee_windowing_params;
 	end record t_fee_dpkt_registered_params;
 
 end package fee_data_controller_pkg;

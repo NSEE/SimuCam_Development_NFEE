@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#84#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#8A#;
 
 	-- Registers Types
 
@@ -48,8 +48,12 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- SpaceWire Timecode Config Register
 	type t_comm_spw_timecode_wr_reg is record
-		timecode_clear : std_logic;     -- SpaceWire Timecode Clear
-		timecode_en    : std_logic;     -- SpaceWire Timecode Enable
+		timecode_clear                 : std_logic; -- SpaceWire Timecode Clear
+		timecode_trans_en              : std_logic; -- SpaceWire Timecode Transmission Enable
+		timecode_sync_trigger_en       : std_logic; -- SpaceWire Timecode Sync Trigger Enable
+		timecode_time_offset           : std_logic_vector(5 downto 0); -- SpaceWire Timecode Time Offset
+		timecode_sync_delay_trigger_en : std_logic; -- SpaceWire Timecode Sync Delay Trigger Enable
+		timecode_sync_delay_value      : std_logic_vector(31 downto 0); -- SpaceWire Timecode Sync Delay Value
 	end record t_comm_spw_timecode_wr_reg;
 
 	-- SpaceWire Timecode Status Register
@@ -71,7 +75,7 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_buffer_overflow_en : std_logic; -- FEE Buffer Overflow Enable
 		fee_digitalise_en      : std_logic; -- FEE Digitalise Enable
 		fee_readout_en         : std_logic; -- FEE Readout Enable
-		fee_windowing_en       : std_logic; -- FEE Windowing Enable
+		fee_window_list_en     : std_logic; -- FEE Window List Enable
 		fee_statistics_clear   : std_logic; -- FEE Statistics Clear
 	end record t_comm_fee_machine_config_wr_reg;
 
@@ -267,16 +271,23 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_adc_delay   : std_logic_vector(31 downto 0); -- Data Packet ADC Delay
 	end record t_comm_data_packet_pixel_delay_wr_reg;
 
-	-- Error Injection Control Register
-	type t_comm_error_injection_control_wr_reg is record
-		errinj_tx_disabled  : std_logic; -- Error Injection Tx Disabled Enable
-		errinj_missing_pkts : std_logic; -- Error Injection Missing Packets Enable
-		errinj_missing_data : std_logic; -- Error Injection Missing Data Enable
-		errinj_frame_num    : std_logic_vector(1 downto 0); -- Error Injection Frame Number of Error
-		errinj_sequence_cnt : std_logic_vector(15 downto 0); -- Error Injection Sequence Counter of Error
-		errinj_data_cnt     : std_logic_vector(15 downto 0); -- Error Injection Data Counter of Error
-		errinj_n_repeat     : std_logic_vector(15 downto 0); -- Error Injection Number of Error Repeats
-	end record t_comm_error_injection_control_wr_reg;
+	-- SpaceWire Error Injection Control Register
+	type t_comm_spw_error_injection_control_wr_reg is record
+		spw_errinj_eep_received : std_logic; -- Enable for "EEP Received" SpaceWire Error
+		spw_errinj_sequence_cnt : std_logic_vector(15 downto 0); -- Sequence Counter of SpaceWire Error
+		spw_errinj_n_repeat     : std_logic_vector(15 downto 0); -- Number of Times the SpaceWire Error Repeats
+	end record t_comm_spw_error_injection_control_wr_reg;
+
+	-- Transmission Error Injection Control Register
+	type t_comm_trans_error_injection_control_wr_reg is record
+		trans_errinj_tx_disabled  : std_logic; -- Enable for "Tx Disabled" Transmission Error
+		trans_errinj_missing_pkts : std_logic; -- Enable for "Missing Packets" Transmission Error
+		trans_errinj_missing_data : std_logic; -- Enable for "Missing Data" Transmission Error
+		trans_errinj_frame_num    : std_logic_vector(1 downto 0); -- Frame Number of Transmission Error
+		trans_errinj_sequence_cnt : std_logic_vector(15 downto 0); -- Sequence Counter of Transmission Error
+		trans_errinj_data_cnt     : std_logic_vector(15 downto 0); -- Data Counter of Transmission Error
+		trans_errinj_n_repeat     : std_logic_vector(15 downto 0); -- Number of Times the Transmission Error Repeats
+	end record t_comm_trans_error_injection_control_wr_reg;
 
 	-- Windowing Parameters Register
 	type t_comm_windowing_parameters_wr_reg is record
@@ -306,30 +317,31 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Avalon MM Read/Write Registers
 	type t_windowing_write_registers is record
-		comm_dev_addr_reg               : t_comm_comm_dev_addr_wr_reg; -- Comm Device Address Register
-		comm_irq_control_reg            : t_comm_comm_irq_control_wr_reg; -- Comm IRQ Control Register
-		spw_dev_addr_reg                : t_comm_spw_dev_addr_wr_reg; -- SpaceWire Device Address Register
-		spw_link_config_reg             : t_comm_spw_link_config_wr_reg; -- SpaceWire Link Config Register
-		spw_timecode_config_reg         : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
-		fee_buffers_dev_addr_reg        : t_comm_fee_buffers_dev_addr_wr_reg; -- FEE Buffers Device Address Register
-		fee_machine_config_reg          : t_comm_fee_machine_config_wr_reg; -- FEE Machine Config Register
-		fee_buffers_config_reg          : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
-		fee_buffers_data_control_reg    : t_comm_fee_buffers_data_control_wr_reg; -- FEE Buffers Data Control Register
-		fee_buffers_irq_control_reg     : t_comm_fee_buffers_irq_control_wr_reg; -- FEE Buffers IRQ Control Register
-		fee_buffers_irq_flags_clear_reg : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
-		rmap_dev_addr_reg               : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
-		rmap_echoing_mode_config_reg    : t_comm_rmap_echoing_mode_config_wr_reg; -- RMAP Echoing Mode Config Register
-		rmap_codec_config_reg           : t_comm_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
-		rmap_memory_config_reg          : t_comm_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
-		rmap_mem_area_ptr_reg           : t_comm_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
-		rmap_irq_control_reg            : t_comm_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
-		rmap_irq_flags_clear_reg        : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
-		data_packet_dev_addr_reg        : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
-		data_packet_config_reg          : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
-		data_packet_errors_reg          : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
-		data_packet_pixel_delay_reg     : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
-		error_injection_control_reg     : t_comm_error_injection_control_wr_reg; -- Error Injection Control Register
-		windowing_parameters_reg        : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
+		comm_dev_addr_reg                 : t_comm_comm_dev_addr_wr_reg; -- Comm Device Address Register
+		comm_irq_control_reg              : t_comm_comm_irq_control_wr_reg; -- Comm IRQ Control Register
+		spw_dev_addr_reg                  : t_comm_spw_dev_addr_wr_reg; -- SpaceWire Device Address Register
+		spw_link_config_reg               : t_comm_spw_link_config_wr_reg; -- SpaceWire Link Config Register
+		spw_timecode_config_reg           : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
+		fee_buffers_dev_addr_reg          : t_comm_fee_buffers_dev_addr_wr_reg; -- FEE Buffers Device Address Register
+		fee_machine_config_reg            : t_comm_fee_machine_config_wr_reg; -- FEE Machine Config Register
+		fee_buffers_config_reg            : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
+		fee_buffers_data_control_reg      : t_comm_fee_buffers_data_control_wr_reg; -- FEE Buffers Data Control Register
+		fee_buffers_irq_control_reg       : t_comm_fee_buffers_irq_control_wr_reg; -- FEE Buffers IRQ Control Register
+		fee_buffers_irq_flags_clear_reg   : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
+		rmap_dev_addr_reg                 : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
+		rmap_echoing_mode_config_reg      : t_comm_rmap_echoing_mode_config_wr_reg; -- RMAP Echoing Mode Config Register
+		rmap_codec_config_reg             : t_comm_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
+		rmap_memory_config_reg            : t_comm_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
+		rmap_mem_area_ptr_reg             : t_comm_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
+		rmap_irq_control_reg              : t_comm_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
+		rmap_irq_flags_clear_reg          : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
+		data_packet_dev_addr_reg          : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
+		data_packet_config_reg            : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
+		data_packet_errors_reg            : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
+		data_packet_pixel_delay_reg       : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
+		spw_error_injection_control_reg   : t_comm_spw_error_injection_control_wr_reg; -- SpaceWire Error Injection Control Register
+		trans_error_injection_control_reg : t_comm_trans_error_injection_control_wr_reg; -- Transmission Error Injection Control Register
+		windowing_parameters_reg          : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
 	end record t_windowing_write_registers;
 
 	-- Avalon MM Read-Only Registers

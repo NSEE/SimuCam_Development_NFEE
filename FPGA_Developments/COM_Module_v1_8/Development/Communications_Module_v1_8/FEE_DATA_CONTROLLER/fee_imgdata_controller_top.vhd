@@ -24,6 +24,7 @@ entity fee_imgdata_controller_top is
 		fee_machine_stop_i                 : in  std_logic;
 		fee_machine_start_i                : in  std_logic;
 		fee_digitalise_en_i                : in  std_logic;
+		fee_window_list_en_i               : in  std_logic;
 		fee_windowing_en_i                 : in  std_logic;
 		fee_pattern_en_i                   : in  std_logic;
 		-- fee windowing buffer status
@@ -121,6 +122,7 @@ begin
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
 			fee_digitalise_en_i           => fee_digitalise_en_i,
+			fee_window_list_en_i          => fee_window_list_en_i,
 			fee_windowing_en_i            => fee_windowing_en_i,
 			fee_pattern_en_i              => fee_pattern_en_i,
 			masking_machine_hold_i        => s_masking_machine_hold,

@@ -14,6 +14,7 @@ entity masking_machine_ent is
 		fee_stop_signal_i             : in  std_logic;
 		fee_start_signal_i            : in  std_logic;
 		fee_digitalise_en_i           : in  std_logic;
+		fee_window_list_en_i          : in  std_logic;
 		fee_windowing_en_i            : in  std_logic;
 		fee_pattern_en_i              : in  std_logic;
 		-- others
@@ -155,6 +156,9 @@ architecture RTL of masking_machine_ent is
 	-- data fetched flag
 	signal s_data_fetched : std_logic;
 
+	-- window list enable flag
+	signal s_window_list_en : std_logic;
+
 	-- fisrt row constant
 	constant c_CCD_FIRST_ROW : std_logic_vector((fee_ccd_y_size_i'length - 1) downto 0) := (others => '0');
 
@@ -217,6 +221,7 @@ begin
 			s_ccd_column_cnt               <= (others => '0');
 			s_ccd_row_cnt                  <= (others => '0');
 			s_data_fetched                 <= '0';
+			s_window_list_en               <= '0';
 		elsif rising_edge(clk_i) then
 
 			case (s_masking_machine_state) is
@@ -239,6 +244,7 @@ begin
 					s_ccd_column_cnt               <= (others => '0');
 					s_ccd_row_cnt                  <= (others => '0');
 					s_data_fetched                 <= '0';
+					s_window_list_en               <= '0';
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -262,6 +268,7 @@ begin
 					s_ccd_column_cnt               <= (others => '0');
 					s_ccd_row_cnt                  <= (others => '0');
 					s_data_fetched                 <= '0';
+					s_window_list_en               <= '0';
 					-- check if the fee requested the start of the masking (sync arrived)
 					if (sync_signal_i = '1') then
 						-- set first pixel
@@ -269,10 +276,11 @@ begin
 						-- set ccd column counter to execute the first ccd line
 						s_ccd_column_cnt               <= (others => '0');
 						s_ccd_row_cnt                  <= (others => '0');
+						-- update window list enable flag (if window list is disabled, no image data will be sent)
+						s_window_list_en               <= fee_window_list_en_i;
 						-- go to idle
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;
-
 					end if;
 
 				when WAITING_DATA =>
@@ -357,8 +365,8 @@ begin
 							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
 								-- data need to be transmitted
-								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
-								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
+								-- check if ((the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)) and (the window list is enabled)
+								if (((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) and (s_window_list_en = '1')) then
 									-- windowing disabled or is enabled and pixel is transmitted
 									s_masking_fifo.wrreq <= '1';
 									-- check if the pattern is enabled
@@ -404,8 +412,8 @@ begin
 							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
 								-- data need to be transmitted
-								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
-								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
+								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted) and (the window list is enabled)
+								if (((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) and (s_window_list_en = '1')) then
 									-- windowing disabled or is enabled and pixel is transmitted
 									s_masking_fifo.wrreq <= '1';
 									-- check if the pattern is enabled
@@ -484,6 +492,8 @@ begin
 					s_masking_fifo.wrreq          <= '0';
 					s_first_pixel                 <= '0';
 					s_data_fetched                <= '0';
+					-- set window list enable flag (overscan will always be transmitted)
+					s_window_list_en              <= '1';
 					-- check if masking fifo is not almost full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
