@@ -550,7 +550,7 @@ int main(void)
 		return -1;
 	}
 
-	bIniSimucamStatus = vLoadDebugConfs();
+	bIniSimucamStatus = bLoadDefaultDebugConf();
 	/*Check if the debug level was loaded */
 	if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
 		#if DEBUG_ON
@@ -597,7 +597,8 @@ int main(void)
 	xDefaults.usiPreBtSync      = 200; /* ms */
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+//	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		vShowDebugConfig();
 	}
 	#endif
@@ -633,7 +634,7 @@ int main(void)
 	}
 	#endif
 
-	bIniSimucamStatus = vLoadDefaultETHConf();
+	bIniSimucamStatus = bLoadDefaultEthConf();
 	if (bIniSimucamStatus == FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

@@ -3,6 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.avalon_mm_spacewire_registers_pkg.all;
+use work.fee_data_controller_pkg.all;
 
 entity config_avalon_stimuli is
 	generic(

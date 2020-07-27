@@ -18,6 +18,10 @@ union LastMask{
     unsigned long long ullWord;
 };
 
+enum CcdSide {
+	eCcdSideELeft = 0, eCcdSideFRight = 1
+} ECcdSide;
+
 /* There's a left and right side for each CCD, and CcdMemMap has an instance for each half CCD */
 typedef struct CcdMemMap{
 	unsigned long ulOffsetAddr;     /* (bytes) Initial Addrs for the ccd in the DDR memory */

@@ -33,21 +33,21 @@
 //refer to the applicable agreement for further details.
 
 
-//scfifo ADD_RAM_OUTPUT_REGISTER="ON" ALMOST_EMPTY_VALUE=2 ALMOST_FULL_VALUE=1022 DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=1024 LPM_SHOWAHEAD="OFF" LPM_WIDTH=8 LPM_WIDTHU=10 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr almost_empty almost_full clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV"
+//scfifo ADD_RAM_OUTPUT_REGISTER="ON" ALMOST_EMPTY_VALUE=2 ALMOST_FULL_VALUE=1022 DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=1024 LPM_SHOWAHEAD="OFF" LPM_WIDTH=8 LPM_WIDTHU=10 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="M9K" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr almost_empty almost_full clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=M9K"
 //VERSION_BEGIN 18.1 cbx_altdpram 2018:09:12:13:04:24:SJ cbx_altera_counter 2018:09:12:13:04:24:SJ cbx_altera_syncram 2018:09:12:13:04:24:SJ cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_fifo_common 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_scfifo 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
 
-//a_dpfifo ADD_RAM_OUTPUT_REGISTER="ON" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=1024 LPM_SHOWAHEAD="OFF" lpm_width=8 lpm_widthu=10 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV"
+//a_dpfifo ADD_RAM_OUTPUT_REGISTER="ON" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=1024 LPM_SHOWAHEAD="OFF" lpm_width=8 lpm_widthu=10 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=M9K"
 //VERSION_BEGIN 18.1 cbx_altdpram 2018:09:12:13:04:24:SJ cbx_altera_counter 2018:09:12:13:04:24:SJ cbx_altera_syncram 2018:09:12:13:04:24:SJ cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_fifo_common 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_counter 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_scfifo 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
 
-//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=1024 NUMWORDS_B=1024 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="CLOCK1" WIDTH_A=8 WIDTH_B=8 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=10 WIDTHAD_B=10 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 clock1 clocken1 data_a q_b wren_a
+//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=1024 NUMWORDS_B=1024 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="CLOCK1" RAM_BLOCK_TYPE="M9K" WIDTH_A=8 WIDTH_B=8 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=10 WIDTHAD_B=10 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 clock1 clocken1 data_a q_b wren_a
 //VERSION_BEGIN 18.1 cbx_altera_syncram_nd_impl 2018:09:12:13:04:24:SJ cbx_altsyncram 2018:09:12:13:04:24:SJ cbx_cycloneii 2018:09:12:13:04:24:SJ cbx_lpm_add_sub 2018:09:12:13:04:24:SJ cbx_lpm_compare 2018:09:12:13:04:24:SJ cbx_lpm_decode 2018:09:12:13:04:24:SJ cbx_lpm_mux 2018:09:12:13:04:24:SJ cbx_mgl 2018:09:12:13:10:36:SJ cbx_nadder 2018:09:12:13:04:24:SJ cbx_stratix 2018:09:12:13:04:24:SJ cbx_stratixii 2018:09:12:13:04:24:SJ cbx_stratixiii 2018:09:12:13:04:24:SJ cbx_stratixv 2018:09:12:13:04:24:SJ cbx_util_mgl 2018:09:12:13:04:24:SJ  VERSION_END
 
-//synthesis_resources = ram_bits (AUTO) 8192 
+//synthesis_resources = M9K 1 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -162,7 +162,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_0.port_b_logical_ram_depth = 1024,
 		ram_block1a_0.port_b_logical_ram_width = 8,
 		ram_block1a_0.port_b_read_enable_clock = "clock1",
-		ram_block1a_0.ram_block_type = "AUTO",
+		ram_block1a_0.ram_block_type = "M9K",
 		ram_block1a_0.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_1
 	( 
@@ -232,7 +232,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_1.port_b_logical_ram_depth = 1024,
 		ram_block1a_1.port_b_logical_ram_width = 8,
 		ram_block1a_1.port_b_read_enable_clock = "clock1",
-		ram_block1a_1.ram_block_type = "AUTO",
+		ram_block1a_1.ram_block_type = "M9K",
 		ram_block1a_1.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_2
 	( 
@@ -302,7 +302,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_2.port_b_logical_ram_depth = 1024,
 		ram_block1a_2.port_b_logical_ram_width = 8,
 		ram_block1a_2.port_b_read_enable_clock = "clock1",
-		ram_block1a_2.ram_block_type = "AUTO",
+		ram_block1a_2.ram_block_type = "M9K",
 		ram_block1a_2.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_3
 	( 
@@ -372,7 +372,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_3.port_b_logical_ram_depth = 1024,
 		ram_block1a_3.port_b_logical_ram_width = 8,
 		ram_block1a_3.port_b_read_enable_clock = "clock1",
-		ram_block1a_3.ram_block_type = "AUTO",
+		ram_block1a_3.ram_block_type = "M9K",
 		ram_block1a_3.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_4
 	( 
@@ -442,7 +442,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_4.port_b_logical_ram_depth = 1024,
 		ram_block1a_4.port_b_logical_ram_width = 8,
 		ram_block1a_4.port_b_read_enable_clock = "clock1",
-		ram_block1a_4.ram_block_type = "AUTO",
+		ram_block1a_4.ram_block_type = "M9K",
 		ram_block1a_4.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_5
 	( 
@@ -512,7 +512,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_5.port_b_logical_ram_depth = 1024,
 		ram_block1a_5.port_b_logical_ram_width = 8,
 		ram_block1a_5.port_b_read_enable_clock = "clock1",
-		ram_block1a_5.ram_block_type = "AUTO",
+		ram_block1a_5.ram_block_type = "M9K",
 		ram_block1a_5.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_6
 	( 
@@ -582,7 +582,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_6.port_b_logical_ram_depth = 1024,
 		ram_block1a_6.port_b_logical_ram_width = 8,
 		ram_block1a_6.port_b_read_enable_clock = "clock1",
-		ram_block1a_6.ram_block_type = "AUTO",
+		ram_block1a_6.ram_block_type = "M9K",
 		ram_block1a_6.lpm_type = "stratixiv_ram_block";
 	stratixiv_ram_block   ram_block1a_7
 	( 
@@ -652,7 +652,7 @@ module  send_buffer_sc_1k_fifo_altsyncram
 		ram_block1a_7.port_b_logical_ram_depth = 1024,
 		ram_block1a_7.port_b_logical_ram_width = 8,
 		ram_block1a_7.port_b_read_enable_clock = "clock1",
-		ram_block1a_7.ram_block_type = "AUTO",
+		ram_block1a_7.ram_block_type = "M9K",
 		ram_block1a_7.lpm_type = "stratixiv_ram_block";
 	assign
 		address_a_wire = address_a,
@@ -1865,7 +1865,7 @@ module  send_buffer_sc_1k_fifo_cntr12
 		updown_other_bits = ((~ external_cin) | updown_dir);
 endmodule //send_buffer_sc_1k_fifo_cntr12
 
-//synthesis_resources = lut 29 ram_bits (AUTO) 8192 reg 45 
+//synthesis_resources = lut 29 M9K 1 reg 45 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -2043,7 +2043,7 @@ module  send_buffer_sc_1k_fifo_a_dpfifo
 		wait_state = (usedw_will_be_1 & valid_wreq);
 endmodule //send_buffer_sc_1k_fifo_a_dpfifo
 
-//synthesis_resources = lut 29 ram_bits (AUTO) 8192 reg 47 
+//synthesis_resources = lut 29 M9K 1 reg 47 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -2280,7 +2280,7 @@ endmodule
 // Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "2"
 // Retrieval info: PRIVATE: AlmostFull NUMERIC "1"
 // Retrieval info: PRIVATE: AlmostFullThr NUMERIC "1022"
-// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
+// Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "1"
 // Retrieval info: PRIVATE: Clock NUMERIC "0"
 // Retrieval info: PRIVATE: Depth NUMERIC "1024"
 // Retrieval info: PRIVATE: Empty NUMERIC "1"
@@ -2291,7 +2291,7 @@ endmodule
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: Optimize NUMERIC "1"
-// Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+// Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -2313,6 +2313,7 @@ endmodule
 // Retrieval info: CONSTANT: ALMOST_EMPTY_VALUE NUMERIC "2"
 // Retrieval info: CONSTANT: ALMOST_FULL_VALUE NUMERIC "1022"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+// Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M9K"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "1024"
 // Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"

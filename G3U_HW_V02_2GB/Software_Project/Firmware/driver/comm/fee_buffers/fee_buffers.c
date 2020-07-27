@@ -42,11 +42,15 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+	const unsigned char cucFeeNumber = 0;
+	const unsigned char cucIrqNumber = 0;
+	const unsigned char cucChNumber = 0;
+
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
 	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
-	//uiCmdtoSend.ucByte[0] = 0;
-	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
+	//uiCmdtoSend.ucByte[0] = cucChNumber;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 
@@ -54,53 +58,73 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
-		uiCmdtoSend.ucByte[1] = 0; /*Left*/
+		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
+
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ(0);
+			vFailRequestDMAFromIRQ( cucIrqNumber );
 		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
+#endif
 
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
 
-		uiCmdtoSend.ucByte[1] = 0; /*Left*/
+		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
+
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ(0);
+			vFailRequestDMAFromIRQ( cucIrqNumber );
 		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
+#endif
 
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
-		uiCmdtoSend.ucByte[1] = 1; /*Right*/
+		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
+
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ(0);
+			vFailRequestDMAFromIRQ( cucIrqNumber );
 		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
+#endif
 
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
 	}
 	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
 
-		uiCmdtoSend.ucByte[1] = 1; /*Right*/
+		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
+
 		/*Sync the Meb task and tell that has a PUS command waiting*/
-		error_codel = OSQPost(xFeeQ[0], (void *) uiCmdtoSend.ulWord);
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ(0);
+			vFailRequestDMAFromIRQ( cucIrqNumber );
 		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
+#endif
 
 		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 	}
 
 #if DEBUG_ON
 	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
-		fprintf(fp, "IntF0\n");
+		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
 #endif
 

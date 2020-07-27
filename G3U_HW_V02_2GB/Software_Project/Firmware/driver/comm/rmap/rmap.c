@@ -37,6 +37,10 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	INT8U ucADDRReg;
 	INT8U error_codel;
 
+	const unsigned char cucFeeNumber = 0;
+	const unsigned char cucIrqNumber = 0;
+	const unsigned char cucChNumber = 0;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
@@ -64,12 +68,14 @@ void vRmapCh1HandleIrq(void* pvContext) {
 			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
 		}
 #endif
-
-		error_codel = OSQPostFront(xFeeQ[0], (void *) uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if (error_codel != OS_ERR_NONE) {
-			vFailSendRMAPFromIRQ(0);
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
-
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -79,11 +85,11 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *) uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if (error_codel != OS_ERR_NONE) {
-			vFailSendRMAPFromIRQ(0);
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
 
@@ -394,6 +400,36 @@ alt_u32 uliRmapCh6WriteCmdAddress(void) {
 	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
 }
 
+void vRmapCh1EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh2EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh3EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh4EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh5EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh6EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
 bool vRmapInitIrq(alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	void* pvHoldContext;
@@ -477,6 +513,125 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 	}
 
 	return bStatus;
+}
+
+void vRmapSoftRstDebMemArea(void){
+	volatile TRmapMemDebArea *vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
+
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldf = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bFoff = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bLock1 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bLock0 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bLockw1 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bLockw0 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bC1 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bC0 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bHold = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bReset = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bReshol = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bPd = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucY4Mux = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucY3Mux = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucY2Mux = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucY1Mux = 5;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucY0Mux = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucFbMux = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucPfd = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.ucCpCurrent = 0x0F;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bPrecp = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bCpDir = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bC1 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg1.bC0 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bN90Div8 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bN90Div4 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bAdlock = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bSxoiref = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bSref = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.ucOutputY4Mode = 0x05;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.ucOutputY3Mode = 0x00;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.ucOutputY2Mode = 0x00;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.ucOutputY1Mode = 0x00;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.ucOutputY0Mode = 0x05;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bOutsel4 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bOutsel3 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bOutsel2 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bOutsel1 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bOutsel0 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bC1 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg2.bC0 = TRUE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.bRefdec = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.bManaut = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.ucDlyn = 7;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.ucDlym = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.usiN = 0x0001;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.usiM = 0;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.bC1 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg3.bC0 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = 7;
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcImmOnmod.bImmOn = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizX = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx4 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen4 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx3 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen3 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx2 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1 = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSelSyn.bSynFrq = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstSpw = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstWdg = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtc25SDly.uliN25SDly = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcTmodConf.uliReserved = 0;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucOperMod = 7;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucEdacListCorrErr = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucEdacListUncorrErr = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bPllRef = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bPllVcxo = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bPllLock = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucWdwListCntOvf = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.bWdg = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList8 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList7 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList6 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList5 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList4 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList3 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList2 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList1 = FALSE;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVdigIn = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVio = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVlvd = 0;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.usiDebTemp = 0;
+
 }
 
 bool bRmapSetIrqControl(TRmapChannel *pxRmapCh) {

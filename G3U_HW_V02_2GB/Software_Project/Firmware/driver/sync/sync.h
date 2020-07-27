@@ -26,6 +26,7 @@
 #define SYNC_BIT_OFF                    FALSE
 
 //! [constants definition]
+/* N-FEE - LESIA */
 extern const alt_u16 cusiSyncNFeeMasterBlankTimeMs;
 extern const alt_u16 cusiSyncNFeeMasterDetectionTimeMs;
 extern const alt_u16 cusiSyncNFeeNormalBlankTimeMs;

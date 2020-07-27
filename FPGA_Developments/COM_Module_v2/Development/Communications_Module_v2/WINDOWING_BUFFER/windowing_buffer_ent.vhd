@@ -55,7 +55,8 @@ architecture RTL of windowing_buffer_ent is
 
 	signal s_buffer_empty : std_logic;
 
-	signal s_buffer_readable : std_logic;
+	signal s_buffer_readable   : std_logic;
+	signal s_avs_buffer_locked : std_logic;
 
 	type t_buffer_write_fsm is (
 		STOPPED,
@@ -140,6 +141,7 @@ begin
 			s_stopped_flag                            <= '1';
 			s_buffer_empty                            <= '1';
 			s_buffer_readable                         <= '0';
+			s_avs_buffer_locked                       <= '0';
 			s_buffer_write_state                      <= STOPPED;
 			s_buffer_read_state                       <= STOPPED;
 			s_buffer_data_cnt                         <= 0;
@@ -194,6 +196,7 @@ begin
 					s_buffer_qword_cnt                        <= 0;
 					s_buffer_pixel_cnt                        <= 0;
 					s_buffer_mask_cnt                         <= 0;
+					s_avs_buffer_locked                       <= '0';
 					if (fee_clear_signal_i = '1') then
 						s_windowing_data_fifo_control.write.sclr <= '1';
 						s_windowing_mask_fifo_control.write.sclr <= '1';
@@ -214,6 +217,7 @@ begin
 					s_buffer_qword_cnt                        <= 0;
 					s_buffer_pixel_cnt                        <= 0;
 					s_buffer_mask_cnt                         <= 0;
+					s_avs_buffer_locked                       <= '0';
 					if (fee_sync_signal_i = '1') then
 						s_buffer_read_state <= IDLE;
 					end if;
@@ -229,6 +233,7 @@ begin
 					s_windowing_data_fifo_wr_data.data        <= (others => '0');
 					s_windowing_mask_fifo_control.write.wrreq <= '0';
 					s_windowing_mask_fifo_wr_data.data        <= '0';
+					s_avs_buffer_locked                       <= '0';
 					if (s_buffer_readable = '1') then
 						s_buffer_read_state <= DATA_WRITE;
 					end if;
@@ -240,27 +245,34 @@ begin
 					s_windowing_data_fifo_wr_data.data        <= (others => '0');
 					s_windowing_mask_fifo_control.write.wrreq <= '0';
 					s_windowing_mask_fifo_wr_data.data        <= '0';
-					if (s_windowing_data_fifo_status.write.full = '0') then
-						s_buffer_read_state                       <= DATA_DELAY;
-						s_windowing_data_fifo_control.write.wrreq <= '1';
-						s_windowing_data_fifo_wr_data.data        <= f_pixels_data_little_to_big_endian_single(s_windowing_avsbuff_qword_data(s_buffer_qword_cnt), s_buffer_pixel_cnt);
-						-- check if its the last pixel of a qword
-						if (s_buffer_pixel_cnt = 3) then
-							s_buffer_pixel_cnt <= 0;
-							-- check if its the last qword of a sequence
-							if (s_buffer_qword_cnt = 3) then
-								s_buffer_qword_cnt                <= 0;
-								s_windowing_avsbuff_sc_fifo.rdreq <= '1';
+					if (s_avs_buffer_locked = '0') then
+						if (s_windowing_data_fifo_status.write.full = '0') then
+							s_buffer_read_state                       <= DATA_DELAY;
+							s_windowing_data_fifo_control.write.wrreq <= '1';
+							s_windowing_data_fifo_wr_data.data        <= f_pixels_data_little_to_big_endian_single(s_windowing_avsbuff_qword_data(s_buffer_qword_cnt), s_buffer_pixel_cnt);
+							-- check if its the last pixel of a qword
+							if (s_buffer_pixel_cnt = 3) then
+								s_buffer_pixel_cnt <= 0;
+								-- check if its the last qword of a sequence
+								if (s_buffer_qword_cnt = 3) then
+									s_buffer_qword_cnt                <= 0;
+									s_windowing_avsbuff_sc_fifo.rdreq <= '1';
+									s_avs_buffer_locked               <= '1';
+								else
+									s_buffer_qword_cnt <= s_buffer_qword_cnt + 1;
+								end if;
+								if (s_buffer_data_cnt = 15) then
+									s_buffer_data_cnt <= 0;
+								else
+									s_buffer_data_cnt <= s_buffer_data_cnt + 1;
+								end if;
 							else
-								s_buffer_qword_cnt <= s_buffer_qword_cnt + 1;
+								s_buffer_pixel_cnt <= s_buffer_pixel_cnt + 1;
 							end if;
-							if (s_buffer_data_cnt = 15) then
-								s_buffer_data_cnt <= 0;
-							else
-								s_buffer_data_cnt <= s_buffer_data_cnt + 1;
-							end if;
-						else
-							s_buffer_pixel_cnt <= s_buffer_pixel_cnt + 1;
+						end if;
+					else
+						if (s_buffer_readable = '1') then
+							s_avs_buffer_locked <= '0';
 						end if;
 					end if;
 
@@ -284,22 +296,29 @@ begin
 					s_windowing_data_fifo_wr_data.data        <= (others => '0');
 					s_windowing_mask_fifo_control.write.wrreq <= '0';
 					s_windowing_mask_fifo_wr_data.data        <= '0';
-					if (s_windowing_mask_fifo_status.write.full = '0') then
-						s_buffer_read_state                       <= MASK_DELAY;
-						s_windowing_mask_fifo_control.write.wrreq <= '1';
-						s_windowing_mask_fifo_wr_data.data        <= f_mask_conv_single(s_windowing_avsbuff_qword_data(s_buffer_qword_cnt), s_buffer_mask_cnt);
-						-- check if its the last mask of a qword
-						if (s_buffer_mask_cnt = 63) then
-							s_buffer_mask_cnt <= 0;
-							-- check if its the last qword of a sequence
-							if (s_buffer_qword_cnt = 3) then
-								s_buffer_qword_cnt                <= 0;
-								s_windowing_avsbuff_sc_fifo.rdreq <= '1';
+					if (s_avs_buffer_locked = '0') then
+						if (s_windowing_mask_fifo_status.write.full = '0') then
+							s_buffer_read_state                       <= MASK_DELAY;
+							s_windowing_mask_fifo_control.write.wrreq <= '1';
+							s_windowing_mask_fifo_wr_data.data        <= f_mask_conv_single(s_windowing_avsbuff_qword_data(s_buffer_qword_cnt), s_buffer_mask_cnt);
+							-- check if its the last mask of a qword
+							if (s_buffer_mask_cnt = 63) then
+								s_buffer_mask_cnt <= 0;
+								-- check if its the last qword of a sequence
+								if (s_buffer_qword_cnt = 3) then
+									s_buffer_qword_cnt                <= 0;
+									s_windowing_avsbuff_sc_fifo.rdreq <= '1';
+									s_avs_buffer_locked               <= '1';
+								else
+									s_buffer_qword_cnt <= s_buffer_qword_cnt + 1;
+								end if;
 							else
-								s_buffer_qword_cnt <= s_buffer_qword_cnt + 1;
+								s_buffer_mask_cnt <= s_buffer_mask_cnt + 1;
 							end if;
-						else
-							s_buffer_mask_cnt <= s_buffer_mask_cnt + 1;
+						end if;
+					else
+						if (s_buffer_readable = '1') then
+							s_avs_buffer_locked <= '0';
 						end if;
 					end if;
 

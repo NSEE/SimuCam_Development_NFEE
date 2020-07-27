@@ -40,6 +40,7 @@
 #define COMM_RMAP_MEM_5_BASE_ADDR       RMAP_MEM_NFEE_COMM_5_BASE
 #define COMM_RMAP_MEM_6_BASE_ADDR       RMAP_MEM_NFEE_COMM_6_BASE
 
+#define COMM_FFEE_QUANTITY              6
 // offsets
 //! [constants definition]
 
@@ -51,6 +52,10 @@ enum CommBufferSide {
 enum CommSpwCh {
 	eCommSpwCh1 = 0, eCommSpwCh2, eCommSpwCh3, eCommSpwCh4, eCommSpwCh5, eCommSpwCh6,
 } ECommSpwCh;
+
+enum CommFFeeId {
+	eCommFFee1Id = 0, eCommFFee2Id, eCommFFee3Id, eCommFFee4Id, eCommFFee5Id, eCommFFee6Id
+} ECommFFeeId;
 
 /* Comm Device Address Register Struct */
 typedef struct CommDevAddr {
@@ -202,6 +207,7 @@ typedef struct RmapEchoingModeConfig {
 
 /* RMAP Codec Config Register Struct */
 typedef struct RmapCodecConfig {
+	bool bEnable; /* RMAP Target Enable */
 	alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
 	alt_u8 ucKey; /* RMAP Target Key */
 } TRmapCodecConfig;
@@ -283,6 +289,12 @@ typedef struct DpktDataPacketConfig {
 	alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
 	alt_u16 usiCcdVStart; /* Data Packet CCD V-Start */
 	alt_u16 usiCcdVEnd; /* Data Packet CCD V-End */
+	alt_u16 usiCcdImgVEnd; /* Data Packet CCD Image V-End */
+	alt_u16 usiCcdOvsVEnd; /* Data Packet CCD Overscan V-End */
+	alt_u16 usiCcdHStart; /* Data Packet CCD H-Start */
+	alt_u16 usiCcdHEnd; /* Data Packet CCD H-End */
+	bool bCcdImgEn; /* Data Packet CCD Image Enable */
+	bool bCcdOvsEn; /* Data Packet CCD Overscan Enable */
 	alt_u16 usiPacketLength; /* Data Packet Packet Length */
 	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
 	alt_u8 ucProtocolId; /* Data Packet Protocol ID */

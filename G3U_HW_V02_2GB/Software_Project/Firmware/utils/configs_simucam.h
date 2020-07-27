@@ -72,8 +72,8 @@ extern TDefaults xDefaults;
 extern TGlobal	xGlobal;
 
 /*Functions*/
-bool vLoadDefaultETHConf( void );
-bool vLoadDebugConfs( void );
+bool bLoadDefaultEthConf( void );
+bool bLoadDefaultDebugConf( void );
 
 #if DEBUG_ON
 	void vShowEthConfig( void );

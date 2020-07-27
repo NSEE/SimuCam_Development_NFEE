@@ -9,6 +9,7 @@
 #define DATA_PACKET_H_
 
 #include "../comm.h"
+#include "../../../utils/configs_simucam.h"
 
 //! [constants definition]
 // address
@@ -35,6 +36,11 @@ enum DpktMode {
 	eDpktSerialTrapPumping1       = 15u, /* N-FEE Serial Trap Pumping 1 Mode */
 	eDpktSerialTrapPumping2       = 16u, /* N-FEE Serial Trap Pumping 2 Mode */
 } EDpktMode;
+
+enum DpktCcdSide {
+	eDpktCcdSideE                 = 0u,  /* F-FEE CCD Side E (Left) */
+	eDpktCcdSideF                 = 1u,  /* F-FEE CCD Side F (Right) */
+} EDpktCcdSide;
 
 //! [public module structs definition]
 //! [public module structs definition]

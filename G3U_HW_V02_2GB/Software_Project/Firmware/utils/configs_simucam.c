@@ -16,7 +16,7 @@ TGlobal	xGlobal;
 
 
 /* Load ETH configuration values from SD Card */
-bool vLoadDefaultETHConf( void ){
+bool bLoadDefaultEthConf( void ){
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
@@ -275,7 +275,7 @@ bool vLoadDefaultETHConf( void ){
 }
 
 /* Load debug values from SD Card, only used during the development */
-bool vLoadDebugConfs( void ){
+bool bLoadDefaultDebugConf( void ){
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;

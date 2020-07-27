@@ -39,6 +39,7 @@ entity fee_hkdata_manager_ent is
 		header_gen_o                  : out t_fee_dpkt_general_control;
 		-- housekeeping writer control
 		housekeeping_wr_o             : out t_fee_dpkt_general_control;
+		housekeeping_wr_hk_type_o     : out t_comm_dpkt_hk_type;
 		-- send buffer control
 		send_buffer_fee_data_loaded_o : out std_logic
 	);
@@ -83,6 +84,7 @@ begin
 			header_gen_o.start                   <= '0';
 			header_gen_o.reset                   <= '1';
 			housekeeping_wr_o.start              <= '0';
+			housekeeping_wr_hk_type_o            <= e_COMM_DPKT_DEB_HK;
 			housekeeping_wr_o.reset              <= '1';
 			send_buffer_fee_data_loaded_o        <= '0';
 		elsif rising_edge(clk_i) then
@@ -103,6 +105,7 @@ begin
 			header_gen_o.start                   <= '0';
 			header_gen_o.reset                   <= '0';
 			housekeeping_wr_o.start              <= '0';
+			housekeeping_wr_hk_type_o            <= e_COMM_DPKT_DEB_HK;
 			housekeeping_wr_o.reset              <= '0';
 			send_buffer_fee_data_loaded_o        <= '0';
 

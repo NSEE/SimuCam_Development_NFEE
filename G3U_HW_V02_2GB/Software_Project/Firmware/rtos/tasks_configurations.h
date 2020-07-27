@@ -1,4 +1,5 @@
-/* simcam_tasks_priorities.h
+/*
+ * simcam_tasks_priorities.h
  *
  *  Created on: 28/11/2018
  *      Author: Tiago-Low

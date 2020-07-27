@@ -11,6 +11,97 @@
 #include "../../../simucam_definitions.h"
 
 //! [constants definition]
+
+/* Registers Addresses */
+/* DEB Critical Configuration Area Registers Addresses */
+#define RMAP_DCC_DTC_AEB_ONOFF_ADR      0x0000
+#define RMAP_DCC_DTC_PLL_REG_1_ADR      0x0004
+#define RMAP_DCC_DTC_PLL_REG_2_ADR      0x0008
+#define RMAP_DCC_DTC_PLL_REG_3_ADR      0x000C
+#define RMAP_DCC_DTC_PLL_REG_4_ADR      0x0010
+#define RMAP_DCC_DTC_FEE_MOD_ADR        0x0014
+#define RMAP_DCC_DTC_IMM_ONMOD_ADR      0x0018
+
+/* DEB General Configuration Area Registers Addresses */
+#define RMAP_DGC_DTC_IN_MOD_1_ADR       0x0104
+#define RMAP_DGC_DTC_IN_MOD_2_ADR       0x0108
+#define RMAP_DGC_DTC_WDW_SIZ_ADR        0x010C
+#define RMAP_DGC_DTC_WDW_IDX_1_ADR      0x0110
+#define RMAP_DGC_DTC_WDW_IDX_2_ADR      0x0114
+#define RMAP_DGC_DTC_WDW_IDX_3_ADR      0x0118
+#define RMAP_DGC_DTC_WDW_IDX_4_ADR      0x011C
+#define RMAP_DGC_DTC_OVS_PAT_ADR        0x0120
+#define RMAP_DGC_DTC_SIZ_PAT_ADR        0x0124
+#define RMAP_DGC_DTC_TRG_25S_ADR        0x0128
+#define RMAP_DGC_DTC_SEL_TRG_ADR        0x012C
+#define RMAP_DGC_DTC_FRM_CNT_ADR        0x0130
+#define RMAP_DGC_DTC_SEL_SYN_ADR        0x0134
+#define RMAP_DGC_DTC_RSP_CPS_ADR        0x0138
+#define RMAP_DGC_DTC_25S_DLY_ADR        0x013C
+#define RMAP_DGC_DTC_TMOD_CONF_ADR      0x0140
+#define RMAP_DGC_DTC_SPW_CFG_ADR        0x0144
+
+/* DEB Housekeeping Area Registers Addresses */
+#define RMAP_DHK_DEB_STATUS_ADR         0x1000
+#define RMAP_DHK_DEB_OVF_ADR            0x1004
+#define RMAP_DHK_SPW_STATUS_ADR         0x1008
+#define RMAP_DHK_DEB_AHK1_ADR           0x100C
+#define RMAP_DHK_DEB_AHK2_ADR           0x1010
+#define RMAP_DHK_DEB_AHK3_ADR           0x1014
+
+/* AEB Critical Configuration Area Registers Addresses */
+#define RMAP_ACC_AEB_CONTROL_ADR        0x0000
+#define RMAP_ACC_AEB_CONFIG_ADR         0x0004
+#define RMAP_ACC_AEB_CONFIG_KEY_ADR     0x0008
+#define RMAP_ACC_AEB_CONFIG_AIT1_ADR    0x000C
+#define RMAP_ACC_AEB_CONFIG_PATTERN_ADR 0x0010
+#define RMAP_ACC_VASP_I2C_CONTROL_ADR   0x0014
+#define RMAP_ACC_DAC_CONFIG_1_ADR       0x0018
+#define RMAP_ACC_DAC_CONFIG_2_ADR       0x001C
+#define RMAP_ACC_PWR_CONFIG1_ADR        0x0024
+#define RMAP_ACC_PWR_CONFIG2_ADR        0x0028
+#define RMAP_ACC_PWR_CONFIG3_ADR        0x002C
+
+/* AEB General Configuration Area Registers Addresses */
+#define RMAP_AGC_ADC1_CONFIG_1_ADR      0x0100
+#define RMAP_AGC_ADC1_CONFIG_2_ADR      0x0104
+#define RMAP_AGC_ADC1_CONFIG_3_ADR      0x0108
+#define RMAP_AGC_ADC2_CONFIG_1_ADR      0x010C
+#define RMAP_AGC_ADC2_CONFIG_2_ADR      0x0110
+#define RMAP_AGC_ADC2_CONFIG_3_ADR      0x0114
+#define RMAP_AGC_SEQ_CONFIG_1_ADR       0x0120
+#define RMAP_AGC_SEQ_CONFIG_2_ADR       0x0124
+#define RMAP_AGC_SEQ_CONFIG_3_ADR       0x0128
+#define RMAP_AGC_SEQ_CONFIG_4_ADR       0x012C
+#define RMAP_AGC_SEQ_CONFIG_5_ADR       0x0130
+#define RMAP_AGC_SEQ_CONFIG_6_ADR       0x0134
+#define RMAP_AGC_SEQ_CONFIG_7_ADR       0x0138
+#define RMAP_AGC_SEQ_CONFIG_8_ADR       0x013C
+#define RMAP_AGC_SEQ_CONFIG_9_ADR       0x0140
+#define RMAP_AGC_SEQ_CONFIG_10_ADR      0x0144
+#define RMAP_AGC_SEQ_CONFIG_11_ADR      0x0148
+#define RMAP_AGC_SEQ_CONFIG_12_ADR      0x014C
+#define RMAP_AGC_SEQ_CONFIG_13_ADR      0x0150
+#define RMAP_AGC_SEQ_CONFIG_14_ADR      0x0154
+
+/* AEB Housekeeping Area Registers Addresses */
+#define RMAP_AHK_AEB_STATUS_ADR         0x1000
+#define RMAP_AHK_TIMESTAMP_1_ADR        0x1008
+#define RMAP_AHK_TIMESTAMP_2_ADR        0x100C
+#define RMAP_AHK_ADC_RD_DATA_ADR        0x1010
+#define RMAP_AHK_ADC1_RD_CONFIG_1_ADR   0x1080
+#define RMAP_AHK_ADC1_RD_CONFIG_2_ADR   0x1084
+#define RMAP_AHK_ADC1_RD_CONFIG_3_ADR   0x1088
+#define RMAP_AHK_ADC1_RD_CONFIG_4_ADR   0x108C
+#define RMAP_AHK_ADC2_RD_CONFIG_1_ADR   0x1090
+#define RMAP_AHK_ADC2_RD_CONFIG_2_ADR   0x1094
+#define RMAP_AHK_ADC2_RD_CONFIG_3_ADR   0x1098
+#define RMAP_AHK_ADC2_RD_CONFIG_4_ADR   0x109C
+#define RMAP_AHK_VASP_RD_CONFIG_ADR     0x10A0
+#define RMAP_AHK_REVISION_ID_1_ADR      0x11F0
+#define RMAP_AHK_REVISION_ID_2 _ADR     0x11F4
+#define RMAP_AHK_REVISION_ID_3_ADR      0x11F8
+#define RMAP_AHK_REVISION_ID_4_ADR      0x11FC
 //! [constants definition]
 
 //! [public module structs definition]

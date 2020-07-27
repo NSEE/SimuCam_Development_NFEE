@@ -1,0 +1,790 @@
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/reset_sink_reset_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/clock_sink_clk_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_sync_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avs_config_address_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avs_config_byteenable_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avs_config_write_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avs_config_writedata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avs_config_read_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avs_config_readdata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avs_config_waitrequest_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_left_buffer_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_left_buffer_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_left_buffer_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_left_buffer_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_right_buffer_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_right_buffer_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_right_buffer_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/avm_right_buffer_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/feeb_interrupt_sender_irq_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_interrupt_sender_irq_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_status_started_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_status_connecting_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_status_running_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_error_errdisc_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_error_errpar_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_error_erresc_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_error_errcred_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_timecode_rx_tick_out_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_timecode_rx_ctrl_out_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_timecode_rx_time_out_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_rx_status_rxvalid_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_rx_status_rxhalff_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_rx_status_rxflag_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_rx_status_rxdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_tx_status_txrdy_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_tx_status_txhalff_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_command_autostart_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_command_linkstart_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_command_linkdis_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_link_command_txdivcnt_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_timecode_tx_tick_in_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_timecode_tx_ctrl_in_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_timecode_tx_time_in_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_rx_command_rxread_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_tx_command_txwrite_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_tx_command_txflag_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/spw_data_tx_command_txdata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_echo_en_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_echo_id_en_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_in_fifo_wrflag_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_in_fifo_wrdata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_in_fifo_wrreq_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_out_fifo_wrflag_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_out_fifo_wrdata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmap_echo_out_fifo_wrreq_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_rmap_target_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_deb_fee_hk_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_rmap_target_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb1_fee_hk_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_rmap_target_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb2_fee_hk_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_rmap_target_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb3_fee_hk_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_rmap_target_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_wr_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_readdata_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_rd_waitrequest_i
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_wr_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_write_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_writedata_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_rd_address_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_aeb4_fee_hk_read_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_rmap_target_status_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_rmap_target_indicate_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_spw_link_escape_err_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_spw_link_credit_err_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_spw_link_parity_err_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_spw_link_disconnect_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_spw_link_started_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_spw_link_connecting_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_spw_link_running_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_frame_counter_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_left_buffer_ccd_number_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_right_buffer_ccd_number_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_left_buffer_ccd_side_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_right_buffer_ccd_side_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_err_left_buffer_overflow_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_hk_err_right_buffer_overflow_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/channel_win_mem_addr_offset_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/comm_measurements_o
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_buffer_empty
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_buffer_empty
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_avalon_mm_windwoing_read_waitrequest
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_avalon_mm_windwoing_write_waitrequest
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_spacewire_write_registers
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_spacewire_read_registers
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_data_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_mask_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_data_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_mask_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_data_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_mask_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_data_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_mask_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_data_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_mask_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_data_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_mask_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_data_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_mask_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_data_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_mask_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_data_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_mask_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_data_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_mask_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_data_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_mask_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_data_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_fee_data_controller_window_mask_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_data_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_mask_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_data_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_mask_out
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_data_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_mask_valid
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_data_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_fee_data_controller_window_mask_ready
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_data_controller_spw_txrdy
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_data_controller_spw_txwrite
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_data_controller_spw_txflag
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_data_controller_spw_txdata
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_rd_rmap_address
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_rd_rmap_read
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_frame_counter
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_frame_number
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_spw_control
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_spw_flag
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_mem_control
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_mem_flag
+add wave -noupdate -group comm -color Yellow -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_mem_wr_byte_address
+add wave -noupdate -group comm -color Yellow -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_mem_rd_byte_address
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_write_data_finished
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_read_data_finished
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmap_win_area_write_flag
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmm_fee_hk_rd_waitrequest
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rmm_fee_hk_readdata
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_rmap_target_wr_addr_select
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_rmap_target_rd_addr_select
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/rmm_fee_hk_rd_addr_select
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_tx_timecode_tick
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_ch_sync_trigger
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_ch_sync_clear
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_rx_channel_command
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_rx_channel_status
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_tx_channel_command
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_tx_channel_status
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_tx_1_command
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_tx_1_status
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_tx_2_command
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_mux_tx_2_status
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_dummy_spw_mux_rx0_rxhalff
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_dummy_spw_mux_tx0_txhalff
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rx_timecode_tick
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rx_timecode_control
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_rx_timecode_counter
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_right_buffer_activated
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_left_buffer_activated
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_buffer
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_R_window_buffer_control
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_buffer
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_L_window_buffer_control
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_avm_right_buffer_master_rd_control
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_avm_right_buffer_master_rd_status
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_avm_left_buffer_master_rd_control
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_avm_left_buffer_master_rd_status
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_left_output_buffer_overflowed
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/s_fee_right_output_buffer_overflowed
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/a_reset
+add wave -noupdate -group comm -radix hexadecimal /testbench_top/comm_v2_top_inst/a_avs_clock
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/clk_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/rst_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_sync_signal_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_clear_signal_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_current_timecode_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_clear_frame_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_buffer_activated_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_buffer_activated_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_machine_clear_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_machine_stop_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_machine_start_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_digitalise_en_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_readout_en_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_windowing_en_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_data_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_mask_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_data_valid_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_mask_valid_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_data_ready_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_mask_ready_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_data_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_mask_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_data_valid_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_mask_valid_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_data_ready_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_mask_ready_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_hk_mem_waitrequest_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_hk_mem_data_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_spw_tx_ready_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_spw_link_running_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_x_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_data_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_overscan_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_packet_length_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_fee_mode_left_buffer_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_fee_mode_right_buffer_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_number_left_buffer_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_number_right_buffer_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_side_left_buffer_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_side_right_buffer_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_v_start_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_ccd_v_end_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_protocol_id_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_logical_addr_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/deb_data_pkt_ccd_x_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/deb_data_pkt_ccd_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/deb_data_pkt_data_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/deb_data_pkt_overscan_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/aeb_data_pkt_ccd_x_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/aeb_data_pkt_ccd_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/aeb_data_pkt_data_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/aeb_data_pkt_overscan_y_size_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/aeb_data_pkt_ccd_id_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_start_delay_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_skip_delay_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_line_delay_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/data_pkt_adc_delay_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/masking_buffer_overflow_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/windowing_packet_order_list_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/windowing_last_left_packet_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/windowing_last_right_packet_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/errinj_tx_disabled_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/errinj_missing_pkts_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/errinj_missing_data_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/errinj_frame_num_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/errinj_sequence_cnt_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/errinj_data_cnt_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/errinj_n_repeat_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/preset_frame_counter_value_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/preset_frame_counter_set_i
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_machine_busy_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_frame_counter_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_frame_number_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_output_buffer_overflowed_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_output_buffer_overflowed_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_data_read_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_window_mask_read_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_data_read_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_window_mask_read_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_hk_mem_byte_address_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_hk_mem_read_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_spw_tx_write_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_spw_tx_flag_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_spw_tx_data_o
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_current_frame_number
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_current_frame_counter
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_dataman_sync
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_dataman_left_buffer_sync
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_dataman_right_buffer_sync
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_dataman_hk_only
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_dataman_left_buffer_hk_only
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_dataman_right_buffer_hk_only
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_data_headerdata
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_hkdataman_status
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_hkdataman_control
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_hkdata_send_buffer_control
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_hkdata_send_buffer_status
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_hkdata_send_double_buffer_empty
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_left_imgdataman_status
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_left_imgdataman_control
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_left_imgdata_send_buffer_control
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_left_imgdata_send_buffer_status
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_left_imgdata_send_double_buffer_empty
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_right_imgdataman_status
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_right_imgdataman_control
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_right_imgdata_send_buffer_control
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_right_imgdata_send_buffer_status
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_right_imgdata_send_double_buffer_empty
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_data_transmitter_busy
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_data_transmitter_finished
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_registered_dpkt_params
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_registered_left_buffer_activated
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_registered_right_buffer_activated
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_registered_windowing_left_buffer_en
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_registered_windowing_right_buffer_en
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_errinj_spw_tx_write
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_errinj_spw_tx_flag
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_errinj_spw_tx_data
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_errinj_spw_tx_ready
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_fee_clrman_clear
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_fee_clrman_stop
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_fee_clrman_start
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_fee_clear_signal
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_fee_stop_signal
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_fee_start_signal
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_spw_tx_write
+add wave -noupdate -group data_controller_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/s_spw_write_mask
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/clk_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/rst_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_clear_signal_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_stop_signal_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_start_signal_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_manager_sync_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_manager_hk_only_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_left_buffer_activated_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_right_buffer_activated_i
+add wave -noupdate -group data_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_i.finished -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_i.finished {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_i
+add wave -noupdate -group data_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_i.finished -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_i.finished {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_i
+add wave -noupdate -group data_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_i.finished -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_i.finished {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/data_transmitter_finished_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdata_send_double_buffer_empty_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdata_send_double_buffer_empty_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdata_send_double_buffer_empty_i
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/fee_data_manager_busy_o
+add wave -noupdate -group data_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_o.start -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_o.reset -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_o.start {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_o.reset {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/hkdataman_manager_o
+add wave -noupdate -group data_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_o.start -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_o.reset -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_o.start {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_o.reset {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/left_imgdataman_manager_o
+add wave -noupdate -group data_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_o.start -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_o.reset -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_o.start {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_o.reset {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/right_imgdataman_manager_o
+add wave -noupdate -group data_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/s_fee_data_manager_state
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/clk_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/rst_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_stop_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_start_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/channel_sync_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/send_buffer_cfg_length_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/send_buffer_hkdata_status_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/send_buffer_leftimg_status_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/send_buffer_rightimg_status_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/spw_tx_ready_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/housekeep_only_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/windowing_enabled_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/windowing_packet_order_list_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/windowing_last_left_packet_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/windowing_last_right_packet_i
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/send_buffer_hkdata_control_o
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/send_buffer_leftimg_control_o
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/send_buffer_rightimg_control_o
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/spw_tx_flag_o
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/spw_tx_data_o
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/spw_tx_write_o
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_data_trans_housekeep_status
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_data_trans_housekeep_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_spw_tx_housekeep_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_data_trans_fullimage_status
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_data_trans_fullimage_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_send_buffer_leftimg_fullimage_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_send_buffer_rightimg_fullimage_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_spw_tx_fullimage_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_data_trans_windowing_status
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_data_trans_windowing_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_send_buffer_leftimg_windowing_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_send_buffer_rightimg_windowing_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_spw_tx_windowing_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_spw_tx_trans_control
+add wave -noupdate -group data_transmitter_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/s_spw_tx_trans_status
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/clk_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/rst_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/comm_stop_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/comm_start_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/channel_sync_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/housekeep_only_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/windowing_enabled_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_housekeep_status_i
+add wave -noupdate -group dt_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_status_i.transmission_finished -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_status_i.sequence_cnt_next_val -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_status_i.transmission_finished {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_status_i.sequence_cnt_next_val {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_status_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_windowing_status_i
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_housekeep_control_o
+add wave -noupdate -group dt_manager -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_control_o.start_transmission -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_control_o.reset_transmitter -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_control_o.sequence_cnt_init_val -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_control_o.start_transmission {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_control_o.reset_transmitter {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_control_o.sequence_cnt_init_val {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_fullimage_control_o
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/data_trans_windowing_control_o
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/s_comm_data_transmitter_manager_state
+add wave -noupdate -group dt_manager -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/s_sequence_cnt
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/clk_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/rst_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/comm_stop_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/comm_start_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_control_i.start_transmission -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_control_i.reset_transmitter -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_control_i.sequence_cnt_init_val -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_control_i.start_transmission {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_control_i.reset_transmitter {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_control_i.sequence_cnt_init_val {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_control_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_cfg_length_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.stat_empty -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.stat_extended_usedw -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rddata -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rddata_type -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rddata_end -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rdready -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.stat_empty {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.stat_extended_usedw {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rddata {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rddata_type {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rddata_end {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i.rdready {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_status_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_rightimg_status_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/spw_tx_status_i
+add wave -noupdate -group dt_fullimage -radix hexadecimal -childformat {{/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_status_o.transmission_finished -radix hexadecimal} {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_status_o.sequence_cnt_next_val -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_status_o.transmission_finished {-height 15 -radix hexadecimal} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_status_o.sequence_cnt_next_val {-height 15 -radix hexadecimal}} /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/data_trans_status_o
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_leftimg_control_o
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/send_buffer_rightimg_control_o
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/spw_tx_control_o
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_comm_data_transmitter_fullimage_state
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_header_cnt
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_last_packet
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_data_length
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_sequence_cnt
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_discard_data
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_left_transmitting
+add wave -noupdate -group dt_fullimage -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_fullimage_ent_inst/s_right_transmitting
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/clk_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/rst_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_current_timecode_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/dataman_sync_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/imgdataman_start_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/imgdataman_reset_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_current_frame_number_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_current_frame_counter_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_machine_clear_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_machine_stop_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_machine_start_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_digitalise_en_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_windowing_en_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_pattern_en_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_data_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_mask_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_data_valid_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_mask_valid_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_data_ready_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_mask_ready_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_ccd_x_size_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_ccd_y_size_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_data_y_size_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_overscan_y_size_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_packet_length_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_fee_mode_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_aeb_number_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_ccd_id_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_ccd_side_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_ccd_v_start_i
+add wave -noupdate -group l_imgdata_top -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_ccd_v_end_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_protocol_id_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_logical_addr_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_start_delay_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_skip_delay_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_line_delay_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_pkt_adc_delay_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_buffer_overflow_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/imgdata_send_buffer_control_i
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_output_buffer_overflowed_o
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/imgdataman_finished_o
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/imgdata_headerdata_o
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_data_read_o
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_window_mask_read_o
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/imgdata_send_buffer_status_o
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/imgdata_send_double_buffer_empty_o
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_masking_machine_hold
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_masking_machine_finished
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_masking_buffer_rdreq
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_masking_buffer_almost_empty
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_masking_buffer_empty
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_masking_buffer_rddata
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_header_gen_headerdata
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_header_gen_finished
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_header_gen_send
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_header_gen_reset
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_header_gen_wrdata
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_header_gen_wrreq
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_data_wr_busy
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_data_wr_finished
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_data_wr_data_changed
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_data_wr_start
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_data_wr_reset
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_data_wr_length
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_data_wr_wrdata
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_data_wr_wrreq
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_fee_data_loaded
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_wrdata
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_wrreq
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_stat_full
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_wrready
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_double_buffer_wrable
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_data_type_wrdata
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_data_type_wrreq
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_data_end_wrdata
+add wave -noupdate -group l_imgdata_top -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/s_send_buffer_data_end_wrreq
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/clk_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/rst_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/sync_signal_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_clear_signal_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_stop_signal_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_start_signal_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_digitalise_en_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_windowing_en_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_pattern_en_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_machine_hold_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_buffer_overflow_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_ccd_x_size_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_ccd_y_size_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_data_y_size_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_overscan_y_size_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_ccd_v_start_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_ccd_v_end_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_start_delay_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_skip_delay_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_line_delay_i
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/fee_adc_delay_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/current_timecode_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/current_ccd_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/current_side_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_data_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_mask_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_data_valid_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_mask_valid_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_data_ready_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_mask_ready_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_buffer_rdreq_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/send_double_buffer_wrable_i
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_machine_finished_o
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_buffer_overflowed_o
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_data_read_o
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/window_mask_read_o
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_buffer_almost_empty_o
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_buffer_empty_o
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/masking_buffer_rddata_o
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_masking_fifo
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_masking_machine_state
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_masking_machine_return_state
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_registered_window_data
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_registered_window_mask
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_delay_machine_current_ccd_row
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_delay_machine_current_ccd_column
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_first_pixel
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_ccd_column_cnt
+add wave -noupdate -group l_masking -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_ccd_row_cnt
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/s_data_fetched
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/a_pixel_lsb
+add wave -noupdate -group l_masking -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/a_pixel_msb
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/clk_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/rst_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_clear_signal_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_stop_signal_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_start_signal_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_digitalise_en_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/current_frame_number_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/current_frame_counter_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_logical_addr_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_protocol_id_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_packet_length_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_fee_mode_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_ccd_number_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/fee_ccd_side_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/imgdata_manager_start_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/imgdata_manager_reset_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/header_gen_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/data_wr_finished_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/data_wr_data_changed_i
+add wave -noupdate -group l_img_man /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/data_wr_data_flushed_i
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/masking_machine_hold_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/imgdata_manager_finished_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/headerdata_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/header_gen_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/data_wr_start_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/data_wr_reset_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/data_wr_length_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/send_buffer_fee_data_loaded_o
+add wave -noupdate -group l_img_man -radix hexadecimal /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/fee_imgdata_manager_ent_inst/s_fee_data_manager_state
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/clk_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/rst_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/fee_clear_signal_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/fee_stop_signal_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/fee_start_signal_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/controller_rd_start_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/controller_rd_reset_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/controller_rd_initial_addr_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/controller_rd_length_bytes_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/avm_master_rd_status_i
+add wave -noupdate -group l_avm_reader_controller -expand /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/window_buffer_control_i
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/controller_rd_busy_o
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/avm_master_rd_control_o
+add wave -noupdate -group l_avm_reader_controller -expand /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/window_buffer_o
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/s_comm_avm_buffers_controller_state
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/s_rd_addr_cnt
+add wave -noupdate -group l_avm_reader_controller /testbench_top/comm_v2_top_inst/comm_left_avm_buffers_controller_ent_inst/s_rd_data_cnt
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/clk_i
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/rst_i
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/fee_clear_signal_i
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/fee_stop_signal_i
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/fee_start_signal_i
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/fee_sync_signal_i
+add wave -noupdate -group l_windowing_buffer -expand /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_buffer_i
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_data_read_i
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_mask_read_i
+add wave -noupdate -group l_windowing_buffer -expand /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_buffer_control_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_data_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_mask_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_data_valid_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_mask_valid_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_data_ready_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_mask_ready_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_buffer_empty_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_buffer_0_empty_o
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/window_buffer_1_empty_o
+add wave -noupdate -group l_windowing_buffer -expand /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_avsbuff_sc_fifo
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_avsbuff_qword_data
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_data_fifo_control
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_data_fifo_wr_data
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_data_fifo_status
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_data_fifo_rd_data
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_mask_fifo_control
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_mask_fifo_wr_data
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_mask_fifo_status
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_windowing_mask_fifo_rd_data
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_stopped_flag
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_empty
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_readable
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_write_state
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_read_state
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_data_cnt
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_qword_cnt
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_pixel_cnt
+add wave -noupdate -group l_windowing_buffer /testbench_top/comm_v2_top_inst/left_windowing_buffer_ent_inst/s_buffer_mask_cnt
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/clk_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/rst_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/fee_clear_signal_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/fee_stop_signal_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/fee_start_signal_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/header_gen_send_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/header_gen_reset_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/headerdata_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/send_buffer_stat_almost_full_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/send_buffer_stat_full_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/send_buffer_wrready_i
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/header_gen_finished_o
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/send_buffer_wrdata_o
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/send_buffer_wrreq_o
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/send_buffer_data_type_wrdata_o
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/send_buffer_data_type_wrreq_o
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/s_header_gen_state
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/s_header_gen_next_state
+add wave -noupdate -group l_header_gen /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_header_gen_ent_inst/s_overflow_send_buffer
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/clk_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/rst_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/fee_clear_signal_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/fee_stop_signal_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/fee_start_signal_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/data_wr_start_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/data_wr_reset_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/data_wr_length_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/masking_buffer_almost_empty_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/masking_buffer_empty_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/masking_buffer_rddata_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_stat_almost_full_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_stat_full_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_wrready_i
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/data_wr_busy_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/data_wr_finished_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/data_wr_data_flushed_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/data_wr_data_changed_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_flush_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/masking_buffer_rdreq_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_wrdata_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_wrreq_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_data_end_wrdata_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/send_buffer_data_end_wrreq_o
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/s_data_writer_state
+add wave -noupdate -group l_data_writer -radix unsigned /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/s_data_cnt
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/s_overflow_send_buffer
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/s_first_write
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/a_masking_buffer_rddata_imgend
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/a_masking_buffer_rddata_imgchange
+add wave -noupdate -group l_data_writer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/data_packet_data_writer_ent_inst/a_masking_buffer_rddata_imgbyte
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/clk_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/rst_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/fee_clear_signal_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/fee_stop_signal_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/fee_start_signal_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/fee_data_loaded_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_cfg_length_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_flush_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_wrdata_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_wrreq_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_rdreq_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_change_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/data_type_wrdata_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/data_type_wrreq_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/data_end_wrdata_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/data_end_wrreq_i
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_stat_almost_empty_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_stat_almost_full_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_stat_empty_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_stat_extended_usedw_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_stat_full_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_rddata_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_rdready_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/buffer_wrready_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/data_type_rddata_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/data_end_rddata_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/double_buffer_empty_o
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/double_buffer_wrable_o
+add wave -noupdate -group l_send_buffer -expand /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_0
+add wave -noupdate -group l_send_buffer -expand /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_1
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_send_buffer_write_state
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_send_buffer_read_state
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_wr_data_buffer_selection
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_rd_data_buffer_selection
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_0_rdhold
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_1_rdhold
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_0_wrhold
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_1_wrhold
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_0_extended_usedw
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_fifo_1_extended_usedw
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_type_0_data
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_type_1_data
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_end_0_data
+add wave -noupdate -group l_send_buffer /testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/send_buffer_ent_inst/s_data_end_1_data
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {145239521 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 319
+configure wave -valuecolwidth 217
+configure wave -justifyvalue left
+configure wave -signalnamewidth 1
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ps
+update
+WaveRestoreZoom {0 ps} {630 us}

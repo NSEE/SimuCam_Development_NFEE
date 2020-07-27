@@ -222,7 +222,15 @@ architecture rtl of comm_v2_top is
 
 	-- sync edge detection
 	signal s_ch_sync_trigger : std_logic;
-	signal s_ch_sync_clear   : std_logic;
+	signal s_ch_sync_restart : std_logic;
+
+	-- timecode manager
+	signal s_tx_timecode_tick : std_logic;
+
+	-- restart manager
+	signal s_machine_stop  : std_logic;
+	signal s_machine_clear : std_logic;
+	signal s_machine_start : std_logic;
 
 	-- spw mux
 	-- "spw mux" to "codec" signals
@@ -244,8 +252,8 @@ architecture rtl of comm_v2_top is
 	signal s_rx_timecode_control       : std_logic_vector(1 downto 0);
 	signal s_rx_timecode_counter       : std_logic_vector(5 downto 0);
 
-	signal s_right_side_activated : std_logic;
-	signal s_left_side_activated  : std_logic;
+	signal s_right_buffer_activated : std_logic;
+	signal s_left_buffer_activated  : std_logic;
 
 	-- window double buffer
 	signal s_R_window_buffer         : t_windowing_buffer;
@@ -265,8 +273,25 @@ architecture rtl of comm_v2_top is
 
 begin
 
-	-- reset_n creation
-	rst_n <= not a_reset;
+	-- Config Avalon MM Testbench Stimulli Generate
+	g_comm_avs_config_testbench_stimulli : if (g_COMM_TESTBENCH_MODE = '1') generate
+
+		-- Config Avalon MM Testbench Stimulli
+		comm_config_avalon_mm_stimulli_inst : entity work.comm_config_avalon_mm_stimulli
+			port map(
+				clk_i                       => a_avs_clock,
+				rst_i                       => a_reset,
+				avs_config_rd_regs_i        => s_spacewire_read_registers,
+				avs_config_wr_regs_o        => s_spacewire_write_registers,
+				avs_config_rd_readdata_o    => avs_config_readdata_o,
+				avs_config_rd_waitrequest_o => s_avalon_mm_windwoing_read_waitrequest,
+				avs_config_wr_waitrequest_o => s_avalon_mm_windwoing_write_waitrequest
+			);
+
+	end generate g_comm_avs_config_testbench_stimulli;
+
+	-- Config Avalon MM Read and Write Generate
+	g_comm_avs_config_read_write : if (g_COMM_TESTBENCH_MODE = '0') generate
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
@@ -295,6 +320,8 @@ begin
 			spacewire_write_registers_o       => s_spacewire_write_registers
 		);
 
+	end generate g_comm_avs_config_read_write;
+
 	-- right avm buffers reader instantiation
 	comm_right_avm_buffers_reader_ent_inst : entity work.comm_avm_buffers_reader_ent
 		port map(
@@ -313,9 +340,9 @@ begin
 		port map(
 			clk_i                                      => a_avs_clock,
 			rst_i                                      => a_reset,
-			fee_clear_signal_i                         => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-			fee_stop_signal_i                          => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			fee_start_signal_i                         => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_clear_signal_i                         => s_machine_clear,
+			fee_stop_signal_i                          => s_machine_stop,
+			fee_start_signal_i                         => s_machine_start,
 			controller_rd_start_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_start,
 			controller_rd_reset_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_reset,
 			controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_initial_addr_high_dword,
@@ -333,9 +360,9 @@ begin
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
-			fee_clear_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-			fee_stop_signal_i       => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			fee_start_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_clear_signal_i      => s_machine_clear,
+			fee_stop_signal_i       => s_machine_stop,
+			fee_start_signal_i      => s_machine_start,
 			fee_sync_signal_i       => s_ch_sync_trigger,
 			window_buffer_i         => s_R_window_buffer,
 			window_buffer_control_o => s_R_window_buffer_control,
@@ -370,9 +397,9 @@ begin
 		port map(
 			clk_i                                      => a_avs_clock,
 			rst_i                                      => a_reset,
-			fee_clear_signal_i                         => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-			fee_stop_signal_i                          => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			fee_start_signal_i                         => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_clear_signal_i                         => s_machine_clear,
+			fee_stop_signal_i                          => s_machine_stop,
+			fee_start_signal_i                         => s_machine_start,
 			controller_rd_start_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_start,
 			controller_rd_reset_i                      => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_reset,
 			controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_initial_addr_high_dword,
@@ -390,9 +417,9 @@ begin
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
-			fee_clear_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-			fee_stop_signal_i       => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			fee_start_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_clear_signal_i      => s_machine_clear,
+			fee_stop_signal_i       => s_machine_stop,
+			fee_start_signal_i      => s_machine_start,
 			fee_sync_signal_i       => s_ch_sync_trigger,
 			window_buffer_i         => s_L_window_buffer,
 			window_buffer_control_o => s_L_window_buffer_control,
@@ -447,15 +474,14 @@ begin
 			clk_i                                         => a_avs_clock,
 			rst_i                                         => a_reset,
 			fee_sync_signal_i                             => s_ch_sync_trigger,
-			fee_clear_signal_i                            => s_ch_sync_clear,
 			fee_current_timecode_i(7 downto 6)            => s_spacewire_read_registers.spw_timecode_status_reg.timecode_control,
 			fee_current_timecode_i(5 downto 0)            => s_spacewire_read_registers.spw_timecode_status_reg.timecode_time,
 			fee_clear_frame_i                             => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
-			fee_left_side_activated_i                     => s_left_side_activated,
-			fee_right_side_activated_i                    => s_right_side_activated,
-			fee_machine_clear_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-			fee_machine_stop_i                            => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			fee_machine_start_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_left_buffer_activated_i                   => s_left_buffer_activated,
+			fee_right_buffer_activated_i                  => s_right_buffer_activated,
+			fee_machine_clear_i                           => s_machine_clear,
+			fee_machine_stop_i                            => s_machine_stop,
+			fee_machine_start_i                           => s_machine_start,
 			fee_digitalise_en_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
 			fee_readout_en_i                              => s_spacewire_write_registers.fee_machine_config_reg.fee_readout_en,
 			fee_windowing_en_i                            => s_spacewire_write_registers.fee_machine_config_reg.fee_windowing_en,
@@ -484,6 +510,12 @@ begin
 			data_pkt_ccd_number_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_number,
 			data_pkt_ccd_v_start_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_start,
 			data_pkt_ccd_v_end_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_end,
+			data_pkt_ccd_img_v_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_v_end,
+			data_pkt_ccd_ovs_v_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_v_end,
+			data_pkt_ccd_h_start_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_start,
+			data_pkt_ccd_h_end_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_end,
+			data_pkt_ccd_img_en_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_en,
+			data_pkt_ccd_ovs_en_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_en,
 			data_pkt_protocol_id_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_protocol_id,
 			data_pkt_logical_addr_i                       => s_spacewire_write_registers.data_packet_config_reg.data_pkt_logical_addr,
 			data_pkt_start_delay_i                        => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_start_delay,
@@ -547,6 +579,7 @@ begin
 			spw_flag_i                 => s_rmap_spw_flag,
 			mem_flag_i                 => s_rmap_mem_flag,
 			spw_control_o              => s_rmap_spw_control,
+			conf_target_enable_i       => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_enable,
 			conf_target_logical_addr_i => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_logical_addr,
 			conf_target_key_i          => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_key,
 			mem_control_o              => s_rmap_mem_control,
@@ -597,9 +630,9 @@ begin
 		port map(
 			clk_i                          => a_avs_clock,
 			rst_i                          => a_reset,
-			fee_clear_signal_i             => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
-			fee_stop_signal_i              => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			fee_start_signal_i             => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_clear_signal_i             => s_machine_clear,
+			fee_stop_signal_i              => s_machine_stop,
+			fee_start_signal_i             => s_machine_start,
 			spw_codec_rx_status_i          => s_mux_rx_channel_status,
 			spw_codec_tx_status_i          => s_mux_tx_channel_status,
 			spw_mux_rx_0_command_i.rxread  => s_rmap_spw_control.receiver.read,
@@ -624,7 +657,8 @@ begin
 
 	comm_rmap_rw_manager_ent_inst : entity work.comm_rmap_rw_manager_ent
 		generic map(
-			g_RMAP_WIN_OFFSET_BIT => c_COMM_NFEE_RMAP_WIN_OFFSET_BIT
+			g_RMAP_WIN_OFFSET_WIDTH => c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_WIDTH,
+			g_RMAP_WIN_OFFSET_MASK  => c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_MASK
 		)
 		port map(
 			clk_i                      => a_avs_clock,
@@ -658,12 +692,25 @@ begin
 			tx_timecode_counter_o => s_spacewire_read_registers.spw_timecode_status_reg.timecode_time
 		);
 
+	comm_restart_manager_ent_inst : entity work.comm_restart_manager_ent
+		port map(
+			clk_i             => a_avs_clock,
+			rst_i             => a_reset,
+			ch_sync_restart_i => s_ch_sync_restart,
+			comm_stop_i       => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
+			comm_clear_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
+			comm_start_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			machine_stop_o    => s_machine_stop,
+			machine_clear_o   => s_machine_clear,
+			machine_start_o   => s_machine_start
+		);
+
 	comm_feeb_irq_manager_ent_inst : entity work.comm_feeb_irq_manager_ent
 		port map(
 			clk_i                              => a_avs_clock,
 			rst_i                              => a_reset,
-			irq_manager_stop_i                 => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			irq_manager_start_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			irq_manager_stop_i                 => s_machine_stop,
+			irq_manager_start_i                => s_machine_start,
 			global_irq_en_i                    => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
 			irq_watches_i.left_buffer_empty    => s_L_buffer_empty,
 			irq_watches_i.right_buffer_empty   => s_R_buffer_empty,
@@ -680,8 +727,8 @@ begin
 		port map(
 			clk_i                                   => a_avs_clock,
 			rst_i                                   => a_reset,
-			irq_manager_stop_i                      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
-			irq_manager_start_i                     => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			irq_manager_stop_i                      => s_machine_stop,
+			irq_manager_start_i                     => s_machine_start,
 			global_irq_en_i                         => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
 			irq_watches_i.rmap_write_data_finished  => s_rmap_write_data_finished,
 			irq_contexts_i.rmap_win_area_write_flag => s_rmap_win_area_write_flag,
@@ -697,15 +744,15 @@ begin
 	-- sync in trigger generation
 	comm_sync_manager_ent_inst : entity work.comm_sync_manager_ent
 		port map(
-			clk_i                  => a_avs_clock,
-			rst_i                  => a_reset,
-			channel_sync_i         => channel_sync_i,
-			left_buffer_empty_i    => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_buffer_empty,
-			right_buffer_empty_i   => s_spacewire_read_registers.fee_buffers_status_reg.fee_right_buffer_empty,
-			ch_sync_trigger_o      => s_ch_sync_trigger,
-			ch_sync_clear_o        => s_ch_sync_clear,
-			left_side_activated_o  => s_left_side_activated,
-			right_side_activated_o => s_right_side_activated
+			clk_i                    => a_avs_clock,
+			rst_i                    => a_reset,
+			channel_sync_i           => channel_sync_i,
+			left_buffer_empty_i      => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_buffer_empty,
+			right_buffer_empty_i     => s_spacewire_read_registers.fee_buffers_status_reg.fee_right_buffer_empty,
+			ch_sync_trigger_o        => s_ch_sync_trigger,
+			ch_sync_restart_o        => s_ch_sync_restart,
+			left_buffer_activated_o  => s_left_buffer_activated,
+			right_buffer_activated_o => s_right_buffer_activated
 		);
 
 	-- fee statistics manager

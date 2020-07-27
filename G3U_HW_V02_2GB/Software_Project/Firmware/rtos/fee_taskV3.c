@@ -157,10 +157,12 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = pxNFee->xControl.xTrap.xRestoreDelays.uliAdcDelay;
 				pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = pxNFee->xControl.xTrap.xRestoreDelays.uliStartDelay;
 				pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliSkipDelay = pxNFee->xControl.xTrap.xRestoreDelays.uliSkipDelay;
+				/* Enable all RMAP Channels - [rfranca] */
+				vRmapCh1EnableCodec(TRUE);
 				pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = pxNFee->xControl.xTrap.xRestoreDelays.uliLineDelay;
 				bDpktSetPixelDelay(&pxNFee->xChannel.xDataPacket);
-
-
+				/* Soft-Reset all RMAP Areas (reset all registers) - [rfranca] */
+				vRmapSoftRstDebMemArea();
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = sConfig;
 				break;
@@ -218,8 +220,6 @@ void vFeeTaskV3(void *task_data) {
 				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
-//				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
-//				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
 
 				/*Enabling some important variables*/
 				pxNFee->xControl.bSimulating = TRUE;

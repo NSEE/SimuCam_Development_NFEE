@@ -4,7 +4,8 @@ use ieee.numeric_std.all;
 
 entity comm_rmap_rw_manager_ent is
 	generic(
-		g_RMAP_WIN_OFFSET_BIT : natural := 0
+		g_RMAP_WIN_OFFSET_WIDTH : natural                       := 0; -- number of non-masking bits in the offset mask
+		g_RMAP_WIN_OFFSET_MASK  : std_logic_vector(31 downto 0) := (others => '0')
 	);
 	port(
 		clk_i                      : in  std_logic;
@@ -67,12 +68,21 @@ begin
 					if (s_write_recorded = '0') then
 						-- the write parameters were not recorded yet (first write)
 						-- record write addr and set win area flag
-						rmap_last_write_addr_o     <= rmap_write_address_i;
-						rmap_last_write_win_area_o <= rmap_write_address_i(g_RMAP_WIN_OFFSET_BIT);
+						rmap_last_write_addr_o   <= rmap_write_address_i;
+						-- check if the write was to a windowing area (address upper bits matches the masking bits of the offset mask)
+						if (rmap_write_address_i(31 downto g_RMAP_WIN_OFFSET_WIDTH) = g_RMAP_WIN_OFFSET_MASK(31 downto g_RMAP_WIN_OFFSET_WIDTH)) then
+							-- the write was to a windowing area
+							-- set the windowing area flag
+							rmap_last_write_win_area_o <= '1';
+						else
+							-- the write was not to a windowing area
+							-- clear the windowing area flag
+							rmap_last_write_win_area_o <= '0';
+						end if;
 						-- set the write length to one
-						s_rmap_last_write_length   <= std_logic_vector(to_unsigned(1, s_rmap_last_write_length'length));
+						s_rmap_last_write_length <= std_logic_vector(to_unsigned(1, s_rmap_last_write_length'length));
 						-- set the write parameters recorded flag
-						s_write_recorded           <= '1';
+						s_write_recorded         <= '1';
 					else
 						-- the write parameters were already recorded (not first write)
 						-- increment the write length
@@ -97,12 +107,21 @@ begin
 					if (s_read_recorded = '0') then
 						-- the read parameters were not recorded yet (first read)
 						-- record read addr and set win area flag
-						rmap_last_read_addr_o     <= rmap_read_address_i;
-						rmap_last_read_win_area_o <= rmap_read_address_i(g_RMAP_WIN_OFFSET_BIT);
+						rmap_last_read_addr_o   <= rmap_read_address_i;
+						-- check if the read was to a windowing area (address upper bits matches the masking bits of the offset mask)
+						if (rmap_read_address_i(31 downto g_RMAP_WIN_OFFSET_WIDTH) = g_RMAP_WIN_OFFSET_MASK(31 downto g_RMAP_WIN_OFFSET_WIDTH)) then
+							-- the read was to a windowing area
+							-- set the windowing area flag
+							rmap_last_read_win_area_o <= '1';
+						else
+							-- the read was not to a windowing area
+							-- clear the windowing area flag
+							rmap_last_read_win_area_o <= '0';
+						end if;
 						-- set the read length to one
-						s_rmap_last_read_length   <= std_logic_vector(to_unsigned(1, s_rmap_last_read_length'length));
+						s_rmap_last_read_length <= std_logic_vector(to_unsigned(1, s_rmap_last_read_length'length));
 						-- set the read parameters recorded flag
-						s_read_recorded           <= '1';
+						s_read_recorded         <= '1';
 					else
 						-- the read parameters were already recorded (not first read)
 						-- increment the read length

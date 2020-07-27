@@ -16,11 +16,30 @@
 //! [constants definition]
 // address
 #define COMM_WINDOING_PARAMETERS_OFST   512 /* Offset for all windowing related parameters (packet order list, etc.) */
+#define COMM_WINDOING_RMAP_AREA_SIZE    0x00800000
 #define COMM_WINDOING_RMAP_AREA_OFST    0x00800000
 // bit masks
 //! [constants definition]
 
 //! [public module structs definition]
+
+/* Windowing Windows Length Data Struct */
+typedef struct WindWindowsLength {
+	alt_u32 uliCcd1SideEWinLen; /* CCD 1 Side E Windows Length */
+	alt_u32 uliCcd1SideFWinLen; /* CCD 1 Side F Windows Length */
+	alt_u32 uliCcd2SideEWinLen; /* CCD 2 Side E Windows Length */
+	alt_u32 uliCcd2SideFWinLen; /* CCD 2 Side F Windows Length */
+	alt_u32 uliCcd3SideEWinLen; /* CCD 3 Side E Windows Length */
+	alt_u32 uliCcd3SideFWinLen; /* CCD 3 Side F Windows Length */
+	alt_u32 uliCcd4SideEWinLen; /* CCD 4 Side E Windows Length */
+	alt_u32 uliCcd4SideFWinLen; /* CCD 4 Side F Windows Length */
+} TWindWindowsLength;
+
+/* MEB Windowing Parameters Register Struct */
+typedef struct WindMebWindowingParam {
+	TDpktWindowingParam xDpktWindowingParam;
+	TWindWindowsLength xWindWindowsLength;
+} TWindMebWindowingParam;
 //! [public module structs definition]
 
 //! [public function prototypes]

@@ -13,7 +13,6 @@ entity masking_machine_ent is
 		fee_clear_signal_i            : in  std_logic;
 		fee_stop_signal_i             : in  std_logic;
 		fee_start_signal_i            : in  std_logic;
-		fee_digitalise_en_i           : in  std_logic;
 		fee_windowing_en_i            : in  std_logic;
 		fee_pattern_en_i              : in  std_logic;
 		-- others
@@ -25,6 +24,12 @@ entity masking_machine_ent is
 		fee_overscan_y_size_i         : in  std_logic_vector(15 downto 0);
 		fee_ccd_v_start_i             : in  std_logic_vector(15 downto 0);
 		fee_ccd_v_end_i               : in  std_logic_vector(15 downto 0);
+		fee_ccd_img_v_end_i           : in  std_logic_vector(15 downto 0);
+		fee_ccd_ovs_v_end_i           : in  std_logic_vector(15 downto 0);
+		fee_ccd_h_start_i             : in  std_logic_vector(15 downto 0);
+		fee_ccd_h_end_i               : in  std_logic_vector(15 downto 0);
+		fee_ccd_img_en_i              : in  std_logic;
+		fee_ccd_ovs_en_i              : in  std_logic;
 		fee_start_delay_i             : in  std_logic_vector(31 downto 0);
 		fee_skip_delay_i              : in  std_logic_vector(31 downto 0);
 		fee_line_delay_i              : in  std_logic_vector(31 downto 0);
@@ -144,9 +149,11 @@ architecture RTL of masking_machine_ent is
 	signal s_first_pixel : std_logic;
 
 	-- column counter
-	signal s_ccd_column_cnt : std_logic_vector((fee_ccd_x_size_i'length - 1) downto 0);
+	signal s_ccd_column_cnt  : std_logic_vector((fee_ccd_x_size_i'length - 1) downto 0);
 	-- row counter
-	signal s_ccd_row_cnt    : std_logic_vector((fee_ccd_y_size_i'length - 1) downto 0);
+	signal s_ccd_row_cnt     : std_logic_vector((fee_ccd_y_size_i'length - 1) downto 0);
+	signal s_ccd_img_row_cnt : std_logic_vector((fee_data_y_size_i'length - 1) downto 0);
+	signal s_ccd_ovs_row_cnt : std_logic_vector((fee_overscan_y_size_i'length - 1) downto 0);
 
 	-- pixels bytes alias
 	alias a_pixel_msb is s_registered_window_data(7 downto 0);
@@ -158,27 +165,37 @@ architecture RTL of masking_machine_ent is
 	-- fisrt row constant
 	constant c_CCD_FIRST_ROW : std_logic_vector((fee_ccd_y_size_i'length - 1) downto 0) := (others => '0');
 
+	-- image area flag
+	signal s_image_area : std_logic;
+
 begin
 
 	-- delay machine instantiation
 	delay_machine_ent_inst : entity work.delay_machine_ent
 		port map(
-			clk_i                => clk_i,
-			rst_i                => rst_i,
-			sync_signal_i        => sync_signal_i,
-			fee_clear_signal_i   => fee_clear_signal_i,
-			fee_stop_signal_i    => fee_stop_signal_i,
-			fee_start_signal_i   => fee_start_signal_i,
-			fee_ccd_x_size_i     => fee_ccd_x_size_i,
-			fee_ccd_y_size_i     => fee_ccd_y_size_i,
-			fee_ccd_v_start_i    => fee_ccd_v_start_i,
-			fee_ccd_v_end_i      => fee_ccd_v_end_i,
-			fee_start_delay_i    => fee_start_delay_i,
-			fee_skip_delay_i     => fee_skip_delay_i,
-			fee_line_delay_i     => fee_line_delay_i,
-			fee_adc_delay_i      => fee_adc_delay_i,
-			current_ccd_row_o    => s_delay_machine_current_ccd_row,
-			current_ccd_column_o => s_delay_machine_current_ccd_column
+			clk_i                 => clk_i,
+			rst_i                 => rst_i,
+			sync_signal_i         => sync_signal_i,
+			fee_clear_signal_i    => fee_clear_signal_i,
+			fee_stop_signal_i     => fee_stop_signal_i,
+			fee_start_signal_i    => fee_start_signal_i,
+			fee_ccd_x_size_i      => fee_ccd_x_size_i,
+			fee_ccd_y_size_i      => fee_ccd_y_size_i,
+			fee_data_y_size_i     => fee_data_y_size_i,
+			fee_overscan_y_size_i => fee_overscan_y_size_i,
+			fee_ccd_v_start_i     => fee_ccd_v_start_i,
+			fee_ccd_v_end_i       => fee_ccd_v_end_i,
+			fee_ccd_img_v_end_i   => fee_ccd_img_v_end_i,
+			fee_ccd_ovs_v_end_i   => fee_ccd_ovs_v_end_i,
+			fee_ccd_h_start_i     => fee_ccd_h_start_i,
+			fee_ccd_h_end_i       => fee_ccd_h_end_i,
+			fee_start_delay_i     => fee_start_delay_i,
+			fee_skip_lin_delay_i  => fee_skip_delay_i,
+			fee_skip_col_delay_i  => (others => '0'),
+			fee_line_delay_i      => fee_line_delay_i,
+			fee_adc_delay_i       => fee_adc_delay_i,
+			current_ccd_row_o     => s_delay_machine_current_ccd_row,
+			current_ccd_column_o  => s_delay_machine_current_ccd_column
 		);
 
 	-- masking buffer instantiation
@@ -216,7 +233,10 @@ begin
 			s_first_pixel                  <= '0';
 			s_ccd_column_cnt               <= (others => '0');
 			s_ccd_row_cnt                  <= (others => '0');
+			s_ccd_img_row_cnt              <= (others => '0');
+			s_ccd_ovs_row_cnt              <= (others => '0');
 			s_data_fetched                 <= '0';
+			s_image_area                   <= '0';
 		elsif rising_edge(clk_i) then
 
 			case (s_masking_machine_state) is
@@ -238,7 +258,10 @@ begin
 					s_first_pixel                  <= '0';
 					s_ccd_column_cnt               <= (others => '0');
 					s_ccd_row_cnt                  <= (others => '0');
+					s_ccd_img_row_cnt              <= (others => '0');
+					s_ccd_ovs_row_cnt              <= (others => '0');
 					s_data_fetched                 <= '0';
+					s_image_area                   <= '0';
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -261,7 +284,10 @@ begin
 					s_first_pixel                  <= '0';
 					s_ccd_column_cnt               <= (others => '0');
 					s_ccd_row_cnt                  <= (others => '0');
+					s_ccd_img_row_cnt              <= (others => '0');
+					s_ccd_ovs_row_cnt              <= (others => '0');
 					s_data_fetched                 <= '0';
+					s_image_area                   <= '0';
 					-- check if the fee requested the start of the masking (sync arrived)
 					if (sync_signal_i = '1') then
 						-- set first pixel
@@ -269,6 +295,10 @@ begin
 						-- set ccd column counter to execute the first ccd line
 						s_ccd_column_cnt               <= (others => '0');
 						s_ccd_row_cnt                  <= (others => '0');
+						s_ccd_img_row_cnt              <= (others => '0');
+						s_ccd_ovs_row_cnt              <= (others => '0');
+						-- set the image area flag
+						s_image_area                   <= '1';
 						-- go to idle
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;
@@ -350,12 +380,12 @@ begin
 						-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
 						s_masking_machine_state        <= PIXEL_BYTE_LSB;
 						s_masking_machine_return_state <= PIXEL_BYTE_LSB;
-						-- check if the digitalise is enabled
-						if (fee_digitalise_en_i = '1') then
-							-- digitalise enabled, digitalise data
+						-- check if the ccd part (image or overscan) is enabled
+						if (((fee_ccd_img_en_i = '1') and (s_image_area = '1')) or ((fee_ccd_ovs_en_i = '1') and (s_image_area = '0'))) then
+							-- the ccd part (image or overscan) is enabled, digitalise data
 							-- check if the data need to be transmitted
 							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
-							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
+							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
@@ -397,12 +427,12 @@ begin
 						-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;
-						-- check if the digitalise is enabled
-						if (fee_digitalise_en_i = '1') then
-							-- digitalise enabled, digitalise data
+						-- check if the ccd part (image or overscan) is enabled
+						if (((fee_ccd_img_en_i = '1') and (s_image_area = '1')) or ((fee_ccd_ovs_en_i = '1') and (s_image_area = '0'))) then
+							-- the ccd part (image or overscan) is enabled, digitalise data
 							-- check if the data need to be transmitted
 							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
-							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i))) then
+							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then
 								-- data need to be transmitted
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
@@ -426,12 +456,22 @@ begin
 							-- check if the entire ccd was processed
 							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
 								-- ccd ended, clear row counter
-								s_ccd_row_cnt <= (others => '0');
+								s_ccd_row_cnt     <= (others => '0');
+								s_ccd_img_row_cnt <= (others => '0');
+								s_ccd_ovs_row_cnt <= (others => '0');
 							else
 								-- ccd not ended, update row counter
 								s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
+								-- check if the ccd is in the image area
+								if (s_image_area = '1') then
+									-- the ccd is in the image area
+									s_ccd_img_row_cnt <= std_logic_vector(unsigned(s_ccd_img_row_cnt) + 1);
+								else
+									-- the ccd is in the overscan area
+									s_ccd_ovs_row_cnt <= std_logic_vector(unsigned(s_ccd_ovs_row_cnt) + 1);
+								end if;
 								-- check if the last line to be transmitted was reached
-								if (s_ccd_row_cnt = fee_ccd_v_end_i) then
+								if ((s_ccd_row_cnt = fee_ccd_v_end_i) or ((s_ccd_img_row_cnt = fee_ccd_img_v_end_i) and (s_image_area = '1')) or ((s_ccd_ovs_row_cnt = fee_ccd_ovs_v_end_i) and (s_image_area = '0'))) then
 									-- last line to be transmitted was reached
 									-- write img end flag
 									s_masking_fifo.data_imgend <= '1';
@@ -484,6 +524,11 @@ begin
 					s_masking_fifo.wrreq          <= '0';
 					s_first_pixel                 <= '0';
 					s_data_fetched                <= '0';
+					-- clear the image area flag
+					s_image_area                  <= '0';
+					-- clear the image and overscan counters
+					s_ccd_img_row_cnt             <= (others => '0');
+					s_ccd_ovs_row_cnt             <= (others => '0');
 					-- check if masking fifo is not almost full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -510,6 +555,7 @@ begin
 					s_first_pixel                  <= '0';
 					s_ccd_column_cnt               <= (others => '0');
 					s_ccd_row_cnt                  <= (others => '0');
+					s_image_area                   <= '0';
 					-- check if a data was already fetched
 					if (s_data_fetched = '1') then
 						-- data was already fetched

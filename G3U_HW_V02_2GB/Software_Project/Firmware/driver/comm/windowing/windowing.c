@@ -28,7 +28,8 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 	bool bValidMem = FALSE;
 	bool bValidCh = FALSE;
 	volatile TCommChannel *vpxCommChannel = NULL;
-	volatile TDpktWindowingParam *vpxWindowingParam = NULL;
+	volatile TRmapMemDebArea *vpxRmapMemDebArea = NULL;
+	volatile TWindMebWindowingParam *vpxMebWindowingParam = NULL;
 
 	bValidMem = bDdr2SwitchMemory(ucMemoryId);
 

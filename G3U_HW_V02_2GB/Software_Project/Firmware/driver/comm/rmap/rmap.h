@@ -72,7 +72,16 @@ alt_u32 uliRmapCh4WriteCmdAddress(void);
 alt_u32 uliRmapCh5WriteCmdAddress(void);
 alt_u32 uliRmapCh6WriteCmdAddress(void);
 
+void vRmapCh1EnableCodec(bool bEnable);
+void vRmapCh2EnableCodec(bool bEnable);
+void vRmapCh3EnableCodec(bool bEnable);
+void vRmapCh4EnableCodec(bool bEnable);
+void vRmapCh5EnableCodec(bool bEnable);
+void vRmapCh6EnableCodec(bool bEnable);
+
 bool vRmapInitIrq(alt_u8 ucCommCh);
+
+void vRmapSoftRstDebMemArea(void);
 
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware

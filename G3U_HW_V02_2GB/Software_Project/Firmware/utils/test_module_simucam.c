@@ -17,101 +17,103 @@ bool bTestSimucamCriticalHW(void) {
 	 * SDcard para criar logs e pegar defaults
 	 */
 
-	printf("SimuCam Critical HW Test:\n");
+#if DEBUG_ON
+	fprintf(fp, "SimuCam Critical HW Test:\n");
+#endif
 
 	bSuccess = bSdmaInitComm1Dmas();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the DMAs for COMM Channel 1!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 1!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  DMAs for COMM Channel 1 initiated.\n");
+		fprintf(fp, "  DMAs for COMM Channel 1 initiated.\n");
 #endif
 	}
 
 	bSuccess = bSdmaInitComm2Dmas();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the DMAs for COMM Channel 2!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 2!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  DMAs for COMM Channel 2 initiated.\n");
+		fprintf(fp, "  DMAs for COMM Channel 2 initiated.\n");
 #endif
 	}
 
 	bSuccess = bSdmaInitComm3Dmas();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the DMAs for COMM Channel 3!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 3!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  DMAs for COMM Channel 3 initiated.\n");
+		fprintf(fp, "  DMAs for COMM Channel 3 initiated.\n");
 #endif
 	}
 
 	bSuccess = bSdmaInitComm4Dmas();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the DMAs for COMM Channel 4!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 4!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  DMAs for COMM Channel 4 initiated.\n");
+		fprintf(fp, "  DMAs for COMM Channel 4 initiated.\n");
 #endif
 	}
 
 	bSuccess = bSdmaInitComm5Dmas();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the DMAs for COMM Channel 5!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 5!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  DMAs for COMM Channel 5 initiated.\n");
+		fprintf(fp, "  DMAs for COMM Channel 5 initiated.\n");
 #endif
 	}
 
 	bSuccess = bSdmaInitComm6Dmas();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the DMAs for COMM Channel 6!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 6!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  DMAs for COMM Channel 6 initiated.\n");
+		fprintf(fp, "  DMAs for COMM Channel 6 initiated.\n");
 #endif
 	}
 
 	bSuccess = bSdmaInitFtdiRxDma();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the Rx DMA for FTDI Module!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the Rx DMA for FTDI Module!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  Rx DMA for FTDI Module initiated.\n");
+		fprintf(fp, "  Rx DMA for FTDI Module initiated.\n");
 #endif
 	}
 
 	bSuccess = bSdmaInitFtdiTxDma();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON
-		printf("  CRITICAL! Could not initiate the Tx DMA for FTDI Module!\n");
+		fprintf(fp, "  CRITICAL! Could not initiate the Tx DMA for FTDI Module!\n");
 #endif
 		return (bSuccess);
 	} else {
 #if DEBUG_ON
-		printf("  Tx DMA for FTDI Module initiated.\n");
+		fprintf(fp, "  Tx DMA for FTDI Module initiated.\n");
 #endif
 	}
 

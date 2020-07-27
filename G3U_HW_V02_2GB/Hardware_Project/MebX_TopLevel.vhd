@@ -334,23 +334,23 @@ architecture bhv of MebX_TopLevel is
 	-----------------------------------------
 	-- Signals
 	-----------------------------------------
-	signal spw_1_sync : std_logic;
-	signal spw_2_sync : std_logic;
-	signal spw_3_sync : std_logic;
-	signal spw_4_sync : std_logic;
-	signal spw_5_sync : std_logic;
-	signal spw_6_sync : std_logic;
-	signal spw_7_sync : std_logic;
-	signal spw_8_sync : std_logic;
+	signal comm_1_sync : std_logic;
+	signal comm_2_sync : std_logic;
+	signal comm_3_sync : std_logic;
+	signal comm_4_sync : std_logic;
+	signal comm_5_sync : std_logic;
+	signal comm_6_sync : std_logic;
+	signal comm_7_sync : std_logic;
+	signal comm_8_sync : std_logic;
 
-	signal spw_a_measure : std_logic_vector(7 downto 0);
-	signal spw_b_measure : std_logic_vector(7 downto 0);
-	signal spw_c_measure : std_logic_vector(7 downto 0);
-	signal spw_d_measure : std_logic_vector(7 downto 0);
-	signal spw_e_measure : std_logic_vector(7 downto 0);
-	signal spw_f_measure : std_logic_vector(7 downto 0);
-	signal spw_g_measure : std_logic_vector(7 downto 0);
-	signal spw_h_measure : std_logic_vector(7 downto 0);
+	signal comm_1_measure : std_logic_vector(7 downto 0);
+	signal comm_2_measure : std_logic_vector(7 downto 0);
+	signal comm_3_measure : std_logic_vector(7 downto 0);
+	signal comm_4_measure : std_logic_vector(7 downto 0);
+	signal comm_5_measure : std_logic_vector(7 downto 0);
+	signal comm_6_measure : std_logic_vector(7 downto 0);
+	signal comm_7_measure : std_logic_vector(7 downto 0);
+	signal comm_8_measure : std_logic_vector(7 downto 0);
 
 	signal spw_a_red_led   : std_logic;
 	signal spw_a_green_led : std_logic;
@@ -855,14 +855,14 @@ begin
 			--
 			sync_in_conduit                                             => s_sync_in, --        --                               sync_in.conduit
 			sync_out_conduit                                            => s_sync_out, --       --                              sync_out.conduit
-			sync_spw1_conduit                                           => spw_1_sync, --       --                             sync_spw1.conduit
-			sync_spw2_conduit                                           => spw_2_sync, --       --                             sync_spw2.conduit
-			sync_spw3_conduit                                           => spw_3_sync, --       --                             sync_spw3.conduit
-			sync_spw4_conduit                                           => spw_4_sync, --       --                             sync_spw4.conduit
-			sync_spw5_conduit                                           => spw_5_sync, --       --                             sync_spw5.conduit
-			sync_spw6_conduit                                           => spw_6_sync, --       --                             sync_spw6.conduit
-			sync_spw7_conduit                                           => spw_7_sync, --       --                             sync_spw7.conduit
-			sync_spw8_conduit                                           => spw_8_sync, --       --                             sync_spw8.conduit
+			sync_spw1_conduit                                           => comm_1_sync, --       --                             sync_spw1.conduit
+			sync_spw2_conduit                                           => comm_2_sync, --       --                             sync_spw2.conduit
+			sync_spw3_conduit                                           => comm_3_sync, --       --                             sync_spw3.conduit
+			sync_spw4_conduit                                           => comm_4_sync, --       --                             sync_spw4.conduit
+			sync_spw5_conduit                                           => comm_5_sync, --       --                             sync_spw5.conduit
+			sync_spw6_conduit                                           => comm_6_sync, --       --                             sync_spw6.conduit
+			sync_spw7_conduit                                           => comm_7_sync, --       --                             sync_spw7.conduit
+			sync_spw8_conduit                                           => comm_8_sync, --       --                             sync_spw8.conduit
 			--
 			sd_card_wp_n_io_export                                      => I_SD_CARD_WP_n, --   --                       sd_card_wp_n_io.export
 			sd_card_ip_b_SD_cmd                                         => B_SD_CARD_CMD, --    --                            sd_card_ip.b_SD_cmd

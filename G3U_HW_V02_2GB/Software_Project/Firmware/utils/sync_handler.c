@@ -5,7 +5,6 @@
  *      Author: Tiago-note
  */
 
-
 #include "sync_handler.h"
 
 /* todo: Create a struct that will contain all config, and pass as parameter to the functions */
@@ -26,7 +25,7 @@ bool bInitSync( void ) {
 	#endif
 
 	// Configura um padrão de sync interno, periodo padrao = 25 s
-	bSuccess = bSyncConfigNFeeSyncPeriod( cusiSyncNFeeSyncPeriodMs );
+	bSuccess = bSyncConfigNFeeSyncPeriod( xDefaults.usiSyncPeriod );
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
@@ -94,7 +93,6 @@ bool bInitSync( void ) {
 
 	return bSuccess;
 }
-
 
 bool bStartSync(void) {
 
