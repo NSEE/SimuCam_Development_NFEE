@@ -33,8 +33,8 @@ void vInitSimucamBasicHW(void) {
 	bSetPainelLeds(LEDS_ON, LEDS_POWER_MASK);
 
 	/* Configure Seven Segments Display */
-	bSSDisplayConfig(SSDP_NORMAL_MODE);
-	bSSDisplayUpdate(0);
+//	bSSDisplayConfig(SSDP_NORMAL_MODE);
+//	bSSDisplayUpdate(0);
 
 	/* Reset the RS232 Device */
 	vRstcHoldDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
@@ -43,6 +43,9 @@ void vInitSimucamBasicHW(void) {
 	/* Disable the Isolation and LVDS driver boards*/
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
+	
+	/* Set LVDS pre-emphasys to off */
+	bSetPreEmphasys(LVDS_PEM_OFF);
 
 	/* Turn on all Panel Leds */
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK);

@@ -266,6 +266,7 @@ bool bSdmaCommDmaTransfer(alt_u8 ucDdrMemId, alt_u32 *uliDdrInitialAddr, alt_u32
 
 	}
 
+	bStatus = TRUE; /* TODO: Remove later, substitute by a HW overflow */
 	return (bStatus);
 }
 

@@ -91,7 +91,7 @@ void vLutHandlerTask(void *task_data) {
 						/*Request send LUT to the NUC*/
 						vFtdiResetLutWinArea();
 						bWindCopyCcdXWindowingConfig(ucIReq);
-						bSuccess = bFtdiTransmitLutWinArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight, pxMebC->xLut.ulSize);
+						bSuccess = bFtdiTransmitLutWinArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, ( pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight + pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiOLN ), pxMebC->xLut.ulSize);
 						if ( bSuccess == TRUE ) {
 
 							if (pxMebC->xLut.ucDdrNumber == 0) {

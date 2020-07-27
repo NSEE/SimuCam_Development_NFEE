@@ -650,6 +650,10 @@ begin
 			if (data_tx_stop_i = '1') then
 				s_ftdi_tx_prot_payload_writer_state <= STOPPED;
 				v_ftdi_tx_prot_payload_writer_state := STOPPED;
+			-- check if an abort was received and the payload writer is not stopped or in idle or in abort or finished
+			elsif ((payload_writer_abort_i = '1') and ((s_ftdi_tx_prot_payload_writer_state /= STOPPED) and (s_ftdi_tx_prot_payload_writer_state /= IDLE) and (s_ftdi_tx_prot_payload_writer_state /= PAYLOAD_TX_ABORT) and (s_ftdi_tx_prot_payload_writer_state /= FINISH_PAYLOAD_TX))) then
+				s_ftdi_tx_prot_payload_writer_state <= PAYLOAD_TX_ABORT;
+				v_ftdi_tx_prot_payload_writer_state := PAYLOAD_TX_ABORT;
 			end if;
 
 			-- Output generation FSM

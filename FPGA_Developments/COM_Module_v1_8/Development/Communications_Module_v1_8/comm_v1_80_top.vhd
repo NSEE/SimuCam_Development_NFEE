@@ -299,9 +299,6 @@ architecture rtl of comm_v1_80_top is
 
 begin
 
-	-- reset_n creation
-	rst_n <= not a_reset;
-
 	-- sync_in polarity fix (timing issues, need to be improved!!!) 
 	s_sync_channel <= sync_channel;
 

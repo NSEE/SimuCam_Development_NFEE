@@ -1,0 +1,19 @@
+@ECHO OFF
+PUSHD "%~dp0"
+
+REM Nome do arquivo gerado
+SET FILESDIR_NAME=FilesDir.txt
+
+ECHO   Geracao inciada...
+
+REM Renomeia arquivo com timestamp
+SET FILESDIR_DATE=%date%%time%
+SET FILESDIR_DATE=%FILESDIR_DATE:/=%
+SET FILESDIR_DATE=%FILESDIR_DATE::=%
+SET FILESDIR_DATE=%FILESDIR_DATE:,=%
+SET FILESDIR_DATE=%FILESDIR_DATE: =%
+SET FILESDIR_DATE=%FILESDIR_DATE%_%FILESDIR_NAME%
+DIR ".\" /B /S /A:-D > "%FILESDIR_DATE%"
+
+ECHO   Geracao terminada!!
+REM PAUSE

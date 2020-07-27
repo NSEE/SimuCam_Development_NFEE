@@ -125,6 +125,8 @@ package fee_data_controller_pkg is
 		stat_empty          : std_logic;
 		stat_extended_usedw : std_logic_vector(15 downto 0);
 		rddata              : std_logic_vector(7 downto 0);
+		rddata_type         : std_logic_vector(1 downto 0);
+		rddata_end          : std_logic;
 		rdready             : std_logic;
 	end record t_fee_dpkt_send_buffer_status;
 

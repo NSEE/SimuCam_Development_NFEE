@@ -322,7 +322,6 @@ begin
 			s_tx_interrupted_data                 <= (others => '0');
 			s_tx_interrupted_be                   <= (others => '0');
 			s_tx_words_cnt                        <= 0;
-			-- outputs
 			s_io_inout_buffer_output_enable       <= '0';
 			s_umft601a_buffered_pins.wakeup_n_out <= '1';
 			s_umft601a_buffered_pins.gpio_out     <= (others => '1');
@@ -330,8 +329,13 @@ begin
 			s_umft601a_buffered_pins.rd_n         <= '1';
 			s_umft601a_buffered_pins.oe_n         <= '1';
 			s_umft601a_buffered_pins.siwu_n       <= '1';
+			s_tx_dc_data_little_endian            <= (others => '0');
+			s_tx_dc_be_little_endian              <= (others => '0');
 			s_tx_dc_data_fifo.rdreq               <= '0';
+			s_rx_dc_data_fifo.wrdata_data         <= (others => '0');
+			s_rx_dc_data_fifo.wrdata_be           <= (others => '0');
 			s_rx_dc_data_fifo.wrreq               <= '0';
+		-- outputs
 		elsif (rising_edge(ftdi_clk_i)) then
 
 			-- States transitions FSM

@@ -29,6 +29,10 @@
 
 #define FTDI_MAX_HCCD_IMG_WIDTH          2295
 #define FTDI_MAX_HCCD_IMG_HEIGHT         4560
+
+/* Timeout scale is 0.5 ms. Timeout = 2000 = 1s */
+#define FTDI_HALFCCD_REQ_TIMEOUT         2000
+#define FTDI_LUT_TRANS_TIMEOUT           2000
 //! [constants definition]
 
 //! [public module structs definition]
@@ -129,6 +133,12 @@ typedef struct FtdiLutTransStatus {
 	bool bLutTransmitted; /* LUT Transmitted */
 	bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
+
+	/* FTDI Payload Delay Register Struct */
+typedef struct FtdiPayloadDelay {
+	alt_u16 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
+	alt_u16 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
+} TFtdiPayloadDelay;
 
 /* FTDI Tx Data Control Register Struct */
 typedef struct FtdiTxDataControl {
@@ -258,6 +268,7 @@ typedef struct FtdiModule {
 	TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
 	TFtdiLutTransControl xFtdiLutTransControl;
 	TFtdiLutTransStatus xFtdiLutTransStatus;
+	TFtdiPayloadDelay xFtdiPayloadDelay;
 	TFtdiTxDataControl xFtdiTxDataControl;
 	TFtdiTxDataStatus xFtdiTxDataStatus;
 	TFtdiRxDataControl xFtdiRxDataControl;

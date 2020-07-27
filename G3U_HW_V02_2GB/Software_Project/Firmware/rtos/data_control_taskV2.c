@@ -9,21 +9,6 @@
 
 #include "data_control_taskV2.h"
 
-
-//void vFtdiClearModule( void );
-//void vFtdiAbortOperation( void );
-//alt_u8 ucGetError( void );
-//alt_u16 usiFTDInDataLeftInBuffer( void );
-//bool bSdmaFtdiDmaTransfer(eDdr2Memory1, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-//bool bSdmaFtdiDmaTransfer(eDdr2Memory2, alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-//bool bFtdiRequestHalfCcdImg( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
-//bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-//void vRxBuffer0FullIRQHandler(void);
-//void vRxBuffer1FullIRQHandler(void);
-//void vRxLastBufferFullIRQHandler(void);
-//void vRxEmptyBufferFullIRQHandler(void);
-//void vRxCommErrorIRQHandler(void);
-
 /* 0% Ready! */
 void vDataControlTaskV2(void *task_data) {
 	tQMask uiCmdDTC;
@@ -269,7 +254,7 @@ void vDataControlTaskV2(void *task_data) {
 								vFtdiStartModule();
 								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
 								vFtdiResetHalfCcdImg();
-								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
+								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiOLN ) );
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();

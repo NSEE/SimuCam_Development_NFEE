@@ -71,8 +71,8 @@ entity MebX_TopLevel is
 		LED_PAINEL_LED_ST3     : out   std_logic;
 		LED_PAINEL_LED_ST4     : out   std_logic;
 		-- Seven Segment Display
-		SEVEN_SEG_HEX1         : out   std_logic_vector(7 downto 0);
-		SEVEN_SEG_HEX0         : out   std_logic_vector(7 downto 0);
+		--		SEVEN_SEG_HEX1         : out   std_logic_vector(7 downto 0);
+		--		SEVEN_SEG_HEX0         : out   std_logic_vector(7 downto 0);
 		-- FANs
 		FAN_CTRL               : out   std_logic;
 		-- SD CARD
@@ -147,77 +147,77 @@ entity MebX_TopLevel is
 		HSMB_BUFFER_PEM1       : out   std_logic;
 		HSMB_BUFFER_PEM0       : out   std_logic;
 		-- SpaceWire A
-		HSMB_LVDS_RX_SPWA_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWA_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWA_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWA_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWA_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWA_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWA_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWA_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWA_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWA_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWA_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWA_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWA_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWA_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWA_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWA_SO_N : out   std_logic;
 		-- SpaceWire B
-		HSMB_LVDS_RX_SPWB_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWB_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWB_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWB_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWB_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWB_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWB_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWB_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWB_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWB_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWB_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWB_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWB_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWB_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWB_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWB_SO_N : out   std_logic;
 		-- SpaceWire C
-		HSMB_LVDS_RX_SPWC_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWC_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWC_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWC_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWC_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWC_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWC_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWC_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWC_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWC_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWC_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWC_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWC_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWC_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWC_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWC_SO_N : out   std_logic;
 		-- SpaceWire D
-		HSMB_LVDS_RX_SPWD_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWD_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWD_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWD_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWD_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWD_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWD_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWD_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWD_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWD_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWD_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWD_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWD_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWD_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWD_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWD_SO_N : out   std_logic;
 		-- SpaceWire E
-		HSMB_LVDS_RX_SPWE_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWE_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWE_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWE_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWE_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWE_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWE_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWE_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWE_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWE_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWE_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWE_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWE_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWE_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWE_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWE_SO_N : out   std_logic;
 		-- SpaceWire F
-		HSMB_LVDS_RX_SPWF_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWF_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWF_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWF_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWF_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWF_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWF_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWF_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWF_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWF_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWF_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWF_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWF_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWF_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWF_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWF_SO_N : out   std_logic;
 		-- SpaceWire G
-		HSMB_LVDS_RX_SPWG_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWG_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWG_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWG_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWG_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWG_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWG_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWG_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWG_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWG_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWG_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWG_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWG_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWG_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWG_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWG_SO_N : out   std_logic;
 		-- SpaceWire H
-		HSMB_LVDS_RX_SPWH_DI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWH_DI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_RX_SPWH_SI_P : in    std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_RX_SPWH_SI_N : in  std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWH_DO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWH_DO_N : out std_logic_vector(0 downto 0);
-		HSMB_LVDS_TX_SPWH_SO_P : out   std_logic_vector(0 downto 0);
-		--	HSMB_LVDS_TX_SPWH_SO_N : out std_logic_vector(0 downto 0);
+		HSMB_LVDS_RX_SPWH_DI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWH_DI_N : in    std_logic;
+		HSMB_LVDS_RX_SPWH_SI_P : in    std_logic;
+		HSMB_LVDS_RX_SPWH_SI_N : in    std_logic;
+		HSMB_LVDS_TX_SPWH_DO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWH_DO_N : out   std_logic;
+		HSMB_LVDS_TX_SPWH_SO_P : out   std_logic;
+		HSMB_LVDS_TX_SPWH_SO_N : out   std_logic;
 		-- Temperature 
 		TEMP_INT_n             : in    std_logic;
 		TEMP_SMCLK             : out   std_logic;
@@ -298,16 +298,9 @@ architecture bhv of MebX_TopLevel is
 	-----------------------------------------
 	-- Clock e reset
 	-----------------------------------------
-	signal clk125, clk100, clk80 : std_logic;
-
-	signal forceIntRst_n : std_logic := '0';
-
 	signal rst_ctrl_input : std_logic := '0';
 	signal simucam_rst    : std_logic := '0';
-
-	attribute KEEP : boolean;
-	attribute KEEP of clk100 : signal is true;
-	attribute KEEP of clk80 : signal is true;
+	signal rst_n          : std_logic;
 
 	-----------------------------------------
 	-- Ethernet 
@@ -333,65 +326,31 @@ architecture bhv of MebX_TopLevel is
 	-- Ctrl io lvds
 	-----------------------------------------
 	signal ctrl_io_lvds : std_logic_vector(3 downto 0);
-
-	-----------------------------------------
-	-- RST CPU
-	-----------------------------------------
-	signal rst_n : std_logic;
-
-	signal pll_locked : std_logic;
+	alias a_enable_iso_drivers is ctrl_io_lvds(3);
+	alias a_hsmb_buffers_powerdown_n is ctrl_io_lvds(2);
+	alias a_hsmb_buffers_preemphasis_1 is ctrl_io_lvds(1);
+	alias a_hsmb_buffers_preemphasis_0 is ctrl_io_lvds(0);
 
 	-----------------------------------------
 	-- Signals
 	-----------------------------------------
-	signal spw_a_si : std_logic_vector(0 downto 0);
-	signal spw_a_so : std_logic_vector(0 downto 0);
-	signal spw_a_di : std_logic_vector(0 downto 0);
-	signal spw_a_do : std_logic_vector(0 downto 0);
-	signal spw_b_si : std_logic_vector(0 downto 0);
-	signal spw_b_so : std_logic_vector(0 downto 0);
-	signal spw_b_di : std_logic_vector(0 downto 0);
-	signal spw_b_do : std_logic_vector(0 downto 0);
-	signal spw_c_si : std_logic_vector(0 downto 0);
-	signal spw_c_so : std_logic_vector(0 downto 0);
-	signal spw_c_di : std_logic_vector(0 downto 0);
-	signal spw_c_do : std_logic_vector(0 downto 0);
-	signal spw_d_si : std_logic_vector(0 downto 0);
-	signal spw_d_so : std_logic_vector(0 downto 0);
-	signal spw_d_di : std_logic_vector(0 downto 0);
-	signal spw_d_do : std_logic_vector(0 downto 0);
-	signal spw_e_si : std_logic_vector(0 downto 0);
-	signal spw_e_so : std_logic_vector(0 downto 0);
-	signal spw_e_di : std_logic_vector(0 downto 0);
-	signal spw_e_do : std_logic_vector(0 downto 0);
-	signal spw_f_si : std_logic_vector(0 downto 0);
-	signal spw_f_so : std_logic_vector(0 downto 0);
-	signal spw_f_di : std_logic_vector(0 downto 0);
-	signal spw_f_do : std_logic_vector(0 downto 0);
-	signal spw_g_si : std_logic_vector(0 downto 0);
-	signal spw_g_so : std_logic_vector(0 downto 0);
-	signal spw_g_di : std_logic_vector(0 downto 0);
-	signal spw_g_do : std_logic_vector(0 downto 0);
-	signal spw_h_si : std_logic_vector(0 downto 0);
-	signal spw_h_so : std_logic_vector(0 downto 0);
-	signal spw_h_di : std_logic_vector(0 downto 0);
-	signal spw_h_do : std_logic_vector(0 downto 0);
+	signal spw_1_sync : std_logic;
+	signal spw_2_sync : std_logic;
+	signal spw_3_sync : std_logic;
+	signal spw_4_sync : std_logic;
+	signal spw_5_sync : std_logic;
+	signal spw_6_sync : std_logic;
+	signal spw_7_sync : std_logic;
+	signal spw_8_sync : std_logic;
 
-	signal comm_1_sync : std_logic;
-	signal comm_2_sync : std_logic;
-	signal comm_3_sync : std_logic;
-	signal comm_4_sync : std_logic;
-	signal comm_5_sync : std_logic;
-	signal comm_6_sync : std_logic;
-	signal comm_7_sync : std_logic;
-	signal comm_8_sync : std_logic;
-
-	signal comm_1_measure : std_logic_vector(7 downto 0);
-	signal comm_2_measure : std_logic_vector(7 downto 0);
-	signal comm_3_measure : std_logic_vector(7 downto 0);
-	signal comm_4_measure : std_logic_vector(7 downto 0);
-	signal comm_5_measure : std_logic_vector(7 downto 0);
-	signal comm_6_measure : std_logic_vector(7 downto 0);
+	signal spw_a_measure : std_logic_vector(7 downto 0);
+	signal spw_b_measure : std_logic_vector(7 downto 0);
+	signal spw_c_measure : std_logic_vector(7 downto 0);
+	signal spw_d_measure : std_logic_vector(7 downto 0);
+	signal spw_e_measure : std_logic_vector(7 downto 0);
+	signal spw_f_measure : std_logic_vector(7 downto 0);
+	signal spw_g_measure : std_logic_vector(7 downto 0);
+	signal spw_h_measure : std_logic_vector(7 downto 0);
 
 	signal spw_a_red_led   : std_logic;
 	signal spw_a_green_led : std_logic;
@@ -411,7 +370,7 @@ architecture bhv of MebX_TopLevel is
 	signal spw_h_green_led : std_logic;
 
 	-----------------------------------------
-	-- Sync - test
+	-- Sync
 	-----------------------------------------
 	signal s_sync_out : std_logic := '0';
 	signal s_sync_in  : std_logic := '0';
@@ -424,7 +383,7 @@ architecture bhv of MebX_TopLevel is
 		port(
 			rst_reset_n                                                 : in    std_logic;
 			--
-			rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := 'X'; --          -- t_reset_input_signal
+			rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := '0'; --          -- t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic; --                                     -- t_simucam_reset_signal
 			--
 			m2_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);
@@ -462,7 +421,7 @@ architecture bhv of MebX_TopLevel is
 			m1_ddr2_oct_rdn                                             : in    std_logic                     := 'X';
 			m1_ddr2_oct_rup                                             : in    std_logic                     := 'X';
 			--
-			clk50_clk                                                   : in    std_logic                     := 'X';
+			clk50_clk                                                   : in    std_logic                     := '0';
 			--
 			tristate_conduit_tcm_address_out                            : out   std_logic_vector(25 downto 0);
 			tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);
@@ -477,8 +436,8 @@ architecture bhv of MebX_TopLevel is
 			led_de4_export                                              : out   std_logic_vector(7 downto 0);
 			led_painel_export                                           : out   std_logic_vector(20 downto 0);
 			--
-			ssdp_ssdp1                                                  : out   std_logic_vector(7 downto 0);
-			ssdp_ssdp0                                                  : out   std_logic_vector(7 downto 0);
+			--			ssdp_ssdp1                                                  : out   std_logic_vector(7 downto 0);
+			--			ssdp_ssdp0                                                  : out   std_logic_vector(7 downto 0);
 			--
 			ctrl_io_lvds_export                                         : out   std_logic_vector(3 downto 0);
 			--
@@ -488,83 +447,134 @@ architecture bhv of MebX_TopLevel is
 			m2_ddr2_i2c_scl_export                                      : out   std_logic;
 			m2_ddr2_i2c_sda_export                                      : inout std_logic;
 			--
-			spwc_a_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_a_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_a_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_a_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_a_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_a_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_a_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_a_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_a_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_a_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_a_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_a_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			spwc_b_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_b_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_b_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_b_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_b_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_b_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_b_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_b_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_b_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_b_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_b_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_b_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			spwc_c_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_c_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_c_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_c_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_c_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_c_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_c_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_c_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_c_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_c_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_c_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_c_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			spwc_d_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_d_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_d_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_d_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_d_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_d_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_d_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_d_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_d_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_d_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_d_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_d_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			spwc_e_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_e_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_e_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_e_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_e_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_e_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_e_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_e_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_e_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_e_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_e_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_e_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			spwc_f_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_f_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_f_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_f_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_f_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_f_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_f_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_f_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_f_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_f_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_f_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_f_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			spwc_g_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_g_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_g_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_g_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_g_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_g_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_g_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_g_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_g_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_g_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_g_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_g_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			spwc_h_lvds_spw_data_in_signal                              : in    std_logic                     := 'X'; -- spw_data_in_signal
-			spwc_h_lvds_spw_strobe_in_signal                            : in    std_logic                     := 'X'; -- spw_strobe_in_signal
-			spwc_h_lvds_spw_data_out_signal                             : out   std_logic; --                         -- spw_data_out_signal
-			spwc_h_lvds_spw_strobe_out_signal                           : out   std_logic; --                         -- spw_strobe_out_signal
+			spwc_h_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_p_data_in_signal
+			spwc_h_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := 'X'; -- spw_lvds_n_data_in_signal
+			spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_p_strobe_in_signal
+			spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X'; -- spw_lvds_n_strobe_in_signal
+			spwc_h_lvds_spw_lvds_p_data_out_signal                      : out   std_logic; -- spw_lvds_p_data_out_signal
+			spwc_h_lvds_spw_lvds_n_data_out_signal                      : out   std_logic; -- spw_lvds_n_data_out_signal
+			spwc_h_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; -- spw_lvds_p_strobe_out_signal
+			spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; -- spw_lvds_n_strobe_out_signal
 			--
-			comm_1_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
-			comm_2_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
-			comm_3_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
-			comm_4_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
-			comm_5_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
-			comm_6_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
+			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := '0'; -- sync_channel_signal
+			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := '0'; -- sync_channel_signal
+			comm_c_sync_end_sync_channel_signal                         : in    std_logic                     := '0'; -- sync_channel_signal
+			comm_d_sync_end_sync_channel_signal                         : in    std_logic                     := '0'; -- sync_channel_signal
+			comm_e_sync_end_sync_channel_signal                         : in    std_logic                     := '0'; -- sync_channel_signal
+			comm_f_sync_end_sync_channel_signal                         : in    std_logic                     := '0'; -- sync_channel_signal
+			--			comm_g_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
+			--			comm_h_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			--
-			comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
-			comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
-			comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
-			comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
-			comm_5_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
-			comm_6_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
+			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
 			--
-			spwc_a_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_a_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_a_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_a_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
 			--
-			spwc_b_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_b_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_b_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_b_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
 			--
-			spwc_c_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_c_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_c_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_c_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
 			--
-			spwc_d_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_d_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_d_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_d_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
 			--
-			spwc_e_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_e_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_e_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_e_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
 			--
-			spwc_f_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_f_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_f_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_f_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
 			--
-			spwc_g_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_g_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_g_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_g_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
 			--
-			spwc_h_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
-			spwc_h_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
+			spwc_h_leds_spw_red_status_led_signal                       : out   std_logic; -- spw_red_status_led_signal
+			spwc_h_leds_spw_green_status_led_signal                     : out   std_logic; -- spw_green_status_led_signal
+			--
+			spwc_a_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_a_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
+			spwc_b_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_b_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
+			spwc_c_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_c_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
+			spwc_d_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_d_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
+			spwc_e_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_e_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
+			spwc_f_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_f_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
+			spwc_g_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_g_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
+			spwc_h_enable_spw_rx_enable_signal                          : in    std_logic                     := '0'; -- spw_rx_enable_signal
+			spwc_h_enable_spw_tx_enable_signal                          : in    std_logic                     := '0'; -- spw_tx_enable_signal
 			--
 			temp_scl_export                                             : out   std_logic;
 			temp_sda_export                                             : inout std_logic;
@@ -601,16 +611,16 @@ architecture bhv of MebX_TopLevel is
 			rs232_uart_rxd                                              : in    std_logic                     := 'X'; -- rxd
 			rs232_uart_txd                                              : out   std_logic; --                         -- txd
 			--
-			ftdi_clk_clk                                                : in    std_logic                     := 'X'; --          -- clk
+			ftdi_clk_clk                                                : in    std_logic                     := '0'; --          -- clk
 			--
-			umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
+			umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'Z'); -- umft_data_signal
 			umft601a_pins_umft_reset_n_signal                           : out   std_logic; --                                     -- umft_reset_n_signal
-			umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := 'X'; --          -- umft_rxf_n_signal
-			umft601a_pins_umft_clock_signal                             : in    std_logic                     := 'X'; --          -- umft_clock_signal
-			umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := 'X'; --          -- umft_wakeup_n_signal
-			umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- umft_be_signal
-			umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := 'X'; --          -- umft_txe_n_signal
-			umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => 'X'); -- umft_gpio_bus_signal
+			umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := '1'; --          -- umft_rxf_n_signal
+			umft601a_pins_umft_clock_signal                             : in    std_logic                     := '0'; --          -- umft_clock_signal
+			umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := 'Z'; --          -- umft_wakeup_n_signal
+			umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => 'Z'); -- umft_be_signal
+			umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := '1'; --          -- umft_txe_n_signal
+			umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => 'Z'); -- umft_gpio_bus_signal
 			umft601a_pins_umft_wr_n_signal                              : out   std_logic; --                                     -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              : out   std_logic; --                                     -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              : out   std_logic; --                                     -- umft_oe_n_signal
@@ -629,14 +639,6 @@ architecture bhv of MebX_TopLevel is
 begin
 
 	--==========--
-	-- Clk
-	--==========--
-	--PLL_inst_125 : pll_125 port map (
-	--		inclk0 => OSC_50_BANK2,
-	--		c0     => enet_refclk_125MHz
-	--	);
-
-	--==========--
 	-- AVALON
 	--==========--
 	SOPC_INST : MebX_Qsys_Project
@@ -651,8 +653,8 @@ begin
 			led_de4_export                                              => leds_b,
 			led_painel_export                                           => leds_p,
 			--
-			ssdp_ssdp1                                                  => SEVEN_SEG_HEX1,
-			ssdp_ssdp0                                                  => SEVEN_SEG_HEX0,
+			--			ssdp_ssdp1                                                  => SEVEN_SEG_HEX1,
+			--			ssdp_ssdp0                                                  => SEVEN_SEG_HEX0,
 			--
 			dip_export                                                  => SW,
 			button_export                                               => Button,
@@ -660,7 +662,7 @@ begin
 			--
 			ctrl_io_lvds_export                                         => ctrl_io_lvds,
 			--
-			tristate_conduit_tcm_address_out                            => FSM_A(25 downto 0),
+			tristate_conduit_tcm_address_out                            => FSM_A,
 			tristate_conduit_tcm_data_out                               => FSM_D,
 			tristate_conduit_tcm_chipselect_n_out                       => FLASH_CE_n,
 			tristate_conduit_tcm_read_n_out                             => FLASH_OE_n,
@@ -707,59 +709,93 @@ begin
 			m2_ddr2_i2c_scl_export                                      => M2_DDR2_SCL,
 			m2_ddr2_i2c_sda_export                                      => M2_DDR2_SDA,
 			--
-			spwc_a_lvds_spw_data_in_signal                              => spw_a_di(0), --                           spwc_a_lvds.spw_data_in_signal
-			spwc_a_lvds_spw_strobe_in_signal                            => spw_a_si(0), --                                      .spw_strobe_in_signal
-			spwc_a_lvds_spw_data_out_signal                             => spw_a_do(0), --                                      .spw_data_out_signal
-			spwc_a_lvds_spw_strobe_out_signal                           => spw_a_so(0), --                                      .spw_strobe_out_signal
+			spwc_a_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWA_DI_P, --                        spwc_a_lvds.spw_lvds_p_data_in_signal
+			spwc_a_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWA_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_a_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWA_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_a_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWA_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_a_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWA_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_a_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWA_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_a_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWA_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_a_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWA_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			spwc_b_lvds_spw_data_in_signal                              => spw_b_di(0), --                           spwc_b_lvds.spw_data_in_signal
-			spwc_b_lvds_spw_strobe_in_signal                            => spw_b_si(0), --                                      .spw_strobe_in_signal
-			spwc_b_lvds_spw_data_out_signal                             => spw_b_do(0), --                                      .spw_data_out_signal
-			spwc_b_lvds_spw_strobe_out_signal                           => spw_b_so(0), --                                      .spw_strobe_out_signal
+			spwc_b_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWB_DI_P, --                        spwc_b_lvds.spw_lvds_p_data_in_signal
+			spwc_b_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWB_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_b_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWB_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_b_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWB_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_b_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWB_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_b_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWB_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_b_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWB_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_b_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWB_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			spwc_c_lvds_spw_data_in_signal                              => spw_c_di(0), --                           spwc_c_lvds.spw_data_in_signal
-			spwc_c_lvds_spw_strobe_in_signal                            => spw_c_si(0), --                                      .spw_strobe_in_signal
-			spwc_c_lvds_spw_data_out_signal                             => spw_c_do(0), --                                      .spw_data_out_signal
-			spwc_c_lvds_spw_strobe_out_signal                           => spw_c_so(0), --                                      .spw_strobe_out_signal
+			spwc_c_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWC_DI_P, --                        spwc_c_lvds.spw_lvds_p_data_in_signal
+			spwc_c_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWC_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_c_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWC_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_c_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWC_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_c_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWC_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_c_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWC_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_c_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWC_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_c_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWC_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			spwc_d_lvds_spw_data_in_signal                              => spw_d_di(0), --                           spwc_d_lvds.spw_data_in_signal
-			spwc_d_lvds_spw_strobe_in_signal                            => spw_d_si(0), --                                      .spw_strobe_in_signal
-			spwc_d_lvds_spw_data_out_signal                             => spw_d_do(0), --                                      .spw_data_out_signal
-			spwc_d_lvds_spw_strobe_out_signal                           => spw_d_so(0), --                                      .spw_strobe_out_signal
+			spwc_d_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWD_DI_P, --                        spwc_d_lvds.spw_lvds_p_data_in_signal
+			spwc_d_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWD_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_d_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWD_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_d_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWD_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_d_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWD_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_d_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWD_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_d_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWD_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_d_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWD_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			spwc_e_lvds_spw_data_in_signal                              => spw_e_di(0), --                           spwc_e_lvds.spw_data_in_signal
-			spwc_e_lvds_spw_strobe_in_signal                            => spw_e_si(0), --                                      .spw_strobe_in_signal
-			spwc_e_lvds_spw_data_out_signal                             => spw_e_do(0), --                                      .spw_data_out_signal
-			spwc_e_lvds_spw_strobe_out_signal                           => spw_e_so(0), --                                      .spw_strobe_out_signal
+			spwc_e_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWE_DI_P, --                        spwc_e_lvds.spw_lvds_p_data_in_signal
+			spwc_e_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWE_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_e_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWE_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_e_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWE_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_e_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWE_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_e_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWE_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_e_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWE_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_e_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWE_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			spwc_f_lvds_spw_data_in_signal                              => spw_f_di(0), --                           spwc_f_lvds.spw_data_in_signal
-			spwc_f_lvds_spw_strobe_in_signal                            => spw_f_si(0), --                                      .spw_strobe_in_signal
-			spwc_f_lvds_spw_data_out_signal                             => spw_f_do(0), --                                      .spw_data_out_signal
-			spwc_f_lvds_spw_strobe_out_signal                           => spw_f_so(0), --                                      .spw_strobe_out_signal
+			spwc_f_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWF_DI_P, --                        spwc_f_lvds.spw_lvds_p_data_in_signal
+			spwc_f_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWF_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_f_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWF_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_f_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWF_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_f_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWF_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_f_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWF_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_f_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWF_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_f_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWF_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			spwc_g_lvds_spw_data_in_signal                              => spw_g_di(0), --                           spwc_g_lvds.spw_data_in_signal
-			spwc_g_lvds_spw_strobe_in_signal                            => spw_g_si(0), --                                      .spw_strobe_in_signal
-			spwc_g_lvds_spw_data_out_signal                             => spw_g_do(0), --                                      .spw_data_out_signal
-			spwc_g_lvds_spw_strobe_out_signal                           => spw_g_so(0), --                                      .spw_strobe_out_signal
+			spwc_g_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWG_DI_P, --                        spwc_g_lvds.spw_lvds_p_data_in_signal
+			spwc_g_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWG_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_g_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWG_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_g_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWG_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_g_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWG_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_g_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWG_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_g_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWG_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_g_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWG_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			spwc_h_lvds_spw_data_in_signal                              => spw_h_di(0), --                           spwc_h_lvds.spw_data_in_signal
-			spwc_h_lvds_spw_strobe_in_signal                            => spw_h_si(0), --                                      .spw_strobe_in_signal
-			spwc_h_lvds_spw_data_out_signal                             => spw_h_do(0), --                                      .spw_data_out_signal
-			spwc_h_lvds_spw_strobe_out_signal                           => spw_h_so(0), --                                      .spw_strobe_out_signal
+			spwc_h_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWH_DI_P, --                        spwc_h_lvds.spw_lvds_p_data_in_signal
+			spwc_h_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWH_DI_N, --                                   .spw_lvds_n_data_in_signal
+			spwc_h_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWH_SI_P, --                                   .spw_lvds_p_strobe_in_signal
+			spwc_h_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWH_SI_N, --                                   .spw_lvds_n_strobe_in_signal
+			spwc_h_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWH_DO_P, --                                   .spw_lvds_p_data_out_signal
+			spwc_h_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWH_DO_N, --                                   .spw_lvds_n_data_out_signal
+			spwc_h_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_P, --                                   .spw_lvds_p_strobe_out_signal
+			spwc_h_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_N, --                                   .spw_lvds_n_strobe_out_signal
 			--
-			comm_1_sync_sync_signal                                     => comm_1_sync, --       --                       comm_a_sync_end.sync_channel_signal
-			comm_2_sync_sync_signal                                     => comm_2_sync, --       --                       comm_b_sync_end.sync_channel_signal
-			comm_3_sync_sync_signal                                     => comm_3_sync, --       --                       comm_c_sync_end.sync_channel_signal
-			comm_4_sync_sync_signal                                     => comm_4_sync, --       --                       comm_d_sync_end.sync_channel_signal
-			comm_5_sync_sync_signal                                     => comm_5_sync, --       --                       comm_e_sync_end.sync_channel_signal
-			comm_6_sync_sync_signal                                     => comm_6_sync, --       --                       comm_f_sync_end.sync_channel_signal
+			comm_a_sync_end_sync_channel_signal                         => spw_1_sync, --       --                       comm_a_sync_end.sync_channel_signal
+			comm_b_sync_end_sync_channel_signal                         => spw_2_sync, --       --                       comm_b_sync_end.sync_channel_signal
+			comm_c_sync_end_sync_channel_signal                         => spw_3_sync, --       --                       comm_c_sync_end.sync_channel_signal
+			comm_d_sync_end_sync_channel_signal                         => spw_4_sync, --       --                       comm_d_sync_end.sync_channel_signal
+			comm_e_sync_end_sync_channel_signal                         => spw_5_sync, --       --                       comm_e_sync_end.sync_channel_signal
+			comm_f_sync_end_sync_channel_signal                         => spw_6_sync, --       --                       comm_f_sync_end.sync_channel_signal
+			--			comm_g_sync_end_sync_channel_signal                         => spw_7_sync, --       --                       comm_g_sync_end.sync_channel_signal
+			--			comm_h_sync_end_sync_channel_signal                         => spw_8_sync, --       --                       comm_h_sync_end.sync_channel_signal
 			--
-			comm_1_measurements_measurements_signal                     => comm_1_measure, --    -- comm_a_measurements_conduit_end.measurements_channel_signal
-			comm_2_measurements_measurements_signal                     => comm_2_measure, --    -- comm_b_measurements_conduit_end.measurements_channel_signal
-			comm_3_measurements_measurements_signal                     => comm_3_measure, --    -- comm_c_measurements_conduit_end.measurements_channel_signal
-			comm_4_measurements_measurements_signal                     => comm_4_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
-			comm_5_measurements_measurements_signal                     => comm_5_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
-			comm_6_measurements_measurements_signal                     => comm_6_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
+			comm_a_measurements_conduit_end_measurements_channel_signal => spw_a_measure, --    -- comm_a_measurements_conduit_end.measurements_channel_signal
+			comm_b_measurements_conduit_end_measurements_channel_signal => spw_b_measure, --    -- comm_b_measurements_conduit_end.measurements_channel_signal
+			comm_c_measurements_conduit_end_measurements_channel_signal => spw_c_measure, --    -- comm_c_measurements_conduit_end.measurements_channel_signal
+			comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
+			comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
+			comm_f_measurements_conduit_end_measurements_channel_signal => spw_f_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
 			--
 			spwc_a_leds_spw_red_status_led_signal                       => spw_a_red_led, --                           spwc_a_leds.spw_red_status_led_signal
 			spwc_a_leds_spw_green_status_led_signal                     => spw_a_green_led, --                                      .spw_green_status_led_signal
@@ -785,6 +821,23 @@ begin
 			spwc_h_leds_spw_red_status_led_signal                       => spw_h_red_led, --                           spwc_h_leds.spw_red_status_led_signal
 			spwc_h_leds_spw_green_status_led_signal                     => spw_h_green_led, --                                      .spw_green_status_led_signal
 			--
+			spwc_a_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_a_enable.spw_rx_enable_signal
+			spwc_a_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal
+			spwc_b_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_b_enable.spw_rx_enable_signal
+			spwc_b_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal
+			spwc_c_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_c_enable.spw_rx_enable_signal
+			spwc_c_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal
+			spwc_d_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_d_enable.spw_rx_enable_signal
+			spwc_d_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal
+			spwc_e_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_e_enable.spw_rx_enable_signal
+			spwc_e_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal
+			spwc_f_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_f_enable.spw_rx_enable_signal
+			spwc_f_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal            
+			spwc_g_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_g_enable.spw_rx_enable_signal
+			spwc_g_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal            
+			spwc_h_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, --                        spwc_h_enable.spw_rx_enable_signal
+			spwc_h_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, --                                     .spw_tx_enable_signal
+			--
 			temp_scl_export                                             => TEMP_SMCLK,
 			temp_sda_export                                             => TEMP_SMDAT,
 			--
@@ -802,14 +855,14 @@ begin
 			--
 			sync_in_conduit                                             => s_sync_in, --        --                               sync_in.conduit
 			sync_out_conduit                                            => s_sync_out, --       --                              sync_out.conduit
-			sync_spw1_conduit                                           => comm_1_sync, --       --                             sync_spw1.conduit
-			sync_spw2_conduit                                           => comm_2_sync, --       --                             sync_spw2.conduit
-			sync_spw3_conduit                                           => comm_3_sync, --       --                             sync_spw3.conduit
-			sync_spw4_conduit                                           => comm_4_sync, --       --                             sync_spw4.conduit
-			sync_spw5_conduit                                           => comm_5_sync, --       --                             sync_spw5.conduit
-			sync_spw6_conduit                                           => comm_6_sync, --       --                             sync_spw6.conduit
-			sync_spw7_conduit                                           => comm_7_sync, --       --                             sync_spw7.conduit
-			sync_spw8_conduit                                           => comm_8_sync, --       --                             sync_spw8.conduit
+			sync_spw1_conduit                                           => spw_1_sync, --       --                             sync_spw1.conduit
+			sync_spw2_conduit                                           => spw_2_sync, --       --                             sync_spw2.conduit
+			sync_spw3_conduit                                           => spw_3_sync, --       --                             sync_spw3.conduit
+			sync_spw4_conduit                                           => spw_4_sync, --       --                             sync_spw4.conduit
+			sync_spw5_conduit                                           => spw_5_sync, --       --                             sync_spw5.conduit
+			sync_spw6_conduit                                           => spw_6_sync, --       --                             sync_spw6.conduit
+			sync_spw7_conduit                                           => spw_7_sync, --       --                             sync_spw7.conduit
+			sync_spw8_conduit                                           => spw_8_sync, --       --                             sync_spw8.conduit
 			--
 			sd_card_wp_n_io_export                                      => I_SD_CARD_WP_n, --   --                       sd_card_wp_n_io.export
 			sd_card_ip_b_SD_cmd                                         => B_SD_CARD_CMD, --    --                            sd_card_ip.b_SD_cmd
@@ -890,26 +943,26 @@ begin
 	LED_PAINEL_LED_ST4   <= ('1') when (rst_n = '0') else (leds_p(20));
 
 	-- SpW Channel Measurements
-	JP3_GPIO0_D22_IO <= comm_1_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D23_IO <= comm_2_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D18_IO <= comm_3_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D19_IO <= comm_4_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D14_IO <= comm_5_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D15_IO <= comm_6_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D22_IO <= spw_a_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D23_IO <= spw_b_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D18_IO <= spw_c_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D19_IO <= spw_d_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D14_IO <= spw_e_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D15_IO <= spw_f_measure(4); -- measurement 4 : right fee busy signal
 
-	JP3_GPIO0_D24_IO <= comm_1_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D25_IO <= comm_2_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D20_IO <= comm_3_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D21_IO <= comm_4_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D16_IO <= comm_5_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D17_IO <= comm_6_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D24_IO <= spw_a_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D25_IO <= spw_b_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D20_IO <= spw_c_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D21_IO <= spw_d_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D16_IO <= spw_e_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D17_IO <= spw_f_measure(5); -- measurement 5 : left fee busy signal
 
-	JP3_GPIO0_D34_IO <= comm_1_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D35_IO <= comm_2_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D32_IO <= comm_3_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D33_IO <= comm_4_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D30_IO <= comm_5_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D31_IO <= comm_6_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D34_IO <= spw_a_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D35_IO <= spw_b_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D32_IO <= spw_c_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D33_IO <= spw_d_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D30_IO <= spw_e_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D31_IO <= spw_f_measure(6); -- measurement 6 : fee busy signal
 
 	-- Sync Debug
 	JP3_GPIO0_D10_IO <= s_sync_in;
@@ -967,189 +1020,9 @@ begin
 	--	HSMB_BUFFER_PEM1	<= '0';
 	--	EN_ISO_DRIVERS		<= '0';
 
-	EN_ISO_DRIVERS     <= ctrl_io_lvds(3);
-	HSMB_BUFFER_PWDN_N <= ctrl_io_lvds(2);
-	HSMB_BUFFER_PEM1   <= ctrl_io_lvds(1);
-	HSMB_BUFFER_PEM0   <= ctrl_io_lvds(0);
-
-	--==========--
-	-- LVDS
-	--==========--
-
-	--SpW A
-	TX_DO_A : TX_LVDS
-		port map(
-			tx_in  => spw_a_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWA_DO_P(0 downto 0)
-		);
-	TX_DI_A : RX_LVDS
-		port map(
-			rx_out => spw_a_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWA_DI_P(0 downto 0)
-		);
-	TX_SO_A : TX_LVDS
-		port map(
-			tx_in  => spw_a_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWA_SO_P(0 downto 0)
-		);
-	TX_SI_A : RX_LVDS
-		port map(
-			rx_out => spw_a_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWA_SI_P(0 downto 0)
-		);
-
-	--SpW B
-	TX_DO_B : TX_LVDS
-		port map(
-			tx_in  => spw_b_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWB_DO_P(0 downto 0)
-		);
-	TX_DI_B : RX_LVDS
-		port map(
-			rx_out => spw_b_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWB_DI_P(0 downto 0)
-		);
-	TX_SO_B : TX_LVDS
-		port map(
-			tx_in  => spw_b_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWB_SO_P(0 downto 0)
-		);
-	TX_SI_B : RX_LVDS
-		port map(
-			rx_out => spw_b_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWB_SI_P(0 downto 0)
-		);
-
-	--SpW C
-	TX_DO_C : TX_LVDS
-		port map(
-			tx_in  => spw_c_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWC_DO_P(0 downto 0)
-		);
-	TX_DI_C : RX_LVDS
-		port map(
-			rx_out => spw_c_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWC_DI_P(0 downto 0)
-		);
-	TX_SO_C : TX_LVDS
-		port map(
-			tx_in  => spw_c_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWC_SO_P(0 downto 0)
-		);
-	TX_SI_C : RX_LVDS
-		port map(
-			rx_out => spw_c_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWC_SI_P(0 downto 0)
-		);
-
-	--SpW D
-	TX_DO_D : TX_LVDS
-		port map(
-			tx_in  => spw_d_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWD_DO_P(0 downto 0)
-		);
-	TX_DI_D : RX_LVDS
-		port map(
-			rx_out => spw_d_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWD_DI_P(0 downto 0)
-		);
-	TX_SO_D : TX_LVDS
-		port map(
-			tx_in  => spw_d_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWD_SO_P(0 downto 0)
-		);
-	TX_SI_D : RX_LVDS
-		port map(
-			rx_out => spw_d_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWD_SI_P(0 downto 0)
-		);
-
-	--SpW E
-	TX_DO_E : TX_LVDS
-		port map(
-			tx_in  => spw_e_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWE_DO_P(0 downto 0)
-		);
-	TX_DI_E : RX_LVDS
-		port map(
-			rx_out => spw_e_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWE_DI_P(0 downto 0)
-		);
-	TX_SO_E : TX_LVDS
-		port map(
-			tx_in  => spw_e_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWE_SO_P(0 downto 0)
-		);
-	TX_SI_E : RX_LVDS
-		port map(
-			rx_out => spw_e_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWE_SI_P(0 downto 0)
-		);
-
-	--SpW F
-	TX_DO_F : TX_LVDS
-		port map(
-			tx_in  => spw_f_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWF_DO_P(0 downto 0)
-		);
-	TX_DI_F : RX_LVDS
-		port map(
-			rx_out => spw_f_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWF_DI_P(0 downto 0)
-		);
-	TX_SO_F : TX_LVDS
-		port map(
-			tx_in  => spw_f_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWF_SO_P(0 downto 0)
-		);
-	TX_SI_F : RX_LVDS
-		port map(
-			rx_out => spw_f_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWF_SI_P(0 downto 0)
-		);
-
-	--SpW G
-	TX_DO_G : TX_LVDS
-		port map(
-			tx_in  => spw_g_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWG_DO_P(0 downto 0)
-		);
-	TX_DI_G : RX_LVDS
-		port map(
-			rx_out => spw_g_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWG_DI_P(0 downto 0)
-		);
-	TX_SO_G : TX_LVDS
-		port map(
-			tx_in  => spw_g_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWG_SO_P(0 downto 0)
-		);
-	TX_SI_G : RX_LVDS
-		port map(
-			rx_out => spw_g_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWG_SI_P(0 downto 0)
-		);
-
-	--SpW H
-	TX_DO_H : TX_LVDS
-		port map(
-			tx_in  => spw_h_do(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWH_DO_P(0 downto 0)
-		);
-	TX_DI_H : RX_LVDS
-		port map(
-			rx_out => spw_h_di(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWH_DI_P(0 downto 0)
-		);
-	TX_SO_H : TX_LVDS
-		port map(
-			tx_in  => spw_h_so(0 downto 0),
-			tx_out => HSMB_LVDS_TX_SPWH_SO_P(0 downto 0)
-		);
-	TX_SI_H : RX_LVDS
-		port map(
-			rx_out => spw_h_si(0 downto 0),
-			rx_in  => HSMB_LVDS_RX_SPWH_SI_P(0 downto 0)
-		);
+	EN_ISO_DRIVERS     <= a_enable_iso_drivers;
+	HSMB_BUFFER_PWDN_N <= a_hsmb_buffers_powerdown_n;
+	HSMB_BUFFER_PEM1   <= a_hsmb_buffers_preemphasis_1;
+	HSMB_BUFFER_PEM0   <= a_hsmb_buffers_preemphasis_0;
 
 end bhv;

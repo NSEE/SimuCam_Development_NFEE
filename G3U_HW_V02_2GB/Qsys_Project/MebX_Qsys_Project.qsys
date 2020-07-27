@@ -1877,6 +1877,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_a_enable"
+   internal="SpaceWire_Channel_A.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_a_leds"
    internal="SpaceWire_Channel_A.conduit_end_spacewire_leds"
    type="conduit"
@@ -1884,6 +1889,11 @@
  <interface
    name="spwc_a_lvds"
    internal="SpaceWire_Channel_A.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_b_enable"
+   internal="SpaceWire_Channel_B.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface
@@ -1897,6 +1907,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_c_enable"
+   internal="SpaceWire_Channel_C.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_c_leds"
    internal="SpaceWire_Channel_C.conduit_end_spacewire_leds"
    type="conduit"
@@ -1904,6 +1919,11 @@
  <interface
    name="spwc_c_lvds"
    internal="SpaceWire_Channel_C.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_d_enable"
+   internal="SpaceWire_Channel_D.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface
@@ -1917,6 +1937,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_e_enable"
+   internal="SpaceWire_Channel_E.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_e_leds"
    internal="SpaceWire_Channel_E.conduit_end_spacewire_leds"
    type="conduit"
@@ -1924,6 +1949,11 @@
  <interface
    name="spwc_e_lvds"
    internal="SpaceWire_Channel_E.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_f_enable"
+   internal="SpaceWire_Channel_F.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface
@@ -1937,6 +1967,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_g_enable"
+   internal="SpaceWire_Channel_G.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_g_leds"
    internal="SpaceWire_Channel_G.conduit_end_spacewire_leds"
    type="conduit"
@@ -1944,6 +1979,11 @@
  <interface
    name="spwc_g_lvds"
    internal="SpaceWire_Channel_G.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_h_enable"
+   internal="SpaceWire_Channel_H.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface

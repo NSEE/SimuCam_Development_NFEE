@@ -10,7 +10,9 @@ entity ftdi_protocol_top is
 		rst_i                                : in  std_logic;
 		ftdi_module_stop_i                   : in  std_logic; --                  -- Start Module Operation
 		ftdi_module_start_i                  : in  std_logic; --                  -- Stop Module Operation
-		req_half_ccd_request_timeout_i       : in  std_logic_vector(15 downto 0); -- Half-CCD Request Timeout
+		rx_payload_reader_qqword_delay_i     : in  std_logic_vector(15 downto 0); -- Rx Payload Reader Qqword Delay [us]
+		tx_payload_writer_qqword_delay_i     : in  std_logic_vector(15 downto 0); -- Tx Payload Writer Qqword Delay [us]
+		req_half_ccd_request_timeout_i       : in  std_logic_vector(15 downto 0); -- Half-CCD Request Timeout [0,5 ms]
 		req_half_ccd_fee_number_i            : in  std_logic_vector(2 downto 0); --- Half-CCD FEE Number
 		req_half_ccd_ccd_number_i            : in  std_logic_vector(1 downto 0); --- Half-CCD CCD Number
 		req_half_ccd_ccd_side_i              : in  std_logic; --                     Half-CCD CCD Side
@@ -20,7 +22,7 @@ entity ftdi_protocol_top is
 		req_half_ccd_request_i               : in  std_logic; --                  -- Request Half-CCD
 		req_half_ccd_abort_request_i         : in  std_logic; --                  -- Abort Half-CCD Request
 		req_half_ccd_reset_controller_i      : in  std_logic; --                  -- Reset Half-CCD Controller
-		trans_lut_transmission_timeout_i     : in  std_logic_vector(15 downto 0); -- LUT Transmission Timeout
+		trans_lut_transmission_timeout_i     : in  std_logic_vector(15 downto 0); -- LUT Transmission Timeout [0,5 ms]
 		trans_lut_fee_number_i               : in  std_logic_vector(2 downto 0); --- LUT FEE Number
 		trans_lut_ccd_number_i               : in  std_logic_vector(1 downto 0); --- LUT CCD Number
 		trans_lut_ccd_side_i                 : in  std_logic; --                  -- LUT CCD Side
@@ -101,6 +103,7 @@ architecture RTL of ftdi_protocol_top is
 	-- FTDI Protocol Img Controller Signals
 	signal s_imgc_controller_hold        : std_logic;
 	signal s_imgc_controller_release     : std_logic;
+	signal s_imgc_header_generator_abort : std_logic;
 	signal s_imgc_header_generator_start : std_logic;
 	signal s_imgc_header_generator_reset : std_logic;
 	signal s_imgc_header_generator_data  : t_ftdi_prot_header_fields;
@@ -111,6 +114,7 @@ architecture RTL of ftdi_protocol_top is
 	-- FTDI Protocol LUT Controller Signals
 	signal s_lutc_controller_hold        : std_logic;
 	signal s_lutc_controller_release     : std_logic;
+	signal s_lutc_header_generator_abort : std_logic;
 	signal s_lutc_header_generator_start : std_logic;
 	signal s_lutc_header_generator_reset : std_logic;
 	signal s_lutc_header_generator_data  : t_ftdi_prot_header_fields;
@@ -119,6 +123,7 @@ architecture RTL of ftdi_protocol_top is
 	signal s_lutc_header_parser_reset    : std_logic;
 
 	-- FTDI Tx Header Generator Signals
+	signal s_header_generator_abort : std_logic;
 	signal s_header_generator_start : std_logic;
 	signal s_header_generator_reset : std_logic;
 	signal s_header_generator_data  : t_ftdi_prot_header_fields;
@@ -179,7 +184,7 @@ begin
 			data_start_i                         => ftdi_module_start_i,
 			contoller_hold_i                     => s_imgc_controller_hold,
 			contoller_release_i                  => s_imgc_controller_release,
-			req_half_ccd_request_timeout_i       => (others => '0'),
+			req_half_ccd_request_timeout_i       => req_half_ccd_request_timeout_i,
 			req_half_ccd_fee_number_i            => req_half_ccd_fee_number_i,
 			req_half_ccd_ccd_number_i            => req_half_ccd_ccd_number_i,
 			req_half_ccd_ccd_side_i              => req_half_ccd_ccd_side_i,
@@ -217,6 +222,7 @@ begin
 			err_half_ccd_req_max_tries_err_o     => err_half_ccd_req_max_tries_err_o,
 			err_half_ccd_reply_ccd_size_err_o    => err_half_ccd_reply_ccd_size_err_o,
 			err_half_ccd_req_timeout_err_o       => err_half_ccd_req_timeout_err_o,
+			header_generator_abort_o             => s_imgc_header_generator_abort,
 			header_generator_start_o             => s_imgc_header_generator_start,
 			header_generator_reset_o             => s_imgc_header_generator_reset,
 			header_generator_data_o              => s_imgc_header_generator_data,
@@ -247,7 +253,7 @@ begin
 			data_start_i                     => ftdi_module_start_i,
 			contoller_hold_i                 => s_lutc_controller_hold,
 			contoller_release_i              => s_lutc_controller_release,
-			trans_lut_transmission_timeout_i => (others => '0'),
+			trans_lut_transmission_timeout_i => trans_lut_transmission_timeout_i,
 			trans_lut_fee_number_i           => trans_lut_fee_number_i,
 			trans_lut_ccd_number_i           => trans_lut_ccd_number_i,
 			trans_lut_ccd_side_i             => trans_lut_ccd_side_i,
@@ -277,6 +283,7 @@ begin
 			err_lut_trans_max_tries_err_o    => err_lut_trans_max_tries_err_o,
 			err_lut_payload_nack_err_o       => err_lut_payload_nack_err_o,
 			err_lut_trans_timeout_err_o      => err_lut_trans_timeout_err_o,
+			header_generator_abort_o         => s_lutc_header_generator_abort,
 			header_generator_start_o         => s_lutc_header_generator_start,
 			header_generator_reset_o         => s_lutc_header_generator_reset,
 			header_generator_data_o          => s_lutc_header_generator_data,
@@ -302,6 +309,7 @@ begin
 			rst_i                         => rst_i,
 			data_tx_stop_i                => ftdi_module_stop_i,
 			data_tx_start_i               => ftdi_module_start_i,
+			header_generator_abort_i      => s_header_generator_abort,
 			header_generator_start_i      => s_header_generator_start,
 			header_generator_reset_i      => s_header_generator_reset,
 			header_data_i                 => s_header_generator_data,
@@ -321,7 +329,7 @@ begin
 			rst_i                         => rst_i,
 			data_rx_stop_i                => ftdi_module_stop_i,
 			data_rx_start_i               => ftdi_module_start_i,
-			header_parser_abort_i         => '0',
+			header_parser_abort_i         => s_header_parser_abort,
 			header_parser_start_i         => s_header_parser_start,
 			header_parser_reset_i         => s_header_parser_reset,
 			rx_dc_data_fifo_rddata_data_i => rx_dc_data_fifo_rddata_data_i,
@@ -350,7 +358,7 @@ begin
 			payload_writer_start_i        => s_payload_writer_start,
 			payload_writer_reset_i        => s_payload_writer_reset,
 			payload_length_bytes_i        => s_payload_writer_length_bytes,
-			payload_qqword_delay_i        => req_half_ccd_request_timeout_i,
+			payload_qqword_delay_i        => tx_payload_writer_qqword_delay_i,
 			lut_winparams_ccd1_wincfg_i   => lut_winparams_ccd1_wincfg_i,
 			lut_winparams_ccd2_wincfg_i   => lut_winparams_ccd2_wincfg_i,
 			lut_winparams_ccd3_wincfg_i   => lut_winparams_ccd3_wincfg_i,
@@ -383,7 +391,7 @@ begin
 			payload_reader_start_i        => s_payload_reader_start,
 			payload_reader_reset_i        => s_payload_reader_reset,
 			payload_length_bytes_i        => s_payload_reader_length_bytes,
-			payload_qqword_delay_i        => req_half_ccd_request_timeout_i,
+			payload_qqword_delay_i        => rx_payload_reader_qqword_delay_i,
 			rx_dc_data_fifo_rddata_data_i => rx_dc_data_fifo_rddata_data_i,
 			rx_dc_data_fifo_rddata_be_i   => rx_dc_data_fifo_rddata_be_i,
 			rx_dc_data_fifo_rdempty_i     => rx_dc_data_fifo_rdempty_i,
@@ -412,6 +420,7 @@ begin
 	rx_dc_data_fifo_rdreq_o <= (s_header_rx_dc_data_fifo_rdreq) or (s_payload_rx_dc_data_fifo_rdreq);
 
 	-- FTDI Tx Protocol Header Generator Assignments
+	s_header_generator_abort                           <= (s_imgc_header_generator_abort) or (s_lutc_header_generator_abort);
 	s_header_generator_start                           <= (s_imgc_header_generator_start) or (s_lutc_header_generator_start);
 	s_header_generator_reset                           <= (s_imgc_header_generator_reset) or (s_lutc_header_generator_reset);
 	s_header_generator_data.package_id                 <= (s_imgc_header_generator_data.package_id) or (s_lutc_header_generator_data.package_id);

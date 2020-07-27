@@ -8,7 +8,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#68#;
+	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#69#;
 
 	-- Registers Types
 
@@ -108,6 +108,12 @@ package ftdi_config_avalon_mm_registers_pkg is
 		lut_transmitted     : std_logic; -- LUT Transmitted
 		lut_controller_busy : std_logic; -- LUT Controller Busy
 	end record t_ftdi_lut_trans_status_rd_reg;
+
+	-- FTDI Payload Delay Register
+	type t_ftdi_payload_delay_wr_reg is record
+		rx_payload_reader_qqword_delay : std_logic_vector(15 downto 0); -- Rx Payload Reader Qqword Delay
+		tx_payload_writer_qqword_delay : std_logic_vector(15 downto 0); -- Tx Payload Writer Qqword Delay
+	end record t_ftdi_payload_delay_wr_reg;
 
 	-- FTDI Tx Data Control Register
 	type t_ftdi_tx_data_control_wr_reg is record
@@ -235,6 +241,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 		tx_irq_flag_clear_reg      : t_ftdi_tx_irq_flag_clear_wr_reg; -- FTDI Tx IRQ Flag Clear Register
 		hccd_req_control_reg       : t_ftdi_hccd_req_control_wr_reg; -- FTDI Half-CCD Request Control Register
 		lut_trans_control_reg      : t_ftdi_lut_trans_control_wr_reg; -- FTDI LUT Transmission Control Register
+		payload_delay_reg          : t_ftdi_payload_delay_wr_reg; -- FTDI Payload Delay Register
 		tx_data_control_reg        : t_ftdi_tx_data_control_wr_reg; -- FTDI Tx Data Control Register
 		rx_data_control_reg        : t_ftdi_rx_data_control_wr_reg; -- FTDI Rx Data Control Register
 		lut_ccd1_windowing_cfg_reg : t_lut_ccd1_windowing_cfg_wr_reg; -- FTDI LUT CCD1 Windowing Configuration

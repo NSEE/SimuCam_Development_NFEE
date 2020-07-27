@@ -75,6 +75,7 @@ ARCHITECTURE SYN OF send_buffer_sc_1k_fifo IS
 		almost_empty_value		: NATURAL;
 		almost_full_value		: NATURAL;
 		intended_device_family		: STRING;
+		lpm_hint		: STRING;
 		lpm_numwords		: NATURAL;
 		lpm_showahead		: STRING;
 		lpm_type		: STRING;
@@ -114,6 +115,7 @@ BEGIN
 		almost_empty_value => 2,
 		almost_full_value => 1022,
 		intended_device_family => "Stratix IV",
+		lpm_hint => "RAM_BLOCK_TYPE=M9K",
 		lpm_numwords => 1024,
 		lpm_showahead => "OFF",
 		lpm_type => "scfifo",
@@ -149,7 +151,7 @@ END SYN;
 -- Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "2"
 -- Retrieval info: PRIVATE: AlmostFull NUMERIC "1"
 -- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "1022"
--- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
+-- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "1"
 -- Retrieval info: PRIVATE: Clock NUMERIC "0"
 -- Retrieval info: PRIVATE: Depth NUMERIC "1024"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
@@ -160,7 +162,7 @@ END SYN;
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "1"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -182,6 +184,7 @@ END SYN;
 -- Retrieval info: CONSTANT: ALMOST_EMPTY_VALUE NUMERIC "2"
 -- Retrieval info: CONSTANT: ALMOST_FULL_VALUE NUMERIC "1022"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M9K"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "1024"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"

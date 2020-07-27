@@ -191,6 +191,7 @@ begin
 			buffer_wrready_o           <= '0';
 			data_type_rddata_o         <= "11";
 			data_end_rddata_o          <= '0';
+			double_buffer_wrable_o     <= '0';
 			-- others
 			s_wr_data_buffer_selection <= 2;
 			s_rd_data_buffer_selection <= 2;

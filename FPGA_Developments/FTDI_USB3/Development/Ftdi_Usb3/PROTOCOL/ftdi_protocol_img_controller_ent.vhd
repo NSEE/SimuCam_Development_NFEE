@@ -53,6 +53,7 @@ entity ftdi_protocol_img_controller_ent is
 		err_half_ccd_req_max_tries_err_o     : out std_logic;
 		err_half_ccd_reply_ccd_size_err_o    : out std_logic;
 		err_half_ccd_req_timeout_err_o       : out std_logic;
+		header_generator_abort_o             : out std_logic;
 		header_generator_start_o             : out std_logic;
 		header_generator_reset_o             : out std_logic;
 		header_generator_data_o              : out t_ftdi_prot_header_fields;
@@ -177,9 +178,11 @@ begin
 			rly_half_ccd_image_length_bytes_o    <= (others => '0');
 			rly_half_ccd_received_o              <= '0';
 			rly_half_ccd_controller_busy_o       <= '0';
+			header_generator_abort_o             <= '0';
 			header_generator_start_o             <= '0';
 			header_generator_reset_o             <= '0';
 			header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+			header_parser_abort_o                <= '0';
 			header_parser_start_o                <= '0';
 			header_parser_reset_o                <= '0';
 			payload_writer_abort_o               <= '0';
@@ -370,18 +373,54 @@ begin
 					s_timeout_delay_trigger             <= '0';
 					s_timeout_delay_timer               <= (others => '0');
 					-- conditional state transition
-					-- check if a complete header arrived and the CRC matched
-					if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
-						-- CRC matched and End of Header error not ocurred, package is reliable
-						-- check if the arriving package is a ACK or NACK
-						if (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_ACK_OK) then
-							-- ACK received
-							s_ftdi_prot_img_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
-							v_ftdi_prot_img_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
-							s_request_tries                  <= 3;
-							s_timeout_delay_clear            <= '0';
-						elsif (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_NACK_ERROR) then
-							-- NACK received
+					-- check if an abort command was not received
+					if (s_registered_abort = '0') then
+						-- an abort command was not received, normal operation
+						-- check if a complete header arrived and the CRC matched
+						if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
+							-- CRC matched and End of Header error not ocurred, package is reliable
+							-- check if the arriving package is a ACK or NACK
+							if (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_ACK_OK) then
+								-- ACK received
+								s_ftdi_prot_img_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
+								v_ftdi_prot_img_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
+								s_request_tries                  <= 3;
+								s_timeout_delay_clear            <= '0';
+							elsif (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_NACK_ERROR) then
+								-- NACK received
+								-- check if the number of requiest tries ended
+								if (s_request_tries = 0) then
+									-- no more tries, go to finish
+									s_ftdi_prot_img_controller_state <= HFCCD_REQ_FINISH;
+									v_ftdi_prot_img_controller_state := HFCCD_REQ_FINISH;
+									s_err_half_ccd_req_max_tries_err <= '1';
+								else
+									-- send another request
+									s_ftdi_prot_img_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
+									v_ftdi_prot_img_controller_state := HFCCD_REQ_SEND_TX_HEADER;
+									s_request_tries                  <= s_request_tries - 1;
+									s_timeout_delay_clear            <= '0';
+								end if;
+								s_err_half_ccd_request_nack_err <= '1';
+							else
+								-- Unknown packet received
+								-- send another request
+								-- check if the number of requiest tries ended
+								if (s_request_tries = 0) then
+									-- no more tries, go to finish
+									s_ftdi_prot_img_controller_state <= HFCCD_REQ_FINISH;
+									v_ftdi_prot_img_controller_state := HFCCD_REQ_FINISH;
+								else
+									-- send another request
+									s_ftdi_prot_img_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
+									v_ftdi_prot_img_controller_state := HFCCD_REQ_SEND_TX_HEADER;
+									s_request_tries                  <= s_request_tries - 1;
+									s_timeout_delay_clear            <= '0';
+								end if;
+							end if;
+						else
+							-- error with the received package
+							-- send another request
 							-- check if the number of requiest tries ended
 							if (s_request_tries = 0) then
 								-- no more tries, go to finish
@@ -395,41 +434,9 @@ begin
 								s_request_tries                  <= s_request_tries - 1;
 								s_timeout_delay_clear            <= '0';
 							end if;
-							s_err_half_ccd_request_nack_err <= '1';
-						else
-							-- Unknown packet received
-							-- send another request
-							-- check if the number of requiest tries ended
-							if (s_request_tries = 0) then
-								-- no more tries, go to finish
-								s_ftdi_prot_img_controller_state <= HFCCD_REQ_FINISH;
-								v_ftdi_prot_img_controller_state := HFCCD_REQ_FINISH;
-							else
-								-- send another request
-								s_ftdi_prot_img_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
-								v_ftdi_prot_img_controller_state := HFCCD_REQ_SEND_TX_HEADER;
-								s_request_tries                  <= s_request_tries - 1;
-								s_timeout_delay_clear            <= '0';
-							end if;
+							s_err_half_ccd_reply_header_crc_err <= not (header_parser_crc32_match_i);
+							s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
 						end if;
-					else
-						-- error with the received package
-						-- send another request
-						-- check if the number of requiest tries ended
-						if (s_request_tries = 0) then
-							-- no more tries, go to finish
-							s_ftdi_prot_img_controller_state <= HFCCD_REQ_FINISH;
-							v_ftdi_prot_img_controller_state := HFCCD_REQ_FINISH;
-							s_err_half_ccd_req_max_tries_err <= '1';
-						else
-							-- send another request
-							s_ftdi_prot_img_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
-							v_ftdi_prot_img_controller_state := HFCCD_REQ_SEND_TX_HEADER;
-							s_request_tries                  <= s_request_tries - 1;
-							s_timeout_delay_clear            <= '0';
-						end if;
-						s_err_half_ccd_reply_header_crc_err <= not (header_parser_crc32_match_i);
-						s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
 					end if;
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_HEADER"
@@ -477,41 +484,45 @@ begin
 					s_timeout_delay_trigger             <= '0';
 					s_timeout_delay_timer               <= (others => '0');
 					-- conditional state transition
-					-- check if a complete header arrived and the CRC matched
-					if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
-						-- CRC matched and End of Header error not ocurred, package is reliable
-						-- check if a Half-CCD Reply was received
-						if (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_HALF_CCD_REPLY) then
-							-- Half-CCD Reply received
-							-- send a ACK
-							s_ftdi_prot_img_controller_state <= HFCCD_ACK_SEND_TX_HEADER;
-							v_ftdi_prot_img_controller_state := HFCCD_ACK_SEND_TX_HEADER;
-							s_timeout_delay_clear            <= '0';
-						-- check if a Wrong Image Size was received
-						elsif (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_WRONG_IMG_SIZE) then
-							-- Wrong Image Size received
-							-- send a NACK
-							s_ftdi_prot_img_controller_state  <= HFCCD_NACK_SEND_TX_HEADER;
-							v_ftdi_prot_img_controller_state  := HFCCD_NACK_SEND_TX_HEADER;
-							s_request_tries                   <= s_request_tries - 1;
-							s_err_half_ccd_reply_ccd_size_err <= '1';
-							s_timeout_delay_clear             <= '0';
+					-- check if an abort command was not received
+					if (s_registered_abort = '0') then
+						-- an abort command was not received, normal operation
+						-- check if a complete header arrived and the CRC matched
+						if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
+							-- CRC matched and End of Header error not ocurred, package is reliable
+							-- check if a Half-CCD Reply was received
+							if (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_HALF_CCD_REPLY) then
+								-- Half-CCD Reply received
+								-- send a ACK
+								s_ftdi_prot_img_controller_state <= HFCCD_ACK_SEND_TX_HEADER;
+								v_ftdi_prot_img_controller_state := HFCCD_ACK_SEND_TX_HEADER;
+								s_timeout_delay_clear            <= '0';
+							-- check if a Wrong Image Size was received
+							elsif (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_WRONG_IMG_SIZE) then
+								-- Wrong Image Size received
+								-- send a NACK
+								s_ftdi_prot_img_controller_state  <= HFCCD_NACK_SEND_TX_HEADER;
+								v_ftdi_prot_img_controller_state  := HFCCD_NACK_SEND_TX_HEADER;
+								s_request_tries                   <= s_request_tries - 1;
+								s_err_half_ccd_reply_ccd_size_err <= '1';
+								s_timeout_delay_clear             <= '0';
+							else
+								-- Unknown package received
+								-- send a NACK
+								s_ftdi_prot_img_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
+								v_ftdi_prot_img_controller_state := HFCCD_NACK_SEND_TX_HEADER;
+								s_request_tries                  <= s_request_tries - 1;
+								s_timeout_delay_clear            <= '0';
+							end if;
 						else
-							-- Unknown package received
 							-- send a NACK
-							s_ftdi_prot_img_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
-							v_ftdi_prot_img_controller_state := HFCCD_NACK_SEND_TX_HEADER;
-							s_request_tries                  <= s_request_tries - 1;
-							s_timeout_delay_clear            <= '0';
+							s_ftdi_prot_img_controller_state    <= HFCCD_NACK_SEND_TX_HEADER;
+							v_ftdi_prot_img_controller_state    := HFCCD_NACK_SEND_TX_HEADER;
+							s_request_tries                     <= s_request_tries - 1;
+							s_err_half_ccd_reply_header_crc_err <= not (header_parser_crc32_match_i);
+							s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
+							s_timeout_delay_clear               <= '0';
 						end if;
-					else
-						-- send a NACK
-						s_ftdi_prot_img_controller_state    <= HFCCD_NACK_SEND_TX_HEADER;
-						v_ftdi_prot_img_controller_state    := HFCCD_NACK_SEND_TX_HEADER;
-						s_request_tries                     <= s_request_tries - 1;
-						s_err_half_ccd_reply_header_crc_err <= not (header_parser_crc32_match_i);
-						s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
-						s_timeout_delay_clear               <= '0';
 					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_HEADER"
@@ -647,18 +658,27 @@ begin
 					s_timeout_delay_trigger              <= '0';
 					s_timeout_delay_timer                <= (others => '0');
 					-- conditional state transition
-					-- check if a full package arrived and the CRC matched
-					if ((payload_reader_eop_error_i = '0') and (payload_reader_crc32_match_i = '1')) then
-						-- send an ACK
-						s_ftdi_prot_img_controller_state <= HFCCD_ACK_SEND_TX_PAYLOAD;
-						v_ftdi_prot_img_controller_state := HFCCD_ACK_SEND_TX_PAYLOAD;
+					-- check if an abort command was not received
+					if (s_registered_abort = '0') then
+						-- an abort command was not received, normal operation
+						-- check if a full package arrived and the CRC matched
+						if ((payload_reader_eop_error_i = '0') and (payload_reader_crc32_match_i = '1')) then
+							-- send an ACK
+							s_ftdi_prot_img_controller_state <= HFCCD_ACK_SEND_TX_PAYLOAD;
+							v_ftdi_prot_img_controller_state := HFCCD_ACK_SEND_TX_PAYLOAD;
+						else
+							-- send a NACK
+							s_ftdi_prot_img_controller_state     <= HFCCD_NACK_SEND_TX_PAYLOAD;
+							v_ftdi_prot_img_controller_state     := HFCCD_NACK_SEND_TX_PAYLOAD;
+							-- get errors flags
+							s_err_half_ccd_reply_payload_crc_err <= not (payload_reader_crc32_match_i);
+							s_err_half_ccd_reply_eop_err         <= payload_reader_eop_error_i;
+						end if;
 					else
+						-- an abort command was received, send nack
 						-- send a NACK
-						s_ftdi_prot_img_controller_state     <= HFCCD_NACK_SEND_TX_PAYLOAD;
-						v_ftdi_prot_img_controller_state     := HFCCD_NACK_SEND_TX_PAYLOAD;
-						-- get errors flags
-						s_err_half_ccd_reply_payload_crc_err <= not (payload_reader_crc32_match_i);
-						s_err_half_ccd_reply_eop_err         <= payload_reader_eop_error_i;
+						s_ftdi_prot_img_controller_state <= HFCCD_NACK_SEND_TX_PAYLOAD;
+						v_ftdi_prot_img_controller_state := HFCCD_NACK_SEND_TX_PAYLOAD;
 					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
@@ -797,8 +817,13 @@ begin
 					s_timeout_delay_clear                <= '0';
 					s_registered_abort                   <= '0';
 					-- conditional state transition
+					-- check if an abort command was received
+					if (s_registered_abort = '1') then
+						-- an abort command was received, go to finish
+						s_ftdi_prot_img_controller_state <= HFCCD_REQ_FINISH;
+						v_ftdi_prot_img_controller_state := HFCCD_REQ_FINISH;
 					-- check if a controller release was issued
-					if (contoller_release_i = '1') then
+					elsif (contoller_release_i = '1') then
 						-- release the controller, return to idle
 						s_ftdi_prot_img_controller_state <= IDLE;
 						v_ftdi_prot_img_controller_state := IDLE;
@@ -816,6 +841,19 @@ begin
 				s_ftdi_prot_img_controller_state <= STOPPED;
 				v_ftdi_prot_img_controller_state := STOPPED;
 				s_timeout_delay_clear            <= '1';
+			-- check if an abort command was received
+			elsif (req_half_ccd_abort_request_i = '1') then
+				-- register an abort command
+				s_registered_abort    <= '1';
+				-- clear the timeout delay
+				s_timeout_delay_clear <= '1';
+			-- check if the timeout delay is finished	
+			elsif (s_timeout_delay_finished = '1') then
+				-- the timeout delay is finished
+				-- register an abort command
+				s_registered_abort             <= '1';
+				-- set the timeout error flag
+				s_err_half_ccd_req_timeout_err <= '1';
 			end if;
 
 			-- Output generation FSM
@@ -834,6 +872,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '0';
+					header_generator_abort_o          <= '0';
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -863,6 +902,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '0';
+					header_generator_abort_o          <= '0';
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -892,6 +932,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -921,6 +962,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '1';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= s_registered_request_data;
@@ -950,6 +992,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -979,6 +1022,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '1';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1008,6 +1052,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1037,6 +1082,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1066,6 +1112,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1095,6 +1142,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1124,6 +1172,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1153,6 +1202,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1182,6 +1232,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '1';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_ACK_OK;
@@ -1211,6 +1262,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1240,6 +1292,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '1';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1269,6 +1322,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '1';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_NACK_ERROR;
@@ -1298,6 +1352,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1327,6 +1382,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '1';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1356,6 +1412,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1385,6 +1442,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1414,6 +1472,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1443,6 +1502,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '1';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_ACK_OK;
@@ -1472,6 +1532,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1501,6 +1562,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '1';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1530,6 +1592,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '1';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_NACK_ERROR;
@@ -1559,6 +1622,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1588,6 +1652,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '1';
+					header_generator_abort_o          <= s_registered_abort;
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '1';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1617,6 +1682,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= s_parsed_reply_header_data.payload_length;
 					rly_half_ccd_received_o           <= '1';
 					rly_half_ccd_controller_busy_o    <= '0';
+					header_generator_abort_o          <= '0';
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;
@@ -1646,6 +1712,7 @@ begin
 					rly_half_ccd_image_length_bytes_o <= (others => '0');
 					rly_half_ccd_received_o           <= '0';
 					rly_half_ccd_controller_busy_o    <= '0';
+					header_generator_abort_o          <= '0';
 					header_generator_start_o          <= '0';
 					header_generator_reset_o          <= '0';
 					header_generator_data_o           <= c_FTDI_PROT_HEADER_RESET;

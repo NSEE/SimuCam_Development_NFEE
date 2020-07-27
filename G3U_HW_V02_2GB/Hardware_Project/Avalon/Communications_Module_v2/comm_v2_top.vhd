@@ -128,8 +128,6 @@ architecture rtl of comm_v2_top is
 
 	-- signals
 
-	signal rst_n : std_logic;
-
 	-- windowing internal buffers empty
 	signal s_R_buffer_empty : std_logic;
 	signal s_L_buffer_empty : std_logic;
@@ -545,7 +543,7 @@ begin
 		)
 		port map(
 			clk_i                      => a_avs_clock,
-			reset_n_i                  => rst_n,
+			rst_i                      => a_reset,
 			spw_flag_i                 => s_rmap_spw_flag,
 			mem_flag_i                 => s_rmap_mem_flag,
 			spw_control_o              => s_rmap_spw_control,

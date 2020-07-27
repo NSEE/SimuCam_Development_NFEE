@@ -149,45 +149,37 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucCommCh) {
 
 	if (bValidCh) {
 
-		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1PacketOrderListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListLength = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1WinListLength);
-		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowsSizeX = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeX);
-		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowsSizeY = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeY);
-		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastEPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastEPacket);
-		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastFPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastFPacket);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt      = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1PacketOrderListPrt = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1WinListLength);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastFPacket);
 
-		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2PacketOrderListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListLength = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2WinListLength);
-		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowsSizeX = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeX);
-		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowsSizeY = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeY);
-		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastEPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastEPacket);
-		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastFPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastFPacket);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt      = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2PacketOrderListPrt = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2WinListLength);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastFPacket);
 
-		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3PacketOrderListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListLength = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3WinListLength);
-		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowsSizeX = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeX);
-		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowsSizeY = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeY);
-		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastEPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastEPacket);
-		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastFPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastFPacket);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt      = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3PacketOrderListPrt = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3WinListLength);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastFPacket);
 
-		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4PacketOrderListPrt = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr
-				- COMM_WINDOING_RMAP_AREA_OFST);
-		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListLength = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4WinListLength);
-		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowsSizeX = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeX);
-		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowsSizeY = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeY);
-		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastEPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastEPacket);
-		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastFPacket = (alt_u32) (vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastFPacket);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt      = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4PacketOrderListPrt = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr - COMM_WINDOING_RMAP_AREA_OFST);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListLength   = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4WinListLength);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowsSizeX       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeX);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowsSizeY       = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeY);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastEPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastEPacket);
+		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastFPacket        = (alt_u32)(vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastFPacket);
 
 		bStatus = TRUE;
 

@@ -93,6 +93,10 @@ begin
 			ftdi_config_wr_regs_o.lut_trans_control_reg.lut_abort_transmission              <= '0';
 			-- FTDI LUT Transmission Control Register : Reset LUT Controller
 			ftdi_config_wr_regs_o.lut_trans_control_reg.lut_reset_controller                <= '0';
+			-- FTDI Payload Delay Register : Rx Payload Reader Qqword Delay
+			ftdi_config_wr_regs_o.payload_delay_reg.rx_payload_reader_qqword_delay          <= (others => '0');
+			-- FTDI Payload Delay Register : Tx Payload Writer Qqword Delay
+			ftdi_config_wr_regs_o.payload_delay_reg.tx_payload_writer_qqword_delay          <= (others => '0');
 			-- FTDI Tx Data Control Register : Tx Initial Read Address [High Dword]
 			ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_high_dword         <= (others => '0');
 			-- FTDI Tx Data Control Register : Tx Initial Read Address [Low Dword]
@@ -439,6 +443,22 @@ begin
 					end if;
 
 				when (16#27#) =>
+					-- FTDI Payload Delay Register : Rx Payload Reader Qqword Delay
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_wr_regs_o.payload_delay_reg.rx_payload_reader_qqword_delay(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+						ftdi_config_wr_regs_o.payload_delay_reg.rx_payload_reader_qqword_delay(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+					end if;
+					-- FTDI Payload Delay Register : Tx Payload Writer Qqword Delay
+					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+						ftdi_config_wr_regs_o.payload_delay_reg.tx_payload_writer_qqword_delay(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+						ftdi_config_wr_regs_o.payload_delay_reg.tx_payload_writer_qqword_delay(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+					end if;
+
+				when (16#28#) =>
 					-- FTDI Tx Data Control Register : Tx Initial Read Address [High Dword]
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_high_dword(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -453,7 +473,7 @@ begin
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#28#) =>
+				when (16#29#) =>
 					-- FTDI Tx Data Control Register : Tx Initial Read Address [Low Dword]
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_low_dword(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -468,7 +488,7 @@ begin
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#29#) =>
+				when (16#2A#) =>
 					-- FTDI Tx Data Control Register : Tx Read Data Length [Bytes]
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_data_length_bytes(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -483,19 +503,19 @@ begin
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_data_length_bytes(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#2A#) =>
+				when (16#2B#) =>
 					-- FTDI Tx Data Control Register : Tx Data Read Start
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_start <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 
-				when (16#2B#) =>
+				when (16#2C#) =>
 					-- FTDI Tx Data Control Register : Tx Data Read Reset
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.tx_data_control_reg.tx_rd_reset <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 
-				when (16#2D#) =>
+				when (16#2E#) =>
 					-- FTDI Rx Data Control Register : Rx Initial Write Address [High Dword]
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_initial_addr_high_dword(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -510,7 +530,7 @@ begin
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_initial_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#2E#) =>
+				when (16#2F#) =>
 					-- FTDI Rx Data Control Register : Rx Initial Write Address [Low Dword]
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_initial_addr_low_dword(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -525,7 +545,7 @@ begin
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_initial_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#2F#) =>
+				when (16#30#) =>
 					-- FTDI Rx Data Control Register : Rx Write Data Length [Bytes]
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_data_length_bytes(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -540,19 +560,19 @@ begin
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_data_length_bytes(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#30#) =>
+				when (16#31#) =>
 					-- FTDI Rx Data Control Register : Rx Data Write Start
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_start <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 
-				when (16#31#) =>
+				when (16#32#) =>
 					-- FTDI Rx Data Control Register : Rx Data Write Reset
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_reset <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 
-				when (16#33#) =>
+				when (16#34#) =>
 					-- FTDI LUT CCD1 Windowing Configuration : CCD1 Window List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -567,7 +587,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#34#) =>
+				when (16#35#) =>
 					-- FTDI LUT CCD1 Windowing Configuration : CCD1 Packet Order List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_packet_order_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -582,7 +602,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_packet_order_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#35#) =>
+				when (16#36#) =>
 					-- FTDI LUT CCD1 Windowing Configuration : CCD1 Window List Length
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_length(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -591,19 +611,19 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_length(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
 					end if;
 
-				when (16#36#) =>
+				when (16#37#) =>
 					-- FTDI LUT CCD1 Windowing Configuration : CCD1 Windows Size X
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_windows_size_x <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#37#) =>
+				when (16#38#) =>
 					-- FTDI LUT CCD1 Windowing Configuration : CCD1 Windows Size Y
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_windows_size_y <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#38#) =>
+				when (16#39#) =>
 					-- FTDI LUT CCD1 Windowing Configuration : CCD1 Last E Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_e_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -612,7 +632,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_e_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
 					end if;
 
-				when (16#39#) =>
+				when (16#3A#) =>
 					-- FTDI LUT CCD1 Windowing Configuration : CCD1 Last F Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_f_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -621,7 +641,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_last_f_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
 					end if;
 
-				when (16#3A#) =>
+				when (16#3B#) =>
 					-- FTDI LUT CCD2 Windowing Configuration : CCD2 Window List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -636,7 +656,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3B#) =>
+				when (16#3C#) =>
 					-- FTDI LUT CCD2 Windowing Configuration : CCD2 Packet Order List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_packet_order_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -651,7 +671,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_packet_order_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#3C#) =>
+				when (16#3D#) =>
 					-- FTDI LUT CCD2 Windowing Configuration : CCD2 Window List Length
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_length(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -660,19 +680,19 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_window_list_length(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
 					end if;
 
-				when (16#3D#) =>
+				when (16#3E#) =>
 					-- FTDI LUT CCD2 Windowing Configuration : CCD2 Windows Size X
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_windows_size_x <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#3E#) =>
+				when (16#3F#) =>
 					-- FTDI LUT CCD2 Windowing Configuration : CCD2 Windows Size Y
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_windows_size_y <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#3F#) =>
+				when (16#40#) =>
 					-- FTDI LUT CCD2 Windowing Configuration : CCD2 Last E Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_e_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -681,7 +701,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_e_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
 					end if;
 
-				when (16#40#) =>
+				when (16#41#) =>
 					-- FTDI LUT CCD2 Windowing Configuration : CCD2 Last F Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_f_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -690,7 +710,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd2_windowing_cfg_reg.ccd2_last_f_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
 					end if;
 
-				when (16#41#) =>
+				when (16#42#) =>
 					-- FTDI LUT CCD3 Windowing Configuration : CCD3 Window List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -705,7 +725,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#42#) =>
+				when (16#43#) =>
 					-- FTDI LUT CCD3 Windowing Configuration : CCD3 Packet Order List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_packet_order_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -720,7 +740,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_packet_order_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#43#) =>
+				when (16#44#) =>
 					-- FTDI LUT CCD3 Windowing Configuration : CCD3 Window List Length
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_length(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -729,19 +749,19 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_window_list_length(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
 					end if;
 
-				when (16#44#) =>
+				when (16#45#) =>
 					-- FTDI LUT CCD3 Windowing Configuration : CCD3 Windows Size X
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_windows_size_x <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#45#) =>
+				when (16#46#) =>
 					-- FTDI LUT CCD3 Windowing Configuration : CCD3 Windows Size Y
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_windows_size_y <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#46#) =>
+				when (16#47#) =>
 					-- FTDI LUT CCD3 Windowing Configuration : CCD3 Last E Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_e_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -750,7 +770,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_e_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
 					end if;
 
-				when (16#47#) =>
+				when (16#48#) =>
 					-- FTDI LUT CCD3 Windowing Configuration : CCD3 Last F Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_f_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -759,7 +779,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd3_windowing_cfg_reg.ccd3_last_f_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
 					end if;
 
-				when (16#48#) =>
+				when (16#49#) =>
 					-- FTDI LUT CCD4 Windowing Configuration : CCD4 Window List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -774,7 +794,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#49#) =>
+				when (16#4A#) =>
 					-- FTDI LUT CCD4 Windowing Configuration : CCD4 Packet Order List Pointer
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_packet_order_list_pointer(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -789,7 +809,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_packet_order_list_pointer(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#4A#) =>
+				when (16#4B#) =>
 					-- FTDI LUT CCD4 Windowing Configuration : CCD4 Window List Length
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_length(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -798,19 +818,19 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_window_list_length(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
 					end if;
 
-				when (16#4B#) =>
+				when (16#4C#) =>
 					-- FTDI LUT CCD4 Windowing Configuration : CCD4 Windows Size X
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_x <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#4C#) =>
+				when (16#4D#) =>
 					-- FTDI LUT CCD4 Windowing Configuration : CCD4 Windows Size Y
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_windows_size_y <= ftdi_config_avalon_mm_i.writedata(5 downto 0);
 					end if;
 
-				when (16#4D#) =>
+				when (16#4E#) =>
 					-- FTDI LUT CCD4 Windowing Configuration : CCD4 Last E Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -819,7 +839,7 @@ begin
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
 					end if;
 
-				when (16#4E#) =>
+				when (16#4F#) =>
 					-- FTDI LUT CCD4 Windowing Configuration : CCD4 Last F Packet
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);

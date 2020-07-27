@@ -305,6 +305,8 @@ begin
 			rst_i                                => a_reset,
 			ftdi_module_stop_i                   => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
 			ftdi_module_start_i                  => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			rx_payload_reader_qqword_delay_i     => s_config_write_registers.payload_delay_reg.rx_payload_reader_qqword_delay,
+			tx_payload_writer_qqword_delay_i     => s_config_write_registers.payload_delay_reg.tx_payload_writer_qqword_delay,
 			req_half_ccd_request_timeout_i       => s_config_write_registers.hccd_req_control_reg.req_hccd_req_timeout,
 			req_half_ccd_fee_number_i            => s_config_write_registers.hccd_req_control_reg.req_hccd_fee_number,
 			req_half_ccd_ccd_number_i            => s_config_write_registers.hccd_req_control_reg.req_hccd_ccd_number,

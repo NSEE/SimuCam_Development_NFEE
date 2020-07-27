@@ -20,10 +20,16 @@ entity spwc_spacewire_channel_top is
 		reset_i                       : in  std_logic                    := '0'; --          --                    reset_sink.reset
 		clk_100_i                     : in  std_logic                    := '0'; --          --             clock_sink_100mhz.clk
 		clk_200_i                     : in  std_logic                    := '0'; --          --             clock_sink_200mhz.clk
-		spw_data_in_i                 : in  std_logic                    := '0'; --          --    conduit_end_spacewire_lvds.spw_data_in_signal
-		spw_strobe_in_i               : in  std_logic                    := '0'; --          --                              .spw_strobe_in_signal
-		spw_data_out_o                : out std_logic; --                                    --                              .spw_data_out_signal
-		spw_strobe_out_o              : out std_logic; --                                    --                              .spw_strobe_out_signal
+		spw_lvds_p_data_in_i          : in  std_logic                    := '0'; --          --    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
+		spw_lvds_n_data_in_i          : in  std_logic                    := '0'; --          --                              .spw_lvds_n_data_in_signal		
+		spw_lvds_p_strobe_in_i        : in  std_logic                    := '0'; --          --                              .spw_lvds_p_strobe_in_signal
+		spw_lvds_n_strobe_in_i        : in  std_logic                    := '0'; --          --                              .spw_lvds_n_strobe_in_signal		
+		spw_lvds_p_data_out_o         : out std_logic; --                                    --                              .spw_lvds_p_data_out_signal
+		spw_lvds_n_data_out_o         : out std_logic; --                                    --                              .spw_lvds_n_data_out_signal		
+		spw_lvds_p_strobe_out_o       : out std_logic; --                                    --                              .spw_lvds_p_strobe_out_signal
+		spw_lvds_n_strobe_out_o       : out std_logic; --                                    --                              .spw_lvds_n_strobe_out_signal		
+		spw_rx_enable_i               : in  std_logic                    := '0'; --          --  conduit_end_spacewire_enable.spw_rx_enable_signal
+		spw_tx_enable_i               : in  std_logic                    := '0'; --          --                              .spw_tx_enable_signal
 		spw_red_status_led_o          : out std_logic; --                                    --    conduit_end_spacewire_leds.spw_red_status_led_signal
 		spw_green_status_led_o        : out std_logic; --                                    --                              .spw_green_status_led_signal
 		spw_link_command_autostart_i  : in  std_logic                    := '0'; --          -- conduit_end_spacewire_channel.spw_link_command_autostart_signal
@@ -69,97 +75,154 @@ architecture rtl of spwc_spacewire_channel_top is
 
 	-- Signals --
 
-	-- SpaceWirew Codec Clock Synchronization Signals (200 MHz)
-	signal s_spw_codec_link_command_clk200    : t_spwc_codec_link_command;
-	signal s_spw_codec_link_status_clk200     : t_spwc_codec_link_status;
-	signal s_spw_codec_link_error_clk200      : t_spwc_codec_link_error;
-	signal s_spw_codec_timecode_rx_clk200     : t_spwc_codec_timecode_rx;
-	signal s_spw_codec_data_rx_status_clk200  : t_spwc_codec_data_rx_status;
-	signal s_spw_codec_data_tx_status_clk200  : t_spwc_codec_data_tx_status;
-	signal s_spw_codec_timecode_tx_clk200     : t_spwc_codec_timecode_tx;
-	signal s_spw_codec_data_rx_command_clk200 : t_spwc_codec_data_rx_command;
-	signal s_spw_codec_data_tx_command_clk200 : t_spwc_codec_data_tx_command;
+	-- SpaceWire Codec Clock Synchronization Signals (200 MHz)
+	signal s_spw_codec_link_command_spw    : t_spwc_codec_link_command;
+	signal s_spw_codec_link_status_spw     : t_spwc_codec_link_status;
+	signal s_spw_codec_link_error_spw      : t_spwc_codec_link_error;
+	signal s_spw_codec_timecode_rx_spw     : t_spwc_codec_timecode_rx;
+	signal s_spw_codec_data_rx_status_spw  : t_spwc_codec_data_rx_status;
+	signal s_spw_codec_data_tx_status_spw  : t_spwc_codec_data_tx_status;
+	signal s_spw_codec_timecode_tx_spw     : t_spwc_codec_timecode_tx;
+	signal s_spw_codec_data_rx_command_spw : t_spwc_codec_data_rx_command;
+	signal s_spw_codec_data_tx_command_spw : t_spwc_codec_data_tx_command;
+
+	-- SpaceWire Codec Data-Strobe Signals
+	signal s_spw_codec_ds_encoding_rx : t_spwc_codec_ds_encoding_rx;
+	signal s_spw_codec_ds_encoding_tx : t_spwc_codec_ds_encoding_tx;
+
+	-- SpaceWire LVDS Data-Strobe Signals
+	signal s_spw_logical_data_in    : std_logic;
+	signal s_spw_logical_strobe_in  : std_logic;
+	signal s_spw_logical_data_out   : std_logic;
+	signal s_spw_logical_strobe_out : std_logic;
+
+	-- SpaceWire Leds Controller Signals
+	signal s_spw_leds_control : t_spwc_spw_leds_control;
 
 begin
 
 	-- Entities Instantiation --
 
 	-- SpaceWire Codec Clock Domain Synchronization Instantiation
-	spwc_clk_synchronization_ent_inst : entity work.spwc_clk_synchronization_ent
+	spwc_clk_synchronization_top_inst : entity work.spwc_clk_synchronization_top
 		port map(
-			clk_100_i                                  => a_avs_clock,
-			clk_200_i                                  => a_spw_clock,
-			rst_i                                      => a_reset,
-			spw_codec_link_command_clk100_i.autostart  => spw_link_command_autostart_i,
-			spw_codec_link_command_clk100_i.linkstart  => spw_link_command_linkstart_i,
-			spw_codec_link_command_clk100_i.linkdis    => spw_link_command_linkdis_i,
-			spw_codec_link_command_clk100_i.txdivcnt   => spw_link_command_txdivcnt_i,
-			spw_codec_timecode_tx_clk100_i.tick_in     => spw_timecode_tx_tick_in_i,
-			spw_codec_timecode_tx_clk100_i.ctrl_in     => spw_timecode_tx_ctrl_in_i,
-			spw_codec_timecode_tx_clk100_i.time_in     => spw_timecode_tx_time_in_i,
-			spw_codec_data_rx_command_clk100_i.rxread  => spw_data_rx_command_rxread_i,
-			spw_codec_data_tx_command_clk100_i.txwrite => spw_data_tx_command_txwrite_i,
-			spw_codec_data_tx_command_clk100_i.txflag  => spw_data_tx_command_txflag_i,
-			spw_codec_data_tx_command_clk100_i.txdata  => spw_data_tx_command_txdata_i,
-			spw_codec_link_status_clk200_i             => s_spw_codec_link_status_clk200,
-			spw_codec_link_error_clk200_i              => s_spw_codec_link_error_clk200,
-			spw_codec_timecode_rx_clk200_i             => s_spw_codec_timecode_rx_clk200,
-			spw_codec_data_rx_status_clk200_i          => s_spw_codec_data_rx_status_clk200,
-			spw_codec_data_tx_status_clk200_i          => s_spw_codec_data_tx_status_clk200,
-			spw_codec_link_status_clk100_o.started     => spw_link_status_started_o,
-			spw_codec_link_status_clk100_o.connecting  => spw_link_status_connecting_o,
-			spw_codec_link_status_clk100_o.running     => spw_link_status_running_o,
-			spw_codec_link_error_clk100_o.errdisc      => spw_link_error_errdisc_o,
-			spw_codec_link_error_clk100_o.errpar       => spw_link_error_errpar_o,
-			spw_codec_link_error_clk100_o.erresc       => spw_link_error_erresc_o,
-			spw_codec_link_error_clk100_o.errcred      => spw_link_error_errcred_o,
-			spw_codec_timecode_rx_clk100_o.tick_out    => spw_timecode_rx_tick_out_o,
-			spw_codec_timecode_rx_clk100_o.ctrl_out    => spw_timecode_rx_ctrl_out_o,
-			spw_codec_timecode_rx_clk100_o.time_out    => spw_timecode_rx_time_out_o,
-			spw_codec_data_rx_status_clk100_o.rxvalid  => spw_data_rx_status_rxvalid_o,
-			spw_codec_data_rx_status_clk100_o.rxhalff  => spw_data_rx_status_rxhalff_o,
-			spw_codec_data_rx_status_clk100_o.rxflag   => spw_data_rx_status_rxflag_o,
-			spw_codec_data_rx_status_clk100_o.rxdata   => spw_data_rx_status_rxdata_o,
-			spw_codec_data_tx_status_clk100_o.txrdy    => spw_data_tx_status_txrdy_o,
-			spw_codec_data_tx_status_clk100_o.txhalff  => spw_data_tx_status_txhalff_o,
-			spw_codec_link_command_clk200_o            => s_spw_codec_link_command_clk200,
-			spw_codec_timecode_tx_clk200_o             => s_spw_codec_timecode_tx_clk200,
-			spw_codec_data_rx_command_clk200_o         => s_spw_codec_data_rx_command_clk200,
-			spw_codec_data_tx_command_clk200_o         => s_spw_codec_data_tx_command_clk200
+			clk_avs_i                               => a_avs_clock,
+			clk_spw_i                               => a_spw_clock,
+			rst_i                                   => a_reset,
+			spw_codec_link_command_avs_i.autostart  => spw_link_command_autostart_i,
+			spw_codec_link_command_avs_i.linkstart  => spw_link_command_linkstart_i,
+			spw_codec_link_command_avs_i.linkdis    => spw_link_command_linkdis_i,
+			spw_codec_link_command_avs_i.txdivcnt   => spw_link_command_txdivcnt_i,
+			spw_codec_timecode_tx_avs_i.tick_in     => spw_timecode_tx_tick_in_i,
+			spw_codec_timecode_tx_avs_i.ctrl_in     => spw_timecode_tx_ctrl_in_i,
+			spw_codec_timecode_tx_avs_i.time_in     => spw_timecode_tx_time_in_i,
+			spw_codec_data_rx_command_avs_i.rxread  => spw_data_rx_command_rxread_i,
+			spw_codec_data_tx_command_avs_i.txwrite => spw_data_tx_command_txwrite_i,
+			spw_codec_data_tx_command_avs_i.txflag  => spw_data_tx_command_txflag_i,
+			spw_codec_data_tx_command_avs_i.txdata  => spw_data_tx_command_txdata_i,
+			spw_codec_link_status_spw_i             => s_spw_codec_link_status_spw,
+			spw_codec_link_error_spw_i              => s_spw_codec_link_error_spw,
+			spw_codec_timecode_rx_spw_i             => s_spw_codec_timecode_rx_spw,
+			spw_codec_data_rx_status_spw_i          => s_spw_codec_data_rx_status_spw,
+			spw_codec_data_tx_status_spw_i          => s_spw_codec_data_tx_status_spw,
+			spw_codec_link_status_avs_o.started     => spw_link_status_started_o,
+			spw_codec_link_status_avs_o.connecting  => spw_link_status_connecting_o,
+			spw_codec_link_status_avs_o.running     => spw_link_status_running_o,
+			spw_codec_link_error_avs_o.errdisc      => spw_link_error_errdisc_o,
+			spw_codec_link_error_avs_o.errpar       => spw_link_error_errpar_o,
+			spw_codec_link_error_avs_o.erresc       => spw_link_error_erresc_o,
+			spw_codec_link_error_avs_o.errcred      => spw_link_error_errcred_o,
+			spw_codec_timecode_rx_avs_o.tick_out    => spw_timecode_rx_tick_out_o,
+			spw_codec_timecode_rx_avs_o.ctrl_out    => spw_timecode_rx_ctrl_out_o,
+			spw_codec_timecode_rx_avs_o.time_out    => spw_timecode_rx_time_out_o,
+			spw_codec_data_rx_status_avs_o.rxvalid  => spw_data_rx_status_rxvalid_o,
+			spw_codec_data_rx_status_avs_o.rxhalff  => spw_data_rx_status_rxhalff_o,
+			spw_codec_data_rx_status_avs_o.rxflag   => spw_data_rx_status_rxflag_o,
+			spw_codec_data_rx_status_avs_o.rxdata   => spw_data_rx_status_rxdata_o,
+			spw_codec_data_tx_status_avs_o.txrdy    => spw_data_tx_status_txrdy_o,
+			spw_codec_data_tx_status_avs_o.txhalff  => spw_data_tx_status_txhalff_o,
+			spw_codec_link_command_spw_o            => s_spw_codec_link_command_spw,
+			spw_codec_timecode_tx_spw_o             => s_spw_codec_timecode_tx_spw,
+			spw_codec_data_rx_command_spw_o         => s_spw_codec_data_rx_command_spw,
+			spw_codec_data_tx_command_spw_o         => s_spw_codec_data_tx_command_spw
 		);
 
 	-- SpaceWire Codec Instantiation 
 	spwc_codec_ent_inst : entity work.spwc_codec_ent
 		port map(
-			clk_200_i                         => a_spw_clock,
-			rst_i                             => a_reset,
-			spw_codec_link_command_i          => s_spw_codec_link_command_clk200,
-			spw_codec_ds_encoding_rx_i.spw_di => spw_data_in_i,
-			spw_codec_ds_encoding_rx_i.spw_si => spw_strobe_in_i,
-			spw_codec_timecode_tx_i           => s_spw_codec_timecode_tx_clk200,
-			spw_codec_data_rx_command_i       => s_spw_codec_data_rx_command_clk200,
-			spw_codec_data_tx_command_i       => s_spw_codec_data_tx_command_clk200,
-			spw_codec_link_status_o           => s_spw_codec_link_status_clk200,
-			spw_codec_ds_encoding_tx_o.spw_do => spw_data_out_o,
-			spw_codec_ds_encoding_tx_o.spw_so => spw_strobe_out_o,
-			spw_codec_link_error_o            => s_spw_codec_link_error_clk200,
-			spw_codec_timecode_rx_o           => s_spw_codec_timecode_rx_clk200,
-			spw_codec_data_rx_status_o        => s_spw_codec_data_rx_status_clk200,
-			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_clk200
+			clk_spw_i                   => a_spw_clock,
+			rst_i                       => a_reset,
+			spw_codec_link_command_i    => s_spw_codec_link_command_spw,
+			spw_codec_ds_encoding_rx_i  => s_spw_codec_ds_encoding_rx,
+			spw_codec_timecode_tx_i     => s_spw_codec_timecode_tx_spw,
+			spw_codec_data_rx_command_i => s_spw_codec_data_rx_command_spw,
+			spw_codec_data_tx_command_i => s_spw_codec_data_tx_command_spw,
+			spw_codec_link_status_o     => s_spw_codec_link_status_spw,
+			spw_codec_ds_encoding_tx_o  => s_spw_codec_ds_encoding_tx,
+			spw_codec_link_error_o      => s_spw_codec_link_error_spw,
+			spw_codec_timecode_rx_o     => s_spw_codec_timecode_rx_spw,
+			spw_codec_data_rx_status_o  => s_spw_codec_data_rx_status_spw,
+			spw_codec_data_tx_status_o  => s_spw_codec_data_tx_status_spw
+		);
+
+	-- SpaceWire Data-Strobe Rx Diferential Inputs ALTIOBUF Instantiation
+	spwc_spw_rx_altiobuf_inst : entity work.spwc_spw_rx_altiobuf
+		port map(
+			datain(0)   => spw_lvds_p_data_in_i,
+			datain(1)   => spw_lvds_p_strobe_in_i,
+			datain_b(0) => spw_lvds_n_data_in_i,
+			datain_b(1) => spw_lvds_n_strobe_in_i,
+			dataout(0)  => s_spw_logical_data_in,
+			dataout(1)  => s_spw_logical_strobe_in
+		);
+
+	-- SpaceWire Data-Strobe Tx Diferential Outputs ALTIOBUF Instantiation
+	spwc_spw_tx_altiobuf_inst : entity work.spwc_spw_tx_altiobuf
+		port map(
+			datain(0)    => s_spw_logical_data_out,
+			datain(1)    => s_spw_logical_strobe_out,
+			dataout(0)   => spw_lvds_p_data_out_o,
+			dataout(1)   => spw_lvds_p_strobe_out_o,
+			dataout_b(0) => spw_lvds_n_data_out_o,
+			dataout_b(1) => spw_lvds_n_strobe_out_o
 		);
 
 	-- SpaceWire LEDs Controller Instantiation
-	spwc_spw_leds_controller_ent_inst : entity work.spwc_spw_leds_controller_ent
+	spwc_leds_controller_ent_inst : entity work.spwc_leds_controller_ent
 		port map(
 			clk_i                                         => a_spw_clock,
 			rst_i                                         => a_reset,
-			leds_channel_status_i.link_status_running     => s_spw_codec_link_status_clk200.running,
-			leds_channel_status_i.data_rx_command_rxread  => s_spw_codec_data_rx_command_clk200.rxread,
-			leds_channel_status_i.data_tx_command_txwrite => s_spw_codec_data_tx_command_clk200.txwrite,
-			leds_control_o.red_status_led                 => spw_red_status_led_o,
-			leds_control_o.green_status_led               => spw_green_status_led_o
+			leds_channel_status_i.link_status_running     => s_spw_codec_link_status_spw.running,
+			leds_channel_status_i.data_rx_command_rxread  => s_spw_codec_data_rx_command_spw.rxread,
+			leds_channel_status_i.data_tx_command_txwrite => s_spw_codec_data_tx_command_spw.txwrite,
+			leds_control_o                                => s_spw_leds_control
 		);
 
-		-- Signals Assignments --
+	-- SpaceWire LEDs Outputs ALTIOBUF Instantiation
+	spwc_leds_out_altiobuf_inst : entity work.spwc_leds_out_altiobuf
+		port map(
+			datain(1)  => s_spw_leds_control.red_status_led,
+			datain(0)  => s_spw_leds_control.green_status_led,
+			dataout(1) => spw_red_status_led_o,
+			dataout(0) => spw_green_status_led_o
+		);
+
+	-- Signals Assignments --
+
+	-- Spacewire Data-Strobe Input Signals Assignments
+	s_spw_codec_ds_encoding_rx.spw_di <= ('0') when (a_reset = '1')
+	                                     else (s_spw_logical_data_in) when (spw_rx_enable_i = '1')
+	                                     else ('0');
+	s_spw_codec_ds_encoding_rx.spw_si <= ('0') when (a_reset = '1')
+	                                     else (s_spw_logical_strobe_in) when (spw_rx_enable_i = '1')
+	                                     else ('0');
+
+	-- Spacewire Data-Strobe Output Signals Assignments
+	s_spw_logical_data_out   <= ('0') when (a_reset = '1')
+	                            else (s_spw_codec_ds_encoding_tx.spw_do) when (spw_tx_enable_i = '1')
+	                            else ('0');
+	s_spw_logical_strobe_out <= ('0') when (a_reset = '1')
+	                            else (s_spw_codec_ds_encoding_tx.spw_so) when (spw_tx_enable_i = '1')
+	                            else ('0');
 
 end architecture rtl;                   -- of spwc_spacewire_channel_top

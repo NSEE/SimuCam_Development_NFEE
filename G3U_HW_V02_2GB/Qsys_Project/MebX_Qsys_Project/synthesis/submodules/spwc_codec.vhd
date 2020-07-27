@@ -7,7 +7,7 @@ use work.spwc_codec_pkg.all;
 
 entity spwc_codec_ent is
 	port(
-		clk_200_i                   : in  std_logic;
+		clk_spw_i                   : in  std_logic;
 		rst_i                       : in  std_logic;
 		spw_codec_link_command_i    : in  t_spwc_codec_link_command;
 		spw_codec_ds_encoding_rx_i  : in  t_spwc_codec_ds_encoding_rx;
@@ -39,9 +39,9 @@ begin
 			txfifosize_bits => c_SPWC_TXFIFOSIZE_BITS
 		)
 		port map(
-			clk        => clk_200_i,
-			rxclk      => clk_200_i,
-			txclk      => clk_200_i,
+			clk        => clk_spw_i,
+			rxclk      => clk_spw_i,
+			txclk      => clk_spw_i,
 			rst        => rst_i,
 			autostart  => spw_codec_link_command_i.autostart,
 			linkstart  => spw_codec_link_command_i.linkstart,
