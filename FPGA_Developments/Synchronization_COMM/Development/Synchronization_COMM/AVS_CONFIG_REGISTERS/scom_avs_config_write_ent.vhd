@@ -45,10 +45,6 @@ begin
 			config_wr_regs_o.spw_timecode_config_reg.timecode_en                    <= '1';
 			-- RMAP Device Address Register : RMAP Device Base Address
 			config_wr_regs_o.rmap_dev_addr_reg.rmap_dev_base_addr                   <= (others => '0');
-			-- RMAP Echoing Mode Config Register : RMAP Echoing Mode Enable
-			config_wr_regs_o.rmap_echoing_mode_config_reg.rmap_echoing_mode_enable  <= '0';
-			-- RMAP Echoing Mode Config Register : RMAP Echoing ID Enable
-			config_wr_regs_o.rmap_echoing_mode_config_reg.rmap_echoing_id_enable    <= '0';
 			-- RMAP Codec Config Register : RMAP Target Logical Address
 			config_wr_regs_o.rmap_codec_config_reg.rmap_target_logical_addr         <= x"51";
 			-- RMAP Codec Config Register : RMAP Target Key
@@ -59,14 +55,6 @@ begin
 			config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_low_dword  <= (others => '0');
 			-- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer
 			config_wr_regs_o.rmap_mem_area_ptr_reg.rmap_mem_area_ptr                <= (others => '0');
-			-- RMAP IRQ Control Register : RMAP Write Config IRQ Enable
-			config_wr_regs_o.rmap_irq_control_reg.rmap_write_config_en              <= '0';
-			-- RMAP IRQ Control Register : RMAP Write Window IRQ Enable
-			config_wr_regs_o.rmap_irq_control_reg.rmap_write_window_en              <= '0';
-			-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-			config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear  <= '0';
-			-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-			config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear  <= '0';
 
 		end procedure p_reset_registers;
 
@@ -76,11 +64,7 @@ begin
 			-- Write Registers Triggers Reset
 
 			-- SpaceWire Timecode Config Register : SpaceWire Timecode Clear
-			config_wr_regs_o.spw_timecode_config_reg.timecode_clear                <= '0';
-			-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-			config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear <= '0';
-			-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-			config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear <= '0';
+			config_wr_regs_o.spw_timecode_config_reg.timecode_clear <= '0';
 
 		end procedure p_control_triggers;
 
@@ -173,18 +157,6 @@ begin
 					end if;
 
 				when (16#11#) =>
-					-- RMAP Echoing Mode Config Register : RMAP Echoing Mode Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						config_wr_regs_o.rmap_echoing_mode_config_reg.rmap_echoing_mode_enable <= avs_config_i.writedata(0);
-					end if;
-
-				when (16#12#) =>
-					-- RMAP Echoing Mode Config Register : RMAP Echoing ID Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						config_wr_regs_o.rmap_echoing_mode_config_reg.rmap_echoing_id_enable <= avs_config_i.writedata(0);
-					end if;
-
-				when (16#13#) =>
 					-- RMAP Codec Config Register : RMAP Target Logical Address
 					if (avs_config_i.byteenable(0) = '1') then
 						config_wr_regs_o.rmap_codec_config_reg.rmap_target_logical_addr <= avs_config_i.writedata(7 downto 0);
@@ -194,7 +166,7 @@ begin
 						config_wr_regs_o.rmap_codec_config_reg.rmap_target_key <= avs_config_i.writedata(15 downto 8);
 					end if;
 
-				when (16#26#) =>
+				when (16#24#) =>
 					-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
 					if (avs_config_i.byteenable(0) = '1') then
 						config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_high_dword(7 downto 0) <= avs_config_i.writedata(7 downto 0);
@@ -209,7 +181,7 @@ begin
 						config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_high_dword(31 downto 24) <= avs_config_i.writedata(31 downto 24);
 					end if;
 
-				when (16#27#) =>
+				when (16#25#) =>
 					-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
 					if (avs_config_i.byteenable(0) = '1') then
 						config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_low_dword(7 downto 0) <= avs_config_i.writedata(7 downto 0);
@@ -224,7 +196,7 @@ begin
 						config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_low_dword(31 downto 24) <= avs_config_i.writedata(31 downto 24);
 					end if;
 
-				when (16#28#) =>
+				when (16#26#) =>
 					-- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer
 					if (avs_config_i.byteenable(0) = '1') then
 						config_wr_regs_o.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(7 downto 0) <= avs_config_i.writedata(7 downto 0);
@@ -237,30 +209,6 @@ begin
 					end if;
 					if (avs_config_i.byteenable(3) = '1') then
 						config_wr_regs_o.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(31 downto 24) <= avs_config_i.writedata(31 downto 24);
-					end if;
-
-				when (16#29#) =>
-					-- RMAP IRQ Control Register : RMAP Write Config IRQ Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						config_wr_regs_o.rmap_irq_control_reg.rmap_write_config_en <= avs_config_i.writedata(0);
-					end if;
-
-				when (16#2A#) =>
-					-- RMAP IRQ Control Register : RMAP Write Window IRQ Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						config_wr_regs_o.rmap_irq_control_reg.rmap_write_window_en <= avs_config_i.writedata(0);
-					end if;
-
-				when (16#2D#) =>
-					-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-					if (avs_config_i.byteenable(0) = '1') then
-						config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear <= avs_config_i.writedata(0);
-					end if;
-
-				when (16#2E#) =>
-					-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-					if (avs_config_i.byteenable(0) = '1') then
-						config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear <= avs_config_i.writedata(0);
 					end if;
 
 				when others =>

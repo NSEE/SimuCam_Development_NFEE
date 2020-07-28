@@ -162,18 +162,6 @@ begin
 					end if;
 
 				when (16#11#) =>
-					-- RMAP Echoing Mode Config Register : RMAP Echoing Mode Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.rmap_echoing_mode_config_reg.rmap_echoing_mode_enable;
-					end if;
-
-				when (16#12#) =>
-					-- RMAP Echoing Mode Config Register : RMAP Echoing ID Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.rmap_echoing_mode_config_reg.rmap_echoing_id_enable;
-					end if;
-
-				when (16#13#) =>
 					-- RMAP Codec Config Register : RMAP Target Logical Address
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_codec_config_reg.rmap_target_logical_addr;
@@ -183,91 +171,91 @@ begin
 						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_codec_config_reg.rmap_target_key;
 					end if;
 
-				when (16#14#) =>
+				when (16#12#) =>
 					-- RMAP Codec Status Register : RMAP Status Command Received
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_command_received;
 					end if;
 
-				when (16#15#) =>
+				when (16#13#) =>
 					-- RMAP Codec Status Register : RMAP Status Write Requested
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_write_requested;
 					end if;
 
-				when (16#16#) =>
+				when (16#14#) =>
 					-- RMAP Codec Status Register : RMAP Status Write Authorized
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_write_authorized;
 					end if;
 
-				when (16#17#) =>
+				when (16#15#) =>
 					-- RMAP Codec Status Register : RMAP Status Read Requested
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_read_requested;
 					end if;
 
-				when (16#18#) =>
+				when (16#16#) =>
 					-- RMAP Codec Status Register : RMAP Status Read Authorized
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_read_authorized;
 					end if;
 
-				when (16#19#) =>
+				when (16#17#) =>
 					-- RMAP Codec Status Register : RMAP Status Reply Sended
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_reply_sended;
 					end if;
 
-				when (16#1A#) =>
+				when (16#18#) =>
 					-- RMAP Codec Status Register : RMAP Status Discarded Package
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_discarded_package;
 					end if;
 
-				when (16#1B#) =>
+				when (16#19#) =>
 					-- RMAP Codec Status Register : RMAP Error Early EOP
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_early_eop;
 					end if;
 
-				when (16#1C#) =>
+				when (16#1A#) =>
 					-- RMAP Codec Status Register : RMAP Error EEP
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_eep;
 					end if;
 
-				when (16#1D#) =>
+				when (16#1B#) =>
 					-- RMAP Codec Status Register : RMAP Error Header CRC
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_header_crc;
 					end if;
 
-				when (16#1E#) =>
+				when (16#1C#) =>
 					-- RMAP Codec Status Register : RMAP Error Unused Packet Type
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_unused_packet_type;
 					end if;
 
-				when (16#1F#) =>
+				when (16#1D#) =>
 					-- RMAP Codec Status Register : RMAP Error Invalid Command Code
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_invalid_command_code;
 					end if;
 
-				when (16#20#) =>
+				when (16#1E#) =>
 					-- RMAP Codec Status Register : RMAP Error Too Much Data
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_too_much_data;
 					end if;
 
-				when (16#21#) =>
+				when (16#1F#) =>
 					-- RMAP Codec Status Register : RMAP Error Invalid Data CRC
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_invalid_data_crc;
 					end if;
 
-				when (16#22#) =>
+				when (16#20#) =>
 					-- RMAP Memory Status Register : RMAP Last Write Address
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(7 downto 0);
@@ -282,7 +270,7 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(31 downto 24);
 					end if;
 
-				when (16#23#) =>
+				when (16#21#) =>
 					-- RMAP Memory Status Register : RMAP Last Write Length [Bytes]
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(7 downto 0);
@@ -297,7 +285,7 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(31 downto 24);
 					end if;
 
-				when (16#24#) =>
+				when (16#22#) =>
 					-- RMAP Memory Status Register : RMAP Last Read Address
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(7 downto 0);
@@ -312,7 +300,7 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(31 downto 24);
 					end if;
 
-				when (16#25#) =>
+				when (16#23#) =>
 					-- RMAP Memory Status Register : RMAP Last Read Length [Bytes]
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(7 downto 0);
@@ -327,7 +315,7 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(31 downto 24);
 					end if;
 
-				when (16#26#) =>
+				when (16#24#) =>
 					-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(7 downto 0);
@@ -342,7 +330,7 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(31 downto 24);
 					end if;
 
-				when (16#27#) =>
+				when (16#25#) =>
 					-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(7 downto 0);
@@ -357,7 +345,7 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(31 downto 24);
 					end if;
 
-				when (16#28#) =>
+				when (16#26#) =>
 					-- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer
 					if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(7 downto 0);
@@ -370,57 +358,6 @@ begin
 					end if;
 					if (avs_config_i.byteenable(3) = '1') then
 						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(31 downto 24);
-					end if;
-
-				when (16#29#) =>
-					-- RMAP IRQ Control Register : RMAP Write Config IRQ Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.rmap_irq_control_reg.rmap_write_config_en;
-					end if;
-
-				when (16#2A#) =>
-					-- RMAP IRQ Control Register : RMAP Write Window IRQ Enable
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.rmap_irq_control_reg.rmap_write_window_en;
-					end if;
-
-				when (16#2B#) =>
-					-- RMAP IRQ Flags Register : RMAP Write Config IRQ Flag
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_irq_flags_reg.rmap_write_config_flag;
-					end if;
-
-				when (16#2C#) =>
-					-- RMAP IRQ Flags Register : RMAP Write Config IRQ Flag
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_irq_flags_reg.rmap_write_window_flag;
-					end if;
-
-				when (16#2D#) =>
-					-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear;
-					end if;
-
-				when (16#2E#) =>
-					-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear;
-					end if;
-
-				when (16#2F#) =>
-					-- RMAP IRQ Number Register : RMAP IRQ Number/ID
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_irq_number_reg.rmap_irq_number(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_irq_number_reg.rmap_irq_number(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_irq_number_reg.rmap_irq_number(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_irq_number_reg.rmap_irq_number(31 downto 24);
 					end if;
 
 				when others =>

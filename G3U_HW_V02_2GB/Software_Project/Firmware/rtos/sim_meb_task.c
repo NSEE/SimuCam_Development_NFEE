@@ -5,7 +5,6 @@
  *      Author: TiagoLow
  */
 
-
 #include "sim_meb_task.h"
 
 /* All commands should pass through the MEB, it is the instance that hould know everything, 
@@ -91,6 +90,8 @@ void vSimMebTask(void *task_data) {
 						bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
 						pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
 					}
+					/* Reset the Synchronization Provider Timecode - [rfranca] */
+					vScomClearTimecode();
 
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage )

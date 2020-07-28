@@ -16,7 +16,6 @@
 
 #include "sync_reset_task.h"
 
-
 void vSyncResetTask( void *task_data ){
     TSimucam_MEB *pxMeb;
     pxMeb = (TSimucam_MEB *) task_data;
@@ -26,8 +25,6 @@ void vSyncResetTask( void *task_data ){
     volatile unsigned char ucIL;
     unsigned int usiPreSyncTimeDif = 200; /*Sum of all Delays*/
     /*xGlobal.bJustBeforSync = TRUE;*/
-
-
 
     for(;;){
         /* Suspend task because of it's high PRIO */
@@ -40,7 +37,6 @@ void vSyncResetTask( void *task_data ){
 
         if (iErrorCodeL == OS_ERR_NONE) {
 
-
         	/* Stop the Sync (Stopping the simulation) */
         	bStopSync();
         	vSyncClearCounter();
@@ -49,7 +45,6 @@ void vSyncResetTask( void *task_data ){
 				fprintf(fp,"++++ Sync Stopped\n");
 			}
 			#endif
-
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -75,6 +70,8 @@ void vSyncResetTask( void *task_data ){
                 bSpwcClearTimecode(&pxMeb->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
                 pxMeb->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
             }
+            /* Reset the Synchronization Provider Timecode - [rfranca] */
+            vScomClearTimecode();
 
             /*Giving time to all FEE*/
             OSTimeDlyHMSM(0, 0, 0, 100);

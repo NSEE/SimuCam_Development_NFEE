@@ -135,7 +135,6 @@ architecture RTL of fee_data_controller_top is
 	signal s_data_transmitter_finished              : std_logic;
 	-- registered data packet parameters signals (for the entire read-out)
 	signal s_registered_dpkt_params                 : t_fee_dpkt_registered_params;
-	signal s_registered_hk_ccd_side                 : std_logic;
 	signal s_registered_left_buffer_activated       : std_logic;
 	signal s_registered_right_buffer_activated      : std_logic;
 	-- error injection spw signals

@@ -13,7 +13,6 @@ entity fee_imgdata_manager_ent is
 		fee_clear_signal_i            : in  std_logic;
 		fee_stop_signal_i             : in  std_logic;
 		fee_start_signal_i            : in  std_logic;
-		fee_digitalise_en_i           : in  std_logic;
 		current_frame_number_i        : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i       : in  std_logic_vector(15 downto 0);
 		-- image data manager parameters
@@ -32,6 +31,7 @@ entity fee_imgdata_manager_ent is
 		-- data writer status
 		data_wr_finished_i            : in  std_logic;
 		data_wr_data_changed_i        : in  std_logic;
+		data_wr_data_flushed_i        : in  std_logic;
 		-- image data manager outputs --
 		-- general outputs
 		-- masking machine control
@@ -184,7 +184,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_DATA_PACKET;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_DATA_PACKET;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- start the header generator
@@ -206,7 +206,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_DATA_PACKET;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_DATA_PACKET;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- check if the header generator is finished
@@ -224,7 +224,7 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o   <= '0';
 					-- set the data writer length
-					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_DATA_PKT_HEADER_SIZE);
+					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_NFEE_DATA_PKT_HEADER_SIZE);
 					-- start the data writer
 					data_wr_start_o          <= '1';
 
@@ -250,6 +250,12 @@ begin
 							-- go to img header start
 							s_fee_data_manager_state <= IMG_HEADER_START;
 						end if;
+						-- check the img data was flushed
+						if (data_wr_data_flushed_i = '1') then
+							-- the img data was flushed
+							-- no need to load the current data packet 
+							send_buffer_fee_data_loaded_o <= '0';
+						end if;
 					end if;
 
 				when OVER_HEADER_START =>
@@ -268,7 +274,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_OVERSCAN_DATA;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_OVERSCAN_DATA;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- start the header generator
@@ -290,7 +296,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_OVERSCAN_DATA;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_OVERSCAN_DATA;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- check if the header generator is finished
@@ -308,7 +314,7 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o   <= '0';
 					-- set the data writer length
-					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_DATA_PKT_HEADER_SIZE);
+					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_NFEE_DATA_PKT_HEADER_SIZE);
 					-- start the data writer
 					data_wr_start_o          <= '1';
 
@@ -333,6 +339,12 @@ begin
 							-- change command not received
 							-- go to img header start
 							s_fee_data_manager_state <= OVER_HEADER_START;
+						end if;
+						-- check the over data was flushed
+						if (data_wr_data_flushed_i = '1') then
+							-- the over data was flushed
+							-- no need to load the current data packet 
+							send_buffer_fee_data_loaded_o <= '0';
 						end if;
 					end if;
 

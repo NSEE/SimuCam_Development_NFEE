@@ -1,3 +1,60 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/Synchronization_COMM/Development/Testbench/Synchronization_COMM_tb.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Testbench/Synchronization_COMM_tb.mpf
 # Loading project Synchronization_COMM_tb
+# Compile of scom_avs_config_registers_pkg.vhd was successful.
+# Compile of scom_avs_config_pkg.vhd was successful.
+# Compile of scom_avs_config_read_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of scom_avs_config_write_ent.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of scom_frame_manager_ent.vhd was successful.
+# Compile of scom_sync_manager_ent.vhd was successful.
+# Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_synchronization_comm_top.vhd was successful.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 18 compiles, 0 failed with no errors.
+# Compile of scom_avs_config_registers_pkg.vhd was successful.
+# Compile of scom_avs_config_pkg.vhd was successful.
+# Compile of scom_avs_config_read_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of scom_avs_config_write_ent.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of scom_frame_manager_ent.vhd was successful.
+# Compile of scom_sync_manager_ent.vhd was successful.
+# Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_synchronization_comm_top.vhd was successful.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 18 compiles, 0 failed with no errors.
+# Compile of scom_avs_config_registers_pkg.vhd was successful.
+# Compile of scom_avs_config_pkg.vhd was successful.
+# Compile of scom_avs_config_read_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of scom_avs_config_write_ent.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of scom_frame_manager_ent.vhd was successful.
+# Compile of scom_sync_manager_ent.vhd was successful.
+# Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_synchronization_comm_top.vhd was successful.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 18 compiles, 0 failed with no errors.

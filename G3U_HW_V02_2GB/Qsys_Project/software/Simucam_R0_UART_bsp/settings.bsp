@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Jul 27, 2020 5:36:33 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1595882193300</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jul 28, 2020 2:06:06 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1595912766127</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1943,99 +1943,105 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>SEVEN_SEGMENT_CONTROLLER</slaveDescriptor>
-                <addressRange>0x80000A10 - 0x80000A17</addressRange>
-                <addressSpan>8</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rmap_mem_nfee_comm_6</slaveDescriptor>
+                <slaveDescriptor>rmap_mem_nfee_scom_0</slaveDescriptor>
                 <addressRange>0x81000000 - 0x81003FFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>rmap_mem_nfee_comm_5</slaveDescriptor>
+                <slaveDescriptor>rmap_mem_nfee_comm_6</slaveDescriptor>
                 <addressRange>0x81004000 - 0x81007FFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>rmap_mem_nfee_comm_4</slaveDescriptor>
+                <slaveDescriptor>rmap_mem_nfee_comm_5</slaveDescriptor>
                 <addressRange>0x81008000 - 0x8100BFFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>rmap_mem_nfee_comm_3</slaveDescriptor>
+                <slaveDescriptor>rmap_mem_nfee_comm_4</slaveDescriptor>
                 <addressRange>0x8100C000 - 0x8100FFFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>rmap_mem_nfee_comm_2</slaveDescriptor>
+                <slaveDescriptor>rmap_mem_nfee_comm_3</slaveDescriptor>
                 <addressRange>0x81010000 - 0x81013FFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>rmap_mem_nfee_comm_1</slaveDescriptor>
+                <slaveDescriptor>rmap_mem_nfee_comm_2</slaveDescriptor>
                 <addressRange>0x81014000 - 0x81017FFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>Communication_Module_v2_Ch6</slaveDescriptor>
-                <addressRange>0x81018000 - 0x810183FF</addressRange>
-                <addressSpan>1024</addressSpan>
+                <slaveDescriptor>rmap_mem_nfee_comm_1</slaveDescriptor>
+                <addressRange>0x81018000 - 0x8101BFFF</addressRange>
+                <addressSpan>16384</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>Communication_Module_v2_Ch5</slaveDescriptor>
-                <addressRange>0x81018400 - 0x810187FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>Communication_Module_v2_Ch4</slaveDescriptor>
-                <addressRange>0x81018800 - 0x81018BFF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>Communication_Module_v2_Ch3</slaveDescriptor>
-                <addressRange>0x81018C00 - 0x81018FFF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>Communication_Module_v2_Ch2</slaveDescriptor>
-                <addressRange>0x81019000 - 0x810193FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>Communication_Module_v2_Ch1</slaveDescriptor>
-                <addressRange>0x81019400 - 0x810197FF</addressRange>
+                <slaveDescriptor>Synchronization_COMM_0</slaveDescriptor>
+                <addressRange>0x8101C000 - 0x8101C3FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>FTDI_UMFT601A_Module</slaveDescriptor>
-                <addressRange>0x81019800 - 0x81019BFF</addressRange>
+                <addressRange>0x8101C400 - 0x8101C7FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Communication_Module_v2_Ch6</slaveDescriptor>
+                <addressRange>0x8101C800 - 0x8101CBFF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Communication_Module_v2_Ch5</slaveDescriptor>
+                <addressRange>0x8101CC00 - 0x8101CFFF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Communication_Module_v2_Ch4</slaveDescriptor>
+                <addressRange>0x8101D000 - 0x8101D3FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Communication_Module_v2_Ch3</slaveDescriptor>
+                <addressRange>0x8101D400 - 0x8101D7FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Communication_Module_v2_Ch2</slaveDescriptor>
+                <addressRange>0x8101D800 - 0x8101DBFF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Communication_Module_v2_Ch1</slaveDescriptor>
+                <addressRange>0x8101DC00 - 0x8101DFFF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>ddr2_address_span_extender_cntl</slaveDescriptor>
-                <addressRange>0x81019F80 - 0x81019F87</addressRange>
+                <addressRange>0x8101E000 - 0x8101E007</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811FFFFF</addressRange>
-                <addressSpan>1048576</addressSpan>
+                <addressRange>0x81100000 - 0x811AFFFF</addressRange>
+                <addressSpan>720896</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>

@@ -76,6 +76,35 @@ architecture RTL of testbench_top is
 	signal s_delay_busy     : std_logic;
 	signal s_delay_finished : std_logic;
 
+	-- spw controller stimuli signals
+	signal s_spw_link_status_started     : std_logic; --                 -- -- spacewire_controller.spw_link_status_started_signal
+	signal s_spw_link_status_connecting  : std_logic; --                 -- --                     .spw_link_status_connecting_signal
+	signal s_spw_link_status_running     : std_logic; --                 -- --                     .spw_link_status_running_signal
+	signal s_spw_link_error_errdisc      : std_logic; --                 -- --                     .spw_link_error_errdisc_signal
+	signal s_spw_link_error_errpar       : std_logic; --                 -- --                     .spw_link_error_errpar_signal
+	signal s_spw_link_error_erresc       : std_logic; --                 -- --                     .spw_link_error_erresc_signal
+	signal s_spw_link_error_errcred      : std_logic; --                 -- --                     .spw_link_error_errcred_signal
+	signal s_spw_timecode_rx_tick_out    : std_logic; --                 -- --                     .spw_timecode_rx_tick_out_signal
+	signal s_spw_timecode_rx_ctrl_out    : std_logic_vector(1 downto 0); -- --                     .spw_timecode_rx_ctrl_out_signal
+	signal s_spw_timecode_rx_time_out    : std_logic_vector(5 downto 0); -- --                     .spw_timecode_rx_time_out_signal
+	signal s_spw_data_rx_status_rxvalid  : std_logic; --                 -- --                     .spw_data_rx_status_rxvalid_signal
+	signal s_spw_data_rx_status_rxhalff  : std_logic; --                 -- --                     .spw_data_rx_status_rxhalff_signal
+	signal s_spw_data_rx_status_rxflag   : std_logic; --                 -- --                     .spw_data_rx_status_rxflag_signal
+	signal s_spw_data_rx_status_rxdata   : std_logic_vector(7 downto 0); -- --                     .spw_data_rx_status_rxdata_signal
+	signal s_spw_data_tx_status_txrdy    : std_logic; --                 -- --                     .spw_data_tx_status_txrdy_signal
+	signal s_spw_data_tx_status_txhalff  : std_logic; --                 -- --                     .spw_data_tx_status_txhalff_signal
+	signal s_spw_link_command_autostart  : std_logic; --                 -- --                     .spw_link_command_autostart_signal
+	signal s_spw_link_command_linkstart  : std_logic; --                 -- --                     .spw_link_command_linkstart_signal
+	signal s_spw_link_command_linkdis    : std_logic; --                 -- --                     .spw_link_command_linkdis_signal
+	signal s_spw_link_command_txdivcnt   : std_logic_vector(7 downto 0); -- --                     .spw_link_command_txdivcnt_signal
+	signal s_spw_timecode_tx_tick_in     : std_logic; --                 -- --                     .spw_timecode_tx_tick_in_signal
+	signal s_spw_timecode_tx_ctrl_in     : std_logic_vector(1 downto 0); -- --                     .spw_timecode_tx_ctrl_in_signal
+	signal s_spw_timecode_tx_time_in     : std_logic_vector(5 downto 0); -- --                     .spw_timecode_tx_time_in_signal
+	signal s_spw_data_rx_command_rxread  : std_logic; --                 -- --                     .spw_data_rx_command_rxread_signal
+	signal s_spw_data_tx_command_txwrite : std_logic; --                 -- --                     .spw_data_tx_command_txwrite_signal
+	signal s_spw_data_tx_command_txflag  : std_logic; --                 -- --                     .spw_data_tx_command_txflag_signal
+	signal s_spw_data_tx_command_txdata  : std_logic_vector(7 downto 0); -- --                     .spw_data_tx_command_txdata_signal
+
 begin
 
 	clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
@@ -152,33 +181,33 @@ begin
 			avm_right_buffer_read_o             => open,
 			feeb_interrupt_sender_irq_o         => s_irq_buffers,
 			rmap_interrupt_sender_irq_o         => s_irq_rmap,
-			spw_link_status_started_i           => '0',
-			spw_link_status_connecting_i        => '0',
-			spw_link_status_running_i           => '1',
-			spw_link_error_errdisc_i            => '0',
-			spw_link_error_errpar_i             => '0',
-			spw_link_error_erresc_i             => '0',
-			spw_link_error_errcred_i            => '0',
-			spw_timecode_rx_tick_out_i          => '0',
-			spw_timecode_rx_ctrl_out_i          => (others => '0'),
-			spw_timecode_rx_time_out_i          => (others => '0'),
-			spw_data_rx_status_rxvalid_i        => '0',
-			spw_data_rx_status_rxhalff_i        => '0',
-			spw_data_rx_status_rxflag_i         => '0',
-			spw_data_rx_status_rxdata_i         => (others => '0'),
-			spw_data_tx_status_txrdy_i          => '1',
-			spw_data_tx_status_txhalff_i        => '0',
-			spw_link_command_autostart_o        => open,
-			spw_link_command_linkstart_o        => open,
-			spw_link_command_linkdis_o          => open,
-			spw_link_command_txdivcnt_o         => open,
-			spw_timecode_tx_tick_in_o           => open,
-			spw_timecode_tx_ctrl_in_o           => open,
-			spw_timecode_tx_time_in_o           => open,
-			spw_data_rx_command_rxread_o        => open,
-			spw_data_tx_command_txwrite_o       => open,
-			spw_data_tx_command_txflag_o        => open,
-			spw_data_tx_command_txdata_o        => open,
+			spw_link_status_started_i           => s_spw_link_status_started,
+			spw_link_status_connecting_i        => s_spw_link_status_connecting,
+			spw_link_status_running_i           => s_spw_link_status_running,
+			spw_link_error_errdisc_i            => s_spw_link_error_errdisc,
+			spw_link_error_errpar_i             => s_spw_link_error_errpar,
+			spw_link_error_erresc_i             => s_spw_link_error_erresc,
+			spw_link_error_errcred_i            => s_spw_link_error_errcred,
+			spw_timecode_rx_tick_out_i          => s_spw_timecode_rx_tick_out,
+			spw_timecode_rx_ctrl_out_i          => s_spw_timecode_rx_ctrl_out,
+			spw_timecode_rx_time_out_i          => s_spw_timecode_rx_time_out,
+			spw_data_rx_status_rxvalid_i        => s_spw_data_rx_status_rxvalid,
+			spw_data_rx_status_rxhalff_i        => s_spw_data_rx_status_rxhalff,
+			spw_data_rx_status_rxflag_i         => s_spw_data_rx_status_rxflag,
+			spw_data_rx_status_rxdata_i         => s_spw_data_rx_status_rxdata,
+			spw_data_tx_status_txrdy_i          => s_spw_data_tx_status_txrdy,
+			spw_data_tx_status_txhalff_i        => s_spw_data_tx_status_txhalff,
+			spw_link_command_autostart_o        => s_spw_link_command_autostart,
+			spw_link_command_linkstart_o        => s_spw_link_command_linkstart,
+			spw_link_command_linkdis_o          => s_spw_link_command_linkdis,
+			spw_link_command_txdivcnt_o         => s_spw_link_command_txdivcnt,
+			spw_timecode_tx_tick_in_o           => s_spw_timecode_tx_tick_in,
+			spw_timecode_tx_ctrl_in_o           => s_spw_timecode_tx_ctrl_in,
+			spw_timecode_tx_time_in_o           => s_spw_timecode_tx_time_in,
+			spw_data_rx_command_rxread_o        => s_spw_data_rx_command_rxread,
+			spw_data_tx_command_txwrite_o       => s_spw_data_tx_command_txwrite,
+			spw_data_tx_command_txflag_o        => s_spw_data_tx_command_txflag,
+			spw_data_tx_command_txdata_o        => s_spw_data_tx_command_txdata,
 			rmap_echo_echo_en_o                 => open,
 			rmap_echo_echo_id_en_o              => open,
 			rmap_echo_in_fifo_wrflag_o          => open,
@@ -187,17 +216,17 @@ begin
 			rmap_echo_out_fifo_wrflag_o         => open,
 			rmap_echo_out_fifo_wrdata_o         => open,
 			rmap_echo_out_fifo_wrreq_o          => open,
-			rmm_rmap_target_wr_waitrequest_i    => '1',
-			rmm_rmap_target_readdata_i          => (others => '0'),
-			rmm_rmap_target_rd_waitrequest_i    => '1',
+			rmm_rmap_target_wr_waitrequest_i    => '0',
+			rmm_rmap_target_readdata_i          => (others => '1'),
+			rmm_rmap_target_rd_waitrequest_i    => '0',
 			rmm_rmap_target_wr_address_o        => open,
 			rmm_rmap_target_write_o             => open,
 			rmm_rmap_target_writedata_o         => open,
 			rmm_rmap_target_rd_address_o        => open,
 			rmm_rmap_target_read_o              => open,
 			rmm_fee_hk_wr_waitrequest_i         => '1',
-			rmm_fee_hk_readdata_i               => (others => '0'),
-			rmm_fee_hk_rd_waitrequest_i         => '1',
+			rmm_fee_hk_readdata_i               => (others => '1'),
+			rmm_fee_hk_rd_waitrequest_i         => '0',
 			rmm_fee_hk_wr_address_o             => open,
 			rmm_fee_hk_write_o                  => open,
 			rmm_fee_hk_writedata_o              => open,
@@ -221,6 +250,39 @@ begin
 			channel_hk_err_invalid_ccd_mode_o   => open,
 			channel_win_mem_addr_offset_o       => open,
 			comm_measurements_o                 => open
+		);
+
+	spw_controller_stimuli_inst : entity work.spw_controller_stimuli
+		port map(
+			clk_i                         => clk200,
+			rst_i                         => rst,
+			spw_link_command_autostart_i  => s_spw_link_command_autostart,
+			spw_link_command_linkstart_i  => s_spw_link_command_linkstart,
+			spw_link_command_linkdis_i    => s_spw_link_command_linkdis,
+			spw_link_command_txdivcnt_i   => s_spw_link_command_txdivcnt,
+			spw_timecode_tx_tick_in_i     => s_spw_timecode_tx_tick_in,
+			spw_timecode_tx_ctrl_in_i     => s_spw_timecode_tx_ctrl_in,
+			spw_timecode_tx_time_in_i     => s_spw_timecode_tx_time_in,
+			spw_data_rx_command_rxread_i  => s_spw_data_rx_command_rxread,
+			spw_data_tx_command_txwrite_i => s_spw_data_tx_command_txwrite,
+			spw_data_tx_command_txflag_i  => s_spw_data_tx_command_txflag,
+			spw_data_tx_command_txdata_i  => s_spw_data_tx_command_txdata,
+			spw_link_status_started_o     => s_spw_link_status_started,
+			spw_link_status_connecting_o  => s_spw_link_status_connecting,
+			spw_link_status_running_o     => s_spw_link_status_running,
+			spw_link_error_errdisc_o      => s_spw_link_error_errdisc,
+			spw_link_error_errpar_o       => s_spw_link_error_errpar,
+			spw_link_error_erresc_o       => s_spw_link_error_erresc,
+			spw_link_error_errcred_o      => s_spw_link_error_errcred,
+			spw_timecode_rx_tick_out_o    => s_spw_timecode_rx_tick_out,
+			spw_timecode_rx_ctrl_out_o    => s_spw_timecode_rx_ctrl_out,
+			spw_timecode_rx_time_out_o    => s_spw_timecode_rx_time_out,
+			spw_data_rx_status_rxvalid_o  => s_spw_data_rx_status_rxvalid,
+			spw_data_rx_status_rxhalff_o  => s_spw_data_rx_status_rxhalff,
+			spw_data_rx_status_rxflag_o   => s_spw_data_rx_status_rxflag,
+			spw_data_rx_status_rxdata_o   => s_spw_data_rx_status_rxdata,
+			spw_data_tx_status_txrdy_o    => s_spw_data_tx_status_txrdy,
+			spw_data_tx_status_txhalff_o  => s_spw_data_tx_status_txhalff
 		);
 
 	s_sync_n <= not (s_sync);

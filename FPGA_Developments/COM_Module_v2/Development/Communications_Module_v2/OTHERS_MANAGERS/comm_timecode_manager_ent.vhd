@@ -24,6 +24,9 @@ architecture RTL of comm_timecode_manager_ent is
 	signal s_tx_timecode_control : std_logic_vector(1 downto 0);
 	signal s_tx_timecode_counter : std_logic_vector(5 downto 0);
 
+	constant c_TX_TIMECODE_CONTROL_MAX_VAL : std_logic_vector((s_tx_timecode_control'length - 1) downto 0) := (others => '1');
+	constant c_TX_TIMECODE_COUNTER_MAX_VAL : std_logic_vector((s_tx_timecode_counter'length - 1) downto 0) := (others => '1');
+
 begin
 
 	p_comm_timecode_manager : process(clk_i, rst_i) is
@@ -68,7 +71,7 @@ begin
 				else
 					-- the tx timecode was not cleared, need to increment
 					-- check if the tx timecode counter will overflow
-					if (s_tx_timecode_counter = "111111") then
+					if (s_tx_timecode_counter = c_TX_TIMECODE_COUNTER_MAX_VAL) then
 						-- the tx timecode counter will overflow
 						-- clear the tx timecode counter
 						s_tx_timecode_counter <= (others => '0');

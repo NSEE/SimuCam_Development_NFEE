@@ -25,7 +25,7 @@ bool bInitSync( void ) {
 	#endif
 
 	// Configura um padrão de sync interno, periodo padrao = 25 s
-	bSuccess = bSyncConfigNFeeSyncPeriod( xDefaults.usiSyncPeriod );
+	bSuccess = bSyncConfigNFeeSyncPeriod( xDefaults.usiSyncPeriod * 4 );
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
@@ -74,6 +74,12 @@ bool bInitSync( void ) {
 
 	// Habilita sync_out_ch6 enable (libera sync para o Ch 6)
 	bSuccess = bSyncCtrCh6OutEnable(TRUE);
+	if ( bSuccess == FALSE ) {
+		return bSuccess;
+	}
+
+	// Habilita sync_out_ch7 enable (libera sync para o Ch 7)
+	bSuccess = bSyncCtrCh7OutEnable(TRUE);
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}

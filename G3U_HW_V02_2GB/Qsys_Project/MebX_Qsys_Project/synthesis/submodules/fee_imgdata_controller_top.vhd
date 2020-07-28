@@ -23,7 +23,6 @@ entity fee_imgdata_controller_top is
 		fee_machine_clear_i                : in  std_logic;
 		fee_machine_stop_i                 : in  std_logic;
 		fee_machine_start_i                : in  std_logic;
-		fee_digitalise_en_i                : in  std_logic;
 		fee_windowing_en_i                 : in  std_logic;
 		fee_pattern_en_i                   : in  std_logic;
 		-- fee windowing buffer status
@@ -43,6 +42,12 @@ entity fee_imgdata_controller_top is
 		data_pkt_ccd_number_i              : in  std_logic_vector(1 downto 0);
 		data_pkt_ccd_v_start_i             : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_v_end_i               : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_img_v_end_i           : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_ovs_v_end_i           : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_start_i             : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_end_i               : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_img_en_i              : in  std_logic;
+		data_pkt_ccd_ovs_en_i              : in  std_logic;
 		data_pkt_protocol_id_i             : in  std_logic_vector(7 downto 0);
 		data_pkt_logical_addr_i            : in  std_logic_vector(7 downto 0);
 		-- data delays parameters
@@ -92,6 +97,7 @@ architecture RTL of fee_imgdata_controller_top is
 	signal s_data_wr_busy                  : std_logic;
 	signal s_data_wr_finished              : std_logic;
 	signal s_data_wr_data_changed          : std_logic;
+	signal s_data_wr_data_flushed          : std_logic;
 	signal s_data_wr_start                 : std_logic;
 	signal s_data_wr_reset                 : std_logic;
 	signal s_data_wr_length                : std_logic_vector(15 downto 0);
@@ -99,6 +105,7 @@ architecture RTL of fee_imgdata_controller_top is
 	signal s_send_buffer_data_wr_wrreq     : std_logic;
 	-- send buffer signals
 	signal s_send_buffer_fee_data_loaded   : std_logic;
+	signal s_send_buffer_flush             : std_logic;
 	signal s_send_buffer_wrdata            : std_logic_vector(7 downto 0);
 	signal s_send_buffer_wrreq             : std_logic;
 	signal s_send_buffer_stat_full         : std_logic;
@@ -120,7 +127,6 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
-			fee_digitalise_en_i           => fee_digitalise_en_i,
 			fee_windowing_en_i            => fee_windowing_en_i,
 			fee_pattern_en_i              => fee_pattern_en_i,
 			masking_machine_hold_i        => s_masking_machine_hold,
@@ -131,6 +137,12 @@ begin
 			fee_overscan_y_size_i         => data_pkt_overscan_y_size_i,
 			fee_ccd_v_start_i             => data_pkt_ccd_v_start_i,
 			fee_ccd_v_end_i               => data_pkt_ccd_v_end_i,
+			fee_ccd_img_v_end_i           => data_pkt_ccd_img_v_end_i,
+			fee_ccd_ovs_v_end_i           => data_pkt_ccd_ovs_v_end_i,
+			fee_ccd_h_start_i             => data_pkt_ccd_h_start_i,
+			fee_ccd_h_end_i               => data_pkt_ccd_h_end_i,
+			fee_ccd_img_en_i              => data_pkt_ccd_img_en_i,
+			fee_ccd_ovs_en_i              => data_pkt_ccd_ovs_en_i,
 			fee_start_delay_i             => data_pkt_start_delay_i,
 			fee_skip_delay_i              => data_pkt_skip_delay_i,
 			fee_line_delay_i              => data_pkt_line_delay_i,
@@ -163,7 +175,6 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
-			fee_digitalise_en_i           => fee_digitalise_en_i,
 			current_frame_number_i        => fee_current_frame_number_i,
 			current_frame_counter_i       => fee_current_frame_counter_i,
 			fee_logical_addr_i            => data_pkt_logical_addr_i,
@@ -177,6 +188,7 @@ begin
 			header_gen_i.finished         => s_header_gen_finished,
 			data_wr_finished_i            => s_data_wr_finished,
 			data_wr_data_changed_i        => s_data_wr_data_changed,
+			data_wr_data_flushed_i        => s_data_wr_data_flushed,
 			masking_machine_hold_o        => s_masking_machine_hold,
 			imgdata_manager_finished_o    => imgdataman_finished_o,
 			headerdata_o                  => s_header_gen_headerdata,
@@ -229,7 +241,9 @@ begin
 			data_wr_busy_o                 => s_data_wr_busy,
 			data_wr_finished_o             => s_data_wr_finished,
 			data_wr_data_changed_o         => s_data_wr_data_changed,
+			data_wr_data_flushed_o         => s_data_wr_data_flushed,
 			masking_buffer_rdreq_o         => s_masking_buffer_rdreq,
+			send_buffer_flush_o            => s_send_buffer_flush,
 			send_buffer_wrdata_o           => s_send_buffer_data_wr_wrdata,
 			send_buffer_wrreq_o            => s_send_buffer_data_wr_wrreq,
 			send_buffer_data_end_wrdata_o  => s_send_buffer_data_end_wrdata,
@@ -249,6 +263,7 @@ begin
 			fee_start_signal_i           => fee_machine_start_i,
 			fee_data_loaded_i            => s_send_buffer_fee_data_loaded,
 			buffer_cfg_length_i          => data_pkt_packet_length_i,
+			buffer_flush_i               => s_send_buffer_flush,
 			buffer_wrdata_i              => s_send_buffer_wrdata,
 			buffer_wrreq_i               => s_send_buffer_wrreq,
 			buffer_rdreq_i               => imgdata_send_buffer_control_i.rdreq,

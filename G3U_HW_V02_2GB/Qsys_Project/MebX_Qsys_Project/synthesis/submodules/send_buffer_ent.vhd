@@ -17,6 +17,7 @@ entity send_buffer_ent is
 		fee_data_loaded_i            : in  std_logic;
 		buffer_cfg_length_i          : in  std_logic_vector(15 downto 0);
 		--		buffer_clear_i             : in  std_logic;
+		buffer_flush_i               : in  std_logic;
 		buffer_wrdata_i              : in  std_logic_vector(7 downto 0);
 		buffer_wrreq_i               : in  std_logic;
 		buffer_rdreq_i               : in  std_logic;
@@ -464,9 +465,13 @@ begin
 	end process p_send_buffer;
 
 	-- data fifo 0 sclear signal reset
-	s_data_fifo_0.sclr <= ('1') when (rst_i = '1') else (fee_clear_signal_i);
+	s_data_fifo_0.sclr <= ('1') when (rst_i = '1')
+	                      else ('1') when ((buffer_flush_i = '1') and (s_wr_data_buffer_selection = 0))
+	                      else (fee_clear_signal_i);
 	-- data fifo 1 sclear signal reset
-	s_data_fifo_1.sclr <= ('1') when (rst_i = '1') else (fee_clear_signal_i);
+	s_data_fifo_1.sclr <= ('1') when (rst_i = '1')
+	                      else ('1') when ((buffer_flush_i = '1') and (s_wr_data_buffer_selection = 1))
+	                      else (fee_clear_signal_i);
 
 	-- wr buffer output signal muxing
 	buffer_stat_almost_full_o <= ('0') when (rst_i = '1')

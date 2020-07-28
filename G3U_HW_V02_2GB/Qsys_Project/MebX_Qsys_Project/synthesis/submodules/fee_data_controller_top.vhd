@@ -10,11 +10,10 @@ entity fee_data_controller_top is
 		rst_i                                : in  std_logic;
 		-- general inputs
 		fee_sync_signal_i                    : in  std_logic;
-		fee_clear_signal_i                   : in  std_logic;
 		fee_current_timecode_i               : in  std_logic_vector(7 downto 0);
 		fee_clear_frame_i                    : in  std_logic;
-		fee_left_side_activated_i            : in  std_logic;
-		fee_right_side_activated_i           : in  std_logic;
+		fee_left_buffer_activated_i          : in  std_logic;
+		fee_right_buffer_activated_i         : in  std_logic;
 		-- fee data controller control
 		fee_machine_clear_i                  : in  std_logic;
 		fee_machine_stop_i                   : in  std_logic;
@@ -52,6 +51,12 @@ entity fee_data_controller_top is
 		data_pkt_ccd_number_i                : in  std_logic_vector(1 downto 0);
 		data_pkt_ccd_v_start_i               : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_v_end_i                 : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_img_v_end_i             : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_ovs_v_end_i             : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_start_i               : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_end_i                 : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_img_en_i                : in  std_logic;
+		data_pkt_ccd_ovs_en_i                : in  std_logic;
 		data_pkt_protocol_id_i               : in  std_logic_vector(7 downto 0);
 		data_pkt_logical_addr_i              : in  std_logic_vector(7 downto 0);
 		-- data delays parameters
@@ -131,21 +136,13 @@ architecture RTL of fee_data_controller_top is
 	-- registered data packet parameters signals (for the entire read-out)
 	signal s_registered_dpkt_params                 : t_fee_dpkt_registered_params;
 	signal s_registered_hk_ccd_side                 : std_logic;
-	signal s_registered_left_side_activated         : std_logic;
-	signal s_registered_right_side_activated        : std_logic;
+	signal s_registered_left_buffer_activated       : std_logic;
+	signal s_registered_right_buffer_activated      : std_logic;
 	-- error injection spw signals
 	signal s_errinj_spw_tx_write                    : std_logic;
 	signal s_errinj_spw_tx_flag                     : std_logic;
 	signal s_errinj_spw_tx_data                     : std_logic_vector(7 downto 0);
 	signal s_errinj_spw_tx_ready                    : std_logic;
-	-- fee clear manager signals
-	signal s_fee_clrman_clear                       : std_logic;
-	signal s_fee_clrman_stop                        : std_logic;
-	signal s_fee_clrman_start                       : std_logic;
-	-- fee machine signals
-	signal s_fee_clear_signal                       : std_logic;
-	signal s_fee_stop_signal                        : std_logic;
-	signal s_fee_start_signal                       : std_logic;
 	-- spw write masking
 	signal s_spw_tx_write                           : std_logic;
 	signal s_spw_write_mask                         : std_logic;
@@ -157,13 +154,13 @@ begin
 		port map(
 			clk_i                                    => clk_i,
 			rst_i                                    => rst_i,
-			fee_clear_signal_i                       => s_fee_clear_signal,
-			fee_stop_signal_i                        => s_fee_stop_signal,
-			fee_start_signal_i                       => s_fee_start_signal,
+			fee_clear_signal_i                       => fee_machine_clear_i,
+			fee_stop_signal_i                        => fee_machine_stop_i,
+			fee_start_signal_i                       => fee_machine_start_i,
 			fee_manager_sync_i                       => s_dataman_sync,
 			fee_manager_hk_only_i                    => s_dataman_hk_only,
-			fee_left_side_activated_i                => s_registered_left_side_activated,
-			fee_right_side_activated_i               => s_registered_right_side_activated,
+			fee_left_buffer_activated_i              => s_registered_left_buffer_activated,
+			fee_right_buffer_activated_i             => s_registered_right_buffer_activated,
 			hkdataman_manager_i                      => s_hkdataman_status,
 			left_imgdataman_manager_i                => s_left_imgdataman_status,
 			right_imgdataman_manager_i               => s_right_imgdataman_status,
@@ -187,15 +184,15 @@ begin
 			fee_manager_hk_only_i             => s_dataman_hk_only,
 			fee_current_frame_number_i        => s_current_frame_number,
 			fee_current_frame_counter_i       => s_current_frame_counter,
-			fee_ccd_side_i                    => s_registered_hk_ccd_side,
-			fee_machine_clear_i               => s_fee_clear_signal,
-			fee_machine_stop_i                => s_fee_stop_signal,
-			fee_machine_start_i               => s_fee_start_signal,
+			fee_machine_clear_i               => fee_machine_clear_i,
+			fee_machine_stop_i                => fee_machine_stop_i,
+			fee_machine_start_i               => fee_machine_start_i,
 			fee_hk_mem_waitrequest_i          => fee_hk_mem_waitrequest_i,
 			fee_hk_mem_data_i                 => fee_hk_mem_data_i,
 			data_pkt_packet_length_i          => x"0400", -- 0x400 = 1024 Bytes
 			data_pkt_fee_mode_i               => s_registered_dpkt_params.image.fee_mode,
 			data_pkt_ccd_number_i             => s_registered_dpkt_params.image.ccd_number,
+			data_pkt_ccd_side_i               => s_registered_dpkt_params.image.ccd_side_hk,
 			data_pkt_protocol_id_i            => s_registered_dpkt_params.image.protocol_id,
 			data_pkt_logical_addr_i           => s_registered_dpkt_params.image.logical_addr,
 			hkdata_send_buffer_control_i      => s_hkdata_send_buffer_control,
@@ -210,7 +207,7 @@ begin
 	-- fee left image data manager instantiation
 	fee_left_imgdata_controller_top_inst : entity work.fee_imgdata_controller_top
 		generic map(
-			g_FEE_CCD_SIDE => c_CCD_LEFT_SIDE
+			g_FEE_CCD_SIDE => c_COMM_NFEE_CCD_SIDE_E
 		)
 		port map(
 			clk_i                              => clk_i,
@@ -221,10 +218,9 @@ begin
 			imgdataman_reset_i                 => s_left_imgdataman_control.reset,
 			fee_current_frame_number_i         => s_current_frame_number,
 			fee_current_frame_counter_i        => s_current_frame_counter,
-			fee_machine_clear_i                => s_fee_clear_signal,
-			fee_machine_stop_i                 => s_fee_stop_signal,
-			fee_machine_start_i                => s_fee_start_signal,
-			fee_digitalise_en_i                => s_registered_dpkt_params.transmission.digitalise_en,
+			fee_machine_clear_i                => fee_machine_clear_i,
+			fee_machine_stop_i                 => fee_machine_stop_i,
+			fee_machine_start_i                => fee_machine_start_i,
 			fee_windowing_en_i                 => s_registered_dpkt_params.transmission.windowing_en,
 			fee_pattern_en_i                   => s_registered_dpkt_params.transmission.pattern_en,
 			fee_window_data_i                  => fee_left_window_data_i,
@@ -242,6 +238,12 @@ begin
 			data_pkt_ccd_number_i              => s_registered_dpkt_params.image.ccd_number,
 			data_pkt_ccd_v_start_i             => s_registered_dpkt_params.image.ccd_v_start,
 			data_pkt_ccd_v_end_i               => s_registered_dpkt_params.image.ccd_v_end,
+			data_pkt_ccd_img_v_end_i           => s_registered_dpkt_params.image.ccd_img_v_end,
+			data_pkt_ccd_ovs_v_end_i           => s_registered_dpkt_params.image.ccd_ovs_v_end,
+			data_pkt_ccd_h_start_i             => s_registered_dpkt_params.image.ccd_h_start,
+			data_pkt_ccd_h_end_i               => s_registered_dpkt_params.image.ccd_h_end,
+			data_pkt_ccd_img_en_i              => s_registered_dpkt_params.image.ccd_img_en,
+			data_pkt_ccd_ovs_en_i              => s_registered_dpkt_params.image.ccd_ovs_en,
 			data_pkt_protocol_id_i             => s_registered_dpkt_params.image.protocol_id,
 			data_pkt_logical_addr_i            => s_registered_dpkt_params.image.logical_addr,
 			data_pkt_start_delay_i             => s_registered_dpkt_params.image.start_delay,
@@ -262,7 +264,7 @@ begin
 	-- fee right image data manager instantiation
 	fee_right_imgdata_controller_top_inst : entity work.fee_imgdata_controller_top
 		generic map(
-			g_FEE_CCD_SIDE => c_CCD_RIGHT_SIDE
+			g_FEE_CCD_SIDE => c_COMM_NFEE_CCD_SIDE_F
 		)
 		port map(
 			clk_i                              => clk_i,
@@ -273,10 +275,9 @@ begin
 			imgdataman_reset_i                 => s_right_imgdataman_control.reset,
 			fee_current_frame_number_i         => s_current_frame_number,
 			fee_current_frame_counter_i        => s_current_frame_counter,
-			fee_machine_clear_i                => s_fee_clear_signal,
-			fee_machine_stop_i                 => s_fee_stop_signal,
-			fee_machine_start_i                => s_fee_start_signal,
-			fee_digitalise_en_i                => s_registered_dpkt_params.transmission.digitalise_en,
+			fee_machine_clear_i                => fee_machine_clear_i,
+			fee_machine_stop_i                 => fee_machine_stop_i,
+			fee_machine_start_i                => fee_machine_start_i,
 			fee_windowing_en_i                 => s_registered_dpkt_params.transmission.windowing_en,
 			fee_pattern_en_i                   => s_registered_dpkt_params.transmission.pattern_en,
 			fee_window_data_i                  => fee_right_window_data_i,
@@ -294,6 +295,12 @@ begin
 			data_pkt_ccd_number_i              => s_registered_dpkt_params.image.ccd_number,
 			data_pkt_ccd_v_start_i             => s_registered_dpkt_params.image.ccd_v_start,
 			data_pkt_ccd_v_end_i               => s_registered_dpkt_params.image.ccd_v_end,
+			data_pkt_ccd_img_v_end_i           => s_registered_dpkt_params.image.ccd_img_v_end,
+			data_pkt_ccd_ovs_v_end_i           => s_registered_dpkt_params.image.ccd_ovs_v_end,
+			data_pkt_ccd_h_start_i             => s_registered_dpkt_params.image.ccd_h_start,
+			data_pkt_ccd_h_end_i               => s_registered_dpkt_params.image.ccd_h_end,
+			data_pkt_ccd_img_en_i              => s_registered_dpkt_params.image.ccd_img_en,
+			data_pkt_ccd_ovs_en_i              => s_registered_dpkt_params.image.ccd_ovs_en,
 			data_pkt_protocol_id_i             => s_registered_dpkt_params.image.protocol_id,
 			data_pkt_logical_addr_i            => s_registered_dpkt_params.image.logical_addr,
 			data_pkt_start_delay_i             => s_registered_dpkt_params.image.start_delay,
@@ -316,8 +323,8 @@ begin
 		port map(
 			clk_i                          => clk_i,
 			rst_i                          => rst_i,
-			comm_stop_i                    => s_fee_stop_signal,
-			comm_start_i                   => s_fee_start_signal,
+			comm_stop_i                    => fee_machine_stop_i,
+			comm_start_i                   => fee_machine_start_i,
 			channel_sync_i                 => fee_sync_signal_i,
 			send_buffer_cfg_length_i       => s_registered_dpkt_params.image.packet_length,
 			send_buffer_hkdata_status_i    => s_hkdata_send_buffer_status,
@@ -430,13 +437,20 @@ begin
 			s_registered_dpkt_params.image.packet_length          <= std_logic_vector(to_unsigned(32768, 16));
 			s_registered_dpkt_params.image.fee_mode               <= std_logic_vector(to_unsigned(15, 4));
 			s_registered_dpkt_params.image.ccd_number             <= std_logic_vector(to_unsigned(0, 2));
+			s_registered_dpkt_params.image.ccd_side_hk            <= c_COMM_NFEE_CCD_SIDE_E;
 			s_registered_dpkt_params.image.ccd_v_start            <= (others => '0');
 			s_registered_dpkt_params.image.ccd_v_end              <= (others => '0');
+			s_registered_dpkt_params.image.ccd_img_v_end          <= (others => '0');
+			s_registered_dpkt_params.image.ccd_ovs_v_end          <= (others => '0');
+			s_registered_dpkt_params.image.ccd_h_start            <= (others => '0');
+			s_registered_dpkt_params.image.ccd_h_end              <= (others => '0');
+			s_registered_dpkt_params.image.ccd_img_en             <= '0';
+			s_registered_dpkt_params.image.ccd_img_en             <= '0';
+			s_registered_dpkt_params.image.ccd_ovs_en             <= '0';
 			s_registered_dpkt_params.image.start_delay            <= (others => '0');
 			s_registered_dpkt_params.image.skip_delay             <= (others => '0');
 			s_registered_dpkt_params.image.line_delay             <= (others => '0');
 			s_registered_dpkt_params.image.adc_delay              <= (others => '0');
-			s_registered_dpkt_params.transmission.digitalise_en   <= '1';
 			s_registered_dpkt_params.transmission.windowing_en    <= '0';
 			s_registered_dpkt_params.transmission.pattern_en      <= '1';
 			s_registered_dpkt_params.error_injection.tx_disabled  <= '0';
@@ -449,23 +463,14 @@ begin
 			s_registered_dpkt_params.windowing.packet_order_list  <= (others => '0');
 			s_registered_dpkt_params.windowing.last_left_packet   <= (others => '0');
 			s_registered_dpkt_params.windowing.last_right_packet  <= (others => '0');
-			s_registered_hk_ccd_side                              <= c_CCD_LEFT_SIDE;
-			s_registered_left_side_activated                      <= '0';
-			s_registered_right_side_activated                     <= '0';
+			s_registered_left_buffer_activated                    <= '0';
+			s_registered_right_buffer_activated                   <= '0';
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
 				-- register ccd side activated
-				s_registered_left_side_activated                      <= fee_left_side_activated_i;
-				s_registered_right_side_activated                     <= fee_right_side_activated_i;
-				-- register housekeeping ccd side
-				if (fee_left_side_activated_i = '1') and (fee_right_side_activated_i = '0') then
-					s_registered_hk_ccd_side <= c_CCD_LEFT_SIDE;
-				elsif (fee_left_side_activated_i = '0') and (fee_right_side_activated_i = '1') then
-					s_registered_hk_ccd_side <= c_CCD_RIGHT_SIDE;
-				else
-					s_registered_hk_ccd_side <= c_CCD_LEFT_SIDE; -- both sides activated or no side activated, hk will use the left side as reference
-				end if;
+				s_registered_left_buffer_activated                    <= fee_left_buffer_activated_i;
+				s_registered_right_buffer_activated                   <= fee_right_buffer_activated_i;
 				-- register data pkt config
 				s_registered_dpkt_params.image.logical_addr           <= data_pkt_logical_addr_i;
 				s_registered_dpkt_params.image.protocol_id            <= data_pkt_protocol_id_i;
@@ -477,12 +482,28 @@ begin
 				s_registered_dpkt_params.image.ccd_number             <= data_pkt_ccd_number_i;
 				s_registered_dpkt_params.image.ccd_v_start            <= data_pkt_ccd_v_start_i;
 				s_registered_dpkt_params.image.ccd_v_end              <= data_pkt_ccd_v_end_i;
+				s_registered_dpkt_params.image.ccd_img_v_end          <= data_pkt_ccd_img_v_end_i;
+				s_registered_dpkt_params.image.ccd_ovs_v_end          <= data_pkt_ccd_ovs_v_end_i;
+				s_registered_dpkt_params.image.ccd_h_start            <= data_pkt_ccd_h_start_i;
+				s_registered_dpkt_params.image.ccd_h_end              <= data_pkt_ccd_h_end_i;
+				s_registered_dpkt_params.image.ccd_img_en             <= (data_pkt_ccd_img_en_i) and (fee_digitalise_en_i) and (fee_readout_en_i);
+				s_registered_dpkt_params.image.ccd_ovs_en             <= (data_pkt_ccd_ovs_en_i) and (fee_digitalise_en_i) and (fee_readout_en_i);
 				s_registered_dpkt_params.image.start_delay            <= data_pkt_start_delay_i;
 				s_registered_dpkt_params.image.skip_delay             <= data_pkt_skip_delay_i;
 				s_registered_dpkt_params.image.line_delay             <= data_pkt_line_delay_i;
 				s_registered_dpkt_params.image.adc_delay              <= data_pkt_adc_delay_i;
+				-- register housekeeping settings
+				if (fee_left_buffer_activated_i = '1') and (fee_right_buffer_activated_i = '0') then
+					-- only left buffer is activated
+					s_registered_dpkt_params.image.ccd_side_hk <= c_COMM_NFEE_CCD_SIDE_E;
+				elsif (fee_left_buffer_activated_i = '0') and (fee_right_buffer_activated_i = '1') then
+					-- only right buffer is activated
+					s_registered_dpkt_params.image.ccd_side_hk <= c_COMM_NFEE_CCD_SIDE_F;
+				else
+					-- both buffers activated or no buffer activated, hk will use the left buffer as reference
+					s_registered_dpkt_params.image.ccd_side_hk <= c_COMM_NFEE_CCD_SIDE_E;
+				end if;
 				-- register masking settings
-				s_registered_dpkt_params.transmission.digitalise_en   <= (fee_digitalise_en_i) and (fee_readout_en_i);
 				case (data_pkt_fee_mode_i) is
 					when c_DPKT_OFF_MODE =>
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_NONE;
@@ -586,7 +607,7 @@ begin
 				-- sync signal was received
 
 				-- check if a side is activated
-				if ((fee_left_side_activated_i = '1') or (fee_right_side_activated_i = '1')) then
+				if ((fee_left_buffer_activated_i = '1') or (fee_right_buffer_activated_i = '1')) then
 					-- a side is activated
 					case (data_pkt_fee_mode_i) is
 						when c_DPKT_FULLIMAGE_PATTERN_MODE =>
@@ -666,40 +687,7 @@ begin
 		end if;
 	end process p_data_manager_sync_gen;
 
-	p_fee_clear_manager : process(clk_i, rst_i) is
-	begin
-		if (rst_i = '1') then
-			s_fee_clrman_clear <= '0';
-			s_fee_clrman_stop  <= '0';
-			s_fee_clrman_start <= '0';
-		elsif rising_edge(clk_i) then
-			s_fee_clrman_clear <= '0';
-			s_fee_clrman_stop  <= '0';
-			s_fee_clrman_start <= '0';
-
-			if (fee_clear_signal_i = '1') then
-				s_fee_clrman_stop <= '1';
-			end if;
-			if (s_fee_clrman_stop = '1') then
-				s_fee_clrman_clear <= '1';
-			end if;
-			if (s_fee_clrman_clear = '1') then
-				s_fee_clrman_start <= '1';
-			end if;
-
-			if ((fee_machine_stop_i = '1') or (fee_machine_clear_i = '1') or (fee_machine_start_i = '1')) then
-				s_fee_clrman_clear <= '0';
-				s_fee_clrman_stop  <= '0';
-				s_fee_clrman_start <= '0';
-			end if;
-
-		end if;
-	end process p_fee_clear_manager;
-
 	-- signals assingments
-	s_fee_clear_signal <= (fee_machine_clear_i) or (s_fee_clrman_clear);
-	s_fee_stop_signal  <= (fee_machine_stop_i) or (s_fee_clrman_stop);
-	s_fee_start_signal <= (fee_machine_start_i) or (s_fee_clrman_start);
 
 	-- outputs generation
 	fee_frame_counter_o <= s_current_frame_counter;

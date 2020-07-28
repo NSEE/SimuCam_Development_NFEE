@@ -12,7 +12,7 @@ TDefaultsCH xDefaultsCH;
 bool ucCheckAndApllySPWChannel( char cLetter, unsigned char *ucChannelNumber );
 
 /* Load the bind configuration of the SPW channels and FEE instance*/
-bool vCHConfs( void ){
+bool bCHConfs( void ){
 	short int siFile;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;

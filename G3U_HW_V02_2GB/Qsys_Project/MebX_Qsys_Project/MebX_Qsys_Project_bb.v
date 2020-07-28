@@ -218,7 +218,14 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal);	
+	umft601a_pins_umft_siwu_n_signal,
+	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata,
+	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest,
+	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address,
+	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read,
+	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write,
+	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata,
+	scom_0_sync_sync_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -439,4 +446,11 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
+	input	[7:0]	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata;
+	input		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest;
+	output	[63:0]	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address;
+	output		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read;
+	output		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write;
+	output	[7:0]	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata;
+	input		scom_0_sync_sync_signal;
 endmodule

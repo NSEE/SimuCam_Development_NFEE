@@ -195,6 +195,7 @@ C_SRCS += utils/sdcard_file_manager.c
 C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
+C_SRCS += driver/scom/scom.c
 CXX_SRCS :=
 ASM_SRCS :=
 

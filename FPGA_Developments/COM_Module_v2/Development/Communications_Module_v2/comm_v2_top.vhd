@@ -723,20 +723,21 @@ begin
 
 	comm_rmap_irq_manager_ent_inst : entity work.comm_rmap_irq_manager_ent
 		port map(
-			clk_i                                   => a_avs_clock,
-			rst_i                                   => a_reset,
-			irq_manager_stop_i                      => s_machine_stop,
-			irq_manager_start_i                     => s_machine_start,
-			global_irq_en_i                         => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
-			irq_watches_i.rmap_write_data_finished  => s_rmap_write_data_finished,
-			irq_contexts_i.rmap_win_area_write_flag => s_rmap_win_area_write_flag,
-			irq_flags_en_i.rmap_write_config_flag   => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_config_en,
-			irq_flags_en_i.rmap_write_window_flag   => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_window_en,
-			irq_flags_clr_i.rmap_write_config_flag  => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear,
-			irq_flags_clr_i.rmap_write_window_flag  => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear,
-			irq_flags_o.rmap_write_config_flag      => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag,
-			irq_flags_o.rmap_write_window_flag      => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag,
-			irq_o                                   => rmap_interrupt_sender_irq_o
+			clk_i                                     => a_avs_clock,
+			rst_i                                     => a_reset,
+			irq_manager_stop_i                        => s_machine_stop,
+			irq_manager_start_i                       => s_machine_start,
+			global_irq_en_i                           => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
+			irq_watches_i.rmap_write_data_finished    => s_rmap_write_data_finished,
+			irq_contexts_i.rmap_write_data_authorized => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized,
+			irq_contexts_i.rmap_win_area_write_flag   => s_rmap_win_area_write_flag,
+			irq_flags_en_i.rmap_write_config_flag     => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_config_en,
+			irq_flags_en_i.rmap_write_window_flag     => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_window_en,
+			irq_flags_clr_i.rmap_write_config_flag    => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear,
+			irq_flags_clr_i.rmap_write_window_flag    => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear,
+			irq_flags_o.rmap_write_config_flag        => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag,
+			irq_flags_o.rmap_write_window_flag        => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag,
+			irq_o                                     => rmap_interrupt_sender_irq_o
 		);
 
 	-- sync in trigger generation

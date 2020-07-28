@@ -65,7 +65,7 @@ begin
 			header_gen_finished_o          <= '0';
 			send_buffer_wrdata_o           <= x"00";
 			send_buffer_wrreq_o            <= '0';
-			send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+			send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 			send_buffer_data_type_wrreq_o  <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
@@ -81,7 +81,7 @@ begin
 					header_gen_finished_o          <= '0';
 					send_buffer_wrdata_o           <= x"00";
 					send_buffer_wrreq_o            <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
@@ -275,7 +275,7 @@ begin
 					header_gen_finished_o          <= '0';
 					send_buffer_wrdata_o           <= x"00";
 					send_buffer_wrreq_o            <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 				-- conditional output signals
 
@@ -284,7 +284,7 @@ begin
 					-- wait until the send buffer have available space
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- clear send buffer write signal
 					send_buffer_wrdata_o           <= x"00";
@@ -296,7 +296,7 @@ begin
 					-- logical address field, send logical address
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.logical_address;
@@ -314,7 +314,7 @@ begin
 					-- protocol identifier field, send protocol identifier
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.protocol_id;
@@ -332,7 +332,7 @@ begin
 					-- length field msb, send length msb
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.length_field(15 downto 8);
@@ -350,7 +350,7 @@ begin
 					-- length field lsb, send length lsb
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.length_field(7 downto 0);
@@ -368,7 +368,7 @@ begin
 					-- type field msb, send type msb
 					-- default output signals
 					header_gen_finished_o            <= '0';
-					send_buffer_data_type_wrdata_o   <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o   <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o    <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o(7 downto 4) <= (others => '0');
@@ -409,7 +409,7 @@ begin
 					-- frame counter field msb, send frame counter msb
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.frame_counter(15 downto 8);
@@ -427,7 +427,7 @@ begin
 					-- frame counter field lsb, send frame counter lsb
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.frame_counter(7 downto 0);
@@ -445,7 +445,7 @@ begin
 					-- sequence counter field msb, send sequence counter msb
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.sequence_counter(15 downto 8);
@@ -463,7 +463,7 @@ begin
 					-- sequence counter field lsb, send sequence counter lsb
 					-- default output signals
 					header_gen_finished_o          <= '0';
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.sequence_counter(7 downto 0);
@@ -484,7 +484,7 @@ begin
 					header_gen_finished_o          <= '1';
 					send_buffer_wrreq_o            <= '0';
 					send_buffer_wrdata_o           <= x"00";
-					send_buffer_data_type_wrdata_o <= c_INVALID_PACKET;
+					send_buffer_data_type_wrdata_o <= c_COMM_NFEE_INVALID_PACKET;
 					send_buffer_data_type_wrreq_o  <= '0';
 				-- conditional output signals
 

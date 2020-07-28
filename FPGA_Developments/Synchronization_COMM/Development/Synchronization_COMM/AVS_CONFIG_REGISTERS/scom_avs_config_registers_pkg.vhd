@@ -8,7 +8,7 @@ package scom_avs_config_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_SCOM_AVS_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_SCOM_AVS_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#2F#;
+	constant c_SCOM_AVS_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#26#;
 
 	-- Registers Types
 
@@ -58,12 +58,6 @@ package scom_avs_config_registers_pkg is
 		rmap_dev_base_addr : std_logic_vector(31 downto 0); -- RMAP Device Base Address
 	end record t_scom_rmap_dev_addr_wr_reg;
 
-	-- RMAP Echoing Mode Config Register
-	type t_scom_rmap_echoing_mode_config_wr_reg is record
-		rmap_echoing_mode_enable : std_logic; -- RMAP Echoing Mode Enable
-		rmap_echoing_id_enable   : std_logic; -- RMAP Echoing ID Enable
-	end record t_scom_rmap_echoing_mode_config_wr_reg;
-
 	-- RMAP Codec Config Register
 	type t_scom_rmap_codec_config_wr_reg is record
 		rmap_target_logical_addr : std_logic_vector(7 downto 0); -- RMAP Target Logical Address
@@ -107,44 +101,18 @@ package scom_avs_config_registers_pkg is
 		rmap_mem_area_ptr : std_logic_vector(31 downto 0); -- RMAP Memory Area Pointer
 	end record t_scom_rmap_mem_area_ptr_wr_reg;
 
-	-- RMAP IRQ Control Register
-	type t_scom_rmap_irq_control_wr_reg is record
-		rmap_write_config_en : std_logic; -- RMAP Write Config IRQ Enable
-		rmap_write_window_en : std_logic; -- RMAP Write Window IRQ Enable
-	end record t_scom_rmap_irq_control_wr_reg;
-
-	-- RMAP IRQ Flags Register
-	type t_scom_rmap_irq_flags_rd_reg is record
-		rmap_write_config_flag : std_logic; -- RMAP Write Config IRQ Flag
-		rmap_write_window_flag : std_logic; -- RMAP Write Config IRQ Flag
-	end record t_scom_rmap_irq_flags_rd_reg;
-
-	-- RMAP IRQ Flags Clear Register
-	type t_scom_rmap_irq_flags_clear_wr_reg is record
-		rmap_write_config_flag_clear : std_logic; -- RMAP Write Config IRQ Flag Clear
-		rmap_write_window_flag_clear : std_logic; -- RMAP Write Config IRQ Flag Clear
-	end record t_scom_rmap_irq_flags_clear_wr_reg;
-
-	-- RMAP IRQ Number Register
-	type t_scom_rmap_irq_number_rd_reg is record
-		rmap_irq_number : std_logic_vector(31 downto 0); -- RMAP IRQ Number/ID
-	end record t_scom_rmap_irq_number_rd_reg;
-
 	-- Avalon MM Types
 
 	-- Avalon MM Read/Write Registers
 	type t_scom_config_wr_regs is record
-		scom_dev_addr_reg            : t_scom_scom_dev_addr_wr_reg; -- Scom Device Address Register
-		spw_dev_addr_reg             : t_scom_spw_dev_addr_wr_reg; -- SpaceWire Device Address Register
-		spw_link_config_reg          : t_scom_spw_link_config_wr_reg; -- SpaceWire Link Config Register
-		spw_timecode_config_reg      : t_scom_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
-		rmap_dev_addr_reg            : t_scom_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
-		rmap_echoing_mode_config_reg : t_scom_rmap_echoing_mode_config_wr_reg; -- RMAP Echoing Mode Config Register
-		rmap_codec_config_reg        : t_scom_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
-		rmap_memory_config_reg       : t_scom_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
-		rmap_mem_area_ptr_reg        : t_scom_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
-		rmap_irq_control_reg         : t_scom_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
-		rmap_irq_flags_clear_reg     : t_scom_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
+		scom_dev_addr_reg       : t_scom_scom_dev_addr_wr_reg; -- Scom Device Address Register
+		spw_dev_addr_reg        : t_scom_spw_dev_addr_wr_reg; -- SpaceWire Device Address Register
+		spw_link_config_reg     : t_scom_spw_link_config_wr_reg; -- SpaceWire Link Config Register
+		spw_timecode_config_reg : t_scom_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
+		rmap_dev_addr_reg       : t_scom_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
+		rmap_codec_config_reg   : t_scom_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
+		rmap_memory_config_reg  : t_scom_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
+		rmap_mem_area_ptr_reg   : t_scom_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
 	end record t_scom_config_wr_regs;
 
 	-- Avalon MM Read-Only Registers
@@ -153,8 +121,6 @@ package scom_avs_config_registers_pkg is
 		spw_timecode_status_reg : t_scom_spw_timecode_rd_reg; -- SpaceWire Timecode Status Register
 		rmap_codec_status_reg   : t_scom_rmap_codec_status_rd_reg; -- RMAP Codec Status Register
 		rmap_memory_status_reg  : t_scom_rmap_memory_status_rd_reg; -- RMAP Memory Status Register
-		rmap_irq_flags_reg      : t_scom_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
-		rmap_irq_number_reg     : t_scom_rmap_irq_number_rd_reg; -- RMAP IRQ Number Register
 	end record t_scom_config_rd_regs;
 
 end package scom_avs_config_registers_pkg;

@@ -102,11 +102,11 @@ architecture rtl of rmap_target_user_ent is
 	);
 	signal s_rmap_target_user_state : t_rmap_target_user_state; -- current state
 
-	signal s_error_general_error                                  : std_logic;
-	signal s_error_invalid_key                                    : std_logic;
-	signal s_error_verify_buffer_overrun                          : std_logic;
-	signal s_error_rmap_command_not_implemented_or_not_authorised : std_logic;
-	signal s_error_invalid_target_logical_address                 : std_logic;
+	--	signal s_error_general_error                                  : std_logic;
+	--	signal s_error_invalid_key                                    : std_logic;
+	--	signal s_error_verify_buffer_overrun                          : std_logic;
+	--	signal s_error_rmap_command_not_implemented_or_not_authorised : std_logic;
+	--	signal s_error_invalid_target_logical_address                 : std_logic;
 
 	signal s_data_length_vector : std_logic_vector(23 downto 0);
 
@@ -132,19 +132,25 @@ begin
 	-- write:
 	-- r/w: s_rmap_target_user_state
 	p_rmap_target_user_FSM_state : process(clk_i, rst_i)
-		variable v_authorization_granted  : std_logic_vector(3 downto 0);
-		variable v_rmap_target_user_state : t_rmap_target_user_state := IDLE; -- current state
+		variable v_authorization_granted                                : std_logic_vector(3 downto 0);
+		variable v_rmap_target_user_state                               : t_rmap_target_user_state := IDLE; -- current state
+		-- TODO: replace by signals (modifications on the RMAP machine)
+		variable v_error_general_error                                  : std_logic;
+		variable v_error_invalid_key                                    : std_logic;
+		variable v_error_verify_buffer_overrun                          : std_logic;
+		variable v_error_rmap_command_not_implemented_or_not_authorised : std_logic;
+		variable v_error_invalid_target_logical_address                 : std_logic;
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
 			s_rmap_target_user_state                               <= IDLE;
 			v_rmap_target_user_state                               := IDLE;
-			s_error_general_error                                  <= '0';
-			s_error_invalid_key                                    <= '0';
-			s_error_verify_buffer_overrun                          <= '0';
-			s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-			s_error_invalid_target_logical_address                 <= '0';
 			v_authorization_granted                                := (others => '0');
+			v_error_general_error                                  := '0';
+			v_error_invalid_key                                    := '0';
+			v_error_verify_buffer_overrun                          := '0';
+			v_error_rmap_command_not_implemented_or_not_authorised := '0';
+			v_error_invalid_target_logical_address                 := '0';
 			-- Outputs Generation
 			control_o.command_parsing.user_ready                   <= '0';
 			control_o.command_parsing.command_reset                <= '0';
@@ -167,11 +173,11 @@ begin
 					s_rmap_target_user_state                               <= IDLE;
 					v_rmap_target_user_state                               := IDLE;
 					-- default internal signal values
-					s_error_general_error                                  <= '0';
-					s_error_invalid_key                                    <= '0';
-					s_error_verify_buffer_overrun                          <= '0';
-					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-					s_error_invalid_target_logical_address                 <= '0';
+					v_error_general_error                                  := '0';
+					v_error_invalid_key                                    := '0';
+					v_error_verify_buffer_overrun                          := '0';
+					v_error_rmap_command_not_implemented_or_not_authorised := '0';
+					v_error_invalid_target_logical_address                 := '0';
 					v_authorization_granted                                := (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if the command parser finished parsing a command
@@ -237,11 +243,11 @@ begin
 					s_rmap_target_user_state                               <= WAITING_WRITE_DISCARD;
 					v_rmap_target_user_state                               := WAITING_WRITE_DISCARD;
 					-- default internal signal values
-					s_error_general_error                                  <= '0';
-					s_error_invalid_key                                    <= '0';
-					s_error_invalid_target_logical_address                 <= '0';
-					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-					s_error_verify_buffer_overrun                          <= '0';
+					v_error_general_error                                  := '0';
+					v_error_invalid_key                                    := '0';
+					v_error_invalid_target_logical_address                 := '0';
+					v_error_rmap_command_not_implemented_or_not_authorised := '0';
+					v_error_verify_buffer_overrun                          := '0';
 					v_authorization_granted                                := (others => '0');
 					v_authorization_granted(3)                             := '1';
 					-- conditional state transition and internal signal values
@@ -252,7 +258,7 @@ begin
 						v_authorization_granted(0) := '1';
 					else
 						-- not authorized
-						s_error_invalid_key <= '1';
+						v_error_invalid_key := '1';
 					end if;
 					-- check user target logical address
 					if (codecdata_i.target_logical_address = configs_i.user_target_logical_address) then
@@ -260,7 +266,7 @@ begin
 						v_authorization_granted(1) := '1';
 					else
 						-- not authorized
-						s_error_invalid_target_logical_address <= '1';
+						v_error_invalid_target_logical_address := '1';
 					end if;
 					-- check if the write command data length is compatible
 					-- check if data need to be verified before being written
@@ -272,7 +278,7 @@ begin
 							v_authorization_granted(2) := '1';
 						else
 							-- not authorized
-							s_error_verify_buffer_overrun <= '1';
+							v_error_verify_buffer_overrun := '1';
 						end if;
 					else
 						-- data does not need to be verified
@@ -282,7 +288,7 @@ begin
 							v_authorization_granted(2) := '1';
 						else
 							-- not authorized
-							s_error_rmap_command_not_implemented_or_not_authorised <= '1';
+							v_error_rmap_command_not_implemented_or_not_authorised := '1';
 						end if;
 					end if;
 					-- check if command was authorized
@@ -345,11 +351,11 @@ begin
 					s_rmap_target_user_state                               <= FINISH_USER_OPERATION;
 					v_rmap_target_user_state                               := FINISH_USER_OPERATION;
 					-- default internal signal values
-					s_error_general_error                                  <= '0';
-					s_error_invalid_key                                    <= '0';
-					s_error_invalid_target_logical_address                 <= '0';
-					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-					s_error_verify_buffer_overrun                          <= '0';
+					v_error_general_error                                  := '0';
+					v_error_invalid_key                                    := '0';
+					v_error_invalid_target_logical_address                 := '0';
+					v_error_rmap_command_not_implemented_or_not_authorised := '0';
+					v_error_verify_buffer_overrun                          := '0';
 					v_authorization_granted                                := (others => '0');
 					-- conditional state transition and internal signal values
 					-- verify read command authorization
@@ -359,7 +365,7 @@ begin
 						v_authorization_granted(0) := '1';
 					else
 						-- not authorized
-						s_error_invalid_key <= '1';
+						v_error_invalid_key := '1';
 					end if;
 					-- check user target logical address
 					if (codecdata_i.target_logical_address = configs_i.user_target_logical_address) then
@@ -367,13 +373,13 @@ begin
 						v_authorization_granted(1) := '1';
 					else
 						-- not authorized
-						s_error_invalid_target_logical_address <= '1';
+						v_error_invalid_target_logical_address := '1';
 					end if;
 					-- check if an not implementend command arrived
 					if ((codecdata_i.instructions.command.write_read = '0') and (codecdata_i.instructions.command.verify_data_before_write = '1') and (codecdata_i.instructions.command.reply = '1') and (codecdata_i.instructions.command.increment_address = '1')) then
 						-- RWM command received
 						-- not authorized 
-						s_error_rmap_command_not_implemented_or_not_authorised <= '1';
+						v_error_rmap_command_not_implemented_or_not_authorised := '1';
 					else
 						-- valid command received
 						v_authorization_granted(2) := '1';
@@ -384,7 +390,7 @@ begin
 						v_authorization_granted(3) := '1';
 					else
 						-- not authorized
-						s_error_rmap_command_not_implemented_or_not_authorised <= '1';
+						v_error_rmap_command_not_implemented_or_not_authorised := '1';
 					end if;
 					-- check if command was authorized
 					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
@@ -593,42 +599,42 @@ begin
 					-- send reply to initiator
 					-- default output signals
 					control_o.reply_geneneration.send_reply <= '0';
-					reply_status                            <= std_logic_vector(to_unsigned(c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY, 8));
+					reply_status                            <= c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY;
 					-- conditional output signals
 					-- check if an error ocurred
-					if (s_error_general_error = '1') then
+					if (v_error_general_error = '1') then
 						-- general error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_GENERAL_ERROR_CODE, 8));
+						reply_status <= c_ERROR_CODE_GENERAL_ERROR_CODE;
 					elsif ((error_i.unused_packet_type = '1') or (error_i.invalid_command_code = '1')) then
 						-- unused rmap packet type or command code error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE, 8));
-					elsif (s_error_invalid_key = '1') then
+						reply_status <= c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE;
+					elsif (v_error_invalid_key = '1') then
 						-- invalid key error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_KEY, 8));
+						reply_status <= c_ERROR_CODE_INVALID_KEY;
 					elsif (error_i.invalid_data_crc = '1') then
 						-- invalid data crc error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_DATA_CRC, 8));
+						reply_status <= c_ERROR_CODE_INVALID_DATA_CRC;
 					elsif (error_i.early_eop = '1') then
 						-- early eop error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EARLY_EOP, 8));
+						reply_status <= c_ERROR_CODE_EARLY_EOP;
 					elsif (error_i.too_much_data = '1') then
 						-- too much data error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_TOO_MUCH_DATA, 8));
+						reply_status <= c_ERROR_CODE_TOO_MUCH_DATA;
 					elsif (error_i.eep = '1') then
 						-- eep error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EEP, 8));
-					elsif (s_error_verify_buffer_overrun = '1') then
+						reply_status <= c_ERROR_CODE_EEP;
+					elsif (v_error_verify_buffer_overrun = '1') then
 						-- verify buffer overrun error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_VERIFY_BUFFER_OVERRUN, 8));
-					elsif (s_error_rmap_command_not_implemented_or_not_authorised = '1') then
+						reply_status <= c_ERROR_CODE_VERIFY_BUFFER_OVERRUN;
+					elsif (v_error_rmap_command_not_implemented_or_not_authorised = '1') then
 						-- rmap command not implemented or not authorised error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED, 8));
+						reply_status <= c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED;
 					-- the next case is commented out because the RMW function is not implemented
 					-- elsif (s_error_rmw_data_length_error = '1') then
-					--   reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMW_DATA_LENGTH_ERROR,8));
-					elsif (s_error_invalid_target_logical_address = '1') then
+					--   reply_status <= c_ERROR_CODE_RMW_DATA_LENGTH_ERROR;
+					elsif (v_error_invalid_target_logical_address = '1') then
 						-- invalid target logical address error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS, 8));
+						reply_status <= c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS;
 					end if;
 
 				-- state "WAITING_REPLY_FINISH"

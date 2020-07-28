@@ -26,6 +26,7 @@
 #include "../utils/configs_simucam.h"
 #include "../utils/meb.h"               /* To get task prio */
 #include "../utils/sync_handler.h"      /* Get sync manipulation methods */
+#include "../driver/scom/scom.h"
 #include "tasks_configurations.h"
 
 /*$PAGE*/

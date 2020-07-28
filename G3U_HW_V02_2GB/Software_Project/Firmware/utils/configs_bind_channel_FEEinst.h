@@ -29,6 +29,6 @@ extern TDefaultsCH xDefaultsCH;
 
 
 /*Functions*/
-bool vCHConfs( void );
+bool bCHConfs( void );
 
 #endif

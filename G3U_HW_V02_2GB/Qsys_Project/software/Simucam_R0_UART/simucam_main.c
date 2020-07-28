@@ -12,6 +12,7 @@
 #include "utils/fee_controller.h"
 #include "utils/data_controller.h"
 #include "utils/pattern.h"
+#include "driver/scom/scom.h"
 #include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
 #include <sys/ioctl.h>
@@ -615,7 +616,7 @@ int main(void)
 	#endif
 
 	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
-	bIniSimucamStatus = vCHConfs();
+	bIniSimucamStatus = bCHConfs();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
 		#if DEBUG_ON
@@ -686,6 +687,9 @@ int main(void)
 	bInitSync();
 
 	bInitFTDI();
+
+	/* Initialize the Synchronization Provider Channel - [rfranca] */
+	vScomInit();
 
 	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 
