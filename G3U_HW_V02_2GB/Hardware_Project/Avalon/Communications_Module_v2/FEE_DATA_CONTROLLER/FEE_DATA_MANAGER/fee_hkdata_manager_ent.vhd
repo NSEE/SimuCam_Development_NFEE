@@ -144,7 +144,7 @@ begin
 						headerdata_o.type_field.ccd_number <= fee_ccd_number_i;
 					end if;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_HOUSEKEEPING_PACKET;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_HOUSEKEEPING_PACKET;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- start the header generator
@@ -167,7 +167,7 @@ begin
 						headerdata_o.type_field.ccd_number <= fee_ccd_number_i;
 					end if;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_HOUSEKEEPING_PACKET;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_HOUSEKEEPING_PACKET;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- check if the header generator is finished

@@ -25,7 +25,9 @@ entity data_packet_data_writer_ent is
 		data_wr_busy_o                 : out std_logic;
 		data_wr_finished_o             : out std_logic;
 		data_wr_data_changed_o         : out std_logic;
+		data_wr_data_flushed_o         : out std_logic;
 		masking_buffer_rdreq_o         : out std_logic;
+		send_buffer_flush_o            : out std_logic;
 		send_buffer_wrdata_o           : out std_logic_vector(7 downto 0);
 		send_buffer_wrreq_o            : out std_logic;
 		send_buffer_data_end_wrdata_o  : out std_logic;
@@ -46,7 +48,8 @@ architecture RTL of data_packet_data_writer_ent is
 	);
 	signal s_data_writer_state : t_data_writer_fsm; -- current state
 
-	signal s_data_cnt : std_logic_vector(15 downto 0);
+	signal s_data_cnt_initial : std_logic_vector(15 downto 0);
+	signal s_data_cnt         : std_logic_vector(15 downto 0);
 
 	signal s_overflow_send_buffer : std_logic;
 
@@ -63,35 +66,38 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_data_writer_state    <= STOPPED;
-			v_data_writer_state    := STOPPED;
-			s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
-			s_overflow_send_buffer <= '0';
-			s_first_write          <= '0';
+			s_data_writer_state           <= STOPPED;
+			v_data_writer_state           := STOPPED;
+			s_data_cnt_initial            <= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
+			s_data_cnt                    <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
+			s_overflow_send_buffer        <= '0';
+			s_first_write                 <= '0';
 			-- Outputs Generation
-			data_wr_busy_o         <= '0';
-			data_wr_finished_o     <= '0';
-			data_wr_data_changed_o <= '0';
-			masking_buffer_rdreq_o <= '0';
-			send_buffer_wrdata_o   <= x"00";
-			send_buffer_wrreq_o    <= '0';
+			data_wr_busy_o                <= '0';
+			data_wr_finished_o            <= '0';
+			data_wr_data_changed_o        <= '0';
+			data_wr_data_flushed_o        <= '0';
+			masking_buffer_rdreq_o        <= '0';
+			send_buffer_flush_o           <= '0';
+			send_buffer_wrdata_o          <= x"00";
+			send_buffer_wrreq_o           <= '0';
+			send_buffer_data_end_wrdata_o <= '0';
+			send_buffer_data_end_wrreq_o  <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_data_writer_state) is
 
 				when STOPPED =>
 					-- stopped state. do nothing and reset
+					-- default state transition
 					s_data_writer_state    <= STOPPED;
 					v_data_writer_state    := STOPPED;
+					-- default internal signal values
+					s_data_cnt_initial     <= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
 					s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					s_overflow_send_buffer <= '0';
 					s_first_write          <= '0';
-					-- Outputs Generation
-					data_wr_busy_o         <= '0';
-					data_wr_finished_o     <= '0';
-					masking_buffer_rdreq_o <= '0';
-					send_buffer_wrdata_o   <= x"00";
-					send_buffer_wrreq_o    <= '0';
+					-- conditional state transition and internal signal values
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -106,6 +112,7 @@ begin
 					s_data_writer_state    <= IDLE;
 					v_data_writer_state    := IDLE;
 					-- default internal signal values
+					s_data_cnt_initial     <= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
 					s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					s_overflow_send_buffer <= '0';
 					s_first_write          <= '0';
@@ -116,6 +123,7 @@ begin
 						-- set the first write flag
 						s_first_write       <= '1';
 						-- set the data counter
+						s_data_cnt_initial  <= std_logic_vector(unsigned(data_wr_length_i) - 1);
 						s_data_cnt          <= std_logic_vector(unsigned(data_wr_length_i) - 1);
 						-- go to wating buffer space
 						s_data_writer_state <= WAITING_SEND_BUFFER_SPACE;
@@ -219,15 +227,31 @@ begin
 
 			case (v_data_writer_state) is
 
-				-- state "IDLE"
-				when IDLE =>
-					-- does nothing until a data write is requested
-					-- reset outputs
+				when STOPPED =>
+					-- stopped state. do nothing and reset
 					-- default output signals
 					data_wr_busy_o                <= '0';
 					data_wr_finished_o            <= '0';
 					data_wr_data_changed_o        <= '0';
+					data_wr_data_flushed_o        <= '0';
 					masking_buffer_rdreq_o        <= '0';
+					send_buffer_flush_o           <= '0';
+					send_buffer_wrdata_o          <= x"00";
+					send_buffer_wrreq_o           <= '0';
+					send_buffer_data_end_wrdata_o <= '0';
+					send_buffer_data_end_wrreq_o  <= '0';
+				-- conditional output signals
+
+				-- state "IDLE"
+				when IDLE =>
+					-- does nothing until a data write is requested
+					-- default output signals
+					data_wr_busy_o                <= '0';
+					data_wr_finished_o            <= '0';
+					data_wr_data_changed_o        <= '0';
+					data_wr_data_flushed_o        <= '0';
+					masking_buffer_rdreq_o        <= '0';
+					send_buffer_flush_o           <= '0';
 					send_buffer_wrdata_o          <= x"00";
 					send_buffer_wrreq_o           <= '0';
 					send_buffer_data_end_wrreq_o  <= '0';
@@ -241,7 +265,9 @@ begin
 					data_wr_busy_o                <= '1';
 					data_wr_finished_o            <= '0';
 					data_wr_data_changed_o        <= '0';
+					data_wr_data_flushed_o        <= '0';
 					masking_buffer_rdreq_o        <= '0';
+					send_buffer_flush_o           <= '0';
 					-- clear send buffer write signal
 					send_buffer_wrdata_o          <= x"00";
 					send_buffer_wrreq_o           <= '0';
@@ -257,8 +283,10 @@ begin
 					data_wr_busy_o                <= '1';
 					data_wr_finished_o            <= '0';
 					data_wr_data_changed_o        <= '0';
+					data_wr_data_flushed_o        <= '0';
 					-- fetch data from masking buffer
 					masking_buffer_rdreq_o        <= '1';
+					send_buffer_flush_o           <= '0';
 					send_buffer_wrdata_o          <= x"00";
 					send_buffer_wrreq_o           <= '0';
 					send_buffer_data_end_wrreq_o  <= '0';
@@ -271,8 +299,11 @@ begin
 					-- default output signals
 					data_wr_busy_o                <= '1';
 					data_wr_finished_o            <= '0';
+					data_wr_data_changed_o        <= '0';
+					data_wr_data_flushed_o        <= '0';
 					-- fetch data from masking buffer
 					masking_buffer_rdreq_o        <= '0';
+					send_buffer_flush_o           <= '0';
 					send_buffer_wrdata_o          <= x"00";
 					send_buffer_wrreq_o           <= '0';
 					send_buffer_data_end_wrreq_o  <= '0';
@@ -285,9 +316,35 @@ begin
 					data_wr_busy_o         <= '1';
 					data_wr_finished_o     <= '0';
 					data_wr_data_changed_o <= '0';
+					data_wr_data_flushed_o <= '0';
 					masking_buffer_rdreq_o <= '0';
+					send_buffer_flush_o    <= '0';
 					-- fill send buffer data with masking data
 					send_buffer_wrdata_o   <= a_masking_buffer_rddata_imgbyte;
+					-- write the send buffer data
+					-- check if a change command was read
+					if (a_masking_buffer_rddata_imgchange = '1') then
+						-- a change command was read
+						-- no need to write the data
+						send_buffer_wrreq_o <= '0';
+						-- check if no data was written to the send buffer
+						if (s_data_cnt = s_data_cnt_initial) then
+							-- no data was written to the send buffer
+							-- flush the buffer of not used header data
+							send_buffer_flush_o    <= '1';
+							-- set the data flushed flag
+							data_wr_data_flushed_o <= '1';
+						end if;
+					-- check if the send buffer is being overflow
+					elsif (s_overflow_send_buffer = '1') then
+						-- the send buffer is being overflow
+						-- no need to write the data
+						send_buffer_wrreq_o <= '0';
+					else
+						-- a change command was not read and the the send buffer is not being overflow
+						-- need to write the data
+						send_buffer_wrreq_o <= '1';
+					end if;
 					-- check if it is the first write
 					if (s_first_write = '1') then
 						-- it is the first write
@@ -303,14 +360,6 @@ begin
 						send_buffer_data_end_wrreq_o  <= '0';
 						send_buffer_data_end_wrdata_o <= '0';
 					end if;
-					-- write the send buffer data
-					-- check if a change command was read or the send buffer is being overflow (no need to write)
-					if ((a_masking_buffer_rddata_imgchange = '1') or (s_overflow_send_buffer = '1')) then
-						send_buffer_wrreq_o <= '0';
-					else
-						send_buffer_wrreq_o <= '1';
-					end if;
-
 				-- conditional output signals
 
 				-- state "DATA_WRITER_FINISH"
@@ -329,15 +378,12 @@ begin
 						data_wr_data_changed_o <= '0';
 					end if;
 					masking_buffer_rdreq_o        <= '0';
+					send_buffer_flush_o           <= '0';
 					send_buffer_wrreq_o           <= '0';
 					send_buffer_wrdata_o          <= x"00";
 					send_buffer_data_end_wrreq_o  <= '0';
 					send_buffer_data_end_wrdata_o <= '0';
-				-- conditional output signals
-
-				-- all the other states (not defined)
-				when others =>
-					null;
+					-- conditional output signals
 
 			end case;
 

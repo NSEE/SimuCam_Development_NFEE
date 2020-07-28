@@ -15,8 +15,8 @@ entity fee_data_manager_ent is
 		fee_start_signal_i                       : in  std_logic;
 		fee_manager_sync_i                       : in  std_logic;
 		fee_manager_hk_only_i                    : in  std_logic;
-		fee_left_side_activated_i                : in  std_logic;
-		fee_right_side_activated_i               : in  std_logic;
+		fee_left_buffer_activated_i              : in  std_logic;
+		fee_right_buffer_activated_i             : in  std_logic;
 		-- fee housekeeping data manager status
 		hkdataman_manager_i                      : in  t_fee_dpkt_general_status;
 		-- fee left_image data manager status			
@@ -146,12 +146,12 @@ begin
 					fee_data_manager_busy_o  <= '1';
 					-- start the image data manager
 					-- check if the left side is activated
-					if (fee_left_side_activated_i = '1') then
+					if (fee_left_buffer_activated_i = '1') then
 						-- left side is activated, start left image data manager
 						left_imgdataman_manager_o.start <= '1';
 					end if;
 					-- check if the right side is activated
-					if (fee_right_side_activated_i = '1') then
+					if (fee_right_buffer_activated_i = '1') then
 						-- right side is activated, start right image data manager
 						right_imgdataman_manager_o.start <= '1';
 					end if;
@@ -161,7 +161,7 @@ begin
 					s_fee_data_manager_state <= WAITING_IMGDATA_CONTROLLER_FINISH;
 					fee_data_manager_busy_o  <= '1';
 					-- check if both sides are activated
-					if ((fee_left_side_activated_i = '1') and (fee_right_side_activated_i = '1')) then
+					if ((fee_left_buffer_activated_i = '1') and (fee_right_buffer_activated_i = '1')) then
 						-- both sides are activated
 						-- check if both image data managers is finished
 						if ((left_imgdataman_manager_i.finished = '1') and (right_imgdataman_manager_i.finished = '1')) then
@@ -173,7 +173,7 @@ begin
 							s_fee_data_manager_state         <= WAITING_DATA_TRANSMITTER_FINISH;
 						end if;
 					-- check if the left side is activated
-					elsif (fee_left_side_activated_i = '1') then
+					elsif (fee_left_buffer_activated_i = '1') then
 						-- left side is activated
 						-- check if the left image data manager is finished
 						if (left_imgdataman_manager_i.finished = '1') then
@@ -184,7 +184,7 @@ begin
 							s_fee_data_manager_state        <= WAITING_DATA_TRANSMITTER_FINISH;
 						end if;
 					-- check if the right side is activated
-					elsif (fee_right_side_activated_i = '1') then
+					elsif (fee_right_buffer_activated_i = '1') then
 						-- right side is activated
 						-- check if the right image data manager is finished
 						if (right_imgdataman_manager_i.finished = '1') then

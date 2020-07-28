@@ -23,12 +23,11 @@
 //! [program memory private global variables]
 
 //! [public functions]
-bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh) {
+bool bWindCopyMebWindowingParam(alt_u32 uliMebWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	bool bValidMem = FALSE;
 	bool bValidCh = FALSE;
 	volatile TCommChannel *vpxCommChannel = NULL;
-	volatile TRmapMemDebArea *vpxRmapMemDebArea = NULL;
 	volatile TWindMebWindowingParam *vpxMebWindowingParam = NULL;
 
 	bValidMem = bDdr2SwitchMemory(ucMemoryId);
@@ -36,32 +35,32 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 	switch (ucCommCh) {
 	case eCommSpwCh1:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+		vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 		bValidCh = TRUE;
 		break;
 	case eCommSpwCh2:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+		vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 		bValidCh = TRUE;
 		break;
 	case eCommSpwCh3:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+		vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 		bValidCh = TRUE;
 		break;
 	case eCommSpwCh4:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+		vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 		bValidCh = TRUE;
 		break;
 	case eCommSpwCh5:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+		vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 		bValidCh = TRUE;
 		break;
 	case eCommSpwCh6:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
-		vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+		vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 		bValidCh = TRUE;
 		break;
 	default:
@@ -69,8 +68,8 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 		break;
 	}
 
-	if ((bValidMem) && (bValidCh) && (uliWindowingParamAddr < DDR2_M1_MEMORY_SIZE)) {
-		vpxCommChannel->xDataPacket.xDpktWindowingParam = *vpxWindowingParam;
+	if ((bValidMem) && (bValidCh) && (uliMebWindowingParamAddr < DDR2_M1_MEMORY_SIZE)) {
+		vpxCommChannel->xDataPacket.xDpktWindowingParam = vpxMebWindowingParam->xDpktWindowingParam;
 		bStatus = TRUE;
 
 #if DEBUG_ON

@@ -234,7 +234,7 @@ void vDataControlTaskV2(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"DTC: Req: EP %hhu FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", pxDataC->usiEPn, ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN ), ucSubCCDSide);
+								fprintf(fp,"DTC: Req: EP %hhu FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", pxDataC->usiEPn, ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiOLN ), ucSubCCDSide);
 							}
 							#endif
 

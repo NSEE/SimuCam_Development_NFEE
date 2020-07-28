@@ -4445,10 +4445,10 @@ begin
 							s_times_cnt   <= 0;
 						end if;
 					end if;
---					
---					if (s_address_cnt = 50) then
---						s_counter     <= 5000;
---					end if;
+				--					
+				--					if (s_address_cnt = 50) then
+				--						s_counter     <= 5000;
+				--					end if;
 
 				--				when 1500 =>
 				--					-- register write

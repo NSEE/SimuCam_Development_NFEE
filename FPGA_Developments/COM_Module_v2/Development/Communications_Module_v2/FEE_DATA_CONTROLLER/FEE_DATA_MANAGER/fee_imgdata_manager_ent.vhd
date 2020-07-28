@@ -184,7 +184,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_COMM_FFEE_DATA_PACKET;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_DATA_PACKET;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- start the header generator
@@ -206,7 +206,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_COMM_FFEE_DATA_PACKET;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_DATA_PACKET;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- check if the header generator is finished
@@ -224,7 +224,7 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o   <= '0';
 					-- set the data writer length
-					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_FFEE_DATA_PKT_HEADER_SIZE);
+					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_NFEE_DATA_PKT_HEADER_SIZE);
 					-- start the data writer
 					data_wr_start_o          <= '1';
 
@@ -274,7 +274,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_COMM_FFEE_OVERSCAN_DATA;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_OVERSCAN_DATA;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- start the header generator
@@ -296,7 +296,7 @@ begin
 					headerdata_o.type_field.ccd_side     <= fee_ccd_side_i;
 					headerdata_o.type_field.ccd_number   <= fee_ccd_number_i;
 					headerdata_o.type_field.frame_number <= current_frame_number_i;
-					headerdata_o.type_field.packet_type  <= c_COMM_FFEE_OVERSCAN_DATA;
+					headerdata_o.type_field.packet_type  <= c_COMM_NFEE_OVERSCAN_DATA;
 					headerdata_o.frame_counter           <= current_frame_counter_i;
 					headerdata_o.sequence_counter        <= (others => '0');
 					-- check if the header generator is finished
@@ -314,7 +314,7 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o   <= '0';
 					-- set the data writer length
-					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_FFEE_DATA_PKT_HEADER_SIZE);
+					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_NFEE_DATA_PKT_HEADER_SIZE);
 					-- start the data writer
 					data_wr_start_o          <= '1';
 

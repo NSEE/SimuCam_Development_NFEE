@@ -1,11 +1,11 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/COM_Module_v2/Development/Testbench/comm_v2_testbench.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Testbench/comm_v2_testbench.mpf
 # Loading project comm_v2_testbench
 # Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_read_ent.vhd was successful.
 # Compile of avalon_mm_spacewire_write_ent.vhd was successful.
-# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
 # Compile of windowing_dataset_pkg.vhd was successful.
 # Compile of comm_avm_buffers_pkg.vhd was successful.
 # Compile of comm_avm_buffers_reader_ent.vhd was successful.
@@ -32,6 +32,349 @@
 # Compile of masking_machine_sc_fifo.vhd was successful.
 # Compile of masking_machine_ent.vhd was successful.
 # Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd failed with 2 errors.
+# Compile of data_packet_data_writer_ent.vhd was successful.
+# Compile of send_buffer_0_sc_fifo.vhd was successful.
+# Compile of send_buffer_1_sc_fifo.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of send_buffer_ent.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd failed with 2 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 5 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 8 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_irq_manager_pkg.vhd was successful.
+# Compile of comm_feeb_irq_manager_ent.vhd was successful.
+# Compile of comm_rmap_irq_manager_ent.vhd was successful.
+# Compile of comm_statistics_manager_ent.vhd was successful.
+# Compile of comm_sync_manager_ent.vhd was successful.
+# Compile of comm_timecode_manager_ent.vhd was successful.
+# Compile of comm_restart_manager_ent.vhd was successful.
+# Compile of comm_rmap_rw_manager_ent.vhd was successful.
+# Compile of comm_v2_top.vhd failed with 7 errors.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of avalon_buffer_L_stimuli.vhd was successful.
+# Compile of avalon_buffer_R_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 63 compiles, 13 failed with 190 errors.
+# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
+# Compile of windowing_dataset_pkg.vhd was successful.
+# Compile of comm_avm_buffers_pkg.vhd was successful.
+# Compile of comm_avm_buffers_reader_ent.vhd was successful.
+# Compile of comm_avm_buffers_controller_ent.vhd was successful.
+# Compile of windowing_data_sc_fifo.vhd was successful.
+# Compile of windowing_mask_sc_fifo.vhd was successful.
+# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
+# Compile of windowing_fifo_pkg.vhd was successful.
+# Compile of windowing_data_fifo_ent.vhd was successful.
+# Compile of windowing_mask_fifo_ent.vhd was successful.
+# Compile of windowing_buffer_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_sc_fifo.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd failed with 2 errors.
+# Compile of data_packet_data_writer_ent.vhd was successful.
+# Compile of send_buffer_0_sc_fifo.vhd was successful.
+# Compile of send_buffer_1_sc_fifo.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of send_buffer_ent.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd failed with 2 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 5 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 8 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_irq_manager_pkg.vhd was successful.
+# Compile of comm_feeb_irq_manager_ent.vhd was successful.
+# Compile of comm_rmap_irq_manager_ent.vhd was successful.
+# Compile of comm_statistics_manager_ent.vhd was successful.
+# Compile of comm_sync_manager_ent.vhd was successful.
+# Compile of comm_timecode_manager_ent.vhd was successful.
+# Compile of comm_restart_manager_ent.vhd was successful.
+# Compile of comm_rmap_rw_manager_ent.vhd was successful.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of avalon_buffer_L_stimuli.vhd was successful.
+# Compile of avalon_buffer_R_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 63 compiles, 12 failed with 187 errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
+# Compile of data_packet_hk_writer_ent.vhd failed with 2 errors.
+# Compile of fee_hkdata_manager_ent.vhd failed with 2 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 5 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 8 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 12 compiles, 12 failed with 187 errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd failed with 2 errors.
+# Compile of fee_hkdata_manager_ent.vhd failed with 2 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 11 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 12 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 7 errors.
+# Compile of fee_data_controller_top.vhd failed with 65 errors.
+# Compile of comm_v2_top.vhd failed with 7 errors.
+# 13 compiles, 12 failed with 214 errors.
+# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
+# Compile of windowing_dataset_pkg.vhd was successful.
+# Compile of comm_avm_buffers_pkg.vhd was successful.
+# Compile of comm_avm_buffers_reader_ent.vhd was successful.
+# Compile of comm_avm_buffers_controller_ent.vhd was successful.
+# Compile of windowing_data_sc_fifo.vhd was successful.
+# Compile of windowing_mask_sc_fifo.vhd was successful.
+# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
+# Compile of windowing_fifo_pkg.vhd was successful.
+# Compile of windowing_data_fifo_ent.vhd was successful.
+# Compile of windowing_mask_fifo_ent.vhd was successful.
+# Compile of windowing_buffer_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_sc_fifo.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd failed with 15 errors.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of data_packet_data_writer_ent.vhd was successful.
+# Compile of send_buffer_0_sc_fifo.vhd was successful.
+# Compile of send_buffer_1_sc_fifo.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of send_buffer_ent.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd failed with 2 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 6 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_irq_manager_pkg.vhd was successful.
+# Compile of comm_feeb_irq_manager_ent.vhd was successful.
+# Compile of comm_rmap_irq_manager_ent.vhd was successful.
+# Compile of comm_statistics_manager_ent.vhd was successful.
+# Compile of comm_sync_manager_ent.vhd was successful.
+# Compile of comm_timecode_manager_ent.vhd was successful.
+# Compile of comm_restart_manager_ent.vhd was successful.
+# Compile of comm_rmap_rw_manager_ent.vhd was successful.
+# Compile of comm_v2_top.vhd failed with 7 errors.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of avalon_buffer_L_stimuli.vhd was successful.
+# Compile of avalon_buffer_R_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 63 compiles, 12 failed with 209 errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
+# Compile of fee_hkdata_manager_ent.vhd failed with 2 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 6 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 11 compiles, 11 failed with 191 errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
+# Compile of fee_hkdata_manager_ent.vhd failed with 3 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 4 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 11 compiles, 11 failed with 190 errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 43 errors.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 4 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 11 compiles, 10 failed with 187 errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd failed with 7 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 4 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 10 compiles, 10 failed with 151 errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 4 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 10 compiles, 9 failed with 144 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 15 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 9 compiles, 8 failed with 140 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 29 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 8 compiles, 7 failed with 125 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 8 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 7 compiles, 6 failed with 96 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd failed with 4 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 6 compiles, 5 failed with 88 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 13 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 5 compiles, 4 failed with 84 errors.
+# Compile of fee_imgdata_manager_ent.vhd failed with 9 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 4 compiles, 4 failed with 80 errors.
+# Compile of fee_imgdata_manager_ent.vhd was successful.
+# Compile of fee_imgdata_controller_top.vhd failed with 5 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 4 compiles, 3 failed with 71 errors.
+# Compile of fee_imgdata_controller_top.vhd failed with 3 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 3 compiles, 3 failed with 69 errors.
+# Compile of fee_imgdata_controller_top.vhd was successful.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd failed with 4 errors.
+# 3 compiles, 2 failed with 66 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of comm_v2_top.vhd was successful.
+# 2 compiles, 1 failed with 62 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of fee_data_controller_top.vhd failed with 62 errors.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of fee_data_controller_top.vhd failed with 52 errors.
+# 2 compiles, 1 failed with 52 errors.
+# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+# Compile of windowing_dataset_pkg.vhd was successful.
+# Compile of comm_avm_buffers_pkg.vhd was successful.
+# Compile of comm_avm_buffers_reader_ent.vhd was successful.
+# Compile of comm_avm_buffers_controller_ent.vhd was successful.
+# Compile of windowing_data_sc_fifo.vhd was successful.
+# Compile of windowing_mask_sc_fifo.vhd was successful.
+# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
+# Compile of windowing_fifo_pkg.vhd was successful.
+# Compile of windowing_data_fifo_ent.vhd was successful.
+# Compile of windowing_mask_fifo_ent.vhd was successful.
+# Compile of windowing_buffer_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_sc_fifo.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd failed with 15 errors.
 # Compile of data_packet_hk_writer_ent.vhd was successful.
 # Compile of data_packet_data_writer_ent.vhd was successful.
 # Compile of send_buffer_0_sc_fifo.vhd was successful.
@@ -49,7 +392,77 @@
 # Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
 # Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
 # Compile of comm_data_transmitter_windowing_ent.vhd was successful.
-# Compile of comm_data_transmitter_crc_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of fee_data_controller_top.vhd failed with 60 errors.
+# Compile of comm_irq_manager_pkg.vhd was successful.
+# Compile of comm_feeb_irq_manager_ent.vhd was successful.
+# Compile of comm_rmap_irq_manager_ent.vhd was successful.
+# Compile of comm_statistics_manager_ent.vhd was successful.
+# Compile of comm_sync_manager_ent.vhd was successful.
+# Compile of comm_timecode_manager_ent.vhd was successful.
+# Compile of comm_restart_manager_ent.vhd was successful.
+# Compile of comm_rmap_rw_manager_ent.vhd was successful.
+# Compile of comm_v2_top.vhd was successful.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of avalon_buffer_L_stimuli.vhd was successful.
+# Compile of avalon_buffer_R_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 63 compiles, 2 failed with 75 errors.
+# Compile of fee_data_controller_top.vhd failed with 60 errors.
+# Compile of fee_data_controller_top.vhd failed with 58 errors.
+# Compile of fee_data_controller_top.vhd failed with 33 errors.
+# Compile of fee_data_controller_top.vhd failed with 23 errors.
+# Compile of fee_data_controller_top.vhd failed with 15 errors.
+# Compile of fee_data_controller_top.vhd failed with 8 errors.
+# Compile of fee_data_controller_top.vhd was successful.
+# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+# Compile of windowing_dataset_pkg.vhd was successful.
+# Compile of comm_avm_buffers_pkg.vhd was successful.
+# Compile of comm_avm_buffers_reader_ent.vhd was successful.
+# Compile of comm_avm_buffers_controller_ent.vhd was successful.
+# Compile of windowing_data_sc_fifo.vhd was successful.
+# Compile of windowing_mask_sc_fifo.vhd was successful.
+# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
+# Compile of windowing_fifo_pkg.vhd was successful.
+# Compile of windowing_data_fifo_ent.vhd was successful.
+# Compile of windowing_mask_fifo_ent.vhd was successful.
+# Compile of windowing_buffer_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_sc_fifo.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd failed with 15 errors.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of data_packet_data_writer_ent.vhd was successful.
+# Compile of send_buffer_0_sc_fifo.vhd was successful.
+# Compile of send_buffer_1_sc_fifo.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of send_buffer_ent.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_imgdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_imgdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
 # Compile of comm_data_transmitter_top.vhd was successful.
 # Compile of fee_data_controller_top.vhd was successful.
 # Compile of comm_irq_manager_pkg.vhd was successful.
@@ -65,7 +478,8 @@
 # Compile of avalon_buffer_L_stimuli.vhd was successful.
 # Compile of avalon_buffer_R_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 64 compiles, 0 failed with no errors.
+# 63 compiles, 1 failed with 15 errors.
+# Compile of data_packet_header_gen_ent.vhd was successful.
 # Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_read_ent.vhd was successful.
@@ -114,7 +528,6 @@
 # Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
 # Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
 # Compile of comm_data_transmitter_windowing_ent.vhd was successful.
-# Compile of comm_data_transmitter_crc_ent.vhd was successful.
 # Compile of comm_data_transmitter_top.vhd was successful.
 # Compile of fee_data_controller_top.vhd was successful.
 # Compile of comm_irq_manager_pkg.vhd was successful.
@@ -130,4 +543,137 @@
 # Compile of avalon_buffer_L_stimuli.vhd was successful.
 # Compile of avalon_buffer_R_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 64 compiles, 0 failed with no errors.
+# 63 compiles, 0 failed with no errors.
+# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+# Compile of windowing_dataset_pkg.vhd was successful.
+# Compile of comm_avm_buffers_pkg.vhd was successful.
+# Compile of comm_avm_buffers_reader_ent.vhd was successful.
+# Compile of comm_avm_buffers_controller_ent.vhd was successful.
+# Compile of windowing_data_sc_fifo.vhd was successful.
+# Compile of windowing_mask_sc_fifo.vhd was successful.
+# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
+# Compile of windowing_fifo_pkg.vhd was successful.
+# Compile of windowing_data_fifo_ent.vhd was successful.
+# Compile of windowing_mask_fifo_ent.vhd was successful.
+# Compile of windowing_buffer_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_sc_fifo.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of data_packet_data_writer_ent.vhd was successful.
+# Compile of send_buffer_0_sc_fifo.vhd was successful.
+# Compile of send_buffer_1_sc_fifo.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of send_buffer_ent.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_imgdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_imgdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of fee_data_controller_top.vhd was successful.
+# Compile of comm_irq_manager_pkg.vhd was successful.
+# Compile of comm_feeb_irq_manager_ent.vhd was successful.
+# Compile of comm_rmap_irq_manager_ent.vhd was successful.
+# Compile of comm_statistics_manager_ent.vhd was successful.
+# Compile of comm_sync_manager_ent.vhd was successful.
+# Compile of comm_timecode_manager_ent.vhd was successful.
+# Compile of comm_restart_manager_ent.vhd was successful.
+# Compile of comm_rmap_rw_manager_ent.vhd was successful.
+# Compile of comm_v2_top.vhd was successful.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of avalon_buffer_L_stimuli.vhd was successful.
+# Compile of avalon_buffer_R_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 63 compiles, 0 failed with no errors.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of fee_data_controller_top.vhd was successful.
+# 3 compiles, 0 failed with no errors.
+# Compile of fee_data_controller_top.vhd was successful.
+# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_pkg.vhd was successful.
+# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
+# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+# Compile of windowing_dataset_pkg.vhd was successful.
+# Compile of comm_avm_buffers_pkg.vhd was successful.
+# Compile of comm_avm_buffers_reader_ent.vhd was successful.
+# Compile of comm_avm_buffers_controller_ent.vhd was successful.
+# Compile of windowing_data_sc_fifo.vhd was successful.
+# Compile of windowing_mask_sc_fifo.vhd was successful.
+# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
+# Compile of windowing_fifo_pkg.vhd was successful.
+# Compile of windowing_data_fifo_ent.vhd was successful.
+# Compile of windowing_mask_fifo_ent.vhd was successful.
+# Compile of windowing_buffer_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of delay_machine_ent.vhd was successful.
+# Compile of masking_machine_sc_fifo.vhd was successful.
+# Compile of masking_machine_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of data_packet_data_writer_ent.vhd was successful.
+# Compile of send_buffer_0_sc_fifo.vhd was successful.
+# Compile of send_buffer_1_sc_fifo.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of send_buffer_ent.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_imgdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_imgdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of fee_data_controller_top.vhd was successful.
+# Compile of comm_irq_manager_pkg.vhd was successful.
+# Compile of comm_feeb_irq_manager_ent.vhd was successful.
+# Compile of comm_rmap_irq_manager_ent.vhd was successful.
+# Compile of comm_statistics_manager_ent.vhd was successful.
+# Compile of comm_sync_manager_ent.vhd was successful.
+# Compile of comm_timecode_manager_ent.vhd was successful.
+# Compile of comm_restart_manager_ent.vhd was successful.
+# Compile of comm_rmap_rw_manager_ent.vhd was successful.
+# Compile of comm_v2_top.vhd was successful.
+# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of avalon_buffer_L_stimuli.vhd was successful.
+# Compile of avalon_buffer_R_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 63 compiles, 0 failed with no errors.

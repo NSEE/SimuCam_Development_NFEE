@@ -28,12 +28,9 @@ architecture RTL of comm_data_transmitter_manager_ent is
 	type t_comm_data_transmitter_manager_fsm is (
 		STOPPED,                        -- data transmitter is stopped
 		IDLE,                           -- data transmitter is in idle
-		START_AEB_HOUSEKEEP_TRANS,      -- start the aeb housekeep transmission
-		WAIT_AEB_HOUSEKEEP_TRANS,       -- wait the aeb housekeep transmission to finish
-		RESET_AEB_HOUSEKEEP_TRANS,      -- reset the aeb housekeep transmission
-		START_DEB_HOUSEKEEP_TRANS,      -- start the deb housekeep transmission
-		WAIT_DEB_HOUSEKEEP_TRANS,       -- wait the deb housekeep transmission to finish
-		RESET_DEB_HOUSEKEEP_TRANS,      -- reset the deb housekeep transmission
+		START_HOUSEKEEP_TRANS,          -- start the housekeep transmission
+		WAIT_HOUSEKEEP_TRANS,           -- wait the housekeep transmission to finish
+		RESET_HOUSEKEEP_TRANS,          -- reset the housekeep transmission
 		START_FULLIMAGE_TRANS,          -- start the fullimage transmission
 		WAIT_FULLIMAGE_TRANS,           -- wait the fullimage transmission to finish
 		RESET_FULLIMAGE_TRANS,          -- reset the fullimage transmission
@@ -105,25 +102,25 @@ begin
 					if (channel_sync_i = '1') then
 						-- a channel sync was received
 						-- go to start housekeep trans
-						s_comm_data_transmitter_manager_state <= START_AEB_HOUSEKEEP_TRANS;
-						v_comm_data_transmitter_manager_state := START_AEB_HOUSEKEEP_TRANS;
+						s_comm_data_transmitter_manager_state <= START_HOUSEKEEP_TRANS;
+						v_comm_data_transmitter_manager_state := START_HOUSEKEEP_TRANS;
 					end if;
 
-				-- state "START_AEB_HOUSEKEEP_TRANS"
-				when START_AEB_HOUSEKEEP_TRANS =>
-					-- start the aeb housekeep transmission
+				-- state "START_HOUSEKEEP_TRANS"
+				when START_HOUSEKEEP_TRANS =>
+					-- start the housekeep transmission
 					-- default state transition
-					s_comm_data_transmitter_manager_state <= WAIT_AEB_HOUSEKEEP_TRANS;
-					v_comm_data_transmitter_manager_state := WAIT_AEB_HOUSEKEEP_TRANS;
+					s_comm_data_transmitter_manager_state <= WAIT_HOUSEKEEP_TRANS;
+					v_comm_data_transmitter_manager_state := WAIT_HOUSEKEEP_TRANS;
 				-- default internal signal values
 				-- conditional state transition
 
-				-- state "WAIT_AEB_HOUSEKEEP_TRANS"
-				when WAIT_AEB_HOUSEKEEP_TRANS =>
-					-- wait the aeb housekeep transmission to finish
+				-- state "WAIT_HOUSEKEEP_TRANS"
+				when WAIT_HOUSEKEEP_TRANS =>
+					-- wait the housekeep transmission to finish
 					-- default state transition
-					s_comm_data_transmitter_manager_state <= WAIT_AEB_HOUSEKEEP_TRANS;
-					v_comm_data_transmitter_manager_state := WAIT_AEB_HOUSEKEEP_TRANS;
+					s_comm_data_transmitter_manager_state <= WAIT_HOUSEKEEP_TRANS;
+					v_comm_data_transmitter_manager_state := WAIT_HOUSEKEEP_TRANS;
 					-- default internal signal values
 					-- conditional state transition
 					-- check if the housekeep trans finished the transmission
@@ -132,49 +129,13 @@ begin
 						-- get the next sequence counter value
 						s_sequence_cnt                        <= data_trans_housekeep_status_i.sequence_cnt_next_val;
 						-- go to reset housekeep trans
-						s_comm_data_transmitter_manager_state <= RESET_AEB_HOUSEKEEP_TRANS;
-						v_comm_data_transmitter_manager_state := RESET_AEB_HOUSEKEEP_TRANS;
+						s_comm_data_transmitter_manager_state <= RESET_HOUSEKEEP_TRANS;
+						v_comm_data_transmitter_manager_state := RESET_HOUSEKEEP_TRANS;
 					end if;
 
-				-- state "RESET_AEB_HOUSEKEEP_TRANS"
-				when RESET_AEB_HOUSEKEEP_TRANS =>
-					-- reset the aeb housekeep transmission
-					-- default state transition
-					s_comm_data_transmitter_manager_state <= START_DEB_HOUSEKEEP_TRANS;
-					v_comm_data_transmitter_manager_state := START_DEB_HOUSEKEEP_TRANS;
-				-- default internal signal values
-				-- conditional state transition
-
-				-- state "START_DEB_HOUSEKEEP_TRANS"
-				when START_DEB_HOUSEKEEP_TRANS =>
-					-- start the deb housekeep transmission
-					-- default state transition
-					s_comm_data_transmitter_manager_state <= WAIT_DEB_HOUSEKEEP_TRANS;
-					v_comm_data_transmitter_manager_state := WAIT_DEB_HOUSEKEEP_TRANS;
-				-- default internal signal values
-				-- conditional state transition
-
-				-- state "WAIT_DEB_HOUSEKEEP_TRANS"
-				when WAIT_DEB_HOUSEKEEP_TRANS =>
-					-- wait the deb housekeep transmission to finish
-					-- default state transition
-					s_comm_data_transmitter_manager_state <= WAIT_DEB_HOUSEKEEP_TRANS;
-					v_comm_data_transmitter_manager_state := WAIT_DEB_HOUSEKEEP_TRANS;
-					-- default internal signal values
-					-- conditional state transition
-					-- check if the housekeep trans finished the transmission
-					if (data_trans_housekeep_status_i.transmission_finished = '1') then
-						-- the housekeep trans finished the transmission
-						-- get the next sequence counter value
-						s_sequence_cnt                        <= data_trans_housekeep_status_i.sequence_cnt_next_val;
-						-- go to reset housekeep trans
-						s_comm_data_transmitter_manager_state <= RESET_DEB_HOUSEKEEP_TRANS;
-						v_comm_data_transmitter_manager_state := RESET_DEB_HOUSEKEEP_TRANS;
-					end if;
-
-				-- state "RESET_DEB_HOUSEKEEP_TRANS"
-				when RESET_DEB_HOUSEKEEP_TRANS =>
-					-- reset the deb housekeep transmission
+				-- state "RESET_HOUSEKEEP_TRANS"
+				when RESET_HOUSEKEEP_TRANS =>
+					-- reset the housekeep transmission
 					-- default state transition
 					s_comm_data_transmitter_manager_state <= FINISHED;
 					v_comm_data_transmitter_manager_state := FINISHED;
@@ -352,46 +313,24 @@ begin
 					null;
 				-- conditional output signals
 
-				-- state "START_AEB_HOUSEKEEP_TRANS"
-				when START_AEB_HOUSEKEEP_TRANS =>
-					-- start the aeb housekeep transmission
+				-- state "START_HOUSEKEEP_TRANS"
+				when START_HOUSEKEEP_TRANS =>
+					-- start the housekeep transmission
 					-- default output signals
 					data_trans_housekeep_control_o.start_transmission    <= '1';
 					data_trans_housekeep_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 				-- conditional output signals
 
-				-- state "WAIT_AEB_HOUSEKEEP_TRANS"
-				when WAIT_AEB_HOUSEKEEP_TRANS =>
-					-- wait the aeb housekeep transmission to finish
+				-- state "WAIT_HOUSEKEEP_TRANS"
+				when WAIT_HOUSEKEEP_TRANS =>
+					-- wait the housekeep transmission to finish
 					-- default output signals
 					null;
 				-- conditional output signals
 
-				-- state "RESET_AEB_HOUSEKEEP_TRANS"
-				when RESET_AEB_HOUSEKEEP_TRANS =>
-					-- reset the aeb housekeep transmission
-					-- default output signals
-					data_trans_housekeep_control_o.reset_transmitter <= '1';
-				-- conditional output signals
-
-				-- state "START_DEB_HOUSEKEEP_TRANS"
-				when START_DEB_HOUSEKEEP_TRANS =>
-					-- start the deb housekeep transmission
-					-- default output signals
-					data_trans_housekeep_control_o.start_transmission    <= '1';
-					data_trans_housekeep_control_o.sequence_cnt_init_val <= s_sequence_cnt;
-				-- conditional output signals
-
-				-- state "WAIT_DEB_HOUSEKEEP_TRANS"
-				when WAIT_DEB_HOUSEKEEP_TRANS =>
-					-- wait the deb housekeep transmission to finish
-					-- default output signals
-					null;
-				-- conditional output signals
-
-				-- state "RESET_DEB_HOUSEKEEP_TRANS"
-				when RESET_DEB_HOUSEKEEP_TRANS =>
-					-- reset the deb housekeep transmission
+				-- state "RESET_HOUSEKEEP_TRANS"
+				when RESET_HOUSEKEEP_TRANS =>
+					-- reset the housekeep transmission
 					-- default output signals
 					data_trans_housekeep_control_o.reset_transmitter <= '1';
 				-- conditional output signals
@@ -401,8 +340,7 @@ begin
 					-- start the fullimage transmission
 					-- default output signals
 					data_trans_fullimage_control_o.start_transmission    <= '1';
-					--					data_trans_fullimage_control_o.sequence_cnt_init_val <= s_sequence_cnt;
-					data_trans_fullimage_control_o.sequence_cnt_init_val <= (others => '0');
+					data_trans_fullimage_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 				-- conditional output signals
 
 				-- state "WAIT_FULLIMAGE_TRANS"
@@ -424,8 +362,7 @@ begin
 					-- start the windowing transmission
 					-- default output signals
 					data_trans_windowing_control_o.start_transmission    <= '1';
-					--					data_trans_windowing_control_o.sequence_cnt_init_val <= s_sequence_cnt;
-					data_trans_windowing_control_o.sequence_cnt_init_val <= (others => '0');
+					data_trans_windowing_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 				-- conditional output signals
 
 				-- state "WAIT_WINDOWING_TRANS"

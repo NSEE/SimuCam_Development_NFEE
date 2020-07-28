@@ -15,7 +15,6 @@ entity fee_hkdata_controller_top is
 		fee_manager_hk_only_i             : in  std_logic;
 		fee_current_frame_number_i        : in  std_logic_vector(1 downto 0);
 		fee_current_frame_counter_i       : in  std_logic_vector(15 downto 0);
-		fee_ccd_side_i                    : in  std_logic;
 		-- fee data controller control
 		fee_machine_clear_i               : in  std_logic;
 		fee_machine_stop_i                : in  std_logic;
@@ -27,6 +26,7 @@ entity fee_hkdata_controller_top is
 		data_pkt_packet_length_i          : in  std_logic_vector(15 downto 0);
 		data_pkt_fee_mode_i               : in  std_logic_vector(3 downto 0);
 		data_pkt_ccd_number_i             : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_side_i               : in  std_logic;
 		data_pkt_protocol_id_i            : in  std_logic_vector(7 downto 0);
 		data_pkt_logical_addr_i           : in  std_logic_vector(7 downto 0);
 		-- fee hkdata send buffer control
@@ -40,7 +40,6 @@ entity fee_hkdata_controller_top is
 		fee_hk_mem_read_o                 : out std_logic;
 		-- fee hkdata send buffer status
 		hkdata_send_buffer_status_o       : out t_fee_dpkt_send_buffer_status;
-		hkdata_send_buffer_data_type_o    : out std_logic_vector(1 downto 0);
 		hkdata_send_double_buffer_empty_o : out std_logic
 	);
 end entity fee_hkdata_controller_top;
@@ -67,6 +66,8 @@ architecture RTL of fee_hkdata_controller_top is
 	signal s_send_buffer_wrready                : std_logic;
 	signal s_send_buffer_data_type_wrdata       : std_logic_vector(1 downto 0);
 	signal s_send_buffer_data_type_wrreq        : std_logic;
+	signal s_send_buffer_data_end_wrdata        : std_logic;
+	signal s_send_buffer_data_end_wrreq         : std_logic;
 
 begin
 
@@ -86,7 +87,7 @@ begin
 			fee_packet_length_i           => data_pkt_packet_length_i,
 			fee_fee_mode_i                => data_pkt_fee_mode_i,
 			fee_ccd_number_i              => data_pkt_ccd_number_i,
-			fee_ccd_side_i                => fee_ccd_side_i,
+			fee_ccd_side_i                => data_pkt_ccd_side_i,
 			hkdata_manager_i.start        => hkdataman_start_i,
 			hkdata_manager_i.reset        => hkdataman_reset_i,
 			header_gen_i                  => s_header_gen_status,
@@ -139,7 +140,9 @@ begin
 			hk_mem_byte_address_o          => fee_hk_mem_byte_address_o,
 			hk_mem_read_o                  => fee_hk_mem_read_o,
 			send_buffer_wrdata_o           => s_send_buffer_housekeeping_wr_wrdata,
-			send_buffer_wrreq_o            => s_send_buffer_housekeeping_wr_wrreq
+			send_buffer_wrreq_o            => s_send_buffer_housekeeping_wr_wrreq,
+			send_buffer_data_end_wrdata_o  => s_send_buffer_data_end_wrdata,
+			send_buffer_data_end_wrreq_o   => s_send_buffer_data_end_wrreq
 		);
 
 	-- send buffer instantiation
@@ -155,14 +158,15 @@ begin
 			fee_start_signal_i           => fee_machine_start_i,
 			fee_data_loaded_i            => s_send_buffer_fee_data_loaded,
 			buffer_cfg_length_i          => data_pkt_packet_length_i,
+			buffer_flush_i               => '0',
 			buffer_wrdata_i              => s_send_buffer_wrdata,
 			buffer_wrreq_i               => s_send_buffer_wrreq,
 			buffer_rdreq_i               => hkdata_send_buffer_control_i.rdreq,
 			buffer_change_i              => hkdata_send_buffer_control_i.change,
 			data_type_wrdata_i           => s_send_buffer_data_type_wrdata,
 			data_type_wrreq_i            => s_send_buffer_data_type_wrreq,
-			data_end_wrdata_i            => '0',
-			data_end_wrreq_i             => '0',
+			data_end_wrdata_i            => s_send_buffer_data_end_wrdata,
+			data_end_wrreq_i             => s_send_buffer_data_end_wrreq,
 			buffer_stat_almost_empty_o   => open,
 			buffer_stat_almost_full_o    => open,
 			buffer_stat_empty_o          => hkdata_send_buffer_status_o.stat_empty,
@@ -171,8 +175,8 @@ begin
 			buffer_rddata_o              => hkdata_send_buffer_status_o.rddata,
 			buffer_rdready_o             => hkdata_send_buffer_status_o.rdready,
 			buffer_wrready_o             => s_send_buffer_wrready,
-			data_type_rddata_o           => hkdata_send_buffer_data_type_o,
-			data_end_rddata_o            => open,
+			data_type_rddata_o           => hkdata_send_buffer_status_o.rddata_type,
+			data_end_rddata_o            => hkdata_send_buffer_status_o.rddata_end,
 			double_buffer_empty_o        => hkdata_send_double_buffer_empty_o,
 			double_buffer_wrable_o       => open
 		);

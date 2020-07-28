@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Jun 16, 2020 3:16:38 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1592288198749</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jul 27, 2020 5:36:33 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1595882193300</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1943,7 +1943,7 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>SEVEN_SEGMENT_CONTROLLER_0</slaveDescriptor>
+                <slaveDescriptor>SEVEN_SEGMENT_CONTROLLER</slaveDescriptor>
                 <addressRange>0x80000A10 - 0x80000A17</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
@@ -1985,213 +1985,45 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_6</slaveDescriptor>
+                <slaveDescriptor>Communication_Module_v2_Ch6</slaveDescriptor>
                 <addressRange>0x81018000 - 0x810183FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_5</slaveDescriptor>
+                <slaveDescriptor>Communication_Module_v2_Ch5</slaveDescriptor>
                 <addressRange>0x81018400 - 0x810187FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_4</slaveDescriptor>
+                <slaveDescriptor>Communication_Module_v2_Ch4</slaveDescriptor>
                 <addressRange>0x81018800 - 0x81018BFF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_3</slaveDescriptor>
+                <slaveDescriptor>Communication_Module_v2_Ch3</slaveDescriptor>
                 <addressRange>0x81018C00 - 0x81018FFF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_2</slaveDescriptor>
+                <slaveDescriptor>Communication_Module_v2_Ch2</slaveDescriptor>
                 <addressRange>0x81019000 - 0x810193FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_1</slaveDescriptor>
+                <slaveDescriptor>Communication_Module_v2_Ch1</slaveDescriptor>
                 <addressRange>0x81019400 - 0x810197FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>FTDI_USB3_0</slaveDescriptor>
+                <slaveDescriptor>FTDI_UMFT601A_Module</slaveDescriptor>
                 <addressRange>0x81019800 - 0x81019BFF</addressRange>
                 <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_ftdi_tx_usb3_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019C00 - 0x81019C1F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_ftdi_tx_usb3_csr</slaveDescriptor>
-                <addressRange>0x81019C20 - 0x81019C3F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_ftdi_rx_usb3_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019C40 - 0x81019C5F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_6_right_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019C60 - 0x81019C7F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_6_left_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019C80 - 0x81019C9F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_5_right_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019CA0 - 0x81019CBF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_5_left_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019CC0 - 0x81019CDF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_4_right_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019CE0 - 0x81019CFF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_4_left_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019D00 - 0x81019D1F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_3_right_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019D20 - 0x81019D3F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_3_left_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019D40 - 0x81019D5F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_2_right_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019D60 - 0x81019D7F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_2_left_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019D80 - 0x81019D9F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_1_right_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019DA0 - 0x81019DBF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_1_left_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81019DC0 - 0x81019DDF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_ftdi_rx_usb3_csr</slaveDescriptor>
-                <addressRange>0x81019DE0 - 0x81019DFF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_6_right_csr</slaveDescriptor>
-                <addressRange>0x81019E00 - 0x81019E1F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_6_left_csr</slaveDescriptor>
-                <addressRange>0x81019E20 - 0x81019E3F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_5_right_csr</slaveDescriptor>
-                <addressRange>0x81019E40 - 0x81019E5F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_5_left_csr</slaveDescriptor>
-                <addressRange>0x81019E60 - 0x81019E7F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_4_right_csr</slaveDescriptor>
-                <addressRange>0x81019E80 - 0x81019E9F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_4_left_csr</slaveDescriptor>
-                <addressRange>0x81019EA0 - 0x81019EBF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_3_right_csr</slaveDescriptor>
-                <addressRange>0x81019EC0 - 0x81019EDF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_3_left_csr</slaveDescriptor>
-                <addressRange>0x81019EE0 - 0x81019EFF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_2_right_csr</slaveDescriptor>
-                <addressRange>0x81019F00 - 0x81019F1F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_2_left_csr</slaveDescriptor>
-                <addressRange>0x81019F20 - 0x81019F3F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_1_right_csr</slaveDescriptor>
-                <addressRange>0x81019F40 - 0x81019F5F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_comm_1_left_csr</slaveDescriptor>
-                <addressRange>0x81019F60 - 0x81019F7F</addressRange>
-                <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>

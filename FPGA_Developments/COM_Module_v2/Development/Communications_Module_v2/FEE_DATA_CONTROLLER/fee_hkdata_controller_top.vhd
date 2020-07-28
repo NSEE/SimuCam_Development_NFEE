@@ -56,7 +56,6 @@ architecture RTL of fee_hkdata_controller_top is
 	-- housekeeping writer signals
 	signal s_housekeeping_wr_status             : t_fee_dpkt_general_status;
 	signal s_housekeeping_wr_control            : t_fee_dpkt_general_control;
-	signal s_housekeeping_wr_hk_type            : t_comm_dpkt_hk_type;
 	signal s_send_buffer_housekeeping_wr_wrdata : std_logic_vector(7 downto 0);
 	signal s_send_buffer_housekeeping_wr_wrreq  : std_logic;
 	-- send buffer signals
@@ -97,7 +96,6 @@ begin
 			headerdata_o                  => s_header_gen_headerdata,
 			header_gen_o                  => s_header_gen_control,
 			housekeeping_wr_o             => s_housekeeping_wr_control,
-			housekeeping_wr_hk_type_o     => s_housekeeping_wr_hk_type,
 			send_buffer_fee_data_loaded_o => s_send_buffer_fee_data_loaded
 		);
 
@@ -131,7 +129,6 @@ begin
 			fee_stop_signal_i              => fee_machine_stop_i,
 			fee_start_signal_i             => fee_machine_start_i,
 			housekeeping_wr_start_i        => s_housekeeping_wr_control.start,
-			housekeeping_wr_hk_type_i      => s_housekeeping_wr_hk_type,
 			housekeeping_wr_reset_i        => s_housekeeping_wr_control.reset,
 			hk_mem_waitrequest_i           => fee_hk_mem_waitrequest_i,
 			hk_mem_data_i                  => fee_hk_mem_data_i,

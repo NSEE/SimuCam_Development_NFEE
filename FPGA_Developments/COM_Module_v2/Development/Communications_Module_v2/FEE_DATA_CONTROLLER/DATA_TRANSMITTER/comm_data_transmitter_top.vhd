@@ -52,10 +52,6 @@ architecture RTL of comm_data_transmitter_top is
 	signal s_send_buffer_rightimg_windowing_control : t_fee_dpkt_send_buffer_control;
 	signal s_spw_tx_windowing_control               : t_comm_data_trans_spw_tx_control;
 
-	-- comm data transmitter crc signals
-	signal s_spw_tx_trans_control : t_comm_data_trans_spw_tx_control;
-	signal s_spw_tx_trans_status  : t_comm_data_trans_spw_tx_status;
-
 begin
 
 	-- comm data transmitter manager instantiation 
@@ -86,7 +82,7 @@ begin
 			data_trans_control_i         => s_data_trans_housekeep_control,
 			send_buffer_cfg_length_i     => send_buffer_cfg_length_i,
 			send_buffer_hkdata_status_i  => send_buffer_hkdata_status_i,
-			spw_tx_status_i              => s_spw_tx_trans_status,
+			spw_tx_status_i.tx_ready     => spw_tx_ready_i,
 			data_trans_status_o          => s_data_trans_housekeep_status,
 			send_buffer_hkdata_control_o => send_buffer_hkdata_control_o,
 			spw_tx_control_o             => s_spw_tx_housekeep_control
@@ -103,7 +99,7 @@ begin
 			send_buffer_cfg_length_i       => send_buffer_cfg_length_i,
 			send_buffer_leftimg_status_i   => send_buffer_leftimg_status_i,
 			send_buffer_rightimg_status_i  => send_buffer_rightimg_status_i,
-			spw_tx_status_i                => s_spw_tx_trans_status,
+			spw_tx_status_i.tx_ready       => spw_tx_ready_i,
 			data_trans_status_o            => s_data_trans_fullimage_status,
 			send_buffer_leftimg_control_o  => s_send_buffer_leftimg_fullimage_control,
 			send_buffer_rightimg_control_o => s_send_buffer_rightimg_fullimage_control,
@@ -124,26 +120,11 @@ begin
 			windowing_packet_order_list_i  => windowing_packet_order_list_i,
 			windowing_last_left_packet_i   => windowing_last_left_packet_i,
 			windowing_last_right_packet_i  => windowing_last_right_packet_i,
-			spw_tx_status_i                => s_spw_tx_trans_status,
+			spw_tx_status_i.tx_ready       => spw_tx_ready_i,
 			data_trans_status_o            => s_data_trans_windowing_status,
 			send_buffer_leftimg_control_o  => s_send_buffer_leftimg_windowing_control,
 			send_buffer_rightimg_control_o => s_send_buffer_rightimg_windowing_control,
 			spw_tx_control_o               => s_spw_tx_windowing_control
-		);
-
-	-- comm data transmitter crc instantiation
-	comm_data_transmitter_crc_ent_inst : entity work.comm_data_transmitter_crc_ent
-		port map(
-			clk_i                           => clk_i,
-			rst_i                           => rst_i,
-			comm_stop_i                     => comm_stop_i,
-			comm_start_i                    => comm_start_i,
-			spw_tx_trans_control_i          => s_spw_tx_trans_control,
-			spw_tx_codec_status_i.tx_ready  => spw_tx_ready_i,
-			spw_tx_trans_status_o           => s_spw_tx_trans_status,
-			spw_tx_codec_control_o.tx_flag  => spw_tx_flag_o,
-			spw_tx_codec_control_o.tx_data  => spw_tx_data_o,
-			spw_tx_codec_control_o.tx_write => spw_tx_write_o
 		);
 
 	-- signals assignments --
@@ -156,9 +137,9 @@ begin
 	send_buffer_rightimg_control_o.rdreq  <= (s_send_buffer_rightimg_fullimage_control.rdreq) or (s_send_buffer_rightimg_windowing_control.rdreq);
 	send_buffer_rightimg_control_o.change <= (s_send_buffer_rightimg_fullimage_control.change) or (s_send_buffer_rightimg_windowing_control.change);
 
-	-- spw tx trans control signals assignments
-	s_spw_tx_trans_control.tx_flag  <= (s_spw_tx_housekeep_control.tx_flag) or (s_spw_tx_fullimage_control.tx_flag) or (s_spw_tx_windowing_control.tx_flag);
-	s_spw_tx_trans_control.tx_data  <= (s_spw_tx_housekeep_control.tx_data) or (s_spw_tx_fullimage_control.tx_data) or (s_spw_tx_windowing_control.tx_data);
-	s_spw_tx_trans_control.tx_write <= (s_spw_tx_housekeep_control.tx_write) or (s_spw_tx_fullimage_control.tx_write) or (s_spw_tx_windowing_control.tx_write);
+	-- spw tx signals assignments
+	spw_tx_flag_o  <= (s_spw_tx_housekeep_control.tx_flag) or (s_spw_tx_fullimage_control.tx_flag) or (s_spw_tx_windowing_control.tx_flag);
+	spw_tx_data_o  <= (s_spw_tx_housekeep_control.tx_data) or (s_spw_tx_fullimage_control.tx_data) or (s_spw_tx_windowing_control.tx_data);
+	spw_tx_write_o <= (s_spw_tx_housekeep_control.tx_write) or (s_spw_tx_fullimage_control.tx_write) or (s_spw_tx_windowing_control.tx_write);
 
 end architecture RTL;

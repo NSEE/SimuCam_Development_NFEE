@@ -135,19 +135,19 @@ begin
 			reset_sink_reset_i                  => rst,
 			clock_sink_clk_i                    => clk200,
 			channel_sync_i                      => s_sync,
-			avs_config_address_i                => s_config_avalon_stimuli_mm_address,
-			avs_config_byteenable_i             => "1111",
-			avs_config_write_i                  => s_config_avalon_stimuli_mm_write,
-			avs_config_writedata_i              => s_config_avalon_stimuli_mm_writedata,
-			avs_config_read_i                   => s_config_avalon_stimuli_mm_read,
-			avs_config_readdata_o               => s_config_avalon_stimuli_mm_readdata,
-			avs_config_waitrequest_o            => s_config_avalon_stimuli_mm_waitrequest,
-			avm_left_buffer_readdata_i          => (others => '0'),
-			avm_left_buffer_waitrequest_i       => '1',
+			avs_config_address_i                => (others => '0'),
+			avs_config_byteenable_i             => (others => '0'),
+			avs_config_write_i                  => '0',
+			avs_config_writedata_i              => (others => '0'),
+			avs_config_read_i                   => '0',
+			avs_config_readdata_o               => open,
+			avs_config_waitrequest_o            => open,
+			avm_left_buffer_readdata_i          => (others => '1'),
+			avm_left_buffer_waitrequest_i       => '0',
 			avm_left_buffer_address_o           => open,
 			avm_left_buffer_read_o              => open,
-			avm_right_buffer_readdata_i         => (others => '0'),
-			avm_right_buffer_waitrequest_i      => '1',
+			avm_right_buffer_readdata_i         => (others => '1'),
+			avm_right_buffer_waitrequest_i      => '0',
 			avm_right_buffer_address_o          => open,
 			avm_right_buffer_read_o             => open,
 			feeb_interrupt_sender_irq_o         => s_irq_buffers,
@@ -243,10 +243,12 @@ begin
 		elsif rising_edge(clk100) then
 			if (v_sync_one_shot = '0') then
 				if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
+					--				if ((v_sync_high = '0') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
 				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+					--				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '0';
 					v_sync_high    := '0';
 					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot

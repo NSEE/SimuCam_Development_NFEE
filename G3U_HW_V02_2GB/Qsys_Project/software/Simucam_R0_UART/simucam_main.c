@@ -311,42 +311,53 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 
+#if ( 1 <= N_OF_NFEE )
 	xFeeQ[0] = OSQCreate(&xFeeQueueTBL0[0], N_MSG_FEE);
 	if ( xFeeQ[0] == NULL ) {
 		vFailCreateNFEEQueue( 0 );
 		bSuccess = FALSE;		
 	}
+#endif
 
+#if ( 2 <= N_OF_NFEE )
 	xFeeQ[1] = OSQCreate(&xFeeQueueTBL1[0], N_MSG_FEE);
 	if ( xFeeQ[1] == NULL ) {
 		vFailCreateNFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
+#endif
 
+#if ( 3 <= N_OF_NFEE )
 	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
 	if ( xFeeQ[2] == NULL ) {
 		vFailCreateNFEEQueue( 2 );
 		bSuccess = FALSE;		
 	}
-	
+#endif
+
+#if ( 4 <= N_OF_NFEE )
 	xFeeQ[3] = OSQCreate(&xFeeQueueTBL3[0], N_MSG_FEE);
 	if ( xFeeQ[3] == NULL ) {
 		vFailCreateNFEEQueue( 3 );
 		bSuccess = FALSE;		
 	}
+#endif
 
+#if ( 5 <= N_OF_NFEE )
 	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
 	if ( xFeeQ[4] == NULL ) {
 		vFailCreateNFEEQueue( 4 );
 		bSuccess = FALSE;		
 	}
+#endif
 
+#if ( 6 <= N_OF_NFEE )
 	xFeeQ[5] = OSQCreate(&xFeeQueueTBL5[0], N_MSG_FEE);
 	if ( xFeeQ[5] == NULL ) {
 		vFailCreateNFEEQueue( 5 );
 		bSuccess = FALSE;		
 	}
-
+#endif
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);

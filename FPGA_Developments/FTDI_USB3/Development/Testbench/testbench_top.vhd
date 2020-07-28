@@ -110,8 +110,8 @@ begin
 		)
 		port map(
 			clock_sink_clk_i                  => clk100Avs,
-			umft601a_clock_sink_clk           => clk100Ftdi,
 			reset_sink_reset_i                => rst,
+			umft601a_clock_sink_clk_i         => clk100Ftdi,
 			umft601a_clock_pin_i              => '0',
 			umft601a_txe_n_pin_i              => s_umft_txe_n_pin,
 			umft601a_rxf_n_pin_i              => s_umft_rxf_n_pin,

@@ -53,5 +53,5 @@ package avalon_mm_spacewire_pkg is
 	constant c_AVALON_MM_SPACEWIRE_WRITE_OUT_RST : t_avalon_mm_spacewire_write_out := (
 		waitrequest => '1'
 	);
-	
+
 end package avalon_mm_spacewire_pkg;

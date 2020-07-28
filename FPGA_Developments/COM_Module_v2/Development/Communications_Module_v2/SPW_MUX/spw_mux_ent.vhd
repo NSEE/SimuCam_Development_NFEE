@@ -457,7 +457,7 @@ begin
 			end case;
 
 			-- check if a stop was issued
---			if (fee_stop_signal_i = '1') then
+			--			if (fee_stop_signal_i = '1') then
 			if (fee_clear_signal_i = '1') then
 				-- stop issued, go to stopped
 				s_spw_mux_state <= STOPPED;
@@ -471,36 +471,36 @@ begin
 
 	-- spw codec tx
 	spw_codec_tx_command_o <= (spw_mux_tx_0_command_i) when (s_mux_tx_selection = 0)
-		else (spw_mux_tx_1_command_i) when (s_mux_tx_selection = 1)
-		else (spw_mux_tx_2_command_i) when (s_mux_tx_selection = 2)
-		else (s_spw_tx_fsm_command) when (s_mux_tx_selection = 7)
-		else (c_SPW_RESET_TX_COMMAND);
+	                          else (spw_mux_tx_1_command_i) when (s_mux_tx_selection = 1)
+	                          else (spw_mux_tx_2_command_i) when (s_mux_tx_selection = 2)
+	                          else (s_spw_tx_fsm_command) when (s_mux_tx_selection = 7)
+	                          else (c_SPW_RESET_TX_COMMAND);
 
 	-- spw mux port 0 rx
 	spw_mux_rx_0_status_o <= (spw_codec_rx_status_i) when (s_mux_rx_selection = 0) else (c_SPW_RESET_RX_STATUS);
 
 	-- spw mux port 0 tx
 	spw_mux_tx_0_status_o.txhalff <= (c_SPW_RESET_TX_STATUS.txhalff) when (rst_i = '1')
-		else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7))
-		else (c_SPW_RESET_TX_STATUS.txhalff);
+	                                 else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7))
+	                                 else (c_SPW_RESET_TX_STATUS.txhalff);
 	spw_mux_tx_0_status_o.txrdy   <= (c_SPW_RESET_TX_STATUS.txrdy) when (rst_i = '1')
-		else ('0') when ((s_tx_channel_lock(0) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP) or (s_spw_mux_state = SPW_TX_2_WAITING_EOP)) and (spw_mux_tx_0_command_i.txwrite = '1')) or (spw_mux_tx_0_command_i.txflag = '1'))
-		else (spw_codec_tx_status_i.txrdy);
+	                                 else ('0') when ((s_tx_channel_lock(0) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP) or (s_spw_mux_state = SPW_TX_2_WAITING_EOP)) and (spw_mux_tx_0_command_i.txwrite = '1')) or (spw_mux_tx_0_command_i.txflag = '1'))
+	                                 else (spw_codec_tx_status_i.txrdy);
 
 	-- spw mux port 1 tx
 	spw_mux_tx_1_status_o.txhalff <= (c_SPW_RESET_TX_STATUS.txhalff) when (rst_i = '1')
-		else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7))
-		else (c_SPW_RESET_TX_STATUS.txhalff);
+	                                 else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7))
+	                                 else (c_SPW_RESET_TX_STATUS.txhalff);
 	spw_mux_tx_1_status_o.txrdy   <= (c_SPW_RESET_TX_STATUS.txrdy) when (rst_i = '1')
-		else ('0') when ((s_tx_channel_lock(1) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP) or (s_spw_mux_state = SPW_TX_2_WAITING_EOP)) and (spw_mux_tx_1_command_i.txwrite = '1')) or (spw_mux_tx_1_command_i.txflag = '1'))
-		else (spw_codec_tx_status_i.txrdy);
+	                                 else ('0') when ((s_tx_channel_lock(1) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP) or (s_spw_mux_state = SPW_TX_2_WAITING_EOP)) and (spw_mux_tx_1_command_i.txwrite = '1')) or (spw_mux_tx_1_command_i.txflag = '1'))
+	                                 else (spw_codec_tx_status_i.txrdy);
 
 	-- spw mux port 2 tx
 	spw_mux_tx_2_status_o.txhalff <= (c_SPW_RESET_TX_STATUS.txhalff) when (rst_i = '1')
-		else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 2) or (s_mux_tx_selection = 7))
-		else (c_SPW_RESET_TX_STATUS.txhalff);
+	                                 else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 2) or (s_mux_tx_selection = 7))
+	                                 else (c_SPW_RESET_TX_STATUS.txhalff);
 	spw_mux_tx_2_status_o.txrdy   <= (c_SPW_RESET_TX_STATUS.txrdy) when (rst_i = '1')
-		else ('0') when ((s_tx_channel_lock(2) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP)) and (spw_mux_tx_2_command_i.txwrite = '1')) or (spw_mux_tx_2_command_i.txflag = '1'))
-		else (spw_codec_tx_status_i.txrdy);
+	                                 else ('0') when ((s_tx_channel_lock(2) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP)) and (spw_mux_tx_2_command_i.txwrite = '1')) or (spw_mux_tx_2_command_i.txflag = '1'))
+	                                 else (spw_codec_tx_status_i.txrdy);
 
 end architecture RTL;

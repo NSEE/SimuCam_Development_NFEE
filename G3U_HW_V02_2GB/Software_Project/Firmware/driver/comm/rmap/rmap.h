@@ -78,10 +78,12 @@ void vRmapCh3EnableCodec(bool bEnable);
 void vRmapCh4EnableCodec(bool bEnable);
 void vRmapCh5EnableCodec(bool bEnable);
 void vRmapCh6EnableCodec(bool bEnable);
+bool bRmapChEnableCodec(alt_u8 ucCommCh, bool bEnable);
 
 bool vRmapInitIrq(alt_u8 ucCommCh);
 
-void vRmapSoftRstDebMemArea(void);
+bool bRmapSoftRstMemAreaConfig(alt_u8 ucCommCh);
+bool bRmapSoftRstMemAreaHk(alt_u8 ucCommCh);
 
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware

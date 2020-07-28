@@ -49,7 +49,7 @@ architecture RTL of data_packet_data_writer_ent is
 	signal s_data_writer_state : t_data_writer_fsm; -- current state
 
 	signal s_data_cnt_initial : std_logic_vector(15 downto 0);
-	signal s_data_cnt : std_logic_vector(15 downto 0);
+	signal s_data_cnt         : std_logic_vector(15 downto 0);
 
 	signal s_overflow_send_buffer : std_logic;
 
@@ -68,7 +68,7 @@ begin
 		if (rst_i = '1') then
 			s_data_writer_state           <= STOPPED;
 			v_data_writer_state           := STOPPED;
-			s_data_cnt_initial<= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
+			s_data_cnt_initial            <= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
 			s_data_cnt                    <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 			s_overflow_send_buffer        <= '0';
 			s_first_write                 <= '0';
@@ -93,7 +93,7 @@ begin
 					s_data_writer_state    <= STOPPED;
 					v_data_writer_state    := STOPPED;
 					-- default internal signal values
-					s_data_cnt_initial<= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
+					s_data_cnt_initial     <= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
 					s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					s_overflow_send_buffer <= '0';
 					s_first_write          <= '0';
@@ -112,7 +112,7 @@ begin
 					s_data_writer_state    <= IDLE;
 					v_data_writer_state    := IDLE;
 					-- default internal signal values
-					s_data_cnt_initial<= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
+					s_data_cnt_initial     <= std_logic_vector(to_unsigned(0, s_data_cnt_initial'length));
 					s_data_cnt             <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					s_overflow_send_buffer <= '0';
 					s_first_write          <= '0';
@@ -123,7 +123,7 @@ begin
 						-- set the first write flag
 						s_first_write       <= '1';
 						-- set the data counter
-						s_data_cnt_initial<= std_logic_vector(unsigned(data_wr_length_i) - 1);
+						s_data_cnt_initial  <= std_logic_vector(unsigned(data_wr_length_i) - 1);
 						s_data_cnt          <= std_logic_vector(unsigned(data_wr_length_i) - 1);
 						-- go to wating buffer space
 						s_data_writer_state <= WAITING_SEND_BUFFER_SPACE;
