@@ -44,6 +44,18 @@ entity comm_v2_top is
 		avm_right_buffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
 		avm_right_buffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
 		avm_right_buffer_read_o             : out std_logic; --                                      --                                        .read
+		avm_left_cbuffer_readdata_i         : in  std_logic_vector(15 downto 0)  := (others => '0'); --           avalon_mm_left_cbuffer_master.readdata
+		avm_left_cbuffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
+		avm_left_cbuffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
+		avm_left_cbuffer_write_o            : out std_logic; --                                      --                                        .write
+		avm_left_cbuffer_writedata_o        : out std_logic_vector(15 downto 0); --                  --                                        .writedata
+		avm_left_cbuffer_read_o             : out std_logic; --                                      --                                        .read
+		avm_right_cbuffer_readdata_i        : in  std_logic_vector(15 downto 0)  := (others => '0'); --          avalon_mm_right_cbuffer_master.readdata
+		avm_right_cbuffer_waitrequest_i     : in  std_logic                      := '0'; --          --                                        .waitrequest
+		avm_right_cbuffer_address_o         : out std_logic_vector(63 downto 0); --                  --                                        .address
+		avm_right_cbuffer_write_o           : out std_logic; --                                      --                                        .write
+		avm_right_cbuffer_writedata_o       : out std_logic_vector(15 downto 0); --                  --                                        .writedata
+		avm_right_cbuffer_read_o            : out std_logic; --                                      --                                        .read
 		feeb_interrupt_sender_irq_o         : out std_logic; --                                      --                   feeb_interrupt_sender.irq
 		rmap_interrupt_sender_irq_o         : out std_logic; --                                      --                   rmap_interrupt_sender.irq
 		spw_link_status_started_i           : in  std_logic                      := '0'; --          --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -521,6 +533,16 @@ begin
 			data_pkt_line_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
 			data_pkt_adc_delay_i                          => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
 			masking_buffer_overflow_i                     => s_spacewire_write_registers.fee_machine_config_reg.fee_buffer_overflow_en,
+			pixels_left_cbuffer_address_offset_i(63 downto 32)  => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_high_dword,
+			pixels_left_cbuffer_address_offset_i(31 downto 0)   => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_low_dword,
+			pixels_left_cbuffer_size_bytes_i                    => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_size_bytes,
+			pixels_left_cbuffer_avm_readdata_i                  => avm_left_cbuffer_readdata_i,
+			pixels_left_cbuffer_avm_waitrequest_i               => avm_left_cbuffer_waitrequest_i,
+			pixels_right_cbuffer_address_offset_i(63 downto 32) => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword,
+			pixels_right_cbuffer_address_offset_i(31 downto 0)  => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword,
+			pixels_right_cbuffer_size_bytes_i                   => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes,
+			pixels_right_cbuffer_avm_readdata_i                 => avm_right_cbuffer_readdata_i,
+			pixels_right_cbuffer_avm_waitrequest_i              => avm_right_cbuffer_waitrequest_i,
 			windowing_packet_order_list_i(511 downto 480) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_15,
 			windowing_packet_order_list_i(479 downto 448) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_14,
 			windowing_packet_order_list_i(447 downto 416) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_13,
@@ -558,6 +580,14 @@ begin
 			fee_left_window_mask_read_o                   => s_L_fee_data_controller_window_mask_read,
 			fee_right_window_data_read_o                  => s_R_fee_data_controller_window_data_read,
 			fee_right_window_mask_read_o                  => s_R_fee_data_controller_window_mask_read,
+			pixels_left_cbuffer_avm_address_o                   => avm_left_cbuffer_address_o,
+			pixels_left_cbuffer_avm_write_o                     => avm_left_cbuffer_write_o,
+			pixels_left_cbuffer_avm_writedata_o                 => avm_left_cbuffer_writedata_o,
+			pixels_left_cbuffer_avm_read_o                      => avm_left_cbuffer_read_o,
+			pixels_right_cbuffer_avm_address_o                  => avm_right_cbuffer_address_o,
+			pixels_right_cbuffer_avm_write_o                    => avm_right_cbuffer_write_o,
+			pixels_right_cbuffer_avm_writedata_o                => avm_right_cbuffer_writedata_o,
+			pixels_right_cbuffer_avm_read_o                     => avm_right_cbuffer_read_o,
 			fee_hk_mem_byte_address_o                     => s_fee_rd_rmap_address,
 			fee_hk_mem_read_o                             => s_fee_rd_rmap_read,
 			fee_spw_tx_write_o                            => s_fee_data_controller_spw_txwrite,

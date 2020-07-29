@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#8F#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#95#;
 
 	-- Registers Types
 
@@ -278,6 +278,16 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_adc_delay   : std_logic_vector(31 downto 0); -- Data Packet ADC Delay
 	end record t_comm_data_packet_pixel_delay_wr_reg;
 
+	-- Pixels Circular Buffer Control Register
+	type t_comm_pixels_cbuffer_control_wr_reg is record
+		left_px_cbuffer_initial_addr_high_dword  : std_logic_vector(31 downto 0); -- Left Pixels Circular Buffer Initial Address [High Dword]
+		left_px_cbuffer_initial_addr_low_dword   : std_logic_vector(31 downto 0); -- Left Pixels Circular Buffer Initial Address [Low Dword]
+		left_px_cbuffer_size_bytes               : std_logic_vector(23 downto 0); -- Left Pixels Circular Buffer Size [Bytes]
+		right_px_cbuffer_initial_addr_high_dword : std_logic_vector(31 downto 0); -- Right Pixels Circular Buffer Initial Address [High Dword]
+		right_px_cbuffer_initial_addr_low_dword  : std_logic_vector(31 downto 0); -- Right Pixels Circular Buffer Initial Address [Low Dword]
+		right_px_cbuffer_size_bytes              : std_logic_vector(23 downto 0); -- Right Pixels Circular Buffer Size [Bytes]
+	end record t_comm_pixels_cbuffer_control_wr_reg;
+
 	-- SpaceWire Error Injection Control Register
 	type t_comm_spw_error_injection_control_wr_reg is record
 		spw_errinj_eep_received : std_logic; -- Enable for "EEP Received" SpaceWire Error
@@ -346,6 +356,7 @@ package avalon_mm_spacewire_registers_pkg is
 		data_packet_config_reg            : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
 		data_packet_errors_reg            : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
 		data_packet_pixel_delay_reg       : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
+		pixels_cbuffer_control_reg        : t_comm_pixels_cbuffer_control_wr_reg; -- Pixels Circular Buffer Control Register
 		spw_error_injection_control_reg   : t_comm_spw_error_injection_control_wr_reg; -- SpaceWire Error Injection Control Register
 		trans_error_injection_control_reg : t_comm_trans_error_injection_control_wr_reg; -- Transmission Error Injection Control Register
 		windowing_parameters_reg          : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register

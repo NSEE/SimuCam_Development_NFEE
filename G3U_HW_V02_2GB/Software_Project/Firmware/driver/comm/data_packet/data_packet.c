@@ -141,6 +141,39 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
+bool bDpktSetPxCBufferControl(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktPxCBufferControl = pxDpktCh->xDpktPxCBufferControl;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetPxCBufferControl(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktPxCBufferControl = vpxCommChannel->xDataPacket.xDpktPxCBufferControl;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -301,6 +334,9 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetPixelDelay(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetPxCBufferControl(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetSpacewireErrInj(pxDpktCh)) {

@@ -327,6 +327,16 @@ typedef struct DpktPixelDelay {
 	alt_u32 uliAdcDelay; /* Data Packet ADC Delay */
 } TDpktPixelDelay;
 
+/* Pixels Circular Buffer Control Register Struct */
+typedef struct DpktPxCBufferControl {
+	alt_u32 uliLeftPxCBufInitAddrHighDword; /* Left Pixels Circular Buffer Initial Address [High Dword] */
+	alt_u32 uliLeftPxCBufInitAddrLowDword; /* Left Pixels Circular Buffer Initial Address [Low Dword] */
+	alt_u32 uliLeftPxCBufSizeBytes; /* Left Pixels Circular Buffer Size [Bytes] */
+	alt_u32 uliRightPxCBufInitAddrHighDword; /* Right Pixels Circular Buffer Initial Address [High Dword] */
+	alt_u32 uliRightPxCBufInitAddrLowDword; /* Right Pixels Circular Buffer Initial Address [Low Dword] */
+	alt_u32 uliRightPxCBufSizeBytes; /* Right Pixels Circular Buffer Size [Bytes] */
+} TDpktPxCBufferControl;
+
 /* SpaceWire Error Injection Control Register Struct */
 typedef struct DpktSpacewireErrInj {
 	bool bEepReceivedEn; /* Enable for "EEP Received" SpaceWire Error */
@@ -416,6 +426,7 @@ typedef struct DpktChannel {
 	TDpktDataPacketErrors xDpktDataPacketErrors;
 	TDpktDataPacketHeader xDpktDataPacketHeader;
 	TDpktPixelDelay xDpktPixelDelay;
+	TDpktPxCBufferControl xDpktPxCBufferControl;
 	TDpktSpacewireErrInj xDpktSpacewireErrInj;
 	TDpktTransmissionErrInj xDpktTransmissionErrInj;
 	TDpktWindowingParam xDpktWindowingParam;

@@ -61,6 +61,9 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
+bool bDpktSetPxCBufferControl(TDpktChannel *pxDpktCh);
+bool bDpktGetPxCBufferControl(TDpktChannel *pxDpktCh);
+
 bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh);
 

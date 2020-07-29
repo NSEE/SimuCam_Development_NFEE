@@ -182,6 +182,18 @@ begin
 			avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay                     <= std_logic_vector(to_unsigned(9000, 32));
 			-- Data Packet Pixel Delay Register : Data Packet ADC Delay
 			avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay                      <= std_logic_vector(to_unsigned(33, 32));
+			-- Pixels Circular Buffer Control Register : Left Pixels Circular Buffer Initial Address [High Dword]
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_high_dword  <= (others => '0');
+			-- Pixels Circular Buffer Control Register : Left Pixels Circular Buffer Initial Address [Low Dword]
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_low_dword   <= (others => '0');
+			-- Pixels Circular Buffer Control Register : Left Pixels Circular Buffer Size [Bytes]
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_size_bytes               <= (others => '1');
+			-- Pixels Circular Buffer Control Register : Right Pixels Circular Buffer Initial Address [High Dword]
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword <= (others => '0');
+			-- Pixels Circular Buffer Control Register : Right Pixels Circular Buffer Initial Address [Low Dword]
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword  <= (others => '0');
+			-- Pixels Circular Buffer Control Register : Right Pixels Circular Buffer Size [Bytes]
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes              <= (others => '1');
 			-- SpaceWire Error Injection Control Register : Enable for "EEP Received" SpaceWire Error
 			avs_config_wr_regs_o.spw_error_injection_control_reg.spw_errinj_eep_received             <= '0';
 			-- SpaceWire Error Injection Control Register : Sequence Counter of SpaceWire Error

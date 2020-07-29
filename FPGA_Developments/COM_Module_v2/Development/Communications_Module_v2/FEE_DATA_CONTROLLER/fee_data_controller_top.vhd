@@ -66,6 +66,18 @@ entity fee_data_controller_top is
 		data_pkt_adc_delay_i                 : in  std_logic_vector(31 downto 0);
 		-- fee masking buffer control
 		masking_buffer_overflow_i            : in  std_logic;
+		-- pixels left circular buffer control
+		pixels_left_cbuffer_address_offset_i   : in  std_logic_vector(63 downto 0);
+		pixels_left_cbuffer_size_bytes_i       : in  std_logic_vector(23 downto 0);
+		-- pixels left circular buffer avm slave status
+		pixels_left_cbuffer_avm_readdata_i     : in  std_logic_vector(15 downto 0);
+		pixels_left_cbuffer_avm_waitrequest_i  : in  std_logic;
+		-- pixels right circular buffer control
+		pixels_right_cbuffer_address_offset_i  : in  std_logic_vector(63 downto 0);
+		pixels_right_cbuffer_size_bytes_i      : in  std_logic_vector(23 downto 0);
+		-- pixels right circular buffer avm slave status
+		pixels_right_cbuffer_avm_readdata_i    : in  std_logic_vector(15 downto 0);
+		pixels_right_cbuffer_avm_waitrequest_i : in  std_logic;
 		-- windowing parameters
 		windowing_packet_order_list_i        : in  std_logic_vector(511 downto 0);
 		windowing_last_left_packet_i         : in  std_logic_vector(9 downto 0);
@@ -96,6 +108,16 @@ entity fee_data_controller_top is
 		-- fee right windowing buffer control
 		fee_right_window_data_read_o         : out std_logic;
 		fee_right_window_mask_read_o         : out std_logic;
+		-- pixels left circular buffer avm slave control
+		pixels_left_cbuffer_avm_address_o      : out std_logic_vector(63 downto 0);
+		pixels_left_cbuffer_avm_write_o        : out std_logic;
+		pixels_left_cbuffer_avm_writedata_o    : out std_logic_vector(15 downto 0);
+		pixels_left_cbuffer_avm_read_o         : out std_logic;
+		-- pixels right circular buffer avm slave control
+		pixels_right_cbuffer_avm_address_o     : out std_logic_vector(63 downto 0);
+		pixels_right_cbuffer_avm_write_o       : out std_logic;
+		pixels_right_cbuffer_avm_writedata_o   : out std_logic_vector(15 downto 0);
+		pixels_right_cbuffer_avm_read_o        : out std_logic;
 		-- fee housekeeping memory control
 		fee_hk_mem_byte_address_o            : out std_logic_vector(31 downto 0);
 		fee_hk_mem_read_o                    : out std_logic;
@@ -252,13 +274,21 @@ begin
 			data_pkt_skip_delay_i              => s_registered_dpkt_params.image.skip_delay,
 			data_pkt_line_delay_i              => s_registered_dpkt_params.image.line_delay,
 			data_pkt_adc_delay_i               => s_registered_dpkt_params.image.adc_delay,
-			masking_buffer_overflow_i          => masking_buffer_overflow_i,
+			masking_buffer_overflow_i          => s_registered_dpkt_params.transmission.overflow_en,
+			pixels_cbuffer_address_offset_i    => s_registered_dpkt_params.pixels_left_cbuffer.address_offset,
+			pixels_cbuffer_size_bytes_i        => s_registered_dpkt_params.pixels_left_cbuffer.size_bytes,
+			pixels_cbuffer_avm_readdata_i      => pixels_left_cbuffer_avm_readdata_i,
+			pixels_cbuffer_avm_waitrequest_i   => pixels_left_cbuffer_avm_waitrequest_i,
 			imgdata_send_buffer_control_i      => s_left_imgdata_send_buffer_control,
 			fee_output_buffer_overflowed_o     => fee_left_output_buffer_overflowed_o,
 			imgdataman_finished_o              => s_left_imgdataman_status.finished,
 			imgdata_headerdata_o               => open,
 			fee_window_data_read_o             => fee_left_window_data_read_o,
 			fee_window_mask_read_o             => fee_left_window_mask_read_o,
+			pixels_cbuffer_avm_address_o       => pixels_left_cbuffer_avm_address_o,
+			pixels_cbuffer_avm_write_o         => pixels_left_cbuffer_avm_write_o,
+			pixels_cbuffer_avm_writedata_o     => pixels_left_cbuffer_avm_writedata_o,
+			pixels_cbuffer_avm_read_o          => pixels_left_cbuffer_avm_read_o,
 			imgdata_send_buffer_status_o       => s_left_imgdata_send_buffer_status,
 			imgdata_send_double_buffer_empty_o => s_left_imgdata_send_double_buffer_empty
 		);
@@ -309,13 +339,21 @@ begin
 			data_pkt_skip_delay_i              => s_registered_dpkt_params.image.skip_delay,
 			data_pkt_line_delay_i              => s_registered_dpkt_params.image.line_delay,
 			data_pkt_adc_delay_i               => s_registered_dpkt_params.image.adc_delay,
-			masking_buffer_overflow_i          => masking_buffer_overflow_i,
+			masking_buffer_overflow_i          => s_registered_dpkt_params.transmission.overflow_en,
+			pixels_cbuffer_address_offset_i    => s_registered_dpkt_params.pixels_right_cbuffer.address_offset,
+			pixels_cbuffer_size_bytes_i        => s_registered_dpkt_params.pixels_right_cbuffer.size_bytes,
+			pixels_cbuffer_avm_readdata_i      => pixels_right_cbuffer_avm_readdata_i,
+			pixels_cbuffer_avm_waitrequest_i   => pixels_right_cbuffer_avm_waitrequest_i,
 			imgdata_send_buffer_control_i      => s_right_imgdata_send_buffer_control,
 			fee_output_buffer_overflowed_o     => fee_right_output_buffer_overflowed_o,
 			imgdataman_finished_o              => s_right_imgdataman_status.finished,
 			imgdata_headerdata_o               => open,
 			fee_window_data_read_o             => fee_right_window_data_read_o,
 			fee_window_mask_read_o             => fee_right_window_mask_read_o,
+			pixels_cbuffer_avm_address_o       => pixels_right_cbuffer_avm_address_o,
+			pixels_cbuffer_avm_write_o         => pixels_right_cbuffer_avm_write_o,
+			pixels_cbuffer_avm_writedata_o     => pixels_right_cbuffer_avm_writedata_o,
+			pixels_cbuffer_avm_read_o          => pixels_right_cbuffer_avm_read_o,
 			imgdata_send_buffer_status_o       => s_right_imgdata_send_buffer_status,
 			imgdata_send_double_buffer_empty_o => s_right_imgdata_send_double_buffer_empty
 		);
@@ -458,6 +496,7 @@ begin
 			s_registered_dpkt_params.image.adc_delay             <= (others => '0');
 			s_registered_dpkt_params.transmission.windowing_en   <= '0';
 			s_registered_dpkt_params.transmission.pattern_en     <= '1';
+			s_registered_dpkt_params.transmission.overflow_en            <= '1';
 			s_registered_dpkt_params.spw_errinj.eep_received     <= '0';
 			s_registered_dpkt_params.spw_errinj.sequence_cnt     <= (others => '0');
 			s_registered_dpkt_params.spw_errinj.n_repeat         <= (others => '0');
@@ -471,6 +510,10 @@ begin
 			s_registered_dpkt_params.windowing.packet_order_list <= (others => '0');
 			s_registered_dpkt_params.windowing.last_left_packet  <= (others => '0');
 			s_registered_dpkt_params.windowing.last_right_packet <= (others => '0');
+			s_registered_dpkt_params.pixels_left_cbuffer.address_offset  <= (others => '0');
+			s_registered_dpkt_params.pixels_left_cbuffer.size_bytes      <= (others => '0');
+			s_registered_dpkt_params.pixels_right_cbuffer.address_offset <= (others => '0');
+			s_registered_dpkt_params.pixels_right_cbuffer.size_bytes     <= (others => '0');
 			s_registered_left_buffer_activated                   <= '0';
 			s_registered_right_buffer_activated                  <= '0';
 		elsif rising_edge(clk_i) then
@@ -512,6 +555,7 @@ begin
 					s_registered_dpkt_params.image.ccd_side_hk <= c_COMM_NFEE_CCD_SIDE_E;
 				end if;
 				-- register masking settings
+				s_registered_dpkt_params.transmission.overflow_en            <= masking_buffer_overflow_i;
 				case (data_pkt_fee_mode_i) is
 					when c_DPKT_OFF_MODE =>
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_NONE;
@@ -601,6 +645,12 @@ begin
 				s_registered_dpkt_params.windowing.packet_order_list <= windowing_packet_order_list_i;
 				s_registered_dpkt_params.windowing.last_left_packet  <= windowing_last_left_packet_i;
 				s_registered_dpkt_params.windowing.last_right_packet <= windowing_last_right_packet_i;
+				-- register left circular buffer settings
+				s_registered_dpkt_params.pixels_left_cbuffer.address_offset  <= pixels_left_cbuffer_address_offset_i;
+				s_registered_dpkt_params.pixels_left_cbuffer.size_bytes      <= pixels_left_cbuffer_size_bytes_i;
+				-- register right circular buffer settings
+				s_registered_dpkt_params.pixels_right_cbuffer.address_offset <= pixels_right_cbuffer_address_offset_i;
+				s_registered_dpkt_params.pixels_right_cbuffer.size_bytes     <= pixels_right_cbuffer_size_bytes_i;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;
