@@ -911,8 +911,11 @@ begin
 					flags_o.write_request     <= '0';
 					flags_o.read_request      <= '0';
 					flags_o.discarded_package <= '0';
-					spw_control_o.read        <= '1';
-				-- conditional output signals
+					spw_control_o.read        <= '0';
+					-- conditional output signals
+					if (spw_flag_i.valid = '1') then
+						spw_control_o.read <= '1';
+					end if;
 
 				-- state "NOT_RMAP_PACKAGE"
 				when NOT_RMAP_PACKAGE =>

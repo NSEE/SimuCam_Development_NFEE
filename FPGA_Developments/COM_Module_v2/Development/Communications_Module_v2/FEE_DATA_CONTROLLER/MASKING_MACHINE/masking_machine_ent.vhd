@@ -6,43 +6,43 @@ use work.fee_data_controller_pkg.all;
 
 entity masking_machine_ent is
 	port(
-		clk_i                         : in  std_logic;
-		rst_i                         : in  std_logic;
+		clk_i                       : in  std_logic;
+		rst_i                       : in  std_logic;
 		-- general inputs
-		sync_signal_i                 : in  std_logic;
-		fee_clear_signal_i            : in  std_logic;
-		fee_stop_signal_i             : in  std_logic;
-		fee_start_signal_i            : in  std_logic;
-		fee_windowing_en_i            : in  std_logic;
-		fee_pattern_en_i              : in  std_logic;
+		sync_signal_i               : in  std_logic;
+		fee_clear_signal_i          : in  std_logic;
+		fee_stop_signal_i           : in  std_logic;
+		fee_start_signal_i          : in  std_logic;
+		fee_windowing_en_i          : in  std_logic;
+		fee_pattern_en_i            : in  std_logic;
 		-- others
-		masking_machine_hold_i        : in  std_logic;
-		masking_buffer_overflow_i     : in  std_logic;
-		fee_ccd_x_size_i              : in  std_logic_vector(15 downto 0);
-		fee_ccd_y_size_i              : in  std_logic_vector(15 downto 0);
-		fee_data_y_size_i             : in  std_logic_vector(15 downto 0);
-		fee_overscan_y_size_i         : in  std_logic_vector(15 downto 0);
-		fee_ccd_v_start_i             : in  std_logic_vector(15 downto 0);
-		fee_ccd_v_end_i               : in  std_logic_vector(15 downto 0);
-		fee_ccd_img_v_end_i           : in  std_logic_vector(15 downto 0);
-		fee_ccd_ovs_v_end_i           : in  std_logic_vector(15 downto 0);
-		fee_ccd_h_start_i             : in  std_logic_vector(15 downto 0);
-		fee_ccd_h_end_i               : in  std_logic_vector(15 downto 0);
-		fee_ccd_img_en_i              : in  std_logic;
-		fee_ccd_ovs_en_i              : in  std_logic;
-		fee_start_delay_i             : in  std_logic_vector(31 downto 0);
-		fee_skip_delay_i              : in  std_logic_vector(31 downto 0);
-		fee_line_delay_i              : in  std_logic_vector(31 downto 0);
-		fee_adc_delay_i               : in  std_logic_vector(31 downto 0);
-		current_timecode_i            : in  std_logic_vector(7 downto 0);
-		current_ccd_i                 : in  std_logic_vector(1 downto 0);
-		current_side_i                : in  std_logic;
-		window_data_i                 : in  std_logic_vector(15 downto 0);
-		window_mask_i                 : in  std_logic;
-		window_data_valid_i           : in  std_logic;
-		window_mask_valid_i           : in  std_logic;
-		window_data_ready_i           : in  std_logic;
-		window_mask_ready_i           : in  std_logic;
+		masking_machine_hold_i      : in  std_logic;
+		masking_buffer_overflow_i   : in  std_logic;
+		fee_ccd_x_size_i            : in  std_logic_vector(15 downto 0);
+		fee_ccd_y_size_i            : in  std_logic_vector(15 downto 0);
+		fee_data_y_size_i           : in  std_logic_vector(15 downto 0);
+		fee_overscan_y_size_i       : in  std_logic_vector(15 downto 0);
+		fee_ccd_v_start_i           : in  std_logic_vector(15 downto 0);
+		fee_ccd_v_end_i             : in  std_logic_vector(15 downto 0);
+		fee_ccd_img_v_end_i         : in  std_logic_vector(15 downto 0);
+		fee_ccd_ovs_v_end_i         : in  std_logic_vector(15 downto 0);
+		fee_ccd_h_start_i           : in  std_logic_vector(15 downto 0);
+		fee_ccd_h_end_i             : in  std_logic_vector(15 downto 0);
+		fee_ccd_img_en_i            : in  std_logic;
+		fee_ccd_ovs_en_i            : in  std_logic;
+		fee_start_delay_i           : in  std_logic_vector(31 downto 0);
+		fee_skip_delay_i            : in  std_logic_vector(31 downto 0);
+		fee_line_delay_i            : in  std_logic_vector(31 downto 0);
+		fee_adc_delay_i             : in  std_logic_vector(31 downto 0);
+		current_timecode_i          : in  std_logic_vector(7 downto 0);
+		current_ccd_i               : in  std_logic_vector(1 downto 0);
+		current_side_i              : in  std_logic;
+		window_data_i               : in  std_logic_vector(15 downto 0);
+		window_mask_i               : in  std_logic;
+		window_data_valid_i         : in  std_logic;
+		window_mask_valid_i         : in  std_logic;
+		window_data_ready_i         : in  std_logic;
+		window_mask_ready_i         : in  std_logic;
 		--		masking_buffer_clear_i        : in  std_logic;
 		pixels_cbuff_wr_status_i    : in  t_comm_pixels_cbuff_wr_status;
 		send_double_buffer_wrable_i : in  std_logic;
@@ -152,6 +152,12 @@ architecture RTL of masking_machine_ent is
 	-- image area flag
 	signal s_image_area : std_logic;
 
+	-- circular buffer flush
+	signal s_cbuf_flush : std_logic;
+
+	-- write delay flag
+	signal s_wr_delay : std_logic;
+
 begin
 
 	-- delay machine instantiation
@@ -185,52 +191,56 @@ begin
 	p_masking_machine : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
-			window_data_read_o             <= '0';
-			window_mask_read_o             <= '0';
-			masking_machine_finished_o     <= '0';
-			masking_buffer_overflowed_o    <= '0';
+			window_data_read_o                         <= '0';
+			window_mask_read_o                         <= '0';
+			masking_machine_finished_o                 <= '0';
+			masking_buffer_overflowed_o                <= '0';
 			pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 			pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 			pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 			pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 			pixels_cbuff_wr_control_o.wrreq            <= '0';
-			s_masking_machine_state        <= STOPPED;
-			s_masking_machine_return_state <= STOPPED;
-			s_registered_window_data       <= (others => '0');
-			s_registered_window_mask       <= '0';
-			s_first_pixel                  <= '0';
-			s_ccd_column_cnt               <= (others => '0');
-			s_ccd_row_cnt                  <= (others => '0');
-			s_ccd_img_row_cnt              <= (others => '0');
-			s_ccd_ovs_row_cnt              <= (others => '0');
-			s_data_fetched                 <= '0';
-			s_image_area                   <= '0';
+			s_masking_machine_state                    <= STOPPED;
+			s_masking_machine_return_state             <= STOPPED;
+			s_registered_window_data                   <= (others => '0');
+			s_registered_window_mask                   <= '0';
+			s_first_pixel                              <= '0';
+			s_ccd_column_cnt                           <= (others => '0');
+			s_ccd_row_cnt                              <= (others => '0');
+			s_ccd_img_row_cnt                          <= (others => '0');
+			s_ccd_ovs_row_cnt                          <= (others => '0');
+			s_data_fetched                             <= '0';
+			s_image_area                               <= '0';
+			s_cbuf_flush                               <= '0';
+			s_wr_delay                                 <= '0';
 		elsif rising_edge(clk_i) then
 
 			case (s_masking_machine_state) is
 
 				when STOPPED =>
 					-- stopped state. do nothing and reset
-					window_data_read_o             <= '0';
-					window_mask_read_o             <= '0';
-					masking_machine_finished_o     <= '0';
-					masking_buffer_overflowed_o    <= '0';
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_masking_machine_state        <= STOPPED;
-					s_masking_machine_return_state <= STOPPED;
-					s_registered_window_data       <= (others => '0');
-					s_registered_window_mask       <= '0';
-					s_first_pixel                  <= '0';
-					s_ccd_column_cnt               <= (others => '0');
-					s_ccd_row_cnt                  <= (others => '0');
-					s_ccd_img_row_cnt              <= (others => '0');
-					s_ccd_ovs_row_cnt              <= (others => '0');
-					s_data_fetched                 <= '0';
-					s_image_area                   <= '0';
+					s_masking_machine_state                    <= STOPPED;
+					s_masking_machine_return_state             <= STOPPED;
+					s_registered_window_data                   <= (others => '0');
+					s_registered_window_mask                   <= '0';
+					s_first_pixel                              <= '0';
+					s_ccd_column_cnt                           <= (others => '0');
+					s_ccd_row_cnt                              <= (others => '0');
+					s_ccd_img_row_cnt                          <= (others => '0');
+					s_ccd_ovs_row_cnt                          <= (others => '0');
+					s_data_fetched                             <= '0';
+					s_image_area                               <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -238,26 +248,28 @@ begin
 					end if;
 
 				when NOT_STARTED =>
-					window_data_read_o             <= '0';
-					window_mask_read_o             <= '0';
-					masking_machine_finished_o     <= '0';
-					masking_buffer_overflowed_o    <= '0';
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_masking_machine_state        <= NOT_STARTED;
-					s_masking_machine_return_state <= NOT_STARTED;
-					s_registered_window_data       <= (others => '0');
-					s_registered_window_mask       <= '0';
-					s_first_pixel                  <= '0';
-					s_ccd_column_cnt               <= (others => '0');
-					s_ccd_row_cnt                  <= (others => '0');
-					s_ccd_img_row_cnt              <= (others => '0');
-					s_ccd_ovs_row_cnt              <= (others => '0');
-					s_data_fetched                 <= '0';
-					s_image_area                   <= '0';
+					s_masking_machine_state                    <= NOT_STARTED;
+					s_masking_machine_return_state             <= NOT_STARTED;
+					s_registered_window_data                   <= (others => '0');
+					s_registered_window_mask                   <= '0';
+					s_first_pixel                              <= '0';
+					s_ccd_column_cnt                           <= (others => '0');
+					s_ccd_row_cnt                              <= (others => '0');
+					s_ccd_img_row_cnt                          <= (others => '0');
+					s_ccd_ovs_row_cnt                          <= (others => '0');
+					s_data_fetched                             <= '0';
+					s_image_area                               <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
 					-- check if the fee requested the start of the masking (sync arrived)
 					if (sync_signal_i = '1') then
 						-- set first pixel
@@ -269,6 +281,8 @@ begin
 						s_ccd_ovs_row_cnt              <= (others => '0');
 						-- set the image area flag
 						s_image_area                   <= '1';
+						-- flush the circular buffer (flush any data and update the buffer parameters)
+						s_cbuf_flush                   <= '1';
 						-- go to idle
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;
@@ -276,49 +290,56 @@ begin
 					end if;
 
 				when WAITING_DATA =>
-					s_masking_machine_state        <= WAITING_DATA;
-					s_masking_machine_return_state <= WAITING_DATA;
-					window_data_read_o             <= '0';
-					window_mask_read_o             <= '0';
-					masking_machine_finished_o     <= '0';
-					masking_buffer_overflowed_o    <= '0';
+					s_masking_machine_state                    <= WAITING_DATA;
+					s_masking_machine_return_state             <= WAITING_DATA;
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_registered_window_data       <= (others => '0');
-					s_registered_window_mask       <= '0';
-					s_data_fetched                 <= '0';
-					-- check if the necessary delay for the current pixel has passed
-					if ((unsigned(s_ccd_row_cnt) < unsigned(s_delay_machine_current_ccd_row)) or ((unsigned(s_ccd_row_cnt) = unsigned(s_delay_machine_current_ccd_row)) and (unsigned(s_ccd_column_cnt) < unsigned(s_delay_machine_current_ccd_column)))) then
-						-- necessary delay for the current pixel has passed
-						-- check if the windowing machine is released and the windowing buffer is ready
-						if ((masking_machine_hold_i = '0') and (window_data_ready_i = '1') and (window_mask_ready_i = '1')) then
-							-- fetch mask and data
-							window_mask_read_o             <= '1';
-							window_data_read_o             <= '1';
-							-- go to fetch data
-							s_masking_machine_state        <= FETCH_DATA;
-							s_masking_machine_return_state <= FETCH_DATA;
+					s_registered_window_data                   <= (others => '0');
+					s_registered_window_mask                   <= '0';
+					s_data_fetched                             <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
+					-- check if a write delay is not necessary / already passed
+					if (s_wr_delay = '0') then
+						-- check if the necessary delay for the current pixel has passed
+						if ((unsigned(s_ccd_row_cnt) < unsigned(s_delay_machine_current_ccd_row)) or ((unsigned(s_ccd_row_cnt) = unsigned(s_delay_machine_current_ccd_row)) and (unsigned(s_ccd_column_cnt) < unsigned(s_delay_machine_current_ccd_column)))) then
+							-- necessary delay for the current pixel has passed
+							-- check if the windowing machine is released and the windowing buffer is ready
+							if ((masking_machine_hold_i = '0') and (window_data_ready_i = '1') and (window_mask_ready_i = '1')) then
+								-- fetch mask and data
+								window_mask_read_o             <= '1';
+								window_data_read_o             <= '1';
+								-- go to fetch data
+								s_masking_machine_state        <= FETCH_DATA;
+								s_masking_machine_return_state <= FETCH_DATA;
+							end if;
 						end if;
 					end if;
 
 				when FETCH_DATA =>
-					s_masking_machine_state        <= FETCH_DATA;
-					s_masking_machine_return_state <= FETCH_DATA;
-					window_data_read_o             <= '0';
-					window_mask_read_o             <= '0';
-					masking_machine_finished_o     <= '0';
-					masking_buffer_overflowed_o    <= '0';
+					s_masking_machine_state                    <= FETCH_DATA;
+					s_masking_machine_return_state             <= FETCH_DATA;
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_registered_window_data       <= (others => '0');
-					s_registered_window_mask       <= '0';
-					s_data_fetched                 <= '0';
+					s_registered_window_data                   <= (others => '0');
+					s_registered_window_mask                   <= '0';
+					s_data_fetched                             <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
 					-- check if the window and mask data are valid
 					if ((window_data_valid_i = '1') and (window_mask_valid_i = '1')) then
 						-- register buffer mask data
@@ -330,19 +351,21 @@ begin
 					end if;
 
 				when PIXEL_BYTE_MSB =>
-					s_masking_machine_state        <= PIXEL_BYTE_MSB;
-					s_masking_machine_return_state <= PIXEL_BYTE_MSB;
-					window_data_read_o             <= '0';
-					window_mask_read_o             <= '0';
-					masking_machine_finished_o     <= '0';
-					masking_buffer_overflowed_o    <= '0';
+					s_masking_machine_state                    <= PIXEL_BYTE_MSB;
+					s_masking_machine_return_state             <= PIXEL_BYTE_MSB;
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_first_pixel                  <= '0';
-					s_data_fetched                 <= '0';
+					s_first_pixel                              <= '0';
+					s_data_fetched                             <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
 					-- check if pixels circular buffer is ready and not full or if the masking fifo overflow is enabled and the send double buffer is full
 					if (((pixels_cbuff_wr_status_i.wrready = '1') and (pixels_cbuff_wr_status_i.full = '0')) or ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
 						-- check if the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
@@ -364,6 +387,7 @@ begin
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
 									-- windowing disabled or is enabled and pixel is transmitted
 									pixels_cbuff_wr_control_o.wrreq <= '1';
+									s_wr_delay                      <= '1';
 									-- check if the pattern is enabled
 									if (fee_pattern_en_i = '1') then
 										-- pattern enabled, generate pattern
@@ -378,160 +402,174 @@ begin
 					end if;
 
 				when PIXEL_BYTE_LSB =>
-					s_masking_machine_state        <= PIXEL_BYTE_LSB;
-					s_masking_machine_return_state <= PIXEL_BYTE_LSB;
-					window_data_read_o             <= '0';
-					window_mask_read_o             <= '0';
-					masking_machine_finished_o     <= '0';
-					masking_buffer_overflowed_o    <= '0';
+					s_masking_machine_state                    <= PIXEL_BYTE_LSB;
+					s_masking_machine_return_state             <= PIXEL_BYTE_LSB;
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_first_pixel                  <= '0';
-					s_data_fetched                 <= '0';
-					-- check if pixels circular buffer is ready and not full or if the masking fifo overflow is enabled and the send double buffer is full
-					if (((pixels_cbuff_wr_status_i.wrready = '1') and (pixels_cbuff_wr_status_i.full = '0')) or ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
-						-- check if the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
-						if ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
-							-- the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
-							masking_buffer_overflowed_o <= '1';
-						end if;
-						-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
-						s_masking_machine_state        <= WAITING_DATA;
-						s_masking_machine_return_state <= WAITING_DATA;
-						-- check if the ccd part (image or overscan) is enabled
-						if (((fee_ccd_img_en_i = '1') and (s_image_area = '1')) or ((fee_ccd_ovs_en_i = '1') and (s_image_area = '0'))) then
-							-- the ccd part (image or overscan) is enabled, digitalise data
-							-- check if the data need to be transmitted
-							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
-							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then
-								-- data need to be transmitted
-								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
-								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
-									-- windowing disabled or is enabled and pixel is transmitted
-									pixels_cbuff_wr_control_o.wrreq <= '1';
-									-- check if the pattern is enabled
-									if (fee_pattern_en_i = '1') then
-										-- pattern enabled, generate pattern
-										pixels_cbuff_wr_control_o.wrdata_imgbyte <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
-									else
-										-- pattern disabled, use window data
-										pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_pixel_lsb;
+					s_first_pixel                              <= '0';
+					s_data_fetched                             <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
+					-- check if a write delay is not necessary / already passed
+					if (s_wr_delay = '0') then
+						-- check if pixels circular buffer is ready and not full or if the masking fifo overflow is enabled and the send double buffer is full
+						if (((pixels_cbuff_wr_status_i.wrready = '1') and (pixels_cbuff_wr_status_i.full = '0')) or ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
+							-- check if the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+							if ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
+								-- the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+								masking_buffer_overflowed_o <= '1';
+							end if;
+							-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
+							s_masking_machine_state        <= WAITING_DATA;
+							s_masking_machine_return_state <= WAITING_DATA;
+							-- check if the ccd part (image or overscan) is enabled
+							if (((fee_ccd_img_en_i = '1') and (s_image_area = '1')) or ((fee_ccd_ovs_en_i = '1') and (s_image_area = '0'))) then
+								-- the ccd part (image or overscan) is enabled, digitalise data
+								-- check if the data need to be transmitted
+								--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
+								if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then
+									-- data need to be transmitted
+									-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+									if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
+										-- windowing disabled or is enabled and pixel is transmitted
+										pixels_cbuff_wr_control_o.wrreq <= '1';
+										s_wr_delay                      <= '1';
+										-- check if the pattern is enabled
+										if (fee_pattern_en_i = '1') then
+											-- pattern enabled, generate pattern
+											pixels_cbuff_wr_control_o.wrdata_imgbyte <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+										else
+											-- pattern disabled, use window data
+											pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_pixel_lsb;
+										end if;
 									end if;
 								end if;
 							end if;
-						end if;
-						-- check if a full line was processed
-						if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
-							-- full line processed, clear column counter
-							s_ccd_column_cnt <= (others => '0');
-							-- check if the entire ccd was processed
-							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
-								-- ccd ended, clear row counter
-								s_ccd_row_cnt     <= (others => '0');
-								s_ccd_img_row_cnt <= (others => '0');
-								s_ccd_ovs_row_cnt <= (others => '0');
-							else
-								-- ccd not ended, update row counter
-								s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
-								-- check if the ccd is in the image area
-								if (s_image_area = '1') then
-									-- the ccd is in the image area
-									s_ccd_img_row_cnt <= std_logic_vector(unsigned(s_ccd_img_row_cnt) + 1);
+							-- check if a full line was processed
+							if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
+								-- full line processed, clear column counter
+								s_ccd_column_cnt <= (others => '0');
+								-- check if the entire ccd was processed
+								if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+									-- ccd ended, clear row counter
+									s_ccd_row_cnt     <= (others => '0');
+									s_ccd_img_row_cnt <= (others => '0');
+									s_ccd_ovs_row_cnt <= (others => '0');
 								else
-									-- the ccd is in the overscan area
-									s_ccd_ovs_row_cnt <= std_logic_vector(unsigned(s_ccd_ovs_row_cnt) + 1);
+									-- ccd not ended, update row counter
+									s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
+									-- check if the ccd is in the image area
+									if (s_image_area = '1') then
+										-- the ccd is in the image area
+										s_ccd_img_row_cnt <= std_logic_vector(unsigned(s_ccd_img_row_cnt) + 1);
+									else
+										-- the ccd is in the overscan area
+										s_ccd_ovs_row_cnt <= std_logic_vector(unsigned(s_ccd_ovs_row_cnt) + 1);
+									end if;
+									-- check if the last line to be transmitted was reached
+									if ((s_ccd_row_cnt = fee_ccd_v_end_i) or ((s_ccd_img_row_cnt = fee_ccd_img_v_end_i) and (s_image_area = '1')) or ((s_ccd_ovs_row_cnt = fee_ccd_ovs_v_end_i) and (s_image_area = '0'))) then
+										-- last line to be transmitted was reached
+										-- write img end flag
+										pixels_cbuff_wr_control_o.wrdata_imgend <= '1';
+									end if;
 								end if;
-								-- check if the last line to be transmitted was reached
-								if ((s_ccd_row_cnt = fee_ccd_v_end_i) or ((s_ccd_img_row_cnt = fee_ccd_img_v_end_i) and (s_image_area = '1')) or ((s_ccd_ovs_row_cnt = fee_ccd_ovs_v_end_i) and (s_image_area = '0'))) then
-									-- last line to be transmitted was reached
+							else
+								-- middle of a line, update column counter
+								-- check if it is the first pixel
+								if (s_first_pixel = '1') then
+									-- first pixel, clear flag and do not increment column counter
+									s_first_pixel <= '0';
+								else
+									-- not first pixel, increment column counter
+									s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
+								end if;
+							end if;
+							-- check if the processed pixel is the last pixel of a line
+							if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
+								-- full line processed
+								-- check if it was the last ccd data line or the last ccd line
+								if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_data_y_size_i) - 1)) then
+									-- the processed line was the last ccd data line
 									-- write img end flag
 									pixels_cbuff_wr_control_o.wrdata_imgend <= '1';
+									-- write change command and return to waiting data
+									s_masking_machine_state                 <= WRITE_CHANGE_CMD;
+									s_masking_machine_return_state          <= WAITING_DATA;
+								elsif (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+									-- the processed line was the last ccd line
+									-- write img end flag
+									pixels_cbuff_wr_control_o.wrdata_imgend <= '1';
+									-- write change command and return to not started
+									s_masking_machine_state                 <= WRITE_CHANGE_CMD;
+									s_masking_machine_return_state          <= CCD_FINISHED;
+									-- set masking machine as finished
+									masking_machine_finished_o              <= '1';
 								end if;
-							end if;
-						else
-							-- middle of a line, update column counter
-							-- check if it is the first pixel
-							if (s_first_pixel = '1') then
-								-- first pixel, clear flag and do not increment column counter
-								s_first_pixel <= '0';
-							else
-								-- not first pixel, increment column counter
-								s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
-							end if;
-						end if;
-						-- check if the processed pixel is the last pixel of a line
-						if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
-							-- full line processed
-							-- check if it was the last ccd data line or the last ccd line
-							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_data_y_size_i) - 1)) then
-								-- the processed line was the last ccd data line
-								-- write img end flag
-								pixels_cbuff_wr_control_o.wrdata_imgend <= '1';
-								-- write change command and return to waiting data
-								s_masking_machine_state        <= WRITE_CHANGE_CMD;
-								s_masking_machine_return_state <= WAITING_DATA;
-							elsif (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
-								-- the processed line was the last ccd line
-								-- write img end flag
-								pixels_cbuff_wr_control_o.wrdata_imgend <= '1';
-								-- write change command and return to not started
-								s_masking_machine_state        <= WRITE_CHANGE_CMD;
-								s_masking_machine_return_state <= CCD_FINISHED;
-								-- set masking machine as finished
-								masking_machine_finished_o     <= '1';
 							end if;
 						end if;
 					end if;
 
 				when WRITE_CHANGE_CMD =>
-					s_masking_machine_state       <= WRITE_CHANGE_CMD;
-					window_data_read_o            <= '0';
-					window_mask_read_o            <= '0';
-					masking_machine_finished_o    <= '0';
-					masking_buffer_overflowed_o   <= '0';
+					s_masking_machine_state                    <= WRITE_CHANGE_CMD;
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_first_pixel                 <= '0';
-					s_data_fetched                <= '0';
+					s_first_pixel                              <= '0';
+					s_data_fetched                             <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
 					-- clear the image area flag
-					s_image_area                  <= '0';
+					s_image_area                               <= '0';
 					-- clear the image and overscan counters
-					s_ccd_img_row_cnt             <= (others => '0');
-					s_ccd_ovs_row_cnt             <= (others => '0');
-					-- check if pixels circular buffer is ready and not full 
-					if ((pixels_cbuff_wr_status_i.wrready = '1') and (pixels_cbuff_wr_status_i.full = '0')) then
-						-- masking fifo has space
-						-- write change command
-						pixels_cbuff_wr_control_o.wrdata_imgchange <= '1';
-						pixels_cbuff_wr_control_o.wrreq          <= '1';
-						-- return state
-						s_masking_machine_state       <= s_masking_machine_return_state;
+					s_ccd_img_row_cnt                          <= (others => '0');
+					s_ccd_ovs_row_cnt                          <= (others => '0');
+					-- check if a write delay is not necessary / already passed
+					if (s_wr_delay = '0') then
+						-- check if pixels circular buffer is ready and not full 
+						if ((pixels_cbuff_wr_status_i.wrready = '1') and (pixels_cbuff_wr_status_i.full = '0')) then
+							-- masking fifo has space
+							-- write change command
+							pixels_cbuff_wr_control_o.wrdata_imgchange <= '1';
+							pixels_cbuff_wr_control_o.wrreq            <= '1';
+							s_wr_delay                                 <= '1';
+							-- return state
+							s_masking_machine_state                    <= s_masking_machine_return_state;
+						end if;
 					end if;
 
 				when CCD_FINISHED =>
-					s_masking_machine_state        <= CCD_FINISHED;
-					s_masking_machine_return_state <= CCD_FINISHED;
-					window_data_read_o             <= '0';
-					window_mask_read_o             <= '0';
-					masking_machine_finished_o     <= '0';
-					masking_buffer_overflowed_o    <= '0';
+					s_masking_machine_state                    <= CCD_FINISHED;
+					s_masking_machine_return_state             <= CCD_FINISHED;
+					window_data_read_o                         <= '0';
+					window_mask_read_o                         <= '0';
+					masking_machine_finished_o                 <= '0';
+					masking_buffer_overflowed_o                <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgbyte   <= (others => '0');
 					pixels_cbuff_wr_control_o.wrreq            <= '0';
-					s_registered_window_data       <= (others => '0');
-					s_registered_window_mask       <= '0';
-					s_first_pixel                  <= '0';
-					s_ccd_column_cnt               <= (others => '0');
-					s_ccd_row_cnt                  <= (others => '0');
-					s_image_area                   <= '0';
+					s_registered_window_data                   <= (others => '0');
+					s_registered_window_mask                   <= '0';
+					s_first_pixel                              <= '0';
+					s_ccd_column_cnt                           <= (others => '0');
+					s_ccd_row_cnt                              <= (others => '0');
+					s_image_area                               <= '0';
+					s_cbuf_flush                               <= '0';
+					s_wr_delay                                 <= '0';
 					-- check if a data was already fetched
 					if (s_data_fetched = '1') then
 						-- data was already fetched
@@ -568,7 +606,6 @@ begin
 	end process p_masking_machine;
 
 	-- pixels circular buffer flush signal
-	pixels_cbuff_wr_control_o.flush <= ('1') when (rst_i = '1') else (fee_clear_signal_i);
-
+	pixels_cbuff_wr_control_o.flush <= ('1') when (rst_i = '1') else ((fee_clear_signal_i) or (s_cbuf_flush));
 
 end architecture RTL;

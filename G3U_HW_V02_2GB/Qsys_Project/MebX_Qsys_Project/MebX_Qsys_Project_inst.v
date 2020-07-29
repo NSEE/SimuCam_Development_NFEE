@@ -76,6 +76,12 @@
 		.m2_ddr2_memory_status_local_cal_fail                        (<connected-to-m2_ddr2_memory_status_local_cal_fail>),                        //                                           .local_cal_fail
 		.m2_ddr2_oct_rdn                                             (<connected-to-m2_ddr2_oct_rdn>),                                             //                                m2_ddr2_oct.rdn
 		.m2_ddr2_oct_rup                                             (<connected-to-m2_ddr2_oct_rup>),                                             //                                           .rup
+		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata>),         // rmap_mem_nfee_scom_0_avalon_mm_rmap_master.readdata
+		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest>),      //                                           .waitrequest
+		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address>),          //                                           .address
+		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read>),             //                                           .read
+		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write>),            //                                           .write
+		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata>),        //                                           .writedata
 		.rs232_uart_rxd                                              (<connected-to-rs232_uart_rxd>),                                              //                                 rs232_uart.rxd
 		.rs232_uart_txd                                              (<connected-to-rs232_uart_txd>),                                              //                                           .txd
 		.rst_reset_n                                                 (<connected-to-rst_reset_n>),                                                 //                                        rst.reset_n
@@ -86,6 +92,7 @@
 		.rtcc_sck_export                                             (<connected-to-rtcc_sck_export>),                                             //                                   rtcc_sck.export
 		.rtcc_sdi_export                                             (<connected-to-rtcc_sdi_export>),                                             //                                   rtcc_sdi.export
 		.rtcc_sdo_export                                             (<connected-to-rtcc_sdo_export>),                                             //                                   rtcc_sdo.export
+		.scom_0_sync_sync_signal                                     (<connected-to-scom_0_sync_sync_signal>),                                     //                                scom_0_sync.sync_signal
 		.sd_card_ip_b_SD_cmd                                         (<connected-to-sd_card_ip_b_SD_cmd>),                                         //                                 sd_card_ip.b_SD_cmd
 		.sd_card_ip_b_SD_dat                                         (<connected-to-sd_card_ip_b_SD_dat>),                                         //                                           .b_SD_dat
 		.sd_card_ip_b_SD_dat3                                        (<connected-to-sd_card_ip_b_SD_dat3>),                                        //                                           .b_SD_dat3
@@ -217,13 +224,6 @@
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                           .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                           .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                           .umft_oe_n_signal
-		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                           .umft_siwu_n_signal
-		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata>),         // rmap_mem_nfee_scom_0_avalon_mm_rmap_master.readdata
-		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest>),      //                                           .waitrequest
-		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address>),          //                                           .address
-		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read>),             //                                           .read
-		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write>),            //                                           .write
-		.rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        (<connected-to-rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata>),        //                                           .writedata
-		.scom_0_sync_sync_signal                                     (<connected-to-scom_0_sync_sync_signal>)                                      //                                scom_0_sync.sync_signal
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                           .umft_siwu_n_signal
 	);
 

@@ -44,6 +44,18 @@ entity comm_v2_top is
 		avm_right_buffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
 		avm_right_buffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
 		avm_right_buffer_read_o             : out std_logic; --                                      --                                        .read
+		avm_left_cbuffer_readdata_i         : in  std_logic_vector(15 downto 0)  := (others => '0'); --           avalon_mm_left_cbuffer_master.readdata
+		avm_left_cbuffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
+		avm_left_cbuffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
+		avm_left_cbuffer_write_o            : out std_logic; --                                      --                                        .write
+		avm_left_cbuffer_writedata_o        : out std_logic_vector(15 downto 0); --                  --                                        .writedata
+		avm_left_cbuffer_read_o             : out std_logic; --                                      --                                        .read
+		avm_right_cbuffer_readdata_i        : in  std_logic_vector(15 downto 0)  := (others => '0'); --          avalon_mm_right_cbuffer_master.readdata
+		avm_right_cbuffer_waitrequest_i     : in  std_logic                      := '0'; --          --                                        .waitrequest
+		avm_right_cbuffer_address_o         : out std_logic_vector(63 downto 0); --                  --                                        .address
+		avm_right_cbuffer_write_o           : out std_logic; --                                      --                                        .write
+		avm_right_cbuffer_writedata_o       : out std_logic_vector(15 downto 0); --                  --                                        .writedata
+		avm_right_cbuffer_read_o            : out std_logic; --                                      --                                        .read
 		feeb_interrupt_sender_irq_o         : out std_logic; --                                      --                   feeb_interrupt_sender.irq
 		rmap_interrupt_sender_irq_o         : out std_logic; --                                      --                   rmap_interrupt_sender.irq
 		spw_link_status_started_i           : in  std_logic                      := '0'; --          --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -482,7 +494,7 @@ begin
 			fee_machine_start_i                           => s_machine_start,
 			fee_digitalise_en_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
 			fee_readout_en_i                              => s_spacewire_write_registers.fee_machine_config_reg.fee_readout_en,
-			fee_windowing_en_i                            => s_spacewire_write_registers.fee_machine_config_reg.fee_windowing_en,
+			fee_window_list_en_i                          => s_spacewire_write_registers.fee_machine_config_reg.fee_window_list_en,
 			fee_left_window_data_i                        => s_L_fee_data_controller_window_data_out,
 			fee_left_window_mask_i                        => s_L_fee_data_controller_window_mask_out,
 			fee_left_window_data_valid_i                  => s_L_fee_data_controller_window_data_valid,
@@ -521,6 +533,16 @@ begin
 			data_pkt_line_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
 			data_pkt_adc_delay_i                          => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
 			masking_buffer_overflow_i                     => s_spacewire_write_registers.fee_machine_config_reg.fee_buffer_overflow_en,
+			pixels_left_cbuffer_address_offset_i(63 downto 32)  => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_high_dword,
+			pixels_left_cbuffer_address_offset_i(31 downto 0)   => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_low_dword,
+			pixels_left_cbuffer_size_bytes_i                    => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_size_bytes,
+			pixels_left_cbuffer_avm_readdata_i                  => avm_left_cbuffer_readdata_i,
+			pixels_left_cbuffer_avm_waitrequest_i               => avm_left_cbuffer_waitrequest_i,
+			pixels_right_cbuffer_address_offset_i(63 downto 32) => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword,
+			pixels_right_cbuffer_address_offset_i(31 downto 0)  => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword,
+			pixels_right_cbuffer_size_bytes_i                   => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes,
+			pixels_right_cbuffer_avm_readdata_i                 => avm_right_cbuffer_readdata_i,
+			pixels_right_cbuffer_avm_waitrequest_i              => avm_right_cbuffer_waitrequest_i,
 			windowing_packet_order_list_i(511 downto 480) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_15,
 			windowing_packet_order_list_i(479 downto 448) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_14,
 			windowing_packet_order_list_i(447 downto 416) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_13,
@@ -539,13 +561,16 @@ begin
 			windowing_packet_order_list_i(31 downto 0)    => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_0,
 			windowing_last_left_packet_i                  => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_e_packet,
 			windowing_last_right_packet_i                 => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_f_packet,
-			errinj_tx_disabled_i                          => s_spacewire_write_registers.error_injection_control_reg.errinj_tx_disabled,
-			errinj_missing_pkts_i                         => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_pkts,
-			errinj_missing_data_i                         => s_spacewire_write_registers.error_injection_control_reg.errinj_missing_data,
-			errinj_frame_num_i                            => s_spacewire_write_registers.error_injection_control_reg.errinj_frame_num,
-			errinj_sequence_cnt_i                         => s_spacewire_write_registers.error_injection_control_reg.errinj_sequence_cnt,
-			errinj_data_cnt_i                             => s_spacewire_write_registers.error_injection_control_reg.errinj_data_cnt,
-			errinj_n_repeat_i                             => s_spacewire_write_registers.error_injection_control_reg.errinj_n_repeat,
+			spw_errinj_eep_received_i                     => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_eep_received,
+			spw_errinj_sequence_cnt_i                     => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_sequence_cnt,
+			spw_errinj_n_repeat_i                         => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_n_repeat,
+			trans_errinj_tx_disabled_i                    => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_tx_disabled,
+			trans_errinj_missing_pkts_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_pkts,
+			trans_errinj_missing_data_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_data,
+			trans_errinj_frame_num_i                      => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_frame_num,
+			trans_errinj_sequence_cnt_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_sequence_cnt,
+			trans_errinj_data_cnt_i                       => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_data_cnt,
+			trans_errinj_n_repeat_i                       => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_n_repeat,
 			fee_machine_busy_o                            => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy,
 			fee_frame_counter_o                           => s_fee_frame_counter,
 			fee_frame_number_o                            => s_fee_frame_number,
@@ -555,6 +580,14 @@ begin
 			fee_left_window_mask_read_o                   => s_L_fee_data_controller_window_mask_read,
 			fee_right_window_data_read_o                  => s_R_fee_data_controller_window_data_read,
 			fee_right_window_mask_read_o                  => s_R_fee_data_controller_window_mask_read,
+			pixels_left_cbuffer_avm_address_o                   => avm_left_cbuffer_address_o,
+			pixels_left_cbuffer_avm_write_o                     => avm_left_cbuffer_write_o,
+			pixels_left_cbuffer_avm_writedata_o                 => avm_left_cbuffer_writedata_o,
+			pixels_left_cbuffer_avm_read_o                      => avm_left_cbuffer_read_o,
+			pixels_right_cbuffer_avm_address_o                  => avm_right_cbuffer_address_o,
+			pixels_right_cbuffer_avm_write_o                    => avm_right_cbuffer_write_o,
+			pixels_right_cbuffer_avm_writedata_o                => avm_right_cbuffer_writedata_o,
+			pixels_right_cbuffer_avm_read_o                     => avm_right_cbuffer_read_o,
 			fee_hk_mem_byte_address_o                     => s_fee_rd_rmap_address,
 			fee_hk_mem_read_o                             => s_fee_rd_rmap_read,
 			fee_spw_tx_write_o                            => s_fee_data_controller_spw_txwrite,
@@ -677,17 +710,22 @@ begin
 
 	comm_timecode_manager_ent_inst : entity work.comm_timecode_manager_ent
 		port map(
-			clk_i                 => a_avs_clock,
-			rst_i                 => a_reset,
-			ch_sync_trigger_i     => s_ch_sync_trigger,
-			tx_timecode_clear_i   => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
-			tx_timecode_en_i      => s_spacewire_write_registers.spw_timecode_config_reg.timecode_en,
-			rx_timecode_tick_i    => s_rx_timecode_tick,
-			rx_timecode_control_i => s_rx_timecode_control,
-			rx_timecode_counter_i => s_rx_timecode_counter,
-			tx_timecode_tick_o    => s_tx_timecode_tick,
-			tx_timecode_control_o => s_spacewire_read_registers.spw_timecode_status_reg.timecode_control,
-			tx_timecode_counter_o => s_spacewire_read_registers.spw_timecode_status_reg.timecode_time
+			clk_i                                 => a_avs_clock,
+			rst_i                                 => a_reset,
+			ch_sync_trigger_i                     => s_ch_sync_trigger,
+			tx_timecode_clear_i                   => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
+			tx_timecode_trans_en_i                => s_spacewire_write_registers.spw_timecode_config_reg.timecode_trans_en,
+			tx_timecode_sync_trigger_en_i         => s_spacewire_write_registers.spw_timecode_config_reg.timecode_sync_trigger_en,
+			tx_timecode_time_offset_i(6)          => '0',
+			tx_timecode_time_offset_i(5 downto 0) => s_spacewire_write_registers.spw_timecode_config_reg.timecode_time_offset,
+			tx_timecode_sync_delay_trigger_en_i   => s_spacewire_write_registers.spw_timecode_config_reg.timecode_sync_delay_trigger_en,
+			tx_timecode_sync_delay_value_i        => s_spacewire_write_registers.spw_timecode_config_reg.timecode_sync_delay_value,
+			rx_timecode_tick_i                    => s_rx_timecode_tick,
+			rx_timecode_control_i                 => s_rx_timecode_control,
+			rx_timecode_counter_i                 => s_rx_timecode_counter,
+			tx_timecode_tick_o                    => s_tx_timecode_tick,
+			tx_timecode_control_o                 => s_spacewire_read_registers.spw_timecode_status_reg.timecode_control,
+			tx_timecode_counter_o                 => s_spacewire_read_registers.spw_timecode_status_reg.timecode_time
 		);
 
 	comm_restart_manager_ent_inst : entity work.comm_restart_manager_ent
@@ -723,20 +761,21 @@ begin
 
 	comm_rmap_irq_manager_ent_inst : entity work.comm_rmap_irq_manager_ent
 		port map(
-			clk_i                                   => a_avs_clock,
-			rst_i                                   => a_reset,
-			irq_manager_stop_i                      => s_machine_stop,
-			irq_manager_start_i                     => s_machine_start,
-			global_irq_en_i                         => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
-			irq_watches_i.rmap_write_data_finished  => s_rmap_write_data_finished,
-			irq_contexts_i.rmap_win_area_write_flag => s_rmap_win_area_write_flag,
-			irq_flags_en_i.rmap_write_config_flag   => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_config_en,
-			irq_flags_en_i.rmap_write_window_flag   => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_window_en,
-			irq_flags_clr_i.rmap_write_config_flag  => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear,
-			irq_flags_clr_i.rmap_write_window_flag  => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear,
-			irq_flags_o.rmap_write_config_flag      => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag,
-			irq_flags_o.rmap_write_window_flag      => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag,
-			irq_o                                   => rmap_interrupt_sender_irq_o
+			clk_i                                     => a_avs_clock,
+			rst_i                                     => a_reset,
+			irq_manager_stop_i                        => s_machine_stop,
+			irq_manager_start_i                       => s_machine_start,
+			global_irq_en_i                           => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
+			irq_watches_i.rmap_write_data_finished    => s_rmap_write_data_finished,
+			irq_contexts_i.rmap_write_data_authorized => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized,
+			irq_contexts_i.rmap_win_area_write_flag   => s_rmap_win_area_write_flag,
+			irq_flags_en_i.rmap_write_config_flag     => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_config_en,
+			irq_flags_en_i.rmap_write_window_flag     => s_spacewire_write_registers.rmap_irq_control_reg.rmap_write_window_en,
+			irq_flags_clr_i.rmap_write_config_flag    => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear,
+			irq_flags_clr_i.rmap_write_window_flag    => s_spacewire_write_registers.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear,
+			irq_flags_o.rmap_write_config_flag        => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_config_flag,
+			irq_flags_o.rmap_write_window_flag        => s_spacewire_read_registers.rmap_irq_flags_reg.rmap_write_window_flag,
+			irq_o                                     => rmap_interrupt_sender_irq_o
 		);
 
 	-- sync in trigger generation

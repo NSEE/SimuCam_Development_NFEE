@@ -109,7 +109,7 @@ begin
 
 	-- comm cbuffer manager process
 	p_cbuf_manager : process(clk_i, rst_i) is
-		variable v_cbuf_usedw_cnt : unsigned((c_COMM_CBUF_DATAW_SIZE - 1) downto 0);
+		variable v_cbuf_usedw_cnt : unsigned((c_COMM_CBUF_WUSED_SIZE - 1) downto 0);
 	begin
 		if (rst_i = '1') then
 

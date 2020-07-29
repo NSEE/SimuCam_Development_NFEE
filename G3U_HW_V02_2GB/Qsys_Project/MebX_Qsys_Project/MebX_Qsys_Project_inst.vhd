@@ -77,6 +77,12 @@
 			m2_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        -- local_cal_fail
 			m2_ddr2_oct_rdn                                             : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                             : in    std_logic                     := 'X';             -- rup
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- readdata
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      : in    std_logic                     := 'X';             -- waitrequest
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          : out   std_logic_vector(63 downto 0);                    -- address
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             : out   std_logic;                                        -- read
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            : out   std_logic;                                        -- write
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        : out   std_logic_vector(7 downto 0);                     -- writedata
 			rs232_uart_rxd                                              : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                              : out   std_logic;                                        -- txd
 			rst_reset_n                                                 : in    std_logic                     := 'X';             -- reset_n
@@ -87,6 +93,7 @@
 			rtcc_sck_export                                             : out   std_logic;                                        -- export
 			rtcc_sdi_export                                             : out   std_logic;                                        -- export
 			rtcc_sdo_export                                             : in    std_logic                     := 'X';             -- export
+			scom_0_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
 			sd_card_ip_b_SD_cmd                                         : inout std_logic                     := 'X';             -- b_SD_cmd
 			sd_card_ip_b_SD_dat                                         : inout std_logic                     := 'X';             -- b_SD_dat
 			sd_card_ip_b_SD_dat3                                        : inout std_logic                     := 'X';             -- b_SD_dat3
@@ -218,14 +225,7 @@
 			umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            : out   std_logic;                                        -- umft_siwu_n_signal
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- readdata
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      : in    std_logic                     := 'X';             -- waitrequest
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          : out   std_logic_vector(63 downto 0);                    -- address
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             : out   std_logic;                                        -- read
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            : out   std_logic;                                        -- write
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        : out   std_logic_vector(7 downto 0);                     -- writedata
-			scom_0_sync_sync_signal                                     : in    std_logic                     := 'X'              -- sync_signal
+			umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -308,6 +308,12 @@
 			m2_ddr2_memory_status_local_cal_fail                        => CONNECTED_TO_m2_ddr2_memory_status_local_cal_fail,                        --                                           .local_cal_fail
 			m2_ddr2_oct_rdn                                             => CONNECTED_TO_m2_ddr2_oct_rdn,                                             --                                m2_ddr2_oct.rdn
 			m2_ddr2_oct_rup                                             => CONNECTED_TO_m2_ddr2_oct_rup,                                             --                                           .rup
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata,         -- rmap_mem_nfee_scom_0_avalon_mm_rmap_master.readdata
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest,      --                                           .waitrequest
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address,          --                                           .address
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read,             --                                           .read
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write,            --                                           .write
+			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata,        --                                           .writedata
 			rs232_uart_rxd                                              => CONNECTED_TO_rs232_uart_rxd,                                              --                                 rs232_uart.rxd
 			rs232_uart_txd                                              => CONNECTED_TO_rs232_uart_txd,                                              --                                           .txd
 			rst_reset_n                                                 => CONNECTED_TO_rst_reset_n,                                                 --                                        rst.reset_n
@@ -318,6 +324,7 @@
 			rtcc_sck_export                                             => CONNECTED_TO_rtcc_sck_export,                                             --                                   rtcc_sck.export
 			rtcc_sdi_export                                             => CONNECTED_TO_rtcc_sdi_export,                                             --                                   rtcc_sdi.export
 			rtcc_sdo_export                                             => CONNECTED_TO_rtcc_sdo_export,                                             --                                   rtcc_sdo.export
+			scom_0_sync_sync_signal                                     => CONNECTED_TO_scom_0_sync_sync_signal,                                     --                                scom_0_sync.sync_signal
 			sd_card_ip_b_SD_cmd                                         => CONNECTED_TO_sd_card_ip_b_SD_cmd,                                         --                                 sd_card_ip.b_SD_cmd
 			sd_card_ip_b_SD_dat                                         => CONNECTED_TO_sd_card_ip_b_SD_dat,                                         --                                           .b_SD_dat
 			sd_card_ip_b_SD_dat3                                        => CONNECTED_TO_sd_card_ip_b_SD_dat3,                                        --                                           .b_SD_dat3
@@ -449,13 +456,6 @@
 			umft601a_pins_umft_wr_n_signal                              => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                              --                                           .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                              --                                           .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                              --                                           .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                            --                                           .umft_siwu_n_signal
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata,         -- rmap_mem_nfee_scom_0_avalon_mm_rmap_master.readdata
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest,      --                                           .waitrequest
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address,          --                                           .address
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read,             --                                           .read
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write,            --                                           .write
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        => CONNECTED_TO_rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata,        --                                           .writedata
-			scom_0_sync_sync_signal                                     => CONNECTED_TO_scom_0_sync_sync_signal                                      --                                scom_0_sync.sync_signal
+			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                             --                                           .umft_siwu_n_signal
 		);
 

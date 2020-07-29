@@ -144,7 +144,7 @@ begin
 					if (send_buffer_hkdata_status_i.rdready = '1') then
 						-- hkdata send buffer ready to be read
 						-- check if the send buffer data is housekeep data
-						if (send_buffer_hkdata_status_i.rddata_type = c_COMM_NFEE_OVERSCAN_DATA) then
+						if (send_buffer_hkdata_status_i.rddata_type = c_COMM_NFEE_HOUSEKEEPING_PACKET) then
 							-- the send buffer data is housekeep data
 							-- set transmitting flag
 							s_hkdata_transmitting                   <= '1';

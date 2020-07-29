@@ -248,18 +248,18 @@ package rmap_target_pkg is
 	-- user application
 
 	-- RMAP reply error code
-	constant c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY                  : natural := 0;
-	constant c_ERROR_CODE_GENERAL_ERROR_CODE                             : natural := 1;
-	constant c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE        : natural := 2;
-	constant c_ERROR_CODE_INVALID_KEY                                    : natural := 3;
-	constant c_ERROR_CODE_INVALID_DATA_CRC                               : natural := 4;
-	constant c_ERROR_CODE_EARLY_EOP                                      : natural := 5;
-	constant c_ERROR_CODE_TOO_MUCH_DATA                                  : natural := 6;
-	constant c_ERROR_CODE_EEP                                            : natural := 7;
-	constant c_ERROR_CODE_VERIFY_BUFFER_OVERRUN                          : natural := 9;
-	constant c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED : natural := 10;
-	constant c_ERROR_CODE_RMW_DATA_LENGTH_ERROR                          : natural := 11;
-	constant c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS                 : natural := 12;
+	constant c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY                  : std_logic_vector(7 downto 0) := x"00";
+	constant c_ERROR_CODE_GENERAL_ERROR_CODE                             : std_logic_vector(7 downto 0) := x"01";
+	constant c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE        : std_logic_vector(7 downto 0) := x"02";
+	constant c_ERROR_CODE_INVALID_KEY                                    : std_logic_vector(7 downto 0) := x"03";
+	constant c_ERROR_CODE_INVALID_DATA_CRC                               : std_logic_vector(7 downto 0) := x"04";
+	constant c_ERROR_CODE_EARLY_EOP                                      : std_logic_vector(7 downto 0) := x"05";
+	constant c_ERROR_CODE_TOO_MUCH_DATA                                  : std_logic_vector(7 downto 0) := x"06";
+	constant c_ERROR_CODE_EEP                                            : std_logic_vector(7 downto 0) := x"07";
+	constant c_ERROR_CODE_VERIFY_BUFFER_OVERRUN                          : std_logic_vector(7 downto 0) := x"09";
+	constant c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED : std_logic_vector(7 downto 0) := x"0A";
+	constant c_ERROR_CODE_RMW_DATA_LENGTH_ERROR                          : std_logic_vector(7 downto 0) := x"0B";
+	constant c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS                 : std_logic_vector(7 downto 0) := x"0C";
 
 	type t_rmap_target_user_codecdata is record
 		target_logical_address    : std_logic_vector(7 downto 0);

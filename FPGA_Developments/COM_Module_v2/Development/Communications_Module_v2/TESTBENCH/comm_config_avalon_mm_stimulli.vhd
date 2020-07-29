@@ -319,6 +319,14 @@ begin
 			avs_config_rd_waitrequest_o <= '1';
 			avs_config_wr_waitrequest_o <= '1';
 
+			-- cbuf config
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_high_dword  <= (others => '0');
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_low_dword   <= (others => '0');
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_size_bytes               <= std_logic_vector(to_unsigned(64, 24));
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword <= (others => '0');
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword  <= (others => '0');
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes              <= std_logic_vector(to_unsigned(64, 24));
+
 			case s_counter is
 
 				when 5 =>
@@ -386,7 +394,7 @@ begin
 					null;
 
 			end case;
-	
+
 		end if;
 	end process p_comm_config_avalon_mm_stimulli;
 

@@ -342,7 +342,16 @@ begin
 						s_rmap_target_reply_next_state <= FIELD_EOP;
 					else
 						-- read reply, next field to be written is a data field
-						s_rmap_target_reply_next_state <= REPLY_FINISH_GENERATION;
+						-- check if the read command was authorized
+						if (headerdata_i.status = c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY) then
+							-- the read command was authorized
+							-- next field to be written is a data field, go to reply finish generation
+							s_rmap_target_reply_next_state <= REPLY_FINISH_GENERATION;
+						else
+							-- the read command was not authorized
+							-- reply will not have a data field, go to field eop
+							s_rmap_target_reply_next_state <= FIELD_EOP;
+						end if;
 					end if;
 
 				-- state "FIELD_EOP"

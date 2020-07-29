@@ -6,6 +6,10 @@ use work.rmap_target_pkg.all;
 use work.rmap_mem_area_nfee_pkg.all;
 use work.spwpkg.all;
 
+use work.cbuf_tb_avs_pkg.all;
+use work.comm_avm_cbuf_pkg.all;
+use work.comm_cbuf_pkg.all;
+
 entity testbench_top is
 end entity testbench_top;
 
@@ -105,6 +109,26 @@ architecture RTL of testbench_top is
 	signal s_spw_data_tx_command_txflag  : std_logic; --                 -- --                     .spw_data_tx_command_txflag_signal
 	signal s_spw_data_tx_command_txdata  : std_logic_vector(7 downto 0); -- --                     .spw_data_tx_command_txdata_signal
 
+	-- cbuf signals
+	signal s_avm_left_cbuffer_readdata        : std_logic_vector(15 downto 0); -- --  avalon_mm_left_cbuffer_master.readdata
+	signal s_avm_left_cbuffer_waitrequest     : std_logic; --                     --                               .waitrequest
+	signal s_avm_left_cbuffer_address         : std_logic_vector(63 downto 0); -- --                               .address
+	signal s_avm_left_cbuffer_write           : std_logic; --                     --                               .write
+	signal s_avm_left_cbuffer_writedata       : std_logic_vector(15 downto 0); -- --                               .writedata
+	signal s_avm_left_cbuffer_read            : std_logic; --                     --                               .read
+	signal s_avm_right_cbuffer_readdata       : std_logic_vector(15 downto 0); -- -- avalon_mm_right_cbuffer_master.readdata
+	signal s_avm_right_cbuffer_waitrequest    : std_logic; --                     --                               .waitrequest
+	signal s_avm_right_cbuffer_address        : std_logic_vector(63 downto 0); -- --                               .address
+	signal s_avm_right_cbuffer_write          : std_logic; --                     --                               .write
+	signal s_avm_right_cbuffer_writedata      : std_logic_vector(15 downto 0); -- --                               .writedata
+	signal s_avm_right_cbuffer_read           : std_logic; --                     --                               .read
+	signal s_left_cbuf_tb_avs_memory_area     : t_cbuf_tb_avs_memory_area;
+	signal s_right_cbuf_tb_avs_memory_area    : t_cbuf_tb_avs_memory_area;
+	signal s_avm_left_cbuffer_wr_waitrequest  : std_logic;
+	signal s_avm_left_cbuffer_rd_waitrequest  : std_logic;
+	signal s_avm_right_cbuffer_wr_waitrequest : std_logic;
+	signal s_avm_right_cbuffer_rd_waitrequest : std_logic;
+
 begin
 
 	clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
@@ -179,6 +203,18 @@ begin
 			avm_right_buffer_waitrequest_i      => '0',
 			avm_right_buffer_address_o          => open,
 			avm_right_buffer_read_o             => open,
+			avm_left_cbuffer_readdata_i         => s_avm_left_cbuffer_readdata,
+			avm_left_cbuffer_waitrequest_i      => s_avm_left_cbuffer_waitrequest,
+			avm_left_cbuffer_address_o          => s_avm_left_cbuffer_address,
+			avm_left_cbuffer_write_o            => s_avm_left_cbuffer_write,
+			avm_left_cbuffer_writedata_o        => s_avm_left_cbuffer_writedata,
+			avm_left_cbuffer_read_o             => s_avm_left_cbuffer_read,
+			avm_right_cbuffer_readdata_i        => s_avm_right_cbuffer_readdata,
+			avm_right_cbuffer_waitrequest_i     => s_avm_right_cbuffer_waitrequest,
+			avm_right_cbuffer_address_o         => s_avm_right_cbuffer_address,
+			avm_right_cbuffer_write_o           => s_avm_right_cbuffer_write,
+			avm_right_cbuffer_writedata_o       => s_avm_right_cbuffer_writedata,
+			avm_right_cbuffer_read_o            => s_avm_right_cbuffer_read,
 			feeb_interrupt_sender_irq_o         => s_irq_buffers,
 			rmap_interrupt_sender_irq_o         => s_irq_rmap,
 			spw_link_status_started_i           => s_spw_link_status_started,
@@ -304,13 +340,13 @@ begin
 			v_sync_one_shot := '0';
 		elsif rising_edge(clk100) then
 			if (v_sync_one_shot = '0') then
---				if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
-									if ((v_sync_high = '0') and (v_sync_div_cnt = 100)) then
+								if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
+--				if ((v_sync_high = '0') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
---				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
-									elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
+								elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+--				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '0';
 					v_sync_high    := '0';
 					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot
@@ -374,5 +410,57 @@ begin
 			delay_busy_o     => s_delay_busy,
 			delay_finished_o => s_delay_finished
 		);
+
+	left_cbuf_tb_avs_read_ent_inst : entity work.cbuf_tb_avs_read_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_left_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.read        => s_avm_left_cbuffer_read,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_memory_area_i           => s_left_cbuf_tb_avs_memory_area,
+			cbuf_tb_avs_avalon_mm_o.readdata    => s_avm_left_cbuffer_readdata,
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_left_cbuffer_rd_waitrequest
+		);
+
+	left_cbuf_tb_avs_write_ent_inst : entity work.cbuf_tb_avs_write_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_left_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.write       => s_avm_left_cbuffer_write,
+			cbuf_tb_avs_avalon_mm_i.writedata   => s_avm_left_cbuffer_writedata,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_left_cbuffer_wr_waitrequest,
+			cbuf_tb_avs_memory_area_o           => s_left_cbuf_tb_avs_memory_area
+		);
+
+	s_avm_left_cbuffer_waitrequest <= (s_avm_left_cbuffer_wr_waitrequest) and (s_avm_left_cbuffer_rd_waitrequest);
+
+	right_cbuf_tb_avs_read_ent_inst : entity work.cbuf_tb_avs_read_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_right_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.read        => s_avm_right_cbuffer_read,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_memory_area_i           => s_right_cbuf_tb_avs_memory_area,
+			cbuf_tb_avs_avalon_mm_o.readdata    => s_avm_right_cbuffer_readdata,
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_right_cbuffer_rd_waitrequest
+		);
+
+	right_cbuf_tb_avs_write_ent_inst : entity work.cbuf_tb_avs_write_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_right_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.write       => s_avm_right_cbuffer_write,
+			cbuf_tb_avs_avalon_mm_i.writedata   => s_avm_right_cbuffer_writedata,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_right_cbuffer_wr_waitrequest,
+			cbuf_tb_avs_memory_area_o           => s_right_cbuf_tb_avs_memory_area
+		);
+
+	s_avm_right_cbuffer_waitrequest <= (s_avm_right_cbuffer_wr_waitrequest) and (s_avm_right_cbuffer_rd_waitrequest);
 
 end architecture RTL;

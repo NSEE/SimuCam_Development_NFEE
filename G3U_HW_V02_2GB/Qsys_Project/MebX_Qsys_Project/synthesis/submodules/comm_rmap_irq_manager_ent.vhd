@@ -62,18 +62,21 @@ begin
 				if (global_irq_en_i = '1') then
 					-- detect a rising edge in write finished signal
 					if ((s_irq_watches_delayed.rmap_write_data_finished = '0') and (irq_watches_i.rmap_write_data_finished = '1')) then
-						-- check if the write was to a config area
-						if (irq_contexts_i.rmap_win_area_write_flag = '0') then
-							-- the write was not to a windowing area
-							-- check if the rmap config write finished interrupt is activated
-							if (irq_flags_en_i.rmap_write_config_flag = '1') then
-								s_irq_flags.rmap_write_config_flag <= '1';
-							end if;
-						else
-							-- the write was to a windowing area
-							-- check if the rmap window write finished interrupt is activated
-							if (irq_flags_en_i.rmap_write_window_flag = '1') then
-								s_irq_flags.rmap_write_window_flag <= '1';
+						-- check if the write was authorized (not discarded)
+						if (irq_contexts_i.rmap_write_data_authorized = '1') then
+							-- check if the write was to a config area
+							if (irq_contexts_i.rmap_win_area_write_flag = '0') then
+								-- the write was not to a windowing area
+								-- check if the rmap config write finished interrupt is activated
+								if (irq_flags_en_i.rmap_write_config_flag = '1') then
+									s_irq_flags.rmap_write_config_flag <= '1';
+								end if;
+							else
+								-- the write was to a windowing area
+								-- check if the rmap window write finished interrupt is activated
+								if (irq_flags_en_i.rmap_write_window_flag = '1') then
+									s_irq_flags.rmap_write_window_flag <= '1';
+								end if;
 							end if;
 						end if;
 					end if;

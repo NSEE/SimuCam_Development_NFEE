@@ -686,9 +686,12 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '1';
+					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
-				-- conditional output signals
+					-- conditional output signals
+					if (spw_flag_i.valid = '1') then
+						spw_control_o.read <= '1';
+					end if;
 
 				-- state "WRITE_FINISH_OPERATION"
 				when WRITE_FINISH_OPERATION =>

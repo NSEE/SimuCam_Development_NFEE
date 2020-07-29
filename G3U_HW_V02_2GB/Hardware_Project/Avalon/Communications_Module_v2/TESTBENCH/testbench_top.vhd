@@ -6,6 +6,10 @@ use work.rmap_target_pkg.all;
 use work.rmap_mem_area_nfee_pkg.all;
 use work.spwpkg.all;
 
+use work.cbuf_tb_avs_pkg.all;
+use work.comm_avm_cbuf_pkg.all;
+use work.comm_cbuf_pkg.all;
+
 entity testbench_top is
 end entity testbench_top;
 
@@ -75,6 +79,55 @@ architecture RTL of testbench_top is
 	signal s_delay_timer    : std_logic_vector(7 downto 0);
 	signal s_delay_busy     : std_logic;
 	signal s_delay_finished : std_logic;
+
+	-- spw controller stimuli signals
+	signal s_spw_link_status_started     : std_logic; --                 -- -- spacewire_controller.spw_link_status_started_signal
+	signal s_spw_link_status_connecting  : std_logic; --                 -- --                     .spw_link_status_connecting_signal
+	signal s_spw_link_status_running     : std_logic; --                 -- --                     .spw_link_status_running_signal
+	signal s_spw_link_error_errdisc      : std_logic; --                 -- --                     .spw_link_error_errdisc_signal
+	signal s_spw_link_error_errpar       : std_logic; --                 -- --                     .spw_link_error_errpar_signal
+	signal s_spw_link_error_erresc       : std_logic; --                 -- --                     .spw_link_error_erresc_signal
+	signal s_spw_link_error_errcred      : std_logic; --                 -- --                     .spw_link_error_errcred_signal
+	signal s_spw_timecode_rx_tick_out    : std_logic; --                 -- --                     .spw_timecode_rx_tick_out_signal
+	signal s_spw_timecode_rx_ctrl_out    : std_logic_vector(1 downto 0); -- --                     .spw_timecode_rx_ctrl_out_signal
+	signal s_spw_timecode_rx_time_out    : std_logic_vector(5 downto 0); -- --                     .spw_timecode_rx_time_out_signal
+	signal s_spw_data_rx_status_rxvalid  : std_logic; --                 -- --                     .spw_data_rx_status_rxvalid_signal
+	signal s_spw_data_rx_status_rxhalff  : std_logic; --                 -- --                     .spw_data_rx_status_rxhalff_signal
+	signal s_spw_data_rx_status_rxflag   : std_logic; --                 -- --                     .spw_data_rx_status_rxflag_signal
+	signal s_spw_data_rx_status_rxdata   : std_logic_vector(7 downto 0); -- --                     .spw_data_rx_status_rxdata_signal
+	signal s_spw_data_tx_status_txrdy    : std_logic; --                 -- --                     .spw_data_tx_status_txrdy_signal
+	signal s_spw_data_tx_status_txhalff  : std_logic; --                 -- --                     .spw_data_tx_status_txhalff_signal
+	signal s_spw_link_command_autostart  : std_logic; --                 -- --                     .spw_link_command_autostart_signal
+	signal s_spw_link_command_linkstart  : std_logic; --                 -- --                     .spw_link_command_linkstart_signal
+	signal s_spw_link_command_linkdis    : std_logic; --                 -- --                     .spw_link_command_linkdis_signal
+	signal s_spw_link_command_txdivcnt   : std_logic_vector(7 downto 0); -- --                     .spw_link_command_txdivcnt_signal
+	signal s_spw_timecode_tx_tick_in     : std_logic; --                 -- --                     .spw_timecode_tx_tick_in_signal
+	signal s_spw_timecode_tx_ctrl_in     : std_logic_vector(1 downto 0); -- --                     .spw_timecode_tx_ctrl_in_signal
+	signal s_spw_timecode_tx_time_in     : std_logic_vector(5 downto 0); -- --                     .spw_timecode_tx_time_in_signal
+	signal s_spw_data_rx_command_rxread  : std_logic; --                 -- --                     .spw_data_rx_command_rxread_signal
+	signal s_spw_data_tx_command_txwrite : std_logic; --                 -- --                     .spw_data_tx_command_txwrite_signal
+	signal s_spw_data_tx_command_txflag  : std_logic; --                 -- --                     .spw_data_tx_command_txflag_signal
+	signal s_spw_data_tx_command_txdata  : std_logic_vector(7 downto 0); -- --                     .spw_data_tx_command_txdata_signal
+
+	-- cbuf signals
+	signal s_avm_left_cbuffer_readdata        : std_logic_vector(15 downto 0); -- --  avalon_mm_left_cbuffer_master.readdata
+	signal s_avm_left_cbuffer_waitrequest     : std_logic; --                     --                               .waitrequest
+	signal s_avm_left_cbuffer_address         : std_logic_vector(63 downto 0); -- --                               .address
+	signal s_avm_left_cbuffer_write           : std_logic; --                     --                               .write
+	signal s_avm_left_cbuffer_writedata       : std_logic_vector(15 downto 0); -- --                               .writedata
+	signal s_avm_left_cbuffer_read            : std_logic; --                     --                               .read
+	signal s_avm_right_cbuffer_readdata       : std_logic_vector(15 downto 0); -- -- avalon_mm_right_cbuffer_master.readdata
+	signal s_avm_right_cbuffer_waitrequest    : std_logic; --                     --                               .waitrequest
+	signal s_avm_right_cbuffer_address        : std_logic_vector(63 downto 0); -- --                               .address
+	signal s_avm_right_cbuffer_write          : std_logic; --                     --                               .write
+	signal s_avm_right_cbuffer_writedata      : std_logic_vector(15 downto 0); -- --                               .writedata
+	signal s_avm_right_cbuffer_read           : std_logic; --                     --                               .read
+	signal s_left_cbuf_tb_avs_memory_area     : t_cbuf_tb_avs_memory_area;
+	signal s_right_cbuf_tb_avs_memory_area    : t_cbuf_tb_avs_memory_area;
+	signal s_avm_left_cbuffer_wr_waitrequest  : std_logic;
+	signal s_avm_left_cbuffer_rd_waitrequest  : std_logic;
+	signal s_avm_right_cbuffer_wr_waitrequest : std_logic;
+	signal s_avm_right_cbuffer_rd_waitrequest : std_logic;
 
 begin
 
@@ -150,35 +203,47 @@ begin
 			avm_right_buffer_waitrequest_i      => '0',
 			avm_right_buffer_address_o          => open,
 			avm_right_buffer_read_o             => open,
+			avm_left_cbuffer_readdata_i         => s_avm_left_cbuffer_readdata,
+			avm_left_cbuffer_waitrequest_i      => s_avm_left_cbuffer_waitrequest,
+			avm_left_cbuffer_address_o          => s_avm_left_cbuffer_address,
+			avm_left_cbuffer_write_o            => s_avm_left_cbuffer_write,
+			avm_left_cbuffer_writedata_o        => s_avm_left_cbuffer_writedata,
+			avm_left_cbuffer_read_o             => s_avm_left_cbuffer_read,
+			avm_right_cbuffer_readdata_i        => s_avm_right_cbuffer_readdata,
+			avm_right_cbuffer_waitrequest_i     => s_avm_right_cbuffer_waitrequest,
+			avm_right_cbuffer_address_o         => s_avm_right_cbuffer_address,
+			avm_right_cbuffer_write_o           => s_avm_right_cbuffer_write,
+			avm_right_cbuffer_writedata_o       => s_avm_right_cbuffer_writedata,
+			avm_right_cbuffer_read_o            => s_avm_right_cbuffer_read,
 			feeb_interrupt_sender_irq_o         => s_irq_buffers,
 			rmap_interrupt_sender_irq_o         => s_irq_rmap,
-			spw_link_status_started_i           => '0',
-			spw_link_status_connecting_i        => '0',
-			spw_link_status_running_i           => '1',
-			spw_link_error_errdisc_i            => '0',
-			spw_link_error_errpar_i             => '0',
-			spw_link_error_erresc_i             => '0',
-			spw_link_error_errcred_i            => '0',
-			spw_timecode_rx_tick_out_i          => '0',
-			spw_timecode_rx_ctrl_out_i          => (others => '0'),
-			spw_timecode_rx_time_out_i          => (others => '0'),
-			spw_data_rx_status_rxvalid_i        => '0',
-			spw_data_rx_status_rxhalff_i        => '0',
-			spw_data_rx_status_rxflag_i         => '0',
-			spw_data_rx_status_rxdata_i         => (others => '0'),
-			spw_data_tx_status_txrdy_i          => '1',
-			spw_data_tx_status_txhalff_i        => '0',
-			spw_link_command_autostart_o        => open,
-			spw_link_command_linkstart_o        => open,
-			spw_link_command_linkdis_o          => open,
-			spw_link_command_txdivcnt_o         => open,
-			spw_timecode_tx_tick_in_o           => open,
-			spw_timecode_tx_ctrl_in_o           => open,
-			spw_timecode_tx_time_in_o           => open,
-			spw_data_rx_command_rxread_o        => open,
-			spw_data_tx_command_txwrite_o       => open,
-			spw_data_tx_command_txflag_o        => open,
-			spw_data_tx_command_txdata_o        => open,
+			spw_link_status_started_i           => s_spw_link_status_started,
+			spw_link_status_connecting_i        => s_spw_link_status_connecting,
+			spw_link_status_running_i           => s_spw_link_status_running,
+			spw_link_error_errdisc_i            => s_spw_link_error_errdisc,
+			spw_link_error_errpar_i             => s_spw_link_error_errpar,
+			spw_link_error_erresc_i             => s_spw_link_error_erresc,
+			spw_link_error_errcred_i            => s_spw_link_error_errcred,
+			spw_timecode_rx_tick_out_i          => s_spw_timecode_rx_tick_out,
+			spw_timecode_rx_ctrl_out_i          => s_spw_timecode_rx_ctrl_out,
+			spw_timecode_rx_time_out_i          => s_spw_timecode_rx_time_out,
+			spw_data_rx_status_rxvalid_i        => s_spw_data_rx_status_rxvalid,
+			spw_data_rx_status_rxhalff_i        => s_spw_data_rx_status_rxhalff,
+			spw_data_rx_status_rxflag_i         => s_spw_data_rx_status_rxflag,
+			spw_data_rx_status_rxdata_i         => s_spw_data_rx_status_rxdata,
+			spw_data_tx_status_txrdy_i          => s_spw_data_tx_status_txrdy,
+			spw_data_tx_status_txhalff_i        => s_spw_data_tx_status_txhalff,
+			spw_link_command_autostart_o        => s_spw_link_command_autostart,
+			spw_link_command_linkstart_o        => s_spw_link_command_linkstart,
+			spw_link_command_linkdis_o          => s_spw_link_command_linkdis,
+			spw_link_command_txdivcnt_o         => s_spw_link_command_txdivcnt,
+			spw_timecode_tx_tick_in_o           => s_spw_timecode_tx_tick_in,
+			spw_timecode_tx_ctrl_in_o           => s_spw_timecode_tx_ctrl_in,
+			spw_timecode_tx_time_in_o           => s_spw_timecode_tx_time_in,
+			spw_data_rx_command_rxread_o        => s_spw_data_rx_command_rxread,
+			spw_data_tx_command_txwrite_o       => s_spw_data_tx_command_txwrite,
+			spw_data_tx_command_txflag_o        => s_spw_data_tx_command_txflag,
+			spw_data_tx_command_txdata_o        => s_spw_data_tx_command_txdata,
 			rmap_echo_echo_en_o                 => open,
 			rmap_echo_echo_id_en_o              => open,
 			rmap_echo_in_fifo_wrflag_o          => open,
@@ -187,17 +252,17 @@ begin
 			rmap_echo_out_fifo_wrflag_o         => open,
 			rmap_echo_out_fifo_wrdata_o         => open,
 			rmap_echo_out_fifo_wrreq_o          => open,
-			rmm_rmap_target_wr_waitrequest_i    => '1',
-			rmm_rmap_target_readdata_i          => (others => '0'),
-			rmm_rmap_target_rd_waitrequest_i    => '1',
+			rmm_rmap_target_wr_waitrequest_i    => '0',
+			rmm_rmap_target_readdata_i          => (others => '1'),
+			rmm_rmap_target_rd_waitrequest_i    => '0',
 			rmm_rmap_target_wr_address_o        => open,
 			rmm_rmap_target_write_o             => open,
 			rmm_rmap_target_writedata_o         => open,
 			rmm_rmap_target_rd_address_o        => open,
 			rmm_rmap_target_read_o              => open,
 			rmm_fee_hk_wr_waitrequest_i         => '1',
-			rmm_fee_hk_readdata_i               => (others => '0'),
-			rmm_fee_hk_rd_waitrequest_i         => '1',
+			rmm_fee_hk_readdata_i               => (others => '1'),
+			rmm_fee_hk_rd_waitrequest_i         => '0',
 			rmm_fee_hk_wr_address_o             => open,
 			rmm_fee_hk_write_o                  => open,
 			rmm_fee_hk_writedata_o              => open,
@@ -223,6 +288,39 @@ begin
 			comm_measurements_o                 => open
 		);
 
+	spw_controller_stimuli_inst : entity work.spw_controller_stimuli
+		port map(
+			clk_i                         => clk200,
+			rst_i                         => rst,
+			spw_link_command_autostart_i  => s_spw_link_command_autostart,
+			spw_link_command_linkstart_i  => s_spw_link_command_linkstart,
+			spw_link_command_linkdis_i    => s_spw_link_command_linkdis,
+			spw_link_command_txdivcnt_i   => s_spw_link_command_txdivcnt,
+			spw_timecode_tx_tick_in_i     => s_spw_timecode_tx_tick_in,
+			spw_timecode_tx_ctrl_in_i     => s_spw_timecode_tx_ctrl_in,
+			spw_timecode_tx_time_in_i     => s_spw_timecode_tx_time_in,
+			spw_data_rx_command_rxread_i  => s_spw_data_rx_command_rxread,
+			spw_data_tx_command_txwrite_i => s_spw_data_tx_command_txwrite,
+			spw_data_tx_command_txflag_i  => s_spw_data_tx_command_txflag,
+			spw_data_tx_command_txdata_i  => s_spw_data_tx_command_txdata,
+			spw_link_status_started_o     => s_spw_link_status_started,
+			spw_link_status_connecting_o  => s_spw_link_status_connecting,
+			spw_link_status_running_o     => s_spw_link_status_running,
+			spw_link_error_errdisc_o      => s_spw_link_error_errdisc,
+			spw_link_error_errpar_o       => s_spw_link_error_errpar,
+			spw_link_error_erresc_o       => s_spw_link_error_erresc,
+			spw_link_error_errcred_o      => s_spw_link_error_errcred,
+			spw_timecode_rx_tick_out_o    => s_spw_timecode_rx_tick_out,
+			spw_timecode_rx_ctrl_out_o    => s_spw_timecode_rx_ctrl_out,
+			spw_timecode_rx_time_out_o    => s_spw_timecode_rx_time_out,
+			spw_data_rx_status_rxvalid_o  => s_spw_data_rx_status_rxvalid,
+			spw_data_rx_status_rxhalff_o  => s_spw_data_rx_status_rxhalff,
+			spw_data_rx_status_rxflag_o   => s_spw_data_rx_status_rxflag,
+			spw_data_rx_status_rxdata_o   => s_spw_data_rx_status_rxdata,
+			spw_data_tx_status_txrdy_o    => s_spw_data_tx_status_txrdy,
+			spw_data_tx_status_txhalff_o  => s_spw_data_tx_status_txhalff
+		);
+
 	s_sync_n <= not (s_sync);
 
 	--	s_spw_codec_comm_di <= s_spw_codec_comm_do;
@@ -242,13 +340,13 @@ begin
 			v_sync_one_shot := '0';
 		elsif rising_edge(clk100) then
 			if (v_sync_one_shot = '0') then
-				if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
-					--				if ((v_sync_high = '0') and (v_sync_div_cnt = 100)) then
+								if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
+--				if ((v_sync_high = '0') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
-				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
-					--				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
+								elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+--				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '0';
 					v_sync_high    := '0';
 					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot
@@ -312,5 +410,57 @@ begin
 			delay_busy_o     => s_delay_busy,
 			delay_finished_o => s_delay_finished
 		);
+
+	left_cbuf_tb_avs_read_ent_inst : entity work.cbuf_tb_avs_read_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_left_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.read        => s_avm_left_cbuffer_read,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_memory_area_i           => s_left_cbuf_tb_avs_memory_area,
+			cbuf_tb_avs_avalon_mm_o.readdata    => s_avm_left_cbuffer_readdata,
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_left_cbuffer_rd_waitrequest
+		);
+
+	left_cbuf_tb_avs_write_ent_inst : entity work.cbuf_tb_avs_write_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_left_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.write       => s_avm_left_cbuffer_write,
+			cbuf_tb_avs_avalon_mm_i.writedata   => s_avm_left_cbuffer_writedata,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_left_cbuffer_wr_waitrequest,
+			cbuf_tb_avs_memory_area_o           => s_left_cbuf_tb_avs_memory_area
+		);
+
+	s_avm_left_cbuffer_waitrequest <= (s_avm_left_cbuffer_wr_waitrequest) and (s_avm_left_cbuffer_rd_waitrequest);
+
+	right_cbuf_tb_avs_read_ent_inst : entity work.cbuf_tb_avs_read_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_right_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.read        => s_avm_right_cbuffer_read,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_memory_area_i           => s_right_cbuf_tb_avs_memory_area,
+			cbuf_tb_avs_avalon_mm_o.readdata    => s_avm_right_cbuffer_readdata,
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_right_cbuffer_rd_waitrequest
+		);
+
+	right_cbuf_tb_avs_write_ent_inst : entity work.cbuf_tb_avs_write_ent
+		port map(
+			clk_i                               => clk100,
+			rst_i                               => rst,
+			cbuf_tb_avs_avalon_mm_i.address     => s_avm_right_cbuffer_address,
+			cbuf_tb_avs_avalon_mm_i.write       => s_avm_right_cbuffer_write,
+			cbuf_tb_avs_avalon_mm_i.writedata   => s_avm_right_cbuffer_writedata,
+			cbuf_tb_avs_avalon_mm_i.byteenable  => (others => '1'),
+			cbuf_tb_avs_avalon_mm_o.waitrequest => s_avm_right_cbuffer_wr_waitrequest,
+			cbuf_tb_avs_memory_area_o           => s_right_cbuf_tb_avs_memory_area
+		);
+
+	s_avm_right_cbuffer_waitrequest <= (s_avm_right_cbuffer_wr_waitrequest) and (s_avm_right_cbuffer_rd_waitrequest);
 
 end architecture RTL;
