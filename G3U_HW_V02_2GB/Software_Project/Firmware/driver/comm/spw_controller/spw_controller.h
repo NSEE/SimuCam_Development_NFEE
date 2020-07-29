@@ -24,17 +24,20 @@
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware
 
-bool bSpwcSetLink(TSpwcChannel *pxSpwcCh);
-bool bSpwcGetLink(TSpwcChannel *pxSpwcCh);
-
-bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh);
+bool bSpwcSetLinkConfig(TSpwcChannel *pxSpwcCh);
+bool bSpwcGetLinkConfig(TSpwcChannel *pxSpwcCh);
 
 bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh);
 
-bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh);
+bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcSetTimecodeConfig(TSpwcChannel *pxSpwcCh);
+bool bSpwcGetTimecodeConfig(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcGetTimecodeStatus(TSpwcChannel *pxSpwcCh);
 
 bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh);
-bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable);
+bool bSpwcEnableTimecodeTrans(TSpwcChannel *pxSpwcCh, bool bEnable);
 
 bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh);
 

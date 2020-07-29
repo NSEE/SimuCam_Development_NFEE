@@ -308,7 +308,7 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
+		bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
 		tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
 		tCodeNext = ( tCode ) % 4;
 		fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
@@ -622,9 +622,9 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
 			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
-			bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[5] == 1 );
+			bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[5] == 1 );
 
-			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
@@ -635,7 +635,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[2] );
 
-			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
@@ -914,11 +914,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	usiFeeInstL = xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
-			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
 //			bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
@@ -931,11 +931,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
-			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
 //			bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
@@ -967,9 +967,9 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
 				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
-				bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[11] == 1 );
+				bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[11] == 1 );
 
-				bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 				if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
@@ -982,7 +982,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = xPusL->usiValues[10]; /*Dest Node*/
 
-				bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 
 				/* Enable the RMAP interrupt */
@@ -1062,15 +1062,15 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	OSTimeDlyHMSM(0, 0, 0, 250);
 
 	for (usiFeeInstL=0; usiFeeInstL<N_OF_NFEE; usiFeeInstL++) {
-		bDpktGetErrorInjection(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
-		bDpktSetErrorInjection(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+		bDpktGetTransmissionErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.usiDataCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = 0;
+		bDpktSetTransmissionErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 	}
 
 	bDisableIsoDrivers();

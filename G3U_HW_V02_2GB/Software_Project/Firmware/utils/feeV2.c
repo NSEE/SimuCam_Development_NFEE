@@ -85,15 +85,15 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat = 0;
     pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt = 0;
 
-    bDpktGetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
-    bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
+    bDpktGetTransmissionErrInj(&pxNfeeL->xChannel.xDataPacket);
+    pxNfeeL->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
+    pxNfeeL->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts;
+    pxNfeeL->xChannel.xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled;
+    pxNfeeL->xChannel.xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum;
+    pxNfeeL->xChannel.xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt;
+    pxNfeeL->xChannel.xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat;
+    pxNfeeL->xChannel.xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
+    bDpktSetTransmissionErrInj(&pxNfeeL->xChannel.xDataPacket);
 
     pxNfeeL->xControl.xTrap.bEnabledSerial = FALSE;
     pxNfeeL->xControl.xTrap.bEnabled = FALSE;

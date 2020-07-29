@@ -69,7 +69,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn = TRUE;
-				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
+				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 
 				pxNFee->xCopyRmap.bCopyDigitaliseEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
@@ -838,15 +838,15 @@ void vFeeTaskV3(void *task_data) {
 						/*Check if there is any type of error enabled*/
 						//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
 
-						bDpktGetErrorInjection(&pxNFee->xChannel.xDataPacket);
-						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNFee->xControl.xErrorSWCtrl.bMissingData;
-						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
-						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
-						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
-						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
-						pxNFee->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
-						bDpktSetErrorInjection(&pxNFee->xChannel.xDataPacket);
+						bDpktGetTransmissionErrInj(&pxNFee->xChannel.xDataPacket);
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrl.bMissingData;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
+						bDpktSetTransmissionErrInj(&pxNFee->xChannel.xDataPacket);
 					}
 				}
 
@@ -912,56 +912,44 @@ void vFeeTaskV3(void *task_data) {
 				switch (pxNFee->xControl.eMode) {
 					case sFullPattern:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern;
-						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sWinPattern:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingPattern;
-						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						break;
 					case sFullImage:
 						if ( pxNFee->xControl.eDataSource == dsPattern ) {
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePatternMode;
-							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						} else if ( pxNFee->xControl.eDataSource == dsSSD ) {
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImageSsdMode;
-							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						} else {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 								fprintf(fp,"\nNFEE-%hu Task: Window Stack is not an option for Full Image Mode. Configuring Pattern instead!\n", pxNFee->ucId);
 							#endif
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePatternMode;
-							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						}
 						break;
 					case sWindowing:
 						if ( pxNFee->xControl.eDataSource == dsPattern ) {
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingPatternMode;
-							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						} else if ( pxNFee->xControl.eDataSource == dsSSD ) {
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingSsdImgMode;
-							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						} else {
 							pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingSsdWinMode;
-							pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						}
 
 						break;
 					case sParTrap1:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping1Data;
-						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sParTrap2:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping2Data;
-						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sSerialTrap1:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktSerialTrapPumping1;
-						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sSerialTrap2:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktSerialTrapPumping2;
-						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					default:
 						#if DEBUG_ON
@@ -969,7 +957,6 @@ void vFeeTaskV3(void *task_data) {
 							fprintf(fp,"\nNFEE-%hu Task: Mode not recognized: xDpktDataPacketConfig (Data Packet). Configuring On Mode.\n", pxNFee->ucId);
 						#endif
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
-						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 				}
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
@@ -3295,11 +3282,11 @@ bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 
 bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Disable SPW channel */
-	bSpwcGetLink(xSPW);
+	bSpwcGetLinkConfig(xSPW);
 	xSPW->xSpwcLinkConfig.bLinkStart = FALSE;
 	xSPW->xSpwcLinkConfig.bAutostart = FALSE;
 	xSPW->xSpwcLinkConfig.bDisconnect = TRUE;
-	bSpwcSetLink(xSPW);
+	bSpwcSetLinkConfig(xSPW);
 
 	/*todo: No treatment for now  */
 	return TRUE;
@@ -3307,11 +3294,11 @@ bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 
 bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Enable SPW channel */
-	bSpwcGetLink(xSPW);
+	bSpwcGetLinkConfig(xSPW);
 	xSPW->xSpwcLinkConfig.bLinkStart = xDefaults.bSpwLinkStart;
 	xSPW->xSpwcLinkConfig.bAutostart = TRUE;
 	xSPW->xSpwcLinkConfig.bDisconnect = FALSE;
-	bSpwcSetLink(xSPW);
+	bSpwcSetLinkConfig(xSPW);
 
 	/*todo: No treatment for now  */
 	return TRUE;

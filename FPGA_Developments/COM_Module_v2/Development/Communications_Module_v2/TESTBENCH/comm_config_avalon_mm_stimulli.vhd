@@ -46,8 +46,16 @@ begin
 			avs_config_wr_regs_o.spw_link_config_reg.spw_lnkcfg_txdivcnt                             <= x"01";
 			-- SpaceWire Timecode Config Register : SpaceWire Timecode Clear
 			avs_config_wr_regs_o.spw_timecode_config_reg.timecode_clear                              <= '0';
-			-- SpaceWire Timecode Config Register : SpaceWire Timecode Enable
-			avs_config_wr_regs_o.spw_timecode_config_reg.timecode_en                                 <= '1';
+			-- SpaceWire Timecode Config Register : SpaceWire Timecode Transmission Enable
+			avs_config_wr_regs_o.spw_timecode_config_reg.timecode_trans_en                           <= '1';
+			-- SpaceWire Timecode Config Register : SpaceWire Timecode Sync Trigger Enable
+			avs_config_wr_regs_o.spw_timecode_config_reg.timecode_sync_trigger_en                    <= '1';
+			-- SpaceWire Timecode Config Register : SpaceWire Timecode Time Offset
+			avs_config_wr_regs_o.spw_timecode_config_reg.timecode_time_offset                        <= (others => '0');
+			-- SpaceWire Timecode Config Register : SpaceWire Timecode Sync Delay Trigger Enable
+			avs_config_wr_regs_o.spw_timecode_config_reg.timecode_sync_delay_trigger_en              <= '0';
+			-- SpaceWire Timecode Config Register : SpaceWire Timecode Sync Delay Value
+			avs_config_wr_regs_o.spw_timecode_config_reg.timecode_sync_delay_value                   <= (others => '0');
 			-- FEE Buffers Device Address Register : FEE Buffers Device Base Address
 			avs_config_wr_regs_o.fee_buffers_dev_addr_reg.fee_buffers_dev_base_addr                  <= (others => '0');
 			-- FEE Machine Config Register : FEE Machine Clear
@@ -62,8 +70,8 @@ begin
 			avs_config_wr_regs_o.fee_machine_config_reg.fee_digitalise_en                            <= '1';
 			-- FEE Machine Config Register : FEE Readout Enable
 			avs_config_wr_regs_o.fee_machine_config_reg.fee_readout_en                               <= '1';
-			-- FEE Machine Config Register : FEE Windowing Enable
-			avs_config_wr_regs_o.fee_machine_config_reg.fee_windowing_en                             <= '0';
+			-- FEE Machine Config Register : FEE Window List Enable
+			avs_config_wr_regs_o.fee_machine_config_reg.fee_window_list_en                           <= '1';
 			-- FEE Machine Config Register : FEE Statistics Clear
 			avs_config_wr_regs_o.fee_machine_config_reg.fee_statistics_clear                         <= '0';
 			-- FEE Buffers Config Register : Windowing Right Buffer Size Config
@@ -174,20 +182,26 @@ begin
 			avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay                     <= std_logic_vector(to_unsigned(9000, 32));
 			-- Data Packet Pixel Delay Register : Data Packet ADC Delay
 			avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay                      <= std_logic_vector(to_unsigned(33, 32));
-			-- Error Injection Control Register : Error Injection Tx Disabled Enable
-			avs_config_wr_regs_o.error_injection_control_reg.errinj_tx_disabled                      <= '0';
-			-- Error Injection Control Register : Error Injection Missing Packets Enable
-			avs_config_wr_regs_o.error_injection_control_reg.errinj_missing_pkts                     <= '0';
-			-- Error Injection Control Register : Error Injection Missing Data Enable
-			avs_config_wr_regs_o.error_injection_control_reg.errinj_missing_data                     <= '0';
-			-- Error Injection Control Register : Error Injection Frame Number of Error
-			avs_config_wr_regs_o.error_injection_control_reg.errinj_frame_num                        <= std_logic_vector(to_unsigned(0, 2));
-			-- Error Injection Control Register : Error Injection Sequence Counter of Error
-			avs_config_wr_regs_o.error_injection_control_reg.errinj_sequence_cnt                     <= std_logic_vector(to_unsigned(0, 16));
-			-- Error Injection Control Register : Error Injection Data Counter of Error
-			avs_config_wr_regs_o.error_injection_control_reg.errinj_data_cnt                         <= std_logic_vector(to_unsigned(0, 16));
-			-- Error Injection Control Register : Error Injection Number of Error Repeats
-			avs_config_wr_regs_o.error_injection_control_reg.errinj_n_repeat                         <= std_logic_vector(to_unsigned(0, 16));
+			-- SpaceWire Error Injection Control Register : Enable for "EEP Received" SpaceWire Error
+			avs_config_wr_regs_o.spw_error_injection_control_reg.spw_errinj_eep_received             <= '0';
+			-- SpaceWire Error Injection Control Register : Sequence Counter of SpaceWire Error
+			avs_config_wr_regs_o.spw_error_injection_control_reg.spw_errinj_sequence_cnt             <= std_logic_vector(to_unsigned(0, 16));
+			-- SpaceWire Error Injection Control Register : Number of Times the SpaceWire Error Repeats
+			avs_config_wr_regs_o.spw_error_injection_control_reg.spw_errinj_n_repeat                 <= std_logic_vector(to_unsigned(0, 16));
+			-- Transmission Error Injection Control Register : Enable for "Tx Disabled" Transmission Error
+			avs_config_wr_regs_o.trans_error_injection_control_reg.trans_errinj_tx_disabled          <= '0';
+			-- Transmission Error Injection Control Register : Enable for "Missing Packets" Transmission Error
+			avs_config_wr_regs_o.trans_error_injection_control_reg.trans_errinj_missing_pkts         <= '0';
+			-- Transmission Error Injection Control Register : Enable for "Missing Data" Transmission Error
+			avs_config_wr_regs_o.trans_error_injection_control_reg.trans_errinj_missing_data         <= '0';
+			-- Transmission Error Injection Control Register : Frame Number of Transmission Error
+			avs_config_wr_regs_o.trans_error_injection_control_reg.trans_errinj_frame_num            <= std_logic_vector(to_unsigned(0, 2));
+			-- Transmission Error Injection Control Register : Sequence Counter of Transmission Error
+			avs_config_wr_regs_o.trans_error_injection_control_reg.trans_errinj_sequence_cnt         <= std_logic_vector(to_unsigned(0, 16));
+			-- Transmission Error Injection Control Register : Data Counter of Transmission Error
+			avs_config_wr_regs_o.trans_error_injection_control_reg.trans_errinj_data_cnt             <= std_logic_vector(to_unsigned(0, 16));
+			-- Transmission Error Injection Control Register : Number of Times the Transmission Error Repeats
+			avs_config_wr_regs_o.trans_error_injection_control_reg.trans_errinj_n_repeat             <= std_logic_vector(to_unsigned(0, 16));
 			-- Windowing Parameters Register : Windowing Packet Order List Dword 15
 			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_15             <= (others => '0');
 			-- Windowing Parameters Register : Windowing Packet Order List Dword 14
@@ -331,7 +345,7 @@ begin
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_STANDBY_MODE; -- N-FEE Standby Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_MODE_PATTERN_MODE; -- N-FEE Full-Image Mode / Pattern Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_MODE_SSD_MODE; -- N-FEE Full-Image Mode / SSD Mode
---										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_PATTERN_MODE; -- N-FEE Windowing Mode / Pattern Mode
+					--										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_PATTERN_MODE; -- N-FEE Windowing Mode / Pattern Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDIMG_MODE; -- N-FEE Windowing Mode / SSD Image Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDWIN_MODE; -- N-FEE Windowing Mode / SSD Window Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_PERFORMANCE_TEST_MODE; -- N-FEE Performance Test Mode
@@ -352,15 +366,15 @@ begin
 					avs_config_wr_regs_o.fee_machine_config_reg.fee_readout_en                   <= '1';
 					-- buffers data control
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_data_length_bytes  <= (others => '1');
---					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
+					--					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_data_length_bytes <= (others => '1');
-									avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start             <= '1';
+					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start             <= '1';
 
 				when others =>
 					null;
 
 			end case;
-
+	
 		end if;
 	end process p_comm_config_avalon_mm_stimulli;
 
