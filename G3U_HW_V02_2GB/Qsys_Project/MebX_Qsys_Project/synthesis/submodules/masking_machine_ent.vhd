@@ -37,6 +37,10 @@ entity masking_machine_ent is
 		current_timecode_i          : in  std_logic_vector(7 downto 0);
 		current_ccd_i               : in  std_logic_vector(1 downto 0);
 		current_side_i              : in  std_logic;
+		content_errinj_en_i         : in  std_logic;
+		content_errinj_px_col_i     : in  std_logic_vector(15 downto 0);
+		content_errinj_px_row_i     : in  std_logic_vector(15 downto 0);
+		content_errinj_px_val_i     : in  std_logic_vector(15 downto 0);
 		window_data_i               : in  std_logic_vector(15 downto 0);
 		window_mask_i               : in  std_logic;
 		window_data_valid_i         : in  std_logic;
@@ -48,6 +52,7 @@ entity masking_machine_ent is
 		send_double_buffer_wrable_i : in  std_logic;
 		masking_machine_finished_o  : out std_logic;
 		masking_buffer_overflowed_o : out std_logic;
+		content_errinj_done_o       : out std_logic;
 		window_data_read_o          : out std_logic;
 		window_mask_read_o          : out std_logic;
 		pixels_cbuff_wr_control_o   : out t_comm_pixels_cbuff_wr_control
@@ -143,6 +148,10 @@ architecture RTL of masking_machine_ent is
 	alias a_pixel_msb is s_registered_window_data(7 downto 0);
 	alias a_pixel_lsb is s_registered_window_data(15 downto 8);
 
+	-- error injection pixels bytes alias
+	alias a_errinj_pixel_msb is content_errinj_px_val_i(7 downto 0);
+	alias a_errinj_pixel_lsb is content_errinj_px_val_i(15 downto 8);
+
 	-- data fetched flag
 	signal s_data_fetched : std_logic;
 
@@ -195,6 +204,7 @@ begin
 			window_mask_read_o                         <= '0';
 			masking_machine_finished_o                 <= '0';
 			masking_buffer_overflowed_o                <= '0';
+			content_errinj_done_o                      <= '0';
 			pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 			pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 			pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -223,6 +233,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -252,6 +263,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -296,6 +308,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -330,6 +343,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -357,6 +371,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -366,10 +381,11 @@ begin
 					s_data_fetched                             <= '0';
 					s_cbuf_flush                               <= '0';
 					s_wr_delay                                 <= '0';
-					-- check if pixels circular buffer is ready and not full or if the masking fifo overflow is enabled and the send double buffer is full
-					if (((pixels_cbuff_wr_status_i.wrready = '1') and (pixels_cbuff_wr_status_i.full = '0')) or ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
-						-- check if the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
-						if ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
+					-- check the if pixels circular buffer is ready and not full or if the circular buffer is full and the masking fifo overflow is enabled and the send double buffer is full
+					if (((pixels_cbuff_wr_status_i.full = '0') and (pixels_cbuff_wr_status_i.wrready = '1')) or ((pixels_cbuff_wr_status_i.full = '1') and (masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
+						-- the pixels circular buffer is ready and not full or if the circular buffer is full and the masking fifo overflow is enabled and the send double buffer is full
+						-- check if the circular buffer is full and the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+						if ((pixels_cbuff_wr_status_i.full = '1') and (masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
 							-- the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
 							masking_buffer_overflowed_o <= '1';
 						end if;
@@ -386,15 +402,26 @@ begin
 								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
 									-- windowing disabled or is enabled and pixel is transmitted
-									pixels_cbuff_wr_control_o.wrreq <= '1';
-									s_wr_delay                      <= '1';
-									-- check if the pattern is enabled
-									if (fee_pattern_en_i = '1') then
-										-- pattern enabled, generate pattern
-										pixels_cbuff_wr_control_o.wrdata_imgbyte <= f_pixel_msb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
-									else
-										-- pattern disabled, use window data
-										pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_pixel_msb;
+									-- check if the pixels circular buffer is ready and not full (a write need to happen)
+									if ((pixels_cbuff_wr_status_i.full = '0') and (pixels_cbuff_wr_status_i.wrready = '1')) then
+										-- the pixels circular buffer is ready and not full (a write need to happen)
+										pixels_cbuff_wr_control_o.wrreq <= '1';
+										s_wr_delay                      <= '1';
+										-- check if the content error injection is enabled and should be applied to the current pixel 
+										if ((content_errinj_en_i = '1') and (s_ccd_row_cnt = content_errinj_px_row_i) and (s_ccd_column_cnt = content_errinj_px_col_i)) then
+											-- the content error injection is enabled and should be applied to the current pixel
+											pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_errinj_pixel_msb;
+										else
+											-- the content error injection is disabled or should not be applied to the current pixel
+											-- check if the pattern is enabled
+											if (fee_pattern_en_i = '1') then
+												-- pattern enabled, generate pattern
+												pixels_cbuff_wr_control_o.wrdata_imgbyte <= f_pixel_msb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+											else
+												-- pattern disabled, use window data
+												pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_pixel_msb;
+											end if;
+										end if;
 									end if;
 								end if;
 							end if;
@@ -408,6 +435,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -419,10 +447,11 @@ begin
 					s_wr_delay                                 <= '0';
 					-- check if a write delay is not necessary / already passed
 					if (s_wr_delay = '0') then
-						-- check if pixels circular buffer is ready and not full or if the masking fifo overflow is enabled and the send double buffer is full
-						if (((pixels_cbuff_wr_status_i.wrready = '1') and (pixels_cbuff_wr_status_i.full = '0')) or ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
-							-- check if the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
-							if ((masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
+						-- check if the pixels circular buffer is ready and not full or if the circular buffer is full and the masking fifo overflow is enabled and the send double buffer is full
+						if (((pixels_cbuff_wr_status_i.full = '0') and (pixels_cbuff_wr_status_i.wrready = '1')) or ((pixels_cbuff_wr_status_i.full = '1') and (masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0'))) then
+							-- the pixels circular buffer is ready and not full or if the circular buffer is full and the masking fifo overflow is enabled and the send double buffer is full
+							-- check if the circular buffer is full and the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
+							if ((pixels_cbuff_wr_status_i.full = '1') and (masking_buffer_overflow_i = '1') and (send_double_buffer_wrable_i = '0')) then
 								-- the masking fifo overflow is enabled and the send double buffer is full (an overflow ocurred)
 								masking_buffer_overflowed_o <= '1';
 							end if;
@@ -439,15 +468,28 @@ begin
 									-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
 									if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
 										-- windowing disabled or is enabled and pixel is transmitted
-										pixels_cbuff_wr_control_o.wrreq <= '1';
-										s_wr_delay                      <= '1';
-										-- check if the pattern is enabled
-										if (fee_pattern_en_i = '1') then
-											-- pattern enabled, generate pattern
-											pixels_cbuff_wr_control_o.wrdata_imgbyte <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
-										else
-											-- pattern disabled, use window data
-											pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_pixel_lsb;
+										-- check if the pixels circular buffer is ready and not full (a write need to happen)
+										if ((pixels_cbuff_wr_status_i.full = '0') and (pixels_cbuff_wr_status_i.wrready = '1')) then
+											-- the pixels circular buffer is ready and not full (a write need to happen)
+											pixels_cbuff_wr_control_o.wrreq <= '1';
+											s_wr_delay                      <= '1';
+											-- check if the content error injection is enabled and should be applied to the current pixel 
+											if ((content_errinj_en_i = '1') and (s_ccd_row_cnt = content_errinj_px_row_i) and (s_ccd_column_cnt = content_errinj_px_col_i)) then
+												-- the content error injection is enabled and should be applied to the current pixel
+												pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_errinj_pixel_lsb;
+												-- set the content error injection done flag
+												content_errinj_done_o                    <= '1';
+											else
+												-- the content error injection is disabled or should not be applied to the current pixel
+												-- check if the pattern is enabled
+												if (fee_pattern_en_i = '1') then
+													-- pattern enabled, generate pattern
+													pixels_cbuff_wr_control_o.wrdata_imgbyte <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+												else
+													-- pattern disabled, use window data
+													pixels_cbuff_wr_control_o.wrdata_imgbyte <= a_pixel_lsb;
+												end if;
+											end if;
 										end if;
 									end if;
 								end if;
@@ -522,6 +564,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';
@@ -557,6 +600,7 @@ begin
 					window_mask_read_o                         <= '0';
 					masking_machine_finished_o                 <= '0';
 					masking_buffer_overflowed_o                <= '0';
+					content_errinj_done_o                      <= '0';
 					pixels_cbuff_wr_control_o.wrdata_reserved  <= (others => '0');
 					pixels_cbuff_wr_control_o.wrdata_imgend    <= '0';
 					pixels_cbuff_wr_control_o.wrdata_imgchange <= '0';

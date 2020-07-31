@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 package comm_avm_cbuf_pkg is
 
 	constant c_COMM_AVM_CBUF_ADRESS_SIZE : natural := 64;
-	constant c_COMM_AVM_CBUF_DATA_SIZE   : natural := 16;
+	constant c_COMM_AVM_CBUF_DATA_SIZE   : natural := 256;
 	constant c_COMM_AVM_CBUF_SYMBOL_SIZE : natural := 8;
 
 	--

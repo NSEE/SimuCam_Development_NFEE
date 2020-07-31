@@ -110,18 +110,18 @@ architecture RTL of testbench_top is
 	signal s_spw_data_tx_command_txdata  : std_logic_vector(7 downto 0); -- --                     .spw_data_tx_command_txdata_signal
 
 	-- cbuf signals
-	signal s_avm_left_cbuffer_readdata        : std_logic_vector(15 downto 0); -- --  avalon_mm_left_cbuffer_master.readdata
-	signal s_avm_left_cbuffer_waitrequest     : std_logic; --                     --                               .waitrequest
-	signal s_avm_left_cbuffer_address         : std_logic_vector(63 downto 0); -- --                               .address
-	signal s_avm_left_cbuffer_write           : std_logic; --                     --                               .write
-	signal s_avm_left_cbuffer_writedata       : std_logic_vector(15 downto 0); -- --                               .writedata
-	signal s_avm_left_cbuffer_read            : std_logic; --                     --                               .read
-	signal s_avm_right_cbuffer_readdata       : std_logic_vector(15 downto 0); -- -- avalon_mm_right_cbuffer_master.readdata
-	signal s_avm_right_cbuffer_waitrequest    : std_logic; --                     --                               .waitrequest
-	signal s_avm_right_cbuffer_address        : std_logic_vector(63 downto 0); -- --                               .address
-	signal s_avm_right_cbuffer_write          : std_logic; --                     --                               .write
-	signal s_avm_right_cbuffer_writedata      : std_logic_vector(15 downto 0); -- --                               .writedata
-	signal s_avm_right_cbuffer_read           : std_logic; --                     --                               .read
+	signal s_avm_left_cbuffer_readdata        : std_logic_vector(255 downto 0); -- --  avalon_mm_left_cbuffer_master.readdata
+	signal s_avm_left_cbuffer_waitrequest     : std_logic; --                      --                               .waitrequest
+	signal s_avm_left_cbuffer_address         : std_logic_vector(63 downto 0); --  --                               .address
+	signal s_avm_left_cbuffer_write           : std_logic; --                      --                               .write
+	signal s_avm_left_cbuffer_writedata       : std_logic_vector(255 downto 0); -- --                               .writedata
+	signal s_avm_left_cbuffer_read            : std_logic; --                      --                               .read
+	signal s_avm_right_cbuffer_readdata       : std_logic_vector(255 downto 0); -- -- avalon_mm_right_cbuffer_master.readdata
+	signal s_avm_right_cbuffer_waitrequest    : std_logic; --                      --                               .waitrequest
+	signal s_avm_right_cbuffer_address        : std_logic_vector(63 downto 0); --  --                               .address
+	signal s_avm_right_cbuffer_write          : std_logic; --                      --                               .write
+	signal s_avm_right_cbuffer_writedata      : std_logic_vector(255 downto 0); -- --                               .writedata
+	signal s_avm_right_cbuffer_read           : std_logic; --                      --                               .read
 	signal s_left_cbuf_tb_avs_memory_area     : t_cbuf_tb_avs_memory_area;
 	signal s_right_cbuf_tb_avs_memory_area    : t_cbuf_tb_avs_memory_area;
 	signal s_avm_left_cbuffer_wr_waitrequest  : std_logic;
@@ -340,13 +340,13 @@ begin
 			v_sync_one_shot := '0';
 		elsif rising_edge(clk100) then
 			if (v_sync_one_shot = '0') then
-								if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
---				if ((v_sync_high = '0') and (v_sync_div_cnt = 100)) then
+				if ((v_sync_high = '0') and (v_sync_div_cnt = 10000)) then
+					--				if ((v_sync_high = '0') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
-								elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
---				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
+				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+					--				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '0';
 					v_sync_high    := '0';
 					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot

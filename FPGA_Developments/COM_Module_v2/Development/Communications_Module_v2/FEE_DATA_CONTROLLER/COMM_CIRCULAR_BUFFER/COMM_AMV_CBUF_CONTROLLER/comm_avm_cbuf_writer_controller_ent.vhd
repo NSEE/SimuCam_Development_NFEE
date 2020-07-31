@@ -20,6 +20,7 @@ end entity comm_avm_cbuf_writer_controller_ent;
 architecture RTL of comm_avm_cbuf_writer_controller_ent is
 
 	type t_comm_avm_cbuf_writer_controller_fsm is (
+		STOPPED,                        -- avm cbuf writer controller is stopped
 		IDLE,                           -- avm cbuf writer controller is in idle
 		AVM_WAITING,                    -- avm writer is waiting the avm bus be released
 		WRITE_START,                    -- start of a avm write
@@ -32,16 +33,16 @@ architecture RTL of comm_avm_cbuf_writer_controller_ent is
 begin
 
 	p_comm_avm_cbuf_writer_controller : process(clk_i, rst_i) is
-		variable v_comm_avm_cbuf_writer_controller_state : t_comm_avm_cbuf_writer_controller_fsm := IDLE;
-		variable v_wr_word_addr                          : std_logic_vector(63 downto 0); -- 2^64 bytes of address / 2 bytes per word = 2^63 words of addr + overflow bit
-		variable v_wr_word_data                          : std_logic_vector(15 downto 0);
-		variable v_wr_addr_offset                        : std_logic_vector(63 downto 0); -- 2^64 bytes of address / 2 bytes per word = 2^63 words of addr + overflow bit 
-		variable v_wr_head_offset                        : std_logic_vector(63 downto 0); -- 2^64 bytes of address / 2 bytes per word = 2^63 words of addr + overflow bit
+		variable v_comm_avm_cbuf_writer_controller_state : t_comm_avm_cbuf_writer_controller_fsm := STOPPED;
+		variable v_wr_word_addr                          : std_logic_vector(59 downto 0); -- 2^64 bytes of address / 32 bytes per word = 2^59 words of addr + overflow bit
+		variable v_wr_word_data                          : std_logic_vector(255 downto 0);
+		variable v_wr_addr_offset                        : std_logic_vector(59 downto 0); -- 2^64 bytes of address / 32 bytes per word = 2^59 words of addr + overflow bit 
+		variable v_wr_head_offset                        : std_logic_vector(59 downto 0); -- 2^64 bytes of address / 32 bytes per word = 2^59 words of addr + overflow bit
 	begin
 		if (rst_i = '1') then
 			-- fsm state reset
-			s_comm_avm_cbuf_writer_controller_state <= IDLE;
-			v_comm_avm_cbuf_writer_controller_state := IDLE;
+			s_comm_avm_cbuf_writer_controller_state <= STOPPED;
+			v_comm_avm_cbuf_writer_controller_state := STOPPED;
 			-- internal signals reset
 			v_wr_word_addr                          := (others => '0');
 			v_wr_word_data                          := (others => '0');
@@ -55,6 +56,25 @@ begin
 			-- States Transition --
 			-- States transitions FSM
 			case (s_comm_avm_cbuf_writer_controller_state) is
+
+				-- state "STOPPED"
+				when STOPPED =>
+					-- avm cbuf writer controller is stopped
+					-- default state transition
+					s_comm_avm_cbuf_writer_controller_state <= STOPPED;
+					v_comm_avm_cbuf_writer_controller_state := STOPPED;
+					-- default internal signal values
+					v_wr_word_addr                          := (others => '0');
+					v_wr_word_data                          := (others => '0');
+					v_wr_addr_offset                        := (others => '0');
+					v_wr_head_offset                        := (others => '0');
+					-- conditional state transition
+					-- check if a start was issued
+					if (cbuf_wr_control_i.start = '1') then
+						-- start issued, go to idle
+						s_comm_avm_cbuf_writer_controller_state <= IDLE;
+						v_comm_avm_cbuf_writer_controller_state := IDLE;
+					end if;
 
 				-- state "IDLE"
 				when IDLE =>
@@ -73,11 +93,11 @@ begin
 						-- write requested
 						-- set write parameters
 						-- set the write addr offset variable
-						v_wr_addr_offset(63)           := '0';
-						v_wr_addr_offset(62 downto 0)  := cbuf_wr_control_i.addr_offset(63 downto 1);
+						v_wr_addr_offset(59)           := '0';
+						v_wr_addr_offset(58 downto 0)  := cbuf_wr_control_i.addr_offset(63 downto 5);
 						-- set the write head offset variable
-						v_wr_head_offset(63 downto 16) := (others => '0');
-						v_wr_head_offset(15 downto 0)  := cbuf_wr_control_i.head_offset(15 downto 0);
+						v_wr_head_offset(58 downto 24) := (others => '0');
+						v_wr_head_offset(23 downto 0)  := cbuf_wr_control_i.head_offset;
 						-- set the word addr signal
 						v_wr_word_addr                 := std_logic_vector(unsigned(v_wr_addr_offset) + unsigned(v_wr_head_offset));
 						-- set word data signal
@@ -159,13 +179,19 @@ begin
 
 				-- all the other states (not defined)
 				when others =>
-					s_comm_avm_cbuf_writer_controller_state <= IDLE;
-					v_comm_avm_cbuf_writer_controller_state := IDLE;
+					s_comm_avm_cbuf_writer_controller_state <= STOPPED;
+					v_comm_avm_cbuf_writer_controller_state := STOPPED;
 
 			end case;
 
+			-- check if a stop was issued
+			if (cbuf_wr_control_i.stop = '1') then
+				-- a stop was issued
+				-- go to stopped
+				s_comm_avm_cbuf_writer_controller_state <= STOPPED;
+				v_comm_avm_cbuf_writer_controller_state := STOPPED;
 			-- check if a flush was issued
-			if (cbuf_wr_control_i.flush = '1') then
+			elsif (cbuf_wr_control_i.flush = '1') then
 				-- a flush was issued
 				-- go to idle
 				s_comm_avm_cbuf_writer_controller_state <= IDLE;
@@ -180,7 +206,13 @@ begin
 			-- Output generation FSM
 			case (v_comm_avm_cbuf_writer_controller_state) is
 
-				-- state "IDLE"
+				-- state "STOPPED"
+				when STOPPED =>
+					-- avm cbuf writer controller is stopped
+					-- default output signals
+					-- conditional output signals
+
+					-- state "IDLE"
 				when IDLE =>
 					-- avm cbuf writer controller is in idle
 					-- default output signals
@@ -200,8 +232,8 @@ begin
 					-- default output signals
 					cbuf_wr_status_o.busy                           <= '1';
 					avm_master_wr_control_o.wr_req                  <= '1';
-					avm_master_wr_control_o.wr_address(63 downto 1) <= v_wr_word_addr(62 downto 0);
-					avm_master_wr_control_o.wr_address(0)           <= '0';
+					avm_master_wr_control_o.wr_address(63 downto 5) <= v_wr_word_addr(58 downto 0);
+					avm_master_wr_control_o.wr_address(4 downto 0)  <= (others => '0');
 					avm_master_wr_control_o.wr_data                 <= v_wr_word_data;
 				-- conditional output signals
 

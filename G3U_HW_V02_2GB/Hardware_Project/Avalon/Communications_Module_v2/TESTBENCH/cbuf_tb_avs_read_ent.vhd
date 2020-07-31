@@ -23,7 +23,7 @@ begin
 			variable v_rd_addr : natural range (t_cbuf_tb_avs_memory_area'low) to (t_cbuf_tb_avs_memory_area'high);
 		begin
 
-			v_rd_addr                        := to_integer(read_address_i(9 downto 1));
+			v_rd_addr                        := to_integer(read_address_i(13 downto 5));
 			cbuf_tb_avs_avalon_mm_o.readdata <= cbuf_tb_avs_memory_area_i(v_rd_addr);
 
 			--			-- Registers Data Read

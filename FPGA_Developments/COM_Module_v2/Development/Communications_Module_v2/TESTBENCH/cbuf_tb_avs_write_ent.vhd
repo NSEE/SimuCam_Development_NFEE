@@ -40,7 +40,7 @@ begin
 			variable v_wr_addr : natural range (t_cbuf_tb_avs_memory_area'low) to (t_cbuf_tb_avs_memory_area'high);
 		begin
 
-			v_wr_addr                            := to_integer(write_address_i(9 downto 1));
+			v_wr_addr                            := to_integer(write_address_i(13 downto 5));
 			cbuf_tb_avs_memory_area_o(v_wr_addr) <= cbuf_tb_avs_avalon_mm_i.writedata;
 
 			--			-- Registers Write Data

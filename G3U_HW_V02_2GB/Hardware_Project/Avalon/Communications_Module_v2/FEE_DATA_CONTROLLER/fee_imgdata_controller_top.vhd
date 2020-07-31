@@ -59,9 +59,9 @@ entity fee_imgdata_controller_top is
 		masking_buffer_overflow_i          : in  std_logic;
 		-- pixels circular buffer control
 		pixels_cbuffer_address_offset_i    : in  std_logic_vector(63 downto 0);
-		pixels_cbuffer_size_bytes_i        : in  std_logic_vector(23 downto 0);
+		pixels_cbuffer_size_words_i        : in  std_logic_vector(23 downto 0);
 		-- pixels circular buffer avm slave status
-		pixels_cbuffer_avm_readdata_i      : in  std_logic_vector(15 downto 0);
+		pixels_cbuffer_avm_readdata_i      : in  std_logic_vector(255 downto 0);
 		pixels_cbuffer_avm_waitrequest_i   : in  std_logic;
 		-- fee imgdata send buffer control
 		imgdata_send_buffer_control_i      : in  t_fee_dpkt_send_buffer_control;
@@ -77,7 +77,7 @@ entity fee_imgdata_controller_top is
 		-- pixels circular buffer avm slave control
 		pixels_cbuffer_avm_address_o       : out std_logic_vector(63 downto 0);
 		pixels_cbuffer_avm_write_o         : out std_logic;
-		pixels_cbuffer_avm_writedata_o     : out std_logic_vector(15 downto 0);
+		pixels_cbuffer_avm_writedata_o     : out std_logic_vector(255 downto 0);
 		pixels_cbuffer_avm_read_o          : out std_logic;
 		-- fee imgdata send buffer status
 		imgdata_send_buffer_status_o       : out t_fee_dpkt_send_buffer_status;
@@ -137,47 +137,52 @@ begin
 	-- masking machine instantiation
 	masking_machine_ent_inst : entity work.masking_machine_ent
 		port map(
-			clk_i                         => clk_i,
-			rst_i                         => rst_i,
-			sync_signal_i                 => dataman_sync_i,
-			fee_clear_signal_i            => fee_machine_clear_i,
-			fee_stop_signal_i             => fee_machine_stop_i,
-			fee_start_signal_i            => fee_machine_start_i,
-			fee_windowing_en_i            => fee_windowing_en_i,
-			fee_pattern_en_i              => fee_pattern_en_i,
-			masking_machine_hold_i        => s_masking_machine_hold,
-			masking_buffer_overflow_i     => masking_buffer_overflow_i,
-			fee_ccd_x_size_i              => data_pkt_ccd_x_size_i,
-			fee_ccd_y_size_i              => data_pkt_ccd_y_size_i,
-			fee_data_y_size_i             => data_pkt_data_y_size_i,
-			fee_overscan_y_size_i         => data_pkt_overscan_y_size_i,
-			fee_ccd_v_start_i             => data_pkt_ccd_v_start_i,
-			fee_ccd_v_end_i               => data_pkt_ccd_v_end_i,
-			fee_ccd_img_v_end_i           => data_pkt_ccd_img_v_end_i,
-			fee_ccd_ovs_v_end_i           => data_pkt_ccd_ovs_v_end_i,
-			fee_ccd_h_start_i             => data_pkt_ccd_h_start_i,
-			fee_ccd_h_end_i               => data_pkt_ccd_h_end_i,
-			fee_ccd_img_en_i              => data_pkt_ccd_img_en_i,
-			fee_ccd_ovs_en_i              => data_pkt_ccd_ovs_en_i,
-			fee_start_delay_i             => data_pkt_start_delay_i,
-			fee_skip_delay_i              => data_pkt_skip_delay_i,
-			fee_line_delay_i              => data_pkt_line_delay_i,
-			fee_adc_delay_i               => data_pkt_adc_delay_i,
-			current_timecode_i            => fee_current_timecode_i,
-			current_ccd_i                 => data_pkt_ccd_number_i,
-			current_side_i                => g_FEE_CCD_SIDE,
-			window_data_i                 => fee_window_data_i,
-			window_mask_i                 => fee_window_mask_i,
-			window_data_valid_i           => fee_window_data_valid_i,
-			window_mask_valid_i           => fee_window_mask_valid_i,
-			window_data_ready_i           => fee_window_data_ready_i,
-			window_mask_ready_i           => fee_window_mask_ready_i,
+			clk_i                       => clk_i,
+			rst_i                       => rst_i,
+			sync_signal_i               => dataman_sync_i,
+			fee_clear_signal_i          => fee_machine_clear_i,
+			fee_stop_signal_i           => fee_machine_stop_i,
+			fee_start_signal_i          => fee_machine_start_i,
+			fee_windowing_en_i          => fee_windowing_en_i,
+			fee_pattern_en_i            => fee_pattern_en_i,
+			masking_machine_hold_i      => s_masking_machine_hold,
+			masking_buffer_overflow_i   => masking_buffer_overflow_i,
+			fee_ccd_x_size_i            => data_pkt_ccd_x_size_i,
+			fee_ccd_y_size_i            => data_pkt_ccd_y_size_i,
+			fee_data_y_size_i           => data_pkt_data_y_size_i,
+			fee_overscan_y_size_i       => data_pkt_overscan_y_size_i,
+			fee_ccd_v_start_i           => data_pkt_ccd_v_start_i,
+			fee_ccd_v_end_i             => data_pkt_ccd_v_end_i,
+			fee_ccd_img_v_end_i         => data_pkt_ccd_img_v_end_i,
+			fee_ccd_ovs_v_end_i         => data_pkt_ccd_ovs_v_end_i,
+			fee_ccd_h_start_i           => data_pkt_ccd_h_start_i,
+			fee_ccd_h_end_i             => data_pkt_ccd_h_end_i,
+			fee_ccd_img_en_i            => data_pkt_ccd_img_en_i,
+			fee_ccd_ovs_en_i            => data_pkt_ccd_ovs_en_i,
+			fee_start_delay_i           => data_pkt_start_delay_i,
+			fee_skip_delay_i            => data_pkt_skip_delay_i,
+			fee_line_delay_i            => data_pkt_line_delay_i,
+			fee_adc_delay_i             => data_pkt_adc_delay_i,
+			current_timecode_i          => fee_current_timecode_i,
+			current_ccd_i               => data_pkt_ccd_number_i,
+			current_side_i              => g_FEE_CCD_SIDE,
+			content_errinj_en_i         => '0',
+			content_errinj_px_col_i     => (others => '0'),
+			content_errinj_px_row_i     => (others => '0'),
+			content_errinj_px_val_i     => (others => '0'),
+			window_data_i               => fee_window_data_i,
+			window_mask_i               => fee_window_mask_i,
+			window_data_valid_i         => fee_window_data_valid_i,
+			window_mask_valid_i         => fee_window_mask_valid_i,
+			window_data_ready_i         => fee_window_data_ready_i,
+			window_mask_ready_i         => fee_window_mask_ready_i,
 			pixels_cbuff_wr_status_i    => s_pixels_cbuff_wr_status,
-			send_double_buffer_wrable_i   => s_send_double_buffer_wrable,
-			masking_machine_finished_o    => s_masking_machine_finished,
-			masking_buffer_overflowed_o   => fee_output_buffer_overflowed_o,
-			window_data_read_o            => fee_window_data_read_o,
-			window_mask_read_o            => fee_window_mask_read_o,
+			send_double_buffer_wrable_i => s_send_double_buffer_wrable,
+			masking_machine_finished_o  => s_masking_machine_finished,
+			masking_buffer_overflowed_o => fee_output_buffer_overflowed_o,
+			content_errinj_done_o       => open,
+			window_data_read_o          => fee_window_data_read_o,
+			window_mask_read_o          => fee_window_mask_read_o,
 			pixels_cbuff_wr_control_o   => s_pixels_cbuff_wr_control
 		);
 
@@ -186,14 +191,16 @@ begin
 		port map(
 			clk_i                        => clk_i,
 			rst_i                        => rst_i,
+			cbuf_stop_i                  => fee_machine_stop_i,
+			cbuf_start_i                 => fee_machine_start_i,
 			cbuf_flush_i                 => s_pixels_cbuff_wr_control.flush,
 			cbuf_read_i                  => s_pixels_cbuff_rd_control.rdreq,
 			cbuf_write_i                 => s_pixels_cbuff_wr_control.wrreq,
-			cbuf_wrdata_i(15 downto 10)  => s_pixels_cbuff_wr_control.wrdata_reserved,
+			cbuf_wrdata_i(255 downto 10)  => s_pixels_cbuff_wr_control.wrdata_reserved,
 			cbuf_wrdata_i(9)             => s_pixels_cbuff_wr_control.wrdata_imgend,
 			cbuf_wrdata_i(8)             => s_pixels_cbuff_wr_control.wrdata_imgchange,
 			cbuf_wrdata_i(7 downto 0)    => s_pixels_cbuff_wr_control.wrdata_imgbyte,
-			cbuf_size_i                  => pixels_cbuffer_size_bytes_i,
+			cbuf_size_i                  => pixels_cbuffer_size_words_i,
 			cbuf_addr_offset_i           => pixels_cbuffer_address_offset_i,
 			cbuf_avm_slave_readdata_i    => pixels_cbuffer_avm_readdata_i,
 			cbuf_avm_slave_waitrequest_i => pixels_cbuffer_avm_waitrequest_i,
@@ -201,7 +208,7 @@ begin
 			cbuf_usedw_o                 => s_pixels_cbuff_wr_status.usedw,
 			cbuf_full_o                  => s_pixels_cbuff_wr_status.full,
 			cbuf_ready_o                 => s_pixels_cbuff_wr_status.wrready,
-			cbuf_rddata_o(15 downto 10)  => s_pixels_cbuff_rd_status.rddata_reserved,
+			cbuf_rddata_o(255 downto 10)  => s_pixels_cbuff_rd_status.rddata_reserved,
 			cbuf_rddata_o(9)             => s_pixels_cbuff_rd_status.rddata_imgend,
 			cbuf_rddata_o(8)             => s_pixels_cbuff_rd_status.rddata_imgchange,
 			cbuf_rddata_o(7 downto 0)    => s_pixels_cbuff_rd_status.rddata_imgbyte,
@@ -284,7 +291,9 @@ begin
 			data_wr_busy_o                 => s_data_wr_busy,
 			data_wr_finished_o             => s_data_wr_finished,
 			data_wr_data_changed_o         => s_data_wr_data_changed,
+			data_wr_data_flushed_o         => s_data_wr_data_flushed,
 			pixels_cbuff_rd_control_o      => s_pixels_cbuff_rd_control,
+			send_buffer_flush_o            => s_send_buffer_flush,
 			send_buffer_wrdata_o           => s_send_buffer_data_wr_wrdata,
 			send_buffer_wrreq_o            => s_send_buffer_data_wr_wrreq,
 			send_buffer_data_end_wrdata_o  => s_send_buffer_data_end_wrdata,

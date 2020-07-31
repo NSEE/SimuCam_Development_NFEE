@@ -9,13 +9,15 @@ entity comm_cbuf_top is
 	port(
 		clk_i                        : in  std_logic;
 		rst_i                        : in  std_logic;
+		cbuf_stop_i                  : in  std_logic;
+		cbuf_start_i                 : in  std_logic;
 		cbuf_flush_i                 : in  std_logic;
 		cbuf_read_i                  : in  std_logic;
 		cbuf_write_i                 : in  std_logic;
 		cbuf_wrdata_i                : in  std_logic_vector((c_COMM_CBUF_DATAW_SIZE - 1) downto 0);
 		cbuf_size_i                  : in  std_logic_vector((c_COMM_CBUF_WUSED_SIZE - 1) downto 0);
 		cbuf_addr_offset_i           : in  std_logic_vector((c_COMM_AVM_CBUF_ADRESS_SIZE - 1) downto 0);
-		cbuf_avm_slave_readdata_i    : in  std_logic_vector(15 downto 0);
+		cbuf_avm_slave_readdata_i    : in  std_logic_vector(255 downto 0);
 		cbuf_avm_slave_waitrequest_i : in  std_logic;
 		cbuf_empty_o                 : out std_logic;
 		cbuf_usedw_o                 : out std_logic_vector((c_COMM_CBUF_WUSED_SIZE - 1) downto 0);
@@ -25,7 +27,7 @@ entity comm_cbuf_top is
 		cbuf_datavalid_o             : out std_logic;
 		cbuf_avm_slave_address_o     : out std_logic_vector(63 downto 0);
 		cbuf_avm_slave_write_o       : out std_logic;
-		cbuf_avm_slave_writedata_o   : out std_logic_vector(15 downto 0);
+		cbuf_avm_slave_writedata_o   : out std_logic_vector(255 downto 0);
 		cbuf_avm_slave_read_o        : out std_logic
 	);
 end entity comm_cbuf_top;
@@ -36,6 +38,8 @@ architecture RTL of comm_cbuf_top is
 	signal s_cbuf_avm_master_rd_control : t_comm_avm_cbuf_master_rd_control;
 	signal s_cbuf_avm_master_wr_status  : t_comm_avm_cbuf_master_wr_status;
 	signal s_cbuf_avm_master_wr_control : t_comm_avm_cbuf_master_wr_control;
+
+	signal s_cbuf_stopped : std_logic;
 
 	signal s_cbuf_tail_offset  : std_logic_vector((c_COMM_CBUF_WUSED_SIZE - 1) downto 0);
 	signal s_cbuf_empty        : std_logic;
@@ -59,6 +63,8 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
+			cbuf_rd_control_i.stop        => cbuf_stop_i,
+			cbuf_rd_control_i.start       => cbuf_start_i,
 			cbuf_rd_control_i.flush       => cbuf_flush_i,
 			cbuf_rd_control_i.read        => cbuf_read_i,
 			cbuf_rd_control_i.tail_offset => s_cbuf_tail_offset,
@@ -77,6 +83,8 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
+			cbuf_wr_control_i.stop        => cbuf_stop_i,
+			cbuf_wr_control_i.start       => cbuf_start_i,
 			cbuf_wr_control_i.flush       => cbuf_flush_i,
 			cbuf_wr_control_i.write       => cbuf_write_i,
 			cbuf_wr_control_i.data_word   => cbuf_wrdata_i,
@@ -122,6 +130,7 @@ begin
 	begin
 		if (rst_i = '1') then
 
+			s_cbuf_stopped                <= '1';
 			s_cbuf_registered_size        <= (others => '1');
 			s_cbuf_registered_addr_offset <= (others => '0');
 			s_cbuf_tail_offset            <= (others => '0');
@@ -133,81 +142,110 @@ begin
 
 		elsif rising_edge(clk_i) then
 
-			-- check if a flush was requested
-			if (cbuf_flush_i = '1') then
-				-- a flush was requested
-				-- register the buffer configuration
-				s_cbuf_registered_size        <= cbuf_size_i;
-				s_cbuf_registered_addr_offset <= cbuf_addr_offset_i;
-				-- clear all flags and counters
+			-- check if the circular buffer is stopped
+			if (s_cbuf_stopped = '1') then
+				-- the circular buffer is stopped
+
+				-- keep the buffer unconfigured
+				s_cbuf_registered_size        <= (others => '1');
+				s_cbuf_registered_addr_offset <= (others => '0');
+				-- keep all flags and counters cleared
 				s_cbuf_tail_offset            <= (others => '0');
 				s_cbuf_full                   <= '0';
 				s_cbuf_head_offset            <= (others => '0');
 				s_cbuf_empty                  <= '1';
 				v_cbuf_usedw_cnt              := (others => '0');
-			else
-				-- a flush was not requested
+				cbuf_usedw_o                  <= (others => '0');
 
-				-- check if the cbuf reader finised a read (read data is valid)
-				if (s_cbuf_rd_datavalid = '1') then
-					-- the cbuf reader finised a read (read data is valid)
-					-- check if the cbuffer still have data (is not already empty)
-					if (s_cbuf_empty = '0') then
-						-- the cbuffer still have data (is not already empty)
-						-- decrement the used words counter
-						v_cbuf_usedw_cnt := v_cbuf_usedw_cnt - 1;
-						-- check if the tail offset will overflow
-						if (unsigned(s_cbuf_tail_offset) >= (unsigned(s_cbuf_registered_size) - 1)) then
-							-- the head offset will overflow
-							-- clear the tail offset
-							s_cbuf_tail_offset <= (others => '0');
-						else
-							-- the tail offset will not overflow
-							-- increment the tail offset
-							s_cbuf_tail_offset <= std_logic_vector(unsigned(s_cbuf_tail_offset) + 1);
-						end if;
-					end if;
+				-- check if a start command was issued
+				if (cbuf_start_i = '1') then
+					-- clear the stopped flag
+					s_cbuf_stopped                <= '0';
+					-- register the current buffer configuration
+					s_cbuf_registered_size        <= cbuf_size_i;
+					s_cbuf_registered_addr_offset <= cbuf_addr_offset_i;
 				end if;
 
-				-- check if a write was issued and the cbuffer writer is ready
-				if ((cbuf_write_i = '1') and (s_cbuf_wr_ready = '1')) then
-					-- a write was issued and the cbuffer writer is ready
-					-- check if the cbuffer still have space (is not already full)
-					if (s_cbuf_full = '0') then
-						-- the cbuffer still have space (is not already full)
-						-- increment the used words counter
-						v_cbuf_usedw_cnt := v_cbuf_usedw_cnt + 1;
-						-- check if the head offset will overflow
-						if (unsigned(s_cbuf_head_offset) >= (unsigned(s_cbuf_registered_size) - 1)) then
-							-- the head offset will overflow
-							-- clear the head offset
-							s_cbuf_head_offset <= (others => '0');
-						else
-							-- the head offset will not overflow
-							-- increment the head offset
-							s_cbuf_head_offset <= std_logic_vector(unsigned(s_cbuf_head_offset) + 1);
+			else
+				-- the circular buffer is not stopped
+
+				-- check if a flush was requested
+				if (cbuf_flush_i = '1') then
+					-- a flush was requested
+					-- register the buffer configuration
+					s_cbuf_registered_size        <= cbuf_size_i;
+					s_cbuf_registered_addr_offset <= cbuf_addr_offset_i;
+					-- clear all flags and counters
+					s_cbuf_tail_offset            <= (others => '0');
+					s_cbuf_full                   <= '0';
+					s_cbuf_head_offset            <= (others => '0');
+					s_cbuf_empty                  <= '1';
+					v_cbuf_usedw_cnt              := (others => '0');
+				else
+					-- a flush was not requested
+
+					-- check if the cbuf reader finised a read (read data is valid)
+					if (s_cbuf_rd_datavalid = '1') then
+						-- the cbuf reader finised a read (read data is valid)
+						-- check if the cbuffer still have data (is not already empty)
+						if (s_cbuf_empty = '0') then
+							-- the cbuffer still have data (is not already empty)
+							-- decrement the used words counter
+							v_cbuf_usedw_cnt := v_cbuf_usedw_cnt - 1;
+							-- check if the tail offset will overflow
+							if (unsigned(s_cbuf_tail_offset) >= (unsigned(s_cbuf_registered_size) - 1)) then
+								-- the head offset will overflow
+								-- clear the tail offset
+								s_cbuf_tail_offset <= (others => '0');
+							else
+								-- the tail offset will not overflow
+								-- increment the tail offset
+								s_cbuf_tail_offset <= std_logic_vector(unsigned(s_cbuf_tail_offset) + 1);
+							end if;
 						end if;
 					end if;
+
+					-- check if a write was issued and the cbuffer writer is ready
+					if ((cbuf_write_i = '1') and (s_cbuf_wr_ready = '1')) then
+						-- a write was issued and the cbuffer writer is ready
+						-- check if the cbuffer still have space (is not already full)
+						if (s_cbuf_full = '0') then
+							-- the cbuffer still have space (is not already full)
+							-- increment the used words counter
+							v_cbuf_usedw_cnt := v_cbuf_usedw_cnt + 1;
+							-- check if the head offset will overflow
+							if (unsigned(s_cbuf_head_offset) >= (unsigned(s_cbuf_registered_size) - 1)) then
+								-- the head offset will overflow
+								-- clear the head offset
+								s_cbuf_head_offset <= (others => '0');
+							else
+								-- the head offset will not overflow
+								-- increment the head offset
+								s_cbuf_head_offset <= std_logic_vector(unsigned(s_cbuf_head_offset) + 1);
+							end if;
+						end if;
+					end if;
+
 				end if;
 
-			end if;
+				-- check if the cbuffer was filled
+				if (v_cbuf_usedw_cnt >= unsigned(s_cbuf_registered_size)) then
+					-- the cbuffer was filled
+					s_cbuf_full  <= '1';
+					s_cbuf_empty <= '0';
+				-- check if the cbuffer was emptied 
+				elsif (v_cbuf_usedw_cnt = 0) then
+					-- the cbuffer was emptied
+					s_cbuf_full  <= '0';
+					s_cbuf_empty <= '1';
+				else
+					-- the cbuffer is not empty of full
+					s_cbuf_full  <= '0';
+					s_cbuf_empty <= '0';
+				end if;
+				cbuf_usedw_o <= std_logic_vector(v_cbuf_usedw_cnt);
 
-			-- check if the cbuffer was filled
-			if (v_cbuf_usedw_cnt >= unsigned(s_cbuf_registered_size)) then
-				-- the cbuffer was filled
-				s_cbuf_full  <= '1';
-				s_cbuf_empty <= '0';
-			-- check if the cbuffer was emptied 
-			elsif (v_cbuf_usedw_cnt = 0) then
-				-- the cbuffer was emptied
-				s_cbuf_full  <= '0';
-				s_cbuf_empty <= '1';
-			else
-				-- the cbuffer is not empty of full
-				s_cbuf_full  <= '0';
-				s_cbuf_empty <= '0';
 			end if;
-			cbuf_usedw_o <= std_logic_vector(v_cbuf_usedw_cnt);
 
 		end if;
 	end process p_cbuf_manager;

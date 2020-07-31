@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 package cbuf_tb_avs_pkg is
 
 	constant c_CBUF_TB_AVS_AVALON_MM_ADRESS_SIZE : natural := 64;
-	constant c_CBUF_TB_AVS_AVALON_MM_DATA_SIZE   : natural := 16;
+	constant c_CBUF_TB_AVS_AVALON_MM_DATA_SIZE   : natural := 256;
 	constant c_CBUF_TB_AVS_AVALON_MM_SYMBOL_SIZE : natural := 8;
 
 	subtype t_cbuf_tb_avs_avalon_mm_address is unsigned((c_CBUF_TB_AVS_AVALON_MM_ADRESS_SIZE - 1) downto 0);

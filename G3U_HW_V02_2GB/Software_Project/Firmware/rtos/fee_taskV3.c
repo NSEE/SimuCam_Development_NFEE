@@ -78,6 +78,39 @@ void vFeeTaskV3(void *task_data) {
 				/* Clear all FEE Machine Statistics */
 				bFeebClearMachineStatistics(&pxNFee->xChannel.xFeeBuffer);
 
+
+/* DEBUGSON */
+
+//				alt_u32 *puliMemAddr = (alt_u32 *)culiDpktLeftCbufAddr[pxNFee->ucId];
+//				alt_u32 uliMemCnt = 0;
+
+//				bDdr2SwitchMemory(eDdr2Memory1);
+//
+//				fprintf(fp, "FEE %u Left Cbuf Base Addr: 0x%08lX\n", pxNFee->ucId, (alt_u32)(puliMemAddr));
+//				for (uliMemCnt = 0; uliMemCnt < (256 / 4); uliMemCnt++) {
+//					fprintf(fp, "  Addr: 0x%08lX, Data = 0x%08lX\n", (alt_u32)(puliMemAddr + uliMemCnt), *(puliMemAddr + uliMemCnt));
+//					*(puliMemAddr + uliMemCnt) = 0;
+//				}
+//
+//				puliMemAddr = (alt_u32 *)culiDpktRightCbufAddr[pxNFee->ucId];
+//				fprintf(fp, "FEE %u Right Cbuf Base Addr: 0x%08lX\n", pxNFee->ucId, (alt_u32)(puliMemAddr));
+//				for (uliMemCnt = 0; uliMemCnt < (256 / 4); uliMemCnt++) {
+//					fprintf(fp, "  Addr: 0x%08lX, Data = 0x%08lX\n", (alt_u32)(puliMemAddr + uliMemCnt), *(puliMemAddr + uliMemCnt));
+//					*(puliMemAddr + uliMemCnt) = 0;
+//				}
+
+//				bDpktGetPxCBufferControl(&pxNFee->xChannel.xDataPacket);
+//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrHighDword = 0;
+////				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrLowDword = 0xFF000000 - (2 * pxNFee->ucId * 0x01000000);
+//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrLowDword = culiDpktLeftCbufAddr[pxNFee->ucId];
+//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufSizeBytes = 256;
+//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrHighDword = 0;
+////				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrLowDword = 0xFF000000 - (((2 * pxNFee->ucId) + 1) * 0x01000000);
+//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrLowDword = culiDpktRightCbufAddr[pxNFee->ucId];
+//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufSizeBytes = 256;
+//				bDpktSetPxCBufferControl(&pxNFee->xChannel.xDataPacket);
+
+
 				pxNFee->xControl.eState = sConfig_Enter;
 				break;
 
@@ -106,8 +139,6 @@ void vFeeTaskV3(void *task_data) {
 				/* Disable the link SPW */
 				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = FALSE;
-//				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
-//				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
 
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
@@ -994,6 +1025,7 @@ void vFeeTaskV3(void *task_data) {
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
 						if (  xTrans.ucMemory == 0  ) {
+							bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
 
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
@@ -1004,6 +1036,7 @@ void vFeeTaskV3(void *task_data) {
 								#endif
 							}
 						} else {
+							bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaCommDmaTransfer(eDdr2Memory2, (alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks*2, ucSideFromMSG, pxNFee->ucSPWId);
 
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
@@ -3105,6 +3138,7 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}
 
 	if (  ucMem == 0  ) {
+		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
@@ -3112,6 +3146,7 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		} else
 			return bDmaReturn;
 	} else {
+		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory2, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
@@ -3128,6 +3163,7 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}
 
 	if (  ucMem == 0  ) {
+		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
@@ -3135,6 +3171,7 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		} else
 			return bDmaReturn;
 	} else {
+		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory2, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel

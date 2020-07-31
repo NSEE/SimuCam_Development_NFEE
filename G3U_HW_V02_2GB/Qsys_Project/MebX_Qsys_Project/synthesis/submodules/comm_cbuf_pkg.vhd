@@ -6,12 +6,14 @@ use work.comm_avm_cbuf_pkg.all;
 
 package comm_cbuf_pkg is
 
-	constant c_COMM_CBUF_DATAW_SIZE : natural := 16;
+	constant c_COMM_CBUF_DATAW_SIZE : natural := 256;
 	constant c_COMM_CBUF_WUSED_SIZE : natural := 24;
 
 	--
 
 	type t_comm_cbuf_rd_control is record
+		stop        : std_logic;
+		start       : std_logic;
 		flush       : std_logic;
 		read        : std_logic;
 		tail_offset : std_logic_vector((c_COMM_CBUF_WUSED_SIZE - 1) downto 0);
@@ -26,6 +28,8 @@ package comm_cbuf_pkg is
 	end record t_comm_cbuf_rd_status;
 
 	type t_comm_cbuf_wr_control is record
+		stop        : std_logic;
+		start       : std_logic;
 		flush       : std_logic;
 		write       : std_logic;
 		data_word   : std_logic_vector((c_COMM_CBUF_DATAW_SIZE - 1) downto 0);
@@ -40,6 +44,8 @@ package comm_cbuf_pkg is
 	end record t_comm_cbuf_wr_status;
 
 	constant c_COMM_CBUF_RD_CONTROL_RST : t_comm_cbuf_rd_control := (
+		stop        => '0',
+		start       => '0',
 		flush       => '1',
 		read        => '0',
 		tail_offset => (others => '0'),
@@ -54,6 +60,8 @@ package comm_cbuf_pkg is
 	);
 
 	constant c_COMM_CBUF_WR_CONTROL_RST : t_comm_cbuf_wr_control := (
+		stop        => '0',
+		start       => '0',
 		flush       => '1',
 		write       => '0',
 		data_word   => (others => '0'),

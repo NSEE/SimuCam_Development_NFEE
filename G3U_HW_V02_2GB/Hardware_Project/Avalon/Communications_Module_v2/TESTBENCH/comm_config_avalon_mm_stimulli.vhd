@@ -322,10 +322,13 @@ begin
 			-- cbuf config
 			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_high_dword  <= (others => '0');
 			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_low_dword   <= (others => '0');
-			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_size_bytes               <= std_logic_vector(to_unsigned(64, 24));
-			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword <= (others => '0');
-			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword  <= (others => '0');
-			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes              <= std_logic_vector(to_unsigned(64, 24));
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.left_px_cbuffer_size_bytes               <= std_logic_vector(to_unsigned(256*32, 24));
+--			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword <= (others => '0');
+--			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword  <= (others => '0');
+--			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes              <= std_logic_vector(to_unsigned(64, 24));
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword <= x"00000000";
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword  <= x"60000000";
+			avs_config_wr_regs_o.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes              <= std_logic_vector(to_unsigned(256*32, 24));
 
 			case s_counter is
 

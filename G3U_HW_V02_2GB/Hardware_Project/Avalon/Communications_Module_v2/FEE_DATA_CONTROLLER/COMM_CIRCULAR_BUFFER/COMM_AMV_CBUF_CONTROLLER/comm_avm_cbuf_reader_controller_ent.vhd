@@ -20,6 +20,7 @@ end entity comm_avm_cbuf_reader_controller_ent;
 architecture RTL of comm_avm_cbuf_reader_controller_ent is
 
 	type t_comm_avm_cbuf_reader_controller_fsm is (
+		STOPPED,                        -- avm cbuf reader controller is stopped
 		IDLE,                           -- avm cbuf reader controller is in idle
 		AVM_WAITING,                    -- avm reader is waiting the avm bus be released
 		READ_START,                     -- start of a avm read
@@ -32,16 +33,16 @@ architecture RTL of comm_avm_cbuf_reader_controller_ent is
 begin
 
 	p_comm_avm_cbuf_reader_controller : process(clk_i, rst_i) is
-		variable v_comm_avm_cbuf_reader_controller_state : t_comm_avm_cbuf_reader_controller_fsm := IDLE;
-		variable v_rd_word_addr                          : std_logic_vector(63 downto 0); -- 2^64 bytes of address / 2 bytes per word = 2^63 words of addr + overflow bit
-		variable v_rd_word_data                          : std_logic_vector(15 downto 0);
-		variable v_rd_addr_offset                        : std_logic_vector(63 downto 0); -- 2^64 bytes of address / 2 bytes per word = 2^63 words of addr + overflow bit 
-		variable v_rd_head_offset                        : std_logic_vector(63 downto 0); -- 2^64 bytes of address / 2 bytes per word = 2^63 words of addr + overflow bit
+		variable v_comm_avm_cbuf_reader_controller_state : t_comm_avm_cbuf_reader_controller_fsm := STOPPED;
+		variable v_rd_word_addr                          : std_logic_vector(59 downto 0); -- 2^64 bytes of address / 32 bytes per word = 2^59 words of addr + overflow bit
+		variable v_rd_word_data                          : std_logic_vector(255 downto 0);
+		variable v_rd_addr_offset                        : std_logic_vector(59 downto 0); -- 2^64 bytes of address / 32 bytes per word = 2^59 words of addr + overflow bit 
+		variable v_rd_head_offset                        : std_logic_vector(59 downto 0); -- 2^64 bytes of address / 32 bytes per word = 2^59 words of addr + overflow bit
 	begin
 		if (rst_i = '1') then
 			-- fsm state reset
-			s_comm_avm_cbuf_reader_controller_state <= IDLE;
-			v_comm_avm_cbuf_reader_controller_state := IDLE;
+			s_comm_avm_cbuf_reader_controller_state <= STOPPED;
+			v_comm_avm_cbuf_reader_controller_state := STOPPED;
 			-- internal signals reset
 			v_rd_word_addr                          := (others => '0');
 			v_rd_word_data                          := (others => '0');
@@ -55,6 +56,24 @@ begin
 			-- States Transition --
 			-- States transitions FSM
 			case (s_comm_avm_cbuf_reader_controller_state) is
+
+				-- state "STOPPED"
+				when STOPPED =>
+					-- avm cbuf reader controller is stopped
+					-- default state transition
+					s_comm_avm_cbuf_reader_controller_state <= STOPPED;
+					v_comm_avm_cbuf_reader_controller_state := STOPPED;
+					-- default internal signal values
+					v_rd_word_addr                          := (others => '0');
+					v_rd_addr_offset                        := (others => '0');
+					v_rd_head_offset                        := (others => '0');
+					-- conditional state transition
+					-- check if a start was issued
+					if (cbuf_rd_control_i.start = '1') then
+						-- start issued, go to idle
+						s_comm_avm_cbuf_reader_controller_state <= IDLE;
+						v_comm_avm_cbuf_reader_controller_state := IDLE;
+					end if;
 
 				-- state "IDLE"
 				when IDLE =>
@@ -71,11 +90,11 @@ begin
 					if (cbuf_rd_control_i.read = '1') then
 						-- read requested
 						-- set the read addr offset variable
-						v_rd_addr_offset(63)           := '0';
-						v_rd_addr_offset(62 downto 0)  := cbuf_rd_control_i.addr_offset(63 downto 1);
+						v_rd_addr_offset(59)           := '0';
+						v_rd_addr_offset(58 downto 0)  := cbuf_rd_control_i.addr_offset(63 downto 5);
 						-- set the read head offset variable
-						v_rd_head_offset(63 downto 16) := (others => '0');
-						v_rd_head_offset(15 downto 0)  := cbuf_rd_control_i.tail_offset(15 downto 0);
+						v_rd_head_offset(58 downto 24) := (others => '0');
+						v_rd_head_offset(23 downto 0)  := cbuf_rd_control_i.tail_offset;
 						-- set the word addr signal
 						v_rd_word_addr                 := std_logic_vector(unsigned(v_rd_addr_offset) + unsigned(v_rd_head_offset));
 						-- check if the cbuffer is already empty
@@ -156,13 +175,19 @@ begin
 
 				-- all the other states (not defined)
 				when others =>
-					s_comm_avm_cbuf_reader_controller_state <= IDLE;
-					v_comm_avm_cbuf_reader_controller_state := IDLE;
+					s_comm_avm_cbuf_reader_controller_state <= STOPPED;
+					v_comm_avm_cbuf_reader_controller_state := STOPPED;
 
 			end case;
 
+			-- check if a stop was issued
+			if (cbuf_rd_control_i.stop = '1') then
+				-- a stop was issued
+				-- go to stopped
+				s_comm_avm_cbuf_reader_controller_state <= STOPPED;
+				v_comm_avm_cbuf_reader_controller_state := STOPPED;
 			-- check if a flush was issued
-			if (cbuf_rd_control_i.flush = '1') then
+			elsif (cbuf_rd_control_i.flush = '1') then
 				-- a flush was issued
 				-- go to idle
 				s_comm_avm_cbuf_reader_controller_state <= IDLE;
@@ -176,6 +201,13 @@ begin
 			avm_master_rd_control_o    <= c_COMM_AVM_CBUF_MASTER_RD_CONTROL_RST;
 			-- Output generation FSM
 			case (v_comm_avm_cbuf_reader_controller_state) is
+
+				-- state "STOPPED"
+				when STOPPED =>
+					-- avm cbuf reader controller is stopped
+					-- default output signals
+					null;
+				-- conditional output signals
 
 				-- state "IDLE"
 				when IDLE =>
@@ -197,8 +229,8 @@ begin
 					-- default output signals
 					cbuf_rd_status_o.busy                           <= '1';
 					avm_master_rd_control_o.rd_req                  <= '1';
-					avm_master_rd_control_o.rd_address(63 downto 1) <= v_rd_word_addr(62 downto 0);
-					avm_master_rd_control_o.rd_address(0)           <= '0';
+					avm_master_rd_control_o.rd_address(63 downto 5) <= v_rd_word_addr(58 downto 0);
+					avm_master_rd_control_o.rd_address(4 downto 0)  <= (others => '0');
 				-- conditional output signals
 
 				-- state "READ_WAITING"

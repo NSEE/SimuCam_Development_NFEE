@@ -10,6 +10,7 @@
 
 #include "../comm.h"
 #include "../../../utils/configs_simucam.h"
+#include "../../../api_driver/ddr2/ddr2.h"
 
 //! [constants definition]
 // address
@@ -42,6 +43,9 @@ enum DpktCcdSide {
 	eDpktCcdSideF                 = 1u,  /* F-FEE CCD Side F (Right) */
 } EDpktCcdSide;
 
+extern const alt_u32 culiDpktLeftCbufAddr[6];
+extern const alt_u32 culiDpktRightCbufAddr[6];
+
 //! [public module structs definition]
 //! [public module structs definition]
 
@@ -63,6 +67,9 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
 bool bDpktSetPxCBufferControl(TDpktChannel *pxDpktCh);
 bool bDpktGetPxCBufferControl(TDpktChannel *pxDpktCh);
+
+//bool bDpktConfigPxCBuffer(alt_u8 ucCommCh, alt_u8 ucMemoryId, alt_u32 uliBufSizeBytes);
+bool bDpktConfigPxCBuffer(alt_u8 ucCommCh, alt_u8 ucMemoryId);
 
 bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh);

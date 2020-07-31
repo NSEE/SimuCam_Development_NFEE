@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.07.29.03:00:51 -->
+ <!-- 2020.07.30.13:58:34 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1596002450</value>
+  <value>1596128309</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -36,7 +36,7 @@
  </parameter>
  <parameter name="AUTO_DEVICE">
   <type>java.lang.String</type>
-  <value>EP4SGX530KH40C2</value>
+  <value>EP4SGX230KF40C2</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -2218,7 +2218,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -2248,7 +2248,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -2544,7 +2544,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -2574,7 +2574,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -4906,7 +4906,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -4936,7 +4936,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -5232,7 +5232,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -5262,7 +5262,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -7594,7 +7594,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -7624,7 +7624,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -7920,7 +7920,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -7950,7 +7950,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -10282,7 +10282,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -10312,7 +10312,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -10608,7 +10608,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -10638,7 +10638,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -12970,7 +12970,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -13000,7 +13000,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -13296,7 +13296,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -13326,7 +13326,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -15658,7 +15658,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -15688,7 +15688,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_left_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -15984,7 +15984,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_readdata_i</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -16014,7 +16014,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_right_cbuffer_writedata_o</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <memoryBlock>
@@ -33423,7 +33423,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_DEVICE">
    <type>java.lang.String</type>
-   <value>EP4SGX530KH40C2</value>
+   <value>EP4SGX230KF40C2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -49806,7 +49806,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_DEVICE">
    <type>java.lang.String</type>
-   <value>EP4SGX530KH40C2</value>
+   <value>EP4SGX230KF40C2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -64828,7 +64828,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_DEVICE">
    <type>java.lang.String</type>
-   <value>EP4SGX530KH40C2</value>
+   <value>EP4SGX230KF40C2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -68107,7 +68107,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_DEVICE">
    <type>java.lang.String</type>
-   <value>EP4SGX530KH40C2</value>
+   <value>EP4SGX230KF40C2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -91723,7 +91723,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1596002450</value>
+   <value>1596128309</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -91743,7 +91743,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1596002450</value>
+   <value>1596128309</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -91759,7 +91759,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1596002450</value>
+   <value>1596128309</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

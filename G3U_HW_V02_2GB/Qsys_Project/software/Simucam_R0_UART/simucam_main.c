@@ -608,6 +608,8 @@ int main(void)
 	xDefaults.usiSpwPLength     = 32140; /* 32k LESIA */
 	xDefaults.usiPreBtSync      = 200; /* ms */
 
+	xDefaults.bBufferOverflowEn = FALSE;
+
 	#if DEBUG_ON
 //	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
