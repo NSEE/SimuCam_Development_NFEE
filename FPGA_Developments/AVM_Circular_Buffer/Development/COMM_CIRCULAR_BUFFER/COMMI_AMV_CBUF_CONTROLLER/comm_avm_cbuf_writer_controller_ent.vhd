@@ -76,8 +76,8 @@ begin
 						v_wr_addr_offset(63)           := '0';
 						v_wr_addr_offset(62 downto 0)  := cbuf_wr_control_i.addr_offset(63 downto 1);
 						-- set the write head offset variable
-						v_wr_head_offset(63 downto 16) := (others => '0');
-						v_wr_head_offset(15 downto 0)  := cbuf_wr_control_i.head_offset(15 downto 0);
+						v_wr_head_offset(63 downto 24) := (others => '0');
+						v_wr_head_offset(23 downto 0)  := cbuf_wr_control_i.head_offset;
 						-- set the word addr signal
 						v_wr_word_addr                 := std_logic_vector(unsigned(v_wr_addr_offset) + unsigned(v_wr_head_offset));
 						-- set word data signal

@@ -175,12 +175,6 @@ package fee_data_controller_pkg is
 		last_right_packet : std_logic_vector(9 downto 0);
 	end record t_fee_windowing_params;
 
-	-- pixels circular buffer parameters record
-	type t_pixels_cbuffer_params is record
-		address_offset : std_logic_vector(63 downto 0);
-		size_words     : std_logic_vector(23 downto 0);
-	end record t_pixels_cbuffer_params;
-
 	-- fee data packet registered parameters record
 	type t_fee_dpkt_registered_params is record
 		image                : t_fee_dpkt_image_params;
@@ -188,41 +182,7 @@ package fee_data_controller_pkg is
 		spw_errinj           : t_fee_dpkt_spw_errinj_params;
 		trans_errinj         : t_fee_dpkt_trans_errinj_params;
 		windowing            : t_fee_windowing_params;
-		pixels_left_cbuffer  : t_pixels_cbuffer_params;
-		pixels_right_cbuffer : t_pixels_cbuffer_params;
 	end record t_fee_dpkt_registered_params;
-
-	-- pixels circular buffer write status record
-	type t_comm_pixels_cbuff_wr_status is record
-		usedw   : std_logic_vector(23 downto 0);
-		full    : std_logic;
-		wrready : std_logic;
-	end record t_comm_pixels_cbuff_wr_status;
-
-	-- pixels circular buffer write control record
-	type t_comm_pixels_cbuff_wr_control is record
-		flush            : std_logic;
-		wrreq            : std_logic;
-		wrdata_reserved  : std_logic_vector(245 downto 0);
-		wrdata_imgend    : std_logic;
-		wrdata_imgchange : std_logic;
-		wrdata_imgbyte   : std_logic_vector(7 downto 0);
-	end record t_comm_pixels_cbuff_wr_control;
-
-	-- pixels circular buffer read status record
-	type t_comm_pixels_cbuff_rd_status is record
-		empty            : std_logic;
-		rddatavalid      : std_logic;
-		rddata_reserved  : std_logic_vector(245 downto 0);
-		rddata_imgend    : std_logic;
-		rddata_imgchange : std_logic;
-		rddata_imgbyte   : std_logic_vector(7 downto 0);
-	end record t_comm_pixels_cbuff_rd_status;
-
-	-- pixels circular buffer read control record
-	type t_comm_pixels_cbuff_rd_control is record
-		rdreq : std_logic;
-	end record t_comm_pixels_cbuff_rd_control;
 
 end package fee_data_controller_pkg;
 
