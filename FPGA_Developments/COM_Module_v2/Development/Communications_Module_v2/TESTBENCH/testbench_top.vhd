@@ -333,7 +333,7 @@ begin
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
-				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 45000)) then
 					--				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '0';
 					v_sync_high    := '0';

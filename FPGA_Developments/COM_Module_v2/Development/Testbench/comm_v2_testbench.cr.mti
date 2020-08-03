@@ -96,6 +96,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity fee_imgdata_controller_top
 -- Loading package comm_data_transmitter_pkg
 -- Loading entity comm_data_transmitter_top
+-- Loading entity comm_header_errinj_manager_ent
 -- Loading entity error_injection_ent
 
 } {} {}} ../Communications_Module_v2/TESTBENCH/comm_config_avalon_mm_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/TESTBENCH/comm_config_avalon_mm_stimulli.vhd
@@ -167,6 +168,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity avalon_buffer_L_stimuli
 -- Compiling architecture RTL of avalon_buffer_L_stimuli
+
+} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/comm_header_errinj_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/comm_header_errinj_manager_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity comm_header_errinj_manager_ent
+-- Compiling architecture RTL of comm_header_errinj_manager_ent
+-- Loading package altera_mf_components
+-- Loading entity comm_header_errinj_altsyncram
 
 } {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo/masking_machine_sc_fifo/masking_machine_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo/masking_machine_sc_fifo/masking_machine_sc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -318,6 +330,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity comm_timecode_manager_ent
 -- Compiling architecture RTL of comm_timecode_manager_ent
 
+} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/altera_ipcore/altsyncram/comm_header_errinj_altsyncram/comm_header_errinj_altsyncram.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/altera_ipcore/altsyncram/comm_header_errinj_altsyncram/comm_header_errinj_altsyncram.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package altera_mf_components
+-- Compiling entity comm_header_errinj_altsyncram
+-- Compiling architecture SYN of comm_header_errinj_altsyncram
+
 } {} {}} ../Communications_Module_v2/IRQ_MANAGER/comm_irq_manager_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/IRQ_MANAGER/comm_irq_manager_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -468,6 +489,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body comm_data_transmitter_pkg
 -- Loading package comm_data_transmitter_pkg
 
+} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/altera_ipcore/altsyncram/comm_content_errinj_altsyncram/comm_content_errinj_altsyncram.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/altera_ipcore/altsyncram/comm_content_errinj_altsyncram/comm_content_errinj_altsyncram.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package altera_mf_components
+-- Compiling entity comm_content_errinj_altsyncram
+-- Compiling architecture SYN of comm_content_errinj_altsyncram
+
 } {} {}} ../Communications_Module_v2/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/RMAP_TARGET/rmap_target_crc_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -546,6 +576,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package fee_data_controller_pkg
 -- Compiling entity fee_imgdata_controller_top
 -- Compiling architecture RTL of fee_imgdata_controller_top
+-- Loading entity comm_content_errinj_manager_ent
 -- Loading entity masking_machine_ent
 -- Loading entity fee_imgdata_manager_ent
 -- Loading entity data_packet_header_gen_ent
@@ -726,6 +757,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package rmap_target_crc_pkg
 -- Compiling entity rmap_target_write_ent
 -- Compiling architecture rtl of rmap_target_write_ent
+
+} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/comm_content_errinj_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/comm_content_errinj_manager_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity comm_content_errinj_manager_ent
+-- Compiling architecture RTL of comm_content_errinj_manager_ent
+-- Loading package altera_mf_components
+-- Loading entity comm_content_errinj_altsyncram
 
 } {} {}} ../Communications_Module_v2/TESTBENCH/cbuf_tb_avs_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/TESTBENCH/cbuf_tb_avs_write_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
