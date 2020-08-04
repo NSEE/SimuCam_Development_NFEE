@@ -7,19 +7,27 @@ use work.comm_data_transmitter_pkg.all;
 
 entity comm_data_transmitter_manager_ent is
 	port(
-		clk_i                          : in  std_logic;
-		rst_i                          : in  std_logic;
-		comm_stop_i                    : in  std_logic;
-		comm_start_i                   : in  std_logic;
-		channel_sync_i                 : in  std_logic;
-		housekeep_only_i               : in  std_logic;
-		windowing_enabled_i            : in  std_logic;
-		data_trans_housekeep_status_i  : in  t_comm_data_trans_status;
-		data_trans_fullimage_status_i  : in  t_comm_data_trans_status;
-		data_trans_windowing_status_i  : in  t_comm_data_trans_status;
-		data_trans_housekeep_control_o : out t_comm_data_trans_control;
-		data_trans_fullimage_control_o : out t_comm_data_trans_control;
-		data_trans_windowing_control_o : out t_comm_data_trans_control
+		clk_i                           : in  std_logic;
+		rst_i                           : in  std_logic;
+		comm_stop_i                     : in  std_logic;
+		comm_start_i                    : in  std_logic;
+		channel_sync_i                  : in  std_logic;
+		housekeep_only_i                : in  std_logic;
+		windowing_enabled_i             : in  std_logic;
+		left_imgdataman_img_finished_i  : in  std_logic;
+		left_imgdataman_ovs_finished_i  : in  std_logic;
+		left_imgdata_img_valid_i        : in  std_logic;
+		left_imgdata_ovs_valid_i        : in  std_logic;
+		right_imgdataman_img_finished_i : in  std_logic;
+		right_imgdataman_ovs_finished_i : in  std_logic;
+		right_imgdata_img_valid_i       : in  std_logic;
+		right_imgdata_ovs_valid_i       : in  std_logic;
+		data_trans_housekeep_status_i   : in  t_comm_data_trans_status;
+		data_trans_fullimage_status_i   : in  t_comm_data_trans_status;
+		data_trans_windowing_status_i   : in  t_comm_data_trans_status;
+		data_trans_housekeep_control_o  : out t_comm_data_trans_control;
+		data_trans_fullimage_control_o  : out t_comm_data_trans_control;
+		data_trans_windowing_control_o  : out t_comm_data_trans_control
 	);
 end entity comm_data_transmitter_manager_ent;
 
@@ -52,6 +60,10 @@ begin
 
 	p_comm_data_transmitter_manager : process(clk_i, rst_i) is
 		variable v_comm_data_transmitter_manager_state : t_comm_data_transmitter_manager_fsm;
+		variable v_leftimg_finished                    : std_logic;
+		variable v_leftimg_valid                       : std_logic;
+		variable v_rightimg_finished                   : std_logic;
+		variable v_rightimg_valid                      : std_logic;
 	begin
 		if (rst_i = '1') then
 
@@ -60,7 +72,11 @@ begin
 			v_comm_data_transmitter_manager_state := STOPPED;
 
 			-- internal signals reset
-			s_sequence_cnt <= (others => '0');
+			s_sequence_cnt      <= (others => '0');
+			v_leftimg_finished  := '0';
+			v_leftimg_valid     := '0';
+			v_rightimg_finished := '0';
+			v_rightimg_valid    := '0';
 
 			-- outputs reset
 			data_trans_housekeep_control_o <= c_COMM_DATA_TRANS_CONTROL_RST;
@@ -81,6 +97,10 @@ begin
 					v_comm_data_transmitter_manager_state := STOPPED;
 					-- default internal signal values
 					s_sequence_cnt                        <= (others => '0');
+					v_leftimg_finished                    := '0';
+					v_leftimg_valid                       := '0';
+					v_rightimg_finished                   := '0';
+					v_rightimg_valid                      := '0';
 					-- conditional state transition
 					-- check if a start was issued
 					if (comm_start_i = '1') then
@@ -97,6 +117,10 @@ begin
 					v_comm_data_transmitter_manager_state := IDLE;
 					-- default internal signal values
 					s_sequence_cnt                        <= (others => '0');
+					v_leftimg_finished                    := '0';
+					v_leftimg_valid                       := '0';
+					v_rightimg_finished                   := '0';
+					v_rightimg_valid                      := '0';
 					-- conditional state transition
 					-- check if a channel sync was received
 					if (channel_sync_i = '1') then
@@ -164,7 +188,11 @@ begin
 					-- default state transition
 					s_comm_data_transmitter_manager_state <= WAIT_FULLIMAGE_TRANS;
 					v_comm_data_transmitter_manager_state := WAIT_FULLIMAGE_TRANS;
-				-- default internal signal values
+					-- default internal signal values
+					v_leftimg_finished                    := '0';
+					v_leftimg_valid                       := '0';
+					v_rightimg_finished                   := '0';
+					v_rightimg_valid                      := '0';
 				-- conditional state transition
 
 				-- state "WAIT_FULLIMAGE_TRANS"
@@ -175,6 +203,30 @@ begin
 					v_comm_data_transmitter_manager_state := WAIT_FULLIMAGE_TRANS;
 					-- default internal signal values
 					-- conditional state transition
+					-- check if the left imgdata manager image is finished
+					if (left_imgdataman_img_finished_i = '1') then
+						-- the left imgdata manager image is finished
+						-- set the leftimg finished flag 
+						v_leftimg_finished := '1';
+					end if;
+					-- check if the right imgdata manager image is finished
+					if (right_imgdataman_img_finished_i = '1') then
+						-- the right imgdata manager image is finished
+						-- set the rightimg finished flag 
+						v_rightimg_finished := '1';
+					end if;
+					-- check if the left imgdata image is valid
+					if (left_imgdata_img_valid_i = '1') then
+						-- the  left imgdata image is valid
+						-- set the leftimg valid flag 
+						v_leftimg_valid := '1';
+					end if;
+					-- check if the right imgdata image is valid
+					if (right_imgdata_img_valid_i = '1') then
+						-- the  right imgdata image is valid
+						-- set the rightimg valid flag 
+						v_rightimg_valid := '1';
+					end if;
 					-- check if the fullimage trans finished the transmission
 					if (data_trans_fullimage_status_i.transmission_finished = '1') then
 						-- the fullimage trans finished the transmission
@@ -200,7 +252,11 @@ begin
 					-- default state transition
 					s_comm_data_transmitter_manager_state <= WAIT_WINDOWING_TRANS;
 					v_comm_data_transmitter_manager_state := WAIT_WINDOWING_TRANS;
-				-- default internal signal values
+					-- default internal signal values
+					v_leftimg_finished                    := '0';
+					v_leftimg_valid                       := '0';
+					v_rightimg_finished                   := '0';
+					v_rightimg_valid                      := '0';
 				-- conditional state transition
 
 				-- state "WAIT_WINDOWING_TRANS"
@@ -211,6 +267,30 @@ begin
 					v_comm_data_transmitter_manager_state := WAIT_WINDOWING_TRANS;
 					-- default internal signal values
 					-- conditional state transition
+					-- check if the left imgdata manager image is finished
+					if (left_imgdataman_img_finished_i = '1') then
+						-- the left imgdata manager image is finished
+						-- set the leftimg finished flag 
+						v_leftimg_finished := '1';
+					end if;
+					-- check if the right imgdata manager image is finished
+					if (right_imgdataman_img_finished_i = '1') then
+						-- the right imgdata manager image is finished
+						-- set the rightimg finished flag 
+						v_rightimg_finished := '1';
+					end if;
+					-- check if the left imgdata image is valid
+					if (left_imgdata_img_valid_i = '1') then
+						-- the  left imgdata image is valid
+						-- set the leftimg valid flag 
+						v_leftimg_valid := '1';
+					end if;
+					-- check if the right imgdata image is valid
+					if (right_imgdata_img_valid_i = '1') then
+						-- the  right imgdata image is valid
+						-- set the rightimg valid flag 
+						v_rightimg_valid := '1';
+					end if;
 					-- check if the windowing trans finished the transmission
 					if (data_trans_windowing_status_i.transmission_finished = '1') then
 						-- the windowing trans finished the transmission
@@ -236,7 +316,11 @@ begin
 					-- default state transition
 					s_comm_data_transmitter_manager_state <= WAIT_OVERSCAN_TRANS;
 					v_comm_data_transmitter_manager_state := WAIT_OVERSCAN_TRANS;
-				-- default internal signal values
+					-- default internal signal values
+					v_leftimg_finished                    := '0';
+					v_leftimg_valid                       := '0';
+					v_rightimg_finished                   := '0';
+					v_rightimg_valid                      := '0';
 				-- conditional state transition
 
 				-- state "WAIT_OVERSCAN_TRANS"
@@ -247,6 +331,30 @@ begin
 					v_comm_data_transmitter_manager_state := WAIT_OVERSCAN_TRANS;
 					-- default internal signal values
 					-- conditional state transition
+					-- check if the left imgdata manager overscan is finished
+					if (left_imgdataman_ovs_finished_i = '1') then
+						-- the left imgdata manager overscan is finished
+						-- set the leftimg finished flag 
+						v_leftimg_finished := '1';
+					end if;
+					-- check if the right imgdata manager overscan is finished
+					if (right_imgdataman_ovs_finished_i = '1') then
+						-- the right imgdata manager overscan is finished
+						-- set the rightimg finished flag 
+						v_rightimg_finished := '1';
+					end if;
+					-- check if the left imgdata overscan is valid
+					if (left_imgdata_ovs_valid_i = '1') then
+						-- the  left imgdata overscan is valid
+						-- set the leftimg valid flag 
+						v_leftimg_valid := '1';
+					end if;
+					-- check if the right imgdata overscan is valid
+					if (right_imgdata_ovs_valid_i = '1') then
+						-- the  right imgdata overscan is valid
+						-- set the rightimg valid flag 
+						v_rightimg_valid := '1';
+					end if;
 					-- check if the overscan trans finished the transmission
 					if (data_trans_fullimage_status_i.transmission_finished = '1') then
 						-- the overscan trans finished the transmission
@@ -347,7 +455,10 @@ begin
 				when WAIT_FULLIMAGE_TRANS =>
 					-- wait the fullimage transmission to finish
 					-- default output signals
-					null;
+					data_trans_fullimage_control_o.leftimg_finished  <= v_leftimg_finished;
+					data_trans_fullimage_control_o.leftimg_valid     <= v_leftimg_valid;
+					data_trans_fullimage_control_o.rightimg_finished <= v_rightimg_finished;
+					data_trans_fullimage_control_o.rightimg_valid    <= v_rightimg_valid;
 				-- conditional output signals
 
 				-- state "RESET_FULLIMAGE_TRANS"
@@ -369,7 +480,10 @@ begin
 				when WAIT_WINDOWING_TRANS =>
 					-- wait the windowing transmission to finish
 					-- default output signals
-					null;
+					data_trans_windowing_control_o.leftimg_finished  <= v_leftimg_finished;
+					data_trans_windowing_control_o.leftimg_valid     <= v_leftimg_valid;
+					data_trans_windowing_control_o.rightimg_finished <= v_rightimg_finished;
+					data_trans_windowing_control_o.rightimg_valid    <= v_rightimg_valid;
 				-- conditional output signals
 
 				-- state "RESET_WINDOWING_TRANS"
@@ -391,7 +505,10 @@ begin
 				when WAIT_OVERSCAN_TRANS =>
 					-- wait the overscan transmission to finish
 					-- default output signals
-					null;
+					data_trans_fullimage_control_o.leftimg_finished  <= v_leftimg_finished;
+					data_trans_fullimage_control_o.leftimg_valid     <= v_leftimg_valid;
+					data_trans_fullimage_control_o.rightimg_finished <= v_rightimg_finished;
+					data_trans_fullimage_control_o.rightimg_valid    <= v_rightimg_valid;
 				-- conditional output signals
 
 				-- state "RESET_OVERSCAN_TRANS"

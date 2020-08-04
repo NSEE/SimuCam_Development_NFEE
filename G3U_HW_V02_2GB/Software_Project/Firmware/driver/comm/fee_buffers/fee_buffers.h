@@ -24,6 +24,13 @@ extern OS_EVENT *xFeeQ[N_OF_NFEE];
 #define FEEB_TRANSFER_MAX_BYTES          (alt_u32)(FEEB_PIXEL_BLOCK_SIZE_BYTES * FEEB_TRANSFER_MAX_BLOCKS)
 #define FEEB_DATA_ACCESS_WIDTH_BYTES     (alt_u32)32
 #define FEEB_DATA_TRANSFER_SIZE_MASK     (alt_u32)0xFFFFFFE0
+
+/* Data Packet Header size is 10 Bytes */
+#define FEEB_DATAPKT_HEADER_SIZE_BYTES   (alt_u16)10
+/* Internal Pixel Storage size is about 256 Bytes */
+#define FEEB_PX_INT_STORAGE_SIZE_BYTES   (alt_u32)256
+/* Default (LESIA-URD) Pixel Storage size is about 1.68 MiBytes */
+#define FEEB_PX_DEF_STORAGE_SIZE_BYTES   (alt_u32)1761608
 //! [constants definition]
 
 //! [public module structs definition]
@@ -89,6 +96,8 @@ bool bFeebGetMachineStatistics(TFeebChannel *pxFeebCh);
 bool bFeebStartCh(TFeebChannel *pxFeebCh);
 bool bFeebStopCh(TFeebChannel *pxFeebCh);
 bool bFeebClrCh(TFeebChannel *pxFeebCh);
+
+bool bFeebSetPxStorageSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSide, alt_u32 uliPxStorageSizeBytes, alt_u16 usiDataPktLength);
 
 bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh);
 

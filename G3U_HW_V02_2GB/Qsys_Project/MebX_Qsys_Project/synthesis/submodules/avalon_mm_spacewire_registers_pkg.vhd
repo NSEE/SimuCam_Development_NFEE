@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#95#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#B6#;
 
 	-- Registers Types
 
@@ -69,14 +69,16 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- FEE Machine Config Register
 	type t_comm_fee_machine_config_wr_reg is record
-		fee_machine_clear      : std_logic; -- FEE Machine Clear
-		fee_machine_stop       : std_logic; -- FEE Machine Stop
-		fee_machine_start      : std_logic; -- FEE Machine Start
-		fee_buffer_overflow_en : std_logic; -- FEE Buffer Overflow Enable
-		fee_digitalise_en      : std_logic; -- FEE Digitalise Enable
-		fee_readout_en         : std_logic; -- FEE Readout Enable
-		fee_window_list_en     : std_logic; -- FEE Window List Enable
-		fee_statistics_clear   : std_logic; -- FEE Statistics Clear
+		fee_machine_clear         : std_logic; -- FEE Machine Clear
+		fee_machine_stop          : std_logic; -- FEE Machine Stop
+		fee_machine_start         : std_logic; -- FEE Machine Start
+		fee_buffer_overflow_en    : std_logic; -- FEE Buffer Overflow Enable
+		left_pixels_storage_size  : std_logic_vector(31 downto 0); -- FEE Left Pixel Storage Size
+		right_pixels_storage_size : std_logic_vector(31 downto 0); -- FEE Right Pixel Storage Size
+		fee_digitalise_en         : std_logic; -- FEE Digitalise Enable
+		fee_readout_en            : std_logic; -- FEE Readout Enable
+		fee_window_list_en        : std_logic; -- FEE Window List Enable
+		fee_statistics_clear      : std_logic; -- FEE Statistics Clear
 	end record t_comm_fee_machine_config_wr_reg;
 
 	-- FEE Machine Statistics Register
@@ -128,24 +130,20 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- FEE Buffers IRQ Control Register
 	type t_comm_fee_buffers_irq_control_wr_reg is record
-		fee_right_buffer_empty_en : std_logic; -- FEE Right Buffer Empty IRQ Enable
-		fee_left_buffer_empty_en  : std_logic; -- FEE Left Buffer Empty IRQ Enable
+		fee_right_buffer_controller_finished_en : std_logic; -- FEE Right Buffer Empty IRQ Enable
+		fee_left_buffer_controller_finished_en  : std_logic; -- FEE Left Buffer Empty IRQ Enable
 	end record t_comm_fee_buffers_irq_control_wr_reg;
 
 	-- FEE Buffers IRQ Flags Register
 	type t_comm_fee_buffers_irq_flags_rd_reg is record
-		fee_right_buffer_0_empty_flag : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag
-		fee_right_buffer_1_empty_flag : std_logic; -- FEE Right Buffer 1 Empty IRQ Flag
-		fee_left_buffer_0_empty_flag  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag
-		fee_left_buffer_1_empty_flag  : std_logic; -- FEE Left Buffer 1 Empty IRQ Flag
+		fee_right_buffer_controller_finished_flag : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag
+		fee_left_buffer_controller_finished_flag  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag
 	end record t_comm_fee_buffers_irq_flags_rd_reg;
 
 	-- FEE Buffers IRQ Flags Clear Register
 	type t_comm_fee_buffers_irq_flags_clear_wr_reg is record
-		fee_right_buffer_0_empty_flag_clear : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag Clear
-		fee_right_buffer_1_empty_flag_clear : std_logic; -- FEE Right Buffer 1 Empty IRQ Flag Clear
-		fee_left_buffer_0_empty_flag_clear  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag Clear
-		fee_left_buffer_1_empty_flag_clear  : std_logic; -- FEE Left Buffer 1 Empty IRQ Flag Clear
+		fee_right_buffer_controller_finished_flag_clear : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag Clear
+		fee_left_buffer_controller_finished_flag_clear  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag Clear
 	end record t_comm_fee_buffers_irq_flags_clear_wr_reg;
 
 	-- FEE Buffers IRQ Number Register
@@ -278,22 +276,19 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_adc_delay   : std_logic_vector(31 downto 0); -- Data Packet ADC Delay
 	end record t_comm_data_packet_pixel_delay_wr_reg;
 
-	-- Pixels Circular Buffer Control Register
-	type t_comm_pixels_cbuffer_control_wr_reg is record
-		left_px_cbuffer_initial_addr_high_dword  : std_logic_vector(31 downto 0); -- Left Pixels Circular Buffer Initial Address [High Dword]
-		left_px_cbuffer_initial_addr_low_dword   : std_logic_vector(31 downto 0); -- Left Pixels Circular Buffer Initial Address [Low Dword]
-		left_px_cbuffer_size_bytes               : std_logic_vector(23 downto 0); -- Left Pixels Circular Buffer Size [Bytes]
-		right_px_cbuffer_initial_addr_high_dword : std_logic_vector(31 downto 0); -- Right Pixels Circular Buffer Initial Address [High Dword]
-		right_px_cbuffer_initial_addr_low_dword  : std_logic_vector(31 downto 0); -- Right Pixels Circular Buffer Initial Address [Low Dword]
-		right_px_cbuffer_size_bytes              : std_logic_vector(23 downto 0); -- Right Pixels Circular Buffer Size [Bytes]
-	end record t_comm_pixels_cbuffer_control_wr_reg;
-
 	-- SpaceWire Error Injection Control Register
 	type t_comm_spw_error_injection_control_wr_reg is record
 		spw_errinj_eep_received : std_logic; -- Enable for "EEP Received" SpaceWire Error
 		spw_errinj_sequence_cnt : std_logic_vector(15 downto 0); -- Sequence Counter of SpaceWire Error
 		spw_errinj_n_repeat     : std_logic_vector(15 downto 0); -- Number of Times the SpaceWire Error Repeats
 	end record t_comm_spw_error_injection_control_wr_reg;
+
+	-- RMAP Error Injection Control Register
+	type t_comm_rmap_error_injection_control_wr_reg is record
+		rmap_errinj_enable : std_logic; -- Enable for RMAP Error
+		rmap_errinj_err_id : std_logic_vector(3 downto 0); -- Error ID of RMAP Error
+		rmap_errinj_value  : std_logic_vector(31 downto 0); -- Value of RMAP Error
+	end record t_comm_rmap_error_injection_control_wr_reg;
 
 	-- Transmission Error Injection Control Register
 	type t_comm_trans_error_injection_control_wr_reg is record
@@ -305,6 +300,74 @@ package avalon_mm_spacewire_registers_pkg is
 		trans_errinj_data_cnt     : std_logic_vector(15 downto 0); -- Data Counter of Transmission Error
 		trans_errinj_n_repeat     : std_logic_vector(15 downto 0); -- Number of Times the Transmission Error Repeats
 	end record t_comm_trans_error_injection_control_wr_reg;
+
+	-- Left Content Error Injection Control Register
+	type t_comm_left_content_error_injection_control_wr_reg is record
+		left_content_errinj_open        : std_logic; -- Open the Left Content Error List
+		left_content_errinj_close       : std_logic; -- Close the Left Content Error List
+		left_content_errinj_clear       : std_logic; -- Clear Left Content Error List
+		left_content_errinj_write       : std_logic; -- Write to Left Content Error List
+		left_content_errinj_start       : std_logic; -- Start Injection of Left Content Errors
+		left_content_errinj_stop        : std_logic; -- Stop Injection of Left Content Errors
+		left_content_errinj_start_frame : std_logic_vector(15 downto 0); -- Start Frame of Left Content Error
+		left_content_errinj_stop_frame  : std_logic_vector(15 downto 0); -- Stop Frame of Left Content Error
+		left_content_errinj_pixel_col   : std_logic_vector(15 downto 0); -- Pixel Column (x-position) of Left Content Error
+		left_content_errinj_pixel_row   : std_logic_vector(15 downto 0); -- Pixel Row (y-position) of Left Content Error
+		left_content_errinj_pixel_value : std_logic_vector(15 downto 0); -- Pixel Value of Left Content Error
+	end record t_comm_left_content_error_injection_control_wr_reg;
+
+	-- Left Content Error Injection Status Register
+	type t_comm_left_content_error_injection_status_rd_reg is record
+		left_content_errinj_idle       : std_logic; -- Left Content Error Manager in Idle
+		left_content_errinj_recording  : std_logic; -- Left Content Error Manager in Recording
+		left_content_errinj_injecting  : std_logic; -- Left Content Error Manager in Injecting
+		left_content_errinj_errors_cnt : std_logic_vector(6 downto 0); -- Amount of entries in Left Content Error List
+	end record t_comm_left_content_error_injection_status_rd_reg;
+
+	-- Right Content Error Injection Control Register
+	type t_comm_right_content_error_injection_control_wr_reg is record
+		right_content_errinj_open        : std_logic; -- Open the Right Content Error List
+		right_content_errinj_close       : std_logic; -- Close the Right Content Error List
+		right_content_errinj_clear       : std_logic; -- Clear Right Content Error List
+		right_content_errinj_write       : std_logic; -- Write to Right Content Error List
+		right_content_errinj_start       : std_logic; -- Start Injection of Right Content Errors
+		right_content_errinj_stop        : std_logic; -- Stop Injection of Right Content Errors
+		right_content_errinj_start_frame : std_logic_vector(15 downto 0); -- Start Frame of Right Content Error
+		right_content_errinj_stop_frame  : std_logic_vector(15 downto 0); -- Stop Frame of Right Content Error
+		right_content_errinj_pixel_col   : std_logic_vector(15 downto 0); -- Pixel Column (x-position) of Right Content Error
+		right_content_errinj_pixel_row   : std_logic_vector(15 downto 0); -- Pixel Row (y-position) of Right Content Error
+		right_content_errinj_pixel_value : std_logic_vector(15 downto 0); -- Pixel Value of Right Content Error
+	end record t_comm_right_content_error_injection_control_wr_reg;
+
+	-- Right Content Error Injection Status Register
+	type t_comm_right_content_error_injection_status_rd_reg is record
+		right_content_errinj_idle       : std_logic; -- Right Content Error Manager in Idle
+		right_content_errinj_recording  : std_logic; -- Right Content Error Manager in Recording
+		right_content_errinj_injecting  : std_logic; -- Right Content Error Manager in Injecting
+		right_content_errinj_errors_cnt : std_logic_vector(6 downto 0); -- Amount of entries in Right Content Error List
+	end record t_comm_right_content_error_injection_status_rd_reg;
+
+	-- Header Error Injection Control Register
+	type t_comm_header_error_injection_control_wr_reg is record
+		header_errinj_open         : std_logic; -- Open the Header Error List
+		header_errinj_close        : std_logic; -- Close the Header Error List
+		header_errinj_clear        : std_logic; -- Clear Header Error List
+		header_errinj_write        : std_logic; -- Write to Header Error List
+		header_errinj_start        : std_logic; -- Start Injection of Header Errors
+		header_errinj_stop         : std_logic; -- Stop Injection of Header Errors
+		header_errinj_frame_num    : std_logic_vector(1 downto 0); -- Frame Number of Header Error
+		header_errinj_sequence_cnt : std_logic_vector(15 downto 0); -- Sequence Counter of Header Error
+		header_errinj_field_id     : std_logic_vector(3 downto 0); -- Field ID of Header Error
+		header_errinj_value        : std_logic_vector(15 downto 0); -- Value of Header Error
+	end record t_comm_header_error_injection_control_wr_reg;
+
+	-- Header Error Injection Status Register
+	type t_comm_header_error_injection_status_rd_reg is record
+		header_errinj_idle       : std_logic; -- Header Error Manager in Idle
+		header_errinj_recording  : std_logic; -- Header Error Manager in Recording
+		header_errinj_injecting  : std_logic; -- Header Error Manager in Injecting
+		header_errinj_errors_cnt : std_logic_vector(4 downto 0); -- Amount of entries in Header Error List
+	end record t_comm_header_error_injection_status_rd_reg;
 
 	-- Windowing Parameters Register
 	type t_comm_windowing_parameters_wr_reg is record
@@ -334,48 +397,54 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Avalon MM Read/Write Registers
 	type t_windowing_write_registers is record
-		comm_dev_addr_reg                 : t_comm_comm_dev_addr_wr_reg; -- Comm Device Address Register
-		comm_irq_control_reg              : t_comm_comm_irq_control_wr_reg; -- Comm IRQ Control Register
-		spw_dev_addr_reg                  : t_comm_spw_dev_addr_wr_reg; -- SpaceWire Device Address Register
-		spw_link_config_reg               : t_comm_spw_link_config_wr_reg; -- SpaceWire Link Config Register
-		spw_timecode_config_reg           : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
-		fee_buffers_dev_addr_reg          : t_comm_fee_buffers_dev_addr_wr_reg; -- FEE Buffers Device Address Register
-		fee_machine_config_reg            : t_comm_fee_machine_config_wr_reg; -- FEE Machine Config Register
-		fee_buffers_config_reg            : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
-		fee_buffers_data_control_reg      : t_comm_fee_buffers_data_control_wr_reg; -- FEE Buffers Data Control Register
-		fee_buffers_irq_control_reg       : t_comm_fee_buffers_irq_control_wr_reg; -- FEE Buffers IRQ Control Register
-		fee_buffers_irq_flags_clear_reg   : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
-		rmap_dev_addr_reg                 : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
-		rmap_echoing_mode_config_reg      : t_comm_rmap_echoing_mode_config_wr_reg; -- RMAP Echoing Mode Config Register
-		rmap_codec_config_reg             : t_comm_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
-		rmap_memory_config_reg            : t_comm_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
-		rmap_mem_area_ptr_reg             : t_comm_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
-		rmap_irq_control_reg              : t_comm_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
-		rmap_irq_flags_clear_reg          : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
-		data_packet_dev_addr_reg          : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
-		data_packet_config_reg            : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
-		data_packet_errors_reg            : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
-		data_packet_pixel_delay_reg       : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
-		pixels_cbuffer_control_reg        : t_comm_pixels_cbuffer_control_wr_reg; -- Pixels Circular Buffer Control Register
-		spw_error_injection_control_reg   : t_comm_spw_error_injection_control_wr_reg; -- SpaceWire Error Injection Control Register
-		trans_error_injection_control_reg : t_comm_trans_error_injection_control_wr_reg; -- Transmission Error Injection Control Register
-		windowing_parameters_reg          : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
+		comm_dev_addr_reg                         : t_comm_comm_dev_addr_wr_reg; -- Comm Device Address Register
+		comm_irq_control_reg                      : t_comm_comm_irq_control_wr_reg; -- Comm IRQ Control Register
+		spw_dev_addr_reg                          : t_comm_spw_dev_addr_wr_reg; -- SpaceWire Device Address Register
+		spw_link_config_reg                       : t_comm_spw_link_config_wr_reg; -- SpaceWire Link Config Register
+		spw_timecode_config_reg                   : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
+		fee_buffers_dev_addr_reg                  : t_comm_fee_buffers_dev_addr_wr_reg; -- FEE Buffers Device Address Register
+		fee_machine_config_reg                    : t_comm_fee_machine_config_wr_reg; -- FEE Machine Config Register
+		fee_buffers_config_reg                    : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
+		fee_buffers_data_control_reg              : t_comm_fee_buffers_data_control_wr_reg; -- FEE Buffers Data Control Register
+		fee_buffers_irq_control_reg               : t_comm_fee_buffers_irq_control_wr_reg; -- FEE Buffers IRQ Control Register
+		fee_buffers_irq_flags_clear_reg           : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
+		rmap_dev_addr_reg                         : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
+		rmap_echoing_mode_config_reg              : t_comm_rmap_echoing_mode_config_wr_reg; -- RMAP Echoing Mode Config Register
+		rmap_codec_config_reg                     : t_comm_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
+		rmap_memory_config_reg                    : t_comm_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
+		rmap_mem_area_ptr_reg                     : t_comm_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
+		rmap_irq_control_reg                      : t_comm_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
+		rmap_irq_flags_clear_reg                  : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
+		data_packet_dev_addr_reg                  : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
+		data_packet_config_reg                    : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
+		data_packet_errors_reg                    : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
+		data_packet_pixel_delay_reg               : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
+		spw_error_injection_control_reg           : t_comm_spw_error_injection_control_wr_reg; -- SpaceWire Error Injection Control Register
+		rmap_error_injection_control_reg          : t_comm_rmap_error_injection_control_wr_reg; -- RMAP Error Injection Control Register
+		trans_error_injection_control_reg         : t_comm_trans_error_injection_control_wr_reg; -- Transmission Error Injection Control Register
+		left_content_error_injection_control_reg  : t_comm_left_content_error_injection_control_wr_reg; -- Left Content Error Injection Control Register
+		right_content_error_injection_control_reg : t_comm_right_content_error_injection_control_wr_reg; -- Right Content Error Injection Control Register
+		header_error_injection_control_reg        : t_comm_header_error_injection_control_wr_reg; -- Header Error Injection Control Register
+		windowing_parameters_reg                  : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
 	end record t_windowing_write_registers;
 
 	-- Avalon MM Read-Only Registers
 	type t_windowing_read_registers is record
-		spw_link_status_reg         : t_comm_spw_link_status_rd_reg; -- SpaceWire Link Status Register
-		spw_timecode_status_reg     : t_comm_spw_timecode_rd_reg; -- SpaceWire Timecode Status Register
-		fee_machine_statistics_reg  : t_comm_fee_machine_statistics_rd_reg; -- FEE Machine Statistics Register
-		fee_buffers_status_reg      : t_comm_fee_buffers_status_rd_reg; -- FEE Buffers Status Register
-		fee_buffers_data_status_reg : t_comm_fee_buffers_data_status_rd_reg; -- FEE Buffers Data Status Register
-		fee_buffers_irq_flags_reg   : t_comm_fee_buffers_irq_flags_rd_reg; -- FEE Buffers IRQ Flags Register
-		fee_buffers_irq_number_reg  : t_comm_fee_buffers_number_rd_reg; -- FEE Buffers IRQ Number Register
-		rmap_codec_status_reg       : t_comm_rmap_codec_status_rd_reg; -- RMAP Codec Status Register
-		rmap_memory_status_reg      : t_comm_rmap_memory_status_rd_reg; -- RMAP Memory Status Register
-		rmap_irq_flags_reg          : t_comm_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
-		rmap_irq_number_reg         : t_comm_rmap_irq_number_rd_reg; -- RMAP IRQ Number Register
-		data_packet_header_reg      : t_comm_data_packet_header_rd_reg; -- Data Packet Header Register
+		spw_link_status_reg                      : t_comm_spw_link_status_rd_reg; -- SpaceWire Link Status Register
+		spw_timecode_status_reg                  : t_comm_spw_timecode_rd_reg; -- SpaceWire Timecode Status Register
+		fee_machine_statistics_reg               : t_comm_fee_machine_statistics_rd_reg; -- FEE Machine Statistics Register
+		fee_buffers_status_reg                   : t_comm_fee_buffers_status_rd_reg; -- FEE Buffers Status Register
+		fee_buffers_data_status_reg              : t_comm_fee_buffers_data_status_rd_reg; -- FEE Buffers Data Status Register
+		fee_buffers_irq_flags_reg                : t_comm_fee_buffers_irq_flags_rd_reg; -- FEE Buffers IRQ Flags Register
+		fee_buffers_irq_number_reg               : t_comm_fee_buffers_number_rd_reg; -- FEE Buffers IRQ Number Register
+		rmap_codec_status_reg                    : t_comm_rmap_codec_status_rd_reg; -- RMAP Codec Status Register
+		rmap_memory_status_reg                   : t_comm_rmap_memory_status_rd_reg; -- RMAP Memory Status Register
+		rmap_irq_flags_reg                       : t_comm_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
+		rmap_irq_number_reg                      : t_comm_rmap_irq_number_rd_reg; -- RMAP IRQ Number Register
+		data_packet_header_reg                   : t_comm_data_packet_header_rd_reg; -- Data Packet Header Register
+		left_content_error_injection_status_reg  : t_comm_left_content_error_injection_status_rd_reg; -- Left Content Error Injection Status Register
+		right_content_error_injection_status_reg : t_comm_right_content_error_injection_status_rd_reg; -- Right Content Error Injection Status Register
+		header_error_injection_status_reg        : t_comm_header_error_injection_status_rd_reg; -- Header Error Injection Status Register
 	end record t_windowing_read_registers;
 
 end package avalon_mm_spacewire_registers_pkg;

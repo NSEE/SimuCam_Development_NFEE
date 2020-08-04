@@ -1353,7 +1353,7 @@ void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 {
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp,"vFailRequestDMA. FEE n:%hhu \n", ucTemp);
+		fprintf(fp,"vFailRequestDMAFromIRQ. FEE n:%hhu \n", ucTemp);
 	}
 	#endif
 	/*

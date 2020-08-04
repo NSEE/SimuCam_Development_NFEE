@@ -128,10 +128,6 @@ architecture rtl of comm_v2_top is
 
 	-- signals
 
-	-- windowing internal buffers empty
-	signal s_R_buffer_empty : std_logic;
-	signal s_L_buffer_empty : std_logic;
-
 	-- windowing avalon mm read signals
 	signal s_avalon_mm_windwoing_read_waitrequest : std_logic;
 
@@ -260,10 +256,12 @@ architecture rtl of comm_v2_top is
 	signal s_L_window_buffer_control : t_windowing_buffer_control;
 
 	-- avm
-	signal s_avm_right_buffer_master_rd_control : t_comm_avm_buffers_master_rd_control;
-	signal s_avm_right_buffer_master_rd_status  : t_comm_avm_buffers_master_rd_status;
-	signal s_avm_left_buffer_master_rd_control  : t_comm_avm_buffers_master_rd_control;
-	signal s_avm_left_buffer_master_rd_status   : t_comm_avm_buffers_master_rd_status;
+	signal s_avm_right_buffer_master_rd_control   : t_comm_avm_buffers_master_rd_control;
+	signal s_avm_right_buffer_master_rd_status    : t_comm_avm_buffers_master_rd_status;
+	signal s_avm_right_buffer_controller_finished : std_logic;
+	signal s_avm_left_buffer_master_rd_control    : t_comm_avm_buffers_master_rd_control;
+	signal s_avm_left_buffer_master_rd_status     : t_comm_avm_buffers_master_rd_status;
+	signal s_avm_left_buffer_controller_finished  : std_logic;
 
 	-- rmap hk
 	signal s_fee_left_output_buffer_overflowed  : std_logic;
@@ -349,6 +347,7 @@ begin
 			avm_master_rd_status_i                     => s_avm_right_buffer_master_rd_status,
 			window_buffer_control_i                    => s_R_window_buffer_control,
 			controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.right_rd_busy,
+			controller_rd_finished_o                   => s_avm_right_buffer_controller_finished,
 			avm_master_rd_control_o                    => s_avm_right_buffer_master_rd_control,
 			window_buffer_o                            => s_R_window_buffer
 		);
@@ -373,7 +372,7 @@ begin
 			window_data_ready_o     => s_R_window_data_ready,
 			window_mask_ready_o     => s_R_window_mask_ready,
 			window_buffer_empty_o   => s_spacewire_read_registers.fee_buffers_status_reg.fee_right_buffer_empty,
-			window_buffer_0_empty_o => s_R_buffer_empty,
+			window_buffer_0_empty_o => open,
 			window_buffer_1_empty_o => open
 		);
 
@@ -406,6 +405,7 @@ begin
 			avm_master_rd_status_i                     => s_avm_left_buffer_master_rd_status,
 			window_buffer_control_i                    => s_L_window_buffer_control,
 			controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.left_rd_busy,
+			controller_rd_finished_o                   => s_avm_left_buffer_controller_finished,
 			avm_master_rd_control_o                    => s_avm_left_buffer_master_rd_control,
 			window_buffer_o                            => s_L_window_buffer
 		);
@@ -430,7 +430,7 @@ begin
 			window_data_ready_o     => s_L_window_data_ready,
 			window_mask_ready_o     => s_L_window_mask_ready,
 			window_buffer_empty_o   => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_buffer_empty,
-			window_buffer_0_empty_o => s_L_buffer_empty,
+			window_buffer_0_empty_o => open,
 			window_buffer_1_empty_o => open
 		);
 
@@ -629,6 +629,9 @@ begin
 			conf_target_enable_i       => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_enable,
 			conf_target_logical_addr_i => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_logical_addr,
 			conf_target_key_i          => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_key,
+			rmap_errinj_en_i           => s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_enable,
+			rmap_errinj_id_i           => s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_err_id,
+			rmap_errinj_val_i          => s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_value,
 			mem_control_o              => s_rmap_mem_control,
 			mem_wr_byte_address_o      => s_rmap_mem_wr_byte_address,
 			mem_rd_byte_address_o      => s_rmap_mem_rd_byte_address,
@@ -759,20 +762,20 @@ begin
 
 	comm_feeb_irq_manager_ent_inst : entity work.comm_feeb_irq_manager_ent
 		port map(
-			clk_i                              => a_avs_clock,
-			rst_i                              => a_reset,
-			irq_manager_stop_i                 => s_machine_stop,
-			irq_manager_start_i                => s_machine_start,
-			global_irq_en_i                    => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
-			irq_watches_i.left_buffer_empty    => s_L_buffer_empty,
-			irq_watches_i.right_buffer_empty   => s_R_buffer_empty,
-			irq_flags_en_i.left_buffer_empty   => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_left_buffer_empty_en,
-			irq_flags_en_i.right_buffer_empty  => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_right_buffer_empty_en,
-			irq_flags_clr_i.left_buffer_empty  => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_left_buffer_0_empty_flag_clear,
-			irq_flags_clr_i.right_buffer_empty => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_right_buffer_0_empty_flag_clear,
-			irq_flags_o.left_buffer_empty      => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_0_empty_flag,
-			irq_flags_o.right_buffer_empty     => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_0_empty_flag,
-			irq_o                              => feeb_interrupt_sender_irq_o
+			clk_i                                            => a_avs_clock,
+			rst_i                                            => a_reset,
+			irq_manager_stop_i                               => s_machine_stop,
+			irq_manager_start_i                              => s_machine_start,
+			global_irq_en_i                                  => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
+			irq_watches_i.left_buffer_controller_finished    => s_avm_left_buffer_controller_finished,
+			irq_watches_i.right_buffer_controller_finished   => s_avm_right_buffer_controller_finished,
+			irq_flags_en_i.left_buffer_controller_finished   => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_left_buffer_controller_finished_en,
+			irq_flags_en_i.right_buffer_controller_finished  => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_right_buffer_controller_finished_en,
+			irq_flags_clr_i.left_buffer_controller_finished  => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_left_buffer_controller_finished_flag_clear,
+			irq_flags_clr_i.right_buffer_controller_finished => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_right_buffer_controller_finished_flag_clear,
+			irq_flags_o.left_buffer_controller_finished      => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_controller_finished_flag,
+			irq_flags_o.right_buffer_controller_finished     => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_controller_finished_flag,
+			irq_o                                            => feeb_interrupt_sender_irq_o
 		);
 
 	comm_rmap_irq_manager_ent_inst : entity work.comm_rmap_irq_manager_ent

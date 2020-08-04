@@ -64,13 +64,13 @@ BEGIN
 		clock_enable_input_a => "BYPASS",
 		clock_enable_output_a => "BYPASS",
 		intended_device_family => "Stratix IV",
-		lpm_hint => "ENABLE_RUNTIME_MOD=NO",
 		lpm_type => "altsyncram",
 		numwords_a => 32,
 		operation_mode => "SINGLE_PORT",
 		outdata_aclr_a => "CLEAR0",
 		outdata_reg_a => "CLOCK0",
 		power_up_uninitialized => "FALSE",
+		ram_block_type => "MLAB",
 		read_during_write_mode_port_a => "DONT_CARE",
 		widthad_a => 5,
 		width_a => 40,
@@ -113,7 +113,7 @@ END SYN;
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
 -- Retrieval info: PRIVATE: MIFfilename STRING ""
 -- Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "32"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 -- Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "2"
 -- Retrieval info: PRIVATE: RegAddr NUMERIC "1"
 -- Retrieval info: PRIVATE: RegData NUMERIC "1"
@@ -129,13 +129,13 @@ END SYN;
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
--- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=NO"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
 -- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "32"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "SINGLE_PORT"
 -- Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "CLEAR0"
 -- Retrieval info: CONSTANT: OUTDATA_REG_A STRING "CLOCK0"
 -- Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
+-- Retrieval info: CONSTANT: RAM_BLOCK_TYPE STRING "MLAB"
 -- Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "DONT_CARE"
 -- Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "5"
 -- Retrieval info: CONSTANT: WIDTH_A NUMERIC "40"

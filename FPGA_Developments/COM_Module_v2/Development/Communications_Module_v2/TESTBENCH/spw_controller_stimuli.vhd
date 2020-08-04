@@ -118,12 +118,12 @@ begin
 					if (spw_data_rx_command_rxread_i = '0') then
 						spw_data_rx_status_rxvalid_o <= '1';
 						spw_data_rx_status_rxflag_o  <= '0';
-						spw_data_rx_status_rxdata_o  <= c_RMAP_WRITE_CMD_NOK(s_rmap_write_cmd_cnt);
-						--						spw_data_rx_status_rxdata_o  <= c_RMAP_READ_CMD_NOK(s_rmap_read_cmd_cnt);
+						--						spw_data_rx_status_rxdata_o  <= c_RMAP_WRITE_CMD_OK(s_rmap_write_cmd_cnt);
+						spw_data_rx_status_rxdata_o  <= c_RMAP_READ_CMD_OK(s_rmap_read_cmd_cnt);
 						s_counter                    <= s_counter;
 					else
-						s_counter <= 200; -- write cmd
-						--						s_counter <= 300; -- read cmd
+						--						s_counter <= 200; -- write cmd
+						s_counter <= 300; -- read cmd
 					end if;
 
 				when 200 =>

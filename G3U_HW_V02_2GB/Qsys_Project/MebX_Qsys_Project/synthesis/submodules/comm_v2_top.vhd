@@ -44,18 +44,6 @@ entity comm_v2_top is
 		avm_right_buffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
 		avm_right_buffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
 		avm_right_buffer_read_o             : out std_logic; --                                      --                                        .read
-		avm_left_cbuffer_readdata_i         : in  std_logic_vector(255 downto 0) := (others => '0'); --           avalon_mm_left_cbuffer_master.readdata
-		avm_left_cbuffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
-		avm_left_cbuffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
-		avm_left_cbuffer_write_o            : out std_logic; --                                      --                                        .write
-		avm_left_cbuffer_writedata_o        : out std_logic_vector(255 downto 0); --                  --                                        .writedata
-		avm_left_cbuffer_read_o             : out std_logic; --                                      --                                        .read
-		avm_right_cbuffer_readdata_i        : in  std_logic_vector(255 downto 0) := (others => '0'); --          avalon_mm_right_cbuffer_master.readdata
-		avm_right_cbuffer_waitrequest_i     : in  std_logic                      := '0'; --          --                                        .waitrequest
-		avm_right_cbuffer_address_o         : out std_logic_vector(63 downto 0); --                  --                                        .address
-		avm_right_cbuffer_write_o           : out std_logic; --                                      --                                        .write
-		avm_right_cbuffer_writedata_o       : out std_logic_vector(255 downto 0); --                  --                                        .writedata
-		avm_right_cbuffer_read_o            : out std_logic; --                                      --                                        .read
 		feeb_interrupt_sender_irq_o         : out std_logic; --                                      --                   feeb_interrupt_sender.irq
 		rmap_interrupt_sender_irq_o         : out std_logic; --                                      --                   rmap_interrupt_sender.irq
 		spw_link_status_started_i           : in  std_logic                      := '0'; --          --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -139,10 +127,6 @@ architecture rtl of comm_v2_top is
 	-- constants
 
 	-- signals
-
-	-- windowing internal buffers empty
-	signal s_R_buffer_empty : std_logic;
-	signal s_L_buffer_empty : std_logic;
 
 	-- windowing avalon mm read signals
 	signal s_avalon_mm_windwoing_read_waitrequest : std_logic;
@@ -272,10 +256,12 @@ architecture rtl of comm_v2_top is
 	signal s_L_window_buffer_control : t_windowing_buffer_control;
 
 	-- avm
-	signal s_avm_right_buffer_master_rd_control : t_comm_avm_buffers_master_rd_control;
-	signal s_avm_right_buffer_master_rd_status  : t_comm_avm_buffers_master_rd_status;
-	signal s_avm_left_buffer_master_rd_control  : t_comm_avm_buffers_master_rd_control;
-	signal s_avm_left_buffer_master_rd_status   : t_comm_avm_buffers_master_rd_status;
+	signal s_avm_right_buffer_master_rd_control   : t_comm_avm_buffers_master_rd_control;
+	signal s_avm_right_buffer_master_rd_status    : t_comm_avm_buffers_master_rd_status;
+	signal s_avm_right_buffer_controller_finished : std_logic;
+	signal s_avm_left_buffer_master_rd_control    : t_comm_avm_buffers_master_rd_control;
+	signal s_avm_left_buffer_master_rd_status     : t_comm_avm_buffers_master_rd_status;
+	signal s_avm_left_buffer_controller_finished  : std_logic;
 
 	-- rmap hk
 	signal s_fee_left_output_buffer_overflowed  : std_logic;
@@ -361,6 +347,7 @@ begin
 			avm_master_rd_status_i                     => s_avm_right_buffer_master_rd_status,
 			window_buffer_control_i                    => s_R_window_buffer_control,
 			controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.right_rd_busy,
+			controller_rd_finished_o                   => s_avm_right_buffer_controller_finished,
 			avm_master_rd_control_o                    => s_avm_right_buffer_master_rd_control,
 			window_buffer_o                            => s_R_window_buffer
 		);
@@ -385,7 +372,7 @@ begin
 			window_data_ready_o     => s_R_window_data_ready,
 			window_mask_ready_o     => s_R_window_mask_ready,
 			window_buffer_empty_o   => s_spacewire_read_registers.fee_buffers_status_reg.fee_right_buffer_empty,
-			window_buffer_0_empty_o => s_R_buffer_empty,
+			window_buffer_0_empty_o => open,
 			window_buffer_1_empty_o => open
 		);
 
@@ -418,6 +405,7 @@ begin
 			avm_master_rd_status_i                     => s_avm_left_buffer_master_rd_status,
 			window_buffer_control_i                    => s_L_window_buffer_control,
 			controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.left_rd_busy,
+			controller_rd_finished_o                   => s_avm_left_buffer_controller_finished,
 			avm_master_rd_control_o                    => s_avm_left_buffer_master_rd_control,
 			window_buffer_o                            => s_L_window_buffer
 		);
@@ -442,7 +430,7 @@ begin
 			window_data_ready_o     => s_L_window_data_ready,
 			window_mask_ready_o     => s_L_window_mask_ready,
 			window_buffer_empty_o   => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_buffer_empty,
-			window_buffer_0_empty_o => s_L_buffer_empty,
+			window_buffer_0_empty_o => open,
 			window_buffer_1_empty_o => open
 		);
 
@@ -481,118 +469,146 @@ begin
 	-- fee data controller instantiation
 	fee_data_controller_top_inst : entity work.fee_data_controller_top
 		port map(
-			clk_i                                               => a_avs_clock,
-			rst_i                                               => a_reset,
-			fee_sync_signal_i                                   => s_ch_sync_trigger,
-			fee_current_timecode_i(7 downto 6)                  => s_spacewire_read_registers.spw_timecode_status_reg.timecode_control,
-			fee_current_timecode_i(5 downto 0)                  => s_spacewire_read_registers.spw_timecode_status_reg.timecode_time,
-			fee_clear_frame_i                                   => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
-			fee_left_buffer_activated_i                         => s_left_buffer_activated,
-			fee_right_buffer_activated_i                        => s_right_buffer_activated,
-			fee_machine_clear_i                                 => s_machine_clear,
-			fee_machine_stop_i                                  => s_machine_stop,
-			fee_machine_start_i                                 => s_machine_start,
-			fee_digitalise_en_i                                 => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
-			fee_readout_en_i                                    => s_spacewire_write_registers.fee_machine_config_reg.fee_readout_en,
-			fee_window_list_en_i                                => s_spacewire_write_registers.fee_machine_config_reg.fee_window_list_en,
-			fee_left_window_data_i                              => s_L_fee_data_controller_window_data_out,
-			fee_left_window_mask_i                              => s_L_fee_data_controller_window_mask_out,
-			fee_left_window_data_valid_i                        => s_L_fee_data_controller_window_data_valid,
-			fee_left_window_mask_valid_i                        => s_L_fee_data_controller_window_mask_valid,
-			fee_left_window_data_ready_i                        => s_L_fee_data_controller_window_data_ready,
-			fee_left_window_mask_ready_i                        => s_L_fee_data_controller_window_mask_ready,
-			fee_right_window_data_i                             => s_R_fee_data_controller_window_data_out,
-			fee_right_window_mask_i                             => s_R_fee_data_controller_window_mask_out,
-			fee_right_window_data_valid_i                       => s_R_fee_data_controller_window_data_valid,
-			fee_right_window_mask_valid_i                       => s_R_fee_data_controller_window_mask_valid,
-			fee_right_window_data_ready_i                       => s_R_fee_data_controller_window_data_ready,
-			fee_right_window_mask_ready_i                       => s_R_fee_data_controller_window_mask_ready,
-			fee_hk_mem_waitrequest_i                            => rmm_fee_hk_rd_waitrequest_i,
-			fee_hk_mem_data_i                                   => rmm_fee_hk_readdata_i,
-			fee_spw_tx_ready_i                                  => s_fee_data_controller_spw_txrdy,
-			fee_spw_link_running_i                              => s_spacewire_read_registers.spw_link_status_reg.spw_link_running,
-			data_pkt_ccd_x_size_i                               => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_x_size,
-			data_pkt_ccd_y_size_i                               => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_y_size,
-			data_pkt_data_y_size_i                              => s_spacewire_write_registers.data_packet_config_reg.data_pkt_data_y_size,
-			data_pkt_overscan_y_size_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_overscan_y_size,
-			data_pkt_packet_length_i                            => s_spacewire_write_registers.data_packet_config_reg.data_pkt_packet_length,
-			data_pkt_fee_mode_i                                 => s_spacewire_write_registers.data_packet_config_reg.data_pkt_fee_mode,
-			data_pkt_ccd_number_i                               => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_number,
-			data_pkt_ccd_v_start_i                              => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_start,
-			data_pkt_ccd_v_end_i                                => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_end,
-			data_pkt_ccd_img_v_end_i                            => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_v_end,
-			data_pkt_ccd_ovs_v_end_i                            => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_v_end,
-			data_pkt_ccd_h_start_i                              => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_start,
-			data_pkt_ccd_h_end_i                                => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_end,
-			data_pkt_ccd_img_en_i                               => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_en,
-			data_pkt_ccd_ovs_en_i                               => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_en,
-			data_pkt_protocol_id_i                              => s_spacewire_write_registers.data_packet_config_reg.data_pkt_protocol_id,
-			data_pkt_logical_addr_i                             => s_spacewire_write_registers.data_packet_config_reg.data_pkt_logical_addr,
-			data_pkt_start_delay_i                              => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_start_delay,
-			data_pkt_skip_delay_i                               => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_skip_delay,
-			data_pkt_line_delay_i                               => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
-			data_pkt_adc_delay_i                                => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
-			masking_buffer_overflow_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_buffer_overflow_en,
-			pixels_left_cbuffer_address_offset_i(63 downto 32)  => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_high_dword,
-			pixels_left_cbuffer_address_offset_i(31 downto 0)   => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_initial_addr_low_dword,
-			pixels_left_cbuffer_size_bytes_i                    => s_spacewire_write_registers.pixels_cbuffer_control_reg.left_px_cbuffer_size_bytes,
-			pixels_left_cbuffer_avm_readdata_i                  => avm_left_cbuffer_readdata_i,
-			pixels_left_cbuffer_avm_waitrequest_i               => avm_left_cbuffer_waitrequest_i,
-			pixels_right_cbuffer_address_offset_i(63 downto 32) => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_high_dword,
-			pixels_right_cbuffer_address_offset_i(31 downto 0)  => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_initial_addr_low_dword,
-			pixels_right_cbuffer_size_bytes_i                   => s_spacewire_write_registers.pixels_cbuffer_control_reg.right_px_cbuffer_size_bytes,
-			pixels_right_cbuffer_avm_readdata_i                 => avm_right_cbuffer_readdata_i,
-			pixels_right_cbuffer_avm_waitrequest_i              => avm_right_cbuffer_waitrequest_i,
-			windowing_packet_order_list_i(511 downto 480)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_15,
-			windowing_packet_order_list_i(479 downto 448)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_14,
-			windowing_packet_order_list_i(447 downto 416)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_13,
-			windowing_packet_order_list_i(415 downto 384)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_12,
-			windowing_packet_order_list_i(383 downto 352)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_11,
-			windowing_packet_order_list_i(351 downto 320)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_10,
-			windowing_packet_order_list_i(319 downto 288)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_9,
-			windowing_packet_order_list_i(287 downto 256)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_8,
-			windowing_packet_order_list_i(255 downto 224)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_7,
-			windowing_packet_order_list_i(223 downto 192)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_6,
-			windowing_packet_order_list_i(191 downto 160)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_5,
-			windowing_packet_order_list_i(159 downto 128)       => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_4,
-			windowing_packet_order_list_i(127 downto 96)        => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_3,
-			windowing_packet_order_list_i(95 downto 64)         => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_2,
-			windowing_packet_order_list_i(63 downto 32)         => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_1,
-			windowing_packet_order_list_i(31 downto 0)          => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_0,
-			windowing_last_left_packet_i                        => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_e_packet,
-			windowing_last_right_packet_i                       => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_f_packet,
-			spw_errinj_eep_received_i                           => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_eep_received,
-			spw_errinj_sequence_cnt_i                           => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_sequence_cnt,
-			spw_errinj_n_repeat_i                               => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_n_repeat,
-			trans_errinj_tx_disabled_i                          => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_tx_disabled,
-			trans_errinj_missing_pkts_i                         => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_pkts,
-			trans_errinj_missing_data_i                         => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_data,
-			trans_errinj_frame_num_i                            => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_frame_num,
-			trans_errinj_sequence_cnt_i                         => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_sequence_cnt,
-			trans_errinj_data_cnt_i                             => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_data_cnt,
-			trans_errinj_n_repeat_i                             => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_n_repeat,
-			fee_machine_busy_o                                  => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy,
-			fee_frame_counter_o                                 => s_fee_frame_counter,
-			fee_frame_number_o                                  => s_fee_frame_number,
-			fee_left_output_buffer_overflowed_o                 => s_fee_left_output_buffer_overflowed,
-			fee_right_output_buffer_overflowed_o                => s_fee_right_output_buffer_overflowed,
-			fee_left_window_data_read_o                         => s_L_fee_data_controller_window_data_read,
-			fee_left_window_mask_read_o                         => s_L_fee_data_controller_window_mask_read,
-			fee_right_window_data_read_o                        => s_R_fee_data_controller_window_data_read,
-			fee_right_window_mask_read_o                        => s_R_fee_data_controller_window_mask_read,
-			pixels_left_cbuffer_avm_address_o                   => avm_left_cbuffer_address_o,
-			pixels_left_cbuffer_avm_write_o                     => avm_left_cbuffer_write_o,
-			pixels_left_cbuffer_avm_writedata_o                 => avm_left_cbuffer_writedata_o,
-			pixels_left_cbuffer_avm_read_o                      => avm_left_cbuffer_read_o,
-			pixels_right_cbuffer_avm_address_o                  => avm_right_cbuffer_address_o,
-			pixels_right_cbuffer_avm_write_o                    => avm_right_cbuffer_write_o,
-			pixels_right_cbuffer_avm_writedata_o                => avm_right_cbuffer_writedata_o,
-			pixels_right_cbuffer_avm_read_o                     => avm_right_cbuffer_read_o,
-			fee_hk_mem_byte_address_o                           => s_fee_rd_rmap_address,
-			fee_hk_mem_read_o                                   => s_fee_rd_rmap_read,
-			fee_spw_tx_write_o                                  => s_fee_data_controller_spw_txwrite,
-			fee_spw_tx_flag_o                                   => s_fee_data_controller_spw_txflag,
-			fee_spw_tx_data_o                                   => s_fee_data_controller_spw_txdata
+			clk_i                                         => a_avs_clock,
+			rst_i                                         => a_reset,
+			fee_sync_signal_i                             => s_ch_sync_trigger,
+			fee_current_timecode_i(7 downto 6)            => s_spacewire_read_registers.spw_timecode_status_reg.timecode_control,
+			fee_current_timecode_i(5 downto 0)            => s_spacewire_read_registers.spw_timecode_status_reg.timecode_time,
+			fee_clear_frame_i                             => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
+			fee_left_buffer_activated_i                   => s_left_buffer_activated,
+			fee_right_buffer_activated_i                  => s_right_buffer_activated,
+			fee_machine_clear_i                           => s_machine_clear,
+			fee_machine_stop_i                            => s_machine_stop,
+			fee_machine_start_i                           => s_machine_start,
+			fee_digitalise_en_i                           => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
+			fee_readout_en_i                              => s_spacewire_write_registers.fee_machine_config_reg.fee_readout_en,
+			fee_window_list_en_i                          => s_spacewire_write_registers.fee_machine_config_reg.fee_window_list_en,
+			fee_left_window_data_i                        => s_L_fee_data_controller_window_data_out,
+			fee_left_window_mask_i                        => s_L_fee_data_controller_window_mask_out,
+			fee_left_window_data_valid_i                  => s_L_fee_data_controller_window_data_valid,
+			fee_left_window_mask_valid_i                  => s_L_fee_data_controller_window_mask_valid,
+			fee_left_window_data_ready_i                  => s_L_fee_data_controller_window_data_ready,
+			fee_left_window_mask_ready_i                  => s_L_fee_data_controller_window_mask_ready,
+			fee_right_window_data_i                       => s_R_fee_data_controller_window_data_out,
+			fee_right_window_mask_i                       => s_R_fee_data_controller_window_mask_out,
+			fee_right_window_data_valid_i                 => s_R_fee_data_controller_window_data_valid,
+			fee_right_window_mask_valid_i                 => s_R_fee_data_controller_window_mask_valid,
+			fee_right_window_data_ready_i                 => s_R_fee_data_controller_window_data_ready,
+			fee_right_window_mask_ready_i                 => s_R_fee_data_controller_window_mask_ready,
+			fee_hk_mem_waitrequest_i                      => rmm_fee_hk_rd_waitrequest_i,
+			fee_hk_mem_data_i                             => rmm_fee_hk_readdata_i,
+			fee_spw_tx_ready_i                            => s_fee_data_controller_spw_txrdy,
+			fee_spw_link_running_i                        => s_spacewire_read_registers.spw_link_status_reg.spw_link_running,
+			data_pkt_ccd_x_size_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_x_size,
+			data_pkt_ccd_y_size_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_y_size,
+			data_pkt_data_y_size_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_data_y_size,
+			data_pkt_overscan_y_size_i                    => s_spacewire_write_registers.data_packet_config_reg.data_pkt_overscan_y_size,
+			data_pkt_packet_length_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_packet_length,
+			data_pkt_fee_mode_i                           => s_spacewire_write_registers.data_packet_config_reg.data_pkt_fee_mode,
+			data_pkt_ccd_number_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_number,
+			data_pkt_ccd_v_start_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_start,
+			data_pkt_ccd_v_end_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_end,
+			data_pkt_ccd_img_v_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_v_end,
+			data_pkt_ccd_ovs_v_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_v_end,
+			data_pkt_ccd_h_start_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_start,
+			data_pkt_ccd_h_end_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_end,
+			data_pkt_ccd_img_en_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_en,
+			data_pkt_ccd_ovs_en_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_en,
+			data_pkt_protocol_id_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_protocol_id,
+			data_pkt_logical_addr_i                       => s_spacewire_write_registers.data_packet_config_reg.data_pkt_logical_addr,
+			data_pkt_start_delay_i                        => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_start_delay,
+			data_pkt_skip_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_skip_delay,
+			data_pkt_line_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
+			data_pkt_adc_delay_i                          => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_adc_delay,
+			masking_buffer_overflow_i                     => s_spacewire_write_registers.fee_machine_config_reg.fee_buffer_overflow_en,
+			left_pixels_storage_size_i                    => s_spacewire_write_registers.fee_machine_config_reg.left_pixels_storage_size,
+			right_pixels_storage_size_i                   => s_spacewire_write_registers.fee_machine_config_reg.right_pixels_storage_size,
+			windowing_packet_order_list_i(511 downto 480) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_15,
+			windowing_packet_order_list_i(479 downto 448) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_14,
+			windowing_packet_order_list_i(447 downto 416) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_13,
+			windowing_packet_order_list_i(415 downto 384) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_12,
+			windowing_packet_order_list_i(383 downto 352) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_11,
+			windowing_packet_order_list_i(351 downto 320) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_10,
+			windowing_packet_order_list_i(319 downto 288) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_9,
+			windowing_packet_order_list_i(287 downto 256) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_8,
+			windowing_packet_order_list_i(255 downto 224) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_7,
+			windowing_packet_order_list_i(223 downto 192) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_6,
+			windowing_packet_order_list_i(191 downto 160) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_5,
+			windowing_packet_order_list_i(159 downto 128) => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_4,
+			windowing_packet_order_list_i(127 downto 96)  => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_3,
+			windowing_packet_order_list_i(95 downto 64)   => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_2,
+			windowing_packet_order_list_i(63 downto 32)   => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_1,
+			windowing_packet_order_list_i(31 downto 0)    => s_spacewire_write_registers.windowing_parameters_reg.windowing_packet_order_list_0,
+			windowing_last_left_packet_i                  => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_e_packet,
+			windowing_last_right_packet_i                 => s_spacewire_write_registers.windowing_parameters_reg.windowing_last_f_packet,
+			spw_errinj_eep_received_i                     => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_eep_received,
+			spw_errinj_sequence_cnt_i                     => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_sequence_cnt,
+			spw_errinj_n_repeat_i                         => s_spacewire_write_registers.spw_error_injection_control_reg.spw_errinj_n_repeat,
+			trans_errinj_tx_disabled_i                    => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_tx_disabled,
+			trans_errinj_missing_pkts_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_pkts,
+			trans_errinj_missing_data_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_missing_data,
+			trans_errinj_frame_num_i                      => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_frame_num,
+			trans_errinj_sequence_cnt_i                   => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_sequence_cnt,
+			trans_errinj_data_cnt_i                       => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_data_cnt,
+			trans_errinj_n_repeat_i                       => s_spacewire_write_registers.trans_error_injection_control_reg.trans_errinj_n_repeat,
+			left_content_errinj_open_i                    => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_open,
+			left_content_errinj_close_i                   => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_close,
+			left_content_errinj_clear_i                   => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_clear,
+			left_content_errinj_write_i                   => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_write,
+			left_content_errinj_start_i                   => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_start,
+			left_content_errinj_stop_i                    => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_stop,
+			left_content_errinj_start_frame_i             => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_start_frame,
+			left_content_errinj_stop_frame_i              => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_stop_frame,
+			left_content_errinj_pixel_col_i               => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_pixel_col,
+			left_content_errinj_pixel_row_i               => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_pixel_row,
+			left_content_errinj_pixel_value_i             => s_spacewire_write_registers.left_content_error_injection_control_reg.left_content_errinj_pixel_value,
+			right_content_errinj_open_i                   => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_open,
+			right_content_errinj_close_i                  => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_close,
+			right_content_errinj_clear_i                  => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_clear,
+			right_content_errinj_write_i                  => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_write,
+			right_content_errinj_start_i                  => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_start,
+			right_content_errinj_stop_i                   => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_stop,
+			right_content_errinj_start_frame_i            => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_start_frame,
+			right_content_errinj_stop_frame_i             => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_stop_frame,
+			right_content_errinj_pixel_col_i              => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_pixel_col,
+			right_content_errinj_pixel_row_i              => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_pixel_row,
+			right_content_errinj_pixel_value_i            => s_spacewire_write_registers.right_content_error_injection_control_reg.right_content_errinj_pixel_value,
+			header_errinj_open_i                          => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_open,
+			header_errinj_close_i                         => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_close,
+			header_errinj_clear_i                         => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_clear,
+			header_errinj_write_i                         => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_write,
+			header_errinj_start_i                         => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_start,
+			header_errinj_stop_i                          => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_stop,
+			header_errinj_frame_num_i                     => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_frame_num,
+			header_errinj_sequence_cnt_i                  => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_sequence_cnt,
+			header_errinj_field_id_i                      => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_field_id,
+			header_errinj_value_i                         => s_spacewire_write_registers.header_error_injection_control_reg.header_errinj_value,
+			fee_machine_busy_o                            => s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy,
+			fee_frame_counter_o                           => s_fee_frame_counter,
+			fee_frame_number_o                            => s_fee_frame_number,
+			fee_left_output_buffer_overflowed_o           => s_fee_left_output_buffer_overflowed,
+			fee_right_output_buffer_overflowed_o          => s_fee_right_output_buffer_overflowed,
+			fee_left_window_data_read_o                   => s_L_fee_data_controller_window_data_read,
+			fee_left_window_mask_read_o                   => s_L_fee_data_controller_window_mask_read,
+			fee_right_window_data_read_o                  => s_R_fee_data_controller_window_data_read,
+			fee_right_window_mask_read_o                  => s_R_fee_data_controller_window_mask_read,
+			fee_hk_mem_byte_address_o                     => s_fee_rd_rmap_address,
+			fee_hk_mem_read_o                             => s_fee_rd_rmap_read,
+			fee_spw_tx_write_o                            => s_fee_data_controller_spw_txwrite,
+			fee_spw_tx_flag_o                             => s_fee_data_controller_spw_txflag,
+			fee_spw_tx_data_o                             => s_fee_data_controller_spw_txdata,
+			left_content_errinj_idle_o                    => s_spacewire_read_registers.left_content_error_injection_status_reg.left_content_errinj_idle,
+			left_content_errinj_recording_o               => s_spacewire_read_registers.left_content_error_injection_status_reg.left_content_errinj_recording,
+			left_content_errinj_injecting_o               => s_spacewire_read_registers.left_content_error_injection_status_reg.left_content_errinj_injecting,
+			left_content_errinj_errors_cnt_o              => s_spacewire_read_registers.left_content_error_injection_status_reg.left_content_errinj_errors_cnt,
+			right_content_errinj_idle_o                   => s_spacewire_read_registers.right_content_error_injection_status_reg.right_content_errinj_idle,
+			right_content_errinj_recording_o              => s_spacewire_read_registers.right_content_error_injection_status_reg.right_content_errinj_recording,
+			right_content_errinj_injecting_o              => s_spacewire_read_registers.right_content_error_injection_status_reg.right_content_errinj_injecting,
+			right_content_errinj_errors_cnt_o             => s_spacewire_read_registers.right_content_error_injection_status_reg.right_content_errinj_errors_cnt,
+			header_errinj_idle_o                          => s_spacewire_read_registers.header_error_injection_status_reg.header_errinj_idle,
+			header_errinj_recording_o                     => s_spacewire_read_registers.header_error_injection_status_reg.header_errinj_recording,
+			header_errinj_injecting_o                     => s_spacewire_read_registers.header_error_injection_status_reg.header_errinj_injecting,
+			header_errinj_errors_cnt_o                    => s_spacewire_read_registers.header_error_injection_status_reg.header_errinj_errors_cnt
 		);
 	s_spacewire_read_registers.fee_buffers_status_reg.fee_right_machine_busy <= s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy;
 
@@ -613,6 +629,9 @@ begin
 			conf_target_enable_i       => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_enable,
 			conf_target_logical_addr_i => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_logical_addr,
 			conf_target_key_i          => s_spacewire_write_registers.rmap_codec_config_reg.rmap_target_key,
+			rmap_errinj_en_i           => s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_enable,
+			rmap_errinj_id_i           => s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_err_id,
+			rmap_errinj_val_i          => s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_value,
 			mem_control_o              => s_rmap_mem_control,
 			mem_wr_byte_address_o      => s_rmap_mem_wr_byte_address,
 			mem_rd_byte_address_o      => s_rmap_mem_rd_byte_address,
@@ -743,20 +762,20 @@ begin
 
 	comm_feeb_irq_manager_ent_inst : entity work.comm_feeb_irq_manager_ent
 		port map(
-			clk_i                              => a_avs_clock,
-			rst_i                              => a_reset,
-			irq_manager_stop_i                 => s_machine_stop,
-			irq_manager_start_i                => s_machine_start,
-			global_irq_en_i                    => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
-			irq_watches_i.left_buffer_empty    => s_L_buffer_empty,
-			irq_watches_i.right_buffer_empty   => s_R_buffer_empty,
-			irq_flags_en_i.left_buffer_empty   => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_left_buffer_empty_en,
-			irq_flags_en_i.right_buffer_empty  => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_right_buffer_empty_en,
-			irq_flags_clr_i.left_buffer_empty  => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_left_buffer_0_empty_flag_clear,
-			irq_flags_clr_i.right_buffer_empty => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_right_buffer_0_empty_flag_clear,
-			irq_flags_o.left_buffer_empty      => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_0_empty_flag,
-			irq_flags_o.right_buffer_empty     => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_0_empty_flag,
-			irq_o                              => feeb_interrupt_sender_irq_o
+			clk_i                                            => a_avs_clock,
+			rst_i                                            => a_reset,
+			irq_manager_stop_i                               => s_machine_stop,
+			irq_manager_start_i                              => s_machine_start,
+			global_irq_en_i                                  => s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en,
+			irq_watches_i.left_buffer_controller_finished    => s_avm_left_buffer_controller_finished,
+			irq_watches_i.right_buffer_controller_finished   => s_avm_right_buffer_controller_finished,
+			irq_flags_en_i.left_buffer_controller_finished   => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_left_buffer_controller_finished_en,
+			irq_flags_en_i.right_buffer_controller_finished  => s_spacewire_write_registers.fee_buffers_irq_control_reg.fee_right_buffer_controller_finished_en,
+			irq_flags_clr_i.left_buffer_controller_finished  => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_left_buffer_controller_finished_flag_clear,
+			irq_flags_clr_i.right_buffer_controller_finished => s_spacewire_write_registers.fee_buffers_irq_flags_clear_reg.fee_right_buffer_controller_finished_flag_clear,
+			irq_flags_o.left_buffer_controller_finished      => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_controller_finished_flag,
+			irq_flags_o.right_buffer_controller_finished     => s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_controller_finished_flag,
+			irq_o                                            => feeb_interrupt_sender_irq_o
 		);
 
 	comm_rmap_irq_manager_ent_inst : entity work.comm_rmap_irq_manager_ent

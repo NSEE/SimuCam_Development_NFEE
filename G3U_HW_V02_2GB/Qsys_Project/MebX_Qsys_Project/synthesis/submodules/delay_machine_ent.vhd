@@ -28,7 +28,8 @@ entity delay_machine_ent is
 		fee_line_delay_i      : in  std_logic_vector(31 downto 0);
 		fee_adc_delay_i       : in  std_logic_vector(31 downto 0);
 		current_ccd_row_o     : out std_logic_vector(15 downto 0);
-		current_ccd_column_o  : out std_logic_vector(15 downto 0)
+		current_ccd_column_o  : out std_logic_vector(15 downto 0);
+		current_ccd_pixel_o   : out std_logic_vector(31 downto 0)
 	);
 end entity delay_machine_ent;
 
@@ -65,6 +66,9 @@ architecture RTL of delay_machine_ent is
 	signal s_ccd_row_cnt       : std_logic_vector((fee_ccd_y_size_i'length - 1) downto 0);
 	signal s_ccd_img_row_cnt   : std_logic_vector((fee_data_y_size_i'length - 1) downto 0);
 	signal s_ccd_ovs_row_cnt   : std_logic_vector((fee_overscan_y_size_i'length - 1) downto 0);
+	-- pixels counter
+	signal s_ccd_pixels_cnt    : unsigned(31 downto 0);
+	signal s_ccd_x_size_val    : unsigned(31 downto 0);
 
 begin
 
@@ -77,6 +81,8 @@ begin
 			s_ccd_row_cnt         <= (others => '0');
 			s_ccd_img_row_cnt     <= (others => '0');
 			s_ccd_ovs_row_cnt     <= (others => '0');
+			s_ccd_pixels_cnt      <= (others => '0');
+			s_ccd_x_size_val      <= (others => '0');
 		elsif rising_edge(clk_i) then
 
 			case (s_delay_machine_state) is
@@ -89,6 +95,8 @@ begin
 					s_ccd_row_cnt         <= (others => '0');
 					s_ccd_img_row_cnt     <= (others => '0');
 					s_ccd_ovs_row_cnt     <= (others => '0');
+					s_ccd_pixels_cnt      <= (others => '0');
+					s_ccd_x_size_val      <= (others => '0');
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -102,6 +110,8 @@ begin
 					s_ccd_row_cnt         <= (others => '0');
 					s_ccd_img_row_cnt     <= (others => '0');
 					s_ccd_ovs_row_cnt     <= (others => '0');
+					s_ccd_pixels_cnt      <= (others => '0');
+					s_ccd_x_size_val      <= (others => '0');
 					-- check if the fee requested the start of the delay (sync arrived)
 					if (sync_signal_i = '1') then
 						-- set start delay counter
@@ -115,11 +125,14 @@ begin
 					end if;
 
 				when CCD_START_DLY =>
-					s_delay_machine_state <= CCD_START_DLY;
-					s_ccd_column_cnt      <= (others => '0');
-					s_ccd_row_cnt         <= (others => '0');
-					s_ccd_img_row_cnt     <= (others => '0');
-					s_ccd_ovs_row_cnt     <= (others => '0');
+					s_delay_machine_state          <= CCD_START_DLY;
+					s_ccd_column_cnt               <= (others => '0');
+					s_ccd_row_cnt                  <= (others => '0');
+					s_ccd_img_row_cnt              <= (others => '0');
+					s_ccd_ovs_row_cnt              <= (others => '0');
+					s_ccd_pixels_cnt               <= (others => '0');
+					s_ccd_x_size_val(31 downto 16) <= (others => '0');
+					s_ccd_x_size_val(15 downto 0)  <= unsigned(fee_ccd_x_size_i);
 					-- check if the start delay ended
 					if (s_delay_cnt = c_DELAY_FINISHED) then
 						-- start delay ended
@@ -160,6 +173,8 @@ begin
 						-- line skip delay ended
 						-- set column counter to last pixel
 						s_ccd_column_cnt  <= fee_ccd_x_size_i;
+						-- update the pixel counter
+						s_ccd_pixels_cnt  <= s_ccd_pixels_cnt + s_ccd_x_size_val;
 						-- increment row counter
 						s_ccd_row_cnt     <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
 						s_ccd_img_row_cnt <= std_logic_vector(unsigned(s_ccd_img_row_cnt) + 1);
@@ -176,7 +191,7 @@ begin
 							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_data_y_size_i) - 1)) then
 								-- the line was the last of the img area
 								-- check if the fist overscan line will be skipped
-								if ((unsigned(s_ccd_row_cnt) + 1) > unsigned(fee_ccd_v_end_i)) then
+								if ((unsigned(s_ccd_row_cnt) + 1) < unsigned(fee_ccd_v_start_i) or (unsigned(s_ccd_row_cnt) + 1) > unsigned(fee_ccd_v_end_i)) then
 									-- the fist overscan line will be skipped
 									-- go to ovs skip delay
 									s_delay_machine_state <= OVS_LINE_SKIP_DLY;
@@ -233,8 +248,8 @@ begin
 						-- check if the first pixel is to be skipped
 						if (fee_ccd_h_start_i /= c_CCD_FIRST_PIXEL) then
 							-- first pixel is to be skipped
-							-- set column counter to first pixel to be transmitted
-							s_ccd_column_cnt      <= std_logic_vector(unsigned(fee_ccd_h_start_i) - 1);
+							-- clear column counter
+							s_ccd_column_cnt      <= (others => '0');
 							-- set skip pixel delay counter
 							if (fee_skip_col_delay_i /= c_DELAY_FINISHED) then
 								s_delay_cnt <= std_logic_vector(unsigned(fee_skip_col_delay_i) - 1);
@@ -269,6 +284,8 @@ begin
 						-- skip pixel delay ended
 						-- increment column counter
 						s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
+						-- increment pixel counter
+						s_ccd_pixels_cnt <= s_ccd_pixels_cnt + 1;
 						-- check if the pixel was the last of the line
 						if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
 							-- pixel was the last of the line
@@ -380,6 +397,8 @@ begin
 						-- read pixel delay ended
 						-- increment column counter
 						s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
+						-- increment pixel counter
+						s_ccd_pixels_cnt <= s_ccd_pixels_cnt + 1;
 						-- check if the pixel was the last of the line
 						if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
 							-- pixel was the last of the line
@@ -491,6 +510,8 @@ begin
 						-- line skip delay ended
 						-- set column counter to last pixel
 						s_ccd_column_cnt <= fee_ccd_x_size_i;
+						-- update the pixel counter
+						s_ccd_pixels_cnt <= s_ccd_pixels_cnt + s_ccd_x_size_val;
 						-- check if the line was the last of the ccd
 						if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
 							-- the line was the last of the ccd
@@ -540,8 +561,8 @@ begin
 						-- check if the first pixel is to be skipped
 						if (fee_ccd_h_start_i /= c_CCD_FIRST_PIXEL) then
 							-- first pixel is to be skipped
-							-- set column counter to first pixel to be transmitted
-							s_ccd_column_cnt      <= std_logic_vector(unsigned(fee_ccd_h_start_i) - 1);
+							-- clear column counter
+							s_ccd_column_cnt      <= (others => '0');
 							-- set skip pixel delay counter
 							if (fee_skip_col_delay_i /= c_DELAY_FINISHED) then
 								s_delay_cnt <= std_logic_vector(unsigned(fee_skip_col_delay_i) - 1);
@@ -577,6 +598,8 @@ begin
 						-- skip pixel delay ended
 						-- increment column counter
 						s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
+						-- increment pixel counter
+						s_ccd_pixels_cnt <= s_ccd_pixels_cnt + 1;
 						-- check if the pixel was the last of the line
 						if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
 							-- pixel was the last of the line
@@ -657,6 +680,8 @@ begin
 						-- read pixel delay ended
 						-- increment column counter
 						s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
+						-- increment pixel counter
+						s_ccd_pixels_cnt <= s_ccd_pixels_cnt + 1;
 						-- check if the pixel was the last of the line
 						if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
 							-- pixel was the last of the line
@@ -755,5 +780,6 @@ begin
 	-- Outputs Generation --
 	current_ccd_row_o    <= s_ccd_row_cnt;
 	current_ccd_column_o <= s_ccd_column_cnt;
+	current_ccd_pixel_o  <= std_logic_vector(s_ccd_pixels_cnt);
 
 end architecture RTL;

@@ -346,6 +346,37 @@ package rmap_target_pkg is
 		read  : t_rmap_target_mem_rd_flag;
 	end record t_rmap_target_mem_flag;
 
+	-- rmap error injection
+
+	type t_rmap_errinj_control is record
+		rmap_error_en  : std_logic;
+		rmap_error_id  : std_logic_vector(3 downto 0);
+		rmap_error_val : std_logic_vector(31 downto 0);
+	end record t_rmap_errinj_control;
+
+	constant c_RMAP_ERRINJ_CONTROL_RST : t_rmap_errinj_control := (
+		rmap_error_en  => '0',
+		rmap_error_id  => (others => '0'),
+		rmap_error_val => (others => '0')
+	);
+
+	constant c_RMAP_ERRINJ_ERR_ID_INIT_LOG_ADDR      : std_logic_vector(3 downto 0) := x"0";
+	constant c_RMAP_ERRINJ_ERR_ID_INSTRUCTIONS       : std_logic_vector(3 downto 0) := x"1";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_PKT_TYPE       : std_logic_vector(3 downto 0) := x"2";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_WRITE_READ : std_logic_vector(3 downto 0) := x"3";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_VERIF_DATA : std_logic_vector(3 downto 0) := x"4";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_REPLY      : std_logic_vector(3 downto 0) := x"5";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_INC_ADDR   : std_logic_vector(3 downto 0) := x"6";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_REPLY_ADDR_LEN : std_logic_vector(3 downto 0) := x"7";
+	constant c_RMAP_ERRINJ_ERR_ID_STATUS             : std_logic_vector(3 downto 0) := x"8";
+	constant c_RMAP_ERRINJ_ERR_ID_TARG_LOG_ADDR      : std_logic_vector(3 downto 0) := x"9";
+	constant c_RMAP_ERRINJ_ERR_ID_TRANSACTION_ID     : std_logic_vector(3 downto 0) := x"A";
+	constant c_RMAP_ERRINJ_ERR_ID_DATA_LENGTH        : std_logic_vector(3 downto 0) := x"B";
+	constant c_RMAP_ERRINJ_ERR_ID_HEADER_CRC         : std_logic_vector(3 downto 0) := x"C";
+	constant c_RMAP_ERRINJ_ERR_ID_HEADER_EEP         : std_logic_vector(3 downto 0) := x"D";
+	constant c_RMAP_ERRINJ_ERR_ID_DATA_CRC           : std_logic_vector(3 downto 0) := x"E";
+	constant c_RMAP_ERRINJ_ERR_ID_DATA_EEP           : std_logic_vector(3 downto 0) := x"F";
+
 end package rmap_target_pkg;
 
 --============================================================================

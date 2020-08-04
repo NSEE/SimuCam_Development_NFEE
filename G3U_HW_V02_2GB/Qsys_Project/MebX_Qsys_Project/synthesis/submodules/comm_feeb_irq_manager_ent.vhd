@@ -50,29 +50,29 @@ begin
 				s_irq_flags <= c_COMM_FEEB_IRQ_MANAGER_FLAGS_RST;
 			else
 				-- clear flags --
-				-- check if a left buffer empty flag clear command was received
-				if (irq_flags_clr_i.left_buffer_empty = '1') then
-					s_irq_flags.left_buffer_empty <= '0';
+				-- check if a left buffer controller finished flag clear command was received
+				if (irq_flags_clr_i.left_buffer_controller_finished = '1') then
+					s_irq_flags.left_buffer_controller_finished <= '0';
 				end if;
-				-- check if a right buffer empty flag clear command was received
-				if (irq_flags_clr_i.right_buffer_empty = '1') then
-					s_irq_flags.right_buffer_empty <= '0';
+				-- check if a right buffer controller finished flag clear command was received
+				if (irq_flags_clr_i.right_buffer_controller_finished = '1') then
+					s_irq_flags.right_buffer_controller_finished <= '0';
 				end if;
 				-- set flags --
 				-- check if the global interrupt is enabled
 				if (global_irq_en_i = '1') then
-					-- check if the left buffer empty interrupt is activated
-					if (irq_flags_en_i.left_buffer_empty = '1') then
-						-- detect a rising edge in left buffer empty signal
-						if ((s_irq_watches_delayed.left_buffer_empty = '0') and (irq_watches_i.left_buffer_empty = '1')) then
-							s_irq_flags.left_buffer_empty <= '1';
+					-- check if the left buffer controller finished interrupt is activated
+					if (irq_flags_en_i.left_buffer_controller_finished = '1') then
+						-- detect a rising edge in left buffer controller finished signal
+						if ((s_irq_watches_delayed.left_buffer_controller_finished = '0') and (irq_watches_i.left_buffer_controller_finished = '1')) then
+							s_irq_flags.left_buffer_controller_finished <= '1';
 						end if;
 					end if;
-					-- check if the right buffer empty interrupt is activated
-					if (irq_flags_en_i.right_buffer_empty = '1') then
-						-- detect a rising edge in right buffer empty signal
-						if ((s_irq_watches_delayed.right_buffer_empty = '0') and (irq_watches_i.right_buffer_empty = '1')) then
-							s_irq_flags.right_buffer_empty <= '1';
+					-- check if the right buffer controller finished interrupt is activated
+					if (irq_flags_en_i.right_buffer_controller_finished = '1') then
+						-- detect a rising edge in right buffer controller finished signal
+						if ((s_irq_watches_delayed.right_buffer_controller_finished = '0') and (irq_watches_i.right_buffer_controller_finished = '1')) then
+							s_irq_flags.right_buffer_controller_finished <= '1';
 						end if;
 					end if;
 				end if;
@@ -87,7 +87,7 @@ begin
 	-- irq assignment and outputs generation
 	irq_flags_o <= s_irq_flags;
 	irq_o       <= ('0') when (rst_i = '1')
-	               else ('1') when ((s_irq_flags.left_buffer_empty = '1') or (s_irq_flags.right_buffer_empty = '1'))
+	               else ('1') when ((s_irq_flags.left_buffer_controller_finished = '1') or (s_irq_flags.right_buffer_controller_finished = '1'))
 	               else ('0');
 
 end architecture RTL;

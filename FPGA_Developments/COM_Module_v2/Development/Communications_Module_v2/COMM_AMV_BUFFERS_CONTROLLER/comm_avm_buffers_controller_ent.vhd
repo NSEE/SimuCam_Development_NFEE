@@ -19,6 +19,7 @@ entity comm_avm_buffers_controller_ent is
 		avm_master_rd_status_i       : in  t_comm_avm_buffers_master_rd_status;
 		window_buffer_control_i      : in  t_windowing_buffer_control;
 		controller_rd_busy_o         : out std_logic;
+		controller_rd_finished_o     : out std_logic;
 		avm_master_rd_control_o      : out t_comm_avm_buffers_master_rd_control;
 		window_buffer_o              : out t_windowing_buffer
 	);
@@ -57,6 +58,7 @@ begin
 			s_rd_data_cnt                       <= to_unsigned(0, s_rd_data_cnt'length);
 			-- outputs reset
 			controller_rd_busy_o                <= '0';
+			controller_rd_finished_o            <= '0';
 			avm_master_rd_control_o             <= c_COMM_AVM_BUFFERS_MASTER_RD_CONTROL_RST;
 			window_buffer_o.wrdata              <= (others => '0');
 			window_buffer_o.wrreq               <= '0';
@@ -226,11 +228,12 @@ begin
 
 			-- Output Generation --
 			-- Default output generation
-			controller_rd_busy_o    <= '0';
-			avm_master_rd_control_o <= c_COMM_AVM_BUFFERS_MASTER_RD_CONTROL_RST;
-			window_buffer_o.wrdata  <= (others => '0');
-			window_buffer_o.wrreq   <= '0';
-			window_buffer_o.sclr    <= '0';
+			controller_rd_busy_o     <= '0';
+			controller_rd_finished_o <= '0';
+			avm_master_rd_control_o  <= c_COMM_AVM_BUFFERS_MASTER_RD_CONTROL_RST;
+			window_buffer_o.wrdata   <= (others => '0');
+			window_buffer_o.wrreq    <= '0';
+			window_buffer_o.sclr     <= '0';
 			-- Output generation FSM
 			case (v_comm_avm_buffers_controller_state) is
 
@@ -289,7 +292,8 @@ begin
 				when FINISHED =>
 					-- avm buffers controller is finished
 					-- default output signals
-					controller_rd_busy_o <= '1';
+					controller_rd_busy_o     <= '1';
+					controller_rd_finished_o <= '1';
 					-- conditional output signals
 
 			end case;

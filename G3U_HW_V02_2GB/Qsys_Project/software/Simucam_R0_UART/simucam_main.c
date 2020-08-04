@@ -591,7 +591,8 @@ int main(void)
 	xDefaults.ulSkipDelay       = 110000; /* ns */
 	xDefaults.ulLineDelay       = 90000; /* ns */
 	xDefaults.ulADCPixelDelay   = 333; /* ns */
-	xDefaults.bBufferOverflowEn = FALSE;
+	xDefaults.bBufferOverflowEn = TRUE;
+//	xDefaults.bBufferOverflowEn = FALSE;
 	xDefaults.ucRmapKey         = 209; /* 0xD1 */
 	xDefaults.ucLogicalAddr     = 81; /* 0x51 */
 	xDefaults.bSpwLinkStart     = FALSE;
@@ -607,8 +608,6 @@ int main(void)
 	xDefaults.ucReadOutOrder[3] = 3;
 	xDefaults.usiSpwPLength     = 32140; /* 32k LESIA */
 	xDefaults.usiPreBtSync      = 200; /* ms */
-
-	xDefaults.bBufferOverflowEn = FALSE;
 
 	#if DEBUG_ON
 //	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {

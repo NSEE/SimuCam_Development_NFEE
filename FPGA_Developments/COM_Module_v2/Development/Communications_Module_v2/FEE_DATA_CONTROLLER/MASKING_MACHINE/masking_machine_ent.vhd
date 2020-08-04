@@ -53,6 +53,8 @@ entity masking_machine_ent is
 		send_double_buffer_wrable_i   : in  std_logic;
 		masking_machine_finished_o    : out std_logic;
 		masking_buffer_overflowed_o   : out std_logic;
+		imgdata_img_valid_o           : out std_logic;
+		imgdata_ovs_valid_o           : out std_logic;
 		content_errinj_done_o         : out std_logic;
 		window_data_read_o            : out std_logic;
 		window_mask_read_o            : out std_logic;
@@ -244,6 +246,8 @@ begin
 			window_mask_read_o             <= '0';
 			masking_machine_finished_o     <= '0';
 			masking_buffer_overflowed_o    <= '0';
+			imgdata_img_valid_o            <= '0';
+			imgdata_ovs_valid_o            <= '0';
 			content_errinj_done_o          <= '0';
 			s_masking_fifo.data_imgbyte    <= (others => '0');
 			s_masking_fifo.data_imgchange  <= '0';
@@ -275,6 +279,8 @@ begin
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
 					masking_buffer_overflowed_o    <= '0';
+					imgdata_img_valid_o            <= '0';
+					imgdata_ovs_valid_o            <= '0';
 					content_errinj_done_o          <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
@@ -307,6 +313,8 @@ begin
 					window_mask_read_o             <= '0';
 					masking_machine_finished_o     <= '0';
 					masking_buffer_overflowed_o    <= '0';
+					imgdata_img_valid_o            <= '0';
+					imgdata_ovs_valid_o            <= '0';
 					content_errinj_done_o          <= '0';
 					s_masking_fifo.data_imgbyte    <= (others => '0');
 					s_masking_fifo.data_imgchange  <= '0';
@@ -429,6 +437,12 @@ begin
 									if (s_masking_fifo_wrable = '1') then
 										-- the masking fifo is writeable
 										s_masking_fifo.wrreq <= '1';
+										-- check if the pixel is img or ovs
+										if (s_image_area = '1') then
+											imgdata_img_valid_o <= '1';
+										else
+											imgdata_ovs_valid_o <= '1';
+										end if;
 										-- check if the content error injection is enabled and should be applied to the current pixel 
 										if ((content_errinj_en_i = '1') and (s_ccd_row_cnt = content_errinj_px_row_i) and (s_ccd_column_cnt = content_errinj_px_col_i)) then
 											-- the content error injection is enabled and should be applied to the current pixel
@@ -508,6 +522,34 @@ begin
 										else
 											-- pattern disabled, use window data
 											s_masking_fifo.data_imgbyte <= a_pixel_lsb;
+										end if;
+									end if;
+									-- TODO: review logic!!
+									-- check if a full line was processed
+									if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
+										-- full line processed
+										if (s_ccd_row_cnt /= std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+											-- ccd not ended
+											-- check if the last line to be transmitted was reached
+											if ((s_ccd_row_cnt = fee_ccd_v_end_i) or ((s_ccd_img_row_cnt = fee_ccd_img_v_end_i) and (s_image_area = '1')) or ((s_ccd_ovs_row_cnt = fee_ccd_ovs_v_end_i) and (s_image_area = '0'))) then
+												-- last line to be transmitted was reached
+												-- write img end flag
+												s_masking_fifo.data_imgend <= '1';
+											end if;
+										end if;
+									end if;
+									-- check if the processed pixel is the last pixel of a line
+									if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
+										-- full line processed
+										-- check if it was the last ccd data line or the last ccd line
+										if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_data_y_size_i) - 1)) then
+											-- the processed line was the last ccd data line
+											-- write img end flag
+											s_masking_fifo.data_imgend <= '1';
+										elsif (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+											-- the processed line was the last ccd line
+											-- write img end flag
+											s_masking_fifo.data_imgend <= '1';
 										end if;
 									end if;
 								end if;

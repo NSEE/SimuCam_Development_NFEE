@@ -6,48 +6,50 @@ use work.fee_data_controller_pkg.all;
 
 entity fee_imgdata_manager_ent is
 	port(
-		clk_i                         : in  std_logic;
-		rst_i                         : in  std_logic;
+		clk_i                          : in  std_logic;
+		rst_i                          : in  std_logic;
 		-- image data manager inputs --
 		-- general inputs
-		fee_clear_signal_i            : in  std_logic;
-		fee_stop_signal_i             : in  std_logic;
-		fee_start_signal_i            : in  std_logic;
-		current_frame_number_i        : in  std_logic_vector(1 downto 0);
-		current_frame_counter_i       : in  std_logic_vector(15 downto 0);
+		fee_clear_signal_i             : in  std_logic;
+		fee_stop_signal_i              : in  std_logic;
+		fee_start_signal_i             : in  std_logic;
+		current_frame_number_i         : in  std_logic_vector(1 downto 0);
+		current_frame_counter_i        : in  std_logic_vector(15 downto 0);
 		-- image data manager parameters
-		fee_logical_addr_i            : in  std_logic_vector(7 downto 0);
-		fee_protocol_id_i             : in  std_logic_vector(7 downto 0);
-		fee_packet_length_i           : in  std_logic_vector(15 downto 0);
-		fee_fee_mode_i                : in  std_logic_vector(3 downto 0);
-		fee_ccd_number_i              : in  std_logic_vector(1 downto 0);
-		fee_ccd_side_i                : in  std_logic;
+		fee_logical_addr_i             : in  std_logic_vector(7 downto 0);
+		fee_protocol_id_i              : in  std_logic_vector(7 downto 0);
+		fee_packet_length_i            : in  std_logic_vector(15 downto 0);
+		fee_fee_mode_i                 : in  std_logic_vector(3 downto 0);
+		fee_ccd_number_i               : in  std_logic_vector(1 downto 0);
+		fee_ccd_side_i                 : in  std_logic;
 		-- image data manager control
-		imgdata_manager_start_i       : in  std_logic;
-		imgdata_manager_reset_i       : in  std_logic;
+		imgdata_manager_start_i        : in  std_logic;
+		imgdata_manager_reset_i        : in  std_logic;
 		-- masking machine status
 		-- header generator status
-		header_gen_i                  : in  t_fee_dpkt_general_status;
+		header_gen_i                   : in  t_fee_dpkt_general_status;
 		-- data writer status
-		data_wr_finished_i            : in  std_logic;
-		data_wr_data_changed_i        : in  std_logic;
-		data_wr_data_flushed_i        : in  std_logic;
+		data_wr_finished_i             : in  std_logic;
+		data_wr_data_changed_i         : in  std_logic;
+		data_wr_data_flushed_i         : in  std_logic;
 		-- image data manager outputs --
 		-- general outputs
 		-- masking machine control
-		masking_machine_hold_o        : out std_logic;
+		masking_machine_hold_o         : out std_logic;
 		-- image data manager status			
-		imgdata_manager_finished_o    : out std_logic;
+		imgdata_manager_finished_o     : out std_logic;
+		imgdata_manager_img_finished_o : out std_logic;
+		imgdata_manager_ovs_finished_o : out std_logic;
 		-- header data
-		headerdata_o                  : out t_fee_dpkt_headerdata;
+		headerdata_o                   : out t_fee_dpkt_headerdata;
 		-- header generator control		
-		header_gen_o                  : out t_fee_dpkt_general_control;
+		header_gen_o                   : out t_fee_dpkt_general_control;
 		-- data writer control
-		data_wr_start_o               : out std_logic;
-		data_wr_reset_o               : out std_logic;
-		data_wr_length_o              : out std_logic_vector(15 downto 0);
+		data_wr_start_o                : out std_logic;
+		data_wr_reset_o                : out std_logic;
+		data_wr_length_o               : out std_logic_vector(15 downto 0);
 		-- send buffer control
-		send_buffer_fee_data_loaded_o : out std_logic
+		send_buffer_fee_data_loaded_o  : out std_logic
 		-- data transmitter control
 	);
 end entity fee_imgdata_manager_ent;
@@ -101,6 +103,8 @@ begin
 			s_fee_data_manager_state             <= STOPPED;
 			-- outputs
 			imgdata_manager_finished_o           <= '0';
+			imgdata_manager_img_finished_o       <= '0';
+			imgdata_manager_ovs_finished_o       <= '0';
 			masking_machine_hold_o               <= '1';
 			headerdata_o.logical_address         <= (others => '0');
 			headerdata_o.protocol_id             <= (others => '0');
@@ -124,6 +128,8 @@ begin
 
 			-- standart signal/outputs values
 			imgdata_manager_finished_o           <= '0';
+			imgdata_manager_img_finished_o       <= '0';
+			imgdata_manager_ovs_finished_o       <= '0';
 			masking_machine_hold_o               <= '0';
 			headerdata_o.logical_address         <= (others => '0');
 			headerdata_o.protocol_id             <= (others => '0');
@@ -243,8 +249,9 @@ begin
 						-- check if a change command was received
 						if (data_wr_data_changed_i = '1') then
 							-- change command received
+							imgdata_manager_img_finished_o <= '1';
 							-- go to over header start
-							s_fee_data_manager_state <= OVER_HEADER_START;
+							s_fee_data_manager_state       <= OVER_HEADER_START;
 						else
 							-- change command not received
 							-- go to img header start
@@ -261,6 +268,7 @@ begin
 				when OVER_HEADER_START =>
 					-- start the over header generation
 					s_fee_data_manager_state             <= WAITING_OVER_HEADER_FINISH;
+					imgdata_manager_img_finished_o       <= '1';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the over header data
@@ -283,6 +291,7 @@ begin
 				when WAITING_OVER_HEADER_FINISH =>
 					-- wait for the over header generation to finish
 					s_fee_data_manager_state             <= WAITING_OVER_HEADER_FINISH;
+					imgdata_manager_img_finished_o       <= '1';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the over header data
@@ -310,19 +319,21 @@ begin
 
 				when OVER_DATA_START =>
 					-- start the data writer
-					s_fee_data_manager_state <= WAITING_OVER_DATA_FINISH;
+					s_fee_data_manager_state       <= WAITING_OVER_DATA_FINISH;
+					imgdata_manager_img_finished_o <= '1';
 					-- keep the masking machine released
-					masking_machine_hold_o   <= '0';
+					masking_machine_hold_o         <= '0';
 					-- set the data writer length
-					data_wr_length_o         <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_NFEE_DATA_PKT_HEADER_SIZE);
+					data_wr_length_o               <= std_logic_vector(unsigned(fee_packet_length_i) - c_COMM_NFEE_DATA_PKT_HEADER_SIZE);
 					-- start the data writer
-					data_wr_start_o          <= '1';
+					data_wr_start_o                <= '1';
 
 				when WAITING_OVER_DATA_FINISH =>
 					-- wait for the data writer to finish
-					s_fee_data_manager_state <= WAITING_OVER_DATA_FINISH;
+					s_fee_data_manager_state       <= WAITING_OVER_DATA_FINISH;
+					imgdata_manager_img_finished_o <= '1';
 					-- keep the masking machine released
-					masking_machine_hold_o   <= '0';
+					masking_machine_hold_o         <= '0';
 					-- check if the data writer is finished
 					if (data_wr_finished_i = '1') then
 						-- data writer finished
@@ -334,7 +345,8 @@ begin
 						if (data_wr_data_changed_i = '1') then
 							-- change command received
 							-- go to over header start
-							s_fee_data_manager_state <= FINISH_IMGDATA_OPERATION;
+							s_fee_data_manager_state       <= FINISH_IMGDATA_OPERATION;
+							imgdata_manager_ovs_finished_o <= '1';
 						else
 							-- change command not received
 							-- go to img header start
@@ -350,10 +362,12 @@ begin
 
 				when FINISH_IMGDATA_OPERATION =>
 					-- finish the image data operation
-					s_fee_data_manager_state   <= FINISH_IMGDATA_OPERATION;
-					imgdata_manager_finished_o <= '1';
+					s_fee_data_manager_state       <= FINISH_IMGDATA_OPERATION;
+					imgdata_manager_finished_o     <= '1';
+					imgdata_manager_img_finished_o <= '1';
+					imgdata_manager_ovs_finished_o <= '1';
 					-- hold the masking machine
-					masking_machine_hold_o     <= '1';
+					masking_machine_hold_o         <= '1';
 					-- check if a image data manager reset was requested
 					if (imgdata_manager_reset_i = '1') then
 						-- reset commanded, go back to idle

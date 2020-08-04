@@ -75,41 +75,12 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xCopyRmap.bCopyDigitaliseEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
 				pxNFee->xCopyRmap.bCopyReadoutEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
 
-				/* Clear all FEE Machine Statistics */
+				/* Clear all FEE Machine Statistics - [rfranca] */
 				bFeebClearMachineStatistics(&pxNFee->xChannel.xFeeBuffer);
 
-
-/* DEBUGSON */
-
-//				alt_u32 *puliMemAddr = (alt_u32 *)culiDpktLeftCbufAddr[pxNFee->ucId];
-//				alt_u32 uliMemCnt = 0;
-
-//				bDdr2SwitchMemory(eDdr2Memory1);
-//
-//				fprintf(fp, "FEE %u Left Cbuf Base Addr: 0x%08lX\n", pxNFee->ucId, (alt_u32)(puliMemAddr));
-//				for (uliMemCnt = 0; uliMemCnt < (256 / 4); uliMemCnt++) {
-//					fprintf(fp, "  Addr: 0x%08lX, Data = 0x%08lX\n", (alt_u32)(puliMemAddr + uliMemCnt), *(puliMemAddr + uliMemCnt));
-//					*(puliMemAddr + uliMemCnt) = 0;
-//				}
-//
-//				puliMemAddr = (alt_u32 *)culiDpktRightCbufAddr[pxNFee->ucId];
-//				fprintf(fp, "FEE %u Right Cbuf Base Addr: 0x%08lX\n", pxNFee->ucId, (alt_u32)(puliMemAddr));
-//				for (uliMemCnt = 0; uliMemCnt < (256 / 4); uliMemCnt++) {
-//					fprintf(fp, "  Addr: 0x%08lX, Data = 0x%08lX\n", (alt_u32)(puliMemAddr + uliMemCnt), *(puliMemAddr + uliMemCnt));
-//					*(puliMemAddr + uliMemCnt) = 0;
-//				}
-
-//				bDpktGetPxCBufferControl(&pxNFee->xChannel.xDataPacket);
-//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrHighDword = 0;
-////				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrLowDword = 0xFF000000 - (2 * pxNFee->ucId * 0x01000000);
-//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrLowDword = culiDpktLeftCbufAddr[pxNFee->ucId];
-//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufSizeBytes = 256;
-//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrHighDword = 0;
-////				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrLowDword = 0xFF000000 - (((2 * pxNFee->ucId) + 1) * 0x01000000);
-//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrLowDword = culiDpktRightCbufAddr[pxNFee->ucId];
-//				pxNFee->xChannel.xDataPacket.xDpktPxCBufferControl.uliRightPxCBufSizeBytes = 256;
-//				bDpktSetPxCBufferControl(&pxNFee->xChannel.xDataPacket);
-
+				/* Set the Pixel Storage Size - [rfranca] */
+				bFeebSetPxStorageSize(&pxNFee->xChannel.xFeeBuffer, eCommLeftBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiSpwPLength);
+				bFeebSetPxStorageSize(&pxNFee->xChannel.xFeeBuffer, eCommRightBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiSpwPLength);
 
 				pxNFee->xControl.eState = sConfig_Enter;
 				break;
@@ -1025,7 +996,6 @@ void vFeeTaskV3(void *task_data) {
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
 						if (  xTrans.ucMemory == 0  ) {
-							bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks, ucSideFromMSG, pxNFee->ucSPWId);
 
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
@@ -1036,7 +1006,6 @@ void vFeeTaskV3(void *task_data) {
 								#endif
 							}
 						} else {
-							bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bSdmaCommDmaTransfer(eDdr2Memory2, (alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u32)xTrans.ulTotalBlocks*2, ucSideFromMSG, pxNFee->ucSPWId);
 
 							if ( xTrans.bDmaReturn[ ucSideFromMSG ] == FALSE ) {
@@ -3138,7 +3107,6 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}
 
 	if (  ucMem == 0  ) {
-		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
@@ -3146,7 +3114,6 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		} else
 			return bDmaReturn;
 	} else {
-		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory2, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
@@ -3163,7 +3130,6 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}
 
 	if (  ucMem == 0  ) {
-		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
@@ -3171,7 +3137,6 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		} else
 			return bDmaReturn;
 	} else {
-		bDpktConfigPxCBuffer(pxNFee->ucId, eDdr2Memory2); /* DEBUGSON */
 		bDmaReturn = bSdmaCommDmaTransfer(eDdr2Memory2, (alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks*2, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += FEEB_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks; //todo: substituir FEEB_PIXEL_BLOCK_SIZE_BYTES por algo mais flexivel
@@ -3359,8 +3324,8 @@ bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh ) {
 
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
-	pxFeebCh->xFeebIrqControl.bLeftBufferEmptyEn = TRUE;
-	pxFeebCh->xFeebIrqControl.bRightBufferEmptyEn = TRUE;
+	pxFeebCh->xFeebIrqControl.bLeftBuffCtrlFinishedEn = TRUE;
+	pxFeebCh->xFeebIrqControl.bRightBuffCtrlFinishedEn = TRUE;
 	bFeebSetIrqControl(pxFeebCh);
 
 	/*todo: No treatment for now  */
@@ -3372,8 +3337,8 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 
 	/*Disable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
-	pxFeebCh->xFeebIrqControl.bLeftBufferEmptyEn = FALSE;
-	pxFeebCh->xFeebIrqControl.bRightBufferEmptyEn = FALSE;
+	pxFeebCh->xFeebIrqControl.bLeftBuffCtrlFinishedEn = FALSE;
+	pxFeebCh->xFeebIrqControl.bRightBuffCtrlFinishedEn = FALSE;
 	bFeebSetIrqControl(pxFeebCh);
 
 	/* Stop the module Double Buffer */
@@ -3413,6 +3378,10 @@ inline void vApplyRmap( TNFee *pxNFeeP ) {
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xCopyRmap.usiCopyPacketLength;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+			/* Set the Pixel Storage Size - [rfranca] */
+			bFeebSetPxStorageSize(&pxNFeeP->xChannel.xFeeBuffer, eCommLeftBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, pxNFeeP->xCopyRmap.usiCopyPacketLength);
+			bFeebSetPxStorageSize(&pxNFeeP->xChannel.xFeeBuffer, eCommRightBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, pxNFeeP->xCopyRmap.usiCopyPacketLength);
 
 		}
 

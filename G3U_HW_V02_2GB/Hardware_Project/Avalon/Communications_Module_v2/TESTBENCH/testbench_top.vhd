@@ -203,18 +203,6 @@ begin
 			avm_right_buffer_waitrequest_i      => '0',
 			avm_right_buffer_address_o          => open,
 			avm_right_buffer_read_o             => open,
-			avm_left_cbuffer_readdata_i         => s_avm_left_cbuffer_readdata,
-			avm_left_cbuffer_waitrequest_i      => s_avm_left_cbuffer_waitrequest,
-			avm_left_cbuffer_address_o          => s_avm_left_cbuffer_address,
-			avm_left_cbuffer_write_o            => s_avm_left_cbuffer_write,
-			avm_left_cbuffer_writedata_o        => s_avm_left_cbuffer_writedata,
-			avm_left_cbuffer_read_o             => s_avm_left_cbuffer_read,
-			avm_right_cbuffer_readdata_i        => s_avm_right_cbuffer_readdata,
-			avm_right_cbuffer_waitrequest_i     => s_avm_right_cbuffer_waitrequest,
-			avm_right_cbuffer_address_o         => s_avm_right_cbuffer_address,
-			avm_right_cbuffer_write_o           => s_avm_right_cbuffer_write,
-			avm_right_cbuffer_writedata_o       => s_avm_right_cbuffer_writedata,
-			avm_right_cbuffer_read_o            => s_avm_right_cbuffer_read,
 			feeb_interrupt_sender_irq_o         => s_irq_buffers,
 			rmap_interrupt_sender_irq_o         => s_irq_rmap,
 			spw_link_status_started_i           => s_spw_link_status_started,
@@ -345,7 +333,7 @@ begin
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
-				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 45000)) then
 					--				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
 					s_sync         <= '0';
 					v_sync_high    := '0';

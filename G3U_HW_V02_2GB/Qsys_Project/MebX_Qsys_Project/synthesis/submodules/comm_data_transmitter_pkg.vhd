@@ -27,6 +27,10 @@ package comm_data_transmitter_pkg is
 	-- data transmitter control record
 	type t_comm_data_trans_control is record
 		start_transmission    : std_logic;
+		leftimg_finished      : std_logic;
+		leftimg_valid         : std_logic;
+		rightimg_finished     : std_logic;
+		rightimg_valid        : std_logic;
 		reset_transmitter     : std_logic;
 		sequence_cnt_init_val : std_logic_vector(15 downto 0);
 	end record t_comm_data_trans_control;
@@ -40,6 +44,10 @@ package comm_data_transmitter_pkg is
 	-- data transmitter control reset constant
 	constant c_COMM_DATA_TRANS_CONTROL_RST : t_comm_data_trans_control := (
 		start_transmission    => '0',
+		leftimg_finished      => '0',
+		leftimg_valid         => '0',
+		rightimg_finished     => '0',
+		rightimg_valid        => '0',
 		reset_transmitter     => '0',
 		sequence_cnt_init_val => (others => '0')
 	);

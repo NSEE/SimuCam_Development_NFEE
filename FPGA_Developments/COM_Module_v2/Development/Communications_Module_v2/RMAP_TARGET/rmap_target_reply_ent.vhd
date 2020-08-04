@@ -64,6 +64,7 @@ entity rmap_target_reply_ent is
 		--
 		control_i     : in  t_rmap_target_reply_control;
 		headerdata_i  : in  t_rmap_target_reply_headerdata;
+		errinj_i      : in  t_rmap_errinj_control;
 		spw_flag_i    : in  t_rmap_target_spw_tx_flag;
 		-- global output signals
 		flags_o       : out t_rmap_target_reply_flags;
@@ -106,6 +107,8 @@ architecture rtl of rmap_target_reply_ent is
 
 	signal s_reply_address_flag : std_logic;
 
+	signal s_registered_rmap_errinj : t_rmap_errinj_control;
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
@@ -129,21 +132,34 @@ begin
 	-- r/w: s_rmap_target_reply_state
 	p_rmap_target_reply_FSM_state : process(clk_i, rst_i)
 		variable v_rmap_target_reply_state : t_rmap_target_reply_state := IDLE; -- current state
+		variable v_output_headerdata       : t_rmap_target_reply_headerdata;
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_rmap_target_reply_state      <= IDLE;
-			v_rmap_target_reply_state      := IDLE;
-			s_rmap_target_reply_next_state <= IDLE;
-			s_byte_counter                 <= 0;
+			s_rmap_target_reply_state                                         <= IDLE;
+			v_rmap_target_reply_state                                         := IDLE;
+			s_rmap_target_reply_next_state                                    <= IDLE;
+			s_byte_counter                                                    <= 0;
+			s_registered_rmap_errinj                                          <= c_RMAP_ERRINJ_CONTROL_RST;
+			v_output_headerdata.target_logical_address                        := x"00";
+			v_output_headerdata.instructions.packet_type                      := "00";
+			v_output_headerdata.instructions.command.write_read               := '0';
+			v_output_headerdata.instructions.command.verify_data_before_write := '0';
+			v_output_headerdata.instructions.command.reply                    := '0';
+			v_output_headerdata.instructions.command.increment_address        := '0';
+			v_output_headerdata.instructions.reply_address_length             := "00";
+			v_output_headerdata.status                                        := x"00";
+			v_output_headerdata.initiator_logical_address                     := x"00";
+			v_output_headerdata.transaction_identifier                        := (others => x"00");
+			v_output_headerdata.data_length                                   := (others => x"00");
 			-- Outputs Generation
-			flags_o.reply_busy             <= '0';
-			flags_o.reply_finished         <= '0';
-			spw_control_o.data             <= x"00";
-			spw_control_o.flag             <= '0';
-			spw_control_o.write            <= '0';
-			s_reply_header_crc             <= x"00";
-			s_reply_address_flag           <= '0';
+			flags_o.reply_busy                                                <= '0';
+			flags_o.reply_finished                                            <= '0';
+			spw_control_o.data                                                <= x"00";
+			spw_control_o.flag                                                <= '0';
+			spw_control_o.write                                               <= '0';
+			s_reply_header_crc                                                <= x"00";
+			s_reply_address_flag                                              <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_reply_state) is
@@ -158,9 +174,92 @@ begin
 					-- default internal signal values
 					s_byte_counter                 <= 0;
 					-- conditional state transition and internal signal values
+					-- check if the rmap error injection was enabled
+					if (errinj_i.rmap_error_en = '1') then
+						-- the rmap error injection was enabled
+						-- check if the error can be activated in a reply and register the error
+						case (errinj_i.rmap_error_id) is
+							when (c_RMAP_ERRINJ_ERR_ID_INIT_LOG_ADDR) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_INSTRUCTIONS) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_INS_PKT_TYPE) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_WRITE_READ) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_VERIF_DATA) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_REPLY) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_INC_ADDR) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_INS_REPLY_ADDR_LEN) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_STATUS) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_TARG_LOG_ADDR) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_TRANSACTION_ID) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_DATA_LENGTH) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_HEADER_CRC) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when (c_RMAP_ERRINJ_ERR_ID_HEADER_EEP) =>
+								s_registered_rmap_errinj <= errinj_i;
+							when others =>
+								s_registered_rmap_errinj <= c_RMAP_ERRINJ_CONTROL_RST;
+						end case;
+					end if;
 					-- check if user application is ready to send a reply
 					if (control_i.send_reply = '1') then
 						-- user ready to send a reply
+						-- register the output headerdata
+						v_output_headerdata       := headerdata_i;
+						-- check there is a registered error enabled
+						if (s_registered_rmap_errinj.rmap_error_en = '1') then
+							-- there is a registered error enabled
+							-- apply errors to the output header data and clear the registered error
+							case (errinj_i.rmap_error_id) is
+								when (c_RMAP_ERRINJ_ERR_ID_INIT_LOG_ADDR) =>
+									v_output_headerdata.initiator_logical_address := s_registered_rmap_errinj.rmap_error_val(7 downto 0);
+									s_registered_rmap_errinj                      <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_INS_PKT_TYPE) =>
+									v_output_headerdata.instructions.packet_type := s_registered_rmap_errinj.rmap_error_val(1 downto 0);
+									s_registered_rmap_errinj                     <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_WRITE_READ) =>
+									v_output_headerdata.instructions.command.write_read := s_registered_rmap_errinj.rmap_error_val(0);
+									s_registered_rmap_errinj                            <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_VERIF_DATA) =>
+									v_output_headerdata.instructions.command.verify_data_before_write := s_registered_rmap_errinj.rmap_error_val(0);
+									s_registered_rmap_errinj                                          <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_REPLY) =>
+									v_output_headerdata.instructions.command.reply := s_registered_rmap_errinj.rmap_error_val(0);
+									s_registered_rmap_errinj                       <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_INS_CMD_INC_ADDR) =>
+									v_output_headerdata.instructions.command.increment_address := s_registered_rmap_errinj.rmap_error_val(0);
+									s_registered_rmap_errinj                                   <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_INS_REPLY_ADDR_LEN) =>
+									v_output_headerdata.instructions.reply_address_length := s_registered_rmap_errinj.rmap_error_val(1 downto 0);
+									s_registered_rmap_errinj                              <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_STATUS) =>
+									v_output_headerdata.status := s_registered_rmap_errinj.rmap_error_val(7 downto 0);
+									s_registered_rmap_errinj   <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_TARG_LOG_ADDR) =>
+									v_output_headerdata.target_logical_address := s_registered_rmap_errinj.rmap_error_val(7 downto 0);
+									s_registered_rmap_errinj                   <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_TRANSACTION_ID) =>
+									v_output_headerdata.transaction_identifier(1) := s_registered_rmap_errinj.rmap_error_val(15 downto 8);
+									v_output_headerdata.transaction_identifier(0) := s_registered_rmap_errinj.rmap_error_val(7 downto 0);
+									s_registered_rmap_errinj                      <= c_RMAP_ERRINJ_CONTROL_RST;
+								when (c_RMAP_ERRINJ_ERR_ID_DATA_LENGTH) =>
+									v_output_headerdata.data_length(2) := s_registered_rmap_errinj.rmap_error_val(23 downto 16);
+									v_output_headerdata.data_length(1) := s_registered_rmap_errinj.rmap_error_val(15 downto 8);
+									v_output_headerdata.data_length(0) := s_registered_rmap_errinj.rmap_error_val(7 downto 0);
+									s_registered_rmap_errinj           <= c_RMAP_ERRINJ_CONTROL_RST;
+								when others => null;
+							end case;
+						end if;
 						-- check if a reply spw address is to be used
 						if (headerdata_i.instructions.reply_address_length /= "00") then
 							-- reply spw address is used, set next field as reply spw address
@@ -440,7 +539,7 @@ begin
 						-- reply spw address data arrived
 						s_reply_address_flag <= '1';
 						-- fill spw data with field data
-						spw_control_o.data   <= headerdata_i.reply_spw_address(s_byte_counter);
+						spw_control_o.data   <= v_output_headerdata.reply_spw_address(s_byte_counter);
 						-- write the spw data
 						spw_control_o.write  <= '1';
 					else
@@ -462,7 +561,7 @@ begin
 							-- flag that a non-zero reply spw address data arrived
 							s_reply_address_flag <= '1';
 							-- fill spw data with field data
-							spw_control_o.data   <= headerdata_i.reply_spw_address(s_byte_counter);
+							spw_control_o.data   <= v_output_headerdata.reply_spw_address(s_byte_counter);
 							-- write the spw data
 							spw_control_o.write  <= '1';
 						end if;
@@ -477,9 +576,9 @@ begin
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag     <= '0';
 					-- fill spw data with field data
-					spw_control_o.data     <= headerdata_i.initiator_logical_address;
+					spw_control_o.data     <= v_output_headerdata.initiator_logical_address;
 					-- update crc calculation
-					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.initiator_logical_address);
+					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, v_output_headerdata.initiator_logical_address);
 					-- write the spw data
 					spw_control_o.write    <= '1';
 				-- conditional output signals
@@ -512,17 +611,27 @@ begin
 					-- packet type = 0b00 (reply packet)
 					spw_control_o.data(7 downto 6) <= "00";
 					-- same command field as the command 
-					spw_control_o.data(5)          <= headerdata_i.instructions.command.write_read;
-					spw_control_o.data(4)          <= headerdata_i.instructions.command.verify_data_before_write;
-					spw_control_o.data(3)          <= headerdata_i.instructions.command.reply;
-					spw_control_o.data(2)          <= headerdata_i.instructions.command.increment_address;
+					spw_control_o.data(5)          <= v_output_headerdata.instructions.command.write_read;
+					spw_control_o.data(4)          <= v_output_headerdata.instructions.command.verify_data_before_write;
+					spw_control_o.data(3)          <= v_output_headerdata.instructions.command.reply;
+					spw_control_o.data(2)          <= v_output_headerdata.instructions.command.increment_address;
 					-- same reply address length as the command
-					spw_control_o.data(1 downto 0) <= headerdata_i.instructions.reply_address_length;
+					spw_control_o.data(1 downto 0) <= v_output_headerdata.instructions.reply_address_length;
 					-- update crc calculation
-					s_reply_header_crc             <= RMAP_CalculateCRC(s_reply_header_crc, ("00" & headerdata_i.instructions.command.write_read & headerdata_i.instructions.command.verify_data_before_write & headerdata_i.instructions.command.reply & headerdata_i.instructions.command.increment_address & headerdata_i.instructions.reply_address_length));
+					s_reply_header_crc             <= RMAP_CalculateCRC(s_reply_header_crc, ("00" & v_output_headerdata.instructions.command.write_read & v_output_headerdata.instructions.command.verify_data_before_write & v_output_headerdata.instructions.command.reply & v_output_headerdata.instructions.command.increment_address & v_output_headerdata.instructions.reply_address_length));
 					-- write the spw data
 					spw_control_o.write            <= '1';
-				-- conditional output signals
+					-- conditional output signals
+					-- check if a rmap error injection is enabled and is for the entire instructions field
+					if ((s_registered_rmap_errinj.rmap_error_en = '1') and (s_registered_rmap_errinj.rmap_error_id = c_RMAP_ERRINJ_ERR_ID_INSTRUCTIONS)) then
+						-- a rmap error injection is enabled and is for the entire instructions field
+						-- inject error at instruction field
+						spw_control_o.data       <= s_registered_rmap_errinj.rmap_error_val(7 downto 0);
+						-- update crc calculation
+						s_reply_header_crc       <= RMAP_CalculateCRC(s_reply_header_crc, s_registered_rmap_errinj.rmap_error_val(7 downto 0));
+						-- clear the registered error
+						s_registered_rmap_errinj <= c_RMAP_ERRINJ_CONTROL_RST;
+					end if;
 
 				-- state "FIELD_STATUS"
 				when FIELD_STATUS =>
@@ -533,9 +642,9 @@ begin
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag     <= '0';
 					-- fill spw data with field data
-					spw_control_o.data     <= headerdata_i.status;
+					spw_control_o.data     <= v_output_headerdata.status;
 					-- update crc calculation
-					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.status);
+					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, v_output_headerdata.status);
 					-- write the spw data
 					spw_control_o.write    <= '1';
 				-- conditional output signals
@@ -549,9 +658,9 @@ begin
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag     <= '0';
 					-- fill spw data with field data
-					spw_control_o.data     <= headerdata_i.target_logical_address;
+					spw_control_o.data     <= v_output_headerdata.target_logical_address;
 					-- update crc calculation
-					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.target_logical_address);
+					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, v_output_headerdata.target_logical_address);
 					-- write the spw data
 					spw_control_o.write    <= '1';
 				-- conditional output signals
@@ -565,9 +674,9 @@ begin
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag     <= '0';
 					-- fill spw data with the reserved field data (0x00)
-					spw_control_o.data     <= headerdata_i.transaction_identifier(s_byte_counter);
+					spw_control_o.data     <= v_output_headerdata.transaction_identifier(s_byte_counter);
 					-- update crc calculation
-					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.transaction_identifier(s_byte_counter));
+					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, v_output_headerdata.transaction_identifier(s_byte_counter));
 					-- write the spw data
 					spw_control_o.write    <= '1';
 				-- conditional output signals
@@ -597,9 +706,9 @@ begin
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag     <= '0';
 					-- fill spw data with the reserved field data (0x00)
-					spw_control_o.data     <= headerdata_i.data_length(s_byte_counter);
+					spw_control_o.data     <= v_output_headerdata.data_length(s_byte_counter);
 					-- update crc calculation
-					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.data_length(s_byte_counter));
+					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, v_output_headerdata.data_length(s_byte_counter));
 					-- write the spw data
 					spw_control_o.write    <= '1';
 				-- conditional output signals
@@ -616,7 +725,15 @@ begin
 					spw_control_o.data     <= s_reply_header_crc;
 					-- write the spw data
 					spw_control_o.write    <= '1';
-				-- conditional output signals
+					-- conditional output signals
+					-- check if a rmap error injection is enabled and is for header crc
+					if ((s_registered_rmap_errinj.rmap_error_en = '1') and (s_registered_rmap_errinj.rmap_error_id = c_RMAP_ERRINJ_ERR_ID_HEADER_CRC)) then
+						-- a rmap error injection is enabled and is for header crc
+						-- inject error at header crc
+						spw_control_o.data       <= s_registered_rmap_errinj.rmap_error_val(7 downto 0);
+						-- clear the registered error
+						s_registered_rmap_errinj <= c_RMAP_ERRINJ_CONTROL_RST;
+					end if;
 
 				-- state "FIELD_EOP"
 				when FIELD_EOP =>
@@ -630,7 +747,15 @@ begin
 					spw_control_o.data     <= c_EOP_VALUE;
 					-- write the spw data
 					spw_control_o.write    <= '1';
-				-- conditional output signals
+					-- conditional output signals
+					-- check if a rmap error injection is enabled and is to send a header eep
+					if ((s_registered_rmap_errinj.rmap_error_en = '1') and (s_registered_rmap_errinj.rmap_error_id = c_RMAP_ERRINJ_ERR_ID_HEADER_EEP)) then
+						-- a rmap error injection is enabled and is to send a header eep
+						-- inject header eep error
+						spw_control_o.data       <= c_EEP_VALUE;
+						-- clear the registered error
+						s_registered_rmap_errinj <= c_RMAP_ERRINJ_CONTROL_RST;
+					end if;
 
 				-- state "REPLY_FINISH_GENERATION"
 				when REPLY_FINISH_GENERATION =>

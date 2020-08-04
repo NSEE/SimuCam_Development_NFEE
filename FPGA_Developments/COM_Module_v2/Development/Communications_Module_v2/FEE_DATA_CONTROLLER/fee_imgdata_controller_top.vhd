@@ -82,12 +82,16 @@ entity fee_imgdata_controller_top is
 		content_errinj_errors_cnt_o        : out std_logic_vector(6 downto 0);
 		-- fee imgdata controller status
 		imgdataman_finished_o              : out std_logic;
+		imgdataman_img_finished_o          : out std_logic;
+		imgdataman_ovs_finished_o          : out std_logic;
 		-- fee imgdata headerdata
 		imgdata_headerdata_o               : out t_fee_dpkt_headerdata;
 		-- fee windowing buffer control
 		fee_window_data_read_o             : out std_logic;
 		fee_window_mask_read_o             : out std_logic;
 		-- fee imgdata send buffer status
+		imgdata_img_valid_o                : out std_logic;
+		imgdata_ovs_valid_o                : out std_logic;
 		imgdata_send_buffer_status_o       : out t_fee_dpkt_send_buffer_status;
 		imgdata_send_double_buffer_empty_o : out std_logic
 	);
@@ -218,6 +222,8 @@ begin
 			send_double_buffer_wrable_i   => s_send_double_buffer_wrable,
 			masking_machine_finished_o    => s_masking_machine_finished,
 			masking_buffer_overflowed_o   => fee_output_buffer_overflowed_o,
+			imgdata_img_valid_o           => imgdata_img_valid_o,
+			imgdata_ovs_valid_o           => imgdata_ovs_valid_o,
 			content_errinj_done_o         => s_inject_content_errinj_done,
 			window_data_read_o            => fee_window_data_read_o,
 			window_mask_read_o            => fee_window_mask_read_o,
@@ -229,34 +235,36 @@ begin
 	-- image data manager instantiation
 	fee_imgdata_manager_ent_inst : entity work.fee_imgdata_manager_ent
 		port map(
-			clk_i                         => clk_i,
-			rst_i                         => rst_i,
-			fee_clear_signal_i            => fee_machine_clear_i,
-			fee_stop_signal_i             => fee_machine_stop_i,
-			fee_start_signal_i            => fee_machine_start_i,
-			current_frame_number_i        => fee_current_frame_number_i,
-			current_frame_counter_i       => fee_current_frame_counter_i,
-			fee_logical_addr_i            => data_pkt_logical_addr_i,
-			fee_protocol_id_i             => data_pkt_protocol_id_i,
-			fee_packet_length_i           => data_pkt_packet_length_i,
-			fee_fee_mode_i                => data_pkt_fee_mode_i,
-			fee_ccd_number_i              => data_pkt_ccd_number_i,
-			fee_ccd_side_i                => g_FEE_CCD_SIDE,
-			imgdata_manager_start_i       => imgdataman_start_i,
-			imgdata_manager_reset_i       => imgdataman_reset_i,
-			header_gen_i.finished         => s_header_gen_finished,
-			data_wr_finished_i            => s_data_wr_finished,
-			data_wr_data_changed_i        => s_data_wr_data_changed,
-			data_wr_data_flushed_i        => s_data_wr_data_flushed,
-			masking_machine_hold_o        => s_masking_machine_hold,
-			imgdata_manager_finished_o    => imgdataman_finished_o,
-			headerdata_o                  => s_header_gen_headerdata,
-			header_gen_o.start            => s_header_gen_send,
-			header_gen_o.reset            => s_header_gen_reset,
-			data_wr_start_o               => s_data_wr_start,
-			data_wr_reset_o               => s_data_wr_reset,
-			data_wr_length_o              => s_data_wr_length,
-			send_buffer_fee_data_loaded_o => s_send_buffer_fee_data_loaded
+			clk_i                          => clk_i,
+			rst_i                          => rst_i,
+			fee_clear_signal_i             => fee_machine_clear_i,
+			fee_stop_signal_i              => fee_machine_stop_i,
+			fee_start_signal_i             => fee_machine_start_i,
+			current_frame_number_i         => fee_current_frame_number_i,
+			current_frame_counter_i        => fee_current_frame_counter_i,
+			fee_logical_addr_i             => data_pkt_logical_addr_i,
+			fee_protocol_id_i              => data_pkt_protocol_id_i,
+			fee_packet_length_i            => data_pkt_packet_length_i,
+			fee_fee_mode_i                 => data_pkt_fee_mode_i,
+			fee_ccd_number_i               => data_pkt_ccd_number_i,
+			fee_ccd_side_i                 => g_FEE_CCD_SIDE,
+			imgdata_manager_start_i        => imgdataman_start_i,
+			imgdata_manager_reset_i        => imgdataman_reset_i,
+			header_gen_i.finished          => s_header_gen_finished,
+			data_wr_finished_i             => s_data_wr_finished,
+			data_wr_data_changed_i         => s_data_wr_data_changed,
+			data_wr_data_flushed_i         => s_data_wr_data_flushed,
+			masking_machine_hold_o         => s_masking_machine_hold,
+			imgdata_manager_finished_o     => imgdataman_finished_o,
+			imgdata_manager_img_finished_o => imgdataman_img_finished_o,
+			imgdata_manager_ovs_finished_o => imgdataman_ovs_finished_o,
+			headerdata_o                   => s_header_gen_headerdata,
+			header_gen_o.start             => s_header_gen_send,
+			header_gen_o.reset             => s_header_gen_reset,
+			data_wr_start_o                => s_data_wr_start,
+			data_wr_reset_o                => s_data_wr_reset,
+			data_wr_length_o               => s_data_wr_length,
+			send_buffer_fee_data_loaded_o  => s_send_buffer_fee_data_loaded
 		);
 
 	-- data packet header generator instantiation

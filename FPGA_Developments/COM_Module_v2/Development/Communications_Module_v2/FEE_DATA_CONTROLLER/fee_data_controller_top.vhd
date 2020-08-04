@@ -177,15 +177,23 @@ architecture RTL of fee_data_controller_top is
 	-- fee left image data controller signals
 	signal s_left_imgdataman_status                 : t_fee_dpkt_general_status;
 	signal s_left_imgdataman_control                : t_fee_dpkt_general_control;
+	signal s_left_imgdataman_img_finished           : std_logic;
+	signal s_left_imgdataman_ovs_finished           : std_logic;
 	signal s_left_imgdata_send_buffer_control       : t_fee_dpkt_send_buffer_control;
 	signal s_left_imgdata_send_buffer_status        : t_fee_dpkt_send_buffer_status;
 	signal s_left_imgdata_send_double_buffer_empty  : std_logic;
+	signal s_left_imgdata_img_valid                 : std_logic;
+	signal s_left_imgdata_ovs_valid                 : std_logic;
 	-- fee right image data controller signals
 	signal s_right_imgdataman_status                : t_fee_dpkt_general_status;
 	signal s_right_imgdataman_control               : t_fee_dpkt_general_control;
+	signal s_right_imgdataman_img_finished          : std_logic;
+	signal s_right_imgdataman_ovs_finished          : std_logic;
 	signal s_right_imgdata_send_buffer_control      : t_fee_dpkt_send_buffer_control;
 	signal s_right_imgdata_send_buffer_status       : t_fee_dpkt_send_buffer_status;
 	signal s_right_imgdata_send_double_buffer_empty : std_logic;
+	signal s_right_imgdata_img_valid                : std_logic;
+	signal s_right_imgdata_ovs_valid                : std_logic;
 	-- data transmitter signals
 	signal s_data_transmitter_busy                  : std_logic;
 	signal s_data_transmitter_finished              : std_logic;
@@ -333,9 +341,13 @@ begin
 			content_errinj_injecting_o         => left_content_errinj_injecting_o,
 			content_errinj_errors_cnt_o        => left_content_errinj_errors_cnt_o,
 			imgdataman_finished_o              => s_left_imgdataman_status.finished,
+			imgdataman_img_finished_o          => s_left_imgdataman_img_finished,
+			imgdataman_ovs_finished_o          => s_left_imgdataman_ovs_finished,
 			imgdata_headerdata_o               => open,
 			fee_window_data_read_o             => fee_left_window_data_read_o,
 			fee_window_mask_read_o             => fee_left_window_mask_read_o,
+			imgdata_img_valid_o                => s_left_imgdata_img_valid,
+			imgdata_ovs_valid_o                => s_left_imgdata_ovs_valid,
 			imgdata_send_buffer_status_o       => s_left_imgdata_send_buffer_status,
 			imgdata_send_double_buffer_empty_o => s_left_imgdata_send_double_buffer_empty
 		);
@@ -407,9 +419,13 @@ begin
 			content_errinj_injecting_o         => right_content_errinj_injecting_o,
 			content_errinj_errors_cnt_o        => right_content_errinj_errors_cnt_o,
 			imgdataman_finished_o              => s_right_imgdataman_status.finished,
+			imgdataman_img_finished_o          => s_right_imgdataman_img_finished,
+			imgdataman_ovs_finished_o          => s_right_imgdataman_ovs_finished,
 			imgdata_headerdata_o               => open,
 			fee_window_data_read_o             => fee_right_window_data_read_o,
 			fee_window_mask_read_o             => fee_right_window_mask_read_o,
+			imgdata_img_valid_o                => s_right_imgdata_img_valid,
+			imgdata_ovs_valid_o                => s_right_imgdata_ovs_valid,
 			imgdata_send_buffer_status_o       => s_right_imgdata_send_buffer_status,
 			imgdata_send_double_buffer_empty_o => s_right_imgdata_send_double_buffer_empty
 		);
@@ -417,27 +433,35 @@ begin
 	-- data transmitter top instantiation
 	comm_data_transmitter_top_inst : entity work.comm_data_transmitter_top
 		port map(
-			clk_i                          => clk_i,
-			rst_i                          => rst_i,
-			comm_stop_i                    => fee_machine_stop_i,
-			comm_start_i                   => fee_machine_start_i,
-			channel_sync_i                 => fee_sync_signal_i,
-			send_buffer_cfg_length_i       => s_registered_dpkt_params.image.packet_length,
-			send_buffer_hkdata_status_i    => s_hkdata_send_buffer_status,
-			send_buffer_leftimg_status_i   => s_left_imgdata_send_buffer_status,
-			send_buffer_rightimg_status_i  => s_right_imgdata_send_buffer_status,
-			spw_tx_ready_i                 => s_errinj_spw_tx_ready,
-			housekeep_only_i               => s_dataman_hk_only,
-			windowing_enabled_i            => s_registered_dpkt_params.transmission.windowing_en,
-			windowing_packet_order_list_i  => s_registered_dpkt_params.windowing.packet_order_list,
-			windowing_last_left_packet_i   => s_registered_dpkt_params.windowing.last_left_packet,
-			windowing_last_right_packet_i  => s_registered_dpkt_params.windowing.last_right_packet,
-			send_buffer_hkdata_control_o   => s_hkdata_send_buffer_control,
-			send_buffer_leftimg_control_o  => s_left_imgdata_send_buffer_control,
-			send_buffer_rightimg_control_o => s_right_imgdata_send_buffer_control,
-			spw_tx_flag_o                  => s_errinj_spw_tx_flag,
-			spw_tx_data_o                  => s_errinj_spw_tx_data,
-			spw_tx_write_o                 => s_errinj_spw_tx_write
+			clk_i                           => clk_i,
+			rst_i                           => rst_i,
+			comm_stop_i                     => fee_machine_stop_i,
+			comm_start_i                    => fee_machine_start_i,
+			channel_sync_i                  => fee_sync_signal_i,
+			send_buffer_cfg_length_i        => s_registered_dpkt_params.image.packet_length,
+			send_buffer_hkdata_status_i     => s_hkdata_send_buffer_status,
+			send_buffer_leftimg_status_i    => s_left_imgdata_send_buffer_status,
+			left_imgdataman_img_finished_i  => s_left_imgdataman_img_finished,
+			left_imgdataman_ovs_finished_i  => s_left_imgdataman_ovs_finished,
+			left_imgdata_img_valid_i        => s_left_imgdata_img_valid,
+			left_imgdata_ovs_valid_i        => s_left_imgdata_ovs_valid,
+			send_buffer_rightimg_status_i   => s_right_imgdata_send_buffer_status,
+			right_imgdataman_img_finished_i => s_right_imgdataman_img_finished,
+			right_imgdataman_ovs_finished_i => s_right_imgdataman_ovs_finished,
+			right_imgdata_img_valid_i       => s_right_imgdata_img_valid,
+			right_imgdata_ovs_valid_i       => s_right_imgdata_ovs_valid,
+			spw_tx_ready_i                  => s_errinj_spw_tx_ready,
+			housekeep_only_i                => s_dataman_hk_only,
+			windowing_enabled_i             => s_registered_dpkt_params.transmission.windowing_en,
+			windowing_packet_order_list_i   => s_registered_dpkt_params.windowing.packet_order_list,
+			windowing_last_left_packet_i    => s_registered_dpkt_params.windowing.last_left_packet,
+			windowing_last_right_packet_i   => s_registered_dpkt_params.windowing.last_right_packet,
+			send_buffer_hkdata_control_o    => s_hkdata_send_buffer_control,
+			send_buffer_leftimg_control_o   => s_left_imgdata_send_buffer_control,
+			send_buffer_rightimg_control_o  => s_right_imgdata_send_buffer_control,
+			spw_tx_flag_o                   => s_errinj_spw_tx_flag,
+			spw_tx_data_o                   => s_errinj_spw_tx_data,
+			spw_tx_write_o                  => s_errinj_spw_tx_write
 		);
 
 	-- header error injection manager instantiation

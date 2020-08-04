@@ -3,11 +3,12 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package avalon_mm_spacewire_registers_pkg is
+
 	-- Address Constants
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#B7#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#B6#;
 
 	-- Registers Types
 
@@ -129,24 +130,20 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- FEE Buffers IRQ Control Register
 	type t_comm_fee_buffers_irq_control_wr_reg is record
-		fee_right_buffer_empty_en : std_logic; -- FEE Right Buffer Empty IRQ Enable
-		fee_left_buffer_empty_en  : std_logic; -- FEE Left Buffer Empty IRQ Enable
+		fee_right_buffer_controller_finished_en : std_logic; -- FEE Right Buffer Empty IRQ Enable
+		fee_left_buffer_controller_finished_en  : std_logic; -- FEE Left Buffer Empty IRQ Enable
 	end record t_comm_fee_buffers_irq_control_wr_reg;
 
 	-- FEE Buffers IRQ Flags Register
 	type t_comm_fee_buffers_irq_flags_rd_reg is record
-		fee_right_buffer_0_empty_flag : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag
-		fee_right_buffer_1_empty_flag : std_logic; -- FEE Right Buffer 1 Empty IRQ Flag
-		fee_left_buffer_0_empty_flag  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag
-		fee_left_buffer_1_empty_flag  : std_logic; -- FEE Left Buffer 1 Empty IRQ Flag
+		fee_right_buffer_controller_finished_flag : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag
+		fee_left_buffer_controller_finished_flag  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag
 	end record t_comm_fee_buffers_irq_flags_rd_reg;
 
 	-- FEE Buffers IRQ Flags Clear Register
 	type t_comm_fee_buffers_irq_flags_clear_wr_reg is record
-		fee_right_buffer_0_empty_flag_clear : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag Clear
-		fee_right_buffer_1_empty_flag_clear : std_logic; -- FEE Right Buffer 1 Empty IRQ Flag Clear
-		fee_left_buffer_0_empty_flag_clear  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag Clear
-		fee_left_buffer_1_empty_flag_clear  : std_logic; -- FEE Left Buffer 1 Empty IRQ Flag Clear
+		fee_right_buffer_controller_finished_flag_clear : std_logic; -- FEE Right Buffer 0 Empty IRQ Flag Clear
+		fee_left_buffer_controller_finished_flag_clear  : std_logic; -- FEE Left Buffer 0 Empty IRQ Flag Clear
 	end record t_comm_fee_buffers_irq_flags_clear_wr_reg;
 
 	-- FEE Buffers IRQ Number Register
@@ -286,6 +283,13 @@ package avalon_mm_spacewire_registers_pkg is
 		spw_errinj_n_repeat     : std_logic_vector(15 downto 0); -- Number of Times the SpaceWire Error Repeats
 	end record t_comm_spw_error_injection_control_wr_reg;
 
+	-- RMAP Error Injection Control Register
+	type t_comm_rmap_error_injection_control_wr_reg is record
+		rmap_errinj_enable : std_logic; -- Enable for RMAP Error
+		rmap_errinj_err_id : std_logic_vector(3 downto 0); -- Error ID of RMAP Error
+		rmap_errinj_value  : std_logic_vector(31 downto 0); -- Value of RMAP Error
+	end record t_comm_rmap_error_injection_control_wr_reg;
+
 	-- Transmission Error Injection Control Register
 	type t_comm_trans_error_injection_control_wr_reg is record
 		trans_errinj_tx_disabled  : std_logic; -- Enable for "Tx Disabled" Transmission Error
@@ -416,6 +420,7 @@ package avalon_mm_spacewire_registers_pkg is
 		data_packet_errors_reg                    : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
 		data_packet_pixel_delay_reg               : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
 		spw_error_injection_control_reg           : t_comm_spw_error_injection_control_wr_reg; -- SpaceWire Error Injection Control Register
+		rmap_error_injection_control_reg          : t_comm_rmap_error_injection_control_wr_reg; -- RMAP Error Injection Control Register
 		trans_error_injection_control_reg         : t_comm_trans_error_injection_control_wr_reg; -- Transmission Error Injection Control Register
 		left_content_error_injection_control_reg  : t_comm_left_content_error_injection_control_wr_reg; -- Left Content Error Injection Control Register
 		right_content_error_injection_control_reg : t_comm_right_content_error_injection_control_wr_reg; -- Right Content Error Injection Control Register

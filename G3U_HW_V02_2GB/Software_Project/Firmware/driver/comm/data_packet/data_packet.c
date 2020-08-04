@@ -11,39 +11,6 @@
 //! [private function prototypes]
 
 //! [data memory public global variables]
-//const alt_u32 culiDpktLeftCbufAddr[6] = {
-//		0xF4000000,
-//		0xF5000000,
-//		0xF6000000,
-//		0xF7000000,
-//		0xF8000000,
-//		0xF9000000
-//};
-//const alt_u32 culiDpktRightCbufAddr[6] = {
-//		0xFA000000,
-//		0xFB000000,
-//		0xFC000000,
-//		0xFD000000,
-//		0xFE000000,
-//		0xFF000000
-//};
-
-const alt_u32 culiDpktLeftCbufAddr[6] = {
-		0x74000000,
-		0x75000000,
-		0x76000000,
-		0x77000000,
-		0x78000000,
-		0x79000000
-};
-const alt_u32 culiDpktRightCbufAddr[6] = {
-		0x7A000000,
-		0x7B000000,
-		0x7C000000,
-		0x7D000000,
-		0x7E000000,
-		0x7F000000
-};
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -174,109 +141,6 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktSetPxCBufferControl(TDpktChannel *pxDpktCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		vpxCommChannel->xDataPacket.xDpktPxCBufferControl = pxDpktCh->xDpktPxCBufferControl;
-
-		bStatus = TRUE;
-	}
-
-	return bStatus;
-}
-
-bool bDpktGetPxCBufferControl(TDpktChannel *pxDpktCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		pxDpktCh->xDpktPxCBufferControl = vpxCommChannel->xDataPacket.xDpktPxCBufferControl;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bDpktConfigPxCBuffer(alt_u8 ucCommCh, alt_u8 ucMemoryId){
-//	alt_u32 uliBufSizeBytes = 256;
-	alt_u32 uliBufSizeBytes = 2*1024*1024;
-//bool bDpktConfigPxCBuffer(alt_u8 ucCommCh, alt_u8 ucMemoryId, alt_u32 uliBufSizeBytes){
-	bool bStatus = FALSE;
-	bool bValidCh = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	switch (ucCommCh) {
-	case eCommSpwCh1:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh2:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh3:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh4:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh5:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	case eCommSpwCh6:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
-		bValidCh = TRUE;
-		break;
-	default:
-		bValidCh = FALSE;
-		break;
-	}
-
-//	if ((bValidCh) && (uliWindowingAreaAddr < DDR2_M1_MEMORY_SIZE)) {
-	if (bValidCh) {
-
-		switch (ucMemoryId) {
-		case eDdr2Memory1:
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrHighDword = 0x00000000;
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrLowDword = DDR2_M1_MEMORY_BASE + culiDpktLeftCbufAddr[ucCommCh];
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufSizeBytes = uliBufSizeBytes;
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrHighDword = 0x00000000;
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrLowDword = DDR2_M1_MEMORY_BASE + culiDpktRightCbufAddr[ucCommCh];
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliRightPxCBufSizeBytes = uliBufSizeBytes;
-			bStatus = TRUE;
-			break;
-		case eDdr2Memory2:
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrHighDword = 0x00000000;
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufInitAddrLowDword = DDR2_M2_MEMORY_BASE + culiDpktLeftCbufAddr[ucCommCh];
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliLeftPxCBufSizeBytes = uliBufSizeBytes;
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrHighDword = 0x00000000;
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliRightPxCBufInitAddrLowDword = DDR2_M2_MEMORY_BASE + culiDpktRightCbufAddr[ucCommCh];
-			vpxCommChannel->xDataPacket.xDpktPxCBufferControl.uliRightPxCBufSizeBytes = uliBufSizeBytes;
-			bStatus = TRUE;
-			break;
-		default:
-			bStatus = FALSE;
-			break;
-		}
-
-	}
-
-	return (bStatus);
-}
-
 bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -310,6 +174,39 @@ bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
+bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktRmapErrInj = pxDpktCh->xDpktRmapErrInj;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktRmapErrInj = vpxCommChannel->xDataPacket.xDpktRmapErrInj;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -335,6 +232,105 @@ bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh) {
 		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
 		pxDpktCh->xDpktTransmissionErrInj = vpxCommChannel->xDataPacket.xDpktTransmissionErrInj;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktSetLeftContentErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktLeftContentErrInj = pxDpktCh->xDpktLeftContentErrInj;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetLeftContentErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktLeftContentErrInj = vpxCommChannel->xDataPacket.xDpktLeftContentErrInj;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktSetRightContentErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktRightContentErrInj = pxDpktCh->xDpktRightContentErrInj;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktRightContentErrInj = vpxCommChannel->xDataPacket.xDpktRightContentErrInj;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktSetHeaderErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktHeaderErrInj = pxDpktCh->xDpktHeaderErrInj;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetHeaderErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktHeaderErrInj = vpxCommChannel->xDataPacket.xDpktHeaderErrInj;
 
 		bStatus = TRUE;
 
@@ -439,13 +435,22 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 			if (!bDpktGetPixelDelay(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bDpktGetPxCBufferControl(pxDpktCh)) {
-				bInitFail = TRUE;
-			}
 			if (!bDpktGetSpacewireErrInj(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
+			if (!bDpktGetRmapErrInj(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
 			if (!bDpktGetTransmissionErrInj(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetLeftContentErrInj(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetRightContentErrInj(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetHeaderErrInj(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetWindowingParams(pxDpktCh)) {

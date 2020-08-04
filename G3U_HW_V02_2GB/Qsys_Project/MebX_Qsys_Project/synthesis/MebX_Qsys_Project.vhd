@@ -277,18 +277,6 @@ architecture rtl of MebX_Qsys_Project is
 			avm_right_buffer_waitrequest_i      : in  std_logic                      := 'X';             -- waitrequest
 			avm_right_buffer_address_o          : out std_logic_vector(63 downto 0);                     -- address
 			avm_right_buffer_read_o             : out std_logic;                                         -- read
-			avm_left_cbuffer_readdata_i         : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			avm_left_cbuffer_waitrequest_i      : in  std_logic                      := 'X';             -- waitrequest
-			avm_left_cbuffer_address_o          : out std_logic_vector(63 downto 0);                     -- address
-			avm_left_cbuffer_read_o             : out std_logic;                                         -- read
-			avm_left_cbuffer_write_o            : out std_logic;                                         -- write
-			avm_left_cbuffer_writedata_o        : out std_logic_vector(255 downto 0);                    -- writedata
-			avm_right_cbuffer_readdata_i        : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			avm_right_cbuffer_waitrequest_i     : in  std_logic                      := 'X';             -- waitrequest
-			avm_right_cbuffer_address_o         : out std_logic_vector(63 downto 0);                     -- address
-			avm_right_cbuffer_read_o            : out std_logic;                                         -- read
-			avm_right_cbuffer_write_o           : out std_logic;                                         -- write
-			avm_right_cbuffer_writedata_o       : out std_logic_vector(255 downto 0);                    -- writedata
 			feeb_interrupt_sender_irq_o         : out std_logic;                                         -- irq
 			rmap_interrupt_sender_irq_o         : out std_logic;                                         -- irq
 			spw_link_status_started_i           : in  std_logic                      := 'X';             -- spw_link_status_started_signal
@@ -1168,210 +1156,138 @@ architecture rtl of MebX_Qsys_Project is
 
 	component MebX_Qsys_Project_mm_interconnect_0 is
 		port (
-			clk_100_clk_clk                                                        : in  std_logic                      := 'X';             -- clk
-			m2_ddr2_memory_afi_clk_clk                                             : in  std_logic                      := 'X';             -- clk
-			m2_ddr2_memory_afi_half_clk_clk                                        : in  std_logic                      := 'X';             -- clk
-			Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset     : in  std_logic                      := 'X';             -- reset
-			Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset     : in  std_logic                      := 'X';             -- reset
-			Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset     : in  std_logic                      := 'X';             -- reset
-			Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset     : in  std_logic                      := 'X';             -- reset
-			Communication_Module_v2_Ch5_reset_sink_reset_bridge_in_reset_reset     : in  std_logic                      := 'X';             -- reset
-			Communication_Module_v2_Ch6_reset_sink_reset_bridge_in_reset_reset     : in  std_logic                      := 'X';             -- reset
-			FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset            : in  std_logic                      := 'X';             -- reset
-			m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset                   : in  std_logic                      := 'X';             -- reset
-			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset        : in  std_logic                      := 'X';             -- reset
-			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                  : in  std_logic                      := 'X';             -- reset
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_address       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_waitrequest   : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_read          : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_readdata      : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_write        : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_waitrequest : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_read        : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_write       : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_address       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_waitrequest   : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_read          : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_readdata      : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_write        : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_waitrequest : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_read        : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_write       : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_address       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_waitrequest   : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_read          : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_readdata      : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_write        : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_waitrequest : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_read        : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_write       : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_address       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_waitrequest   : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_read          : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_readdata      : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_write        : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_waitrequest : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_read        : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_write       : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_address       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_waitrequest   : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_read          : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_readdata      : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_write        : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_waitrequest : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_read        : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_write       : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_address       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_waitrequest   : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_read          : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_readdata      : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_write        : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_writedata    : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_read         : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_waitrequest : out std_logic;                                         -- waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_read        : in  std_logic                      := 'X';             -- read
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_write       : in  std_logic                      := 'X';             -- write
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_writedata   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			ddr2_address_span_extender_expanded_master_address                     : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
-			ddr2_address_span_extender_expanded_master_waitrequest                 : out std_logic;                                         -- waitrequest
-			ddr2_address_span_extender_expanded_master_burstcount                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- burstcount
-			ddr2_address_span_extender_expanded_master_byteenable                  : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
-			ddr2_address_span_extender_expanded_master_read                        : in  std_logic                      := 'X';             -- read
-			ddr2_address_span_extender_expanded_master_readdata                    : out std_logic_vector(31 downto 0);                     -- readdata
-			ddr2_address_span_extender_expanded_master_readdatavalid               : out std_logic;                                         -- readdatavalid
-			ddr2_address_span_extender_expanded_master_write                       : in  std_logic                      := 'X';             -- write
-			ddr2_address_span_extender_expanded_master_writedata                   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
-			FTDI_UMFT601A_Module_avalon_master_data_address                        : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			FTDI_UMFT601A_Module_avalon_master_data_waitrequest                    : out std_logic;                                         -- waitrequest
-			FTDI_UMFT601A_Module_avalon_master_data_read                           : in  std_logic                      := 'X';             -- read
-			FTDI_UMFT601A_Module_avalon_master_data_readdata                       : out std_logic_vector(255 downto 0);                    -- readdata
-			FTDI_UMFT601A_Module_avalon_master_data_write                          : in  std_logic                      := 'X';             -- write
-			FTDI_UMFT601A_Module_avalon_master_data_writedata                      : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address                     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest                 : out std_logic;                                         -- waitrequest
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_read                        : in  std_logic                      := 'X';             -- read
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata                    : out std_logic_vector(7 downto 0);                      -- readdata
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_write                       : in  std_logic                      := 'X';             -- write
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_writedata                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_address                     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_waitrequest                 : out std_logic;                                         -- waitrequest
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_read                        : in  std_logic                      := 'X';             -- read
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_readdata                    : out std_logic_vector(7 downto 0);                      -- readdata
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_write                       : in  std_logic                      := 'X';             -- write
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_writedata                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_address                     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_waitrequest                 : out std_logic;                                         -- waitrequest
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_read                        : in  std_logic                      := 'X';             -- read
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_readdata                    : out std_logic_vector(7 downto 0);                      -- readdata
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_write                       : in  std_logic                      := 'X';             -- write
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_writedata                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_address                     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_waitrequest                 : out std_logic;                                         -- waitrequest
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_read                        : in  std_logic                      := 'X';             -- read
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_readdata                    : out std_logic_vector(7 downto 0);                      -- readdata
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_write                       : in  std_logic                      := 'X';             -- write
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_writedata                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_address                     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_waitrequest                 : out std_logic;                                         -- waitrequest
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_read                        : in  std_logic                      := 'X';             -- read
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_readdata                    : out std_logic_vector(7 downto 0);                      -- readdata
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_write                       : in  std_logic                      := 'X';             -- write
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_writedata                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_address                     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_waitrequest                 : out std_logic;                                         -- waitrequest
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_read                        : in  std_logic                      := 'X';             -- read
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_readdata                    : out std_logic_vector(7 downto 0);                      -- readdata
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_write                       : in  std_logic                      := 'X';             -- write
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_writedata                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
-			m1_clock_bridge_s0_address                                             : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_s0_write                                               : out std_logic;                                         -- write
-			m1_clock_bridge_s0_read                                                : out std_logic;                                         -- read
-			m1_clock_bridge_s0_readdata                                            : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_s0_writedata                                           : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_s0_burstcount                                          : out std_logic_vector(2 downto 0);                      -- burstcount
-			m1_clock_bridge_s0_byteenable                                          : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_s0_readdatavalid                                       : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_s0_waitrequest                                         : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_s0_debugaccess                                         : out std_logic;                                         -- debugaccess
-			m2_ddr2_memory_avl_address                                             : out std_logic_vector(25 downto 0);                     -- address
-			m2_ddr2_memory_avl_write                                               : out std_logic;                                         -- write
-			m2_ddr2_memory_avl_read                                                : out std_logic;                                         -- read
-			m2_ddr2_memory_avl_readdata                                            : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m2_ddr2_memory_avl_writedata                                           : out std_logic_vector(255 downto 0);                    -- writedata
-			m2_ddr2_memory_avl_beginbursttransfer                                  : out std_logic;                                         -- beginbursttransfer
-			m2_ddr2_memory_avl_burstcount                                          : out std_logic_vector(7 downto 0);                      -- burstcount
-			m2_ddr2_memory_avl_byteenable                                          : out std_logic_vector(31 downto 0);                     -- byteenable
-			m2_ddr2_memory_avl_readdatavalid                                       : in  std_logic                      := 'X';             -- readdatavalid
-			m2_ddr2_memory_avl_waitrequest                                         : in  std_logic                      := 'X'              -- waitrequest
+			clk_100_clk_clk                                                       : in  std_logic                      := 'X';             -- clk
+			m2_ddr2_memory_afi_clk_clk                                            : in  std_logic                      := 'X';             -- clk
+			m2_ddr2_memory_afi_half_clk_clk                                       : in  std_logic                      := 'X';             -- clk
+			Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
+			Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
+			Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
+			Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
+			Communication_Module_v2_Ch5_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
+			Communication_Module_v2_Ch6_reset_sink_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
+			FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset           : in  std_logic                      := 'X';             -- reset
+			m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset                  : in  std_logic                      := 'X';             -- reset
+			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset       : in  std_logic                      := 'X';             -- reset
+			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                 : in  std_logic                      := 'X';             -- reset
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_read         : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_waitrequest : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_read        : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_read         : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_waitrequest : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_read        : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_read         : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_waitrequest : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_read        : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_read         : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_waitrequest : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_read        : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_read         : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_waitrequest : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_read        : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_waitrequest  : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_read         : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_readdata     : out std_logic_vector(255 downto 0);                    -- readdata
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_address     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_waitrequest : out std_logic;                                         -- waitrequest
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_read        : in  std_logic                      := 'X';             -- read
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_readdata    : out std_logic_vector(255 downto 0);                    -- readdata
+			ddr2_address_span_extender_expanded_master_address                    : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
+			ddr2_address_span_extender_expanded_master_waitrequest                : out std_logic;                                         -- waitrequest
+			ddr2_address_span_extender_expanded_master_burstcount                 : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- burstcount
+			ddr2_address_span_extender_expanded_master_byteenable                 : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			ddr2_address_span_extender_expanded_master_read                       : in  std_logic                      := 'X';             -- read
+			ddr2_address_span_extender_expanded_master_readdata                   : out std_logic_vector(31 downto 0);                     -- readdata
+			ddr2_address_span_extender_expanded_master_readdatavalid              : out std_logic;                                         -- readdatavalid
+			ddr2_address_span_extender_expanded_master_write                      : in  std_logic                      := 'X';             -- write
+			ddr2_address_span_extender_expanded_master_writedata                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			FTDI_UMFT601A_Module_avalon_master_data_address                       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			FTDI_UMFT601A_Module_avalon_master_data_waitrequest                   : out std_logic;                                         -- waitrequest
+			FTDI_UMFT601A_Module_avalon_master_data_read                          : in  std_logic                      := 'X';             -- read
+			FTDI_UMFT601A_Module_avalon_master_data_readdata                      : out std_logic_vector(255 downto 0);                    -- readdata
+			FTDI_UMFT601A_Module_avalon_master_data_write                         : in  std_logic                      := 'X';             -- write
+			FTDI_UMFT601A_Module_avalon_master_data_writedata                     : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address                    : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest                : out std_logic;                                         -- waitrequest
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_read                       : in  std_logic                      := 'X';             -- read
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata                   : out std_logic_vector(7 downto 0);                      -- readdata
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_write                      : in  std_logic                      := 'X';             -- write
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_writedata                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_address                    : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_waitrequest                : out std_logic;                                         -- waitrequest
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_read                       : in  std_logic                      := 'X';             -- read
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_readdata                   : out std_logic_vector(7 downto 0);                      -- readdata
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_write                      : in  std_logic                      := 'X';             -- write
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_writedata                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_address                    : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_waitrequest                : out std_logic;                                         -- waitrequest
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_read                       : in  std_logic                      := 'X';             -- read
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_readdata                   : out std_logic_vector(7 downto 0);                      -- readdata
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_write                      : in  std_logic                      := 'X';             -- write
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_writedata                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_address                    : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_waitrequest                : out std_logic;                                         -- waitrequest
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_read                       : in  std_logic                      := 'X';             -- read
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_readdata                   : out std_logic_vector(7 downto 0);                      -- readdata
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_write                      : in  std_logic                      := 'X';             -- write
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_writedata                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_address                    : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_waitrequest                : out std_logic;                                         -- waitrequest
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_read                       : in  std_logic                      := 'X';             -- read
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_readdata                   : out std_logic_vector(7 downto 0);                      -- readdata
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_write                      : in  std_logic                      := 'X';             -- write
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_writedata                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_address                    : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_waitrequest                : out std_logic;                                         -- waitrequest
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_read                       : in  std_logic                      := 'X';             -- read
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_readdata                   : out std_logic_vector(7 downto 0);                      -- readdata
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_write                      : in  std_logic                      := 'X';             -- write
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_writedata                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
+			m1_clock_bridge_s0_address                                            : out std_logic_vector(30 downto 0);                     -- address
+			m1_clock_bridge_s0_write                                              : out std_logic;                                         -- write
+			m1_clock_bridge_s0_read                                               : out std_logic;                                         -- read
+			m1_clock_bridge_s0_readdata                                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			m1_clock_bridge_s0_writedata                                          : out std_logic_vector(255 downto 0);                    -- writedata
+			m1_clock_bridge_s0_burstcount                                         : out std_logic_vector(2 downto 0);                      -- burstcount
+			m1_clock_bridge_s0_byteenable                                         : out std_logic_vector(31 downto 0);                     -- byteenable
+			m1_clock_bridge_s0_readdatavalid                                      : in  std_logic                      := 'X';             -- readdatavalid
+			m1_clock_bridge_s0_waitrequest                                        : in  std_logic                      := 'X';             -- waitrequest
+			m1_clock_bridge_s0_debugaccess                                        : out std_logic;                                         -- debugaccess
+			m2_ddr2_memory_avl_address                                            : out std_logic_vector(25 downto 0);                     -- address
+			m2_ddr2_memory_avl_write                                              : out std_logic;                                         -- write
+			m2_ddr2_memory_avl_read                                               : out std_logic;                                         -- read
+			m2_ddr2_memory_avl_readdata                                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			m2_ddr2_memory_avl_writedata                                          : out std_logic_vector(255 downto 0);                    -- writedata
+			m2_ddr2_memory_avl_beginbursttransfer                                 : out std_logic;                                         -- beginbursttransfer
+			m2_ddr2_memory_avl_burstcount                                         : out std_logic_vector(7 downto 0);                      -- burstcount
+			m2_ddr2_memory_avl_byteenable                                         : out std_logic_vector(31 downto 0);                     -- byteenable
+			m2_ddr2_memory_avl_readdatavalid                                      : in  std_logic                      := 'X';             -- readdatavalid
+			m2_ddr2_memory_avl_waitrequest                                        : in  std_logic                      := 'X'              -- waitrequest
 		);
 	end component MebX_Qsys_Project_mm_interconnect_0;
 
@@ -2672,42 +2588,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal communication_module_v2_ch6_avalon_mm_left_buffer_master_waitrequest                            : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_waitrequest -> Communication_Module_v2_Ch6:avm_left_buffer_waitrequest_i
 	signal communication_module_v2_ch6_avalon_mm_left_buffer_master_address                                : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch6:avm_left_buffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_address
 	signal communication_module_v2_ch6_avalon_mm_left_buffer_master_read                                   : std_logic;                      -- Communication_Module_v2_Ch6:avm_left_buffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_read
-	signal communication_module_v2_ch1_avalon_mm_left_cbuffer_master_readdata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_readdata -> Communication_Module_v2_Ch1:avm_left_cbuffer_readdata_i
-	signal communication_module_v2_ch1_avalon_mm_left_cbuffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_waitrequest -> Communication_Module_v2_Ch1:avm_left_cbuffer_waitrequest_i
-	signal communication_module_v2_ch1_avalon_mm_left_cbuffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch1:avm_left_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_address
-	signal communication_module_v2_ch1_avalon_mm_left_cbuffer_master_read                                  : std_logic;                      -- Communication_Module_v2_Ch1:avm_left_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_read
-	signal communication_module_v2_ch1_avalon_mm_left_cbuffer_master_write                                 : std_logic;                      -- Communication_Module_v2_Ch1:avm_left_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_write
-	signal communication_module_v2_ch1_avalon_mm_left_cbuffer_master_writedata                             : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch1:avm_left_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_writedata
-	signal communication_module_v2_ch2_avalon_mm_left_cbuffer_master_readdata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_readdata -> Communication_Module_v2_Ch2:avm_left_cbuffer_readdata_i
-	signal communication_module_v2_ch2_avalon_mm_left_cbuffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_waitrequest -> Communication_Module_v2_Ch2:avm_left_cbuffer_waitrequest_i
-	signal communication_module_v2_ch2_avalon_mm_left_cbuffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch2:avm_left_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_address
-	signal communication_module_v2_ch2_avalon_mm_left_cbuffer_master_read                                  : std_logic;                      -- Communication_Module_v2_Ch2:avm_left_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_read
-	signal communication_module_v2_ch2_avalon_mm_left_cbuffer_master_write                                 : std_logic;                      -- Communication_Module_v2_Ch2:avm_left_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_write
-	signal communication_module_v2_ch2_avalon_mm_left_cbuffer_master_writedata                             : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch2:avm_left_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_writedata
-	signal communication_module_v2_ch3_avalon_mm_left_cbuffer_master_readdata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_readdata -> Communication_Module_v2_Ch3:avm_left_cbuffer_readdata_i
-	signal communication_module_v2_ch3_avalon_mm_left_cbuffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_waitrequest -> Communication_Module_v2_Ch3:avm_left_cbuffer_waitrequest_i
-	signal communication_module_v2_ch3_avalon_mm_left_cbuffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch3:avm_left_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_address
-	signal communication_module_v2_ch3_avalon_mm_left_cbuffer_master_read                                  : std_logic;                      -- Communication_Module_v2_Ch3:avm_left_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_read
-	signal communication_module_v2_ch3_avalon_mm_left_cbuffer_master_write                                 : std_logic;                      -- Communication_Module_v2_Ch3:avm_left_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_write
-	signal communication_module_v2_ch3_avalon_mm_left_cbuffer_master_writedata                             : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch3:avm_left_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_writedata
-	signal communication_module_v2_ch4_avalon_mm_left_cbuffer_master_readdata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_readdata -> Communication_Module_v2_Ch4:avm_left_cbuffer_readdata_i
-	signal communication_module_v2_ch4_avalon_mm_left_cbuffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_waitrequest -> Communication_Module_v2_Ch4:avm_left_cbuffer_waitrequest_i
-	signal communication_module_v2_ch4_avalon_mm_left_cbuffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch4:avm_left_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_address
-	signal communication_module_v2_ch4_avalon_mm_left_cbuffer_master_read                                  : std_logic;                      -- Communication_Module_v2_Ch4:avm_left_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_read
-	signal communication_module_v2_ch4_avalon_mm_left_cbuffer_master_write                                 : std_logic;                      -- Communication_Module_v2_Ch4:avm_left_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_write
-	signal communication_module_v2_ch4_avalon_mm_left_cbuffer_master_writedata                             : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch4:avm_left_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_writedata
-	signal communication_module_v2_ch5_avalon_mm_left_cbuffer_master_readdata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_readdata -> Communication_Module_v2_Ch5:avm_left_cbuffer_readdata_i
-	signal communication_module_v2_ch5_avalon_mm_left_cbuffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_waitrequest -> Communication_Module_v2_Ch5:avm_left_cbuffer_waitrequest_i
-	signal communication_module_v2_ch5_avalon_mm_left_cbuffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch5:avm_left_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_address
-	signal communication_module_v2_ch5_avalon_mm_left_cbuffer_master_read                                  : std_logic;                      -- Communication_Module_v2_Ch5:avm_left_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_read
-	signal communication_module_v2_ch5_avalon_mm_left_cbuffer_master_write                                 : std_logic;                      -- Communication_Module_v2_Ch5:avm_left_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_write
-	signal communication_module_v2_ch5_avalon_mm_left_cbuffer_master_writedata                             : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch5:avm_left_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_writedata
-	signal communication_module_v2_ch6_avalon_mm_left_cbuffer_master_readdata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_readdata -> Communication_Module_v2_Ch6:avm_left_cbuffer_readdata_i
-	signal communication_module_v2_ch6_avalon_mm_left_cbuffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_waitrequest -> Communication_Module_v2_Ch6:avm_left_cbuffer_waitrequest_i
-	signal communication_module_v2_ch6_avalon_mm_left_cbuffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch6:avm_left_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_address
-	signal communication_module_v2_ch6_avalon_mm_left_cbuffer_master_read                                  : std_logic;                      -- Communication_Module_v2_Ch6:avm_left_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_read
-	signal communication_module_v2_ch6_avalon_mm_left_cbuffer_master_write                                 : std_logic;                      -- Communication_Module_v2_Ch6:avm_left_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_write
-	signal communication_module_v2_ch6_avalon_mm_left_cbuffer_master_writedata                             : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch6:avm_left_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_writedata
 	signal communication_module_v2_ch1_avalon_mm_right_buffer_master_readdata                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_readdata -> Communication_Module_v2_Ch1:avm_right_buffer_readdata_i
 	signal communication_module_v2_ch1_avalon_mm_right_buffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_waitrequest -> Communication_Module_v2_Ch1:avm_right_buffer_waitrequest_i
 	signal communication_module_v2_ch1_avalon_mm_right_buffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch1:avm_right_buffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_address
@@ -2732,42 +2612,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal communication_module_v2_ch6_avalon_mm_right_buffer_master_waitrequest                           : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_waitrequest -> Communication_Module_v2_Ch6:avm_right_buffer_waitrequest_i
 	signal communication_module_v2_ch6_avalon_mm_right_buffer_master_address                               : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch6:avm_right_buffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_address
 	signal communication_module_v2_ch6_avalon_mm_right_buffer_master_read                                  : std_logic;                      -- Communication_Module_v2_Ch6:avm_right_buffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_read
-	signal communication_module_v2_ch1_avalon_mm_right_cbuffer_master_readdata                             : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_readdata -> Communication_Module_v2_Ch1:avm_right_cbuffer_readdata_i
-	signal communication_module_v2_ch1_avalon_mm_right_cbuffer_master_waitrequest                          : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_waitrequest -> Communication_Module_v2_Ch1:avm_right_cbuffer_waitrequest_i
-	signal communication_module_v2_ch1_avalon_mm_right_cbuffer_master_address                              : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch1:avm_right_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_address
-	signal communication_module_v2_ch1_avalon_mm_right_cbuffer_master_read                                 : std_logic;                      -- Communication_Module_v2_Ch1:avm_right_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_read
-	signal communication_module_v2_ch1_avalon_mm_right_cbuffer_master_write                                : std_logic;                      -- Communication_Module_v2_Ch1:avm_right_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_write
-	signal communication_module_v2_ch1_avalon_mm_right_cbuffer_master_writedata                            : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch1:avm_right_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_writedata
-	signal communication_module_v2_ch2_avalon_mm_right_cbuffer_master_readdata                             : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_readdata -> Communication_Module_v2_Ch2:avm_right_cbuffer_readdata_i
-	signal communication_module_v2_ch2_avalon_mm_right_cbuffer_master_waitrequest                          : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_waitrequest -> Communication_Module_v2_Ch2:avm_right_cbuffer_waitrequest_i
-	signal communication_module_v2_ch2_avalon_mm_right_cbuffer_master_address                              : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch2:avm_right_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_address
-	signal communication_module_v2_ch2_avalon_mm_right_cbuffer_master_read                                 : std_logic;                      -- Communication_Module_v2_Ch2:avm_right_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_read
-	signal communication_module_v2_ch2_avalon_mm_right_cbuffer_master_write                                : std_logic;                      -- Communication_Module_v2_Ch2:avm_right_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_write
-	signal communication_module_v2_ch2_avalon_mm_right_cbuffer_master_writedata                            : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch2:avm_right_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_writedata
-	signal communication_module_v2_ch3_avalon_mm_right_cbuffer_master_readdata                             : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_readdata -> Communication_Module_v2_Ch3:avm_right_cbuffer_readdata_i
-	signal communication_module_v2_ch3_avalon_mm_right_cbuffer_master_waitrequest                          : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_waitrequest -> Communication_Module_v2_Ch3:avm_right_cbuffer_waitrequest_i
-	signal communication_module_v2_ch3_avalon_mm_right_cbuffer_master_address                              : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch3:avm_right_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_address
-	signal communication_module_v2_ch3_avalon_mm_right_cbuffer_master_read                                 : std_logic;                      -- Communication_Module_v2_Ch3:avm_right_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_read
-	signal communication_module_v2_ch3_avalon_mm_right_cbuffer_master_write                                : std_logic;                      -- Communication_Module_v2_Ch3:avm_right_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_write
-	signal communication_module_v2_ch3_avalon_mm_right_cbuffer_master_writedata                            : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch3:avm_right_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_writedata
-	signal communication_module_v2_ch4_avalon_mm_right_cbuffer_master_readdata                             : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_readdata -> Communication_Module_v2_Ch4:avm_right_cbuffer_readdata_i
-	signal communication_module_v2_ch4_avalon_mm_right_cbuffer_master_waitrequest                          : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_waitrequest -> Communication_Module_v2_Ch4:avm_right_cbuffer_waitrequest_i
-	signal communication_module_v2_ch4_avalon_mm_right_cbuffer_master_address                              : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch4:avm_right_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_address
-	signal communication_module_v2_ch4_avalon_mm_right_cbuffer_master_read                                 : std_logic;                      -- Communication_Module_v2_Ch4:avm_right_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_read
-	signal communication_module_v2_ch4_avalon_mm_right_cbuffer_master_write                                : std_logic;                      -- Communication_Module_v2_Ch4:avm_right_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_write
-	signal communication_module_v2_ch4_avalon_mm_right_cbuffer_master_writedata                            : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch4:avm_right_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_writedata
-	signal communication_module_v2_ch6_avalon_mm_right_cbuffer_master_readdata                             : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_readdata -> Communication_Module_v2_Ch6:avm_right_cbuffer_readdata_i
-	signal communication_module_v2_ch6_avalon_mm_right_cbuffer_master_waitrequest                          : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_waitrequest -> Communication_Module_v2_Ch6:avm_right_cbuffer_waitrequest_i
-	signal communication_module_v2_ch6_avalon_mm_right_cbuffer_master_address                              : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch6:avm_right_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_address
-	signal communication_module_v2_ch6_avalon_mm_right_cbuffer_master_read                                 : std_logic;                      -- Communication_Module_v2_Ch6:avm_right_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_read
-	signal communication_module_v2_ch6_avalon_mm_right_cbuffer_master_write                                : std_logic;                      -- Communication_Module_v2_Ch6:avm_right_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_write
-	signal communication_module_v2_ch6_avalon_mm_right_cbuffer_master_writedata                            : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch6:avm_right_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_writedata
-	signal communication_module_v2_ch5_avalon_mm_right_cbuffer_master_readdata                             : std_logic_vector(255 downto 0); -- mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_readdata -> Communication_Module_v2_Ch5:avm_right_cbuffer_readdata_i
-	signal communication_module_v2_ch5_avalon_mm_right_cbuffer_master_waitrequest                          : std_logic;                      -- mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_waitrequest -> Communication_Module_v2_Ch5:avm_right_cbuffer_waitrequest_i
-	signal communication_module_v2_ch5_avalon_mm_right_cbuffer_master_address                              : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch5:avm_right_cbuffer_address_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_address
-	signal communication_module_v2_ch5_avalon_mm_right_cbuffer_master_read                                 : std_logic;                      -- Communication_Module_v2_Ch5:avm_right_cbuffer_read_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_read
-	signal communication_module_v2_ch5_avalon_mm_right_cbuffer_master_write                                : std_logic;                      -- Communication_Module_v2_Ch5:avm_right_cbuffer_write_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_write
-	signal communication_module_v2_ch5_avalon_mm_right_cbuffer_master_writedata                            : std_logic_vector(255 downto 0); -- Communication_Module_v2_Ch5:avm_right_cbuffer_writedata_o -> mm_interconnect_0:Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_writedata
 	signal rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata                                             : std_logic_vector(7 downto 0);   -- mm_interconnect_0:rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata -> rmap_mem_nfee_comm_1:avm_rmap_readdata_i
 	signal rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest                                          : std_logic;                      -- mm_interconnect_0:rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest -> rmap_mem_nfee_comm_1:avm_rmap_waitrequest_i
 	signal rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address                                              : std_logic_vector(63 downto 0);  -- rmap_mem_nfee_comm_1:avm_rmap_address_o -> mm_interconnect_0:rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address
@@ -3312,18 +3156,6 @@ begin
 			avm_right_buffer_waitrequest_i      => communication_module_v2_ch1_avalon_mm_right_buffer_master_waitrequest,                           --                                        .waitrequest
 			avm_right_buffer_address_o          => communication_module_v2_ch1_avalon_mm_right_buffer_master_address,                               --                                        .address
 			avm_right_buffer_read_o             => communication_module_v2_ch1_avalon_mm_right_buffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_readdata_i         => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_readdata,                              --           avalon_mm_left_cbuffer_master.readdata
-			avm_left_cbuffer_waitrequest_i      => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_waitrequest,                           --                                        .waitrequest
-			avm_left_cbuffer_address_o          => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_address,                               --                                        .address
-			avm_left_cbuffer_read_o             => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_write_o            => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_write,                                 --                                        .write
-			avm_left_cbuffer_writedata_o        => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_writedata,                             --                                        .writedata
-			avm_right_cbuffer_readdata_i        => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_readdata,                             --          avalon_mm_right_cbuffer_master.readdata
-			avm_right_cbuffer_waitrequest_i     => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_waitrequest,                          --                                        .waitrequest
-			avm_right_cbuffer_address_o         => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_address,                              --                                        .address
-			avm_right_cbuffer_read_o            => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_read,                                 --                                        .read
-			avm_right_cbuffer_write_o           => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_write,                                --                                        .write
-			avm_right_cbuffer_writedata_o       => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_writedata,                            --                                        .writedata
 			feeb_interrupt_sender_irq_o         => irq_mapper_receiver0_irq,                                                                        --                   feeb_interrupt_sender.irq
 			rmap_interrupt_sender_irq_o         => irq_mapper_receiver11_irq,                                                                       --                   rmap_interrupt_sender.irq
 			spw_link_status_started_i           => spacewire_channel_a_conduit_end_spacewire_channel_spw_link_status_started_signal,                --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -3417,18 +3249,6 @@ begin
 			avm_right_buffer_waitrequest_i      => communication_module_v2_ch2_avalon_mm_right_buffer_master_waitrequest,                           --                                        .waitrequest
 			avm_right_buffer_address_o          => communication_module_v2_ch2_avalon_mm_right_buffer_master_address,                               --                                        .address
 			avm_right_buffer_read_o             => communication_module_v2_ch2_avalon_mm_right_buffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_readdata_i         => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_readdata,                              --           avalon_mm_left_cbuffer_master.readdata
-			avm_left_cbuffer_waitrequest_i      => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_waitrequest,                           --                                        .waitrequest
-			avm_left_cbuffer_address_o          => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_address,                               --                                        .address
-			avm_left_cbuffer_read_o             => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_write_o            => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_write,                                 --                                        .write
-			avm_left_cbuffer_writedata_o        => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_writedata,                             --                                        .writedata
-			avm_right_cbuffer_readdata_i        => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_readdata,                             --          avalon_mm_right_cbuffer_master.readdata
-			avm_right_cbuffer_waitrequest_i     => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_waitrequest,                          --                                        .waitrequest
-			avm_right_cbuffer_address_o         => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_address,                              --                                        .address
-			avm_right_cbuffer_read_o            => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_read,                                 --                                        .read
-			avm_right_cbuffer_write_o           => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_write,                                --                                        .write
-			avm_right_cbuffer_writedata_o       => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_writedata,                            --                                        .writedata
 			feeb_interrupt_sender_irq_o         => irq_mapper_receiver1_irq,                                                                        --                   feeb_interrupt_sender.irq
 			rmap_interrupt_sender_irq_o         => irq_mapper_receiver12_irq,                                                                       --                   rmap_interrupt_sender.irq
 			spw_link_status_started_i           => spacewire_channel_b_conduit_end_spacewire_channel_spw_link_status_started_signal,                --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -3522,18 +3342,6 @@ begin
 			avm_right_buffer_waitrequest_i      => communication_module_v2_ch3_avalon_mm_right_buffer_master_waitrequest,                           --                                        .waitrequest
 			avm_right_buffer_address_o          => communication_module_v2_ch3_avalon_mm_right_buffer_master_address,                               --                                        .address
 			avm_right_buffer_read_o             => communication_module_v2_ch3_avalon_mm_right_buffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_readdata_i         => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_readdata,                              --           avalon_mm_left_cbuffer_master.readdata
-			avm_left_cbuffer_waitrequest_i      => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_waitrequest,                           --                                        .waitrequest
-			avm_left_cbuffer_address_o          => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_address,                               --                                        .address
-			avm_left_cbuffer_read_o             => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_write_o            => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_write,                                 --                                        .write
-			avm_left_cbuffer_writedata_o        => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_writedata,                             --                                        .writedata
-			avm_right_cbuffer_readdata_i        => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_readdata,                             --          avalon_mm_right_cbuffer_master.readdata
-			avm_right_cbuffer_waitrequest_i     => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_waitrequest,                          --                                        .waitrequest
-			avm_right_cbuffer_address_o         => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_address,                              --                                        .address
-			avm_right_cbuffer_read_o            => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_read,                                 --                                        .read
-			avm_right_cbuffer_write_o           => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_write,                                --                                        .write
-			avm_right_cbuffer_writedata_o       => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_writedata,                            --                                        .writedata
 			feeb_interrupt_sender_irq_o         => irq_mapper_receiver2_irq,                                                                        --                   feeb_interrupt_sender.irq
 			rmap_interrupt_sender_irq_o         => irq_mapper_receiver13_irq,                                                                       --                   rmap_interrupt_sender.irq
 			spw_link_status_started_i           => spacewire_channel_c_conduit_end_spacewire_channel_spw_link_status_started_signal,                --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -3627,18 +3435,6 @@ begin
 			avm_right_buffer_waitrequest_i      => communication_module_v2_ch4_avalon_mm_right_buffer_master_waitrequest,                           --                                        .waitrequest
 			avm_right_buffer_address_o          => communication_module_v2_ch4_avalon_mm_right_buffer_master_address,                               --                                        .address
 			avm_right_buffer_read_o             => communication_module_v2_ch4_avalon_mm_right_buffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_readdata_i         => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_readdata,                              --           avalon_mm_left_cbuffer_master.readdata
-			avm_left_cbuffer_waitrequest_i      => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_waitrequest,                           --                                        .waitrequest
-			avm_left_cbuffer_address_o          => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_address,                               --                                        .address
-			avm_left_cbuffer_read_o             => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_write_o            => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_write,                                 --                                        .write
-			avm_left_cbuffer_writedata_o        => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_writedata,                             --                                        .writedata
-			avm_right_cbuffer_readdata_i        => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_readdata,                             --          avalon_mm_right_cbuffer_master.readdata
-			avm_right_cbuffer_waitrequest_i     => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_waitrequest,                          --                                        .waitrequest
-			avm_right_cbuffer_address_o         => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_address,                              --                                        .address
-			avm_right_cbuffer_read_o            => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_read,                                 --                                        .read
-			avm_right_cbuffer_write_o           => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_write,                                --                                        .write
-			avm_right_cbuffer_writedata_o       => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_writedata,                            --                                        .writedata
 			feeb_interrupt_sender_irq_o         => irq_mapper_receiver3_irq,                                                                        --                   feeb_interrupt_sender.irq
 			rmap_interrupt_sender_irq_o         => irq_mapper_receiver14_irq,                                                                       --                   rmap_interrupt_sender.irq
 			spw_link_status_started_i           => spacewire_channel_d_conduit_end_spacewire_channel_spw_link_status_started_signal,                --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -3732,18 +3528,6 @@ begin
 			avm_right_buffer_waitrequest_i      => communication_module_v2_ch5_avalon_mm_right_buffer_master_waitrequest,                           --                                        .waitrequest
 			avm_right_buffer_address_o          => communication_module_v2_ch5_avalon_mm_right_buffer_master_address,                               --                                        .address
 			avm_right_buffer_read_o             => communication_module_v2_ch5_avalon_mm_right_buffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_readdata_i         => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_readdata,                              --           avalon_mm_left_cbuffer_master.readdata
-			avm_left_cbuffer_waitrequest_i      => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_waitrequest,                           --                                        .waitrequest
-			avm_left_cbuffer_address_o          => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_address,                               --                                        .address
-			avm_left_cbuffer_read_o             => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_write_o            => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_write,                                 --                                        .write
-			avm_left_cbuffer_writedata_o        => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_writedata,                             --                                        .writedata
-			avm_right_cbuffer_readdata_i        => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_readdata,                             --          avalon_mm_right_cbuffer_master.readdata
-			avm_right_cbuffer_waitrequest_i     => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_waitrequest,                          --                                        .waitrequest
-			avm_right_cbuffer_address_o         => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_address,                              --                                        .address
-			avm_right_cbuffer_read_o            => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_read,                                 --                                        .read
-			avm_right_cbuffer_write_o           => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_write,                                --                                        .write
-			avm_right_cbuffer_writedata_o       => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_writedata,                            --                                        .writedata
 			feeb_interrupt_sender_irq_o         => irq_mapper_receiver4_irq,                                                                        --                   feeb_interrupt_sender.irq
 			rmap_interrupt_sender_irq_o         => irq_mapper_receiver15_irq,                                                                       --                   rmap_interrupt_sender.irq
 			spw_link_status_started_i           => spacewire_channel_e_conduit_end_spacewire_channel_spw_link_status_started_signal,                --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -3837,18 +3621,6 @@ begin
 			avm_right_buffer_waitrequest_i      => communication_module_v2_ch6_avalon_mm_right_buffer_master_waitrequest,                           --                                        .waitrequest
 			avm_right_buffer_address_o          => communication_module_v2_ch6_avalon_mm_right_buffer_master_address,                               --                                        .address
 			avm_right_buffer_read_o             => communication_module_v2_ch6_avalon_mm_right_buffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_readdata_i         => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_readdata,                              --           avalon_mm_left_cbuffer_master.readdata
-			avm_left_cbuffer_waitrequest_i      => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_waitrequest,                           --                                        .waitrequest
-			avm_left_cbuffer_address_o          => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_address,                               --                                        .address
-			avm_left_cbuffer_read_o             => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_read,                                  --                                        .read
-			avm_left_cbuffer_write_o            => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_write,                                 --                                        .write
-			avm_left_cbuffer_writedata_o        => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_writedata,                             --                                        .writedata
-			avm_right_cbuffer_readdata_i        => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_readdata,                             --          avalon_mm_right_cbuffer_master.readdata
-			avm_right_cbuffer_waitrequest_i     => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_waitrequest,                          --                                        .waitrequest
-			avm_right_cbuffer_address_o         => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_address,                              --                                        .address
-			avm_right_cbuffer_read_o            => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_read,                                 --                                        .read
-			avm_right_cbuffer_write_o           => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_write,                                --                                        .write
-			avm_right_cbuffer_writedata_o       => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_writedata,                            --                                        .writedata
 			feeb_interrupt_sender_irq_o         => irq_mapper_receiver5_irq,                                                                        --                   feeb_interrupt_sender.irq
 			rmap_interrupt_sender_irq_o         => irq_mapper_receiver16_irq,                                                                       --                   rmap_interrupt_sender.irq
 			spw_link_status_started_i           => spacewire_channel_f_conduit_end_spacewire_channel_spw_link_status_started_signal,                --        conduit_end_spacewire_controller.spw_link_status_started_signal
@@ -5555,210 +5327,138 @@ begin
 
 	mm_interconnect_0 : component MebX_Qsys_Project_mm_interconnect_0
 		port map (
-			clk_100_clk_clk                                                        => m2_ddr2_memory_afi_half_clk_clk,                                        --                                                  clk_100_clk.clk
-			m2_ddr2_memory_afi_clk_clk                                             => m2_ddr2_memory_afi_clk_clk,                                             --                                       m2_ddr2_memory_afi_clk.clk
-			m2_ddr2_memory_afi_half_clk_clk                                        => m2_ddr2_memory_afi_half_clk_clk,                                        --                                  m2_ddr2_memory_afi_half_clk.clk
-			Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset     => rst_controller_002_reset_out_reset,                                     -- Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset.reset
-			Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset     => rst_controller_003_reset_out_reset,                                     -- Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset.reset
-			Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset     => rst_controller_004_reset_out_reset,                                     -- Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset.reset
-			Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset     => rst_controller_005_reset_out_reset,                                     -- Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset.reset
-			Communication_Module_v2_Ch5_reset_sink_reset_bridge_in_reset_reset     => rst_controller_006_reset_out_reset,                                     -- Communication_Module_v2_Ch5_reset_sink_reset_bridge_in_reset.reset
-			Communication_Module_v2_Ch6_reset_sink_reset_bridge_in_reset_reset     => rst_controller_007_reset_out_reset,                                     -- Communication_Module_v2_Ch6_reset_sink_reset_bridge_in_reset.reset
-			FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset            => rst_controller_008_reset_out_reset,                                     --        FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset.reset
-			m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset                   => rst_controller_008_reset_out_reset,                                     --               m1_clock_bridge_s0_reset_reset_bridge_in_reset.reset
-			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset        => rst_controller_025_reset_out_reset,                                     --    m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
-			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                  => rst_controller_025_reset_out_reset,                                     --              m2_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_address       => communication_module_v2_ch1_avalon_mm_left_buffer_master_address,       --     Communication_Module_v2_Ch1_avalon_mm_left_buffer_master.address
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_waitrequest   => communication_module_v2_ch1_avalon_mm_left_buffer_master_waitrequest,   --                                                             .waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_read          => communication_module_v2_ch1_avalon_mm_left_buffer_master_read,          --                                                             .read
-			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_readdata      => communication_module_v2_ch1_avalon_mm_left_buffer_master_readdata,      --                                                             .readdata
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_address      => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_address,      --    Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master.address
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_waitrequest  => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_read         => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_readdata     => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_write        => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_write,        --                                                             .write
-			Communication_Module_v2_Ch1_avalon_mm_left_cbuffer_master_writedata    => communication_module_v2_ch1_avalon_mm_left_cbuffer_master_writedata,    --                                                             .writedata
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_address      => communication_module_v2_ch1_avalon_mm_right_buffer_master_address,      --    Communication_Module_v2_Ch1_avalon_mm_right_buffer_master.address
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_waitrequest  => communication_module_v2_ch1_avalon_mm_right_buffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_read         => communication_module_v2_ch1_avalon_mm_right_buffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_readdata     => communication_module_v2_ch1_avalon_mm_right_buffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_address     => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_address,     --   Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master.address
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_waitrequest => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_waitrequest, --                                                             .waitrequest
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_read        => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_read,        --                                                             .read
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_readdata    => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_readdata,    --                                                             .readdata
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_write       => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_write,       --                                                             .write
-			Communication_Module_v2_Ch1_avalon_mm_right_cbuffer_master_writedata   => communication_module_v2_ch1_avalon_mm_right_cbuffer_master_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_address       => communication_module_v2_ch2_avalon_mm_left_buffer_master_address,       --     Communication_Module_v2_Ch2_avalon_mm_left_buffer_master.address
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_waitrequest   => communication_module_v2_ch2_avalon_mm_left_buffer_master_waitrequest,   --                                                             .waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_read          => communication_module_v2_ch2_avalon_mm_left_buffer_master_read,          --                                                             .read
-			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_readdata      => communication_module_v2_ch2_avalon_mm_left_buffer_master_readdata,      --                                                             .readdata
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_address      => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_address,      --    Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master.address
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_waitrequest  => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_read         => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_readdata     => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_write        => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_write,        --                                                             .write
-			Communication_Module_v2_Ch2_avalon_mm_left_cbuffer_master_writedata    => communication_module_v2_ch2_avalon_mm_left_cbuffer_master_writedata,    --                                                             .writedata
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_address      => communication_module_v2_ch2_avalon_mm_right_buffer_master_address,      --    Communication_Module_v2_Ch2_avalon_mm_right_buffer_master.address
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_waitrequest  => communication_module_v2_ch2_avalon_mm_right_buffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_read         => communication_module_v2_ch2_avalon_mm_right_buffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_readdata     => communication_module_v2_ch2_avalon_mm_right_buffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_address     => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_address,     --   Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master.address
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_waitrequest => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_waitrequest, --                                                             .waitrequest
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_read        => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_read,        --                                                             .read
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_readdata    => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_readdata,    --                                                             .readdata
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_write       => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_write,       --                                                             .write
-			Communication_Module_v2_Ch2_avalon_mm_right_cbuffer_master_writedata   => communication_module_v2_ch2_avalon_mm_right_cbuffer_master_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_address       => communication_module_v2_ch3_avalon_mm_left_buffer_master_address,       --     Communication_Module_v2_Ch3_avalon_mm_left_buffer_master.address
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_waitrequest   => communication_module_v2_ch3_avalon_mm_left_buffer_master_waitrequest,   --                                                             .waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_read          => communication_module_v2_ch3_avalon_mm_left_buffer_master_read,          --                                                             .read
-			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_readdata      => communication_module_v2_ch3_avalon_mm_left_buffer_master_readdata,      --                                                             .readdata
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_address      => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_address,      --    Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master.address
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_waitrequest  => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_read         => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_readdata     => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_write        => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_write,        --                                                             .write
-			Communication_Module_v2_Ch3_avalon_mm_left_cbuffer_master_writedata    => communication_module_v2_ch3_avalon_mm_left_cbuffer_master_writedata,    --                                                             .writedata
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_address      => communication_module_v2_ch3_avalon_mm_right_buffer_master_address,      --    Communication_Module_v2_Ch3_avalon_mm_right_buffer_master.address
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_waitrequest  => communication_module_v2_ch3_avalon_mm_right_buffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_read         => communication_module_v2_ch3_avalon_mm_right_buffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_readdata     => communication_module_v2_ch3_avalon_mm_right_buffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_address     => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_address,     --   Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master.address
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_waitrequest => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_waitrequest, --                                                             .waitrequest
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_read        => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_read,        --                                                             .read
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_readdata    => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_readdata,    --                                                             .readdata
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_write       => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_write,       --                                                             .write
-			Communication_Module_v2_Ch3_avalon_mm_right_cbuffer_master_writedata   => communication_module_v2_ch3_avalon_mm_right_cbuffer_master_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_address       => communication_module_v2_ch4_avalon_mm_left_buffer_master_address,       --     Communication_Module_v2_Ch4_avalon_mm_left_buffer_master.address
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_waitrequest   => communication_module_v2_ch4_avalon_mm_left_buffer_master_waitrequest,   --                                                             .waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_read          => communication_module_v2_ch4_avalon_mm_left_buffer_master_read,          --                                                             .read
-			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_readdata      => communication_module_v2_ch4_avalon_mm_left_buffer_master_readdata,      --                                                             .readdata
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_address      => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_address,      --    Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master.address
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_waitrequest  => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_read         => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_readdata     => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_write        => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_write,        --                                                             .write
-			Communication_Module_v2_Ch4_avalon_mm_left_cbuffer_master_writedata    => communication_module_v2_ch4_avalon_mm_left_cbuffer_master_writedata,    --                                                             .writedata
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_address      => communication_module_v2_ch4_avalon_mm_right_buffer_master_address,      --    Communication_Module_v2_Ch4_avalon_mm_right_buffer_master.address
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_waitrequest  => communication_module_v2_ch4_avalon_mm_right_buffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_read         => communication_module_v2_ch4_avalon_mm_right_buffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_readdata     => communication_module_v2_ch4_avalon_mm_right_buffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_address     => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_address,     --   Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master.address
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_waitrequest => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_waitrequest, --                                                             .waitrequest
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_read        => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_read,        --                                                             .read
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_readdata    => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_readdata,    --                                                             .readdata
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_write       => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_write,       --                                                             .write
-			Communication_Module_v2_Ch4_avalon_mm_right_cbuffer_master_writedata   => communication_module_v2_ch4_avalon_mm_right_cbuffer_master_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_address       => communication_module_v2_ch5_avalon_mm_left_buffer_master_address,       --     Communication_Module_v2_Ch5_avalon_mm_left_buffer_master.address
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_waitrequest   => communication_module_v2_ch5_avalon_mm_left_buffer_master_waitrequest,   --                                                             .waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_read          => communication_module_v2_ch5_avalon_mm_left_buffer_master_read,          --                                                             .read
-			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_readdata      => communication_module_v2_ch5_avalon_mm_left_buffer_master_readdata,      --                                                             .readdata
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_address      => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_address,      --    Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master.address
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_waitrequest  => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_read         => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_readdata     => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_write        => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_write,        --                                                             .write
-			Communication_Module_v2_Ch5_avalon_mm_left_cbuffer_master_writedata    => communication_module_v2_ch5_avalon_mm_left_cbuffer_master_writedata,    --                                                             .writedata
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_address      => communication_module_v2_ch5_avalon_mm_right_buffer_master_address,      --    Communication_Module_v2_Ch5_avalon_mm_right_buffer_master.address
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_waitrequest  => communication_module_v2_ch5_avalon_mm_right_buffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_read         => communication_module_v2_ch5_avalon_mm_right_buffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_readdata     => communication_module_v2_ch5_avalon_mm_right_buffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_address     => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_address,     --   Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master.address
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_waitrequest => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_waitrequest, --                                                             .waitrequest
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_read        => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_read,        --                                                             .read
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_readdata    => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_readdata,    --                                                             .readdata
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_write       => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_write,       --                                                             .write
-			Communication_Module_v2_Ch5_avalon_mm_right_cbuffer_master_writedata   => communication_module_v2_ch5_avalon_mm_right_cbuffer_master_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_address       => communication_module_v2_ch6_avalon_mm_left_buffer_master_address,       --     Communication_Module_v2_Ch6_avalon_mm_left_buffer_master.address
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_waitrequest   => communication_module_v2_ch6_avalon_mm_left_buffer_master_waitrequest,   --                                                             .waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_read          => communication_module_v2_ch6_avalon_mm_left_buffer_master_read,          --                                                             .read
-			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_readdata      => communication_module_v2_ch6_avalon_mm_left_buffer_master_readdata,      --                                                             .readdata
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_address      => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_address,      --    Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master.address
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_waitrequest  => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_read         => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_readdata     => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_write        => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_write,        --                                                             .write
-			Communication_Module_v2_Ch6_avalon_mm_left_cbuffer_master_writedata    => communication_module_v2_ch6_avalon_mm_left_cbuffer_master_writedata,    --                                                             .writedata
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_address      => communication_module_v2_ch6_avalon_mm_right_buffer_master_address,      --    Communication_Module_v2_Ch6_avalon_mm_right_buffer_master.address
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_waitrequest  => communication_module_v2_ch6_avalon_mm_right_buffer_master_waitrequest,  --                                                             .waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_read         => communication_module_v2_ch6_avalon_mm_right_buffer_master_read,         --                                                             .read
-			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_readdata     => communication_module_v2_ch6_avalon_mm_right_buffer_master_readdata,     --                                                             .readdata
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_address     => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_address,     --   Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master.address
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_waitrequest => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_waitrequest, --                                                             .waitrequest
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_read        => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_read,        --                                                             .read
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_readdata    => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_readdata,    --                                                             .readdata
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_write       => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_write,       --                                                             .write
-			Communication_Module_v2_Ch6_avalon_mm_right_cbuffer_master_writedata   => communication_module_v2_ch6_avalon_mm_right_cbuffer_master_writedata,   --                                                             .writedata
-			ddr2_address_span_extender_expanded_master_address                     => ddr2_address_span_extender_expanded_master_address,                     --                   ddr2_address_span_extender_expanded_master.address
-			ddr2_address_span_extender_expanded_master_waitrequest                 => ddr2_address_span_extender_expanded_master_waitrequest,                 --                                                             .waitrequest
-			ddr2_address_span_extender_expanded_master_burstcount                  => ddr2_address_span_extender_expanded_master_burstcount,                  --                                                             .burstcount
-			ddr2_address_span_extender_expanded_master_byteenable                  => ddr2_address_span_extender_expanded_master_byteenable,                  --                                                             .byteenable
-			ddr2_address_span_extender_expanded_master_read                        => ddr2_address_span_extender_expanded_master_read,                        --                                                             .read
-			ddr2_address_span_extender_expanded_master_readdata                    => ddr2_address_span_extender_expanded_master_readdata,                    --                                                             .readdata
-			ddr2_address_span_extender_expanded_master_readdatavalid               => ddr2_address_span_extender_expanded_master_readdatavalid,               --                                                             .readdatavalid
-			ddr2_address_span_extender_expanded_master_write                       => ddr2_address_span_extender_expanded_master_write,                       --                                                             .write
-			ddr2_address_span_extender_expanded_master_writedata                   => ddr2_address_span_extender_expanded_master_writedata,                   --                                                             .writedata
-			FTDI_UMFT601A_Module_avalon_master_data_address                        => ftdi_umft601a_module_avalon_master_data_address,                        --                      FTDI_UMFT601A_Module_avalon_master_data.address
-			FTDI_UMFT601A_Module_avalon_master_data_waitrequest                    => ftdi_umft601a_module_avalon_master_data_waitrequest,                    --                                                             .waitrequest
-			FTDI_UMFT601A_Module_avalon_master_data_read                           => ftdi_umft601a_module_avalon_master_data_read,                           --                                                             .read
-			FTDI_UMFT601A_Module_avalon_master_data_readdata                       => ftdi_umft601a_module_avalon_master_data_readdata,                       --                                                             .readdata
-			FTDI_UMFT601A_Module_avalon_master_data_write                          => ftdi_umft601a_module_avalon_master_data_write,                          --                                                             .write
-			FTDI_UMFT601A_Module_avalon_master_data_writedata                      => ftdi_umft601a_module_avalon_master_data_writedata,                      --                                                             .writedata
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address                     => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address,                     --                   rmap_mem_nfee_comm_1_avalon_mm_rmap_master.address
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest                 => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest,                 --                                                             .waitrequest
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_read                        => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_read,                        --                                                             .read
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata                    => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata,                    --                                                             .readdata
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_write                       => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_write,                       --                                                             .write
-			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_writedata                   => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_writedata,                   --                                                             .writedata
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_address                     => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_address,                     --                   rmap_mem_nfee_comm_2_avalon_mm_rmap_master.address
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_waitrequest                 => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_waitrequest,                 --                                                             .waitrequest
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_read                        => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_read,                        --                                                             .read
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_readdata                    => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_readdata,                    --                                                             .readdata
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_write                       => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_write,                       --                                                             .write
-			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_writedata                   => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_writedata,                   --                                                             .writedata
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_address                     => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_address,                     --                   rmap_mem_nfee_comm_3_avalon_mm_rmap_master.address
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_waitrequest                 => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_waitrequest,                 --                                                             .waitrequest
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_read                        => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_read,                        --                                                             .read
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_readdata                    => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_readdata,                    --                                                             .readdata
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_write                       => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_write,                       --                                                             .write
-			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_writedata                   => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_writedata,                   --                                                             .writedata
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_address                     => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_address,                     --                   rmap_mem_nfee_comm_4_avalon_mm_rmap_master.address
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_waitrequest                 => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_waitrequest,                 --                                                             .waitrequest
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_read                        => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_read,                        --                                                             .read
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_readdata                    => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_readdata,                    --                                                             .readdata
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_write                       => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_write,                       --                                                             .write
-			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_writedata                   => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_writedata,                   --                                                             .writedata
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_address                     => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_address,                     --                   rmap_mem_nfee_comm_5_avalon_mm_rmap_master.address
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_waitrequest                 => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_waitrequest,                 --                                                             .waitrequest
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_read                        => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_read,                        --                                                             .read
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_readdata                    => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_readdata,                    --                                                             .readdata
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_write                       => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_write,                       --                                                             .write
-			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_writedata                   => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_writedata,                   --                                                             .writedata
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_address                     => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_address,                     --                   rmap_mem_nfee_comm_6_avalon_mm_rmap_master.address
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_waitrequest                 => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_waitrequest,                 --                                                             .waitrequest
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_read                        => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_read,                        --                                                             .read
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_readdata                    => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_readdata,                    --                                                             .readdata
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_write                       => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_write,                       --                                                             .write
-			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_writedata                   => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_writedata,                   --                                                             .writedata
-			m1_clock_bridge_s0_address                                             => mm_interconnect_0_m1_clock_bridge_s0_address,                           --                                           m1_clock_bridge_s0.address
-			m1_clock_bridge_s0_write                                               => mm_interconnect_0_m1_clock_bridge_s0_write,                             --                                                             .write
-			m1_clock_bridge_s0_read                                                => mm_interconnect_0_m1_clock_bridge_s0_read,                              --                                                             .read
-			m1_clock_bridge_s0_readdata                                            => mm_interconnect_0_m1_clock_bridge_s0_readdata,                          --                                                             .readdata
-			m1_clock_bridge_s0_writedata                                           => mm_interconnect_0_m1_clock_bridge_s0_writedata,                         --                                                             .writedata
-			m1_clock_bridge_s0_burstcount                                          => mm_interconnect_0_m1_clock_bridge_s0_burstcount,                        --                                                             .burstcount
-			m1_clock_bridge_s0_byteenable                                          => mm_interconnect_0_m1_clock_bridge_s0_byteenable,                        --                                                             .byteenable
-			m1_clock_bridge_s0_readdatavalid                                       => mm_interconnect_0_m1_clock_bridge_s0_readdatavalid,                     --                                                             .readdatavalid
-			m1_clock_bridge_s0_waitrequest                                         => mm_interconnect_0_m1_clock_bridge_s0_waitrequest,                       --                                                             .waitrequest
-			m1_clock_bridge_s0_debugaccess                                         => mm_interconnect_0_m1_clock_bridge_s0_debugaccess,                       --                                                             .debugaccess
-			m2_ddr2_memory_avl_address                                             => mm_interconnect_0_m2_ddr2_memory_avl_address,                           --                                           m2_ddr2_memory_avl.address
-			m2_ddr2_memory_avl_write                                               => mm_interconnect_0_m2_ddr2_memory_avl_write,                             --                                                             .write
-			m2_ddr2_memory_avl_read                                                => mm_interconnect_0_m2_ddr2_memory_avl_read,                              --                                                             .read
-			m2_ddr2_memory_avl_readdata                                            => mm_interconnect_0_m2_ddr2_memory_avl_readdata,                          --                                                             .readdata
-			m2_ddr2_memory_avl_writedata                                           => mm_interconnect_0_m2_ddr2_memory_avl_writedata,                         --                                                             .writedata
-			m2_ddr2_memory_avl_beginbursttransfer                                  => mm_interconnect_0_m2_ddr2_memory_avl_beginbursttransfer,                --                                                             .beginbursttransfer
-			m2_ddr2_memory_avl_burstcount                                          => mm_interconnect_0_m2_ddr2_memory_avl_burstcount,                        --                                                             .burstcount
-			m2_ddr2_memory_avl_byteenable                                          => mm_interconnect_0_m2_ddr2_memory_avl_byteenable,                        --                                                             .byteenable
-			m2_ddr2_memory_avl_readdatavalid                                       => mm_interconnect_0_m2_ddr2_memory_avl_readdatavalid,                     --                                                             .readdatavalid
-			m2_ddr2_memory_avl_waitrequest                                         => mm_interconnect_0_m2_ddr2_memory_avl_inv                                --                                                             .waitrequest
+			clk_100_clk_clk                                                       => m2_ddr2_memory_afi_half_clk_clk,                                       --                                                  clk_100_clk.clk
+			m2_ddr2_memory_afi_clk_clk                                            => m2_ddr2_memory_afi_clk_clk,                                            --                                       m2_ddr2_memory_afi_clk.clk
+			m2_ddr2_memory_afi_half_clk_clk                                       => m2_ddr2_memory_afi_half_clk_clk,                                       --                                  m2_ddr2_memory_afi_half_clk.clk
+			Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset    => rst_controller_002_reset_out_reset,                                    -- Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset.reset
+			Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset    => rst_controller_003_reset_out_reset,                                    -- Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset.reset
+			Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset    => rst_controller_004_reset_out_reset,                                    -- Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset.reset
+			Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset    => rst_controller_005_reset_out_reset,                                    -- Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset.reset
+			Communication_Module_v2_Ch5_reset_sink_reset_bridge_in_reset_reset    => rst_controller_006_reset_out_reset,                                    -- Communication_Module_v2_Ch5_reset_sink_reset_bridge_in_reset.reset
+			Communication_Module_v2_Ch6_reset_sink_reset_bridge_in_reset_reset    => rst_controller_007_reset_out_reset,                                    -- Communication_Module_v2_Ch6_reset_sink_reset_bridge_in_reset.reset
+			FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset           => rst_controller_008_reset_out_reset,                                    --        FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset.reset
+			m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset                  => rst_controller_008_reset_out_reset,                                    --               m1_clock_bridge_s0_reset_reset_bridge_in_reset.reset
+			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset       => rst_controller_025_reset_out_reset,                                    --    m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
+			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                 => rst_controller_025_reset_out_reset,                                    --              m2_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_address      => communication_module_v2_ch1_avalon_mm_left_buffer_master_address,      --     Communication_Module_v2_Ch1_avalon_mm_left_buffer_master.address
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_waitrequest  => communication_module_v2_ch1_avalon_mm_left_buffer_master_waitrequest,  --                                                             .waitrequest
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_read         => communication_module_v2_ch1_avalon_mm_left_buffer_master_read,         --                                                             .read
+			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_readdata     => communication_module_v2_ch1_avalon_mm_left_buffer_master_readdata,     --                                                             .readdata
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_address     => communication_module_v2_ch1_avalon_mm_right_buffer_master_address,     --    Communication_Module_v2_Ch1_avalon_mm_right_buffer_master.address
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_waitrequest => communication_module_v2_ch1_avalon_mm_right_buffer_master_waitrequest, --                                                             .waitrequest
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_read        => communication_module_v2_ch1_avalon_mm_right_buffer_master_read,        --                                                             .read
+			Communication_Module_v2_Ch1_avalon_mm_right_buffer_master_readdata    => communication_module_v2_ch1_avalon_mm_right_buffer_master_readdata,    --                                                             .readdata
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_address      => communication_module_v2_ch2_avalon_mm_left_buffer_master_address,      --     Communication_Module_v2_Ch2_avalon_mm_left_buffer_master.address
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_waitrequest  => communication_module_v2_ch2_avalon_mm_left_buffer_master_waitrequest,  --                                                             .waitrequest
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_read         => communication_module_v2_ch2_avalon_mm_left_buffer_master_read,         --                                                             .read
+			Communication_Module_v2_Ch2_avalon_mm_left_buffer_master_readdata     => communication_module_v2_ch2_avalon_mm_left_buffer_master_readdata,     --                                                             .readdata
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_address     => communication_module_v2_ch2_avalon_mm_right_buffer_master_address,     --    Communication_Module_v2_Ch2_avalon_mm_right_buffer_master.address
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_waitrequest => communication_module_v2_ch2_avalon_mm_right_buffer_master_waitrequest, --                                                             .waitrequest
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_read        => communication_module_v2_ch2_avalon_mm_right_buffer_master_read,        --                                                             .read
+			Communication_Module_v2_Ch2_avalon_mm_right_buffer_master_readdata    => communication_module_v2_ch2_avalon_mm_right_buffer_master_readdata,    --                                                             .readdata
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_address      => communication_module_v2_ch3_avalon_mm_left_buffer_master_address,      --     Communication_Module_v2_Ch3_avalon_mm_left_buffer_master.address
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_waitrequest  => communication_module_v2_ch3_avalon_mm_left_buffer_master_waitrequest,  --                                                             .waitrequest
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_read         => communication_module_v2_ch3_avalon_mm_left_buffer_master_read,         --                                                             .read
+			Communication_Module_v2_Ch3_avalon_mm_left_buffer_master_readdata     => communication_module_v2_ch3_avalon_mm_left_buffer_master_readdata,     --                                                             .readdata
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_address     => communication_module_v2_ch3_avalon_mm_right_buffer_master_address,     --    Communication_Module_v2_Ch3_avalon_mm_right_buffer_master.address
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_waitrequest => communication_module_v2_ch3_avalon_mm_right_buffer_master_waitrequest, --                                                             .waitrequest
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_read        => communication_module_v2_ch3_avalon_mm_right_buffer_master_read,        --                                                             .read
+			Communication_Module_v2_Ch3_avalon_mm_right_buffer_master_readdata    => communication_module_v2_ch3_avalon_mm_right_buffer_master_readdata,    --                                                             .readdata
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_address      => communication_module_v2_ch4_avalon_mm_left_buffer_master_address,      --     Communication_Module_v2_Ch4_avalon_mm_left_buffer_master.address
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_waitrequest  => communication_module_v2_ch4_avalon_mm_left_buffer_master_waitrequest,  --                                                             .waitrequest
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_read         => communication_module_v2_ch4_avalon_mm_left_buffer_master_read,         --                                                             .read
+			Communication_Module_v2_Ch4_avalon_mm_left_buffer_master_readdata     => communication_module_v2_ch4_avalon_mm_left_buffer_master_readdata,     --                                                             .readdata
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_address     => communication_module_v2_ch4_avalon_mm_right_buffer_master_address,     --    Communication_Module_v2_Ch4_avalon_mm_right_buffer_master.address
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_waitrequest => communication_module_v2_ch4_avalon_mm_right_buffer_master_waitrequest, --                                                             .waitrequest
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_read        => communication_module_v2_ch4_avalon_mm_right_buffer_master_read,        --                                                             .read
+			Communication_Module_v2_Ch4_avalon_mm_right_buffer_master_readdata    => communication_module_v2_ch4_avalon_mm_right_buffer_master_readdata,    --                                                             .readdata
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_address      => communication_module_v2_ch5_avalon_mm_left_buffer_master_address,      --     Communication_Module_v2_Ch5_avalon_mm_left_buffer_master.address
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_waitrequest  => communication_module_v2_ch5_avalon_mm_left_buffer_master_waitrequest,  --                                                             .waitrequest
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_read         => communication_module_v2_ch5_avalon_mm_left_buffer_master_read,         --                                                             .read
+			Communication_Module_v2_Ch5_avalon_mm_left_buffer_master_readdata     => communication_module_v2_ch5_avalon_mm_left_buffer_master_readdata,     --                                                             .readdata
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_address     => communication_module_v2_ch5_avalon_mm_right_buffer_master_address,     --    Communication_Module_v2_Ch5_avalon_mm_right_buffer_master.address
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_waitrequest => communication_module_v2_ch5_avalon_mm_right_buffer_master_waitrequest, --                                                             .waitrequest
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_read        => communication_module_v2_ch5_avalon_mm_right_buffer_master_read,        --                                                             .read
+			Communication_Module_v2_Ch5_avalon_mm_right_buffer_master_readdata    => communication_module_v2_ch5_avalon_mm_right_buffer_master_readdata,    --                                                             .readdata
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_address      => communication_module_v2_ch6_avalon_mm_left_buffer_master_address,      --     Communication_Module_v2_Ch6_avalon_mm_left_buffer_master.address
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_waitrequest  => communication_module_v2_ch6_avalon_mm_left_buffer_master_waitrequest,  --                                                             .waitrequest
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_read         => communication_module_v2_ch6_avalon_mm_left_buffer_master_read,         --                                                             .read
+			Communication_Module_v2_Ch6_avalon_mm_left_buffer_master_readdata     => communication_module_v2_ch6_avalon_mm_left_buffer_master_readdata,     --                                                             .readdata
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_address     => communication_module_v2_ch6_avalon_mm_right_buffer_master_address,     --    Communication_Module_v2_Ch6_avalon_mm_right_buffer_master.address
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_waitrequest => communication_module_v2_ch6_avalon_mm_right_buffer_master_waitrequest, --                                                             .waitrequest
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_read        => communication_module_v2_ch6_avalon_mm_right_buffer_master_read,        --                                                             .read
+			Communication_Module_v2_Ch6_avalon_mm_right_buffer_master_readdata    => communication_module_v2_ch6_avalon_mm_right_buffer_master_readdata,    --                                                             .readdata
+			ddr2_address_span_extender_expanded_master_address                    => ddr2_address_span_extender_expanded_master_address,                    --                   ddr2_address_span_extender_expanded_master.address
+			ddr2_address_span_extender_expanded_master_waitrequest                => ddr2_address_span_extender_expanded_master_waitrequest,                --                                                             .waitrequest
+			ddr2_address_span_extender_expanded_master_burstcount                 => ddr2_address_span_extender_expanded_master_burstcount,                 --                                                             .burstcount
+			ddr2_address_span_extender_expanded_master_byteenable                 => ddr2_address_span_extender_expanded_master_byteenable,                 --                                                             .byteenable
+			ddr2_address_span_extender_expanded_master_read                       => ddr2_address_span_extender_expanded_master_read,                       --                                                             .read
+			ddr2_address_span_extender_expanded_master_readdata                   => ddr2_address_span_extender_expanded_master_readdata,                   --                                                             .readdata
+			ddr2_address_span_extender_expanded_master_readdatavalid              => ddr2_address_span_extender_expanded_master_readdatavalid,              --                                                             .readdatavalid
+			ddr2_address_span_extender_expanded_master_write                      => ddr2_address_span_extender_expanded_master_write,                      --                                                             .write
+			ddr2_address_span_extender_expanded_master_writedata                  => ddr2_address_span_extender_expanded_master_writedata,                  --                                                             .writedata
+			FTDI_UMFT601A_Module_avalon_master_data_address                       => ftdi_umft601a_module_avalon_master_data_address,                       --                      FTDI_UMFT601A_Module_avalon_master_data.address
+			FTDI_UMFT601A_Module_avalon_master_data_waitrequest                   => ftdi_umft601a_module_avalon_master_data_waitrequest,                   --                                                             .waitrequest
+			FTDI_UMFT601A_Module_avalon_master_data_read                          => ftdi_umft601a_module_avalon_master_data_read,                          --                                                             .read
+			FTDI_UMFT601A_Module_avalon_master_data_readdata                      => ftdi_umft601a_module_avalon_master_data_readdata,                      --                                                             .readdata
+			FTDI_UMFT601A_Module_avalon_master_data_write                         => ftdi_umft601a_module_avalon_master_data_write,                         --                                                             .write
+			FTDI_UMFT601A_Module_avalon_master_data_writedata                     => ftdi_umft601a_module_avalon_master_data_writedata,                     --                                                             .writedata
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address                    => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_address,                    --                   rmap_mem_nfee_comm_1_avalon_mm_rmap_master.address
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest                => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_waitrequest,                --                                                             .waitrequest
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_read                       => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_read,                       --                                                             .read
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata                   => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_readdata,                   --                                                             .readdata
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_write                      => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_write,                      --                                                             .write
+			rmap_mem_nfee_comm_1_avalon_mm_rmap_master_writedata                  => rmap_mem_nfee_comm_1_avalon_mm_rmap_master_writedata,                  --                                                             .writedata
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_address                    => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_address,                    --                   rmap_mem_nfee_comm_2_avalon_mm_rmap_master.address
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_waitrequest                => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_waitrequest,                --                                                             .waitrequest
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_read                       => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_read,                       --                                                             .read
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_readdata                   => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_readdata,                   --                                                             .readdata
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_write                      => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_write,                      --                                                             .write
+			rmap_mem_nfee_comm_2_avalon_mm_rmap_master_writedata                  => rmap_mem_nfee_comm_2_avalon_mm_rmap_master_writedata,                  --                                                             .writedata
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_address                    => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_address,                    --                   rmap_mem_nfee_comm_3_avalon_mm_rmap_master.address
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_waitrequest                => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_waitrequest,                --                                                             .waitrequest
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_read                       => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_read,                       --                                                             .read
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_readdata                   => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_readdata,                   --                                                             .readdata
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_write                      => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_write,                      --                                                             .write
+			rmap_mem_nfee_comm_3_avalon_mm_rmap_master_writedata                  => rmap_mem_nfee_comm_3_avalon_mm_rmap_master_writedata,                  --                                                             .writedata
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_address                    => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_address,                    --                   rmap_mem_nfee_comm_4_avalon_mm_rmap_master.address
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_waitrequest                => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_waitrequest,                --                                                             .waitrequest
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_read                       => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_read,                       --                                                             .read
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_readdata                   => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_readdata,                   --                                                             .readdata
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_write                      => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_write,                      --                                                             .write
+			rmap_mem_nfee_comm_4_avalon_mm_rmap_master_writedata                  => rmap_mem_nfee_comm_4_avalon_mm_rmap_master_writedata,                  --                                                             .writedata
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_address                    => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_address,                    --                   rmap_mem_nfee_comm_5_avalon_mm_rmap_master.address
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_waitrequest                => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_waitrequest,                --                                                             .waitrequest
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_read                       => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_read,                       --                                                             .read
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_readdata                   => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_readdata,                   --                                                             .readdata
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_write                      => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_write,                      --                                                             .write
+			rmap_mem_nfee_comm_5_avalon_mm_rmap_master_writedata                  => rmap_mem_nfee_comm_5_avalon_mm_rmap_master_writedata,                  --                                                             .writedata
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_address                    => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_address,                    --                   rmap_mem_nfee_comm_6_avalon_mm_rmap_master.address
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_waitrequest                => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_waitrequest,                --                                                             .waitrequest
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_read                       => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_read,                       --                                                             .read
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_readdata                   => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_readdata,                   --                                                             .readdata
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_write                      => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_write,                      --                                                             .write
+			rmap_mem_nfee_comm_6_avalon_mm_rmap_master_writedata                  => rmap_mem_nfee_comm_6_avalon_mm_rmap_master_writedata,                  --                                                             .writedata
+			m1_clock_bridge_s0_address                                            => mm_interconnect_0_m1_clock_bridge_s0_address,                          --                                           m1_clock_bridge_s0.address
+			m1_clock_bridge_s0_write                                              => mm_interconnect_0_m1_clock_bridge_s0_write,                            --                                                             .write
+			m1_clock_bridge_s0_read                                               => mm_interconnect_0_m1_clock_bridge_s0_read,                             --                                                             .read
+			m1_clock_bridge_s0_readdata                                           => mm_interconnect_0_m1_clock_bridge_s0_readdata,                         --                                                             .readdata
+			m1_clock_bridge_s0_writedata                                          => mm_interconnect_0_m1_clock_bridge_s0_writedata,                        --                                                             .writedata
+			m1_clock_bridge_s0_burstcount                                         => mm_interconnect_0_m1_clock_bridge_s0_burstcount,                       --                                                             .burstcount
+			m1_clock_bridge_s0_byteenable                                         => mm_interconnect_0_m1_clock_bridge_s0_byteenable,                       --                                                             .byteenable
+			m1_clock_bridge_s0_readdatavalid                                      => mm_interconnect_0_m1_clock_bridge_s0_readdatavalid,                    --                                                             .readdatavalid
+			m1_clock_bridge_s0_waitrequest                                        => mm_interconnect_0_m1_clock_bridge_s0_waitrequest,                      --                                                             .waitrequest
+			m1_clock_bridge_s0_debugaccess                                        => mm_interconnect_0_m1_clock_bridge_s0_debugaccess,                      --                                                             .debugaccess
+			m2_ddr2_memory_avl_address                                            => mm_interconnect_0_m2_ddr2_memory_avl_address,                          --                                           m2_ddr2_memory_avl.address
+			m2_ddr2_memory_avl_write                                              => mm_interconnect_0_m2_ddr2_memory_avl_write,                            --                                                             .write
+			m2_ddr2_memory_avl_read                                               => mm_interconnect_0_m2_ddr2_memory_avl_read,                             --                                                             .read
+			m2_ddr2_memory_avl_readdata                                           => mm_interconnect_0_m2_ddr2_memory_avl_readdata,                         --                                                             .readdata
+			m2_ddr2_memory_avl_writedata                                          => mm_interconnect_0_m2_ddr2_memory_avl_writedata,                        --                                                             .writedata
+			m2_ddr2_memory_avl_beginbursttransfer                                 => mm_interconnect_0_m2_ddr2_memory_avl_beginbursttransfer,               --                                                             .beginbursttransfer
+			m2_ddr2_memory_avl_burstcount                                         => mm_interconnect_0_m2_ddr2_memory_avl_burstcount,                       --                                                             .burstcount
+			m2_ddr2_memory_avl_byteenable                                         => mm_interconnect_0_m2_ddr2_memory_avl_byteenable,                       --                                                             .byteenable
+			m2_ddr2_memory_avl_readdatavalid                                      => mm_interconnect_0_m2_ddr2_memory_avl_readdatavalid,                    --                                                             .readdatavalid
+			m2_ddr2_memory_avl_waitrequest                                        => mm_interconnect_0_m2_ddr2_memory_avl_inv                               --                                                             .waitrequest
 		);
 
 	mm_interconnect_1 : component MebX_Qsys_Project_mm_interconnect_1

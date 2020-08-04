@@ -5,23 +5,23 @@ use ieee.numeric_std.all;
 package comm_irq_manager_pkg is
 
 	type t_comm_feeb_irq_manager_watches is record
-		left_buffer_empty  : std_logic;
-		right_buffer_empty : std_logic;
+		left_buffer_controller_finished  : std_logic;
+		right_buffer_controller_finished : std_logic;
 	end record t_comm_feeb_irq_manager_watches;
 
 	type t_comm_feeb_irq_manager_flags is record
-		left_buffer_empty  : std_logic;
-		right_buffer_empty : std_logic;
+		left_buffer_controller_finished  : std_logic;
+		right_buffer_controller_finished : std_logic;
 	end record t_comm_feeb_irq_manager_flags;
 
 	constant c_COMM_FEEB_IRQ_MANAGER_WATCHES_RST : t_comm_feeb_irq_manager_watches := (
-		left_buffer_empty  => '1',
-		right_buffer_empty => '1'
+		left_buffer_controller_finished  => '1',
+		right_buffer_controller_finished => '1'
 	);
 
 	constant c_COMM_FEEB_IRQ_MANAGER_FLAGS_RST : t_comm_feeb_irq_manager_flags := (
-		left_buffer_empty  => '0',
-		right_buffer_empty => '0'
+		left_buffer_controller_finished  => '0',
+		right_buffer_controller_finished => '0'
 	);
 
 	--

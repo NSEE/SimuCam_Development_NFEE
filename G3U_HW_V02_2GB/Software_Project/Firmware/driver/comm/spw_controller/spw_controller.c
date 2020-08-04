@@ -262,6 +262,50 @@ alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed) {
 
 	return (ucLinkDiv);
 }
+
+alt_u32 uliTimecodeCalcDelayNs(alt_u32 uliDelayNs);
+alt_u32 uliTimecodeCalcDelayMs(alt_u32 uliDelayMs);
+
+/*
+ * Return the necessary delay value for a
+ * Timecode delay in uliDelayNs ns.
+ */
+alt_u32 uliTimecodeCalcDelayNs(alt_u32 uliDelayNs) {
+
+	/*
+	 * Delay = TcDelay * ClkCycles@100MHz
+	 * TcDelay = Delay / ClkCycles@100MHz
+	 *
+	 * ClkCycles@100MHz = 10 ns
+	 *
+	 * Delay[ns] / 10 = Delay[ns] * 1e-1
+	 * TcDelay = Delay[ns] * 1e-1
+	 */
+
+	alt_u32 uliTimecodeDelay;
+	uliTimecodeDelay = (alt_u32) (uliDelayNs / (alt_u32) 10);
+
+	return (uliTimecodeDelay);
+}
+
+alt_u32 uliTimecodeCalcDelayMs(alt_u32 uliDelayMs) {
+
+	/*
+	 * Delay = TcDelay * ClkCycles@100MHz
+	 * TcDelay = Delay / ClkCycles@100MHz
+	 *
+	 * ClkCycles@100MHz = 10 ns = 1e-5 ms
+	 *
+	 * Delay[ms] / 1e-5 = Delay[ms] * 1e+5
+	 * TcDelay = Delay[ms] * 1e+5
+	 */
+
+	alt_u32 uliTimecodeDelay;
+	uliTimecodeDelay = (alt_u32) (uliDelayMs * (alt_u32) 100000);
+
+	return (uliTimecodeDelay);
+}
+
 //! [public functions]
 
 //! [private functions]

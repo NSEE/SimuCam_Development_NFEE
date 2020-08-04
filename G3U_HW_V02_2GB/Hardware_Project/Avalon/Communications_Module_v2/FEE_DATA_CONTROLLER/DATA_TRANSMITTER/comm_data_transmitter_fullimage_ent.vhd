@@ -220,6 +220,16 @@ begin
 							s_comm_data_transmitter_fullimage_state <= FINISH_DELAY;
 							v_comm_data_transmitter_fullimage_state := FINISH_DELAY;
 						end if;
+					-- TODO: review logic, add active side?!!
+					-- check if the leftimg and rightimg are finished and the leftimg and rightimg are not valid
+					elsif (((data_trans_control_i.leftimg_finished = '1') and (data_trans_control_i.leftimg_valid = '0')) or ((data_trans_control_i.rightimg_finished = '1') and (data_trans_control_i.rightimg_valid = '0'))) then
+						-- the rightimg is finished and the right side had no data so far
+						-- clear transmitting flag
+						s_left_transmitting                     <= '0';
+						s_right_transmitting                    <= '0';
+						-- go to finished
+						s_comm_data_transmitter_fullimage_state <= FINISH_DELAY;
+						v_comm_data_transmitter_fullimage_state := FINISH_DELAY;
 					end if;
 
 				-- state "WAITING_FULLIMAGE_LEFT_DATA"
@@ -313,7 +323,7 @@ begin
 					end if;
 					-- conditional state transition
 					-- check if there is more fullimage data to be sent
-					if ((s_left_transmitting = '1') or (s_right_transmitting = '1')) then
+					if ((s_left_transmitting = '1') or (s_right_transmitting = '1') or (send_buffer_rightimg_status_i.rdready = '1')) then
 						-- there is more fullimage data to be sent
 						-- go to waiting fullimage ready
 						s_comm_data_transmitter_fullimage_state <= WAITING_FULLIMAGE_READY;
@@ -411,7 +421,7 @@ begin
 					end if;
 					-- conditional state transition
 					-- check if there is more fullimage data to be sent
-					if ((s_left_transmitting = '1') or (s_right_transmitting = '1')) then
+					if ((s_left_transmitting = '1') or (s_right_transmitting = '1') or (send_buffer_leftimg_status_i.rdready = '1')) then
 						-- there is more fullimage data to be sent
 						-- go to waiting fullimage ready
 						s_comm_data_transmitter_fullimage_state <= WAITING_FULLIMAGE_READY;

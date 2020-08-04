@@ -55,7 +55,8 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
@@ -70,25 +71,9 @@ void vFeebCh1HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 1 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
@@ -103,23 +88,6 @@ void vFeebCh1HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 1 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 	}
 
 #if DEBUG_ON
@@ -155,7 +123,8 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
@@ -170,25 +139,9 @@ void vFeebCh2HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 2 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
@@ -203,23 +156,6 @@ void vFeebCh2HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 2 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 	}
 
 #if DEBUG_ON
@@ -255,7 +191,8 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
@@ -270,25 +207,9 @@ void vFeebCh3HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 3 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
@@ -303,23 +224,6 @@ void vFeebCh3HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 3 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 	}
 
 #if DEBUG_ON
@@ -355,7 +259,8 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
@@ -370,25 +275,9 @@ void vFeebCh4HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 4 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
@@ -403,23 +292,6 @@ void vFeebCh4HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 4 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 	}
 
 #if DEBUG_ON
@@ -455,7 +327,8 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
@@ -470,25 +343,9 @@ void vFeebCh5HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 5 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
@@ -503,23 +360,6 @@ void vFeebCh5HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 5 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 	}
 
 #if DEBUG_ON
@@ -555,7 +395,8 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 
 	// Check Irq Buffer Empty Flags
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_L;
 		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
@@ -570,25 +411,9 @@ void vFeebCh6HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
 	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bLeftBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommLeftBuffer; /*Left*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 6 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty0Flag) {
+	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBuffCtrlFinishedFlag) {
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED_D;
 		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
@@ -603,23 +428,6 @@ void vFeebCh6HandleIrq(void* pvContext) {
 		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
 #endif
 
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-	}
-	if (vpxCommChannel->xFeeBuffer.xFeebIrqFlag.bRightBufferEmpty1Flag) {
-
-		uiCmdtoSend.ucByte[1] = eCommRightBuffer; /*Right*/
-
-		/*Sync the Meb task and tell that has a PUS command waiting*/
-#if ( 6 <= N_OF_NFEE )
-		error_codel = OSQPost(xFeeQ[cucFeeNumber], (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailRequestDMAFromIRQ( cucIrqNumber );
-		}
-#else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n, cucFeeNumber");
-#endif
-
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
 	}
 
 #if DEBUG_ON
@@ -641,10 +449,8 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh1HoldContext;
 		vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_1_BUFFERS_IRQ, pvHoldContext, vFeebCh1HandleIrq);
 		bStatus = TRUE;
@@ -655,10 +461,8 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh2HoldContext;
 		vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_2_BUFFERS_IRQ, pvHoldContext, vFeebCh2HandleIrq);
 		bStatus = TRUE;
@@ -669,10 +473,8 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh3HoldContext;
 		vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_3_BUFFERS_IRQ, pvHoldContext, vFeebCh3HandleIrq);
 		bStatus = TRUE;
@@ -683,10 +485,8 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh4HoldContext;
 		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_4_BUFFERS_IRQ, pvHoldContext, vFeebCh4HandleIrq);
 		bStatus = TRUE;
@@ -697,10 +497,8 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh5HoldContext;
 		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_5_BUFFERS_IRQ, pvHoldContext, vFeebCh5HandleIrq);
 		bStatus = TRUE;
@@ -711,10 +509,8 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh6HoldContext;
 		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 		// Clear all flags
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBufferEmpty1FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty0FlagClr = TRUE;
-		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBufferEmpty1FlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bLeftBuffCtrlFinishedFlagClr = TRUE;
+		vpxCommChannel->xFeeBuffer.xFeebIrqFlagClr.bRightBuffCtrlFinishedFlagClr = TRUE;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_6_BUFFERS_IRQ, pvHoldContext, vFeebCh6HandleIrq);
 		bStatus = TRUE;
@@ -1161,6 +957,37 @@ bool bFeebClrCh(TFeebChannel *pxFeebCh) {
 	}
 
 	return bStatus;
+}
+
+bool bFeebSetPxStorageSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSide, alt_u32 uliPxStorageSizeBytes, alt_u16 usiDataPktLength){
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxFeebCh != NULL) {
+
+		switch (ucBufferSide) {
+			case eCommLeftBuffer:
+				vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+				/* The hardware need the storage size in Pixels, 2 Bytes = 1 Pixel */
+				vpxCommChannel->xFeeBuffer.xFeebMachineControl.uliLeftPxStorageSize =
+						(alt_u32)((uliPxStorageSizeBytes - FEEB_PX_INT_STORAGE_SIZE_BYTES - 2*(usiDataPktLength - FEEB_DATAPKT_HEADER_SIZE_BYTES)) / 2);
+				bStatus = TRUE;
+				break;
+			case eCommRightBuffer:
+				vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
+				/* The hardware need the storage size in Pixels, 2 Bytes = 1 Pixel */
+				vpxCommChannel->xFeeBuffer.xFeebMachineControl.uliRightPxStorageSize =
+						(alt_u32)((uliPxStorageSizeBytes - FEEB_PX_INT_STORAGE_SIZE_BYTES - 2*(usiDataPktLength - FEEB_DATAPKT_HEADER_SIZE_BYTES)) / 2);
+				bStatus = TRUE;
+				break;
+			default:
+				bStatus = FALSE;
+				break;
+		}
+
+	}
+
+	return (bStatus);
 }
 
 bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {

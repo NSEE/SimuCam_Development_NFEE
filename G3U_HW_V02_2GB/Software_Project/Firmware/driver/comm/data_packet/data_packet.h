@@ -35,16 +35,44 @@ enum DpktMode {
 	eDpktParallelTrapPumping2Pump = 13u, /* N-FEE Parallel Trap Pumping 2 Mode / Pumping Mode */
 	eDpktParallelTrapPumping2Data = 14u, /* N-FEE Parallel Trap Pumping 2 Mode / Data Emiting Mode  */
 	eDpktSerialTrapPumping1       = 15u, /* N-FEE Serial Trap Pumping 1 Mode */
-	eDpktSerialTrapPumping2       = 16u, /* N-FEE Serial Trap Pumping 2 Mode */
+	eDpktSerialTrapPumping2       = 16u  /* N-FEE Serial Trap Pumping 2 Mode */
 } EDpktMode;
 
 enum DpktCcdSide {
 	eDpktCcdSideE                 = 0u,  /* F-FEE CCD Side E (Left) */
-	eDpktCcdSideF                 = 1u,  /* F-FEE CCD Side F (Right) */
+	eDpktCcdSideF                 = 1u   /* F-FEE CCD Side F (Right) */
 } EDpktCcdSide;
 
-extern const alt_u32 culiDpktLeftCbufAddr[6];
-extern const alt_u32 culiDpktRightCbufAddr[6];
+enum DpktRmapErrId {
+	eDpktRmapErrIdInitLogAddr     = 0u,  /* RMAP Error Injection Error ID for Initiator Logical Address */
+	eDpktRmapErrIdInstructions    = 1u,  /* RMAP Error Injection Error ID for Instructions Field */
+	eDpktRmapErrIdInsPktType      = 2u,  /* RMAP Error Injection Error ID for Packet Type Instruction */
+	eDpktRmapErrIdInsCmdWriteRead = 3u,  /* RMAP Error Injection Error ID for Write/Read Instruction Command */
+	eDpktRmapErrIdInsCmdVerifData = 4u,  /* RMAP Error Injection Error ID for Verify Data Before Reply Instruction Command */
+	eDpktRmapErrIdInsCmdReply     = 5u,  /* RMAP Error Injection Error ID for Reply Instruction Command */
+	eDpktRmapErrIdInsCmdIncAddr   = 6u,  /* RMAP Error Injection Error ID for Increment Address Instruction Command */
+	eDpktRmapErrIdInsReplyAddrLen = 7u,  /* RMAP Error Injection Error ID for Reply Address Length Instruction */
+	eDpktRmapErrIdStatus          = 8u,  /* RMAP Error Injection Error ID for Status */
+	eDpktRmapErrIdTargLogAddr     = 9u,  /* RMAP Error Injection Error ID for Target Logical Address */
+	eDpktRmapErrIdTransactionId   = 10u, /* RMAP Error Injection Error ID for Transaction Identifier */
+	eDpktRmapErrIdDataLength      = 11u, /* RMAP Error Injection Error ID for Data Length */
+	eDpktRmapErrIdHeaderCrc       = 12u, /* RMAP Error Injection Error ID for Header CRC */
+	eDpktRmapErrIdHeaderEep       = 13u, /* RMAP Error Injection Error ID for Header EEP */
+	eDpktRmapErrIdDataCrc         = 14u, /* RMAP Error Injection Error ID for Data CRC */
+	eDpktRmapErrIdDataEep         = 15u  /* RMAP Error Injection Error ID for Data EEP */
+} DpktRmapErrId;
+
+enum DpktHeaderErrId {
+	eDpktHeaderErrIdMode          = 0u, /* Header Error Injection Field ID for Mode */
+	eDpktHeaderErrIdLastPkt       = 1u, /* Header Error Injection Field ID for Last Packet */
+	eDpktHeaderErrIdCcdSide       = 2u, /* Header Error Injection Field ID for CCD Side */
+	eDpktHeaderErrIdCcdNum        = 3u, /* Header Error Injection Field ID for CCD Number */
+	eDpktHeaderErrIdFrameNum      = 4u, /* Header Error Injection Field ID for Frame Number */
+	eDpktHeaderErrIdPktType       = 5u, /* Header Error Injection Field ID for Packet Type */
+	eDpktHeaderErrIdFrameCnt      = 6u, /* Header Error Injection Field ID for Frame Counter */
+	eDpktHeaderErrIdSeqCnt        = 7u, /* Header Error Injection Field ID for Sequence Counter */
+	eDpktHeaderErrIdLength        = 8u  /* Header Error Injection Field ID for Length */
+} EDpktHeaderErrId;
 
 //! [public module structs definition]
 //! [public module structs definition]
@@ -65,17 +93,23 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
-bool bDpktSetPxCBufferControl(TDpktChannel *pxDpktCh);
-bool bDpktGetPxCBufferControl(TDpktChannel *pxDpktCh);
-
-//bool bDpktConfigPxCBuffer(alt_u8 ucCommCh, alt_u8 ucMemoryId, alt_u32 uliBufSizeBytes);
-bool bDpktConfigPxCBuffer(alt_u8 ucCommCh, alt_u8 ucMemoryId);
-
 bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh);
 
+bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh);
+bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh);
+
 bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh);
+
+bool bDpktSetLeftContentErrInj(TDpktChannel *pxDpktCh);
+bool bDpktGetLeftContentErrInj(TDpktChannel *pxDpktCh);
+
+bool bDpktSetRightContentErrInj(TDpktChannel *pxDpktCh);
+bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh);
+
+bool bDpktSetHeaderErrInj(TDpktChannel *pxDpktCh);
+bool bDpktGetHeaderErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh);
 bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh);

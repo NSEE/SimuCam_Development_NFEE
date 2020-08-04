@@ -7,27 +7,35 @@ use work.comm_data_transmitter_pkg.all;
 
 entity comm_data_transmitter_top is
 	port(
-		clk_i                          : in  std_logic;
-		rst_i                          : in  std_logic;
-		comm_stop_i                    : in  std_logic;
-		comm_start_i                   : in  std_logic;
-		channel_sync_i                 : in  std_logic;
-		send_buffer_cfg_length_i       : in  std_logic_vector(15 downto 0);
-		send_buffer_hkdata_status_i    : in  t_fee_dpkt_send_buffer_status;
-		send_buffer_leftimg_status_i   : in  t_fee_dpkt_send_buffer_status;
-		send_buffer_rightimg_status_i  : in  t_fee_dpkt_send_buffer_status;
-		spw_tx_ready_i                 : in  std_logic;
-		housekeep_only_i               : in  std_logic;
-		windowing_enabled_i            : in  std_logic;
-		windowing_packet_order_list_i  : in  std_logic_vector(511 downto 0);
-		windowing_last_left_packet_i   : in  std_logic_vector(9 downto 0);
-		windowing_last_right_packet_i  : in  std_logic_vector(9 downto 0);
-		send_buffer_hkdata_control_o   : out t_fee_dpkt_send_buffer_control;
-		send_buffer_leftimg_control_o  : out t_fee_dpkt_send_buffer_control;
-		send_buffer_rightimg_control_o : out t_fee_dpkt_send_buffer_control;
-		spw_tx_flag_o                  : out std_logic;
-		spw_tx_data_o                  : out std_logic_vector(7 downto 0);
-		spw_tx_write_o                 : out std_logic
+		clk_i                           : in  std_logic;
+		rst_i                           : in  std_logic;
+		comm_stop_i                     : in  std_logic;
+		comm_start_i                    : in  std_logic;
+		channel_sync_i                  : in  std_logic;
+		send_buffer_cfg_length_i        : in  std_logic_vector(15 downto 0);
+		send_buffer_hkdata_status_i     : in  t_fee_dpkt_send_buffer_status;
+		send_buffer_leftimg_status_i    : in  t_fee_dpkt_send_buffer_status;
+		left_imgdataman_img_finished_i  : in  std_logic;
+		left_imgdataman_ovs_finished_i  : in  std_logic;
+		left_imgdata_img_valid_i        : in  std_logic;
+		left_imgdata_ovs_valid_i        : in  std_logic;
+		send_buffer_rightimg_status_i   : in  t_fee_dpkt_send_buffer_status;
+		right_imgdataman_img_finished_i : in  std_logic;
+		right_imgdataman_ovs_finished_i : in  std_logic;
+		right_imgdata_img_valid_i       : in  std_logic;
+		right_imgdata_ovs_valid_i       : in  std_logic;
+		spw_tx_ready_i                  : in  std_logic;
+		housekeep_only_i                : in  std_logic;
+		windowing_enabled_i             : in  std_logic;
+		windowing_packet_order_list_i   : in  std_logic_vector(511 downto 0);
+		windowing_last_left_packet_i    : in  std_logic_vector(9 downto 0);
+		windowing_last_right_packet_i   : in  std_logic_vector(9 downto 0);
+		send_buffer_hkdata_control_o    : out t_fee_dpkt_send_buffer_control;
+		send_buffer_leftimg_control_o   : out t_fee_dpkt_send_buffer_control;
+		send_buffer_rightimg_control_o  : out t_fee_dpkt_send_buffer_control;
+		spw_tx_flag_o                   : out std_logic;
+		spw_tx_data_o                   : out std_logic_vector(7 downto 0);
+		spw_tx_write_o                  : out std_logic
 	);
 end entity comm_data_transmitter_top;
 
@@ -57,19 +65,27 @@ begin
 	-- comm data transmitter manager instantiation 
 	comm_data_transmitter_manager_ent_inst : entity work.comm_data_transmitter_manager_ent
 		port map(
-			clk_i                          => clk_i,
-			rst_i                          => rst_i,
-			comm_stop_i                    => comm_stop_i,
-			comm_start_i                   => comm_start_i,
-			channel_sync_i                 => channel_sync_i,
-			housekeep_only_i               => housekeep_only_i,
-			windowing_enabled_i            => windowing_enabled_i,
-			data_trans_housekeep_status_i  => s_data_trans_housekeep_status,
-			data_trans_fullimage_status_i  => s_data_trans_fullimage_status,
-			data_trans_windowing_status_i  => s_data_trans_windowing_status,
-			data_trans_housekeep_control_o => s_data_trans_housekeep_control,
-			data_trans_fullimage_control_o => s_data_trans_fullimage_control,
-			data_trans_windowing_control_o => s_data_trans_windowing_control
+			clk_i                           => clk_i,
+			rst_i                           => rst_i,
+			comm_stop_i                     => comm_stop_i,
+			comm_start_i                    => comm_start_i,
+			channel_sync_i                  => channel_sync_i,
+			housekeep_only_i                => housekeep_only_i,
+			windowing_enabled_i             => windowing_enabled_i,
+			left_imgdataman_img_finished_i  => left_imgdataman_img_finished_i,
+			left_imgdataman_ovs_finished_i  => left_imgdataman_ovs_finished_i,
+			left_imgdata_img_valid_i        => left_imgdata_img_valid_i,
+			left_imgdata_ovs_valid_i        => left_imgdata_ovs_valid_i,
+			right_imgdataman_img_finished_i => right_imgdataman_img_finished_i,
+			right_imgdataman_ovs_finished_i => right_imgdataman_ovs_finished_i,
+			right_imgdata_img_valid_i       => right_imgdata_img_valid_i,
+			right_imgdata_ovs_valid_i       => right_imgdata_ovs_valid_i,
+			data_trans_housekeep_status_i   => s_data_trans_housekeep_status,
+			data_trans_fullimage_status_i   => s_data_trans_fullimage_status,
+			data_trans_windowing_status_i   => s_data_trans_windowing_status,
+			data_trans_housekeep_control_o  => s_data_trans_housekeep_control,
+			data_trans_fullimage_control_o  => s_data_trans_fullimage_control,
+			data_trans_windowing_control_o  => s_data_trans_windowing_control
 		);
 
 	-- comm data transmitter housekeep instantiation
