@@ -165,6 +165,7 @@ void vFeeTaskV3(void *task_data) {
 				bRmapChEnableCodec(pxNFee->ucId, TRUE);
 
 				/* Soft-Reset RMAP Areas (reset all registers) - [rfranca] */
+				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag = TRUE;
 //				bRmapSoftRstMemAreaConfig(pxNFee->ucId);
 //				bRmapSoftRstMemAreaHk(pxNFee->ucId);
 

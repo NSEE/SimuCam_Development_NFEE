@@ -108,8 +108,22 @@ bool bDpktGetLeftContentErrInj(TDpktChannel *pxDpktCh);
 bool bDpktSetRightContentErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh);
 
+bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh);
+bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh);
+alt_u8 ucDpktContentErrInjAddEntry(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide, alt_u16 usiStartFrame, alt_u16 usiStopFrame, alt_u16 usiPxColX, alt_u16 usiPxRowY, alt_u16 usiPxValue);
+bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh);
+bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh);
+bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh);
+
 bool bDpktSetHeaderErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetHeaderErrInj(TDpktChannel *pxDpktCh);
+
+bool bDpktHeaderErrInjClearEntries(TDpktChannel *pxDpktCh);
+bool bDpktHeaderErrInjOpenList(TDpktChannel *pxDpktCh);
+alt_u8 ucDpktHeaderErrInjAddEntry(TDpktChannel *pxDpktCh, alt_u8 ucFrameNum, alt_u16 usiSequenceCnt, alt_u8 ucFieldId, alt_u16 usiFieldValue);
+bool bDpktHeaderErrInjCloseList(TDpktChannel *pxDpktCh);
+bool bDpktHeaderErrInjStartInj(TDpktChannel *pxDpktCh);
+bool bDpktHeaderErrInjStopInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh);
 bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh);

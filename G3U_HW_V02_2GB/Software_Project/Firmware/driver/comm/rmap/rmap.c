@@ -703,7 +703,7 @@ bool bRmapSoftRstMemAreaConfig(alt_u8 ucCommCh){
 		vpxRmapMemArea->xRmapMemAreaConfig.usiReg21ConfigReserved0 = 0;
 		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdModeConfig = 0;
 		vpxRmapMemArea->xRmapMemAreaConfig.ucReg21ConfigReserved1 = 0;
-		vpxRmapMemArea->xRmapMemAreaConfig.bClearErrorFlag = FALSE;
+		vpxRmapMemArea->xRmapMemAreaConfig.bClearErrorFlag = TRUE;
 		vpxRmapMemArea->xRmapMemAreaConfig.uliReg22ConfigReserved = 0;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1LastEPacket = 0;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1LastFPacket = 0;

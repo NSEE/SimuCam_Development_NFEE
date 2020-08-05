@@ -334,7 +334,7 @@ typedef struct DpktSpacewireErrInj {
 
 /* RMAP Error Injection Control Register Struct */
 typedef struct DpktRmapErrInj {
-	bool bEnable; /* Enable for RMAP Error */
+	bool bTriggerErr; /* Trigger RMAP Error */
 	alt_u8 ucErrorId; /* Error ID of RMAP Error */
 	alt_u32 uliValue; /* Value of RMAP Error */
 } TDpktRmapErrInj;

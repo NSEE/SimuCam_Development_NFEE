@@ -37,7 +37,7 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
@@ -54,7 +54,7 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh) {
@@ -71,7 +71,7 @@ bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh) {
@@ -88,7 +88,7 @@ bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
@@ -105,7 +105,7 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
@@ -121,7 +121,7 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
@@ -138,7 +138,7 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh) {
@@ -154,7 +154,7 @@ bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh) {
@@ -171,7 +171,7 @@ bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh) {
@@ -187,7 +187,7 @@ bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh) {
@@ -204,7 +204,7 @@ bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh) {
@@ -220,7 +220,7 @@ bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh) {
@@ -237,7 +237,7 @@ bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktSetLeftContentErrInj(TDpktChannel *pxDpktCh) {
@@ -253,7 +253,7 @@ bool bDpktSetLeftContentErrInj(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetLeftContentErrInj(TDpktChannel *pxDpktCh) {
@@ -270,7 +270,7 @@ bool bDpktGetLeftContentErrInj(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktSetRightContentErrInj(TDpktChannel *pxDpktCh) {
@@ -286,7 +286,7 @@ bool bDpktSetRightContentErrInj(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh) {
@@ -303,7 +303,240 @@ bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
+}
+
+bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
+		} else if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
+		} else if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
+		}
+
+		while (!(vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) && (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle)) {}
+
+		vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bClearList = TRUE;
+		vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bClearList = TRUE;
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
+}
+
+bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bOpenList = TRUE;
+
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bOpenList = TRUE;
+
+		}
+
+		while (!(vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) && (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording)) {}
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
+}
+
+alt_u8 ucDpktContentErrInjAddEntry(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide, alt_u16 usiStartFrame, alt_u16 usiStopFrame, alt_u16 usiPxColX, alt_u16 usiPxRowY, alt_u16 usiPxValue) {
+	alt_u8 ucEntries = 0;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		switch (ucCcdSide) {
+			case eDpktCcdSideE:
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
+
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.usiStartFrame = usiStartFrame;
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.usiStopFrame  = usiStopFrame ;
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.usiPxColX     = usiPxColX    ;
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.usiPxRowY     = usiPxRowY    ;
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.usiPxValue    = usiPxValue   ;
+
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bWriteList = TRUE;
+
+					usleep(10);
+
+					ucEntries = vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.ucErrorsCnt;
+
+				}
+				break;
+			case eDpktCcdSideF:
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
+
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.usiStartFrame = usiStartFrame;
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.usiStopFrame  = usiStopFrame ;
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.usiPxColX     = usiPxColX    ;
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.usiPxRowY     = usiPxRowY    ;
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.usiPxValue    = usiPxValue   ;
+
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bWriteList = TRUE;
+
+					usleep(10);
+
+					ucEntries = vpxCommChannel->xDataPacket.xDpktRightContentErrInj.ucErrorsCnt;
+
+				}
+				break;
+			default:
+				ucEntries = 0;
+				break;
+		}
+
+	}
+
+	return (ucEntries);
+}
+
+bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	bool bLeftStatus = FALSE;
+	bool bRightStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+
+			bLeftStatus = TRUE;
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+
+			bRightStatus = TRUE;
+		}
+
+		if ((bLeftStatus) && (bRightStatus)) {
+			bStatus = TRUE;
+		}
+
+	}
+
+	return (bStatus);
+}
+
+bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStartInj = TRUE;
+
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStartInj = TRUE;
+
+		}
+
+		while (!(vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) && (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting)) {}
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
+}
+
+bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	bool bLeftStatus = FALSE;
+	bool bRightStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+
+			bLeftStatus = TRUE;
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+
+			bRightStatus = TRUE;
+		}
+
+		if ((bLeftStatus) && (bRightStatus)) {
+			bStatus = TRUE;
+		}
+
+	}
+
+	return (bStatus);
 }
 
 bool bDpktSetHeaderErrInj(TDpktChannel *pxDpktCh) {
@@ -319,7 +552,7 @@ bool bDpktSetHeaderErrInj(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetHeaderErrInj(TDpktChannel *pxDpktCh) {
@@ -336,7 +569,159 @@ bool bDpktGetHeaderErrInj(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
+}
+
+bool bDpktHeaderErrInjClearEntries(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bStopInj = TRUE;
+		} else if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bCloseList = TRUE;
+		}
+
+		while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bIdle) {}
+
+		vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bClearList = TRUE;
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
+}
+
+bool bDpktHeaderErrInjOpenList(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bStopInj = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bIdle) {}
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bIdle) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bOpenList = TRUE;
+
+		}
+
+		while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bRecording) {}
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
+}
+
+alt_u8 ucDpktHeaderErrInjAddEntry(TDpktChannel *pxDpktCh, alt_u8 ucFrameNum, alt_u16 usiSequenceCnt, alt_u8 ucFieldId, alt_u16 usiFieldValue) {
+	alt_u8 ucEntries = 0;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bRecording) {
+
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.ucFrameNum     = ucFrameNum    ;
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.usiSequenceCnt = usiSequenceCnt;
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.ucFieldId      = ucFieldId     ;
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.usiValue       = usiFieldValue ;
+
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bWriteList = TRUE;
+
+			usleep(10);
+
+			ucEntries = vpxCommChannel->xDataPacket.xDpktHeaderErrInj.ucErrorsCnt;
+
+		}
+
+	}
+
+	return (ucEntries);
+}
+
+bool bDpktHeaderErrInjCloseList(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bCloseList = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bIdle) {}
+
+			bStatus = TRUE;
+		}
+
+	}
+
+	return (bStatus);
+}
+
+
+bool bDpktHeaderErrInjStartInj(TDpktChannel *pxDpktCh){
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bRecording) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bCloseList = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bIdle) {}
+		}
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bIdle) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bStartInj = TRUE;
+
+		}
+
+		while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bInjecting) {}
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
+}
+
+bool bDpktHeaderErrInjStopInj(TDpktChannel *pxDpktCh){
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bInjecting) {
+			vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bStopInj = TRUE;
+
+			while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bIdle) {}
+
+			bStatus = TRUE;
+		}
+
+	}
+
+	return (bStatus);
 }
 
 bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh) {
@@ -352,7 +737,7 @@ bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh) {
 		bStatus = TRUE;
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh) {
@@ -369,7 +754,7 @@ bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh) {
 
 	}
 
-	return bStatus;
+	return (bStatus);
 }
 
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
@@ -462,7 +847,7 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 			}
 		}
 	}
-	return bStatus;
+	return (bStatus);
 }
 
 /*
