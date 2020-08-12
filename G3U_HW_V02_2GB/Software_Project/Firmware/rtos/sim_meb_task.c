@@ -15,8 +15,6 @@ void vSimMebTask(void *task_data) {
 	unsigned char ucIL;
 	volatile tQMask uiCmdMeb;
 	INT8U error_code;
-
-
 	pxMebC = (TSimucam_MEB *) task_data;
 
 	#if DEBUG_ON
@@ -729,6 +727,46 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 			#endif
 		break;
+		case 46: /* TC_SCAMXX_SPW_ERR_TRIG */
+				usiFeeInstL = xPusL->usiValues[0];
+				/* Disconnect Error Injection */
+				switch (xPusL->usiValues[2])
+				{
+					case 1:
+						/* SPW Disable */
+						bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+						bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
+
+						/* SPW Enable */
+						bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
+						bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
+						#if DEBUG_ON
+							fprintf(fp, "ERROR INJECTION: SPW Disconnect\n\n" );
+						#endif
+					break;
+					case 5:
+						bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = TRUE;
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = xPusL->usiValues[1];
+						bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						fprintf(fp, "ERROR INJECTION: EEP received\n\n" );
+						#if DEBUG_ON
+							fprintf(fp, "ERROR INJECTION: EEP received\n\n" );
+						#endif
+						break;
+					default:
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+							fprintf(fp, "Invalid SPW error type\n\n" );
+						#endif
+					
+				}
+			break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
 			vSendHKUpdate(pxMebCLocal, xPusL);

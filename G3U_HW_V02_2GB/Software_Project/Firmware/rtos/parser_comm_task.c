@@ -408,6 +408,28 @@ void vParserCommTask(void *task_data) {
 									#endif
 								}
 								break;
+							case 46:
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_NFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* N repeat */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* Error type */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									/* Send the command to the MEB task */
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
 							case 49: /* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG  */
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];

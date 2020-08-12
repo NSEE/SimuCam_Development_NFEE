@@ -22,10 +22,10 @@
 #include "../driver/sync/sync.h"
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/comm/comm_channel.h"
+#include "../driver/comm/data_packet/data_packet.h"
 #include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
 #include "../driver/scom/scom.h"
 #include "fee_taskV3.h"
-
 
 void vSimMebTask(void *task_data);
 
