@@ -66,10 +66,62 @@ typedef struct Defaults{
 	unsigned short int usiSpwPLength;
 }TDefaults;
 
+typedef struct TimeCodeErrInj{
+	bool  				bFEE_NUMBER[8];
+	alt_u16				usiMissCount[8];
+	bool				bMissTC;
+	bool				bFEE_WRONG_NUMBER[8];
+	alt_u16				usiWrongCount[8];
+	alt_u16				usiWrongOffSet[8];
+	bool				bWrongTC;
+	alt_u16				usiUxpCount[8];
+	alt_u16				usiJitterCount[8];
+	bool				bFEEUxp[8];
+	bool				bFEEJitter[8];
+	bool				bUxp;
+	bool				bJitter;
+}TTimeCodeErrInj;
+
+typedef struct DATA_PKT_ERR{
+    int FrameBuffer;
+    int SequenceCounter;
+    int FieldID;
+    int FieldValue;
+    double dOrder;
+} TDATA_PKT_ERR;
+
+typedef struct LeftImageWindowContentErr {
+	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
+	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
+	alt_u16 usiCountFrames; /* Start Frame of Left Content Error */
+	alt_u16 usiFramesActive; /* Stop Frame of Left Content Error */
+	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
+	double	dOrder;
+} TLeftImageWindowContentErr;
+
+typedef struct RightImageWindowContentErr {
+	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
+	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
+	alt_u16 usiCountFrames; /* Start Frame of Left Content Error */
+	alt_u16 usiFramesActive; /* Stop Frame of Left Content Error */
+	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
+	double	dOrder;
+} TRightImageWindowContentErr;
+
+
+extern alt_u8  usiDATA_PKT_Count;
+extern TDATA_PKT_ERR xDataPKTErr[10];
+extern alt_u8  usiLeftImageWindowContentErr_Count;
+extern alt_u8  usiRightImageWindowContentErr_Count;
+extern TLeftImageWindowContentErr xLeftImageWindowContentErr[128];
+extern TRightImageWindowContentErr xRightImageWindowContentErr[128];
+extern TTimeCodeErrInj xTimeCodeErrInj;
 
 extern TConfEth xConfEth;
 extern TDefaults xDefaults;
 extern TGlobal	xGlobal;
+
+
 
 /*Functions*/
 bool bLoadDefaultEthConf( void );

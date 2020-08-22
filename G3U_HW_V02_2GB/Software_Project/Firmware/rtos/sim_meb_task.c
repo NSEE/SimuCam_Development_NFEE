@@ -9,6 +9,13 @@
 
 /* All commands should pass through the MEB, it is the instance that hould know everything, 
 and also know the self state and what is allowed to be performed or not */
+int values[] = { 88, 56, 100, 2, 25 };
+
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+
+
 
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
@@ -185,7 +192,6 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case Q_MEB_PUS:
 				vPusMebTask( pxMebCLocal );
 				break;
-
 			case M_MASTER_SYNC:
 				/* Perform memory SWAP */
 				vSwapMemmory(pxMebCLocal);
@@ -194,11 +200,12 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
 					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
+
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
-
 			case M_SYNC:
 			case M_PRE_MASTER:
 				#if DEBUG_ON
@@ -206,8 +213,10 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
 					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
+
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
@@ -243,8 +252,6 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 		#endif
 	}
 }
-
-
 
 void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal ) {
 	tQMask uiCmdLocal;
@@ -486,6 +493,33 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 			#endif
 		break;
+		/* TC_SCAM_WIN_ERR_MISS_PKT_TRIG */
+		case 51:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"\nTC_SCAM_WIN_ERR_MISS_PKT_TRIG\n");
+			#endif
+			break;
+		/* TC_SCAM_WIN_ERR_NOMOREPKT_TRIG  */
+		case 52:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"\n TC_SCAM_WIN_ERR_NOMOREPKT_TRIG\n");
+			#endif
+			break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
 			vSendHKUpdate(pxMebCLocal, xPusL);
@@ -496,6 +530,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 50:
 		/* TC_SCAM_ERR_OFF */
 		case 53:
+			usiFeeInstL = xPusL->usiValues[0];
+			bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = true;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = true;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = false;
+			bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			break;
 		/* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG */
 		case 67:
 			#if DEBUG_ON
@@ -526,7 +568,25 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Sinalize that can safely shutdown the Simucam */
 			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
 			break;
-
+		/* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG */
+		case 62:
+			usiFeeInstL = xPusL->usiValues[0];
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			#if DEBUG_ON
+				fprintf(fp, "\nTC_SCAM_WIN_ERR_ENABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
+			#endif
+			break;
+		case 63:
+			usiFeeInstL = xPusL->usiValues[0];
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = FALSE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			#if DEBUG_ON
+				fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
+			#endif
+			break;
 		/* TC_SCAM_FEE_TIME_CONFIG */
 		case 64:
 			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
@@ -570,7 +630,248 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucFeeInstL );
 			break;
 
+		case 72:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+			#if DEBUG_ON
+				fprintf(fp, "\nTC_SCAM_WIN_ERR_MISSDATA_TRIG\n" );
+			#endif
+			break;
+
+		case 73: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG */
+			usiFeeInstL = xPusL->usiValues[0];
+			if ((xPusL->usiValues[3] == 1) || (xPusL->usiValues[3] == 0)) {
+				//Left = 0
+				xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxColX 		= xPusL->usiValues[1];
+				xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxRowY 		= xPusL->usiValues[2];
+				xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiCountFrames	= xPusL->usiValues[4];
+				xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiFramesActive	= xPusL->usiValues[4] + xPusL->usiValues[5];
+				xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxValue		= xPusL->usiValues[6];
+				xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].dOrder			=(double)xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxRowY +
+																								 ((double)xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxColX / 100000);
+				usiLeftImageWindowContentErr_Count++;
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG LEFT:%i\n", usiLeftImageWindowContentErr_Count);
+				}
+				#endif
+			}
+			if ((xPusL->usiValues[3] == 2) || (xPusL->usiValues[3] == 0)){
+				//Right = 1
+				xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxColX 			= xPusL->usiValues[1];
+				xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxRowY 			= xPusL->usiValues[2];
+				xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiCountFrames		= xPusL->usiValues[4];
+				xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiFramesActive	= xPusL->usiValues[4] + xPusL->usiValues[5];
+				xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxValue			= xPusL->usiValues[6];
+				xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].dOrder			=(double)xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxRowY +
+																								 ((double)xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxColX / 100000);
+				usiRightImageWindowContentErr_Count++;
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG RITGHT:%i\n", usiRightImageWindowContentErr_Count);
+				}
+				#endif
+			}
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG\n" );
+			}
+			#endif
+			break;
+		case 74: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG_FINISH */
+				usiFeeInstL = xPusL->usiValues[0];
+				qsort (xLeftImageWindowContentErr, usiLeftImageWindowContentErr_Count, sizeof(TLeftImageWindowContentErr), iCompareIMGWINCONTENTLeft);
+				qsort (xRightImageWindowContentErr, usiRightImageWindowContentErr_Count, sizeof(TRightImageWindowContentErr), iCompareIMGWINCONTENTRight);
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "\nSW List Order Success\n" );
+				}
+				#endif
+				if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "\nHW list cleared successfully\n" );
+					}
+					#endif
+					if (bDpktContentErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp, "\nHW list opening successfully\n" );
+						}
+						#endif
+						if (usiLeftImageWindowContentErr_Count > 0)
+						for (int iListCount=0; iListCount<usiLeftImageWindowContentErr_Count; iListCount++) {
+							ucDpktContentErrInjAddEntry( &pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket,
+														 0,
+														 xLeftImageWindowContentErr[iListCount].usiCountFrames,
+														 xLeftImageWindowContentErr[iListCount].usiFramesActive,
+														 xLeftImageWindowContentErr[iListCount].usiPxColX,
+														 xLeftImageWindowContentErr[iListCount].usiPxRowY,
+														 xLeftImageWindowContentErr[iListCount].usiPxValue);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
+								fprintf(fp, "HW Position X :%i\n", xLeftImageWindowContentErr[iListCount].usiPxColX);
+								fprintf(fp, "HW Position Y :%i\n", xLeftImageWindowContentErr[iListCount].usiPxRowY);
+								fprintf(fp, "HW Start Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiCountFrames);
+								fprintf(fp, "HW Stop  Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiFramesActive);
+								fprintf(fp, "HW Pixel Value:%i\n", xLeftImageWindowContentErr[iListCount].usiPxValue);
+							}
+							#endif
+						}
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp, "\nHW Left list error add successfully\n" );
+						}
+						#endif
+						if (usiRightImageWindowContentErr_Count > 0)
+						for (int iListCount=0; iListCount<usiRightImageWindowContentErr_Count; iListCount++) {
+							ucDpktContentErrInjAddEntry( &pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket,
+														 1,
+														 xRightImageWindowContentErr[iListCount].usiCountFrames,
+														 xRightImageWindowContentErr[iListCount].usiFramesActive,
+														 xRightImageWindowContentErr[iListCount].usiPxColX,
+														 xRightImageWindowContentErr[iListCount].usiPxRowY,
+														 xRightImageWindowContentErr[iListCount].usiPxValue);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
+								fprintf(fp, "HW Position X :%i\n", xRightImageWindowContentErr[iListCount].usiPxColX);
+								fprintf(fp, "HW Position Y :%i\n", xRightImageWindowContentErr[iListCount].usiPxRowY);
+								fprintf(fp, "HW Start Frame:%i\n", xRightImageWindowContentErr[iListCount].usiCountFrames);
+								fprintf(fp, "HW Stop  Frame:%i\n", xRightImageWindowContentErr[iListCount].usiFramesActive);
+								fprintf(fp, "HW Pixel Value:%i\n", xRightImageWindowContentErr[iListCount].usiPxValue);
+							}
+							#endif
+						}
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp, "\nHW Right list error add successfully\n" );
+						}
+						#endif
+						if (bDpktContentErrInjCloseList(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)){
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp, "\nHW Close list successfully\n" );
+							}
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp, "\nHW Close list problem\n" );
+							}
+							#endif
+						}
+					}
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "\nHW Clear list problem\n" );
+					}
+					#endif
+				}
+				//qsort (xDataPKTErr, usiDATA_PKT_Count, sizeof(TDATA_PKT_ERR), iCompareDataPKT_ERR);
+
+			break;
+		case 75: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_CLEAR  */
+				ucFeeInstL = xPusL->usiValues[0];
+				if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "\nClear HW IMAGE AND WINDOW LIST SUCCESS\n" );
+					}
+					#endif
+					usiLeftImageWindowContentErr_Count = 0;
+					usiRightImageWindowContentErr_Count = 0;
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "\nClear HW IMAGE AND WINDOW LIST PROBLEM\n" );
+					}
+					#endif
+				}
+			break;
 		/* TC_SCAM_CONFIG */
+
+		case 78: /* TC_SCAMxx_DATA_PKT_ERR_CONFIG  */
+			ucFeeInstL = xPusL->usiValues[0];
+			xDataPKTErr[usiDATA_PKT_Count].FrameBuffer 		= xPusL->usiValues[1];
+			xDataPKTErr[usiDATA_PKT_Count].SequenceCounter 	= xPusL->usiValues[2];
+			xDataPKTErr[usiDATA_PKT_Count].FieldID 			= xPusL->usiValues[3];
+			xDataPKTErr[usiDATA_PKT_Count].FieldValue 		= xPusL->usiValues[4];
+			xDataPKTErr[usiDATA_PKT_Count].dOrder 			= (double)xDataPKTErr[usiDATA_PKT_Count].FrameBuffer + ((double)xDataPKTErr[usiDATA_PKT_Count].SequenceCounter / 1000);
+			usiDATA_PKT_Count++;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "\nDATA PKT ADD TO LIST:%i \n", usiDATA_PKT_Count);
+			}
+			#endif
+			break;
+		case 79: /* TC_SCAMxx_DATA_PKT_ERR_CONFIG_FINISH  */
+			ucFeeInstL = xPusL->usiValues[0];
+			if (usiDATA_PKT_Count > 0){
+				qsort (xDataPKTErr, usiDATA_PKT_Count, sizeof(TDATA_PKT_ERR), iCompareDataPKT_ERR);
+			}
+			if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "\nSW LIST SORTED\nClear HW DATA HEADER LIST SUCCESS\n" );
+				}
+				#endif
+				if (bDpktHeaderErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "\nOPEN HW DATA HEADER LIST SUCCESS\n" );
+					}
+					#endif
+					for (int n=0; n<usiDATA_PKT_Count; n++){
+						ucDpktHeaderErrInjAddEntry(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket,
+													xDataPKTErr[n].FrameBuffer,
+													xDataPKTErr[n].SequenceCounter,
+													xDataPKTErr[n].FieldID,
+													xDataPKTErr[n].FieldValue);
+
+					}
+					usiDATA_PKT_Count = 0;
+					if (&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket){
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp, "\nALL DATA ADD TO HW LIST\nHW LIST CLOSE\n" );
+						}
+						#endif
+					}
+				}
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "\nClear DATA HEADER LIST PROBLEM\n" );
+				}
+				#endif
+			}
+			break;
+		case 80: /* TC_SCAMxx_DATA_PKT_ERR_CLEAR  */
+				ucFeeInstL = xPusL->usiValues[0];
+				if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "\nSW LIST SORTED\nClear HW DATA HEADER LIST SUCCESS\n" );
+					}
+					#endif
+					usiDATA_PKT_Count = 0;
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "\nClear DATA HEADER LIST PROBLEM\n" );
+					}
+					#endif
+				}
+			break;
 		case 60:
 		default:
 			#if DEBUG_ON
@@ -652,6 +953,10 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 			break;
 
+		case 78:
+
+			qsort(values, 5, sizeof(int), cmpfunc);
+			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -728,44 +1033,141 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 		break;
 		case 46: /* TC_SCAMXX_SPW_ERR_TRIG */
-				usiFeeInstL = xPusL->usiValues[0];
-				/* Disconnect Error Injection */
-				switch (xPusL->usiValues[2])
-				{
-					case 1:
-						/* SPW Disable */
-						bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-						bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
+			usiFeeInstL = xPusL->usiValues[0];
+			/* Disconnect Error Injection */
+			switch (xPusL->usiValues[3])
+			{
+				case 1:
+					/* SPW Disable */
+					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+					bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
 
-						/* SPW Enable */
-						bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-						bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
-						#if DEBUG_ON
-							fprintf(fp, "ERROR INJECTION: SPW Disconnect\n\n" );
-						#endif
-					break;
-					case 5:
-						bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = TRUE;
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = xPusL->usiValues[1];
-						bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* SPW Enable */
+					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
+					bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
+					#if DEBUG_ON
+						fprintf(fp, "ERROR INJECTION: SPW Disconnect\n\n" );
+					#endif
+				break;
+				case 5:
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = xPusL->usiValues[2];
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = xPusL->usiValues[1];
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					#if DEBUG_ON
 						fprintf(fp, "ERROR INJECTION: EEP received\n\n" );
-						#if DEBUG_ON
-							fprintf(fp, "ERROR INJECTION: EEP received\n\n" );
-						#endif
-						break;
-					default:
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp, "Invalid SPW error type\n\n" );
+					#endif
+			}
+			break;
+		case 47: /* TC_SCAMXX_RMAP_ERR_TRIG */
+				usiFeeInstL = xPusL->usiValues[0];
+				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = xPusL->usiValues[1];
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId   = xPusL->usiValues[2];
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue    = (alt_u32)( (alt_u32)(xPusL->usiValues[3] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[4] & 0x0000ffff) );
+				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				#if DEBUG_ON
+					fprintf(fp, "\nERROR INJECTION: RMAP ERROR\n" );
+				#endif
+			break;
+		case 48: /* TC_SCAMXX_TICO_ERR_TRIG */
+				usiFeeInstL = xPusL->usiValues[0];
+				if(xPusL->usiValues[5] == 0)
+				{
+					if (xPusL->usiValues[4] > 0)
+					{
+
+						bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = false;
+						bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						fprintf(fp, "\nTIMECODE:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime );
+						xTimeCodeErrInj.bFEE_NUMBER[usiFeeInstL]  = true;
+						if (xPusL->usiValues[4] == 1)
+							xTimeCodeErrInj.usiMissCount[usiFeeInstL] = 75;
+						else
+							xTimeCodeErrInj.usiMissCount[usiFeeInstL] = (pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime + xPusL->usiValues[4]);
+						xTimeCodeErrInj.bMissTC = true;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-							fprintf(fp, "Invalid SPW error type\n\n" );
+							fprintf(fp, "\nERROR INJECTION: MISSING TIMECODE ON\n" );
 						#endif
-					
+					} else
+					{
+						bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = true;
+						bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+							fprintf(fp, "\nERROR INJECTION: MISSING TIMECODE OFF\n" );
+						#endif
+					}
 				}
+				if(xPusL->usiValues[5] == 1)
+				{
+
+						bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = xPusL->usiValues[1];
+						bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+							fprintf(fp, "\nERROR INJECTION: WRONG TIMECODE ON\n" );
+						#endif
+						bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						if (xPusL->usiValues[4] != 0) {
+							xTimeCodeErrInj.bWrongTC = true;
+						}
+						xTimeCodeErrInj.bFEE_WRONG_NUMBER[usiFeeInstL] = true;
+						xTimeCodeErrInj.usiWrongCount[usiFeeInstL] = xPusL->usiValues[4];
+						xTimeCodeErrInj.usiWrongOffSet[usiFeeInstL] = xPusL->usiValues[1];
+
+				}
+				if(xPusL->usiValues[5] == 2)
+				{
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = true;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = true;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					xTimeCodeErrInj.usiWrongCount[usiFeeInstL] =   xPusL->usiValues[4];
+					xTimeCodeErrInj.bUxp = true;
+					xTimeCodeErrInj.bFEEUxp[usiFeeInstL] = true;
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp, "\nERROR INJECTION: UNEXPECTED TIMECODE\n");
+					#endif
+				}
+				if(xPusL->usiValues[5] == 3)
+				{
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = false;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = true;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp, "\nERROR INJECTION: JITTER TIMECODE\n" );
+					#endif
+				}
+
+
 			break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
@@ -792,13 +1194,46 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
 			break;
-
+		/* TC_SCAM_WIN_ERR_MISS_PKT_TRIG */
+		case 51:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"\nTC_SCAM_WIN_ERR_MISS_PKT_TRIG\n");
+			#endif
+			break;
+		/* TC_SCAM_WIN_ERR_NOMOREPKT_TRIG  */
+		case 52:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"\n TC_SCAM_WIN_ERR_NOMOREPKT_TRIG\n");
+			#endif
+			break;
 		/* TC_SCAM_ERR_OFF */
 		case 53:
+			usiFeeInstL = xPusL->usiValues[0];
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"TC_SCAM_ERR_OFF\n");
 			#endif
+			bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = true;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = true;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = false;
+			bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 			usiFeeInstL = xPusL->usiValues[0];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
@@ -808,8 +1243,43 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = 0;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = 0;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = 0;
+
+
+			usiFeeInstL = xPusL->usiValues[0];
+			bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			#if DEBUG_ON
+				fprintf(fp, "\nERROR INJECTION EEP:%i\n",pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn);
+			#endif
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+			bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			#if DEBUG_ON
+				fprintf(fp, "\nERROR INJECTION: Disable All Configuration\n" );
+			#endif
 			break;
 
+		/* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG */
+		case 62:
+			usiFeeInstL = xPusL->usiValues[0];
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			#if DEBUG_ON
+				fprintf(fp, "\nTC_SCAM_WIN_ERR_ENABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
+			#endif
+			break;
+		/* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG */
+		case 63:
+			usiFeeInstL = xPusL->usiValues[0];
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = FALSE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			#if DEBUG_ON
+			fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
+			#endif
+
+			break;
 		/* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG */
 		case 67:
 			usiFeeInstL = xPusL->usiValues[0];
@@ -870,6 +1340,77 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 
 		case 61:
+		/* TC_SCAM_WIN_ERR_MISSDATA_TRIG */
+		case 72:
+			usiFeeInstL = xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+			#if DEBUG_ON
+				fprintf(fp, "\nTC_SCAM_WIN_ERR_MISSDATA_TRIG\n" );
+			#endif
+			break;
+
+		case 76: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_START_INJ */
+			usiFeeInstL = xPusL->usiValues[0];
+			if ( bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket) ) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START SUCCESS\n" );
+				#endif
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START PROBLEM\n" );
+				#endif
+			}
+			break;
+		case 77: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_STOP_INJ */
+			usiFeeInstL = xPusL->usiValues[0];
+			if ( bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket) ) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION STOP SUCCESS\n" );
+				#endif
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION STOP PROBLEM\n" );
+				#endif
+			}
+			break;
+		case 81: /* TC_SCAMxx_DATA_PKT_ERR_START_INJ */
+			usiFeeInstL = xPusL->usiValues[0];
+			if ( bDpktHeaderErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket) ) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nDATA HEADER ERROR INJECTION START SUCCESS\n" );
+				#endif
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nDATA HEADER ERROR INJECTION START PROBLEM\n" );
+				#endif
+			}
+			break;
+		case 82: /* TC_SCAMxx_DATA_PKT_ERR_STOP_INJ */
+			usiFeeInstL = xPusL->usiValues[0];
+			if ( bDpktHeaderErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket) ) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nDATA HEADER ERROR INJECTION STOP SUCCESS\n" );
+				#endif
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "\nDATA HEADER ERROR INJECTION STOP PROBLEM\n" );
+				#endif
+			}
+			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -1167,6 +1708,134 @@ void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
 	u_HKValue.usiValues[1] = xPus->usiValues[2];
 
 	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], (alt_u8)xPus->usiValues[1], u_HKValue.uliValue);
+
+}
+
+
+
+int iCompareIMGWINCONTENTLeft (const void * a, const void * b)
+{
+
+	TLeftImageWindowContentErr *orderA = (TLeftImageWindowContentErr *)a;
+	TLeftImageWindowContentErr *orderB = (TLeftImageWindowContentErr *)b;
+
+	return ( orderA->dOrder > orderB->dOrder ) - ( orderA->dOrder < orderB->dOrder );
+}
+
+int iCompareIMGWINCONTENTRight (const void * a, const void * b)
+{
+
+	TRightImageWindowContentErr *orderA = (TRightImageWindowContentErr *)a;
+	TRightImageWindowContentErr *orderB = (TRightImageWindowContentErr *)b;
+
+	return ( orderA->dOrder > orderB->dOrder ) - ( orderA->dOrder < orderB->dOrder );
+}
+
+/* Used to sort the list of DATAPKTERR errors */
+int iCompareDataPKT_ERR (const void * a, const void * b)
+{
+
+	TDATA_PKT_ERR *orderA = (TDATA_PKT_ERR *)a;
+	TDATA_PKT_ERR *orderB = (TDATA_PKT_ERR *)b;
+
+	return ( orderA->dOrder > orderB->dOrder ) - ( orderA->dOrder < orderB->dOrder );
+}
+
+void vTimeCodeMissCounter(TSimucam_MEB * pxMebCLocal, alt_u8 usiTimeCode) {
+	if (xTimeCodeErrInj.bMissTC == true) {
+		for (int i = 0; i < 8; i++) {
+			if (xTimeCodeErrInj.bFEE_NUMBER[i] == true) {
+				if ((xTimeCodeErrInj.usiMissCount[i] == usiTimeCode) || (xTimeCodeErrInj.usiMissCount[i] == 75) ){
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = true;
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+					xTimeCodeErrInj.bFEE_NUMBER[i] = false;
+					fprintf(fp,"\nPOWER ON TIMECODE\n");
+				}
+			}
+		}
+		xTimeCodeErrInj.bMissTC = (xTimeCodeErrInj.bFEE_NUMBER[0] |
+								 xTimeCodeErrInj.bFEE_NUMBER[1] |
+								 xTimeCodeErrInj.bFEE_NUMBER[2] |
+								 xTimeCodeErrInj.bFEE_NUMBER[3] |
+								 xTimeCodeErrInj.bFEE_NUMBER[4] |
+								 xTimeCodeErrInj.bFEE_NUMBER[5] |
+								 xTimeCodeErrInj.bFEE_NUMBER[6] |
+								 xTimeCodeErrInj.bFEE_NUMBER[7] );
+	}
+
+	if (xTimeCodeErrInj.bWrongTC == true) {
+			for (int i = 0; i < 8; i++) {
+				if (xTimeCodeErrInj.bFEE_WRONG_NUMBER[i] == true) {
+					if ((xTimeCodeErrInj.usiWrongCount[i] == 0)  ){
+						bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
+						pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = true;
+						pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = true;
+						pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = false;
+						bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+						xTimeCodeErrInj.bFEE_WRONG_NUMBER[i] = false;
+						fprintf(fp,"\nWORNG TIMECODE OFF\n");
+					} else {
+						xTimeCodeErrInj.usiWrongCount[i]--;
+					}
+				}
+			}
+			xTimeCodeErrInj.bWrongTC = (	 xTimeCodeErrInj.bFEE_WRONG_NUMBER[0] |
+										 xTimeCodeErrInj.bFEE_WRONG_NUMBER[1] |
+										 xTimeCodeErrInj.bFEE_WRONG_NUMBER[2] |
+										 xTimeCodeErrInj.bFEE_WRONG_NUMBER[3] |
+										 xTimeCodeErrInj.bFEE_WRONG_NUMBER[4] |
+										 xTimeCodeErrInj.bFEE_WRONG_NUMBER[5] |
+										 xTimeCodeErrInj.bFEE_WRONG_NUMBER[6] |
+										 xTimeCodeErrInj.bFEE_WRONG_NUMBER[7] );
+		}
+
+	if (xTimeCodeErrInj.bUxp == true)  {
+		for (int i = 0; i < 8; i++) {
+			if (xTimeCodeErrInj.usiUxpCount[i] > 0) {
+				xTimeCodeErrInj.usiUxpCount[i]--;
+			} else {
+				bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+				pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = true;
+				pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = false;
+				pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = 0;
+				bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+				xTimeCodeErrInj.bFEEUxp[i] = false;
+			}
+		}
+		xTimeCodeErrInj.bUxp = (	 xTimeCodeErrInj.bFEEUxp[0] |
+										 xTimeCodeErrInj.bFEEUxp[1] |
+										 xTimeCodeErrInj.bFEEUxp[2] |
+										 xTimeCodeErrInj.bFEEUxp[3] |
+										 xTimeCodeErrInj.bFEEUxp[4] |
+										 xTimeCodeErrInj.bFEEUxp[5] |
+										 xTimeCodeErrInj.bFEEUxp[6] |
+										 xTimeCodeErrInj.bFEEUxp[7] );
+	}
+
+	if (xTimeCodeErrInj.bJitter == true)  {
+			for (int i = 0; i < 8; i++) {
+				if (xTimeCodeErrInj.usiJitterCount[i] > 0) {
+					xTimeCodeErrInj.usiJitterCount[i]--;
+				} else {
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = true;
+					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = false;
+					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = 0;
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+					xTimeCodeErrInj.bFEEUxp[i] = false;
+				}
+			}
+			xTimeCodeErrInj.bJitter   = (	 xTimeCodeErrInj.bFEEJitter[0] |
+											 xTimeCodeErrInj.bFEEJitter[1] |
+											 xTimeCodeErrInj.bFEEJitter[2] |
+											 xTimeCodeErrInj.bFEEJitter[3] |
+											 xTimeCodeErrInj.bFEEJitter[4] |
+											 xTimeCodeErrInj.bFEEJitter[5] |
+											 xTimeCodeErrInj.bFEEJitter[6] |
+											 xTimeCodeErrInj.bFEEJitter[7] );
+		}
 
 }
 

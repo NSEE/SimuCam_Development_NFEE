@@ -13,7 +13,14 @@
 TConfEth xConfEth;
 TDefaults xDefaults;
 TGlobal	xGlobal;
+TTimeCodeErrInj xTimeCodeErrInj;
+TDATA_PKT_ERR xDataPKTErr[10];
+alt_u8  usiLeftImageWindowContentErr_Count;
+alt_u8  usiRightImageWindowContentErr_Count;
+TLeftImageWindowContentErr xLeftImageWindowContentErr[128];
+TRightImageWindowContentErr xRightImageWindowContentErr[128];
 
+alt_u8  usiDATA_PKT_Count;
 
 /* Load ETH configuration values from SD Card */
 bool bLoadDefaultEthConf( void ){

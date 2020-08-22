@@ -486,6 +486,8 @@ typedef struct DpktChannel {
 	TDpktWindowingParam xDpktWindowingParam;
 } TDpktChannel;
 
+
+
 /* General Struct for Communication Module Registers Access */
 typedef struct CommChannel {
 	TCommDevAddr xCommDevAddr;

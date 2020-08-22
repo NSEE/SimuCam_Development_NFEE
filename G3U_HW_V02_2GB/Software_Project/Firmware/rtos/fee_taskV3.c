@@ -837,7 +837,7 @@ void vFeeTaskV3(void *task_data) {
 					vApplyRmap(pxNFee);
 
 					/*Check if this FEE is in Full*/
-					if ( (pxNFee->xControl.eMode == sFullPattern) || (pxNFee->xControl.eMode == sFullImage)) {
+					if ( (pxNFee->xControl.eMode == sFullPattern) || (pxNFee->xControl.eMode == sFullImage) ||  (pxNFee->xControl.eMode == sWindowing) ||  (pxNFee->xControl.eMode == sWinPattern)) {
 						/*Check if there is any type of error enabled*/
 						//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
 

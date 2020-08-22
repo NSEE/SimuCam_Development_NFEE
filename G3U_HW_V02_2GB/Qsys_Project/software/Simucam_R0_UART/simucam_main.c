@@ -45,6 +45,8 @@ volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 volatile tTMPus xPus[N_PUS_PIPE];
 /*===== Global system variables ===========*/
 
+
+
 /*== Definition of some resources of RTOS - Semaphores - Stacks - Queues - Flags etc ==============*/
 
 /* --------------- Definition of Semaphores ------------ */
