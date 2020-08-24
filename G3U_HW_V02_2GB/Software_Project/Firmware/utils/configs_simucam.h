@@ -116,6 +116,8 @@ extern alt_u8  usiRightImageWindowContentErr_Count;
 extern TLeftImageWindowContentErr xLeftImageWindowContentErr[128];
 extern TRightImageWindowContentErr xRightImageWindowContentErr[128];
 extern TTimeCodeErrInj xTimeCodeErrInj;
+extern bool bStart_IMGWIN_INJ[N_OF_NFEE];
+extern bool bStart_DATAPKT_INJ[N_OF_NFEE];
 
 extern TConfEth xConfEth;
 extern TDefaults xDefaults;

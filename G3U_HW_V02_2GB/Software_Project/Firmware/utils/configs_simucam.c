@@ -19,6 +19,8 @@ alt_u8  usiLeftImageWindowContentErr_Count;
 alt_u8  usiRightImageWindowContentErr_Count;
 TLeftImageWindowContentErr xLeftImageWindowContentErr[128];
 TRightImageWindowContentErr xRightImageWindowContentErr[128];
+bool bStart_IMGWIN_INJ[N_OF_NFEE];
+bool bStart_DATAPKT_INJ[N_OF_NFEE];
 
 alt_u8  usiDATA_PKT_Count;
 
