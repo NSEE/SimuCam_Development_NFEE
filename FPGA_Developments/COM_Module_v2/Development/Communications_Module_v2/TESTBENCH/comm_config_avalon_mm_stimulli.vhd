@@ -592,6 +592,7 @@ begin
 				--				when 60000 =>
 				--					avs_config_wr_regs_o.header_error_injection_control_reg.header_errinj_stop <= '1';
 
+
 				when 120000 =>
 					-- buffers data control
 					--					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';

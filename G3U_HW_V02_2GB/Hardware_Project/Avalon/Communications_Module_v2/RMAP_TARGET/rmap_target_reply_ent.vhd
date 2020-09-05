@@ -215,7 +215,8 @@ begin
 					if (control_i.send_reply = '1') then
 						-- user ready to send a reply
 						-- register the output headerdata
-						v_output_headerdata       := headerdata_i;
+						v_output_headerdata                          := headerdata_i;
+						v_output_headerdata.instructions.packet_type := "00";
 						-- check there is a registered error enabled
 						if (s_registered_rmap_errinj.rmap_error_en = '1') then
 							-- there is a registered error enabled
@@ -271,8 +272,8 @@ begin
 							s_rmap_target_reply_next_state <= FIELD_INITIATOR_LOGICAL_ADDRESS;
 						end if;
 						-- go to wating buffer space
-						s_rmap_target_reply_state <= WAITING_BUFFER_SPACE;
-						v_rmap_target_reply_state := WAITING_BUFFER_SPACE;
+						s_rmap_target_reply_state                    <= WAITING_BUFFER_SPACE;
+						v_rmap_target_reply_state                    := WAITING_BUFFER_SPACE;
 					end if;
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -609,7 +610,7 @@ begin
 					spw_control_o.flag             <= '0';
 					-- fill spw data with field data
 					-- packet type = 0b00 (reply packet)
-					spw_control_o.data(7 downto 6) <= "00";
+					spw_control_o.data(7 downto 6) <= v_output_headerdata.instructions.packet_type;
 					-- same command field as the command 
 					spw_control_o.data(5)          <= v_output_headerdata.instructions.command.write_read;
 					spw_control_o.data(4)          <= v_output_headerdata.instructions.command.verify_data_before_write;

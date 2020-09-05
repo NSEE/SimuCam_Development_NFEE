@@ -511,8 +511,6 @@ begin
 									if ((content_errinj_en_i = '1') and (s_ccd_row_cnt = content_errinj_px_row_i) and (s_ccd_column_cnt = content_errinj_px_col_i)) then
 										-- the content error injection is enabled and should be applied to the current pixel
 										s_masking_fifo.data_imgbyte <= a_errinj_pixel_lsb;
-										-- set the content error injection done flag
-										content_errinj_done_o       <= '1';
 									else
 										-- the content error injection is disabled or should not be applied to the current pixel
 										-- check if the pattern is enabled
@@ -559,6 +557,11 @@ begin
 						-- losing data
 						-- increment the pixels sent counter
 						s_pixels_sent_cnt <= s_pixels_sent_cnt + 1;
+					end if;
+					-- check if the content error injection is enabled and should be applied to the current pixel
+					if ((content_errinj_en_i = '1') and (s_ccd_row_cnt = content_errinj_px_row_i) and (s_ccd_column_cnt = content_errinj_px_col_i)) then
+						-- set the content error injection done flag (always set the done flag when the selectec pixel is processed)
+						content_errinj_done_o <= '1';
 					end if;
 
 				when NEXT_PIXEL =>

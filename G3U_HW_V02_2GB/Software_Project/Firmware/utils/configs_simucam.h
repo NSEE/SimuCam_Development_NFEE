@@ -83,47 +83,33 @@ typedef struct TimeCodeErrInj{
 }TTimeCodeErrInj;
 
 typedef struct DATA_PKT_ERR{
-    int FrameBuffer;
-    int SequenceCounter;
-    int FieldID;
-    int FieldValue;
-    double dOrder;
-} TDATA_PKT_ERR;
+	alt_u16 usiFrameCounter;
+	alt_u16 usiSequenceCounter;
+	alt_u16 usiFieldId;
+	alt_u16 usiFieldValue;
+} TDataPktError;
 
-typedef struct LeftImageWindowContentErr {
+typedef struct ImageWindowContentErr {
 	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
 	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
 	alt_u16 usiCountFrames; /* Start Frame of Left Content Error */
 	alt_u16 usiFramesActive; /* Stop Frame of Left Content Error */
 	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
-	double	dOrder;
-} TLeftImageWindowContentErr;
+} TImageWindowContentErr;
 
-typedef struct RightImageWindowContentErr {
-	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
-	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
-	alt_u16 usiCountFrames; /* Start Frame of Left Content Error */
-	alt_u16 usiFramesActive; /* Stop Frame of Left Content Error */
-	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
-	double	dOrder;
-} TRightImageWindowContentErr;
-
-
-extern alt_u8  usiDATA_PKT_Count;
-extern TDATA_PKT_ERR xDataPKTErr[10];
+extern alt_u8  usiDataPktCount;
+extern TDataPktError xDataPKTErr[10];
 extern alt_u8  usiLeftImageWindowContentErr_Count;
 extern alt_u8  usiRightImageWindowContentErr_Count;
-extern TLeftImageWindowContentErr xLeftImageWindowContentErr[128];
-extern TRightImageWindowContentErr xRightImageWindowContentErr[128];
+extern TImageWindowContentErr xLeftImageWindowContentErr[128];
+extern TImageWindowContentErr xRightImageWindowContentErr[128];
 extern TTimeCodeErrInj xTimeCodeErrInj;
-extern bool bStart_IMGWIN_INJ[N_OF_NFEE];
-extern bool bStart_DATAPKT_INJ[N_OF_NFEE];
+extern bool bStartImgWinInj[N_OF_NFEE];
+extern bool bStartDataPktInj[N_OF_NFEE];
 
 extern TConfEth xConfEth;
 extern TDefaults xDefaults;
 extern TGlobal	xGlobal;
-
-
 
 /*Functions*/
 bool bLoadDefaultEthConf( void );

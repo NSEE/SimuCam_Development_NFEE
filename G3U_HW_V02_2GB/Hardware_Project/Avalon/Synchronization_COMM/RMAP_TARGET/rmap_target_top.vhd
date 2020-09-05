@@ -69,6 +69,9 @@ entity rmap_target_top is
 		conf_target_enable_i       : in  std_logic;
 		conf_target_logical_addr_i : in  std_logic_vector(7 downto 0);
 		conf_target_key_i          : in  std_logic_vector(7 downto 0);
+		rmap_errinj_en_i           : in  std_logic;
+		rmap_errinj_id_i           : in  std_logic_vector(3 downto 0);
+		rmap_errinj_val_i          : in  std_logic_vector(31 downto 0);
 		-- global output signals
 
 		spw_control_o              : out t_rmap_target_spw_control;
@@ -206,6 +209,9 @@ begin
 			headerdata_i.extended_address              => s_rmap_target_rmap_data.extended_address,
 			headerdata_i.address                       => s_rmap_target_rmap_data.address,
 			headerdata_i.data_length                   => s_rmap_target_rmap_data.data_length,
+			errinj_i.rmap_error_en                     => rmap_errinj_en_i,
+			errinj_i.rmap_error_id                     => rmap_errinj_id_i,
+			errinj_i.rmap_error_val                    => rmap_errinj_val_i,
 			spw_flag_i                                 => spw_flag_i.transmitter,
 			mem_flag_i                                 => mem_flag_i.read,
 			flags_o                                    => s_rmap_target_flags.read_operation,
@@ -227,6 +233,9 @@ begin
 			headerdata_i.target_logical_address    => s_rmap_target_rmap_data.target_logical_address,
 			headerdata_i.transaction_identifier    => s_rmap_target_rmap_data.transaction_identifier,
 			headerdata_i.data_length               => s_rmap_target_rmap_data.data_length,
+			errinj_i.rmap_error_en                 => rmap_errinj_en_i,
+			errinj_i.rmap_error_id                 => rmap_errinj_id_i,
+			errinj_i.rmap_error_val                => rmap_errinj_val_i,
 			spw_flag_i                             => spw_flag_i.transmitter,
 			flags_o                                => s_rmap_target_flags.reply_geneneration,
 			--			error_o                                => s_rmap_target_error.dummy,

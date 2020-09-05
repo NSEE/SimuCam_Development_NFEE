@@ -65,9 +65,8 @@ void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL); /* [bndky] */
 
 void vTimeCodeMissCounter(TSimucam_MEB * pxMebCLocal, alt_u8 usiTimeCode);
 
-int iCompareDataPKT_ERR (const void * a, const void * b);
-int iCompareIMGWINCONTENTLeft (const void * a, const void * b);
-int iCompareIMGWINCONTENTRight (const void * a, const void * b);
+int iCompareDataPktError (const void *cvpDataPktErrA, const void *cvpDataPktErrB);
+int iCompareImgWinContent (const void *cvpImgWinA, const void *cvpImgWinB);
 
 /* Float consuption for HK update [bndky] */
 union HkValue
