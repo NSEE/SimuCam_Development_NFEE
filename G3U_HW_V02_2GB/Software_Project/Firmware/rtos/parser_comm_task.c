@@ -76,7 +76,7 @@ void vParserCommTask(void *task_data) {
 						}
 						#endif
 
-
+						vSendEventLog(0,1,0,4,1);
 						eParserMode = sWaitingMessage;
 						break;
 
@@ -696,6 +696,8 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
 								/*Send the command to NUC in order to reset the NUC*/
+
+								vSendEventLog(0,1,0,2,1);
 								vSendReset();
 								
 								OSTimeDlyHMSM(0,0,3,0);
@@ -726,6 +728,7 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
 								/*Send the command to NUC in order to shutdown the NUC*/
+								vSendEventLog(0,1,0,3,1);
 								vSendTurnOff();
 								/* Send to Meb the shutdown command */
 								bSendMessagePUStoMebTask(&xTcPusL);

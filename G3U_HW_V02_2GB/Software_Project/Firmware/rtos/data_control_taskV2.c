@@ -398,7 +398,7 @@ void vDataControlTaskV2(void *task_data) {
 			pxDataC->sMode = sMebToConfig;
 		}
 
-		//todo: Implementação temporaria
+		//todo: Implementaï¿½ï¿½o temporaria
 		/*pxDataC->bUpdateComplete = TRUE;
 		xGlobal.bDTCFinished = TRUE;
 		OSTimeDlyHMSM(0, 0, 5, 0);
@@ -511,6 +511,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 
 			/* todo: What is the reason of failure? Can we keep going? */
 			vCommunicationErrorUSB3DTController();
+			vSendEventLog(0,0,1,0,3);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"\nData Controller Task: CRITICAL! Receive error from USB HW.\n");
@@ -550,7 +551,7 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 		case M_DATA_RUN:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-				fprintf(fp,"Data Controller Task: DTC already in the Running Mode\n");
+				fprintf(fp,"Data Controller Task: already in the Running Mode\n");
 			}
 			#endif
 			/* Do nothing for now */

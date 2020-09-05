@@ -76,6 +76,6 @@ union HkValue
     alt_u32             uliValue;
 };
 
-
+extern bool poweron;
 
 #endif /* SIM_MEB_TASK_H_ */

@@ -618,6 +618,36 @@ void vSendLogError ( const char * cDataIn ) {
 	}
 }
 
+void vSendEventLog (char usiFEE_MEB_Number, char usiLayer, char usiType, char usiSubType, char usiSeverity ) {
+    char cBufferLog[32] = "";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBufferLog, "!L:%hhu:%hu:%hu:%hu:%hu:%hu" , usiIdCMDLocal, usiFEE_MEB_Number,usiLayer,usiType,usiSubType,usiSeverity);
+    crc = ucCrc8wInit( cBufferLog , strlen(cBufferLog));
+    sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
+
+	bSuccees = bSendUART32v2(cBufferLog, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+			vCouldNotSendLog();
+	}
+}
+
+
 void vSendFEEStatus (char cFEENumber, char cConfigMode  ) {
     char cBufferLog[32] = "";
 	//char cHeader[8] = "!F:%hhu:";

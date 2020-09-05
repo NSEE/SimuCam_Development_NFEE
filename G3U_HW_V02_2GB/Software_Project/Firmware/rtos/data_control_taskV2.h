@@ -13,6 +13,7 @@
 #include "../utils/data_controller.h"
 #include "../utils/queue_commands_list.h"
 #include "../utils/communication_configs.h"
+#include "../utils/communication_utils.h"
 #include "../utils/events_handler.h"
 #include "../driver/ftdi/ftdi.h"
 #include "../api_driver/simucam_dma/simucam_dma.h"
