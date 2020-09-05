@@ -1198,17 +1198,17 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xControl.eMode;
 									xTmPusL.ucNofValues++;
 									bSpwcGetLinkStatus(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == true) {
+									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == TRUE) {
 										usiSPWRunning = 0b001;
 									} else {
 										usiSPWRunning = 0;
 									}
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bConnecting == true) {
+									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bConnecting == TRUE) {
 										usiSPWConnecting = 0b010;
 									} else {
 										usiSPWConnecting = 0;
 									}
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bStarted == true) {
+									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bStarted == TRUE) {
 										usiSPWStarted = 0b100;
 									} else {
 										usiSPWStarted = 0;
