@@ -1213,9 +1213,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 							fprintf(fp, "\nERROR INJECTION: WRONG TIMECODE ON\n" );
 						#endif
 						bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						if (xPusL->usiValues[4] != 0) {
-							xTimeCodeErrInj.bWrongTC = true;
-						}
+						xTimeCodeErrInj.bWrongTC = true;
 						xTimeCodeErrInj.bFEE_WRONG_NUMBER[usiFeeInstL] = true;
 						xTimeCodeErrInj.usiWrongCount[usiFeeInstL] = xPusL->usiValues[4];
 						xTimeCodeErrInj.usiWrongOffSet[usiFeeInstL] = xPusL->usiValues[1];
@@ -1243,7 +1241,9 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = true;
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
 					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-
+					xTimeCodeErrInj.bFEEJitter[usiFeeInstL] = true;
+					xTimeCodeErrInj.bJitter = true;
+					xTimeCodeErrInj.usiJitterCount[usiFeeInstL] = xPusL->usiValues[4];
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 						fprintf(fp, "\nERROR INJECTION: JITTER TIMECODE\n" );
@@ -1920,7 +1920,7 @@ void vTimeCodeMissCounter(TSimucam_MEB * pxMebCLocal, alt_u8 usiTimeCode) {
 					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = false;
 					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = 0;
 					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
-					xTimeCodeErrInj.bFEEUxp[i] = false;
+					xTimeCodeErrInj.bFEEJitter[i] = false;
 				}
 			}
 			xTimeCodeErrInj.bJitter   = (	 xTimeCodeErrInj.bFEEJitter[0] |

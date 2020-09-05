@@ -80,9 +80,6 @@ void vParserCommTask(void *task_data) {
 						vSendEventLog(0,1,0,4,1);
 						eParserMode = sWaitingMessage;
 						break;
-					case DEFAULT_CMD:
-						fprintf(fp, "\n COMANDO XXXXX \n");
-						break;
                     case PUS_CMD: /*PUS command to MEB - TC*/
 						#if DEBUG_ON
                     	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -104,16 +101,7 @@ void vParserCommTask(void *task_data) {
 				break;
 			case sReplyParsing:
 				eParserMode = sWaitingMessage;
-
-				fprintf(fp, "\n NBytes:%i DATA:%c%c:%5i:%5i:%5i:%5i:%5i:%5i:%5i:%5i",PreParsedLocal.ucNofBytes,PreParsedLocal.cType, PreParsedLocal.cCommand, PreParsedLocal.usiValues[0],PreParsedLocal.usiValues[1],PreParsedLocal.usiValues[2],PreParsedLocal.usiValues[3],
-						PreParsedLocal.usiValues[4],
-						PreParsedLocal.usiValues[5],
-						PreParsedLocal.usiValues[6],
-						PreParsedLocal.usiValues[7]
-
-				);
-
-				if ((PreParsedLocal.cType == '!') && (PreParsedLocal.cCommand == 'X')) {
+				if ((PreParsedLocal.cType == '!') && (PreParsedLocal.cCommand == DEFAULT_CMD)) {
 					vConfigureDefaultValues(PreParsedLocal.usiValues[1], PreParsedLocal.usiValues[2], (unsigned int)( (unsigned int)(PreParsedLocal.usiValues[3] & 0x0000ffff)<<16 | (unsigned int)(PreParsedLocal.usiValues[4] & 0x0000ffff) ));
 				}
 
@@ -125,9 +113,6 @@ void vParserCommTask(void *task_data) {
                     case HEART_BEAT_CMD: /*Heart beating (NUC are you there?)*/
 						/*todo*/
                         break;
-                    case DEFAULT_CMD:
-						fprintf(fp, "\n COMANDO XXXXX \n");
-						break;
                     default:
 						eParserMode = sWaitingMessage;
                 }
