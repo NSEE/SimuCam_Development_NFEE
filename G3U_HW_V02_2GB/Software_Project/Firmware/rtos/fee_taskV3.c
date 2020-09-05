@@ -3401,7 +3401,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	vSendEventLog(pxNFeeP->ucId,1,0,4,0);
+	vSendEventLog(pxNFeeP->ucId,1,3,0,1);
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
 
