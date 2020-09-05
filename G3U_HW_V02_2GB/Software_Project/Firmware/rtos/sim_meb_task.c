@@ -13,6 +13,7 @@ int values[] = { 88, 56, 100, 2, 25 };
 
 bool bLeftExists;
 bool bRightExists;
+bool poweron;
 
 int cmpfunc (const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
@@ -116,7 +117,6 @@ void vSimMebTask(void *task_data) {
 					pxMebC->eMode = sMebRun;
 				} else {
 					/* Send Error to NUC */
-					vLogSendErrorChars(11,80,0,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 						fprintf(fp,"MEB Task: CRITICAL! Could no receive the sync semaphore from DTC, backing to Config Mode\n");
@@ -138,8 +138,6 @@ void vSimMebTask(void *task_data) {
 					/* Threat the command received in the Queue Message */
 					vPerformActionMebInConfig( uiCmdMeb.ulWord, pxMebC);
 				} else {
-					/* Send Error to NUC */
-					vLogSendErrorChars(11,81,error_code,1);
 					/* Should never get here (blocking operation), critical failure */
 					vCouldNotGetCmdQueueMeb();
 				}
@@ -160,16 +158,12 @@ void vSimMebTask(void *task_data) {
 					vPerformActionMebInRunning( uiCmdMeb.ulWord, pxMebC);
 
 				} else {
-					/* Send Error to NUC */
-					vLogSendErrorChars(11,81,error_code,1);
 					/* Should never get here (blocking operation), critical fail */
 					vCouldNotGetCmdQueueMeb();
 				}			
 				break;
 
 			default:
-				/* Send Error to NUC */
-				vLogSendErrorChars(11,80,1,2);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					debug(fp,"MEB Task: Unknown state, backing to Config Mode\n");
@@ -271,16 +265,12 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				break;
 
 			default:
-				/* Send Error to NUC */
-				vLogSendErrorChars(11,80,2,3);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdLocal.ucByte[2]);
 				#endif
 		}
 	} else {
-		/* Send Error to NUC */
-		vLogSendErrorChars(11,80,3,2);
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
@@ -311,8 +301,6 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 			case M_SYNC:
 			case M_PRE_MASTER:
 			case M_MASTER_SYNC:
-				/* Send Error to NUC */
-				vLogSendErrorChars(11,80,4,3);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
@@ -322,16 +310,13 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 				break;
 
 			default:
-				/* Send Error to NUC */
-				vLogSendErrorChars(11,80,2,3);
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: Unknown command for the Config Mode (Queue xMebQ, cmd= %hhu)\n", uiCmdLocal.ucByte[2]);
 				#endif
 		}
 	} else {
-		/* Send Error to NUC */
-		vLogSendErrorChars(11,80,3,2);
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
@@ -389,8 +374,6 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	    }
 	    OSMutexPost(xMutexPus);
 	} else {
-		/* Send Error to NUC */
-		vLogSendErrorChars(11,82,error_code,1);
 		vCouldNotGetMutexMebPus();
 	}
 
@@ -398,18 +381,18 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 		switch (pxMebCLocal->eMode) {
 			case sMebConfig:
 			case sMebToConfig:
+				vSendEventLog(0,1,0,0,1);
 				vPusMebInTaskConfigMode(pxMebCLocal, &xPusLocal);
 				break;
 			case sMebRun:
 			case sMebToRun:
+				vSendEventLog(0,1,0,1,1);
 				vPusMebInTaskRunningMode(pxMebCLocal, &xPusLocal);
 				break;
 			default:
 				break;
 		}
 	} else {
-		/* Send Error to NUC */
-		vLogSendErrorChars(11,80,5,3);
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 			fprintf(fp,"MEB Task: vPusMebTask - Don't found Pus command in xPus.");
@@ -837,7 +820,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 xLeftImageWindowContentErr[iListCount].usiPxColX,
 														 xLeftImageWindowContentErr[iListCount].usiPxRowY,
 														 xLeftImageWindowContentErr[iListCount].usiPxValue);
-							/* #if DEBUG_ON
+							 #if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
 								fprintf(fp, "HW Position X :%i\n", xLeftImageWindowContentErr[iListCount].usiPxColX);
@@ -846,7 +829,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 								fprintf(fp, "HW Stop  Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiFramesActive);
 								fprintf(fp, "HW Pixel Value:%i\n", xLeftImageWindowContentErr[iListCount].usiPxValue);
 							}
-							#endif */
+							#endif
 						}
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -862,7 +845,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 xRightImageWindowContentErr[iListCount].usiPxColX,
 														 xRightImageWindowContentErr[iListCount].usiPxRowY,
 														 xRightImageWindowContentErr[iListCount].usiPxValue);
-							/*#if DEBUG_ON
+							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
 								fprintf(fp, "HW Position X :%i\n", xRightImageWindowContentErr[iListCount].usiPxColX);
@@ -871,7 +854,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 								fprintf(fp, "HW Stop  Frame:%i\n", xRightImageWindowContentErr[iListCount].usiFramesActive);
 								fprintf(fp, "HW Pixel Value:%i\n", xRightImageWindowContentErr[iListCount].usiPxValue);
 							}
-							#endif*/
+							#endif
 						}
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -1089,7 +1072,6 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[6] , xPusL->usiValues[3]);
 			#endif
 			break;
-
 		case 78:
 			qsort(values, 5, sizeof(int), cmpfunc);
 			break;
@@ -1268,10 +1250,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						fprintf(fp, "\nERROR INJECTION: WRONG TIMECODE ON\n" );
 					#endif
 					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					if (xPusL->usiValues[4] != 0) {
-						xTimeCodeErrInj.bWrongTC = true;
-					}
-					xTimeCodeErrInj.bFEE_WRONG_NUMBER[usiFeeInstL] = true;
+					xTimeCodeErrInj.bWrongTC = TRUE;
+					xTimeCodeErrInj.bFEE_WRONG_NUMBER[usiFeeInstL] = TRUE;
 					xTimeCodeErrInj.usiWrongCount[usiFeeInstL] = xPusL->usiValues[4];
 					xTimeCodeErrInj.usiWrongOffSet[usiFeeInstL] = xPusL->usiValues[1];
 					break;
@@ -1299,6 +1279,9 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = TRUE;
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = uliTimecodeCalcDelayMs((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
 					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					xTimeCodeErrInj.bFEEJitter[usiFeeInstL] = TRUE;
+					xTimeCodeErrInj.bJitter = TRUE;
+					xTimeCodeErrInj.usiJitterCount[usiFeeInstL] = xPusL->usiValues[4];
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 						fprintf(fp, "\nERROR INJECTION: JITTER TIMECODE\n" );
@@ -1573,54 +1556,65 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_FEE_CONFIG_ENTER */
 		case 1:
 			/* Using QMASK send to NfeeControl that will foward */
+			vSendEventLog(ucFeeInstL+1,1,2,0,1);
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_CONFIG, 0, ucFeeInstL );
 			break;
 		/* TC_SCAM_FEE_STANDBY_ENTER */
 		case 2:
+			vSendEventLog(ucFeeInstL+1,1,2,1,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_STANDBY, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_ENTER */
 		case 3:
+			vSendEventLog(ucFeeInstL+1,1,2,2,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING _ENTER */
 		case 4:
+			vSendEventLog(ucFeeInstL+1,1,2,3,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
 		case 5:
+			vSendEventLog(ucFeeInstL+1,1,2,4,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING_PATTERN_ENTER */
 		case 6:
+			vSendEventLog(ucFeeInstL+1,1,2,5,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_ON */
 		case 11:
+			vSendEventLog(ucFeeInstL+1,1,2,6,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_ON, 0, ucFeeInstL );
 			break;
 		case 12:
+			vSendEventLog(ucFeeInstL+1,1,2,7,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
 		case 13:
+			vSendEventLog(ucFeeInstL+1,1,2,8,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_2, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
 		case 14:
+			vSendEventLog(ucFeeInstL+1,1,2,9,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
 		case 15:
+			vSendEventLog(ucFeeInstL+1,1,2,10,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_2, 0, ucFeeInstL );
 			break;
@@ -1643,8 +1637,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-			bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-
+			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire)){
+				vSendEventLog(usiFeeInstL+1,0,0,0,1);
+			} else {
+				vSendEventLog(usiFeeInstL+1,0,0,0,3);
+			}
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
 //			bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
 //			bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
@@ -1660,8 +1657,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-			bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-
+			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire)) {
+				vSendEventLog(usiFeeInstL+1,0,0,1,1);
+			} else {
+				vSendEventLog(usiFeeInstL+1,0,0,1,3);
+			}
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
 //			bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
 //			bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
@@ -1828,8 +1828,6 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
 		}
 		OSMutexPost(xMutexTranferBuffer);
 	} else {
-		/* Send Error to NUC */
-		vLogSendErrorChars(11,83,error_code,1);
 		/* Couldn't get Mutex. (Should not get here since is a blocking call without timeout)*/
 		vFailGetxMutexSenderBuffer128();
 	}
@@ -2028,7 +2026,7 @@ void vTimeCodeMissCounter(TSimucam_MEB * pxMebCLocal, alt_u8 usiTimeCode) {
 					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = FALSE;
 					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = 0;
 					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
-					xTimeCodeErrInj.bFEEUxp[i] = FALSE;
+					xTimeCodeErrInj.bFEEJitter[i] = FALSE;
 				}
 			}
 			xTimeCodeErrInj.bJitter   = (	 xTimeCodeErrInj.bFEEJitter[0] |

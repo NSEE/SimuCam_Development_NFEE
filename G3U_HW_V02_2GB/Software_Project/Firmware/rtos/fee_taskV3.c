@@ -181,8 +181,6 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinConfig( pxNFee, uiCmdFEE.ulWord );
 				} else {
-					/* Send Error to NUC */
-					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -266,8 +264,6 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinOn( pxNFee, uiCmdFEE.ulWord );
 				} else {
-					/* Send Error to NUC */
-					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -342,8 +338,6 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinStandBy( pxNFee, uiCmdFEE.ulWord );
 				} else {
-					/* Send Error to NUC */
-					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -363,8 +357,6 @@ void vFeeTaskV3(void *task_data) {
 				/* Wait for sync, or any other command*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code != OS_ERR_NONE ) {
-					/* Send Error to NUC */
-					vLogSendErrorChars(54,81,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ (sFeeWaitingSync)\n", pxNFee->ucId);
@@ -619,8 +611,6 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdWaitBeforeSyncSignal( pxNFee, uiCmdFEE.ulWord );
 				} else {
-					/* Send Error to NUC */
-					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
@@ -1086,8 +1076,6 @@ void vFeeTaskV3(void *task_data) {
 					}
 
 				} else {
-					/* Send Error to NUC */
-					vLogSendErrorChars(54,81,error_code,1);
 					/* Error while trying to read from the Queue*/
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -1168,8 +1156,6 @@ void vFeeTaskV3(void *task_data) {
 				/* Wait for sync, or any other command*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code != OS_ERR_NONE ) {
-					/* Send Error to NUC */
-					vLogSendErrorChars(54,10+ pxNFee->ucId,error_code,1);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ (redoutWaitSync)\n", pxNFee->ucId);
@@ -2959,7 +2945,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue 
 
 }
 
-void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode  ) {
+void vSendEventLogToNUC( unsigned char usIdFee, unsigned short int mode  ) {
 	INT8U error_code, i;
 	char cHeader[8] = "!F:%hhu:";
 	char cBufferL[128] = "";
@@ -3170,8 +3156,6 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
-		/* Send Error to NUC */
-		vLogSendErrorChars(54,20,0,1);
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;
 	} else {
@@ -3197,8 +3181,6 @@ bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, u
 	bSuccesL = FALSE;
 	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
-		/* Send Error to NUC */
-		vLogSendErrorChars(54,20,0,1);
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;
 	} else {
@@ -3224,8 +3206,6 @@ bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned c
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xMebQ, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
-		/* Send Error to NUC */
-		vLogSendErrorChars(54,20,0,1);
 		vFailFromFEE();
 		bSuccesL = FALSE;
 	} else {
@@ -3251,8 +3231,6 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
-		/* Send Error to NUC */
-		vLogSendErrorChars(54,20,0,1);
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;
 	} else {
@@ -3423,7 +3401,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-
+	vSendEventLog(pxNFeeP->ucId,1,3,0,1);
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
 

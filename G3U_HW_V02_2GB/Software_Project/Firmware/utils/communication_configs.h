@@ -37,6 +37,7 @@
 #define POWER_OFF_CMD           'D'
 #define PUS_CMD                 'P'
 #define HEART_BEAT_CMD          'H'
+#define DEFAULT_CMD	            'X'
 /*======= Set of commands - UART==========*/
 /*======= Formats of Commands - UART==========*/
 #define ETH_SPRINTF             "!%c:%hu:%hu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hu" /*id,dhcp,ip,sub,gw,dns,port*/

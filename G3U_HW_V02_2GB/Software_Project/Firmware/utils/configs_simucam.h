@@ -82,7 +82,7 @@ typedef struct TimeCodeErrInj{
 	bool				bJitter;
 }TTimeCodeErrInj;
 
-typedef struct DATA_PKT_ERR{
+typedef struct DataPktError{
 	alt_u16 usiFrameCounter;
 	alt_u16 usiSequenceCounter;
 	alt_u16 usiFieldId;

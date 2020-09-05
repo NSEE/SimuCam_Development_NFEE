@@ -24,5 +24,6 @@ void vParserCommTask(void *task_data);
 bool getPreParsedPacket( tPreParsed *xPreParsedParser );
 unsigned short int usiGetIdCMD ( void );
 bool bSendMessagePUStoMebTask( tTMPus *xPusL );
+void vConfigureDefaultValues(unsigned short int usiMebFee, unsigned short int usiID, unsigned long uiValue);
 
 #endif /* PARSER_COMM_TASK_H_ */

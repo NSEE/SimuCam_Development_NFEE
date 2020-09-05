@@ -42,17 +42,18 @@ void vParserCommTask(void *task_data) {
 
 				bSuccess = FALSE;
 				eParserMode = sWaitingMessage;
-
 				OSSemPend(xSemCountPreParsed, 0, &error_code); /*Blocking*/
 				if ( error_code == OS_ERR_NONE ) {
 					/* There's command waiting to be threat */
 					bSuccess = getPreParsedPacket(&PreParsedLocal); /*Blocking*/
 					if (bSuccess == TRUE) {
 						/* PreParsed Content copied to the local variable */
-						if ( PreParsedLocal.cType == START_REPLY_CHAR )
+						if ( PreParsedLocal.cType == START_REPLY_CHAR ) {
 							eParserMode = sReplyParsing;
-						else
+						}
+						else {
 							eParserMode = sRequestParsing;
+						}
 					} else {
 						/* Semaphore was post by some task but has no message in the PreParsedBuffer*/
 						vNoContentInPreParsedBuffer();
@@ -76,10 +77,9 @@ void vParserCommTask(void *task_data) {
 						}
 						#endif
 
-
+						vSendEventLog(0,1,0,4,1);
 						eParserMode = sWaitingMessage;
 						break;
-
                     case PUS_CMD: /*PUS command to MEB - TC*/
 						#if DEBUG_ON
                     	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -101,6 +101,10 @@ void vParserCommTask(void *task_data) {
 				break;
 			case sReplyParsing:
 				eParserMode = sWaitingMessage;
+				if ((PreParsedLocal.cType == '!') && (PreParsedLocal.cCommand == DEFAULT_CMD)) {
+					vConfigureDefaultValues(PreParsedLocal.usiValues[1], PreParsedLocal.usiValues[2], (unsigned int)( (unsigned int)(PreParsedLocal.usiValues[3] & 0x0000ffff)<<16 | (unsigned int)(PreParsedLocal.usiValues[4] & 0x0000ffff) ));
+				}
+
                 switch ( xTcPusL.usiType ) {
                     case NUC_STATUS_CMD: /*Status from NUC*/
 						/*todo*/
@@ -109,7 +113,6 @@ void vParserCommTask(void *task_data) {
                     case HEART_BEAT_CMD: /*Heart beating (NUC are you there?)*/
 						/*todo*/
                         break;
-
                     default:
 						eParserMode = sWaitingMessage;
                 }
@@ -696,6 +699,8 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
 								/*Send the command to NUC in order to reset the NUC*/
+
+								vSendEventLog(0,1,0,2,1);
 								vSendReset();
 								
 								OSTimeDlyHMSM(0,0,3,0);
@@ -726,6 +731,7 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
 								/*Send the command to NUC in order to shutdown the NUC*/
+								vSendEventLog(0,1,0,3,1);
 								vSendTurnOff();
 								/* Send to Meb the shutdown command */
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -1357,4 +1363,93 @@ bool bSendMessagePUStoMebTask( tTMPus *xPusL ) {
         OSMutexPost(xMutexPus);
     }
     return bSuccess;
+}
+
+/* Configure Defaults Values*/
+void vConfigureDefaultValues(unsigned short int usiMebFee, unsigned short int usiID, unsigned long uiValue) {
+	if (usiMebFee == 0) {
+		switch (usiID) {
+			case 0:
+				xDefaults.ucReadOutOrder[0] = (unsigned char) uiValue;
+			break;
+			case 1:
+				xDefaults.ucReadOutOrder[1] = (unsigned char) uiValue;
+			break;
+			case 2:
+				xDefaults.ucReadOutOrder[2] = (unsigned char) uiValue;
+			break;
+			case 3:
+				xDefaults.ucReadOutOrder[3] = (unsigned char) uiValue;
+			break;
+			case 4:
+				xDefaults.usiOverScanSerial = (unsigned short int) uiValue;
+			break;
+			case 5:
+				xDefaults.usiPreScanSerial  = (unsigned short int) uiValue;
+			break;
+			case 6:
+				xDefaults.usiOLN =  (unsigned short int) uiValue;
+			break;
+			case 7:
+				xDefaults.usiCols =  (unsigned short int) uiValue;
+			break;
+			case 8:
+				xDefaults.usiRows =  (unsigned short int) uiValue;
+			break;
+			case 9:
+				xDefaults.usiSyncPeriod =  (unsigned short int) uiValue;
+			break;
+			case 10:
+				xDefaults.usiPreBtSync =  (unsigned short int) uiValue;
+			break;
+			case 11:
+				xDefaults.bBufferOverflowEn =  (bool) uiValue;
+			break; 
+			case 12:
+				xDefaults.ulStartDelay =  (unsigned long) uiValue;
+			break;
+			case 13:
+				xDefaults.ulSkipDelay =  (unsigned long) uiValue;
+			break;
+			case 14:
+				xDefaults.ulLineDelay =  (unsigned long) uiValue;
+			break;
+			case 15:
+				xDefaults.ulADCPixelDelay =  (unsigned long) uiValue;
+			break;
+			case 16:
+				xDefaults.ucRmapKey =  (unsigned short int) uiValue;
+			break;
+			case 17:
+				xDefaults.ucLogicalAddr =  (unsigned short	int) uiValue;
+			break;
+			case 18:
+				xDefaults.bSpwLinkStart =  (bool) uiValue;
+			break;
+			case 19:
+				xDefaults.usiLinkNFEE0 =  (unsigned short int) uiValue;
+			break;
+			case 20:
+				xDefaults.usiDebugLevel =  (unsigned short int) uiValue;
+			break;
+			case 21:
+				xDefaults.usiPatternType =  (unsigned short int) uiValue;
+			break;
+			case 22:
+				xDefaults.usiGuardNFEEDelay =  (unsigned short int) uiValue;
+			break; 
+			case 23:
+				xDefaults.usiDataProtId =  (unsigned short int) uiValue;
+			break;
+			case 24:
+			xDefaults.usiDpuLogicalAddr =  (unsigned short int) uiValue;
+			break;
+			case 25:
+				xDefaults.usiSpwPLength =  (unsigned short int) uiValue;
+			break;
+		}
+	}
+	if ((usiMebFee > 0) && (usiMebFee < N_OF_NFEE)) {
+
+	}
 }
