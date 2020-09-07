@@ -89,12 +89,14 @@ void vFeeTaskV3(void *task_data) {
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
+					fprintf(fp,"NFEE-%hu TaskA: Config Mode\n", pxNFee->ucId);
 				}
 				#endif
 
 				/* Sends information to the NUC that it enter CONFIG mode */
 				vSendFEEStatus(pxNFee->ucId, 1);
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,0,1);
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
@@ -123,7 +125,7 @@ void vFeeTaskV3(void *task_data) {
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
+					fprintf(fp,"NFEE-%hu TaskB: Config Mode\n", pxNFee->ucId);
 				}
 				#endif
 
@@ -200,7 +202,10 @@ void vFeeTaskV3(void *task_data) {
 
 				/* Sends information to the NUC that it left CONFIG mode */
 				vSendFEEStatus(pxNFee->ucId, 0);
-
+								
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,6,1);
+				
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x00; /*On mode*/
@@ -279,6 +284,10 @@ void vFeeTaskV3(void *task_data) {
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x04; /*sFeeStandBy*/
 				bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
+
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,1,1);
+				
 
 				/* [rfranca] */
 				/* removed for Tiago in 15/12 */
@@ -376,7 +385,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,4,1);
+				
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sOn_Enter;
@@ -399,6 +410,10 @@ void vFeeTaskV3(void *task_data) {
 					fprintf(fp,"NFEE-%hu Task: Going to Windowing Pattern.\n", pxNFee->ucId);
 				}
 				#endif
+
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,5,1);
+				
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
@@ -425,7 +440,8 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,2,1);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -449,7 +465,8 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,3,1);
 
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucSensorSel = eRmapSenSelEFBoth;
 
@@ -475,7 +492,8 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,7,1);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -500,7 +518,8 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,8,1);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -524,7 +543,8 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,9,1);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -555,7 +575,8 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				/* Send Event Log */
+				vSendEventLog(pxNFee->ucId+1,1,2,10,1);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -3401,6 +3422,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
+	/* Send Event Log */
 	vSendEventLog(pxNFeeP->ucId,1,3,0,1);
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)

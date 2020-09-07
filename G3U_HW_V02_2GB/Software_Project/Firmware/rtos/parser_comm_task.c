@@ -76,7 +76,7 @@ void vParserCommTask(void *task_data) {
 							fprintf(fp,"\n__________ Load Completed, Simucam is ready to be used _________ \n\n");
 						}
 						#endif
-
+						/* Send Event Log */
 						vSendEventLog(0,1,0,4,1);
 						eParserMode = sWaitingMessage;
 						break;
@@ -101,7 +101,9 @@ void vParserCommTask(void *task_data) {
 				break;
 			case sReplyParsing:
 				eParserMode = sWaitingMessage;
-				if ((PreParsedLocal.cType == '!') && (PreParsedLocal.cCommand == DEFAULT_CMD)) {
+				fprintf(fp, "\nCONT:%u, MEBFEE:%u, ID:%u, Value:%u",(unsigned int) PreParsedLocal.usiValues[0], (unsigned int)PreParsedLocal.usiValues[1], (unsigned int)PreParsedLocal.usiValues[2], (unsigned int)( (unsigned int)(PreParsedLocal.usiValues[3] & 0x0000ffff)<<16 | (unsigned int)(PreParsedLocal.usiValues[4] & 0x0000ffff) ));
+				if ((PreParsedLocal.cType == '!') && (PreParsedLocal.cCommand == 'X')) {
+					printf("Entrou");
 					vConfigureDefaultValues(PreParsedLocal.usiValues[1], PreParsedLocal.usiValues[2], (unsigned int)( (unsigned int)(PreParsedLocal.usiValues[3] & 0x0000ffff)<<16 | (unsigned int)(PreParsedLocal.usiValues[4] & 0x0000ffff) ));
 				}
 
@@ -698,9 +700,12 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
-								/*Send the command to NUC in order to reset the NUC*/
-
+								
+								
+								/* Send Event Log */
 								vSendEventLog(0,1,0,2,1);
+
+								/*Send the command to NUC in order to reset the NUC*/
 								vSendReset();
 								
 								OSTimeDlyHMSM(0,0,3,0);
@@ -1365,6 +1370,7 @@ bool bSendMessagePUStoMebTask( tTMPus *xPusL ) {
     return bSuccess;
 }
 
+
 /* Configure Defaults Values*/
 void vConfigureDefaultValues(unsigned short int usiMebFee, unsigned short int usiID, unsigned long uiValue) {
 	if (usiMebFee == 0) {
@@ -1447,9 +1453,834 @@ void vConfigureDefaultValues(unsigned short int usiMebFee, unsigned short int us
 			case 25:
 				xDefaults.usiSpwPLength =  (unsigned short int) uiValue;
 			break;
+			case 26:
+				xSimMeb.eSync = uiValue;
+			break;
+			case 27:
+				//xSimMeb.ucEP = ( (float) uiValue/1000);		
+				vChangeEPValue(&xSimMeb,( (float) uiValue/1000));
+			break;
+			case 28:
+				bEventReport = uiValue;
+			break;
+			case 29:
+				bLogReport = uiValue;
+			break;
+			default:
+			break;
 		}
 	}
-	if ((usiMebFee > 0) && (usiMebFee < N_OF_NFEE)) {
+	if ((usiMebFee > 0) && (usiMebFee < (N_OF_NFEE+1))) {
+		switch (usiID) {
+			case 1000:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart = (unsigned short int) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1001:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd                        =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1002:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiChargeInjectionWidth        =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1003:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiChargeInjectionGap          =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1004:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelToiPeriod           =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1005:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelClkOverlap          =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1006:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd        =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1007:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd        =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1008:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd        =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1009:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd        =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1010:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiNFinalDump                  =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1011:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd                        =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1012:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn             =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1013:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bTriLevelClkEn                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1014:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bImgClkDir                     =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1015:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bRegClkDir                     =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1016:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize                  =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1017:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiIntSyncPeriod               =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1018:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter     =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1019:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bSyncSel                       =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1020:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucSensorSel                    =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1021:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn                    =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1022:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDGEn                          =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1023:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn                     =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1024:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg5ConfigReserved           =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1025:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr              =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1026:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr         =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1027:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1WinListLength           =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1028:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeX                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1029:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeY                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1030:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg8ConfigReserved           =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1031:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr              =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1032:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr         =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1033:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2WinListLength           =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1034:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeX                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1035:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeY                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1036:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg11ConfigReserved          =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1037:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr              =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1038:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr         =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1039:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3WinListLength           =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1040:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeX                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1041:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeY                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1042:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg14ConfigReserved          =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1043:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr              =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1044:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr         =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1045:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4WinListLength           =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1046:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeX                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1047:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeY                 =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1048:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg17ConfigReserved          =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1049:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdVodConfig                =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1050:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1VrdConfig               =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1051:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2VrdConfig0               =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1052:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2VrdConfig1               =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1053:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3VrdConfig               =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1054:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4VrdConfig               =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1055:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdVgdConfig0                =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1056:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdVgdConfig1                =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1057:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdVogConfig                =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1058:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdIgHiConfig               =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1059:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdIgLoConfig               =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1060:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiReg21ConfigReserved0        =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1061:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig                =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1062:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg21ConfigReserved1         =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1063:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag                =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1064:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliReg22ConfigReserved         =  (alt_u32) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1065:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastEPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1066:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastFPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1067:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastEPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1068:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg23ConfigReserved          =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1069:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastFPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1070:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastEPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1071:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastFPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1072:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg24ConfigReserved          =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1073:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastEPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1074:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastFPacket             =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1075:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiSurfaceInversionCounter     =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1076:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg25ConfigReserved          =  (alt_u8 ) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1077:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiReadoutPauseCounter         =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 1078:
+				bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter   =  (alt_u16) uiValue;
+				bRmapSetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2000:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2001:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2002:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2003:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense4 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2004:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense5 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2005:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense6 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2006:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1Ts = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2007:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2Ts = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2008:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3Ts = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2009:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4Ts = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2010:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt1 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2011:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt2 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2012:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt3 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2013:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt4 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2014:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt5 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2015:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiZeroDiffAmp = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2016:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VodMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2017:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VogMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2018:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonE = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2019:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VodMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2020:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VogMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2021:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonE = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2022:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VodMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2023:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VogMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2024:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonE = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2025:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VodMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2026:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VogMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2027:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonE = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2028:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccd = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2029:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2030:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclk = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2031:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkLow = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2032:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbPosMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2033:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbNegMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2034:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3bMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2035:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5aMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2036:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3dMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2037:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5dMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2038:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi1v5dMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2039:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vrefMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2040:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccdPosRaw = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2041:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVclkPosRaw = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2042:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan1PosRaw = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2043:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan3NegMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2044:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan2PosRaw = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2045:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2046:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw2 = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2047:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclkLow = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2048:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonF = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2049:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VddMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2050:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VgdMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2051:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonF = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2052:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VddMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2053:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VgdMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2054:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonF = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2055:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VddMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2056:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VgdMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2057:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonF = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2058:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VddMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2059:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VgdMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2060:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgHiMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2061:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2062:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2063:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2064:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucSpwStatusSpwStatusReserved = (alt_u8) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2065:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucReg32HkReserved = (alt_u8) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2066:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiReg33HkReserved = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2067:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = (alt_u8) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2068:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.uliErrorFlagsErrorFlagsReserved = (alt_u32) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2069:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMinorVersion = (alt_u8) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2070:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMajorVersion = (alt_u8) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2071:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiBoardId = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 2072:
+				bRmapGetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.uliReg35HkReserved = (alt_u16) uiValue;
+				bRmapSetRmapMemHkArea(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 3000:
+				/*bSpwcGetLinkConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = uiValue;
+				bSpwcSetLinkConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);*/
+			break;
+			case 3001:
+				/*bSpwcGetLinkConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = uiValue;
+				bSpwcSetLinkConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);*/
+			break;
+			case 3002:
+				bSpwcGetLinkConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv((alt_u8) uiValue);
+				bSpwcSetLinkConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);
+			break;
+			case 3003:
+				bSpwcGetTimecodeConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = uiValue;
+				bSpwcSetTimecodeConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xSpacewire);
+			break;
+			case 3004:
+				bRmapGetCodecConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (alt_u8) uiValue;
+				bRmapSetCodecConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
+			case 3005:
+				bRmapGetCodecConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+				xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap.xRmapCodecConfig.ucKey = (alt_u8) uiValue;
+				bRmapSetCodecConfig(&xSimMeb.xFeeControl.xNfee[usiMebFee-1].xChannel.xRmap);
+			break;
 
+
+
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"\nDefault ID not exist\n");
+				}
+				#endif
+			break;
+		}
+	}
+	if (usiMebFee == 255) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			fprintf(fp,"\n__________ Load Completed, Simucam is ready to be used _________ \n\n");
+		}
+		#endif
+		/*Send the command to NUC in order to reset the NUC*/
+		vSendEventLog(0,1,0,4,1);
 	}
 }

@@ -212,7 +212,7 @@ void vScomInit(void){
 	vpxScomChannel->xSRmapMemConfig.uliWinAreaOffHighDword = 0;
 	vpxScomChannel->xSRmapMemConfig.uliWinAreaOffLowDword  = 0;
 	vpxScomChannel->xSRmapMemAreaPrt.puliRmapAreaPrt       = (TRmapMemArea *)(SCOM_RMAP_MEM_BASE_ADDR);
-
+	
 	vScomSoftRstMemAreaConfig();
 	vScomSoftRstMemAreaHk();
 

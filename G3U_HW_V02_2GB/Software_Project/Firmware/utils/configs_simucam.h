@@ -97,6 +97,7 @@ typedef struct ImageWindowContentErr {
 	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
 } TImageWindowContentErr;
 
+
 extern alt_u8  usiDataPktCount;
 extern TDataPktError xDataPKTErr[10];
 extern alt_u8  usiLeftImageWindowContentErr_Count;
@@ -106,6 +107,9 @@ extern TImageWindowContentErr xRightImageWindowContentErr[128];
 extern TTimeCodeErrInj xTimeCodeErrInj;
 extern bool bStartImgWinInj[N_OF_NFEE];
 extern bool bStartDataPktInj[N_OF_NFEE];
+
+extern bool bEventReport;
+extern bool bLogReport;
 
 extern TConfEth xConfEth;
 extern TDefaults xDefaults;

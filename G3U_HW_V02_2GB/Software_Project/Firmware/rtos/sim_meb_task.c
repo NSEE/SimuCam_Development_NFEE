@@ -65,6 +65,9 @@ void vSimMebTask(void *task_data) {
 					fprintf(fp,"\nMEB Task: Going to Run Mode\n");
 				#endif
 
+				/*Send Event Log*/
+				vSendEventLog(0,1,0,1,1);
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"MEB Task: First DTC will load at least one full sky from SSD.\n");
@@ -381,12 +384,10 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 		switch (pxMebCLocal->eMode) {
 			case sMebConfig:
 			case sMebToConfig:
-				vSendEventLog(0,1,0,0,1);
 				vPusMebInTaskConfigMode(pxMebCLocal, &xPusLocal);
 				break;
 			case sMebRun:
 			case sMebToRun:
-				vSendEventLog(0,1,0,1,1);
 				vPusMebInTaskRunningMode(pxMebCLocal, &xPusLocal);
 				break;
 			default:
@@ -820,16 +821,16 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 xLeftImageWindowContentErr[iListCount].usiPxColX,
 														 xLeftImageWindowContentErr[iListCount].usiPxRowY,
 														 xLeftImageWindowContentErr[iListCount].usiPxValue);
-							 #if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
-								fprintf(fp, "HW Position X :%i\n", xLeftImageWindowContentErr[iListCount].usiPxColX);
-								fprintf(fp, "HW Position Y :%i\n", xLeftImageWindowContentErr[iListCount].usiPxRowY);
-								fprintf(fp, "HW Start Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiCountFrames);
-								fprintf(fp, "HW Stop  Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiFramesActive);
-								fprintf(fp, "HW Pixel Value:%i\n", xLeftImageWindowContentErr[iListCount].usiPxValue);
-							}
-							#endif
+							/* #if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+									fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
+									fprintf(fp, "HW Position X :%i\n", xLeftImageWindowContentErr[iListCount].usiPxColX);
+									fprintf(fp, "HW Position Y :%i\n", xLeftImageWindowContentErr[iListCount].usiPxRowY);
+									fprintf(fp, "HW Start Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiCountFrames);
+									fprintf(fp, "HW Stop  Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiFramesActive);
+									fprintf(fp, "HW Pixel Value:%i\n", xLeftImageWindowContentErr[iListCount].usiPxValue);
+								}
+								#endif*/
 						}
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -845,7 +846,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 xRightImageWindowContentErr[iListCount].usiPxColX,
 														 xRightImageWindowContentErr[iListCount].usiPxRowY,
 														 xRightImageWindowContentErr[iListCount].usiPxValue);
-							#if DEBUG_ON
+							/*#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
 								fprintf(fp, "HW Position X :%i\n", xRightImageWindowContentErr[iListCount].usiPxColX);
@@ -854,7 +855,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 								fprintf(fp, "HW Stop  Frame:%i\n", xRightImageWindowContentErr[iListCount].usiFramesActive);
 								fprintf(fp, "HW Pixel Value:%i\n", xRightImageWindowContentErr[iListCount].usiPxValue);
 							}
-							#endif
+							#endif*/
 						}
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -1556,65 +1557,54 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_FEE_CONFIG_ENTER */
 		case 1:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendEventLog(ucFeeInstL+1,1,2,0,1);
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_CONFIG, 0, ucFeeInstL );
 			break;
 		/* TC_SCAM_FEE_STANDBY_ENTER */
 		case 2:
-			vSendEventLog(ucFeeInstL+1,1,2,1,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_STANDBY, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_ENTER */
 		case 3:
-			vSendEventLog(ucFeeInstL+1,1,2,2,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING _ENTER */
 		case 4:
-			vSendEventLog(ucFeeInstL+1,1,2,3,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
 		case 5:
-			vSendEventLog(ucFeeInstL+1,1,2,4,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING_PATTERN_ENTER */
 		case 6:
-			vSendEventLog(ucFeeInstL+1,1,2,5,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_ON */
 		case 11:
-			vSendEventLog(ucFeeInstL+1,1,2,6,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_ON, 0, ucFeeInstL );
 			break;
 		case 12:
-			vSendEventLog(ucFeeInstL+1,1,2,7,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
 		case 13:
-			vSendEventLog(ucFeeInstL+1,1,2,8,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_2, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
 		case 14:
-			vSendEventLog(ucFeeInstL+1,1,2,9,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
 		case 15:
-			vSendEventLog(ucFeeInstL+1,1,2,10,1);
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_2, 0, ucFeeInstL );
 			break;

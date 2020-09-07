@@ -51,6 +51,8 @@ void vNFeeControlTaskV3(void *task_data) {
 					fprintf(fp,"NFEE Controller Task: Config Mode\n");
 				#endif
 
+				
+
 				/* Clear Queue that is responsible to schedule the DMA access */
 				error_codeCtrl = OSQFlush(xNfeeSchedule);
 				if ( error_codeCtrl != OS_NO_ERR ) {
@@ -88,6 +90,8 @@ void vNFeeControlTaskV3(void *task_data) {
 				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 					fprintf(fp,"NFEE Controller Task: RUN Mode\n");
 				#endif
+
+				
 
 				/* Clear Queue that is responsible to schedule the DMA access */
 				error_codeCtrl = OSQFlush(xNfeeSchedule);

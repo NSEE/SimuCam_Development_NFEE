@@ -49,6 +49,9 @@ void vDataControlTaskV2(void *task_data) {
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"Data Controller Task: Config Mode\n");
 				#endif
+				
+				/* Send Event Log */
+				vSendEventLog(0,1,0,0,1);
 
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
@@ -511,6 +514,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 
 			/* todo: What is the reason of failure? Can we keep going? */
 			vCommunicationErrorUSB3DTController();
+
+			/* Send Event Log */
 			vSendEventLog(0,0,1,0,3);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

@@ -24,7 +24,6 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     vLoadDefaultSyncSource( xMeb );
     /* Load Default Config for Auto Reset Mode */
     vLoadDefaultAutoResetSync( xMeb );
-
     /* todo: Change for change functions */
     xMeb->fLineTransferTime = 0;
     xMeb->fPixelTransferTime = 0;

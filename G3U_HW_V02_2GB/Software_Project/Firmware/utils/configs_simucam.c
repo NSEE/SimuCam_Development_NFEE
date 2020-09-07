@@ -21,6 +21,8 @@ TImageWindowContentErr xLeftImageWindowContentErr[128];
 TImageWindowContentErr xRightImageWindowContentErr[128];
 bool bStartImgWinInj[N_OF_NFEE];
 bool bStartDataPktInj[N_OF_NFEE];
+bool bEventReport;
+bool bLogReport;
 
 alt_u8  usiDataPktCount;
 
