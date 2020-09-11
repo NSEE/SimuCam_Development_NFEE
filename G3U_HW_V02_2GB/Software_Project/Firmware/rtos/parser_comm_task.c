@@ -152,7 +152,7 @@ void vParserCommTask(void *task_data) {
 								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
 								xTcPusL.ucNofValues++;
 								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
-
+								xTcPusL.ucNofValues++;
 //								#if DEBUG_ON
 //								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 //									fprintf(fp,"Parser Task: TC_DATA_SOURCE\n");
