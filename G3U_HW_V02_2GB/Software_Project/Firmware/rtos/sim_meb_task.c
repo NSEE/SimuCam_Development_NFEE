@@ -187,6 +187,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 	/* Check if the command is for MEB */
 	if ( uiCmdLocal.ucByte[3] == M_MEB_ADDR ) {
 		/* Parse the cmd that comes in the Queue */
+		volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 		switch (uiCmdLocal.ucByte[2]) {
 			/* Receive a PUS command */
 			case Q_MEB_PUS:
@@ -195,25 +196,27 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_MASTER_SYNC:
 				/* Perform memory SWAP */
 				vSwapMemmory(pxMebCLocal);
+				vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
-					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+					
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
-					vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					
 				}
 				#endif
 
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 			case M_SYNC:
-			case M_PRE_MASTER:
+			case M_PRE_MASTER:;
+				vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+					//volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
-					vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					
 				}
 				#endif
 				if (uiCmdLocal.ucByte[2] == M_PRE_MASTER)
@@ -1224,7 +1227,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 						fprintf(fp, "\nTIMECODE:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime );
 						xTimeCodeErrInj.bFEE_NUMBER[usiFeeInstL]  = TRUE;
-						if (xPusL->usiValues[4] == 1)
+						if (xPusL->usiValues[4] == 0)
 							xTimeCodeErrInj.usiMissCount[usiFeeInstL] = 75;
 						else
 							xTimeCodeErrInj.usiMissCount[usiFeeInstL] = (pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime + xPusL->usiValues[4]);

@@ -190,7 +190,7 @@ void vParserCommTask(void *task_data) {
 									tTMPus xTmPusL;
 									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPusId;
+									xTmPusL.usiPid = PreParsedLocal.usiValues[1];
 									xTmPusL.usiCat = xTcPusL.usiCat;
 									xTmPusL.usiType = 250;
 									xTmPusL.usiSubType = 35;
