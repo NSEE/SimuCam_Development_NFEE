@@ -196,63 +196,59 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_MASTER_SYNC:
 				/* Perform memory SWAP */
 				vSwapMemmory(pxMebCLocal);
-				vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+				vTimeCodeMissCounter(pxMebCLocal);
+				vDebugSyncTimeCode(pxMebCLocal);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
-					
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
-					
 				}
 				#endif
-
-				vDebugSyncTimeCode(pxMebCLocal);
 				break;
+
 			case M_SYNC:
-			case M_PRE_MASTER:;
-				vTimeCodeMissCounter(pxMebCLocal,vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+				vTimeCodeMissCounter(pxMebCLocal);
+				vDebugSyncTimeCode(pxMebCLocal);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
 					//volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
-					
 				}
 				#endif
-				if (uiCmdLocal.ucByte[2] == M_PRE_MASTER)
-				{
-					for (int iCountFEE = 0; iCountFEE < N_OF_NFEE; iCountFEE++) {
-						if (bStartImgWinInj[iCountFEE] == TRUE) {
-							if ( bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-									fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START SUCCESS\n" );
-								#endif
-							} else {
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-									fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START PROBLEM\n" );
-								#endif
-							}
-							bStartImgWinInj[iCountFEE] = FALSE;
+				break;
+
+			case M_PRE_MASTER:;
+				for (int iCountFEE = 0; iCountFEE < N_OF_NFEE; iCountFEE++) {
+					if (bStartImgWinInj[iCountFEE] == TRUE) {
+						if ( bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+								fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START SUCCESS\n" );
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+								fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START PROBLEM\n" );
+							#endif
 						}
-						if (bStartDataPktInj[iCountFEE] == TRUE) {
-							if ( bDpktHeaderErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-									fprintf(fp, "\nDATA HEADER ERROR INJECTION START SUCCESS\n" );
-								#endif
-							} else {
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-									fprintf(fp, "\nDATA HEADER ERROR INJECTION START PROBLEM\n" );
-								#endif
-							}
-							bStartDataPktInj[iCountFEE] = FALSE;
+						bStartImgWinInj[iCountFEE] = FALSE;
+					}
+					if (bStartDataPktInj[iCountFEE] == TRUE) {
+						if ( bDpktHeaderErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+								fprintf(fp, "\nDATA HEADER ERROR INJECTION START SUCCESS\n" );
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+								fprintf(fp, "\nDATA HEADER ERROR INJECTION START PROBLEM\n" );
+							#endif
 						}
+						bStartDataPktInj[iCountFEE] = FALSE;
 					}
 				}
-				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
 			case Q_MEB_DATA_MEM_UPD_FIN:
@@ -1206,33 +1202,17 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				/* Time-Code Missing Error */
 				case 0:
-					if (xPusL->usiValues[4] > 0)
-					{
-						bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-						bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						fprintf(fp, "\nTIMECODE:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime );
-						xTimeCodeErrInj.bFEE_NUMBER[usiFeeInstL]  = TRUE;
-						if (xPusL->usiValues[4] == 0)
-							xTimeCodeErrInj.usiMissCount[usiFeeInstL] = 75;
-						else
-							xTimeCodeErrInj.usiMissCount[usiFeeInstL] = (pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime + xPusL->usiValues[4]);
-						xTimeCodeErrInj.bMissTC = TRUE;
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-							fprintf(fp, "\nERROR INJECTION: MISSING TIMECODE ON\n" );
-						#endif
-					} else
-					{
-						bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-						bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-							fprintf(fp, "\nERROR INJECTION: MISSING TIMECODE OFF\n" );
-						#endif
-					}
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp, "\nERROR INJECTION: MISSING TIMECODE\n" );
+					#endif
+					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					xTimeCodeErrInj.bMissTC = TRUE;
+					xTimeCodeErrInj.bFEE_NUMBER[usiFeeInstL]  = TRUE;
+					xTimeCodeErrInj.usiMissCount[usiFeeInstL] = xPusL->usiValues[4];
 					break;
 
 				/* Wrong Time-Code Error */
@@ -1937,26 +1917,29 @@ int iCompareDataPktError (const void *cvpDataPktErrA, const void *cvpDataPktErrB
     return (iCompResult);
 }
 
-void vTimeCodeMissCounter(TSimucam_MEB * pxMebCLocal, alt_u8 usiTimeCode) {
+void vTimeCodeMissCounter(TSimucam_MEB * pxMebCLocal) {
 	if (xTimeCodeErrInj.bMissTC == TRUE) {
-		for (int i = 0; i < 8; i++) {
-			if (xTimeCodeErrInj.bFEE_NUMBER[i] == TRUE) {
-				if ((xTimeCodeErrInj.usiMissCount[i] == usiTimeCode) || (xTimeCodeErrInj.usiMissCount[i] == 75) ){
+		for ( int i = 0; i < 8; i++ ) {
+			if ( xTimeCodeErrInj.bFEE_NUMBER[i] == TRUE ) {
+				if ( xTimeCodeErrInj.usiMissCount[i] == 0 ){
 					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
 					pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
 					xTimeCodeErrInj.bFEE_NUMBER[i] = FALSE;
+				} else {
+					xTimeCodeErrInj.usiMissCount[i]--;
 				}
 			}
 		}
-		xTimeCodeErrInj.bMissTC = (xTimeCodeErrInj.bFEE_NUMBER[0] |
-								 xTimeCodeErrInj.bFEE_NUMBER[1] |
-								 xTimeCodeErrInj.bFEE_NUMBER[2] |
-								 xTimeCodeErrInj.bFEE_NUMBER[3] |
-								 xTimeCodeErrInj.bFEE_NUMBER[4] |
-								 xTimeCodeErrInj.bFEE_NUMBER[5] |
-								 xTimeCodeErrInj.bFEE_NUMBER[6] |
-								 xTimeCodeErrInj.bFEE_NUMBER[7] );
+		xTimeCodeErrInj.bMissTC = (
+				xTimeCodeErrInj.bFEE_NUMBER[0] |
+				xTimeCodeErrInj.bFEE_NUMBER[1] |
+				xTimeCodeErrInj.bFEE_NUMBER[2] |
+				xTimeCodeErrInj.bFEE_NUMBER[3] |
+				xTimeCodeErrInj.bFEE_NUMBER[4] |
+				xTimeCodeErrInj.bFEE_NUMBER[5] |
+				xTimeCodeErrInj.bFEE_NUMBER[6] |
+				xTimeCodeErrInj.bFEE_NUMBER[7] );
 	}
 
 	if (xTimeCodeErrInj.bWrongTC == TRUE) {
