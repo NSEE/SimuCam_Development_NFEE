@@ -847,20 +847,34 @@ void vFeeTaskV3(void *task_data) {
 				if ( xGlobal.bPreMaster == TRUE ) {
 					vApplyRmap(pxNFee);
 
-					/*Check if this FEE is in Full*/
-					if ( (pxNFee->xControl.eMode == sFullPattern) || (pxNFee->xControl.eMode == sFullImage) ||  (pxNFee->xControl.eMode == sWindowing) ||  (pxNFee->xControl.eMode == sWinPattern)) {
+					/*Check if this FEE is in Full */
+					if ( (pxNFee->xControl.eMode == sFullPattern) || (pxNFee->xControl.eMode == sFullImage) ) {
 						/*Check if there is any type of error enabled*/
-						//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
+						//bErrorInj = pxNFee->xControl.xErrorSWCtrlFull.bMissingData || pxNFee->xControl.xErrorSWCtrlFull.bMissingPkts || pxNFee->xControl.xErrorSWCtrlFull.bTxDisabled;
 
 						bDpktGetTransmissionErrInj(&pxNFee->xChannel.xDataPacket);
-						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrl.bMissingData;
-						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
-						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
-						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
-						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
-						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrlFull.bMissingData;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrlFull.bMissingPkts;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn  = pxNFee->xControl.xErrorSWCtrlFull.bTxDisabled;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.ucFrameNum     = pxNFee->xControl.xErrorSWCtrlFull.ucFrameNum;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiDataCnt     = pxNFee->xControl.xErrorSWCtrlFull.usiDataCnt;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiNRepeat     = pxNFee->xControl.xErrorSWCtrlFull.usiNRepeat;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrlFull.usiSequenceCnt;
 						bDpktSetTransmissionErrInj(&pxNFee->xChannel.xDataPacket);
+
+					/*Check if this FEE is in Win */
+					} else if ( (pxNFee->xControl.eMode == sWindowing) ||  (pxNFee->xControl.eMode == sWinPattern) ) {
+
+						bDpktGetTransmissionErrInj(&pxNFee->xChannel.xDataPacket);
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrlWin.bMissingData;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrlWin.bMissingPkts;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn  = pxNFee->xControl.xErrorSWCtrlWin.bTxDisabled;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.ucFrameNum     = pxNFee->xControl.xErrorSWCtrlWin.ucFrameNum;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiDataCnt     = pxNFee->xControl.xErrorSWCtrlWin.usiDataCnt;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiNRepeat     = pxNFee->xControl.xErrorSWCtrlWin.usiNRepeat;
+						pxNFee->xChannel.xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrlWin.usiSequenceCnt;
+						bDpktSetTransmissionErrInj(&pxNFee->xChannel.xDataPacket);
+
 					}
 				}
 

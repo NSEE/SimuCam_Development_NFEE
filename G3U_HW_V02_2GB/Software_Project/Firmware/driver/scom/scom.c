@@ -212,7 +212,14 @@ void vScomInit(void){
 	vpxScomChannel->xSRmapMemConfig.uliWinAreaOffHighDword = 0;
 	vpxScomChannel->xSRmapMemConfig.uliWinAreaOffLowDword  = 0;
 	vpxScomChannel->xSRmapMemAreaPrt.puliRmapAreaPrt       = (TRmapMemArea *)(SCOM_RMAP_MEM_BASE_ADDR);
-	
+	vpxScomChannel->xSDataPacketConfig.usiPacketLength     = xDefaults.usiSpwPLength;
+	vpxScomChannel->xSDataPacketConfig.ucFeeMode           = 1u; /* N-FEE On Mode */
+	vpxScomChannel->xSDataPacketConfig.ucCcdNumber         = 0;
+	vpxScomChannel->xSDataPacketConfig.ucProtocolId        = xDefaults.usiDataProtId;
+	vpxScomChannel->xSDataPacketConfig.ucLogicalAddr       = xDefaults.ucLogicalAddr;
+	vpxScomChannel->xSMachineControl.bStop                 = TRUE;
+	vpxScomChannel->xSMachineControl.bClear                = TRUE;
+	vpxScomChannel->xSMachineControl.bStart                = TRUE;
 	vScomSoftRstMemAreaConfig();
 	vScomSoftRstMemAreaHk();
 

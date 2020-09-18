@@ -148,7 +148,7 @@ void vParserCommTask(void *task_data) {
 
                     case 250: /* srv-Type = 250 */
 						switch ( xTcPusL.usiSubType ) {
-							case 70: /*Data source*/
+							case 70: /* TC_SCAM_FEE_DATA_SOURCE */
 								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
 								xTcPusL.ucNofValues++;
 								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];

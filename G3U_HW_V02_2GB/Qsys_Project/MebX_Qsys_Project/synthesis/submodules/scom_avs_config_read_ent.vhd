@@ -360,6 +360,51 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(31 downto 24);
 					end if;
 
+				when (16#27#) =>
+					-- FEE Machine Config Register : FEE Machine Clear
+					if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_clear;
+					end if;
+
+				when (16#28#) =>
+					-- FEE Machine Config Register : FEE Machine Stop
+					if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_stop;
+					end if;
+
+				when (16#29#) =>
+					-- FEE Machine Config Register : FEE Machine Start
+					if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_start;
+					end if;
+
+				when (16#2A#) =>
+					-- Data Packet Config Register : Data Packet Packet Length
+					if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_packet_length(7 downto 0);
+					end if;
+					if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.data_packet_config_reg.data_pkt_packet_length(15 downto 8);
+					end if;
+					-- Data Packet Config Register : Data Packet FEE Mode
+					if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(20 downto 16) <= config_wr_regs_i.data_packet_config_reg.data_pkt_fee_mode;
+					end if;
+					-- Data Packet Config Register : Data Packet CCD Number
+					if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(25 downto 24) <= config_wr_regs_i.data_packet_config_reg.data_pkt_ccd_number;
+					end if;
+
+				when (16#2B#) =>
+					-- Data Packet Config Register : Data Packet Protocol ID
+					if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_protocol_id;
+					end if;
+					-- Data Packet Config Register : Data Packet Logical Address
+					if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.data_packet_config_reg.data_pkt_logical_addr;
+					end if;
+
 				when others =>
 					-- No register associated to the address, return with 0x00000000
 					avs_config_o.readdata <= (others => '0');

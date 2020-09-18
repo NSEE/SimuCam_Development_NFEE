@@ -15,6 +15,7 @@ use ieee.numeric_std.all;
 use work.scom_avs_config_pkg.all;
 use work.scom_avs_config_registers_pkg.all;
 use work.rmap_target_pkg.all;
+use work.spw_codec_pkg.all;
 
 entity scom_synchronization_comm_top is
 	generic(
@@ -126,6 +127,11 @@ architecture rtl of scom_synchronization_comm_top is
 	signal s_rx_timecode_control : std_logic_vector(1 downto 0);
 	signal s_rx_timecode_counter : std_logic_vector(5 downto 0);
 
+	-- restart manager
+	signal s_machine_stop  : std_logic;
+	signal s_machine_clear : std_logic;
+	signal s_machine_start : std_logic;
+
 	-- rmap target top signals
 	signal s_rmap_spw_control         : t_rmap_target_spw_control;
 	signal s_rmap_spw_flag            : t_rmap_target_spw_flag;
@@ -134,33 +140,104 @@ architecture rtl of scom_synchronization_comm_top is
 	signal s_rmap_mem_wr_byte_address : std_logic_vector(31 downto 0);
 	signal s_rmap_mem_rd_byte_address : std_logic_vector(31 downto 0);
 
+	-- rmap memory fee master data controller signals
+	signal s_fee_rd_rmap_address : std_logic_vector(31 downto 0);
+	signal s_fee_rd_rmap_read    : std_logic;
+
+	-- spw mux
+	-- "spw mux" to "codec" signals
+	signal s_mux_rx_channel_command : t_spw_codec_data_rx_command;
+	signal s_mux_rx_channel_status  : t_spw_codec_data_rx_status;
+	signal s_mux_tx_channel_command : t_spw_codec_data_tx_command;
+	signal s_mux_tx_channel_status  : t_spw_codec_data_tx_status;
+	-- spw mux tx 1 signals
+	signal s_mux_tx_1_command       : t_spw_codec_data_tx_command;
+	signal s_mux_tx_1_status        : t_spw_codec_data_tx_status;
+	-- spw mux tx 2 signals
+	signal s_mux_tx_2_command       : t_spw_codec_data_tx_command;
+	signal s_mux_tx_2_status        : t_spw_codec_data_tx_status;
+
+	-- dummy
+	signal s_dummy_spw_mux_rx0_rxhalff : std_logic;
+	signal s_dummy_spw_mux_tx0_txhalff : std_logic;
+
 begin
 
-	-- SCOM AVS Config Read Instantiation
-	scom_avs_config_read_ent_inst : entity work.scom_avs_config_read_ent
-		port map(
-			clk_i                    => a_avs_clock,
-			rst_i                    => a_reset,
-			avs_config_i.address     => avs_config_address_i,
-			avs_config_i.read        => avs_config_read_i,
-			avs_config_i.byteenable  => avs_config_byteenable_i,
-			avs_config_o.readdata    => avs_config_readdata_o,
-			avs_config_o.waitrequest => s_avs_config_read_waitrequest,
-			config_wr_regs_i         => s_config_wr_regs,
-			config_rd_regs_i         => s_config_rd_regs
-		);
+	-- Config Avalon MM Testbench Stimulli Generate
+	g_scom_avs_config_testbench_stimulli : if (g_SCOM_TESTBENCH_MODE = '1') generate
 
-	-- SCOM AVS Config Write Instantiation
-	scom_avs_config_write_ent_inst : entity work.scom_avs_config_write_ent
+		-- Config Avalon MM Testbench Stimulli
+		scom_config_avalon_mm_stimulli_inst : entity work.scom_config_avalon_mm_stimulli
+			port map(
+				clk_i                       => a_avs_clock,
+				rst_i                       => a_reset,
+				avs_config_rd_regs_i        => s_config_rd_regs,
+				avs_config_wr_regs_o        => s_config_wr_regs,
+				avs_config_rd_readdata_o    => avs_config_readdata_o,
+				avs_config_rd_waitrequest_o => s_avs_config_read_waitrequest,
+				avs_config_wr_waitrequest_o => s_avs_config_write_waitrequest
+			);
+
+	end generate g_scom_avs_config_testbench_stimulli;
+
+	-- Config Avalon MM Read and Write Generate
+	g_scom_avs_config_read_write : if (g_SCOM_TESTBENCH_MODE = '0') generate
+
+		-- SCOM AVS Config Read Instantiation
+		scom_avs_config_read_ent_inst : entity work.scom_avs_config_read_ent
+			port map(
+				clk_i                    => a_avs_clock,
+				rst_i                    => a_reset,
+				avs_config_i.address     => avs_config_address_i,
+				avs_config_i.read        => avs_config_read_i,
+				avs_config_i.byteenable  => avs_config_byteenable_i,
+				avs_config_o.readdata    => avs_config_readdata_o,
+				avs_config_o.waitrequest => s_avs_config_read_waitrequest,
+				config_wr_regs_i         => s_config_wr_regs,
+				config_rd_regs_i         => s_config_rd_regs
+			);
+
+		-- SCOM AVS Config Write Instantiation
+		scom_avs_config_write_ent_inst : entity work.scom_avs_config_write_ent
+			port map(
+				clk_i                    => a_avs_clock,
+				rst_i                    => a_reset,
+				avs_config_i.address     => avs_config_address_i,
+				avs_config_i.write       => avs_config_write_i,
+				avs_config_i.writedata   => avs_config_writedata_i,
+				avs_config_i.byteenable  => avs_config_byteenable_i,
+				avs_config_o.waitrequest => s_avs_config_write_waitrequest,
+				config_wr_regs_o         => s_config_wr_regs
+			);
+
+	end generate g_scom_avs_config_read_write;
+
+	-- SCOM Data Controller Instantiation
+	scom_data_controller_top_inst : entity work.scom_data_controller_top
 		port map(
-			clk_i                    => a_avs_clock,
-			rst_i                    => a_reset,
-			avs_config_i.address     => avs_config_address_i,
-			avs_config_i.write       => avs_config_write_i,
-			avs_config_i.writedata   => avs_config_writedata_i,
-			avs_config_i.byteenable  => avs_config_byteenable_i,
-			avs_config_o.waitrequest => s_avs_config_write_waitrequest,
-			config_wr_regs_o         => s_config_wr_regs
+			clk_i                       => a_avs_clock,
+			rst_i                       => a_reset,
+			fee_sync_signal_i           => s_ch_sync_trigger,
+			fee_machine_clear_i         => s_machine_clear,
+			fee_machine_stop_i          => s_machine_stop,
+			fee_machine_start_i         => s_machine_start,
+			fee_current_frame_number_i  => s_frame_number,
+			fee_current_frame_counter_i => s_frame_counter,
+			fee_hk_mem_waitrequest_i    => rmm_fee_hk_rd_waitrequest_i,
+			fee_hk_mem_data_i           => rmm_fee_hk_readdata_i,
+			fee_spw_tx_ready_i          => s_mux_tx_1_status.txrdy,
+			fee_spw_link_running_i      => s_config_rd_regs.spw_link_status_reg.spw_link_running,
+			data_pkt_packet_length_i    => s_config_wr_regs.data_packet_config_reg.data_pkt_packet_length,
+			data_pkt_fee_mode_i         => s_config_wr_regs.data_packet_config_reg.data_pkt_fee_mode,
+			data_pkt_ccd_number_i       => s_config_wr_regs.data_packet_config_reg.data_pkt_ccd_number,
+			data_pkt_protocol_id_i      => s_config_wr_regs.data_packet_config_reg.data_pkt_protocol_id,
+			data_pkt_logical_addr_i     => s_config_wr_regs.data_packet_config_reg.data_pkt_logical_addr,
+			fee_machine_busy_o          => open,
+			fee_hk_mem_byte_address_o   => s_fee_rd_rmap_address,
+			fee_hk_mem_read_o           => s_fee_rd_rmap_read,
+			fee_spw_tx_write_o          => s_mux_tx_1_command.txwrite,
+			fee_spw_tx_flag_o           => s_mux_tx_1_command.txflag,
+			fee_spw_tx_data_o           => s_mux_tx_1_command.txdata
 		);
 
 	-- SCOM Sync Manager Instantiation
@@ -198,6 +275,20 @@ begin
 			tx_timecode_tick_o    => s_tx_timecode_tick,
 			tx_timecode_control_o => s_config_rd_regs.spw_timecode_status_reg.timecode_control,
 			tx_timecode_counter_o => s_config_rd_regs.spw_timecode_status_reg.timecode_time
+		);
+
+	-- SCOM Restart Manager Instantiation
+	scom_restart_manager_ent_inst : entity work.scom_restart_manager_ent
+		port map(
+			clk_i             => a_avs_clock,
+			rst_i             => a_reset,
+			ch_sync_restart_i => s_ch_sync_clear,
+			scom_stop_i       => s_config_wr_regs.fee_machine_config_reg.fee_machine_stop,
+			scom_clear_i      => s_config_wr_regs.fee_machine_config_reg.fee_machine_clear,
+			scom_start_i      => s_config_wr_regs.fee_machine_config_reg.fee_machine_start,
+			machine_stop_o    => s_machine_stop,
+			machine_clear_o   => s_machine_clear,
+			machine_start_o   => s_machine_start
 		);
 
 	-- RMAP Target Top Instantiation
@@ -241,6 +332,37 @@ begin
 			err_invalid_data_crc_o     => s_config_rd_regs.rmap_codec_status_reg.rmap_err_invalid_data_crc
 		);
 
+	-- SpaceWire Mux Instantiation
+	-- tx 0 / rx 0 -> rmap
+	-- tx 1        -> "right fee data controller" or "data controller"
+	-- tx 2        -> "left fee data controller"  or nothing 
+	spw_mux_ent_inst : entity work.spw_mux_ent
+		port map(
+			clk_i                          => a_avs_clock,
+			rst_i                          => a_reset,
+			fee_clear_signal_i             => s_machine_clear,
+			fee_stop_signal_i              => s_machine_stop,
+			fee_start_signal_i             => s_machine_start,
+			spw_codec_rx_status_i          => s_mux_rx_channel_status,
+			spw_codec_tx_status_i          => s_mux_tx_channel_status,
+			spw_mux_rx_0_command_i.rxread  => s_rmap_spw_control.receiver.read,
+			spw_mux_tx_0_command_i.txwrite => s_rmap_spw_control.transmitter.write,
+			spw_mux_tx_0_command_i.txflag  => s_rmap_spw_control.transmitter.flag,
+			spw_mux_tx_0_command_i.txdata  => s_rmap_spw_control.transmitter.data,
+			spw_mux_tx_1_command_i         => s_mux_tx_1_command,
+			spw_mux_tx_2_command_i         => s_mux_tx_2_command,
+			spw_codec_rx_command_o         => s_mux_rx_channel_command,
+			spw_codec_tx_command_o         => s_mux_tx_channel_command,
+			spw_mux_rx_0_status_o.rxvalid  => s_rmap_spw_flag.receiver.valid,
+			spw_mux_rx_0_status_o.rxhalff  => s_dummy_spw_mux_rx0_rxhalff,
+			spw_mux_rx_0_status_o.rxflag   => s_rmap_spw_flag.receiver.flag,
+			spw_mux_rx_0_status_o.rxdata   => s_rmap_spw_flag.receiver.data,
+			spw_mux_tx_0_status_o.txrdy    => s_rmap_spw_flag.transmitter.ready,
+			spw_mux_tx_0_status_o.txhalff  => s_dummy_spw_mux_tx0_txhalff,
+			spw_mux_tx_1_status_o          => s_mux_tx_1_status,
+			spw_mux_tx_2_status_o          => s_mux_tx_2_status
+		);
+
 	-- Signals Assigments --
 
 	-- AVS Config Signals Assigments
@@ -262,12 +384,23 @@ begin
 	rmm_rmap_target_write_o           <= s_rmap_mem_control.write.write;
 	rmm_rmap_target_writedata_o       <= s_rmap_mem_control.write.data;
 	-- RMAP Master Hk Read Outputs
-	rmm_fee_hk_rd_address_o           <= (others => '0');
-	rmm_fee_hk_read_o                 <= '0';
+	rmm_fee_hk_rd_address_o           <= s_fee_rd_rmap_address;
+	rmm_fee_hk_read_o                 <= s_fee_rd_rmap_read;
 	-- RMAP Master Hk Write Outputs
 	rmm_fee_hk_wr_address_o           <= (others => '0');
 	rmm_fee_hk_write_o                <= '0';
 	rmm_fee_hk_writedata_o            <= (others => '0');
+
+	-- RMAP Memory Status Register Assignments
+	s_config_rd_regs.rmap_memory_status_reg.rmap_last_write_addr         <= (others => '0');
+	s_config_rd_regs.rmap_memory_status_reg.rmap_last_write_length_bytes <= (others => '0');
+	s_config_rd_regs.rmap_memory_status_reg.rmap_last_read_addr          <= (others => '0');
+	s_config_rd_regs.rmap_memory_status_reg.rmap_last_read_length_bytes  <= (others => '0');
+
+	-- SpaceWire Mux Tx 2 Command Assignments
+	s_mux_tx_2_command.txwrite <= '0';
+	s_mux_tx_2_command.txflag  <= '0';
+	s_mux_tx_2_command.txdata  <= (others => '0');
 
 	-- SpaceWire Controller Signals Assignments
 	s_config_rd_regs.spw_link_status_reg.spw_link_started    <= spw_link_status_started_i;
@@ -280,10 +413,12 @@ begin
 	s_rx_timecode_tick                                       <= spw_timecode_rx_tick_out_i;
 	s_rx_timecode_control                                    <= spw_timecode_rx_ctrl_out_i;
 	s_rx_timecode_counter                                    <= spw_timecode_rx_time_out_i;
-	s_rmap_spw_flag.receiver.valid                           <= spw_data_rx_status_rxvalid_i;
-	s_rmap_spw_flag.receiver.flag                            <= spw_data_rx_status_rxflag_i;
-	s_rmap_spw_flag.receiver.data                            <= spw_data_rx_status_rxdata_i;
-	s_rmap_spw_flag.transmitter.ready                        <= spw_data_tx_status_txrdy_i;
+	s_mux_rx_channel_status.rxvalid                          <= spw_data_rx_status_rxvalid_i;
+	s_mux_rx_channel_status.rxhalff                          <= spw_data_rx_status_rxhalff_i;
+	s_mux_rx_channel_status.rxflag                           <= spw_data_rx_status_rxflag_i;
+	s_mux_rx_channel_status.rxdata                           <= spw_data_rx_status_rxdata_i;
+	s_mux_tx_channel_status.txrdy                            <= spw_data_tx_status_txrdy_i;
+	s_mux_tx_channel_status.txhalff                          <= spw_data_tx_status_txhalff_i;
 	spw_link_command_autostart_o                             <= s_config_wr_regs.spw_link_config_reg.spw_lnkcfg_autostart;
 	spw_link_command_linkstart_o                             <= s_config_wr_regs.spw_link_config_reg.spw_lnkcfg_linkstart;
 	spw_link_command_linkdis_o                               <= s_config_wr_regs.spw_link_config_reg.spw_lnkcfg_disconnect;
@@ -291,10 +426,10 @@ begin
 	spw_timecode_tx_tick_in_o                                <= s_tx_timecode_tick;
 	spw_timecode_tx_ctrl_in_o                                <= s_config_rd_regs.spw_timecode_status_reg.timecode_control;
 	spw_timecode_tx_time_in_o                                <= s_config_rd_regs.spw_timecode_status_reg.timecode_time;
-	spw_data_rx_command_rxread_o                             <= s_rmap_spw_control.receiver.read;
-	spw_data_tx_command_txwrite_o                            <= s_rmap_spw_control.transmitter.write;
-	spw_data_tx_command_txflag_o                             <= s_rmap_spw_control.transmitter.flag;
-	spw_data_tx_command_txdata_o                             <= s_rmap_spw_control.transmitter.data;
+	spw_data_rx_command_rxread_o                             <= s_mux_rx_channel_command.rxread;
+	spw_data_tx_command_txwrite_o                            <= s_mux_tx_channel_command.txwrite;
+	spw_data_tx_command_txflag_o                             <= s_mux_tx_channel_command.txflag;
+	spw_data_tx_command_txdata_o                             <= s_mux_tx_channel_command.txdata;
 
 	-- Channel Hk Signals Assigments
 	channel_hk_timecode_control_o       <= s_config_rd_regs.spw_timecode_status_reg.timecode_control;

@@ -1,6 +1,43 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
 # OpenFile D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Testbench/Synchronization_COMM_tb.mpf
 # Loading project Synchronization_COMM_tb
+# Compile of scom_avs_config_registers_pkg.vhd failed with 1 errors.
+# Compile of scom_avs_config_pkg.vhd failed with 1 errors.
+# Compile of scom_avs_config_read_ent.vhd failed with 1 errors.
+# Compile of rmap_target_crc_pkg.vhd failed with 1 errors.
+# Compile of scom_avs_config_write_ent.vhd failed with 1 errors.
+# Compile of rmap_target_pkg.vhd failed with 1 errors.
+# Compile of rmap_target_command_ent.vhd failed with 1 errors.
+# Compile of rmap_target_reply_ent.vhd failed with 1 errors.
+# Compile of rmap_target_read_ent.vhd failed with 1 errors.
+# Compile of rmap_target_write_ent.vhd failed with 1 errors.
+# Compile of rmap_target_user_ent.vhd failed with 1 errors.
+# Compile of rmap_target_top.vhd failed with 1 errors.
+# Compile of scom_frame_manager_ent.vhd failed with 1 errors.
+# Compile of scom_sync_manager_ent.vhd failed with 1 errors.
+# Compile of scom_timecode_manager_ent.vhd failed with 1 errors.
+# Compile of scom_restart_manager_ent.vhd failed with 1 errors.
+# Compile of spw_codec_pkg.vhd failed with 1 errors.
+# Compile of spw_mux_ent.vhd failed with 1 errors.
+# Compile of fee_data_controller_pkg.vhd failed with 1 errors.
+# Compile of send_buffer_sc_1k_fifo.vhd failed with 1 errors.
+# Compile of scom_send_buffer_ent.vhd failed with 1 errors.
+# Compile of data_packet_header_gen_ent.vhd failed with 1 errors.
+# Compile of data_packet_hk_writer_ent.vhd failed with 1 errors.
+# Compile of fee_hkdata_manager_ent.vhd failed with 1 errors.
+# Compile of fee_hkdata_controller_top.vhd failed with 1 errors.
+# Compile of fee_data_manager_ent.vhd failed with 1 errors.
+# Compile of comm_data_transmitter_pkg.vhd failed with 1 errors.
+# Compile of comm_data_transmitter_manager_ent.vhd failed with 1 errors.
+# Compile of comm_data_transmitter_housekeep_ent.vhd failed with 1 errors.
+# Compile of comm_data_transmitter_fullimage_ent.vhd failed with 1 errors.
+# Compile of comm_data_transmitter_windowing_ent.vhd failed with 1 errors.
+# Compile of comm_data_transmitter_top.vhd failed with 1 errors.
+# Compile of scom_data_controller_top.vhd failed with 1 errors.
+# Compile of scom_synchronization_comm_top.vhd failed with 1 errors.
+# Compile of config_avalon_stimuli.vhd failed with 1 errors.
+# Compile of testbench_top.vhd failed with 1 errors.
+# 36 compiles, 36 failed with 36 errors.
 # Compile of scom_avs_config_registers_pkg.vhd was successful.
 # Compile of scom_avs_config_pkg.vhd was successful.
 # Compile of scom_avs_config_read_ent.vhd was successful.
@@ -16,10 +53,29 @@
 # Compile of scom_frame_manager_ent.vhd was successful.
 # Compile of scom_sync_manager_ent.vhd was successful.
 # Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_restart_manager_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of scom_send_buffer_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd failed with 3 errors.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of scom_data_controller_top.vhd was successful.
 # Compile of scom_synchronization_comm_top.vhd was successful.
-# Compile of config_avalon_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 18 compiles, 0 failed with no errors.
+# Compile of config_avalon_stimuli.vhd failed with 3 errors.
+# Compile of testbench_top.vhd failed with 3 errors.
+# 36 compiles, 3 failed with 9 errors.
+# Compile of fee_hkdata_controller_top.vhd was successful.
 # Compile of scom_avs_config_registers_pkg.vhd was successful.
 # Compile of scom_avs_config_pkg.vhd was successful.
 # Compile of scom_avs_config_read_ent.vhd was successful.
@@ -35,10 +91,28 @@
 # Compile of scom_frame_manager_ent.vhd was successful.
 # Compile of scom_sync_manager_ent.vhd was successful.
 # Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_restart_manager_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of scom_send_buffer_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of scom_data_controller_top.vhd was successful.
 # Compile of scom_synchronization_comm_top.vhd was successful.
-# Compile of config_avalon_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 18 compiles, 0 failed with no errors.
+# Compile of config_avalon_stimuli.vhd failed with 3 errors.
+# Compile of testbench_top.vhd failed with 3 errors.
+# 36 compiles, 2 failed with 6 errors.
 # Compile of scom_avs_config_registers_pkg.vhd was successful.
 # Compile of scom_avs_config_pkg.vhd was successful.
 # Compile of scom_avs_config_read_ent.vhd was successful.
@@ -54,7 +128,231 @@
 # Compile of scom_frame_manager_ent.vhd was successful.
 # Compile of scom_sync_manager_ent.vhd was successful.
 # Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_restart_manager_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of scom_send_buffer_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of scom_data_controller_top.vhd was successful.
 # Compile of scom_synchronization_comm_top.vhd was successful.
-# Compile of config_avalon_stimuli.vhd was successful.
+# Compile of testbench_top.vhd failed with 7 errors.
+# 35 compiles, 1 failed with 7 errors.
+# Compile of testbench_top.vhd failed with 2 errors.
 # Compile of testbench_top.vhd was successful.
-# 18 compiles, 0 failed with no errors.
+# Compile of scom_avs_config_registers_pkg.vhd was successful.
+# Compile of scom_avs_config_pkg.vhd was successful.
+# Compile of scom_avs_config_read_ent.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of scom_avs_config_write_ent.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of scom_frame_manager_ent.vhd was successful.
+# Compile of scom_sync_manager_ent.vhd was successful.
+# Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_restart_manager_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of scom_send_buffer_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of scom_data_controller_top.vhd was successful.
+# Compile of scom_synchronization_comm_top.vhd failed with 4 errors.
+# Compile of testbench_top.vhd was successful.
+# Compile of scom_config_avalon_mm_stimulli.vhd failed with 3 errors.
+# 36 compiles, 2 failed with 7 errors.
+# Compile of scom_config_avalon_mm_stimulli.vhd failed with 3 errors.
+# Compile of scom_synchronization_comm_top.vhd failed with 4 errors.
+# 2 compiles, 2 failed with 7 errors.
+# Compile of scom_config_avalon_mm_stimulli.vhd failed with 3 errors.
+# Compile of scom_synchronization_comm_top.vhd failed with 4 errors.
+# 2 compiles, 2 failed with 7 errors.
+# Compile of scom_config_avalon_mm_stimulli.vhd failed with 28 errors.
+# Compile of scom_synchronization_comm_top.vhd was successful.
+# 2 compiles, 1 failed with 28 errors.
+# Compile of scom_config_avalon_mm_stimulli.vhd failed with 24 errors.
+# Compile of scom_config_avalon_mm_stimulli.vhd failed with 2 errors.
+# Compile of scom_config_avalon_mm_stimulli.vhd was successful.
+# Compile of scom_avs_config_registers_pkg.vhd was successful.
+# Compile of scom_avs_config_pkg.vhd was successful.
+# Compile of scom_avs_config_read_ent.vhd was successful.
+# Compile of scom_config_avalon_mm_stimulli.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of scom_avs_config_write_ent.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of scom_frame_manager_ent.vhd was successful.
+# Compile of scom_sync_manager_ent.vhd was successful.
+# Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_restart_manager_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of scom_send_buffer_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of scom_data_controller_top.vhd was successful.
+# Compile of scom_synchronization_comm_top.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 36 compiles, 0 failed with no errors.
+vsim work.testbench_top
+# vsim work.testbench_top 
+# Start time: 03:10:55 on Sep 13,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.scom_avs_config_pkg
+# Loading work.scom_avs_config_registers_pkg(body)
+# Loading work.rmap_target_pkg(body)
+# Loading work.spw_codec_pkg
+# Loading work.testbench_top(rtl)
+# Loading work.fee_data_controller_pkg(body)
+# Loading work.scom_synchronization_comm_top(rtl)
+# Loading work.scom_config_avalon_mm_stimulli(rtl)
+# Loading work.comm_data_transmitter_pkg(body)
+# Loading work.scom_data_controller_top(rtl)
+# Loading work.fee_data_manager_ent(rtl)
+# Loading work.fee_hkdata_controller_top(rtl)
+# Loading work.fee_hkdata_manager_ent(rtl)
+# Loading work.data_packet_header_gen_ent(rtl)
+# Loading work.data_packet_hk_writer_ent(rtl)
+# Loading work.scom_send_buffer_ent(rtl)
+# Loading work.send_buffer_sc_1k_fifo(syn)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.scfifo(behavior)
+# Loading work.comm_data_transmitter_top(rtl)
+# Loading work.comm_data_transmitter_manager_ent(rtl)
+# Loading work.comm_data_transmitter_housekeep_ent(rtl)
+# Loading work.comm_data_transmitter_fullimage_ent(rtl)
+# Loading work.comm_data_transmitter_windowing_ent(rtl)
+# Loading work.scom_sync_manager_ent(rtl)
+# Loading work.scom_frame_manager_ent(rtl)
+# Loading work.scom_timecode_manager_ent(rtl)
+# Loading work.scom_restart_manager_ent(rtl)
+# Loading work.rmap_target_crc_pkg(body)
+# Loading work.rmap_target_top(rtl)
+# Loading work.rmap_target_user_ent(rtl)
+# Loading work.rmap_target_command_ent(rtl)
+# Loading work.rmap_target_write_ent(rtl)
+# Loading work.rmap_target_read_ent(rtl)
+# Loading work.rmap_target_reply_ent(rtl)
+# Loading work.spw_mux_ent(rtl)
+# ** Warning: Design size of 11076 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/scom_data_controller_top_inst/*
+restart
+run
+# Compile of scom_data_controller_top.vhd was successful.
+restart
+# Loading work.scom_data_controller_top(rtl)
+# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/scom_synchronization_comm_top_inst/scom_data_controller_top_inst/s_data_headerdata'. 
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/*
+restart
+run
+# Compile of scom_synchronization_comm_top.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+restart
+# Loading work.testbench_top(rtl)
+# Loading work.scom_synchronization_comm_top(rtl)
+run
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/scom_data_controller_top_inst/*
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/scom_data_controller_top_inst/fee_data_manager_ent_inst/*
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/scom_data_controller_top_inst/comm_data_transmitter_top_inst/*
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/scom_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/*
+restart
+run
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/scom_data_controller_top_inst/fee_hkdata_controller_top_inst/fee_hkdata_manager_ent_inst/*
+restart
+run
+# Compile of testbench_top.vhd was successful.
+restart
+# Loading work.testbench_top(rtl)
+run
+add wave -position insertpoint sim:/testbench_top/scom_synchronization_comm_top_inst/*
+restart
+run
+# Compile of scom_avs_config_registers_pkg.vhd was successful.
+# Compile of scom_avs_config_pkg.vhd was successful.
+# Compile of scom_avs_config_read_ent.vhd was successful.
+# Compile of scom_config_avalon_mm_stimulli.vhd was successful.
+# Compile of rmap_target_crc_pkg.vhd was successful.
+# Compile of scom_avs_config_write_ent.vhd was successful.
+# Compile of rmap_target_pkg.vhd was successful.
+# Compile of rmap_target_command_ent.vhd was successful.
+# Compile of rmap_target_reply_ent.vhd was successful.
+# Compile of rmap_target_read_ent.vhd was successful.
+# Compile of rmap_target_write_ent.vhd was successful.
+# Compile of rmap_target_user_ent.vhd was successful.
+# Compile of rmap_target_top.vhd was successful.
+# Compile of scom_frame_manager_ent.vhd was successful.
+# Compile of scom_sync_manager_ent.vhd was successful.
+# Compile of scom_timecode_manager_ent.vhd was successful.
+# Compile of scom_restart_manager_ent.vhd was successful.
+# Compile of spw_codec_pkg.vhd was successful.
+# Compile of spw_mux_ent.vhd was successful.
+# Compile of fee_data_controller_pkg.vhd was successful.
+# Compile of send_buffer_sc_1k_fifo.vhd was successful.
+# Compile of scom_send_buffer_ent.vhd was successful.
+# Compile of data_packet_header_gen_ent.vhd was successful.
+# Compile of data_packet_hk_writer_ent.vhd was successful.
+# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of fee_data_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_pkg.vhd was successful.
+# Compile of comm_data_transmitter_manager_ent.vhd was successful.
+# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
+# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
+# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
+# Compile of comm_data_transmitter_top.vhd was successful.
+# Compile of scom_data_controller_top.vhd was successful.
+# Compile of scom_synchronization_comm_top.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 36 compiles, 0 failed with no errors.
+# End time: 01:23:04 on Sep 14,2020, Elapsed time: 22:12:09
+# Errors: 1, Warnings: 1

@@ -2,26 +2,26 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.spwpkg.all;
+--use work.spwpkg.all;
 
 package spw_codec_pkg is
 
-	-- SpaceWire Light Codec Configuration Generics
-
-	-- Codec System Clock Frequency = 200 MHz
-	constant c_SPWC_SYSFREQ         : real                    := 200000000.0;
-	-- Codec TX Clock Frequency = 0 MHz (default) (only needed when tx_impl = impl_fast)
-	constant c_SPWC_TXCLKFREQ       : real                    := 0.0;
-	-- Codec Receiver Implementation = generic implementation (default)
-	constant c_SPWC_RXIMPL          : spw_implementation_type := impl_generic;
-	-- Codec Receiver Chunk Size = 1 (default) (in case of impl_generic, rxchunk must be set to 1)
-	constant c_SPWC_RXCHUNK         : integer range 1 to 4    := 1;
-	-- Codec Transmitter Implementation = generic implementation (default)
-	constant c_SPWC_TXIMPL          : spw_implementation_type := impl_generic;
-	-- Codec Receiver FIFO Size, in bits = 11 bits, 2kByte (default)
-	constant c_SPWC_RXFIFOSIZE_BITS : integer range 6 to 14   := 11;
-	-- Codec Transmitter FIFO Size, in bits = 11 bits, 2kByte (default)
-	constant c_SPWC_TXFIFOSIZE_BITS : integer range 6 to 14   := 11;
+--	-- SpaceWire Light Codec Configuration Generics
+--
+--	-- Codec System Clock Frequency = 200 MHz
+--	constant c_SPWC_SYSFREQ         : real                    := 200000000.0;
+--	-- Codec TX Clock Frequency = 0 MHz (default) (only needed when tx_impl = impl_fast)
+--	constant c_SPWC_TXCLKFREQ       : real                    := 0.0;
+--	-- Codec Receiver Implementation = generic implementation (default)
+--	constant c_SPWC_RXIMPL          : spw_implementation_type := impl_generic;
+--	-- Codec Receiver Chunk Size = 1 (default) (in case of impl_generic, rxchunk must be set to 1)
+--	constant c_SPWC_RXCHUNK         : integer range 1 to 4    := 1;
+--	-- Codec Transmitter Implementation = generic implementation (default)
+--	constant c_SPWC_TXIMPL          : spw_implementation_type := impl_generic;
+--	-- Codec Receiver FIFO Size, in bits = 11 bits, 2kByte (default)
+--	constant c_SPWC_RXFIFOSIZE_BITS : integer range 6 to 14   := 11;
+--	-- Codec Transmitter FIFO Size, in bits = 11 bits, 2kByte (default)
+--	constant c_SPWC_TXFIFOSIZE_BITS : integer range 6 to 14   := 11;
 
 	-- SpaceWire Light Codec Interface Signals
 

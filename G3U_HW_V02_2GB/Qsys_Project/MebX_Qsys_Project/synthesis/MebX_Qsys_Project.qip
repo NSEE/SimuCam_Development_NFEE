@@ -2,7 +2,7 @@ set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "MebX_Qsys_Project" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../MebX_Qsys_Project.sopcinfo"]
-set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name SLD_INFO "QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1599277399"
+set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name SLD_INFO "QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1600340983"
 set_global_assignment -library "MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(qip_path) "../MebX_Qsys_Project.cmp"]
 set_global_assignment -library "MebX_Qsys_Project" -name SLD_FILE [file join $::quartus(qip_path) "MebX_Qsys_Project.regmap"]
 set_global_assignment -library "MebX_Qsys_Project" -name SLD_FILE [file join $::quartus(qip_path) "MebX_Qsys_Project.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU5OTI3NzM5OQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTYwMDM0MDk4Mw==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::U3RyYXRpeCBJVg==::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0U0dYNTMwS0g0MEMy::QXV0byBERVZJQ0U="
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Mg==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -11266,7 +11266,7 @@ set_global_assignment -entity "scom_synchronization_comm_top" -library "MebX_Qsy
 set_global_assignment -entity "scom_synchronization_comm_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_DISPLAY_NAME "U3luY2hyb25pemF0aW9uX0NPTU0="
 set_global_assignment -entity "scom_synchronization_comm_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "scom_synchronization_comm_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_INTERNAL "Off"
-set_global_assignment -entity "scom_synchronization_comm_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_VERSION "MQ=="
+set_global_assignment -entity "scom_synchronization_comm_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_VERSION "MS4x"
 set_global_assignment -entity "spwc_spacewire_channel_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_NAME "c3B3Y19zcGFjZXdpcmVfY2hhbm5lbF90b3A="
 set_global_assignment -entity "spwc_spacewire_channel_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_DISPLAY_NAME "U3BhY2VXaXJlX0NoYW5uZWw="
 set_global_assignment -entity "spwc_spacewire_channel_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -11637,7 +11637,25 @@ set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $:
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/scom_avs_config_write_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/scom_sync_manager_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/scom_frame_manager_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/scom_restart_manager_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/scom_timecode_manager_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/spw_codec_pkg.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/spw_mux_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_data_controller_pkg.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_data_manager_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_hkdata_manager_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/data_packet_header_gen_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/data_packet_hk_writer_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/send_buffer_sc_1k_fifo.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/scom_send_buffer_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_pkg.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_manager_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_housekeep_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_fullimage_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_windowing_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_top.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_hkdata_controller_top.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/scom_data_controller_top.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/rmap_target_crc_pkg.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/rmap_target_pkg.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/rmap_target_command_ent.vhd"]
@@ -11759,18 +11777,11 @@ set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $:
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_avm_buffers_pkg.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_avm_buffers_reader_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_avm_buffers_controller_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/spw_codec_pkg.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/spw_mux_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_data_controller_pkg.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/delay_machine_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/masking_machine_sc_fifo.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/masking_machine_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_data_manager_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_hkdata_manager_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_imgdata_manager_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/data_packet_data_writer_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/data_packet_header_gen_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/data_packet_hk_writer_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_content_errinj_altsyncram.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_header_errinj_altsyncram.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_content_errinj_manager_ent.vhd"]
@@ -11778,15 +11789,7 @@ set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $:
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/error_injection_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/send_buffer_0_sc_fifo.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/send_buffer_1_sc_fifo.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/send_buffer_sc_1k_fifo.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/send_buffer_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_pkg.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_manager_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_housekeep_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_fullimage_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_windowing_ent.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_data_transmitter_top.vhd"]
-set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_hkdata_controller_top.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_imgdata_controller_top.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/fee_data_controller_top.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/comm_sync_manager_ent.vhd"]

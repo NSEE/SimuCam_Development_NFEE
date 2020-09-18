@@ -17,35 +17,11 @@ architecture RTL of testbench_top is
 	-- sync signal
 	signal s_sync : std_logic;
 
-	-- config_avalon_stimuli signals
-	signal s_config_avalon_stimuli_mm_readdata    : std_logic_vector(31 downto 0); -- avalon_mm.readdata
-	signal s_config_avalon_stimuli_mm_waitrequest : std_logic; --                  --          .waitrequest
-	signal s_config_avalon_stimuli_mm_address     : std_logic_vector(7 downto 0); ---          .address
-	signal s_config_avalon_stimuli_mm_write       : std_logic; --                  --          .write
-	signal s_config_avalon_stimuli_mm_writedata   : std_logic_vector(31 downto 0); --          .writedata
-	signal s_config_avalon_stimuli_mm_read        : std_logic; --                  --          .read
-
 begin
 
 	clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
 	clk100 <= not clk100 after 5 ns;    -- 100 MHz
 	rst    <= '0' after 100 ns;
-
-	config_avalon_stimuli_inst : entity work.config_avalon_stimuli
-		generic map(
-			g_ADDRESS_WIDTH => 8,
-			g_DATA_WIDTH    => 32
-		)
-		port map(
-			clk_i                   => clk200,
-			rst_i                   => rst,
-			avalon_mm_readdata_i    => s_config_avalon_stimuli_mm_readdata,
-			avalon_mm_waitrequest_i => s_config_avalon_stimuli_mm_waitrequest,
-			avalon_mm_address_o     => s_config_avalon_stimuli_mm_address,
-			avalon_mm_write_o       => s_config_avalon_stimuli_mm_write,
-			avalon_mm_writedata_o   => s_config_avalon_stimuli_mm_writedata,
-			avalon_mm_read_o        => s_config_avalon_stimuli_mm_read
-		);
 
 	scom_synchronization_comm_top_inst : entity work.scom_synchronization_comm_top
 		generic map(
@@ -55,13 +31,13 @@ begin
 			reset_sink_reset_i                  => rst,
 			clock_sink_clk_i                    => clk200,
 			channel_sync_i                      => s_sync,
-			avs_config_address_i                => s_config_avalon_stimuli_mm_address,
+			avs_config_address_i                => (others => '0'),
 			avs_config_byteenable_i             => "1111",
-			avs_config_write_i                  => s_config_avalon_stimuli_mm_write,
-			avs_config_writedata_i              => s_config_avalon_stimuli_mm_writedata,
-			avs_config_read_i                   => s_config_avalon_stimuli_mm_read,
-			avs_config_readdata_o               => s_config_avalon_stimuli_mm_readdata,
-			avs_config_waitrequest_o            => s_config_avalon_stimuli_mm_waitrequest,
+			avs_config_write_i                  => '0',
+			avs_config_writedata_i              => (others => '0'),
+			avs_config_read_i                   => '0',
+			avs_config_readdata_o               => open,
+			avs_config_waitrequest_o            => open,
 			spw_link_status_started_i           => '0',
 			spw_link_status_connecting_i        => '0',
 			spw_link_status_running_i           => '1',
@@ -89,17 +65,17 @@ begin
 			spw_data_tx_command_txwrite_o       => open,
 			spw_data_tx_command_txflag_o        => open,
 			spw_data_tx_command_txdata_o        => open,
-			rmm_rmap_target_wr_waitrequest_i    => '1',
+			rmm_rmap_target_wr_waitrequest_i    => '0',
 			rmm_rmap_target_readdata_i          => (others => '0'),
-			rmm_rmap_target_rd_waitrequest_i    => '1',
+			rmm_rmap_target_rd_waitrequest_i    => '0',
 			rmm_rmap_target_wr_address_o        => open,
 			rmm_rmap_target_write_o             => open,
 			rmm_rmap_target_writedata_o         => open,
 			rmm_rmap_target_rd_address_o        => open,
 			rmm_rmap_target_read_o              => open,
-			rmm_fee_hk_wr_waitrequest_i         => '1',
+			rmm_fee_hk_wr_waitrequest_i         => '0',
 			rmm_fee_hk_readdata_i               => (others => '0'),
-			rmm_fee_hk_rd_waitrequest_i         => '1',
+			rmm_fee_hk_rd_waitrequest_i         => '0',
 			rmm_fee_hk_wr_address_o             => open,
 			rmm_fee_hk_write_o                  => open,
 			rmm_fee_hk_writedata_o              => open,
@@ -140,7 +116,7 @@ begin
 					s_sync         <= '1';
 					v_sync_high    := '1';
 					v_sync_div_cnt := 0;
-				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 45000)) then
 					s_sync         <= '0';
 					v_sync_high    := '0';
 					--					v_sync_one_shot := '1'; -- comment this line to remove one-shot

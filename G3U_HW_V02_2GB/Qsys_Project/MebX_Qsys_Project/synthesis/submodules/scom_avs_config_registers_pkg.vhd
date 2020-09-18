@@ -8,7 +8,7 @@ package scom_avs_config_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_SCOM_AVS_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_SCOM_AVS_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#26#;
+	constant c_SCOM_AVS_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#2B#;
 
 	-- Registers Types
 
@@ -101,6 +101,22 @@ package scom_avs_config_registers_pkg is
 		rmap_mem_area_ptr : std_logic_vector(31 downto 0); -- RMAP Memory Area Pointer
 	end record t_scom_rmap_mem_area_ptr_wr_reg;
 
+	-- FEE Machine Config Register
+	type t_scom_fee_machine_config_wr_reg is record
+		fee_machine_clear : std_logic;  -- FEE Machine Clear
+		fee_machine_stop  : std_logic;  -- FEE Machine Stop
+		fee_machine_start : std_logic;  -- FEE Machine Start
+	end record t_scom_fee_machine_config_wr_reg;
+
+	-- Data Packet Config Register
+	type t_scom_data_packet_config_wr_reg is record
+		data_pkt_packet_length : std_logic_vector(15 downto 0); -- Data Packet Packet Length
+		data_pkt_fee_mode      : std_logic_vector(4 downto 0); -- Data Packet FEE Mode
+		data_pkt_ccd_number    : std_logic_vector(1 downto 0); -- Data Packet CCD Number
+		data_pkt_protocol_id   : std_logic_vector(7 downto 0); -- Data Packet Protocol ID
+		data_pkt_logical_addr  : std_logic_vector(7 downto 0); -- Data Packet Logical Address
+	end record t_scom_data_packet_config_wr_reg;
+
 	-- Avalon MM Types
 
 	-- Avalon MM Read/Write Registers
@@ -113,6 +129,8 @@ package scom_avs_config_registers_pkg is
 		rmap_codec_config_reg   : t_scom_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
 		rmap_memory_config_reg  : t_scom_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
 		rmap_mem_area_ptr_reg   : t_scom_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
+		fee_machine_config_reg  : t_scom_fee_machine_config_wr_reg; -- FEE Machine Config Register
+		data_packet_config_reg  : t_scom_data_packet_config_wr_reg; -- Data Packet Config Register
 	end record t_scom_config_wr_regs;
 
 	-- Avalon MM Read-Only Registers

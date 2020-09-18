@@ -1,4 +1,15 @@
-../Synchronization_COMM/TESTBENCH/testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/TESTBENCH/testbench_top.vhd
+../Synchronization_COMM/TESTBENCH/scom_config_avalon_mm_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/TESTBENCH/scom_config_avalon_mm_stimulli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package scom_avs_config_pkg
+-- Loading package scom_avs_config_registers_pkg
+-- Compiling entity scom_config_avalon_mm_stimulli
+-- Compiling architecture RTL of scom_config_avalon_mm_stimulli
+
+} {} {}} ../Synchronization_COMM/TESTBENCH/testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/TESTBENCH/testbench_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -6,12 +17,71 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity testbench_top
 -- Compiling architecture RTL of testbench_top
--- Loading package avalon_mm_spacewire_registers_pkg
--- Loading entity config_avalon_stimuli
 -- Loading package scom_avs_config_pkg
 -- Loading package scom_avs_config_registers_pkg
 -- Loading package rmap_target_pkg
+-- Loading package spw_codec_pkg
 -- Loading entity scom_synchronization_comm_top
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_manager_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Loading package comm_data_transmitter_pkg
+-- Compiling entity comm_data_transmitter_manager_ent
+-- Compiling architecture RTL of comm_data_transmitter_manager_ent
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/scom_data_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/scom_data_controller_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Compiling entity scom_data_controller_top
+-- Compiling architecture RTL of scom_data_controller_top
+-- Loading entity fee_data_manager_ent
+-- Loading entity fee_hkdata_controller_top
+-- Loading package comm_data_transmitter_pkg
+-- Loading entity comm_data_transmitter_top
+
+} {} {}} ../Synchronization_COMM/SPW_MUX/spw_mux_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/SPW_MUX/spw_mux_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spw_codec_pkg
+-- Compiling entity spw_mux_ent
+-- Compiling architecture RTL of spw_mux_ent
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_windowing_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_windowing_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Loading package comm_data_transmitter_pkg
+-- Compiling entity comm_data_transmitter_windowing_ent
+-- Compiling architecture RTL of comm_data_transmitter_windowing_ent
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/fee_hkdata_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/fee_hkdata_controller_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Compiling entity fee_hkdata_controller_top
+-- Compiling architecture RTL of fee_hkdata_controller_top
+-- Loading entity fee_hkdata_manager_ent
+-- Loading entity data_packet_header_gen_ent
+-- Loading entity data_packet_hk_writer_ent
+-- Loading entity scom_send_buffer_ent
 
 } {} {}} ../Synchronization_COMM/OTHERS_MANAGERS/scom_timecode_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/OTHERS_MANAGERS/scom_timecode_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -33,16 +103,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_reply_ent
 -- Compiling architecture rtl of rmap_target_reply_ent
 
-} {} {}} ../Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_write_ent.vhd
+} {} {}} ../Synchronization_COMM/OTHERS_MANAGERS/scom_frame_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/OTHERS_MANAGERS/scom_frame_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Loading package scom_avs_config_pkg
--- Loading package scom_avs_config_registers_pkg
--- Compiling entity scom_avs_config_write_ent
--- Compiling architecture rtl of scom_avs_config_write_ent
+-- Compiling entity scom_frame_manager_ent
+-- Compiling architecture RTL of scom_frame_manager_ent
 
 } {} {}} ../Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_registers_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -54,14 +122,34 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body scom_avs_config_registers_pkg
 -- Loading package scom_avs_config_registers_pkg
 
-} {} {}} ../Synchronization_COMM/OTHERS_MANAGERS/scom_frame_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/OTHERS_MANAGERS/scom_frame_manager_ent.vhd
+} {} {}} ../Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_write_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling entity scom_frame_manager_ent
--- Compiling architecture RTL of scom_frame_manager_ent
+-- Loading package scom_avs_config_pkg
+-- Loading package scom_avs_config_registers_pkg
+-- Compiling entity scom_avs_config_write_ent
+-- Compiling architecture rtl of scom_avs_config_write_ent
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_data_manager_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Compiling entity fee_data_manager_ent
+-- Compiling architecture RTL of fee_data_manager_ent
+
+} {} {}} ../Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package scom_avs_config_pkg
 
 } {} {}} ../Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_read_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -74,13 +162,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity scom_avs_config_read_ent
 -- Compiling architecture rtl of scom_avs_config_read_ent
 
-} {} {}} ../Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/AVS_CONFIG_REGISTERS/scom_avs_config_pkg.vhd
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_housekeep_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_housekeep_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package scom_avs_config_pkg
+-- Loading package fee_data_controller_pkg
+-- Loading package comm_data_transmitter_pkg
+-- Compiling entity comm_data_transmitter_housekeep_ent
+-- Compiling architecture RTL of comm_data_transmitter_housekeep_ent
 
 } {} {}} ../Synchronization_COMM/RMAP_TARGET/rmap_target_user_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/RMAP_TARGET/rmap_target_user_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -92,15 +183,78 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_user_ent
 -- Compiling architecture rtl of rmap_target_user_ent
 
-} {} {}} ../Synchronization_COMM/TESTBENCH/config_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/TESTBENCH/config_avalon_stimuli.vhd
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_hk_writer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_hk_writer_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Loading package avalon_mm_spacewire_registers_pkg
--- Compiling entity config_avalon_stimuli
--- Compiling architecture RTL of config_avalon_stimuli
+-- Loading package fee_data_controller_pkg
+-- Compiling entity data_packet_hk_writer_ent
+-- Compiling architecture RTL of data_packet_hk_writer_ent
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/fee_data_controller_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/fee_data_controller_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package fee_data_controller_pkg
+-- Compiling package body fee_data_controller_pkg
+-- Loading package fee_data_controller_pkg
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_hkdata_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_hkdata_manager_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Compiling entity fee_hkdata_manager_ent
+-- Compiling architecture RTL of fee_hkdata_manager_ent
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity send_buffer_sc_1k_fifo
+-- Compiling architecture SYN of send_buffer_sc_1k_fifo
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package comm_data_transmitter_pkg
+-- Compiling package body comm_data_transmitter_pkg
+-- Loading package comm_data_transmitter_pkg
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Loading package comm_data_transmitter_pkg
+-- Compiling entity comm_data_transmitter_top
+-- Compiling architecture RTL of comm_data_transmitter_top
+-- Loading entity comm_data_transmitter_manager_ent
+-- Loading entity comm_data_transmitter_housekeep_ent
+-- Loading entity comm_data_transmitter_fullimage_ent
+-- Loading entity comm_data_transmitter_windowing_ent
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Compiling entity data_packet_header_gen_ent
+-- Compiling architecture RTL of data_packet_header_gen_ent
 
 } {} {}} ../Synchronization_COMM/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/RMAP_TARGET/rmap_target_crc_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -123,16 +277,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_write_ent
 -- Compiling architecture rtl of rmap_target_write_ent
 
-} {} {}} ../Synchronization_COMM/RMAP_TARGET/rmap_target_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/RMAP_TARGET/rmap_target_read_ent.vhd
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_fullimage_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/comm_data_transmitter_fullimage_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Loading package rmap_target_pkg
--- Loading package rmap_target_crc_pkg
--- Compiling entity rmap_target_read_ent
--- Compiling architecture rtl of rmap_target_read_ent
+-- Loading package fee_data_controller_pkg
+-- Loading package comm_data_transmitter_pkg
+-- Compiling entity comm_data_transmitter_fullimage_ent
+-- Compiling architecture RTL of comm_data_transmitter_fullimage_ent
 
 } {} {}} ../Synchronization_COMM/RMAP_TARGET/rmap_target_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/RMAP_TARGET/rmap_target_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -143,6 +297,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package rmap_target_pkg
 -- Compiling package body rmap_target_pkg
 -- Loading package rmap_target_pkg
+
+} {} {}} ../Synchronization_COMM/RMAP_TARGET/rmap_target_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/RMAP_TARGET/rmap_target_read_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmap_target_pkg
+-- Loading package rmap_target_crc_pkg
+-- Compiling entity rmap_target_read_ent
+-- Compiling architecture rtl of rmap_target_read_ent
 
 } {} {}} ../Synchronization_COMM/RMAP_TARGET/rmap_target_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/RMAP_TARGET/rmap_target_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -160,6 +325,42 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity rmap_target_read_ent
 -- Loading entity rmap_target_reply_ent
 
+} {} {}} ../Synchronization_COMM/SPW_CODEC/spw_codec_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/SPW_CODEC/spw_codec_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package spw_codec_pkg
+
+} {} {}} ../Synchronization_COMM/FEE_DATA_CONTROLLER/SEND_BUFFER/scom_send_buffer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/FEE_DATA_CONTROLLER/SEND_BUFFER/scom_send_buffer_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity scom_send_buffer_ent
+-- Compiling architecture RTL of scom_send_buffer_ent
+-- Loading entity send_buffer_sc_1k_fifo
+
+} {} {}} ../Synchronization_COMM/OTHERS_MANAGERS/scom_restart_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/OTHERS_MANAGERS/scom_restart_manager_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity scom_restart_manager_ent
+-- Compiling architecture RTL of scom_restart_manager_ent
+
+} {} {}} ../Synchronization_COMM/OTHERS_MANAGERS/scom_sync_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/OTHERS_MANAGERS/scom_sync_manager_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity scom_sync_manager_ent
+-- Compiling architecture RTL of scom_sync_manager_ent
+
 } {} {}} ../Synchronization_COMM/RMAP_TARGET/rmap_target_command_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/RMAP_TARGET/rmap_target_command_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -171,15 +372,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_command_ent
 -- Compiling architecture rtl of rmap_target_command_ent
 
-} {} {}} ../Synchronization_COMM/OTHERS_MANAGERS/scom_sync_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/OTHERS_MANAGERS/scom_sync_manager_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity scom_sync_manager_ent
--- Compiling architecture RTL of scom_sync_manager_ent
-
 } {} {}} ../Synchronization_COMM/scom_synchronization_comm_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Synchronization_COMM/Development/Synchronization_COMM/scom_synchronization_comm_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -189,13 +381,19 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package scom_avs_config_pkg
 -- Loading package scom_avs_config_registers_pkg
 -- Loading package rmap_target_pkg
+-- Loading package spw_codec_pkg
 -- Compiling entity scom_synchronization_comm_top
 -- Compiling architecture rtl of scom_synchronization_comm_top
+-- Loading entity scom_config_avalon_mm_stimulli
 -- Loading entity scom_avs_config_read_ent
 -- Loading entity scom_avs_config_write_ent
+-- Loading package fee_data_controller_pkg
+-- Loading entity scom_data_controller_top
 -- Loading entity scom_sync_manager_ent
 -- Loading entity scom_frame_manager_ent
 -- Loading entity scom_timecode_manager_ent
+-- Loading entity scom_restart_manager_ent
 -- Loading entity rmap_target_top
+-- Loading entity spw_mux_ent
 
 } {} {}}

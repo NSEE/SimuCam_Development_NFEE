@@ -2192,7 +2192,7 @@
  <module
    name="Synchronization_COMM_0"
    kind="Synchronization_COMM"
-   version="1"
+   version="1.1"
    enabled="1" />
  <module name="clk_100" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="100000000" />

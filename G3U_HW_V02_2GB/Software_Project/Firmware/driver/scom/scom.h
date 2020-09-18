@@ -118,6 +118,22 @@ typedef struct SRmapMemAreaPrt {
 	TRmapMemArea *puliRmapAreaPrt; /* RMAP Memory Area Pointer */
 } TSRmapMemAreaPrt;
 
+/* FEE Machine Config Register Struct */
+typedef struct SMachineControl {
+	bool bClear; /* FEE Machine Clear */
+	bool bStop; /* FEE Machine Stop */
+	bool bStart; /* FEE Machine Start */
+} TSMachineControl;
+
+/* Data Packet Config Register Struct */
+typedef struct SDataPacketConfig {
+	alt_u16 usiPacketLength; /* Data Packet Packet Length */
+	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
+	alt_u8 ucCcdNumber; /* Data Packet CCD Number */
+	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
+	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
+} TSDataPacketConfig;
+
 /* General Struct for Registers Access */
 typedef struct ScomChannel {
 	TSScomChannel xSScomChannel;
@@ -134,6 +150,8 @@ typedef struct ScomChannel {
 	TSRmapMemStatus xSRmapMemStatus;
 	TSRmapMemConfig xSRmapMemConfig;
 	TSRmapMemAreaPrt xSRmapMemAreaPrt;
+	TSMachineControl xSMachineControl;
+	TSDataPacketConfig xSDataPacketConfig;
 } TScomChannel;
 
 //! [public module structs definition]

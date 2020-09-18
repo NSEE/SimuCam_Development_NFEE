@@ -118,7 +118,8 @@ typedef struct FeeControl{
     tFEEStates eNextMode;
 
     TTrapModeControl xTrap;
-    TDpktErrorCopy	xErrorSWCtrl;
+    TDpktErrorCopy	xErrorSWCtrlFull;
+    TDpktErrorCopy	xErrorSWCtrlWin;
 
     tDataSource eDataSource;
 
