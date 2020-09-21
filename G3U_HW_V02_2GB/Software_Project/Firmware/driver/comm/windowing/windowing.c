@@ -96,6 +96,8 @@ bool bWindCopyMebWindowingParam(alt_u32 uliMebWindowingParamAddr, alt_u8 ucMemor
 			fprintf(fp, "\n");
 			fprintf(fp, "xDpktWindowingParam.uliLastEPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastEPacket);
 			fprintf(fp, "xDpktWindowingParam.uliLastFPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastFPacket);
+			fprintf(fp, "xDpktWindowingParam.uliXCoordinateError = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliXCoordinateError);
+			fprintf(fp, "xDpktWindowingParam.uliYCoordinateError = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliYCoordinateError);
 //		fprintf(fp, "\n");
 		}
 #endif

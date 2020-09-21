@@ -19,8 +19,6 @@ int cmpfunc (const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
 
-
-
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
 	unsigned char ucIL;
@@ -193,6 +191,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case Q_MEB_PUS:
 				vPusMebTask( pxMebCLocal );
 				break;
+			/* Master Sync */
 			case M_MASTER_SYNC:
 				/* Perform memory SWAP */
 				vSwapMemmory(pxMebCLocal);
@@ -205,20 +204,27 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				}
 				#endif
 				break;
-
+			/* Normal Sync */
 			case M_SYNC:
 				vTimeCodeMissCounter(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					//volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				break;
-
-			case M_PRE_MASTER:;
+			/* Last Sync */
+			case M_PRE_MASTER:
+				vTimeCodeMissCounter(pxMebCLocal);
+				vDebugSyncTimeCode(pxMebCLocal);
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"\n-------------- Sync --------------\n\n");
+					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+				}
+				#endif
 				for (int iCountFEE = 0; iCountFEE < N_OF_NFEE; iCountFEE++) {
 					if (bStartImgWinInj[iCountFEE] == TRUE) {
 						if ( bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
@@ -804,16 +810,16 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 xLeftImageWindowContentErr[iListCount].usiPxColX,
 														 xLeftImageWindowContentErr[iListCount].usiPxRowY,
 														 xLeftImageWindowContentErr[iListCount].usiPxValue);
-							/* #if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-									fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
-									fprintf(fp, "HW Position X :%i\n", xLeftImageWindowContentErr[iListCount].usiPxColX);
-									fprintf(fp, "HW Position Y :%i\n", xLeftImageWindowContentErr[iListCount].usiPxRowY);
-									fprintf(fp, "HW Start Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiCountFrames);
-									fprintf(fp, "HW Stop  Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiFramesActive);
-									fprintf(fp, "HW Pixel Value:%i\n", xLeftImageWindowContentErr[iListCount].usiPxValue);
-								}
-								#endif*/
+//							#if DEBUG_ON
+//							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//								fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
+//								fprintf(fp, "HW Position X :%i\n", xLeftImageWindowContentErr[iListCount].usiPxColX);
+//								fprintf(fp, "HW Position Y :%i\n", xLeftImageWindowContentErr[iListCount].usiPxRowY);
+//								fprintf(fp, "HW Start Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiCountFrames);
+//								fprintf(fp, "HW Stop  Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiFramesActive);
+//								fprintf(fp, "HW Pixel Value:%i\n", xLeftImageWindowContentErr[iListCount].usiPxValue);
+//							}
+//							#endif
 						}
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -829,16 +835,16 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 xRightImageWindowContentErr[iListCount].usiPxColX,
 														 xRightImageWindowContentErr[iListCount].usiPxRowY,
 														 xRightImageWindowContentErr[iListCount].usiPxValue);
-							/*#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
-								fprintf(fp, "HW Position X :%i\n", xRightImageWindowContentErr[iListCount].usiPxColX);
-								fprintf(fp, "HW Position Y :%i\n", xRightImageWindowContentErr[iListCount].usiPxRowY);
-								fprintf(fp, "HW Start Frame:%i\n", xRightImageWindowContentErr[iListCount].usiCountFrames);
-								fprintf(fp, "HW Stop  Frame:%i\n", xRightImageWindowContentErr[iListCount].usiFramesActive);
-								fprintf(fp, "HW Pixel Value:%i\n", xRightImageWindowContentErr[iListCount].usiPxValue);
-							}
-							#endif*/
+//							#if DEBUG_ON
+//							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
+//								fprintf(fp, "HW Position X :%i\n", xRightImageWindowContentErr[iListCount].usiPxColX);
+//								fprintf(fp, "HW Position Y :%i\n", xRightImageWindowContentErr[iListCount].usiPxRowY);
+//								fprintf(fp, "HW Start Frame:%i\n", xRightImageWindowContentErr[iListCount].usiCountFrames);
+//								fprintf(fp, "HW Stop  Frame:%i\n", xRightImageWindowContentErr[iListCount].usiFramesActive);
+//								fprintf(fp, "HW Pixel Value:%i\n", xRightImageWindowContentErr[iListCount].usiPxValue);
+//							}
+//							#endif
 						}
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -1839,31 +1845,31 @@ int iCompareImgWinContent (const void *cvpImgWinA, const void *cvpImgWinB) {
 
 	/*
 	 * Content need to be sorted as:
-	 *   -- 1st key: X position
-	 *   -- 2nd key: Y position
+	 *   -- 1st key: Y position
+	 *   -- 2nd key: X position
 	 */
 
 	TImageWindowContentErr *pxImgWinA = (TImageWindowContentErr *)cvpImgWinA;
 	TImageWindowContentErr *pxImgWinB = (TImageWindowContentErr *)cvpImgWinB;
 
-	/* 1st key (X position) compare */
-	if (pxImgWinA->usiPxColX > pxImgWinB->usiPxColX) {
+	/* 1st key (Y position) compare */
+	if (pxImgWinA->usiPxRowY > pxImgWinB->usiPxRowY) {
 		/* (ImgWinA > ImgWinB) : (return > 0) */
 		iCompResult = 1;
-	} else if (pxImgWinA->usiPxColX < pxImgWinB->usiPxColX) {
+	} else if (pxImgWinA->usiPxRowY < pxImgWinB->usiPxRowY) {
 		/* (ImgWinA < ImgWinB) : (return > 0) */
 		iCompResult = -1;
 	} else {
-		/* 1st key (X position) is the same */
-		/* 2nd key (Y position) compare */
-		if (pxImgWinA->usiPxRowY > pxImgWinB->usiPxRowY) {
+		/* 1st key (Y position) is the same */
+		/* 2nd key (X position) compare */
+		if (pxImgWinA->usiPxColX > pxImgWinB->usiPxColX) {
 			/* (ImgWinA > ImgWinB) : (return > 0) */
 			iCompResult = 1;
-		} else if (pxImgWinA->usiPxRowY < pxImgWinB->usiPxRowY) {
+		} else if (pxImgWinA->usiPxColX < pxImgWinB->usiPxColX) {
 			/* (ImgWinA < ImgWinB) : (return > 0) */
 			iCompResult = -1;
 		} else {
-			/* 2nd key (Y position) is the same */
+			/* 2nd key (X position) is the same */
 			/* (ImgWinA == ImgWinB) : (return == 0) */
 			iCompResult = 0;
 		}
