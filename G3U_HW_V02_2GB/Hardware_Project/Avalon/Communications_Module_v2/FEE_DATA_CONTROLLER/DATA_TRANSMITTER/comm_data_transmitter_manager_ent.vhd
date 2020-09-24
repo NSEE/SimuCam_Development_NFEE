@@ -25,6 +25,7 @@ entity comm_data_transmitter_manager_ent is
 		data_trans_housekeep_status_i   : in  t_comm_data_trans_status;
 		data_trans_fullimage_status_i   : in  t_comm_data_trans_status;
 		data_trans_windowing_status_i   : in  t_comm_data_trans_status;
+		data_trans_finished_o           : out std_logic;
 		data_trans_housekeep_control_o  : out t_comm_data_trans_control;
 		data_trans_fullimage_control_o  : out t_comm_data_trans_control;
 		data_trans_windowing_control_o  : out t_comm_data_trans_control
@@ -401,6 +402,7 @@ begin
 
 			-- Output Generation --
 			-- Default output generation
+			data_trans_finished_o          <= '0';
 			data_trans_housekeep_control_o <= c_COMM_DATA_TRANS_CONTROL_RST;
 			data_trans_fullimage_control_o <= c_COMM_DATA_TRANS_CONTROL_RST;
 			data_trans_windowing_control_o <= c_COMM_DATA_TRANS_CONTROL_RST;
@@ -522,6 +524,7 @@ begin
 				when FINISHED =>
 					-- data transmitter is finished
 					-- default output signals
+					data_trans_finished_o <= '1';
 					-- conditional output signals
 
 			end case;

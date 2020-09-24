@@ -172,8 +172,8 @@ architecture RTL of masking_machine_ent is
 	alias a_pixel_lsb is s_registered_window_data(15 downto 8);
 
 	-- error injection pixels bytes alias
-	alias a_errinj_pixel_msb is content_errinj_px_val_i(7 downto 0);
-	alias a_errinj_pixel_lsb is content_errinj_px_val_i(15 downto 8);
+	alias a_errinj_pixel_msb is content_errinj_px_val_i(15 downto 8);
+	alias a_errinj_pixel_lsb is content_errinj_px_val_i(7 downto 0);
 
 	-- data fetched flag
 	signal s_data_fetched : std_logic;

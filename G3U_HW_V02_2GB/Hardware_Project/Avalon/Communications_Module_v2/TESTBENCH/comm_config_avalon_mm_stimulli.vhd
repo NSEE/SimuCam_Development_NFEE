@@ -471,13 +471,13 @@ begin
 					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number              <= std_logic_vector(to_unsigned(3, 2));
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_OFF_MODE; -- N-FEE Off Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_ON_MODE; -- N-FEE On Mode
-					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_PATTERN_MODE; -- N-FEE Full-Image Pattern Mode
+										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_PATTERN_MODE; -- N-FEE Full-Image Pattern Mode
 					--										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_PATTERN_MODE; -- N-FEE Windowing Pattern Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_STANDBY_MODE; -- N-FEE Standby Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_MODE_PATTERN_MODE; -- N-FEE Full-Image Mode / Pattern Mode
 					--															avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_MODE_SSD_MODE; -- N-FEE Full-Image Mode / SSD Mode
 					--										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_PATTERN_MODE; -- N-FEE Windowing Mode / Pattern Mode
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDIMG_MODE; -- N-FEE Windowing Mode / SSD Image Mode
+--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDIMG_MODE; -- N-FEE Windowing Mode / SSD Image Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDWIN_MODE; -- N-FEE Windowing Mode / SSD Window Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_PERFORMANCE_TEST_MODE; -- N-FEE Performance Test Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_PAR_TRAP_PUMP_1_MODE_PUMP_MODE; -- N-FEE Parallel Trap Pumping 1 Mode / Pumping Mode
@@ -487,10 +487,14 @@ begin
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_SER_TRAP_PUMP_1_MODE; -- N-FEE Serial Trap Pumping 1 Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_SER_TRAP_PUMP_2_MODE; -- N-FEE Serial Trap Pumping 2 Mode
 					-- pixel delays parameters
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_start_delay        <= std_logic_vector(to_unsigned(1000, 32));
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_skip_delay         <= std_logic_vector(to_unsigned(500, 32));
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay         <= std_logic_vector(to_unsigned(100, 32));
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay          <= std_logic_vector(to_unsigned(50, 32));
+--					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_start_delay        <= std_logic_vector(to_unsigned(1000, 32));
+--					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_skip_delay         <= std_logic_vector(to_unsigned(500, 32));
+--					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay         <= std_logic_vector(to_unsigned(100, 32));
+--					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay          <= std_logic_vector(to_unsigned(50, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_start_delay        <= std_logic_vector(to_unsigned(1, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_skip_delay         <= std_logic_vector(to_unsigned(5, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay         <= std_logic_vector(to_unsigned(1, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay          <= std_logic_vector(to_unsigned(5, 32));
 					-- fee machine parameters
 					avs_config_wr_regs_o.fee_machine_config_reg.fee_buffer_overflow_en           <= '1';
 					avs_config_wr_regs_o.fee_machine_config_reg.left_pixels_storage_size         <= std_logic_vector(to_unsigned(100, 32));
@@ -501,7 +505,7 @@ begin
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_data_length_bytes  <= (others => '1');
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_data_length_bytes <= (others => '1');
-					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start             <= '1';
+--					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start             <= '1';
 
 				--				when 50 =>
 				--					avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_enable <= '1';

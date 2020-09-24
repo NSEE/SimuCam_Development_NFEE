@@ -30,6 +30,7 @@ entity comm_data_transmitter_top is
 		windowing_packet_order_list_i   : in  std_logic_vector(511 downto 0);
 		windowing_last_left_packet_i    : in  std_logic_vector(9 downto 0);
 		windowing_last_right_packet_i   : in  std_logic_vector(9 downto 0);
+		data_transmitter_finished_o     : out std_logic;
 		send_buffer_hkdata_control_o    : out t_fee_dpkt_send_buffer_control;
 		send_buffer_leftimg_control_o   : out t_fee_dpkt_send_buffer_control;
 		send_buffer_rightimg_control_o  : out t_fee_dpkt_send_buffer_control;
@@ -83,6 +84,7 @@ begin
 			data_trans_housekeep_status_i   => s_data_trans_housekeep_status,
 			data_trans_fullimage_status_i   => s_data_trans_fullimage_status,
 			data_trans_windowing_status_i   => s_data_trans_windowing_status,
+			data_trans_finished_o           => data_transmitter_finished_o,
 			data_trans_housekeep_control_o  => s_data_trans_housekeep_control,
 			data_trans_fullimage_control_o  => s_data_trans_fullimage_control,
 			data_trans_windowing_control_o  => s_data_trans_windowing_control
