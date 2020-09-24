@@ -195,7 +195,6 @@ architecture RTL of fee_data_controller_top is
 	signal s_right_imgdata_img_valid                : std_logic;
 	signal s_right_imgdata_ovs_valid                : std_logic;
 	-- data transmitter signals
-	signal s_data_transmitter_busy                  : std_logic;
 	signal s_data_transmitter_finished              : std_logic;
 	-- registered data packet parameters signals (for the entire read-out)
 	signal s_registered_dpkt_params                 : t_fee_dpkt_registered_params;
@@ -456,6 +455,7 @@ begin
 			windowing_packet_order_list_i   => s_registered_dpkt_params.windowing.packet_order_list,
 			windowing_last_left_packet_i    => s_registered_dpkt_params.windowing.last_left_packet,
 			windowing_last_right_packet_i   => s_registered_dpkt_params.windowing.last_right_packet,
+			data_transmitter_finished_o     => s_data_transmitter_finished,
 			send_buffer_hkdata_control_o    => s_hkdata_send_buffer_control,
 			send_buffer_leftimg_control_o   => s_left_imgdata_send_buffer_control,
 			send_buffer_rightimg_control_o  => s_right_imgdata_send_buffer_control,

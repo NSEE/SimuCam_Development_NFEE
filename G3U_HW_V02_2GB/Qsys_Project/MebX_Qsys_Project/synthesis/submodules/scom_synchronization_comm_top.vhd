@@ -166,17 +166,17 @@ begin
 	-- Config Avalon MM Testbench Stimulli Generate
 	g_scom_avs_config_testbench_stimulli : if (g_SCOM_TESTBENCH_MODE = '1') generate
 
---		-- Config Avalon MM Testbench Stimulli
---		scom_config_avalon_mm_stimulli_inst : entity work.scom_config_avalon_mm_stimulli
---			port map(
---				clk_i                       => a_avs_clock,
---				rst_i                       => a_reset,
---				avs_config_rd_regs_i        => s_config_rd_regs,
---				avs_config_wr_regs_o        => s_config_wr_regs,
---				avs_config_rd_readdata_o    => avs_config_readdata_o,
---				avs_config_rd_waitrequest_o => s_avs_config_read_waitrequest,
---				avs_config_wr_waitrequest_o => s_avs_config_write_waitrequest
---			);
+		-- Config Avalon MM Testbench Stimulli
+		scom_config_avalon_mm_stimulli_inst : entity work.scom_config_avalon_mm_stimulli
+			port map(
+				clk_i                       => a_avs_clock,
+				rst_i                       => a_reset,
+				avs_config_rd_regs_i        => s_config_rd_regs,
+				avs_config_wr_regs_o        => s_config_wr_regs,
+				avs_config_rd_readdata_o    => avs_config_readdata_o,
+				avs_config_rd_waitrequest_o => s_avs_config_read_waitrequest,
+				avs_config_wr_waitrequest_o => s_avs_config_write_waitrequest
+			);
 
 	end generate g_scom_avs_config_testbench_stimulli;
 

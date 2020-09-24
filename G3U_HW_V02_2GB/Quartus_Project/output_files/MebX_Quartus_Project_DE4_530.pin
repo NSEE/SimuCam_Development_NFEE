@@ -936,7 +936,7 @@ M2_DDR2_dm[7]                : C30       : output : SSTL-18 Class I   :         
 FSM_D[14]                    : C31       : bidir  : 2.5 V             :         : 1A        : Y              
 FSM_D[9]                     : C32       : bidir  : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : C33       :        :                   :         : 1A        :                
-FSM_A[0]                     : C34       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C34       :        :                   :         : 1A        :                
 FSM_D[10]                    : C35       : bidir  : 2.5 V             :         : 1A        : Y              
 GND                          : C36       : gnd    :                   :         :           :                
 GND                          : C37       : gnd    :                   :         :           :                
@@ -1398,7 +1398,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :      
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
+FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                
