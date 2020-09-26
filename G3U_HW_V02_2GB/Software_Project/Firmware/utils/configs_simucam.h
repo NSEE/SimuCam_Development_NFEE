@@ -17,8 +17,8 @@
 #include <OS_CPU.H>
 
 
-#define ETH_FILE_NAME "DEF/ETH"
-#define DEBUG_FILE_NAME "DEF/DEBUG"
+#define ETH_FILE_NAME "LDEF/ETH"
+#define DEBUG_FILE_NAME "LDEF/DEBUG"
 
 typedef struct ConfEth{
 	unsigned char ucIP[4];
@@ -118,6 +118,9 @@ extern TGlobal	xGlobal;
 /*Functions*/
 bool bLoadDefaultEthConf( void );
 bool bLoadDefaultDebugConf( void );
+
+void vLoadHardcodedEthConf( void );
+void vLoadHardcodedDebugConf( void );
 
 #if DEBUG_ON
 	void vShowEthConfig( void );

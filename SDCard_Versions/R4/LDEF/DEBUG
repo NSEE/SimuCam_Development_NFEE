@@ -1,0 +1,58 @@
+'IMT Use only - For Debug and General Control'
+'Sync (milliseconds)'
+S=6250;
+'Number of Lines (Height CCD)'
+L=4510;
+'OLN'
+O=50;
+'Number of Columns (Width CCD)'
+C=2295;
+'Pre scan serial'
+P=0;
+'Over scan serial'
+N=0;
+'Start Pixel Delay (milliseconds) (0)'
+G=0;
+'Skip Pxel Delay (nanoseconds) (110000)'
+K=110000;
+'Line Pixel Delay (nanoseconds) (90000)'
+J=90000;
+'ADC Pixel Delay (nanoseconds) (333)'
+M=333;
+'Buffer overflow enabled (1) ; Buffer overflow disabled (0)'
+T=1;
+'RMAP KEY (0xD1)'
+R=209;
+'Logical Addr 0x51'
+A=81;
+'SpaceWire LinkStart ? 1:(TRUE) 0:(FALSE) '
+Z=0;
+'(Not used!)Link SPW for the NFEE-0'
+B=0;
+'Delay at the to wait before empty the buffer, waiting HW (Fee Task) (milliseconds)'
+Y=50;
+'If the Debug messages are enable, than this feature will set the debug level of the messages'
+'0: All messages! REALY ALL! (Maybe this can crash the JTAG fifo tx)'
+'1: Custom, used only in especial debug cases, include all messages that are for temporary debugs + 2, 3, 4, 5, 6 and 7'
+'2: Warnings and minor progresses'
+'3: Custom, used only in especial debug cases, include all messages that are for temporary debugs + 4, 5, 6 and 7'
+'4: Main Progress and main messages (ex. Syncs, state changes)'
+'5: Custom, used only in especial debug cases, include all messages that are for temporary debugs + 6 and 7'
+'6: Main Progress Only + 7'
+'7: Only Critical Failures'
+'8 or higher: None - I want to be blind!'
+F=4;
+'Pattern type - 0:Official URD   1:Byte Sequencial    2:0xFF 0xFF    3:Pixel Sequencial'
+Q=0;
+'Data packet protocol ID ( 0xF0 = 240 , 0x02 = 2 ) (Use only decimal representation)'
+D=240;
+'Data Packet DPU Logical Address ( 0x50 = 80 )'
+H=80;
+'Sequence of CCD Redout - Range[0..3]'
+E=0.1.2.3;
+'Initial SPW Packet Lenght ( 32k LESIA = 32140 )'
+I=32140;
+'Pre Sync Period (milliseconds)'
+X=200;
+<<
+'Keep the "less than" (<) caracter, this is used in the parser'

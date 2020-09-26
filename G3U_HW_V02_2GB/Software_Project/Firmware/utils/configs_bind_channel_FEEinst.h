@@ -16,7 +16,7 @@
 #include <sys/alt_stdio.h>
 
 
-#define SPW_FILE_NAME "DEF/FEE"
+#define SPW_FILE_NAME "LDEF/FEE"
 
 
 typedef struct DefaultsCH{
@@ -29,6 +29,12 @@ extern TDefaultsCH xDefaultsCH;
 
 
 /*Functions*/
-bool bCHConfs( void );
+bool bLoadDefaultChannelsConf( void );
+
+void vLoadHardcodedChannelsConf( void );
+
+#if DEBUG_ON
+	void vShowChannelsConfig( void );
+#endif
 
 #endif

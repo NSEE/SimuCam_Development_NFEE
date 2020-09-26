@@ -178,7 +178,7 @@ void vFailSDCard( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vFailTestCriticasParts. (exit)\n");
+		debug(fp,"vFailSDCard. (exit)\n");
 	}
 	#endif
 
