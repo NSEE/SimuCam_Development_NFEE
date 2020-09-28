@@ -122,6 +122,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity delay_machine_ent
 -- Loading entity masking_machine_sc_fifo
 
+} {} {}} ../Communications_Module_v2/TESTBENCH/comm_tb_avs_left_read_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/TESTBENCH/comm_tb_avs_left_read_stimuli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity comm_tb_avs_left_read_stimuli
+-- Compiling architecture RTL of comm_tb_avs_left_read_stimuli
+
 } {} {}} ../Communications_Module_v2/comm_v2_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/comm_v2_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -182,8 +191,8 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package avalon_mm_spacewire_registers_pkg
 -- Loading package fee_data_controller_pkg
 -- Loading entity config_avalon_stimuli
--- Loading entity avalon_buffer_R_stimuli
--- Loading entity avalon_buffer_L_stimuli
+-- Loading entity comm_tb_avs_right_read_stimuli
+-- Loading entity comm_tb_avs_left_read_stimuli
 -- Loading package avalon_mm_spacewire_pkg
 -- Loading package comm_avm_buffers_pkg
 -- Loading package spw_codec_pkg
@@ -194,15 +203,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity delay_block_ent
 -- Loading entity cbuf_tb_avs_read_ent
 -- Loading entity cbuf_tb_avs_write_ent
-
-} {} {}} ../Communications_Module_v2/TESTBENCH/avalon_buffer_L_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/TESTBENCH/avalon_buffer_L_stimuli.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity avalon_buffer_L_stimuli
--- Compiling architecture RTL of avalon_buffer_L_stimuli
 
 } {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/comm_header_errinj_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/comm_header_errinj_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -282,15 +282,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package rmap_target_pkg
 -- Compiling entity rmap_target_user_ent
 -- Compiling architecture rtl of rmap_target_user_ent
-
-} {} {}} ../Communications_Module_v2/TESTBENCH/avalon_buffer_R_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/TESTBENCH/avalon_buffer_R_stimuli.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity avalon_buffer_R_stimuli
--- Compiling architecture RTL of avalon_buffer_R_stimuli
 
 } {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_sc_1k_fifo/send_buffer_sc_1k_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -524,16 +515,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body comm_data_transmitter_pkg
 -- Loading package comm_data_transmitter_pkg
 
-} {} {}} ../Communications_Module_v2/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/RMAP_TARGET/rmap_target_crc_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package rmap_target_crc_pkg
--- Compiling package body rmap_target_crc_pkg
--- Loading package rmap_target_crc_pkg
-
 } {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/altera_ipcore/altsyncram/comm_content_errinj_altsyncram/comm_content_errinj_altsyncram.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/ERROR_INJECTION/altera_ipcore/altsyncram/comm_content_errinj_altsyncram/comm_content_errinj_altsyncram.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -543,15 +524,13 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity comm_content_errinj_altsyncram
 -- Compiling architecture SYN of comm_content_errinj_altsyncram
 
-} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd
+} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_1_sc_fifo/send_buffer_1_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_1_sc_fifo/send_buffer_1_sc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package fee_data_controller_pkg
--- Compiling entity data_packet_header_gen_ent
--- Compiling architecture RTL of data_packet_header_gen_ent
+-- Compiling entity send_buffer_1_sc_fifo
+-- Compiling architecture SYN of send_buffer_1_sc_fifo
 
 } {} {}} ../Communications_Module_v2/TESTBENCH/config_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/TESTBENCH/config_avalon_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -564,13 +543,25 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity config_avalon_stimuli
 -- Compiling architecture RTL of config_avalon_stimuli
 
-} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_1_sc_fifo/send_buffer_1_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_1_sc_fifo/send_buffer_1_sc_fifo.vhd
+} {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity send_buffer_1_sc_fifo
--- Compiling architecture SYN of send_buffer_1_sc_fifo
+-- Loading package NUMERIC_STD
+-- Loading package fee_data_controller_pkg
+-- Compiling entity data_packet_header_gen_ent
+-- Compiling architecture RTL of data_packet_header_gen_ent
+
+} {} {}} ../Communications_Module_v2/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/RMAP_TARGET/rmap_target_crc_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package rmap_target_crc_pkg
+-- Compiling package body rmap_target_crc_pkg
+-- Loading package rmap_target_crc_pkg
 
 } {} {}} ../Communications_Module_v2/RMAP_TARGET/rmap_target_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/RMAP_TARGET/rmap_target_read_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -709,6 +700,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity send_buffer_0_sc_fifo
 -- Loading entity send_buffer_1_sc_fifo
 -- Loading entity send_buffer_sc_1k_fifo
+
+} {} {}} ../Communications_Module_v2/TESTBENCH/comm_tb_avs_right_read_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/TESTBENCH/comm_tb_avs_right_read_stimuli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity comm_tb_avs_right_read_stimuli
+-- Compiling architecture RTL of comm_tb_avs_right_read_stimuli
 
 } {} {}} ../Communications_Module_v2/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_data_writer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v2/Development/Communications_Module_v2/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_data_writer_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016

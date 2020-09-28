@@ -53,17 +53,17 @@ architecture RTL of testbench_top is
 	signal s_config_avalon_stimuli_mm_writedata   : std_logic_vector(31 downto 0); -- --          .writedata
 	signal s_config_avalon_stimuli_mm_read        : std_logic; --                                     --          .read
 
-	-- avalon_buffer_R_stimuli signals
-	signal s_avalon_buffer_R_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(20 downto 0); --          .address
-	signal s_avalon_buffer_R_stimuli_mm_write       : std_logic; --                                     --          .write
-	signal s_avalon_buffer_R_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
+	-- comm_tb_avs_right_read_stimuli signals
+	signal s_tb_avs_right_read_stimuli_mm_readdata    : std_logic_vector(255 downto 0);
+	signal s_tb_avs_right_read_stimuli_mm_waitrequest : std_logic;
+	signal s_tb_avs_right_read_stimuli_mm_address     : std_logic_vector(63 downto 0);
+	signal s_tb_avs_right_read_stimuli_mm_read        : std_logic;
 
-	-- avalon_buffer_L_stimuli signals
-	signal s_avalon_buffer_L_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(20 downto 0); --          .address
-	signal s_avalon_buffer_L_stimuli_mm_write       : std_logic; --                                     --          .write
-	signal s_avalon_buffer_L_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
+	-- comm_tb_avs_left_read_stimuli signals
+	signal s_tb_avs_left_read_stimuli_mm_readdata    : std_logic_vector(255 downto 0);
+	signal s_tb_avs_left_read_stimuli_mm_waitrequest : std_logic;
+	signal s_tb_avs_left_read_stimuli_mm_address     : std_logic_vector(63 downto 0);
+	signal s_tb_avs_left_read_stimuli_mm_read        : std_logic;
 
 	--dummy
 	signal s_dummy_spw_tx_flag    : t_rmap_target_spw_tx_flag;
@@ -151,32 +151,32 @@ begin
 			avalon_mm_read_o        => s_config_avalon_stimuli_mm_read
 		);
 
-	avalon_buffer_R_stimuli_inst : entity work.avalon_buffer_R_stimuli
+	comm_tb_avs_right_read_stimuli_inst : entity work.comm_tb_avs_right_read_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 21,
+			g_ADDRESS_WIDTH => 64,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
-			clk_i                   => clk200,
-			rst_i                   => rst,
-			avalon_mm_waitrequest_i => s_avalon_buffer_R_stimuli_mm_waitrequest,
-			avalon_mm_address_o     => s_avalon_buffer_R_stimuli_mm_address,
-			avalon_mm_write_o       => s_avalon_buffer_R_stimuli_mm_write,
-			avalon_mm_writedata_o   => s_avalon_buffer_R_stimuli_mm_writedata
+			clk_i                       => clk200,
+			rst_i                       => rst,
+			avs_avalon_mm_address_i     => s_tb_avs_right_read_stimuli_mm_address,
+			avs_avalon_mm_read_i        => s_tb_avs_right_read_stimuli_mm_read,
+			avs_avalon_mm_readata_o     => s_tb_avs_right_read_stimuli_mm_readdata,
+			avs_avalon_mm_waitrequest_o => s_tb_avs_right_read_stimuli_mm_waitrequest
 		);
 
-	avalon_buffer_L_stimuli_inst : entity work.avalon_buffer_L_stimuli
+	comm_tb_avs_left_read_stimuli_inst : entity work.comm_tb_avs_left_read_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 21,
+			g_ADDRESS_WIDTH => 64,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
-			clk_i                   => clk200,
-			rst_i                   => rst,
-			avalon_mm_waitrequest_i => s_avalon_buffer_L_stimuli_mm_waitrequest,
-			avalon_mm_address_o     => s_avalon_buffer_L_stimuli_mm_address,
-			avalon_mm_write_o       => s_avalon_buffer_L_stimuli_mm_write,
-			avalon_mm_writedata_o   => s_avalon_buffer_L_stimuli_mm_writedata
+			clk_i                       => clk200,
+			rst_i                       => rst,
+			avs_avalon_mm_address_i     => s_tb_avs_left_read_stimuli_mm_address,
+			avs_avalon_mm_read_i        => s_tb_avs_left_read_stimuli_mm_read,
+			avs_avalon_mm_readata_o     => s_tb_avs_left_read_stimuli_mm_readdata,
+			avs_avalon_mm_waitrequest_o => s_tb_avs_left_read_stimuli_mm_waitrequest
 		);
 
 	comm_v2_top_inst : entity work.comm_v2_top
@@ -195,14 +195,14 @@ begin
 			avs_config_read_i                   => '0',
 			avs_config_readdata_o               => open,
 			avs_config_waitrequest_o            => open,
-			avm_left_buffer_readdata_i          => (others => '1'),
-			avm_left_buffer_waitrequest_i       => '0',
-			avm_left_buffer_address_o           => open,
-			avm_left_buffer_read_o              => open,
-			avm_right_buffer_readdata_i         => (others => '1'),
-			avm_right_buffer_waitrequest_i      => '0',
-			avm_right_buffer_address_o          => open,
-			avm_right_buffer_read_o             => open,
+			avm_left_buffer_readdata_i          => s_tb_avs_left_read_stimuli_mm_readdata,
+			avm_left_buffer_waitrequest_i       => s_tb_avs_left_read_stimuli_mm_waitrequest,
+			avm_left_buffer_address_o           => s_tb_avs_left_read_stimuli_mm_address,
+			avm_left_buffer_read_o              => s_tb_avs_left_read_stimuli_mm_read,
+			avm_right_buffer_readdata_i         => s_tb_avs_right_read_stimuli_mm_readdata,
+			avm_right_buffer_waitrequest_i      => s_tb_avs_right_read_stimuli_mm_waitrequest,
+			avm_right_buffer_address_o          => s_tb_avs_right_read_stimuli_mm_address,
+			avm_right_buffer_read_o             => s_tb_avs_right_read_stimuli_mm_read,
 			feeb_interrupt_sender_irq_o         => s_irq_buffers,
 			rmap_interrupt_sender_irq_o         => s_irq_rmap,
 			spw_link_status_started_i           => s_spw_link_status_started,

@@ -65,17 +65,17 @@
 # Compile of comm_rmap_rw_manager_ent.vhd was successful.
 # Compile of comm_v2_top.vhd was successful.
 # Compile of config_avalon_stimuli.vhd was successful.
-# Compile of avalon_buffer_L_stimuli.vhd was successful.
-# Compile of avalon_buffer_R_stimuli.vhd was successful.
 # Compile of spw_controller_stimuli.vhd was successful.
 # Compile of cbuf_tb_avs_pkg.vhd was successful.
 # Compile of cbuf_tb_avs_write_ent.vhd was successful.
 # Compile of cbuf_tb_avs_read_ent.vhd was successful.
+# Compile of comm_tb_avs_right_read_stimuli.vhd was successful.
+# Compile of comm_tb_avs_left_read_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 71 compiles, 0 failed with no errors.
 vsim work.testbench_top
 # vsim work.testbench_top 
-# Start time: 01:28:05 on Sep 13,2020
+# Start time: 14:44:02 on Sep 28,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -95,8 +95,8 @@ vsim work.testbench_top
 # Loading work.comm_irq_manager_pkg(body)
 # Loading work.testbench_top(rtl)
 # Loading work.config_avalon_stimuli(rtl)
-# Loading work.avalon_buffer_r_stimuli(rtl)
-# Loading work.avalon_buffer_l_stimuli(rtl)
+# Loading work.comm_tb_avs_right_read_stimuli(rtl)
+# Loading work.comm_tb_avs_left_read_stimuli(rtl)
 # Loading work.windowing_fifo_pkg(body)
 # Loading work.comm_v2_top(rtl)
 # Loading work.comm_config_avalon_mm_stimulli(rtl)
@@ -161,37 +161,53 @@ vsim work.testbench_top
 # Loading work.delay_block_ent(rtl)
 # Loading work.cbuf_tb_avs_read_ent(rtl)
 # Loading work.cbuf_tb_avs_write_ent(rtl)
-# ** Warning: Design size of 28614 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 28502 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
-# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
-# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
-add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/*
+add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_right_imgdata_controller_top_inst/masking_machine_ent_inst/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: rfranca  Hostname: ACER-AN5-RF  ProcessID: 52292
-#           Attempting to use alternate WLF file "./wlftz8eekr".
+#           Attempting to use alternate WLF file "./wlftk5c9q5".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftz8eekr
+#           Using alternate file: ./wlftk5c9q5
+restart
+# ** Warning: Design size of 10435 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
 restart
 # Loading work.comm_config_avalon_mm_stimulli(rtl)
-# ** Warning: Design size of 19013 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 18984 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
-add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/comm_data_transmitter_manager_ent_inst/*
-add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_data_manager_ent_inst/*
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
 restart
-# ** Warning: Design size of 10449 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Loading work.comm_config_avalon_mm_stimulli(rtl)
+# ** Warning: Design size of 18984 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
-# Compile of comm_data_transmitter_manager_ent.vhd was successful.
-# Compile of comm_data_transmitter_top.vhd was successful.
-# Compile of fee_data_controller_top.vhd was successful.
-# 3 compiles, 0 failed with no errors.
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
 restart
-# Loading work.fee_data_controller_top(rtl)
-# Loading work.comm_data_transmitter_top(rtl)
-# Loading work.comm_data_transmitter_manager_ent(rtl)
-# ** Warning: Design size of 18992 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Loading work.comm_config_avalon_mm_stimulli(rtl)
+# ** Warning: Design size of 18984 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
-# End time: 01:45:18 on Sep 13,2020, Elapsed time: 0:17:13
-# Errors: 0, Warnings: 6
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+restart
+# Loading work.comm_config_avalon_mm_stimulli(rtl)
+# ** Warning: Design size of 18984 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+restart
+# Loading work.comm_config_avalon_mm_stimulli(rtl)
+# ** Warning: Design size of 18984 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
+restart
+# Loading work.comm_config_avalon_mm_stimulli(rtl)
+# ** Warning: Design size of 18984 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# End time: 15:23:31 on Sep 28,2020, Elapsed time: 0:39:29
+# Errors: 0, Warnings: 10
