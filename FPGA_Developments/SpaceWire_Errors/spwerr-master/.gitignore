@@ -1,0 +1,50 @@
+# All object, static libs and compiled elf files
+*.o
+*.so
+*.a
+*.elf
+*.vmem
+*.ddb
+*.csv
+*.spd
+
+# makepp cache file
+.makepp
+
+# Quartus out
+!*.qsf
+!*.qpf
+!*.qsys
+!*.sof
+*.ods#
+
+# Projeto
+
+.gitignore~git status
+
+#########################################################################################################
+# ignore ModelSim generated files and directories (temp files and so on)
+# https://github.com/github/gitignore/blob/master/Global/ModelSim.gitignore
+#########################################################################################################
+[_@]*
+# ignore compilation output of ModelSim
+*.mti
+*.dat
+*.dbs
+*.psm
+*.bak
+#*.cmp
+*.jpg
+*.html
+!*.bsf
+
+# ignore simulation output of ModelSim
+wlf*
+*.wlf
+*.vstf
+*.ucdb
+cov*/
+transcript*
+sc_dpiheader.h
+vsim.dbg
+*.do

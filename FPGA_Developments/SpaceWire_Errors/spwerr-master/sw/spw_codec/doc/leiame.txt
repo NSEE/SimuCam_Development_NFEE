@@ -1,0 +1,1 @@
+Esse é o pacote de encapsulamento do codec spw_light que o França utiliza hoje. É a interface de uso.
