@@ -3,6 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.spwpkg.all;
+use work.spwc_errinj_pkg.all;
 
 entity testbench_top is
 end entity testbench_top;
@@ -43,6 +44,18 @@ architecture RTL of testbench_top is
 	signal s_spwcfg_linkdis   : std_logic;
 	signal s_spwcfg_txdivcnt  : std_logic_vector(7 downto 0);
 
+	signal s_spwerr_start_errinj : std_logic;
+	signal s_spwerr_reset_errinj : std_logic;
+	signal s_spwerr_errinj_code  : std_logic_vector(3 downto 0);
+
+	signal s_stats_spw_started    : std_logic;
+	signal s_stats_spw_connecting : std_logic;
+	signal s_stats_spw_running    : std_logic;
+	signal s_error_spw_errdisc    : std_logic;
+	signal s_error_spw_errpar     : std_logic;
+	signal s_error_spw_erresc     : std_logic;
+	signal s_error_spw_errcred    : std_logic;
+
 begin
 
 	clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
@@ -50,6 +63,9 @@ begin
 	rst    <= '0' after 100 ns;
 
 	spwc_spacewire_channel_top_inst : entity work.spwc_spacewire_channel_top
+		generic map(
+			g_SPWC_TESTBENCH_MODE => '1'
+		)
 		port map(
 			reset_i                        => rst,
 			clk_100_i                      => clk100,
@@ -77,9 +93,9 @@ begin
 			spw_data_tx_command_txwrite_i  => '0',
 			spw_data_tx_command_txflag_i   => '0',
 			spw_data_tx_command_txdata_i   => (others => '0'),
-			spw_errinj_ctrl_start_errinj_i => '0',
-			spw_errinj_ctrl_reset_errinj_i => '0',
-			spw_errinj_ctrl_errinj_code_i  => (others => '0'),
+			spw_errinj_ctrl_start_errinj_i => s_spwerr_start_errinj,
+			spw_errinj_ctrl_reset_errinj_i => s_spwerr_reset_errinj,
+			spw_errinj_ctrl_errinj_code_i  => s_spwerr_errinj_code,
 			spw_link_status_started_o      => open,
 			spw_link_status_connecting_o   => open,
 			spw_link_status_running_o      => open,
@@ -104,17 +120,36 @@ begin
 	--	s_spw_codec_comm_si <= s_spw_codec_comm_so;
 
 	p_spw_cfg : process(clk100, rst) is
+		variable v_cnt : natural := 0;
 	begin
 		if rst = '1' then
-			s_spwcfg_autostart <= '0';
-			s_spwcfg_linkstart <= '0';
-			s_spwcfg_linkdis   <= '0';
-			s_spwcfg_txdivcnt  <= x"01";
+			s_spwcfg_autostart    <= '0';
+			s_spwcfg_linkstart    <= '0';
+			s_spwcfg_linkdis      <= '0';
+			s_spwcfg_txdivcnt     <= x"01";
+			s_spwerr_start_errinj <= '0';
+			s_spwerr_reset_errinj <= '0';
+			s_spwerr_errinj_code  <= c_SPWC_ERRINJ_CODE_NONE;
+			v_cnt                 := 0;
 		elsif rising_edge(clk100) then
 			s_spwcfg_autostart <= '1';
 			s_spwcfg_linkstart <= '0';
 			s_spwcfg_linkdis   <= '0';
 			s_spwcfg_txdivcnt  <= x"01";
+
+			s_spwerr_start_errinj <= '0';
+			s_spwerr_reset_errinj <= '0';
+			s_spwerr_errinj_code  <= c_SPWC_ERRINJ_CODE_NONE;
+			case (v_cnt) is
+				when 5000 =>
+					s_spwerr_start_errinj <= '1';
+				when 6000 =>
+					s_spwerr_reset_errinj <= '1';
+				when others =>
+					null;
+			end case;
+			v_cnt                 := v_cnt + 1;
+
 		end if;
 	end process p_spw_cfg;
 
@@ -157,13 +192,13 @@ begin
 			rxflag     => s_dummy_spw_rxflag,
 			rxdata     => s_dummy_spw_rxdata,
 			rxread     => s_dummy_spw_rxread,
-			started    => open,
-			connecting => open,
-			running    => open,
-			errdisc    => open,
-			errpar     => open,
-			erresc     => open,
-			errcred    => open,
+			started    => s_stats_spw_started,
+			connecting => s_stats_spw_connecting,
+			running    => s_stats_spw_running,
+			errdisc    => s_error_spw_errdisc,
+			errpar     => s_error_spw_errpar,
+			erresc     => s_error_spw_erresc,
+			errcred    => s_error_spw_errcred,
 			spw_di     => s_spw_codec_dummy_di,
 			spw_si     => s_spw_codec_dummy_si,
 			spw_do     => s_spw_codec_dummy_do,

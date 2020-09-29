@@ -17,6 +17,9 @@ use work.spwc_errinj_pkg.all;
 use work.spwc_leds_controller_pkg.all;
 
 entity spwc_spacewire_channel_top is
+	generic(
+		g_SPWC_TESTBENCH_MODE : std_logic := '0'
+	);
 	port(
 		reset_i                        : in  std_logic                    := '0'; --          --                    reset_sink.reset
 		clk_100_i                      : in  std_logic                    := '0'; --          --             clock_sink_100mhz.clk
@@ -198,27 +201,44 @@ begin
 			spw_codec_err_inj_status_o  => s_spw_codec_err_inj_status_spw
 		);
 
-	-- SpaceWire Data-Strobe Rx Diferential Inputs ALTIOBUF Instantiation
-	spwc_spw_rx_altiobuf_inst : entity work.spwc_spw_rx_altiobuf
-		port map(
-			datain(0)   => spw_lvds_p_data_in_i,
-			datain(1)   => spw_lvds_p_strobe_in_i,
-			datain_b(0) => spw_lvds_n_data_in_i,
-			datain_b(1) => spw_lvds_n_strobe_in_i,
-			dataout(0)  => s_spw_logical_data_in,
-			dataout(1)  => s_spw_logical_strobe_in
-		);
+	-- SpaceWire Data-Strobe Testbench Generate
+	g_spwc_ds_testbench : if (g_SPWC_TESTBENCH_MODE = '1') generate
 
-	-- SpaceWire Data-Strobe Tx Diferential Outputs ALTIOBUF Instantiation
-	spwc_spw_tx_altiobuf_inst : entity work.spwc_spw_tx_altiobuf
-		port map(
-			datain(0)    => s_spw_logical_data_out,
-			datain(1)    => s_spw_logical_strobe_out,
-			dataout(0)   => spw_lvds_p_data_out_o,
-			dataout(1)   => spw_lvds_p_strobe_out_o,
-			dataout_b(0) => spw_lvds_n_data_out_o,
-			dataout_b(1) => spw_lvds_n_strobe_out_o
-		);
+		s_spw_logical_data_in   <= spw_lvds_p_data_in_i;
+		s_spw_logical_strobe_in <= spw_lvds_p_strobe_in_i;
+		spw_lvds_p_data_out_o   <= s_spw_logical_data_out;
+		spw_lvds_p_strobe_out_o <= s_spw_logical_strobe_out;
+		spw_lvds_n_data_out_o   <= '0';
+		spw_lvds_n_strobe_out_o <= '0';
+
+	end generate g_spwc_ds_testbench;
+
+	-- SpaceWire Data-Strobe ALTIOBUF Generate
+	g_spwc_ds_altiobuff : if (g_SPWC_TESTBENCH_MODE = '0') generate
+
+		-- SpaceWire Data-Strobe Rx Diferential Inputs ALTIOBUF Instantiation
+		spwc_spw_rx_altiobuf_inst : entity work.spwc_spw_rx_altiobuf
+			port map(
+				datain(0)   => spw_lvds_p_data_in_i,
+				datain(1)   => spw_lvds_p_strobe_in_i,
+				datain_b(0) => spw_lvds_n_data_in_i,
+				datain_b(1) => spw_lvds_n_strobe_in_i,
+				dataout(0)  => s_spw_logical_data_in,
+				dataout(1)  => s_spw_logical_strobe_in
+			);
+
+		-- SpaceWire Data-Strobe Tx Diferential Outputs ALTIOBUF Instantiation
+		spwc_spw_tx_altiobuf_inst : entity work.spwc_spw_tx_altiobuf
+			port map(
+				datain(0)    => s_spw_logical_data_out,
+				datain(1)    => s_spw_logical_strobe_out,
+				dataout(0)   => spw_lvds_p_data_out_o,
+				dataout(1)   => spw_lvds_p_strobe_out_o,
+				dataout_b(0) => spw_lvds_n_data_out_o,
+				dataout_b(1) => spw_lvds_n_strobe_out_o
+			);
+
+	end generate g_spwc_ds_altiobuff;
 
 	-- SpaceWire LEDs Controller Instantiation
 	spwc_leds_controller_ent_inst : entity work.spwc_leds_controller_ent

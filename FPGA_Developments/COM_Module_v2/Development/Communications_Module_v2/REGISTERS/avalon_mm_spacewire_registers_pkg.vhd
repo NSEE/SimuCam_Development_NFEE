@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#B6#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#BB#;
 
 	-- Registers Types
 
@@ -283,11 +283,24 @@ package avalon_mm_spacewire_registers_pkg is
 		spw_errinj_n_repeat     : std_logic_vector(15 downto 0); -- Number of Times the SpaceWire Error Repeats
 	end record t_comm_spw_error_injection_control_wr_reg;
 
+	-- SpaceWire Codec Error Injection Control Register
+	type t_comm_spw_codec_errinj_control_wr_reg is record
+		errinj_ctrl_start_errinj : std_logic; -- Start SpaceWire Codec Error Injection
+		errinj_ctrl_reset_errinj : std_logic; -- Reset SpaceWire Codec Error Injection
+		errinj_ctrl_errinj_code  : std_logic_vector(3 downto 0); -- SpaceWire Codec Error Injection Error Code
+	end record t_comm_spw_codec_errinj_control_wr_reg;
+
+	-- SpaceWire Codec Error Injection Status Register
+	type t_comm_spw_codec_errinj_status_rd_reg is record
+		errinj_ctrl_errinj_busy  : std_logic; -- SpaceWire Codec Error Injection is Busy
+		errinj_ctrl_errinj_ready : std_logic; -- SpaceWire Codec Error Injection is Ready
+	end record t_comm_spw_codec_errinj_status_rd_reg;
+
 	-- RMAP Error Injection Control Register
 	type t_comm_rmap_error_injection_control_wr_reg is record
-		rmap_errinj_enable : std_logic; -- Enable for RMAP Error
-		rmap_errinj_err_id : std_logic_vector(3 downto 0); -- Error ID of RMAP Error
-		rmap_errinj_value  : std_logic_vector(31 downto 0); -- Value of RMAP Error
+		rmap_errinj_trigger : std_logic; -- Enable for RMAP Error
+		rmap_errinj_err_id  : std_logic_vector(3 downto 0); -- Error ID of RMAP Error
+		rmap_errinj_value   : std_logic_vector(31 downto 0); -- Value of RMAP Error
 	end record t_comm_rmap_error_injection_control_wr_reg;
 
 	-- Transmission Error Injection Control Register
@@ -420,6 +433,7 @@ package avalon_mm_spacewire_registers_pkg is
 		data_packet_errors_reg                    : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
 		data_packet_pixel_delay_reg               : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
 		spw_error_injection_control_reg           : t_comm_spw_error_injection_control_wr_reg; -- SpaceWire Error Injection Control Register
+		spw_codec_errinj_control_reg              : t_comm_spw_codec_errinj_control_wr_reg; -- SpaceWire Codec Error Injection Control Register
 		rmap_error_injection_control_reg          : t_comm_rmap_error_injection_control_wr_reg; -- RMAP Error Injection Control Register
 		trans_error_injection_control_reg         : t_comm_trans_error_injection_control_wr_reg; -- Transmission Error Injection Control Register
 		left_content_error_injection_control_reg  : t_comm_left_content_error_injection_control_wr_reg; -- Left Content Error Injection Control Register
@@ -442,6 +456,7 @@ package avalon_mm_spacewire_registers_pkg is
 		rmap_irq_flags_reg                       : t_comm_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
 		rmap_irq_number_reg                      : t_comm_rmap_irq_number_rd_reg; -- RMAP IRQ Number Register
 		data_packet_header_reg                   : t_comm_data_packet_header_rd_reg; -- Data Packet Header Register
+		spw_codec_errinj_status_reg              : t_comm_spw_codec_errinj_status_rd_reg; -- SpaceWire Codec Error Injection Status Register
 		left_content_error_injection_status_reg  : t_comm_left_content_error_injection_status_rd_reg; -- Left Content Error Injection Status Register
 		right_content_error_injection_status_reg : t_comm_right_content_error_injection_status_rd_reg; -- Right Content Error Injection Status Register
 		header_error_injection_status_reg        : t_comm_header_error_injection_status_rd_reg; -- Header Error Injection Status Register

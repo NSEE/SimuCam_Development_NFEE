@@ -332,6 +332,15 @@ typedef struct DpktSpacewireErrInj {
 	alt_u16 usiNRepeat; /* Number of Times the SpaceWire Error Repeats */
 } TDpktSpacewireErrInj;
 
+/* SpaceWire Codec Error Injection Control Register Struct */
+typedef struct DpktSpwCodecErrInj {
+	bool bStartErrInj; /* Start SpaceWire Codec Error Injection */
+	bool bResetErrInj; /* Reset SpaceWire Codec Error Injection */
+	alt_u8 ucErrInjErrCode; /* SpaceWire Codec Error Injection Error Code */
+	bool bErrInjBusy; /* SpaceWire Codec Error Injection is Busy */
+	bool bErrInjReady; /* SpaceWire Codec Error Injection is Ready */
+} TDpktSpwCodecErrInj;
+
 /* RMAP Error Injection Control Register Struct */
 typedef struct DpktRmapErrInj {
 	bool bTriggerErr; /* Trigger RMAP Error */
@@ -478,6 +487,7 @@ typedef struct DpktChannel {
 	TDpktDataPacketHeader xDpktDataPacketHeader;
 	TDpktPixelDelay xDpktPixelDelay;
 	TDpktSpacewireErrInj xDpktSpacewireErrInj;
+	TDpktSpwCodecErrInj xDpktSpwCodecErrInj;
 	TDpktRmapErrInj xDpktRmapErrInj;
 	TDpktTransmissionErrInj xDpktTransmissionErrInj;
 	TDpktLeftContentErrInj xDpktLeftContentErrInj;
