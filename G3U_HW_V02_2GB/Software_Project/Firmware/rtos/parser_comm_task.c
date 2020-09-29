@@ -87,6 +87,7 @@ void vParserCommTask(void *task_data) {
 						#endif
 						/* Loading the values to the variable that will be used for the state that perform
 						the action from PUS command*/
+                    	xTcPusL.usiPid	= PreParsedLocal.usiValues[1];
 						xTcPusL.usiCat	= PreParsedLocal.usiValues[2];
 						xTcPusL.usiType = PreParsedLocal.usiValues[3];
 						xTcPusL.usiSubType = PreParsedLocal.usiValues[4];
@@ -134,7 +135,7 @@ void vParserCommTask(void *task_data) {
 								#endif
 
 								/* Reply with the TM of connection */
-								vTMPusTestConnection( xTcPusL.usiPusId );
+								vTMPusTestConnection( xTcPusL.usiPusId, xTcPusL.usiPid, xTcPusL.usiCat );
 								break;
 
 							default:
@@ -173,7 +174,8 @@ void vParserCommTask(void *task_data) {
 								break;
 
 
-							case 31: /* TC_SYNCH_RESET [bndky]*/
+							/* TC_SYNCH_RESET */
+							case 31:
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SYNCH_RESET\n");
@@ -184,6 +186,8 @@ void vParserCommTask(void *task_data) {
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
+
+							/* TC_SCAMxx_RMAP_CONF_DUMP */
 							case 34:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								if ( usiFeeInstL <= N_OF_NFEE ) {

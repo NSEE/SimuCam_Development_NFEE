@@ -27,7 +27,7 @@ void vSendFEEStatus ( char cFEENumber, char cConfigMode );
 void vSendPusTM64 ( tTMPus xPcktPus );
 void vSendPusTM128 ( tTMPus xPcktPus );
 void vSendPusTM512 ( tTMPus xPcktPus );
-void vTMPusTestConnection( unsigned short int usiPusId );
+void vTMPusTestConnection( unsigned short int usiPusId, unsigned short int usiPid, unsigned short int usiCat );
 bool bSendUART512v2 ( char *cBuffer, short int siIdMessage );
 bool bSendUART128v2 ( char *cBuffer, short int siIdMessage );
 bool bSendUART64v2 ( char *cBuffer, short int siIdMessage );
