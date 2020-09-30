@@ -585,6 +585,30 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				bLeftExists = FALSE;
 				bRightExists = FALSE;
 			break;
+		/* TC_SCAMXX_SPW_ERR_TRIG */
+		case 46:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't configure SpaceWire errors while in MEB Config. Mode \n" );
+			}
+			#endif
+			break;
+		/* TC_SCAMXX_RMAP_ERR_TRIG */
+		case 47:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't configure RMAP errors while in MEB Config. Mode \n" );
+			}
+			#endif
+			break;
+		/* TC_SCAMXX_TICO_ERR_TRIG */
+		case 48:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't configure TimeCode errors while in MEB Config. Mode \n" );
+			}
+			#endif
+			break;
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
 		/* TC_SCAM_IMAGE_ERR_NOMOREPKT_TRIG */
@@ -601,7 +625,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 63:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "MEB Task: Can't configure error while in MEB Config. Mode \n" );
+				fprintf(fp, "MEB Task: Can't configure Transmission errors while in MEB Config. Mode \n" );
 			}
 			#endif
 			break;
@@ -1139,6 +1163,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Disconnect Error Injection */
 			switch (xPusL->usiValues[3])
 			{
+				/* Exchange Level Error: Parity Error */
+				/* Exchange Level Error: Disconnect Error */
 				case 1:
 					/* SPW Disable */
 					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
@@ -1155,6 +1181,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						fprintf(fp, "ERROR INJECTION: SPW Disconnect\n\n" );
 					#endif
 				break;
+				/* Exchange Level Error: Escape Sequence Error */
+				/* Exchange Level Error: Character Sequence Error */
+				/* Exchange Level Error: Credit Error */
+				/* Network Level Error: EEP Received */
 				case 5:
 					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
@@ -1170,6 +1200,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						fprintf(fp, "ERROR INJECTION: EEP received\n\n" );
 					#endif
 					break;
+				/* Network Level Error: Invalid Destination Address */
 				default:
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )

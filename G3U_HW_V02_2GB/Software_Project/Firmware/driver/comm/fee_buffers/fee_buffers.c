@@ -970,14 +970,14 @@ bool bFeebSetPxStorageSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSide, alt_u32 
 				vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 				/* The hardware need the storage size in Pixels, 2 Bytes = 1 Pixel */
 				vpxCommChannel->xFeeBuffer.xFeebMachineControl.uliLeftPxStorageSize =
-						(alt_u32)((uliPxStorageSizeBytes - FEEB_PX_INT_STORAGE_SIZE_BYTES - 2*(usiDataPktLength - FEEB_DATAPKT_HEADER_SIZE_BYTES)) / 2);
+						(alt_u32)(((uliPxStorageSizeBytes - FEEB_PX_INT_STORAGE_SIZE_BYTES - 2*(usiDataPktLength - FEEB_DATAPKT_HEADER_SIZE_BYTES)) / 2) - 1);
 				bStatus = TRUE;
 				break;
 			case eCommRightBuffer:
 				vpxCommChannel = (TCommChannel *) (pxFeebCh->xFeebDevAddr.uliFeebBaseAddr);
 				/* The hardware need the storage size in Pixels, 2 Bytes = 1 Pixel */
 				vpxCommChannel->xFeeBuffer.xFeebMachineControl.uliRightPxStorageSize =
-						(alt_u32)((uliPxStorageSizeBytes - FEEB_PX_INT_STORAGE_SIZE_BYTES - 2*(usiDataPktLength - FEEB_DATAPKT_HEADER_SIZE_BYTES)) / 2);
+						(alt_u32)(((uliPxStorageSizeBytes - FEEB_PX_INT_STORAGE_SIZE_BYTES - 2*(usiDataPktLength - FEEB_DATAPKT_HEADER_SIZE_BYTES)) / 2) - 1);
 				bStatus = TRUE;
 				break;
 			default:
