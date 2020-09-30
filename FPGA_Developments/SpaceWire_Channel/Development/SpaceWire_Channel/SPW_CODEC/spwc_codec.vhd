@@ -14,12 +14,14 @@ entity spwc_codec_ent is
 		spw_codec_timecode_tx_i     : in  t_spwc_codec_timecode_tx;
 		spw_codec_data_rx_command_i : in  t_spwc_codec_data_rx_command;
 		spw_codec_data_tx_command_i : in  t_spwc_codec_data_tx_command;
+		spw_codec_err_inj_command_i : in  t_spwc_codec_err_inj_command;
 		spw_codec_link_status_o     : out t_spwc_codec_link_status;
 		spw_codec_ds_encoding_tx_o  : out t_spwc_codec_ds_encoding_tx;
 		spw_codec_link_error_o      : out t_spwc_codec_link_error;
 		spw_codec_timecode_rx_o     : out t_spwc_codec_timecode_rx;
 		spw_codec_data_rx_status_o  : out t_spwc_codec_data_rx_status;
-		spw_codec_data_tx_status_o  : out t_spwc_codec_data_tx_status
+		spw_codec_data_tx_status_o  : out t_spwc_codec_data_tx_status;
+		spw_codec_err_inj_status_o  : out t_spwc_codec_err_inj_status
 	);
 end entity spwc_codec_ent;
 
@@ -74,7 +76,10 @@ begin
 			spw_di     => spw_codec_ds_encoding_rx_i.spw_di,
 			spw_si     => spw_codec_ds_encoding_rx_i.spw_si,
 			spw_do     => spw_codec_ds_encoding_tx_o.spw_do,
-			spw_so     => spw_codec_ds_encoding_tx_o.spw_so
+			spw_so     => spw_codec_ds_encoding_tx_o.spw_so,
+			err_inj_i  => spw_codec_err_inj_command_i.errinj,
+			err_sel_i  => spw_codec_err_inj_command_i.errsel,
+			err_stat_o => spw_codec_err_inj_status_o.errstat
 		);
 
 end architecture rtl;

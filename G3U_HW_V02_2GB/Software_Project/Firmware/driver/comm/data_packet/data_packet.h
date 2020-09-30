@@ -43,6 +43,15 @@ enum DpktCcdSide {
 	eDpktCcdSideF                 = 1u   /* F-FEE CCD Side F (Right) */
 } EDpktCcdSide;
 
+enum DpktSpwCodecErrId {
+	eDpktSpwCodecErrIdNone        = 0u,  /* SpaceWire Codec Error Injection Error ID for No Error */
+	eDpktSpwCodecErrIdDiscon      = 1u,  /* SpaceWire Codec Error Injection Error ID for Disconnection Error */
+	eDpktSpwCodecErrIdParity      = 2u,  /* SpaceWire Codec Error Injection Error ID for Parity Error */
+	eDpktSpwCodecErrIdEscape      = 3u,  /* SpaceWire Codec Error Injection Error ID for Escape (ESC+ESC) Error */
+	eDpktSpwCodecErrIdCredit      = 4u,  /* SpaceWire Codec Error Injection Error ID for Credit Error */
+	eDpktSpwCodecErrIdChar        = 5u,  /* SpaceWire Codec Error Injection Error ID for Char Error */
+} DpktSpwCodecErrId;
+
 enum DpktRmapErrId {
 	eDpktRmapErrIdInitLogAddr     = 0u,  /* RMAP Error Injection Error ID for Initiator Logical Address */
 	eDpktRmapErrIdInstructions    = 1u,  /* RMAP Error Injection Error ID for Instructions Field */
@@ -95,6 +104,9 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
 bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh);
+
+bool bDpktSetSpwCodecErrInj(TDpktChannel *pxDpktCh);
+bool bDpktGetSpwCodecErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh);

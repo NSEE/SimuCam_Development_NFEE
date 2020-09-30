@@ -174,6 +174,39 @@ bool bDpktGetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 	return (bStatus);
 }
 
+bool bDpktSetSpwCodecErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktSpwCodecErrInj = pxDpktCh->xDpktSpwCodecErrInj;
+
+		bStatus = TRUE;
+	}
+
+	return (bStatus);
+}
+
+bool bDpktGetSpwCodecErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktSpwCodecErrInj = vpxCommChannel->xDataPacket.xDpktSpwCodecErrInj;
+
+		bStatus = TRUE;
+
+	}
+
+	return (bStatus);
+}
+
 bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -821,6 +854,9 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetSpacewireErrInj(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetSpwCodecErrInj(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetRmapErrInj(pxDpktCh)) {

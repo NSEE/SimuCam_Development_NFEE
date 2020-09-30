@@ -4,6 +4,7 @@ use ieee.numeric_std.all;
 
 use work.spwpkg.all;
 use work.spwc_codec_pkg.all;
+use work.spwc_errinj_pkg.all;
 
 entity testbench_synchronization_top is
 end entity testbench_synchronization_top;
@@ -81,20 +82,24 @@ begin
 			spw_codec_timecode_tx_avs_i     => s_spw_codec_timecode_tx_avs,
 			spw_codec_data_rx_command_avs_i => s_spw_codec_data_rx_command_avs,
 			spw_codec_data_tx_command_avs_i => s_spw_codec_data_tx_command_avs,
+			spw_errinj_ctrl_control_avs_i   => c_SPWC_ERRINJ_CONTROLLER_CONTROL_RST,
 			spw_codec_link_status_spw_i     => s_spw_codec_link_status_spw,
 			spw_codec_link_error_spw_i      => s_spw_codec_link_error_spw,
 			spw_codec_timecode_rx_spw_i     => s_spw_codec_timecode_rx_spw,
 			spw_codec_data_rx_status_spw_i  => s_spw_codec_data_rx_status_spw,
 			spw_codec_data_tx_status_spw_i  => s_spw_codec_data_tx_status_spw,
+			spw_errinj_ctrl_status_spw_i    => c_SPWC_ERRINJ_CONTROLLER_STATUS_RST,
 			spw_codec_link_status_avs_o     => s_spw_codec_link_status_avs,
 			spw_codec_link_error_avs_o      => s_spw_codec_link_error_avs,
 			spw_codec_timecode_rx_avs_o     => s_spw_codec_timecode_rx_avs,
 			spw_codec_data_rx_status_avs_o  => s_spw_codec_data_rx_status_avs,
 			spw_codec_data_tx_status_avs_o  => s_spw_codec_data_tx_status_avs,
+			spw_errinj_ctrl_status_avs_o    => open,
 			spw_codec_link_command_spw_o    => s_spw_codec_link_command_spw,
 			spw_codec_timecode_tx_spw_o     => s_spw_codec_timecode_tx_spw,
 			spw_codec_data_rx_command_spw_o => s_spw_codec_data_rx_command_spw,
-			spw_codec_data_tx_command_spw_o => s_spw_codec_data_tx_command_spw
+			spw_codec_data_tx_command_spw_o => s_spw_codec_data_tx_command_spw,
+			spw_errinj_ctrl_control_spw_o   => open
 		);
 
 end architecture RTL;

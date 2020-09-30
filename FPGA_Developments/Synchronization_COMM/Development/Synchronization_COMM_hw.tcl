@@ -4,7 +4,7 @@
 
 
 # 
-# Synchronization_COMM "Synchronization_COMM" v11.
+# Synchronization_COMM "Synchronization_COMM" v1.2
 #  2019.08.15.20:34:01
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME Synchronization_COMM
-set_module_property VERSION 1.1
+set_module_property VERSION 1.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -237,6 +237,8 @@ add_interface_port conduit_end_spacewire_controller spw_data_rx_status_rxflag_i 
 add_interface_port conduit_end_spacewire_controller spw_data_rx_status_rxdata_i spw_data_rx_status_rxdata_signal Input 8
 add_interface_port conduit_end_spacewire_controller spw_data_tx_status_txrdy_i spw_data_tx_status_txrdy_signal Input 1
 add_interface_port conduit_end_spacewire_controller spw_data_tx_status_txhalff_i spw_data_tx_status_txhalff_signal Input 1
+add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_errinj_busy_i spw_errinj_ctrl_errinj_busy_signal Input 1
+add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_errinj_ready_i spw_errinj_ctrl_errinj_ready_signal Input 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_autostart_o spw_link_command_autostart_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_linkstart_o spw_link_command_linkstart_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_linkdis_o spw_link_command_linkdis_signal Output 1
@@ -248,7 +250,9 @@ add_interface_port conduit_end_spacewire_controller spw_data_rx_command_rxread_o
 add_interface_port conduit_end_spacewire_controller spw_data_tx_command_txwrite_o spw_data_tx_command_txwrite_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_data_tx_command_txflag_o spw_data_tx_command_txflag_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_data_tx_command_txdata_o spw_data_tx_command_txdata_signal Output 8
-
+add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_start_errinj_o spw_errinj_ctrl_start_errinj_signal Output 1
+add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_reset_errinj_o spw_errinj_ctrl_reset_errinj_signal Output 1
+add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_errinj_code_o spw_errinj_ctrl_errinj_code_signal Output 4
 
 # 
 # connection point conduit_end_rmap_mem_master_rmap_target
