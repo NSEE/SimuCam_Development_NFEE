@@ -41,8 +41,8 @@ typedef struct Simucam_MEB {
     unsigned char ucActualDDR;              /* Control the swap mechanism of DDRs ( 0: DDR0 or 1: DDR1 ) */
     unsigned char ucNextDDR;              /* Control the swap mechanism of DDRs ( 0: DDR0 or 1: DDR1 ) */
     /* Note 3: The EP and RT parameters are common to all the N-FEE simulation entities. */
-    float ucEP;                    			/* Exposure period [NFEESIM-UR-447] */
-    float ucRT;                    			/* CCD readout time [NFEESIM-UR-447] */
+    alt_u16 usiEP;                    			/* Exposure period [NFEESIM-UR-447] */
+    alt_u16 usiRT;                    			/* CCD readout time [NFEESIM-UR-447] */
     unsigned short int usiDelaySyncReset;
     float fLineTransferTime;
     float fPixelTransferTime;
@@ -61,11 +61,11 @@ extern OS_EVENT *xQueueSyncReset;   /*[bndky]*/
 void vSimucamStructureInit( TSimucam_MEB *xMeb );
 
 void vLoadDefaultEPValue( TSimucam_MEB *xMeb );
-void vChangeEPValue( TSimucam_MEB *xMeb, float ucValue );
-void vChangeDefaultEPValue( TSimucam_MEB *xMeb, float ucValue );
+void vChangeEPValue( TSimucam_MEB *xMeb, alt_u16 usiValue );
+void vChangeDefaultEPValue( TSimucam_MEB *xMeb, alt_u16 usiValue );
 void vLoadDefaultRTValue( TSimucam_MEB *xMeb );
-void vChangeRTValue( TSimucam_MEB *xMeb, float ucValue );
-void vChangeDefaultRTValue( TSimucam_MEB *xMeb, float ucValue );
+void vChangeRTValue( TSimucam_MEB *xMeb, alt_u16 usiValue );
+void vChangeDefaultRTValue( TSimucam_MEB *xMeb, alt_u16 usiValue );
 void vLoadDefaultSyncSource( TSimucam_MEB *xMeb );
 void vChangeSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
 void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );

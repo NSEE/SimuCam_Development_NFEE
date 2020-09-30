@@ -190,7 +190,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer128;
 
-#define N_64   8
+#define N_64   32
 typedef struct {
     char buffer[64];
     bool bSent;     /* Indicates if it was already transmited */
@@ -199,7 +199,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer64;
 
-#define N_32   8
+#define N_32   32
 typedef struct {
     char buffer[32];
     bool bSent;     /* Indicates if it was already transmited */

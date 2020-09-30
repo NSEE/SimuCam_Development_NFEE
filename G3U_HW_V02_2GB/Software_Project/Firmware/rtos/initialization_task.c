@@ -8,6 +8,8 @@
 
 #include "initialization_task.h"
 
+void bInitFTDI(void);
+
 void vInitialTask(void *task_data)
 {
 	INT8U error_code = OS_ERR_NONE;
@@ -16,7 +18,323 @@ void vInitialTask(void *task_data)
 		OSStatInit();
 	#endif
 
+	/* Clear all defaults structures */
+	vClearMebDefault();
+	for (alt_u8 ucFee = 0; ucFee < N_OF_NFEE; ucFee++) {
+		bClearFeeDefault(ucFee);
+	}
+	vClearNucDefault();
+
 /* ================== All the task that need syncronization should be started first ========================= */
+
+	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
+									NULL,
+									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
+									TIMEOUT_CHECKER_PRIO,
+									TIMEOUT_CHECKER_PRIO,
+									vTimeoutCheckerTask_stk,
+									TIMEOUT_CHECKER_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
+									NULL,
+									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
+									TIMEOUT_CHECKER_PRIO,
+									TIMEOUT_CHECKER_PRIO,
+									vTimeoutCheckerTask_stk,
+									TIMEOUT_CHECKER_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailTimeoutCheckerTaskCreate();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+
+	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vOutAckHandlerTask,
+									NULL,
+									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
+									OUT_ACK_TASK_PRIO,
+									OUT_ACK_TASK_PRIO,
+									vOutAckHandlerTask_stk,
+									OUT_ACK_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vOutAckHandlerTask,
+									NULL,
+									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
+									OUT_ACK_TASK_PRIO,
+									OUT_ACK_TASK_PRIO,
+									vOutAckHandlerTask_stk,
+									OUT_ACK_TASK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailOutAckHandlerTaskCreate();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+
+	/* Create the task that is responsible to handle incomming ack packet */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
+									NULL,
+									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
+									IN_ACK_TASK_PRIO,
+									IN_ACK_TASK_PRIO,
+									vInAckHandlerTask_stk,
+									IN_ACK_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
+									NULL,
+									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
+									IN_ACK_TASK_PRIO,
+									IN_ACK_TASK_PRIO,
+									vInAckHandlerTask_stk,
+									IN_ACK_TASK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailInAckHandlerTaskCreate();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+
+	/* Create the task that is responsible to parse all received messages */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vParserCommTask,
+									NULL,
+									(void *)&vParserCommTask_stk[PARSER_TASK_SIZE-1],
+									PARSER_TASK_PRIO,
+									PARSER_TASK_PRIO,
+									vParserCommTask_stk,
+									PARSER_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CHK + OS_TASK_OPT_STK_CLR);
+	#else
+		error_code = OSTaskCreateExt(vParserCommTask,
+									NULL,
+									(void *)&vParserCommTask_stk[PARSER_TASK_SIZE-1],
+									PARSER_TASK_PRIO,
+									PARSER_TASK_PRIO,
+									vParserCommTask_stk,
+									PARSER_TASK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailParserCommTaskCreate();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+
+	/* READ: Create the task that is responsible to READ UART buffer */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vReceiverUartTask,
+									NULL,
+									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
+									RECEIVER_TASK_PRIO,
+									RECEIVER_TASK_PRIO,
+									vReceiverUartTask_stk,
+									RECEIVER_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CHK + OS_TASK_OPT_STK_CLR);
+	#else
+		error_code = OSTaskCreateExt(vReceiverUartTask,
+									NULL,
+									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
+									RECEIVER_TASK_PRIO,
+									RECEIVER_TASK_PRIO,
+									vReceiverUartTask_stk,
+									RECEIVER_TASK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailReceiverCreate();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+
+	/* SEND: Create the task that is responsible to SEND UART packets */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vSenderComTask,
+									NULL,
+									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
+									SENDER_TASK_PRIO,
+									SENDER_TASK_PRIO,
+									senderTask_stk,
+									SENDER_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vSenderComTask,
+									NULL,
+									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
+									SENDER_TASK_PRIO,
+									SENDER_TASK_PRIO,
+									senderTask_stk,
+									SENDER_TASK_SIZE,
+									NULL,
+									0);
+	#endif
+
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+
+
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vStackMonitor,
+									NULL,
+									(void *)&vStackMonitor_stk[STACK_MONITOR_SIZE-1],
+									STACK_MONITOR_TASK_PRIO,
+									STACK_MONITOR_TASK_PRIO,
+									vStackMonitor_stk,
+									STACK_MONITOR_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK);
+	#endif
+
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"\n__________ Waiting NUC load _________ \n\n");
+	}
+	#endif
+
+
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for sender comm packets */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailSenderCreate();
+	}
+
+	/*	This is the timer that's trigger the task that implements the timeout/retransmission logic*/
+	OSTmrStart ((OS_TMR *)xTimerRetransmission, (INT8U  *)&error_code);
+	if ( error_code != OS_ERR_NONE) {
+		/*	Could not create the timer that syncs the task that is responsible to retransmit the packets*/
+		vFailStartTimerRetransmission();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 1, 0);
+
+
+/* =================================== Wait receival of defaults from NUC =================================== */
+
+
+	/* Wait until all defaults are received */
+	while (FALSE == vbDefaultsReceived) {
+		OSTimeDlyHMSM(0, 0, 1, 0);
+	}
+	OSTimeDlyHMSM(0, 0, DEFT_RETRANSMISSION_TIMEOUT, 0);
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"\n___________________ Finish Loading Defaults ____________________ \n\n");
+	}
+	#endif
+
+
+/* ================================== All defaults received. Load defaults ================================== */
+
+
+	/* MEB defaults */
+	xDefaults = vxDeftMebDefaults.xDebug;
+	vChangeSyncSource(&xSimMeb, vxDeftMebDefaults.ucSyncSource);
+	vChangeEPValue(&xSimMeb, vxDeftMebDefaults.usiExposurePeriod);
+	bEventReport = vxDeftMebDefaults.bEventReport;
+	bLogReport = vxDeftMebDefaults.bLogReport;
+
+	/* NUC defaults */
+	xConfEth = vxDeftNucDefaults.xEthernet;
+
+#if DEBUG_ON
+//		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		vShowDebugConfig();
+		vShowChannelsConfig();
+		vShowEthConfig();
+	}
+#endif
+
+	/* Start the structure of control of the Simucam Application, including all FEEs instances */
+	vSimucamStructureInit( &xSimMeb );
+
+	bInitSync();
+
+	bInitFTDI();
+
+	/* Initialize the Synchronization Provider Channel - [rfranca] */
+	vScomInit();
+
+	xGlobal.bSyncReset = FALSE;
+
+/* =========================== Defaults loaded. Initialize the rest of the tasks ============================ */
+
 
 	/* Create the first NFEE 0 Task */
 	#if ( STACK_MONITOR == 1)
@@ -229,7 +547,7 @@ void vInitialTask(void *task_data)
 
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
-	
+
 	/* Create the first Data Controller Task */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vDataControlTaskV2,
@@ -381,192 +699,6 @@ void vInitialTask(void *task_data)
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
-
-	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
-									NULL,
-									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
-									TIMEOUT_CHECKER_PRIO,
-									TIMEOUT_CHECKER_PRIO,
-									vTimeoutCheckerTask_stk,
-									TIMEOUT_CHECKER_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
-									NULL,
-									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
-									TIMEOUT_CHECKER_PRIO,
-									TIMEOUT_CHECKER_PRIO,
-									vTimeoutCheckerTask_stk,
-									TIMEOUT_CHECKER_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for receive comm packets */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailTimeoutCheckerTaskCreate();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
-	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vOutAckHandlerTask,
-									NULL,
-									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
-									OUT_ACK_TASK_PRIO,
-									OUT_ACK_TASK_PRIO,
-									vOutAckHandlerTask_stk,
-									OUT_ACK_TASK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vOutAckHandlerTask,
-									NULL,
-									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
-									OUT_ACK_TASK_PRIO,
-									OUT_ACK_TASK_PRIO,
-									vOutAckHandlerTask_stk,
-									OUT_ACK_TASK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for receive comm packets */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailOutAckHandlerTaskCreate();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
-	/* Create the task that is responsible to handle incomming ack packet */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
-									NULL,
-									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
-									IN_ACK_TASK_PRIO,
-									IN_ACK_TASK_PRIO,
-									vInAckHandlerTask_stk,
-									IN_ACK_TASK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
-									NULL,
-									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
-									IN_ACK_TASK_PRIO,
-									IN_ACK_TASK_PRIO,
-									vInAckHandlerTask_stk,
-									IN_ACK_TASK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for receive comm packets */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailInAckHandlerTaskCreate();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
-	/* Create the task that is responsible to parse all received messages */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vParserCommTask,
-									NULL,
-									(void *)&vParserCommTask_stk[PARSER_TASK_SIZE-1],
-									PARSER_TASK_PRIO,
-									PARSER_TASK_PRIO,
-									vParserCommTask_stk,
-									PARSER_TASK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CHK + OS_TASK_OPT_STK_CLR);
-	#else
-		error_code = OSTaskCreateExt(vParserCommTask,
-									NULL,
-									(void *)&vParserCommTask_stk[PARSER_TASK_SIZE-1],
-									PARSER_TASK_PRIO,
-									PARSER_TASK_PRIO,
-									vParserCommTask_stk,
-									PARSER_TASK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for receive comm packets */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailParserCommTaskCreate();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
-	/* READ: Create the task that is responsible to READ UART buffer */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vReceiverUartTask,
-									NULL,
-									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
-									RECEIVER_TASK_PRIO,
-									RECEIVER_TASK_PRIO,
-									vReceiverUartTask_stk,
-									RECEIVER_TASK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CHK + OS_TASK_OPT_STK_CLR);
-	#else
-		error_code = OSTaskCreateExt(vReceiverUartTask,
-									NULL,
-									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
-									RECEIVER_TASK_PRIO,
-									RECEIVER_TASK_PRIO,
-									vReceiverUartTask_stk,
-									RECEIVER_TASK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for receive comm packets */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailReceiverCreate();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
 	/* Create Sync-Reset Task [bndky] */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vSyncResetTask,
@@ -600,78 +732,8 @@ void vInitialTask(void *task_data)
 		vFailSyncResetCreate();
 	}
 
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
-	/* SEND: Create the task that is responsible to SEND UART packets */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vSenderComTask,
-									NULL,
-									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
-									SENDER_TASK_PRIO,
-									SENDER_TASK_PRIO,
-									senderTask_stk,
-									SENDER_TASK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vSenderComTask,
-									NULL,
-									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
-									SENDER_TASK_PRIO,
-									SENDER_TASK_PRIO,
-									senderTask_stk,
-									SENDER_TASK_SIZE,
-									NULL,
-									0);
-	#endif
-
-
 
 	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
-
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vStackMonitor,
-									NULL,
-									(void *)&vStackMonitor_stk[STACK_MONITOR_SIZE-1],
-									STACK_MONITOR_TASK_PRIO,
-									STACK_MONITOR_TASK_PRIO,
-									vStackMonitor_stk,
-									STACK_MONITOR_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK);
-	#endif
-
-
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		fprintf(fp,"\n__________ Waiting NUC load _________ \n\n");
-	}
-	#endif
-
-
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for sender comm packets */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailSenderCreate();
-	}
-
-	/*	This is the timer that's trigger the task that implements the timeout/retransmission logic*/
-	OSTmrStart ((OS_TMR *)xTimerRetransmission, (INT8U  *)&error_code);
-	if ( error_code != OS_ERR_NONE) {
-		/*	Could not create the timer that syncs the task that is responsible to retransmit the packets*/
-		vFailStartTimerRetransmission();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 1, 0);
 
 
 	/* Delete the Initialization Task  */
@@ -693,5 +755,17 @@ void vInitialTask(void *task_data)
 			OSTimeDlyHMSM(0,0,10,0); /* 1 sec */
 		}
 	}
+
+}
+
+void bInitFTDI(void){
+
+	vFtdiIrqRxHccdReceivedEn(TRUE);
+	vFtdiIrqRxHccdCommErrEn(TRUE);
+	vFtdiIrqTxLutFinishedEn(TRUE);
+	vFtdiIrqTxLutCommErrEn(TRUE);
+	vFtdiIrqGlobalEn(TRUE);
+	bFtdiRxIrqInit();
+	bFtdiTxIrqInit();
 
 }

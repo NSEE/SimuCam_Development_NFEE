@@ -661,9 +661,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 
 			/*Configure EP*/
-			//bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ); // Change to update ucEP em xMeb for STATUS REPORT
+			//bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ); // Change to update usiEP em xMeb for STATUS REPORT
 			if (bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ) == TRUE) {
-				pxMebCLocal->ucEP = ( (float) ulEP/1000);
+				pxMebCLocal->usiEP = (alt_u16)ulEP;
 			}
 
 
@@ -1022,7 +1022,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
-			/* todo: For now we can only update the Logical Address and the RAMP Key */
+			/* todo: For now we can only update the Logical Address and the RMAP Key */
 
 			/* Disable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);

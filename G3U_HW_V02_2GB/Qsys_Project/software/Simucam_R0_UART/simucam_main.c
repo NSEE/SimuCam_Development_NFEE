@@ -508,7 +508,7 @@ void vVariablesInitialization ( void ) {
 }
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
-void bInitFTDI(void);
+//void bInitFTDI(void);
 
 /* Entry point */
 int main(void)
@@ -636,15 +636,6 @@ int main(void)
 
 	}
 
-	#if DEBUG_ON
-//		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-			vShowDebugConfig();
-			vShowChannelsConfig();
-			vShowEthConfig();
-		}
-	#endif
-
 	/* This function creates all resources needed by the RTOS*/
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
@@ -660,22 +651,8 @@ int main(void)
 
 	vVariablesInitialization();
 
-	/* Start the structure of control of the Simucam Application, including all FEEs instances */
-	vSimucamStructureInit( &xSimMeb );
-
-	bInitSync();
-
-	bInitFTDI();
-
-	/* Initialize the Synchronization Provider Channel - [rfranca] */
-	vScomInit();
-
-	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
-
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
-
-	xGlobal.bSyncReset = FALSE;
 
 	/* Creating the initialization task*/
 	#if STACK_MONITOR
@@ -783,17 +760,5 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	debug(fp, "\nMemory Filled\n");
 	}
 #endif
-
-}
-
-void bInitFTDI(void){
-
-	vFtdiIrqRxHccdReceivedEn(TRUE);
-	vFtdiIrqRxHccdCommErrEn(TRUE);
-	vFtdiIrqTxLutFinishedEn(TRUE);
-	vFtdiIrqTxLutCommErrEn(TRUE);
-	vFtdiIrqGlobalEn(TRUE);
-	bFtdiRxIrqInit();
-	bFtdiTxIrqInit();
 
 }

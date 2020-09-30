@@ -70,27 +70,26 @@ bool bLoadDefaultEthConf( void ) {
 					case 10: 	//ASCII: 10 = LN
 					case 13: 	//ASCII: 13 = CR
 						break;
-					case 'M':
-
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xConfEth.ucMAC[min_sim(ucParser,5)] = (unsigned char)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
+//					case 'M':
+//
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xConfEth.ucMAC[min_sim(ucParser,5)] = (unsigned char)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
 					case 'I':
-
 						ucParser = 0;
 						do {
 							do {
@@ -143,7 +142,6 @@ bool bLoadDefaultEthConf( void ) {
 
 						break;
 					case 'H':
-
 						do {
 							c = cGetNextChar(siFile);
 							if ( isdigit( c ) ) {
@@ -162,9 +160,7 @@ bool bLoadDefaultEthConf( void ) {
 						p_inteiro = inteiro;
 
 						break;
-
 					case 'S':
-
 						ucParser = 0;
 						do {
 							do {
@@ -183,7 +179,6 @@ bool bLoadDefaultEthConf( void ) {
 
 						break;
 					case 'D':
-
 						ucParser = 0;
 						do {
 							do {
@@ -199,8 +194,22 @@ bool bLoadDefaultEthConf( void ) {
 							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
+						break;
+					case 'A':
+						ucParser = 0;
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-						break;						
+						xConfEth.ucPID = (unsigned char)atoi( inteiro );
+						p_inteiro = inteiro;
+
+						break;
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE){
@@ -725,14 +734,14 @@ void vLoadHardcodedEthConf( void ) {
 
 	/* Hard-coded ETH configurations */
 
-	/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
-	 *fc:f7:63:4d:1f:42*/
-	xConfEth.ucMAC[0] = 0xFC;
-	xConfEth.ucMAC[1] = 0xF7;
-	xConfEth.ucMAC[2] = 0x63;
-	xConfEth.ucMAC[3] = 0x4D;
-	xConfEth.ucMAC[4] = 0x1F;
-	xConfEth.ucMAC[5] = 0x42;
+//	/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
+//	 *fc:f7:63:4d:1f:42*/
+//	xConfEth.ucMAC[0] = 0xFC;
+//	xConfEth.ucMAC[1] = 0xF7;
+//	xConfEth.ucMAC[2] = 0x63;
+//	xConfEth.ucMAC[3] = 0x4D;
+//	xConfEth.ucMAC[4] = 0x1F;
+//	xConfEth.ucMAC[5] = 0x42;
 
 	/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
 	 *192.168.0.5*/
@@ -765,6 +774,8 @@ void vLoadHardcodedEthConf( void ) {
 	xConfEth.siPortPUS = 17000;
 
 	xConfEth.bDHCP = FALSE;
+
+	xConfEth.ucPID = 112;
 
 }
 
@@ -806,7 +817,7 @@ void vLoadHardcodedDebugConf( void ) {
 
 		fprintf(fp, "Ethernet loaded configurations:\n");
 
-		fprintf(fp, "  MAC: %02X:%02X:%02X:%02X:%02X:%02X \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
+//		fprintf(fp, "  MAC: %02X:%02X:%02X:%02X:%02X:%02X \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
 
 		fprintf(fp, "  IP: %i.%i.%i.%i \n", xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
 
@@ -819,6 +830,8 @@ void vLoadHardcodedDebugConf( void ) {
 		fprintf(fp, "  Server Port: %i\n", xConfEth.siPortPUS);
 
 		fprintf(fp, "  Use DHCP: %i\n", xConfEth.bDHCP);
+
+		fprintf(fp, "  PUS PID: %i\n", xConfEth.ucPID);
 
 		fprintf(fp, "\n");
 

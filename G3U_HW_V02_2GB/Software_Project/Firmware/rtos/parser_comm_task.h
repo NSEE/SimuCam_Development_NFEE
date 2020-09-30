@@ -16,7 +16,7 @@
 #include "../driver/reset/reset.h"
 #include "../utils/fee_controller.h"
 #include "../utils/meb.h"
-
+#include "../utils/defaults.h"
 
 typedef enum { sConfiguring = 0, sWaitingMessage, sRequestParsing, sReplyParsing, sPusHandling, sHandlingError } tParserStates;
 
@@ -24,6 +24,5 @@ void vParserCommTask(void *task_data);
 bool getPreParsedPacket( tPreParsed *xPreParsedParser );
 unsigned short int usiGetIdCMD ( void );
 bool bSendMessagePUStoMebTask( tTMPus *xPusL );
-void vConfigureDefaultValues(unsigned short int usiMebFee, unsigned short int usiID, unsigned long uiValue);
 
 #endif /* PARSER_COMM_TASK_H_ */
