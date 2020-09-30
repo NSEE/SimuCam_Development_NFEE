@@ -25,9 +25,10 @@ typedef struct ConfEth{
 	unsigned char ucGTW[4];
 	unsigned char ucSubNet[4];
 	unsigned char ucDNS[4];
-	unsigned char ucMAC[6];
+//	unsigned char ucMAC[6];
 	unsigned short int siPortPUS;
 	bool bDHCP;
+	unsigned char ucPID;
 }TConfEth;
 
 typedef struct Globals{

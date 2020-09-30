@@ -13,5 +13,7 @@ D=8.8.8.8;
 P=17000;
 'DHCP - Used by Mauá - let always 0 for Static IP [ 0 = OFF , 1 = ON]'
 H=1;
+'SimuCam PUS protocol PID'
+A=112;
 <<
 'Keep the "less than" (<) caracter, this is used in the parser'

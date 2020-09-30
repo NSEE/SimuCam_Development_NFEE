@@ -24,6 +24,7 @@
 #include "../utils/communication_configs.h"
 #include "../utils/communication_utils.h"
 #include "../utils/error_handler_simucam.h"
+#include "../utils/defaults.h"
 #include "../driver/comm/windowing/windowing.h"
 
 /* HK values enum */
@@ -53,7 +54,7 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd );
 void vInitialConfig_RMAPCodecConfig( TNFee *pxNFeeP );
 void vInitialConfig_DpktPacket( TNFee *pxNFeeP );
-void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP );
+void vInitialConfig_RmapMemArea( TNFee *pxNFeeP );
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode );
 void vWaitUntilBufferEmpty( unsigned char ucId );
 unsigned long int uliReturnMaskR( unsigned char ucChannel );

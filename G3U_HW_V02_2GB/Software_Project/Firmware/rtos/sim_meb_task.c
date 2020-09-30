@@ -548,6 +548,10 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
 				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 
+				bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+				bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
@@ -581,6 +585,30 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				bLeftExists = FALSE;
 				bRightExists = FALSE;
 			break;
+		/* TC_SCAMXX_SPW_ERR_TRIG */
+		case 46:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't configure SpaceWire errors while in MEB Config. Mode \n" );
+			}
+			#endif
+			break;
+		/* TC_SCAMXX_RMAP_ERR_TRIG */
+		case 47:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't configure RMAP errors while in MEB Config. Mode \n" );
+			}
+			#endif
+			break;
+		/* TC_SCAMXX_TICO_ERR_TRIG */
+		case 48:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't configure TimeCode errors while in MEB Config. Mode \n" );
+			}
+			#endif
+			break;
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
 		/* TC_SCAM_IMAGE_ERR_NOMOREPKT_TRIG */
@@ -593,9 +621,11 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 52:
 		/* TC_SCAM_WIN_ERR_MISSDATA_TRIG */
 		case 72:
+		/* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG */
+		case 63:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "MEB Task: Can't configure error while in MEB Config. Mode \n" );
+				fprintf(fp, "MEB Task: Can't configure Transmission errors while in MEB Config. Mode \n" );
 			}
 			#endif
 			break;
@@ -622,25 +652,6 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
 			break;
 
-		/* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG */
-		case 62:
-			usiFeeInstL = xPusL->usiValues[0];
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			#if DEBUG_ON
-				fprintf(fp, "\nTC_SCAM_WIN_ERR_ENABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
-			#endif
-			break;
-		case 63:
-			usiFeeInstL = xPusL->usiValues[0];
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = FALSE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			#if DEBUG_ON
-				fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
-			#endif
-			break;
 		/* TC_SCAM_FEE_TIME_CONFIG */
 		case 64:
 			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
@@ -661,9 +672,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 
 			/*Configure EP*/
-			//bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ); // Change to update ucEP em xMeb for STATUS REPORT
+			//bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ); // Change to update usiEP em xMeb for STATUS REPORT
 			if (bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ) == TRUE) {
-				pxMebCLocal->ucEP = ( (float) ulEP/1000);
+				pxMebCLocal->usiEP = (alt_u16)ulEP;
 			}
 
 
@@ -1022,7 +1033,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
-			/* todo: For now we can only update the Logical Address and the RAMP Key */
+			/* todo: For now we can only update the Logical Address and the RMAP Key */
 
 			/* Disable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
@@ -1152,6 +1163,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Disconnect Error Injection */
 			switch (xPusL->usiValues[3])
 			{
+				/* Exchange Level Error: Parity Error */
+				/* Exchange Level Error: Disconnect Error */
 				case 1:
 					/* SPW Disable */
 					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
@@ -1168,6 +1181,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						fprintf(fp, "ERROR INJECTION: SPW Disconnect\n\n" );
 					#endif
 				break;
+				/* Exchange Level Error: Escape Sequence Error */
+				/* Exchange Level Error: Character Sequence Error */
+				/* Exchange Level Error: Credit Error */
+				/* Network Level Error: EEP Received */
 				case 5:
 					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
@@ -1183,6 +1200,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						fprintf(fp, "ERROR INJECTION: EEP received\n\n" );
 					#endif
 					break;
+				/* Network Level Error: Invalid Destination Address */
 				default:
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -1315,6 +1333,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+			/* Enable Window List */
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"\nTC_SCAM_WIN_ERR_MISS_PKT_TRIG\n");
@@ -1328,6 +1350,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			/* Enable Window List */
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"\n TC_SCAM_WIN_ERR_NOMOREPKT_TRIG\n");
@@ -1357,6 +1383,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
 			bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
 
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
@@ -1391,27 +1421,21 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			bLeftExists = FALSE;
 			bRightExists = FALSE;
 			break;
-		/* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG */
-		case 62:
-			usiFeeInstL = xPusL->usiValues[0];
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			#if DEBUG_ON
-				fprintf(fp, "\nTC_SCAM_WIN_ERR_ENABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
-			#endif
-			break;
 		/* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG */
 		case 63:
 			usiFeeInstL = xPusL->usiValues[0];
 			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = FALSE;
 			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			/* Disable others windowing errors */
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
 			#if DEBUG_ON
-			fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
+				fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
 			#endif
-
 			break;
+
 		/* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG */
 		case 67:
 			usiFeeInstL = xPusL->usiValues[0];
@@ -1479,6 +1503,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+			/* Enable Window List */
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
 				fprintf(fp, "\nTC_SCAM_WIN_ERR_MISSDATA_TRIG\n" );
 			#endif

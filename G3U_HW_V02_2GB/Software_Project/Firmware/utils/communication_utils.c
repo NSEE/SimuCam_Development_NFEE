@@ -818,21 +818,18 @@ void vSendPusTM512 ( tTMPus xPcktPus ) {
 	}
 }
 
-
-
-
 /* TM_SCAM_TEST_CONNECTION */
 /* 
 hp-pck-type		hp-pid		hp-pcat		hp-srv-type		hp-srv-subtype
-0				112			0			17				2
+0				x			x			17				2
 */
-void vTMPusTestConnection( unsigned short int usiPusId ) {
+void vTMPusTestConnection( unsigned short int usiPusId, unsigned short int usiPid, unsigned short int usiCat ) {
 	tTMPus xTmPusL;
 
 	/* For now is hardcoded after full release of the pus I will create defines */
 	xTmPusL.usiPusId = usiPusId;
-	xTmPusL.usiPid = 112;
-	xTmPusL.usiCat = 0;
+	xTmPusL.usiPid = usiPid;
+	xTmPusL.usiCat = usiCat;
 	xTmPusL.usiType = 17;
 	xTmPusL.usiSubType = 2;
 	xTmPusL.ucNofValues = 0;
