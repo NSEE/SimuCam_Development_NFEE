@@ -48,6 +48,8 @@ entity scom_synchronization_comm_top is
 		spw_data_rx_status_rxdata_i         : in  std_logic_vector(7 downto 0)  := (others => '0'); --                                        .spw_data_rx_status_rxdata_signal
 		spw_data_tx_status_txrdy_i          : in  std_logic                     := '0'; --          --                                        .spw_data_tx_status_txrdy_signal
 		spw_data_tx_status_txhalff_i        : in  std_logic                     := '0'; --          --                                        .spw_data_tx_status_txhalff_signal
+		spw_errinj_ctrl_errinj_busy_i       : in  std_logic                     := '0'; --          --                                        .spw_errinj_ctrl_errinj_busy_signal
+		spw_errinj_ctrl_errinj_ready_i      : in  std_logic                     := '0'; --          --                                        .spw_errinj_ctrl_errinj_ready_signal
 		spw_link_command_autostart_o        : out std_logic; --                                     --                                        .spw_link_command_autostart_signal
 		spw_link_command_linkstart_o        : out std_logic; --                                     --                                        .spw_link_command_linkstart_signal
 		spw_link_command_linkdis_o          : out std_logic; --                                     --                                        .spw_link_command_linkdis_signal
@@ -59,6 +61,9 @@ entity scom_synchronization_comm_top is
 		spw_data_tx_command_txwrite_o       : out std_logic; --                                     --                                        .spw_data_tx_command_txwrite_signal
 		spw_data_tx_command_txflag_o        : out std_logic; --                                     --                                        .spw_data_tx_command_txflag_signal
 		spw_data_tx_command_txdata_o        : out std_logic_vector(7 downto 0); --                  --                                        .spw_data_tx_command_txdata_signal
+		spw_errinj_ctrl_start_errinj_o      : out std_logic; --                                     --                                        .spw_errinj_ctrl_start_errinj_signal
+		spw_errinj_ctrl_reset_errinj_o      : out std_logic; --                                     --                                        .spw_errinj_ctrl_reset_errinj_signal
+		spw_errinj_ctrl_errinj_code_o       : out std_logic_vector(3 downto 0); --                  --                                        .spw_errinj_ctrl_errinj_code_signal
 		rmm_rmap_target_wr_waitrequest_i    : in  std_logic                     := '0'; --          -- conduit_end_rmap_mem_master_rmap_target.wr_waitrequest_signal
 		rmm_rmap_target_readdata_i          : in  std_logic_vector(7 downto 0)  := (others => '0'); --                                        .readdata_signal
 		rmm_rmap_target_rd_waitrequest_i    : in  std_logic                     := '0'; --          --                                        .rd_waitrequest_signal
@@ -419,6 +424,8 @@ begin
 	s_mux_rx_channel_status.rxdata                           <= spw_data_rx_status_rxdata_i;
 	s_mux_tx_channel_status.txrdy                            <= spw_data_tx_status_txrdy_i;
 	s_mux_tx_channel_status.txhalff                          <= spw_data_tx_status_txhalff_i;
+	--	null                                                     <= spw_errinj_ctrl_errinj_busy_i;
+	--	null                                                     <= spw_errinj_ctrl_errinj_ready_i;
 	spw_link_command_autostart_o                             <= s_config_wr_regs.spw_link_config_reg.spw_lnkcfg_autostart;
 	spw_link_command_linkstart_o                             <= s_config_wr_regs.spw_link_config_reg.spw_lnkcfg_linkstart;
 	spw_link_command_linkdis_o                               <= s_config_wr_regs.spw_link_config_reg.spw_lnkcfg_disconnect;
@@ -430,6 +437,9 @@ begin
 	spw_data_tx_command_txwrite_o                            <= s_mux_tx_channel_command.txwrite;
 	spw_data_tx_command_txflag_o                             <= s_mux_tx_channel_command.txflag;
 	spw_data_tx_command_txdata_o                             <= s_mux_tx_channel_command.txdata;
+	spw_errinj_ctrl_start_errinj_o                           <= '0';
+	spw_errinj_ctrl_reset_errinj_o                           <= '0';
+	spw_errinj_ctrl_errinj_code_o                            <= (others => '0');
 
 	-- Channel Hk Signals Assigments
 	channel_hk_timecode_control_o       <= s_config_rd_regs.spw_timecode_status_reg.timecode_control;

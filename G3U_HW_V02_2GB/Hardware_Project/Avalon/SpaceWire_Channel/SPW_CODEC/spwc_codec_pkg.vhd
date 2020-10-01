@@ -104,4 +104,15 @@ package spwc_codec_pkg is
 		txhalff : std_logic;
 	end record t_spwc_codec_data_tx_status;
 
+	-- Codec Error Injection Command Signals
+	type t_spwc_codec_err_inj_command is record
+		errinj : std_logic;
+		errsel : t_spw_err_sel;
+	end record t_spwc_codec_err_inj_command;
+
+	-- Codec Error Injection Status Signals
+	type t_spwc_codec_err_inj_status is record
+		errstat : t_spw_err_stat;
+	end record t_spwc_codec_err_inj_status;
+
 end package spwc_codec_pkg;

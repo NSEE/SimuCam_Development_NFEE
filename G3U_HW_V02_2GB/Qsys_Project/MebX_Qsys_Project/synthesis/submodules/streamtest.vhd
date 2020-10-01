@@ -253,7 +253,11 @@ begin
             spw_di      => spw_di,
             spw_si      => spw_si,
             spw_do      => spw_do,
-            spw_so      => spw_so );
+            spw_so      => spw_so,
+            err_inj_i	=> '0',
+            err_sel_i	=> reserved,
+            err_stat_o	=> open
+            );
 
     -- Drive status indications.
     linkrun     <= s_running;

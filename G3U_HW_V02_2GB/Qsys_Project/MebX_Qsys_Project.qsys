@@ -2111,39 +2111,39 @@
  <module
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
-   version="1.4"
+   version="1.5"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
-   version="1.4"
+   version="1.5"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
-   version="1.4"
+   version="1.5"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
-   version="1.4"
+   version="1.5"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch5"
    kind="Communication_Module_v2"
-   version="1.4"
+   version="1.5"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch6"
    kind="Communication_Module_v2"
-   version="1.4"
+   version="1.5"
    enabled="1" />
  <module
    name="FTDI_UMFT601A_Module"
    kind="FTDI_UMFT601A_Module"
    version="2.3"
    enabled="1" />
- <module name="RMAP_Echoing" kind="RMAP_Echoing" version="1.1" enabled="1" />
+ <module name="RMAP_Echoing" kind="RMAP_Echoing" version="1.2" enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER"
    kind="SEVEN_SEGMENT_CONTROLLER"
@@ -2152,47 +2152,47 @@
  <module
    name="SpaceWire_Channel_A"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="SpaceWire_Channel_B"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="SpaceWire_Channel_C"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="SpaceWire_Channel_D"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="SpaceWire_Channel_E"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="SpaceWire_Channel_F"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="SpaceWire_Channel_G"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="SpaceWire_Channel_H"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    enabled="1" />
  <module
    name="Synchronization_COMM_0"
    kind="Synchronization_COMM"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module name="clk_100" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="100000000" />

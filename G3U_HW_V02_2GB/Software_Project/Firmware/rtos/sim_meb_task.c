@@ -630,6 +630,12 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 50:
 		/* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG */
 		case 67:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't configure Image Transmission errors while in MEB Config. Mode \n" );
+			}
+			#endif
+			break;
 		/* TC_SCAM_WIN_ERR_MISS_PKT_TRIG */
 		case 51:
 		/* TC_SCAM_WIN_ERR_NOMOREPKT_TRIG */
@@ -640,7 +646,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 63:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "MEB Task: Can't configure Transmission errors while in MEB Config. Mode \n" );
+				fprintf(fp, "MEB Task: Can't configure Windowing Transmission errors while in MEB Config. Mode \n" );
 			}
 			#endif
 			break;

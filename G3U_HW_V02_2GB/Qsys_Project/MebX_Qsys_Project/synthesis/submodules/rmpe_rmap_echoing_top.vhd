@@ -16,83 +16,88 @@ use work.rmpe_rmap_echoing_pkg.all;
 
 entity rmpe_rmap_echoing_top is
 	port(
-		reset_i                       : in  std_logic                    := '0'; --          --                       reset_sink.reset
-		clk_100_i                     : in  std_logic                    := '0'; --          --                clock_sink_100mhz.clk
-		rmap_echo_0_echo_en_i         : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_0_in.echo_en_signal
-		rmap_echo_0_echo_id_en_i      : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
-		rmap_echo_0_in_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
-		rmap_echo_0_in_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
-		rmap_echo_0_in_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
-		rmap_echo_0_out_fifo_wrflag_i : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
-		rmap_echo_0_out_fifo_wrdata_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
-		rmap_echo_0_out_fifo_wrreq_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
-		rmap_echo_1_echo_en_i         : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_1_in.echo_en_signal
-		rmap_echo_1_echo_id_en_i      : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
-		rmap_echo_1_in_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
-		rmap_echo_1_in_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
-		rmap_echo_1_in_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
-		rmap_echo_1_out_fifo_wrflag_i : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
-		rmap_echo_1_out_fifo_wrdata_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
-		rmap_echo_1_out_fifo_wrreq_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
-		rmap_echo_2_echo_en_i         : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_2_in.echo_en_signal
-		rmap_echo_2_echo_id_en_i      : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
-		rmap_echo_2_in_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
-		rmap_echo_2_in_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
-		rmap_echo_2_in_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
-		rmap_echo_2_out_fifo_wrflag_i : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
-		rmap_echo_2_out_fifo_wrdata_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
-		rmap_echo_2_out_fifo_wrreq_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
-		rmap_echo_3_echo_en_i         : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_3_in.echo_en_signal
-		rmap_echo_3_echo_id_en_i      : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
-		rmap_echo_3_in_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
-		rmap_echo_3_in_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
-		rmap_echo_3_in_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
-		rmap_echo_3_out_fifo_wrflag_i : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
-		rmap_echo_3_out_fifo_wrdata_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
-		rmap_echo_3_out_fifo_wrreq_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
-		rmap_echo_4_echo_en_i         : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_4_in.echo_en_signal
-		rmap_echo_4_echo_id_en_i      : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
-		rmap_echo_4_in_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
-		rmap_echo_4_in_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
-		rmap_echo_4_in_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
-		rmap_echo_4_out_fifo_wrflag_i : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
-		rmap_echo_4_out_fifo_wrdata_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
-		rmap_echo_4_out_fifo_wrreq_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
-		rmap_echo_5_echo_en_i         : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_5_in.echo_en_signal
-		rmap_echo_5_echo_id_en_i      : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
-		rmap_echo_5_in_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
-		rmap_echo_5_in_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
-		rmap_echo_5_in_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
-		rmap_echo_5_out_fifo_wrflag_i : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
-		rmap_echo_5_out_fifo_wrdata_i : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
-		rmap_echo_5_out_fifo_wrreq_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
-		spw_link_status_started_i     : in  std_logic                    := '0'; --          -- conduit_end_spacewire_controller.spw_link_status_started_signal
-		spw_link_status_connecting_i  : in  std_logic                    := '0'; --          --                                 .spw_link_status_connecting_signal
-		spw_link_status_running_i     : in  std_logic                    := '0'; --          --                                 .spw_link_status_running_signal
-		spw_link_error_errdisc_i      : in  std_logic                    := '0'; --          --                                 .spw_link_error_errdisc_signal
-		spw_link_error_errpar_i       : in  std_logic                    := '0'; --          --                                 .spw_link_error_errpar_signal
-		spw_link_error_erresc_i       : in  std_logic                    := '0'; --          --                                 .spw_link_error_erresc_signal
-		spw_link_error_errcred_i      : in  std_logic                    := '0'; --          --                                 .spw_link_error_errcred_signal		
-		spw_timecode_rx_tick_out_i    : in  std_logic                    := '0'; --          --                                 .spw_timecode_rx_tick_out_signal
-		spw_timecode_rx_ctrl_out_i    : in  std_logic_vector(1 downto 0) := (others => '0'); --                                 .spw_timecode_rx_ctrl_out_signal
-		spw_timecode_rx_time_out_i    : in  std_logic_vector(5 downto 0) := (others => '0'); --                                 .spw_timecode_rx_time_out_signal
-		spw_data_rx_status_rxvalid_i  : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxvalid_signal
-		spw_data_rx_status_rxhalff_i  : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxhalff_signal
-		spw_data_rx_status_rxflag_i   : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxflag_signal
-		spw_data_rx_status_rxdata_i   : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .spw_data_rx_status_rxdata_signal
-		spw_data_tx_status_txrdy_i    : in  std_logic                    := '0'; --          --                                 .spw_data_tx_status_txrdy_signal
-		spw_data_tx_status_txhalff_i  : in  std_logic                    := '0'; --          --                                 .spw_data_tx_status_txhalff_signal
-		spw_link_command_autostart_o  : out std_logic; --                                    --                                 .spw_link_command_autostart_signal
-		spw_link_command_linkstart_o  : out std_logic; --                                    --                                 .spw_link_command_linkstart_signal
-		spw_link_command_linkdis_o    : out std_logic; --                                    --                                 .spw_link_command_linkdis_signal
-		spw_link_command_txdivcnt_o   : out std_logic_vector(7 downto 0); --                 --                                 .spw_link_command_txdivcnt_signal
-		spw_timecode_tx_tick_in_o     : out std_logic; --                                    --                                 .spw_timecode_tx_tick_in_signal
-		spw_timecode_tx_ctrl_in_o     : out std_logic_vector(1 downto 0); --                 --                                 .spw_timecode_tx_ctrl_in_signal
-		spw_timecode_tx_time_in_o     : out std_logic_vector(5 downto 0); --                 --                                 .spw_timecode_tx_time_in_signal
-		spw_data_rx_command_rxread_o  : out std_logic; --                                    --                                 .spw_data_rx_command_rxread_signal
-		spw_data_tx_command_txwrite_o : out std_logic; --                                    --                                 .spw_data_tx_command_txwrite_signal
-		spw_data_tx_command_txflag_o  : out std_logic; --                                    --                                 .spw_data_tx_command_txflag_signal
-		spw_data_tx_command_txdata_o  : out std_logic_vector(7 downto 0) ---                 --                                 .spw_data_tx_command_txdata_signal
+		reset_i                        : in  std_logic                    := '0'; --          --                       reset_sink.reset
+		clk_100_i                      : in  std_logic                    := '0'; --          --                clock_sink_100mhz.clk
+		rmap_echo_0_echo_en_i          : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_0_in.echo_en_signal
+		rmap_echo_0_echo_id_en_i       : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		rmap_echo_0_in_fifo_wrflag_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
+		rmap_echo_0_in_fifo_wrdata_i   : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
+		rmap_echo_0_in_fifo_wrreq_i    : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
+		rmap_echo_0_out_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
+		rmap_echo_0_out_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
+		rmap_echo_0_out_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
+		rmap_echo_1_echo_en_i          : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_1_in.echo_en_signal
+		rmap_echo_1_echo_id_en_i       : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		rmap_echo_1_in_fifo_wrflag_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
+		rmap_echo_1_in_fifo_wrdata_i   : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
+		rmap_echo_1_in_fifo_wrreq_i    : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
+		rmap_echo_1_out_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
+		rmap_echo_1_out_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
+		rmap_echo_1_out_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
+		rmap_echo_2_echo_en_i          : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_2_in.echo_en_signal
+		rmap_echo_2_echo_id_en_i       : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		rmap_echo_2_in_fifo_wrflag_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
+		rmap_echo_2_in_fifo_wrdata_i   : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
+		rmap_echo_2_in_fifo_wrreq_i    : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
+		rmap_echo_2_out_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
+		rmap_echo_2_out_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
+		rmap_echo_2_out_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
+		rmap_echo_3_echo_en_i          : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_3_in.echo_en_signal
+		rmap_echo_3_echo_id_en_i       : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		rmap_echo_3_in_fifo_wrflag_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
+		rmap_echo_3_in_fifo_wrdata_i   : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
+		rmap_echo_3_in_fifo_wrreq_i    : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
+		rmap_echo_3_out_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
+		rmap_echo_3_out_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
+		rmap_echo_3_out_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
+		rmap_echo_4_echo_en_i          : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_4_in.echo_en_signal
+		rmap_echo_4_echo_id_en_i       : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		rmap_echo_4_in_fifo_wrflag_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
+		rmap_echo_4_in_fifo_wrdata_i   : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
+		rmap_echo_4_in_fifo_wrreq_i    : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
+		rmap_echo_4_out_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
+		rmap_echo_4_out_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
+		rmap_echo_4_out_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
+		rmap_echo_5_echo_en_i          : in  std_logic                    := '0'; --          --       conduit_end_rmap_echo_5_in.echo_en_signal
+		rmap_echo_5_echo_id_en_i       : in  std_logic                    := '0'; --          --                                 .echo_id_en_signal
+		rmap_echo_5_in_fifo_wrflag_i   : in  std_logic                    := '0'; --          --                                 .in_fifo_wrflag_signal
+		rmap_echo_5_in_fifo_wrdata_i   : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .in_fifo_wrdata_signal
+		rmap_echo_5_in_fifo_wrreq_i    : in  std_logic                    := '0'; --          --                                 .in_fifo_wrreq_signal
+		rmap_echo_5_out_fifo_wrflag_i  : in  std_logic                    := '0'; --          --                                 .out_fifo_wrflag_signal
+		rmap_echo_5_out_fifo_wrdata_i  : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .out_fifo_wrdata_signal
+		rmap_echo_5_out_fifo_wrreq_i   : in  std_logic                    := '0'; --          --                                 .out_fifo_wrreq_signal
+		spw_link_status_started_i      : in  std_logic                    := '0'; --          -- conduit_end_spacewire_controller.spw_link_status_started_signal
+		spw_link_status_connecting_i   : in  std_logic                    := '0'; --          --                                 .spw_link_status_connecting_signal
+		spw_link_status_running_i      : in  std_logic                    := '0'; --          --                                 .spw_link_status_running_signal
+		spw_link_error_errdisc_i       : in  std_logic                    := '0'; --          --                                 .spw_link_error_errdisc_signal
+		spw_link_error_errpar_i        : in  std_logic                    := '0'; --          --                                 .spw_link_error_errpar_signal
+		spw_link_error_erresc_i        : in  std_logic                    := '0'; --          --                                 .spw_link_error_erresc_signal
+		spw_link_error_errcred_i       : in  std_logic                    := '0'; --          --                                 .spw_link_error_errcred_signal		
+		spw_timecode_rx_tick_out_i     : in  std_logic                    := '0'; --          --                                 .spw_timecode_rx_tick_out_signal
+		spw_timecode_rx_ctrl_out_i     : in  std_logic_vector(1 downto 0) := (others => '0'); --                                 .spw_timecode_rx_ctrl_out_signal
+		spw_timecode_rx_time_out_i     : in  std_logic_vector(5 downto 0) := (others => '0'); --                                 .spw_timecode_rx_time_out_signal
+		spw_data_rx_status_rxvalid_i   : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxvalid_signal
+		spw_data_rx_status_rxhalff_i   : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxhalff_signal
+		spw_data_rx_status_rxflag_i    : in  std_logic                    := '0'; --          --                                 .spw_data_rx_status_rxflag_signal
+		spw_data_rx_status_rxdata_i    : in  std_logic_vector(7 downto 0) := (others => '0'); --                                 .spw_data_rx_status_rxdata_signal
+		spw_data_tx_status_txrdy_i     : in  std_logic                    := '0'; --          --                                 .spw_data_tx_status_txrdy_signal
+		spw_data_tx_status_txhalff_i   : in  std_logic                    := '0'; --          --                                 .spw_data_tx_status_txhalff_signal
+		spw_errinj_ctrl_errinj_busy_i  : in  std_logic                    := '0'; --          --                                 .spw_errinj_ctrl_errinj_busy_signal
+		spw_errinj_ctrl_errinj_ready_i : in  std_logic                    := '0'; --          --                                 .spw_errinj_ctrl_errinj_ready_signal
+		spw_link_command_autostart_o   : out std_logic; --                                    --                                 .spw_link_command_autostart_signal
+		spw_link_command_linkstart_o   : out std_logic; --                                    --                                 .spw_link_command_linkstart_signal
+		spw_link_command_linkdis_o     : out std_logic; --                                    --                                 .spw_link_command_linkdis_signal
+		spw_link_command_txdivcnt_o    : out std_logic_vector(7 downto 0); --                 --                                 .spw_link_command_txdivcnt_signal
+		spw_timecode_tx_tick_in_o      : out std_logic; --                                    --                                 .spw_timecode_tx_tick_in_signal
+		spw_timecode_tx_ctrl_in_o      : out std_logic_vector(1 downto 0); --                 --                                 .spw_timecode_tx_ctrl_in_signal
+		spw_timecode_tx_time_in_o      : out std_logic_vector(5 downto 0); --                 --                                 .spw_timecode_tx_time_in_signal
+		spw_data_rx_command_rxread_o   : out std_logic; --                                    --                                 .spw_data_rx_command_rxread_signal
+		spw_data_tx_command_txwrite_o  : out std_logic; --                                    --                                 .spw_data_tx_command_txwrite_signal
+		spw_data_tx_command_txflag_o   : out std_logic; --                                    --                                 .spw_data_tx_command_txflag_signal
+		spw_data_tx_command_txdata_o   : out std_logic_vector(7 downto 0); --                 --                                 .spw_data_tx_command_txdata_signal
+		spw_errinj_ctrl_start_errinj_o : out std_logic; --                                    --                                 .spw_errinj_ctrl_start_errinj_signal
+		spw_errinj_ctrl_reset_errinj_o : out std_logic; --                                    --                                 .spw_errinj_ctrl_reset_errinj_signal
+		spw_errinj_ctrl_errinj_code_o  : out std_logic_vector(3 downto 0) ---                 --                                 .spw_errinj_ctrl_errinj_code_signal
 	);
 end entity rmpe_rmap_echoing_top;
 
@@ -420,21 +425,27 @@ begin
 	p_spwc_codec_config : process(a_avs_clock_i, a_reset_i) is
 	begin
 		if (a_reset_i = '1') then
-			spw_link_command_autostart_o <= '0';
-			spw_link_command_linkstart_o <= '0';
-			spw_link_command_linkdis_o   <= '0';
-			spw_link_command_txdivcnt_o  <= x"01";
-			spw_timecode_tx_tick_in_o    <= '0';
-			spw_timecode_tx_ctrl_in_o    <= (others => '0');
-			spw_timecode_tx_time_in_o    <= (others => '0');
+			spw_link_command_autostart_o   <= '0';
+			spw_link_command_linkstart_o   <= '0';
+			spw_link_command_linkdis_o     <= '0';
+			spw_link_command_txdivcnt_o    <= x"01";
+			spw_timecode_tx_tick_in_o      <= '0';
+			spw_timecode_tx_ctrl_in_o      <= (others => '0');
+			spw_timecode_tx_time_in_o      <= (others => '0');
+			spw_errinj_ctrl_start_errinj_o <= '0';
+			spw_errinj_ctrl_reset_errinj_o <= '0';
+			spw_errinj_ctrl_errinj_code_o  <= (others => '0');
 		elsif rising_edge(a_avs_clock_i) then
-			spw_link_command_autostart_o <= '1';
-			spw_link_command_linkstart_o <= '0';
-			spw_link_command_linkdis_o   <= '0';
-			spw_link_command_txdivcnt_o  <= x"01";
-			spw_timecode_tx_tick_in_o    <= '0';
-			spw_timecode_tx_ctrl_in_o    <= (others => '0');
-			spw_timecode_tx_time_in_o    <= (others => '0');
+			spw_link_command_autostart_o   <= '1';
+			spw_link_command_linkstart_o   <= '0';
+			spw_link_command_linkdis_o     <= '0';
+			spw_link_command_txdivcnt_o    <= x"01";
+			spw_timecode_tx_tick_in_o      <= '0';
+			spw_timecode_tx_ctrl_in_o      <= (others => '0');
+			spw_timecode_tx_time_in_o      <= (others => '0');
+			spw_errinj_ctrl_start_errinj_o <= '0';
+			spw_errinj_ctrl_reset_errinj_o <= '0';
+			spw_errinj_ctrl_errinj_code_o  <= (others => '0');
 		end if;
 	end process p_spwc_codec_config;
 

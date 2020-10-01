@@ -687,7 +687,7 @@ begin
         xmito.fctack <= xmiti.fct_in and xmiti.txen and r.allow_fct and
                         (not r.pend_fct);
 
-        -- Set txrdy high if (character requested) AND (characters allowed) AND
+        -- Set txack high if (character requested) AND (characters allowed) AND
         -- (no character pending)
         xmito.txack <= xmiti.txwrite and xmiti.txen and r.allow_char and
                        (not r.pend_char);

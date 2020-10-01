@@ -40,7 +40,7 @@ set_fileset_property QUARTUS_SYNTH TOP_LEVEL spwc_spacewire_channel_top
 set_fileset_property QUARTUS_SYNTH ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property QUARTUS_SYNTH ENABLE_FILE_OVERWRITE_MODE true
 add_fileset_file spwpkg.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwpkg.vhd
-add_fileset_file syncdff.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwerr.vhd
+add_fileset_file spwerr.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwerr.vhd
 add_fileset_file spwlink.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwlink.vhd
 add_fileset_file spwram.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwram.vhd
 add_fileset_file spwrecv.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwrecv.vhd
@@ -106,7 +106,7 @@ set_fileset_property SIM_VHDL TOP_LEVEL spwc_spacewire_channel_top
 set_fileset_property SIM_VHDL ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property SIM_VHDL ENABLE_FILE_OVERWRITE_MODE true
 add_fileset_file spwpkg.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwpkg.vhd
-add_fileset_file syncdff.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwerr.vhd
+add_fileset_file spwerr.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwerr.vhd
 add_fileset_file spwlink.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwlink.vhd
 add_fileset_file spwram.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwram.vhd
 add_fileset_file spwrecv.vhd VHDL PATH SpaceWire_Channel/SPW_CODEC/spacewire_light_codec_err/spwrecv.vhd

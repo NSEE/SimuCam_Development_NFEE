@@ -185,11 +185,12 @@ architecture RTL of masking_machine_ent is
 	signal s_image_area : std_logic;
 
 	-- pixel overflow control
-	signal s_pixels_sent_cnt    : unsigned(31 downto 0);
-	signal s_pixels_overflowed  : std_logic;
-	signal s_pixels_losing_data : std_logic;
-	signal s_pixels_lost_start  : unsigned(31 downto 0);
-	signal s_pixels_lost_end    : unsigned(31 downto 0);
+	signal s_pixels_processed_cnt : unsigned(31 downto 0);
+	signal s_pixels_sent_cnt      : unsigned(31 downto 0);
+	signal s_pixels_overflowed    : std_logic;
+	signal s_pixels_losing_data   : std_logic;
+	signal s_pixels_lost_start    : unsigned(31 downto 0);
+	signal s_pixels_lost_end      : unsigned(31 downto 0);
 
 begin
 
@@ -264,6 +265,7 @@ begin
 			s_ccd_ovs_row_cnt              <= (others => '0');
 			s_data_fetched                 <= '0';
 			s_image_area                   <= '0';
+			s_pixels_processed_cnt         <= (others => '0');
 			s_pixels_sent_cnt              <= (others => '0');
 			s_pixels_overflowed            <= '0';
 			s_pixels_losing_data           <= '0';
@@ -297,6 +299,7 @@ begin
 					s_ccd_ovs_row_cnt              <= (others => '0');
 					s_data_fetched                 <= '0';
 					s_image_area                   <= '0';
+					s_pixels_processed_cnt         <= (others => '0');
 					s_pixels_sent_cnt              <= (others => '0');
 					s_pixels_overflowed            <= '0';
 					s_pixels_losing_data           <= '0';
@@ -331,6 +334,7 @@ begin
 					s_ccd_ovs_row_cnt              <= (others => '0');
 					s_data_fetched                 <= '0';
 					s_image_area                   <= '0';
+					s_pixels_processed_cnt         <= (others => '0');
 					s_pixels_sent_cnt              <= (others => '0');
 					s_pixels_overflowed            <= '0';
 					s_pixels_losing_data           <= '0';
@@ -464,8 +468,7 @@ begin
 										s_masking_machine_state        <= PIXEL_BYTE_MSB;
 										s_masking_machine_return_state <= PIXEL_BYTE_MSB;
 										-- check if the overflow is enabled and an overflow happened (the diference between sent pixels and ready pixels is bigger than the storage size)
-										--										if ((masking_buffer_overflow_i = '1') and (s_pixels_overflowed = '0') and (unsigned(s_delay_machine_current_ccd_pixel) - s_pixels_sent_cnt) > unsigned(pixels_storage_size_i) and (send_double_buffer_wrable_i = '0')) then
-										if ((masking_buffer_overflow_i = '1') and (s_pixels_overflowed = '0') and (unsigned(s_delay_machine_current_ccd_pixel) - s_pixels_sent_cnt) > unsigned(pixels_storage_size_i)) then
+										if ((masking_buffer_overflow_i = '1') and (s_pixels_overflowed = '0') and (unsigned(s_delay_machine_current_ccd_pixel) - s_pixels_processed_cnt) > unsigned(pixels_storage_size_i)) then
 											-- an overflow happened (the diference between sent pixels and ready pixels is bigger than the storage size)
 											-- set the overflowed flags
 											s_pixels_overflowed         <= '1';
@@ -493,6 +496,8 @@ begin
 					s_masking_fifo.wrreq           <= '0';
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
+					-- increment the pixels processed counter
+					s_pixels_processed_cnt         <= s_pixels_processed_cnt + 1;
 					-- check if not losing data
 					if (s_pixels_losing_data = '0') then
 						-- not losing data
@@ -553,10 +558,6 @@ begin
 								end if;
 							end if;
 						end if;
-					else
-						-- losing data
-						-- increment the pixels sent counter
-						s_pixels_sent_cnt <= s_pixels_sent_cnt + 1;
 					end if;
 					-- check if the content error injection is enabled and should be applied to the current pixel
 					if ((content_errinj_en_i = '1') and (s_ccd_row_cnt = content_errinj_px_row_i) and (s_ccd_column_cnt = content_errinj_px_col_i)) then
@@ -579,8 +580,10 @@ begin
 					s_first_pixel                  <= '0';
 					s_data_fetched                 <= '0';
 					-- check if an overflow happened but the overflow data loss ended
-					if ((s_pixels_overflowed = '1') and (s_pixels_sent_cnt >= s_pixels_lost_start)) then
+					if ((s_pixels_overflowed = '1') and (s_pixels_sent_cnt > unsigned(pixels_storage_size_i))) then
 						-- an overflow happened but the overflow data loss ended
+						-- clear the pixels sent counter
+						s_pixels_sent_cnt    <= (others => '0');
 						-- clear the pixels overflowed flag
 						s_pixels_overflowed  <= '0';
 						-- set the pixels losing data flag
@@ -590,7 +593,7 @@ begin
 						-- set the pixel where data loss ended
 						s_pixels_lost_end    <= unsigned(s_delay_machine_current_ccd_pixel);
 					-- check if in the middle of data loss and data loss ended
-					elsif ((s_pixels_losing_data = '1') and (s_pixels_sent_cnt >= s_pixels_lost_end)) then
+					elsif ((s_pixels_losing_data = '1') and (s_pixels_processed_cnt >= s_pixels_lost_end)) then
 						-- in the middle of data loss and data loss ended
 						-- clear the pixels losing data flag
 						s_pixels_losing_data <= '0';
@@ -748,7 +751,7 @@ begin
 	                                 else ('1') when (s_masking_fifo.usedw = std_logic_vector(to_unsigned(1, s_masking_fifo.usedw'length)))
 	                                 else ('0');
 
-	-- masking fifo wrready signal                                 	
+	-- masking fifo wrready signal
 	s_masking_fifo_wrable <= ('0') when (rst_i = '1')
 	                         else ('1') when (s_masking_fifo.usedw((s_masking_fifo.usedw'length - 1) downto (s_masking_fifo.usedw'length - c_MASKING_FIFO_WRREADY_VALUE'length)) /= c_MASKING_FIFO_WRREADY_VALUE)
 	                         else ('0');

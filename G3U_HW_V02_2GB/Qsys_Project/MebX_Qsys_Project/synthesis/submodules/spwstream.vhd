@@ -181,7 +181,16 @@ entity spwstream is
         spw_do:     out std_logic;
 
         -- Strobe Out signal to SpaceWire bus.
-        spw_so:     out std_logic
+        spw_so:     out std_logic;
+
+        -- Error injection main input request (active high)
+        err_inj_i:  in	std_logic;
+        
+        -- Error injection - error type selection
+        err_sel_i:	in	t_spw_err_sel;
+        
+        -- Error injection - status
+        err_stat_o: out	t_spw_err_stat
     );
 
 end entity spwstream;
@@ -384,7 +393,8 @@ begin
             wdata       => s_txfifo_wdata );
 
     -- Combinatorial process
-    process (r, linko, s_rxfifo_rdata, s_txfifo_rdata, rst, autostart, linkstart, linkdis, txdivcnt, tick_in, ctrl_in, time_in, txwrite, txflag, txdata, rxread)  is
+    process (r, linko, s_rxfifo_rdata, s_txfifo_rdata, rst, autostart, linkstart, linkdis,
+    		 txdivcnt, tick_in, ctrl_in, time_in, txwrite, txflag, txdata, rxread, err_inj_i, err_sel_i) is
         variable v:             regs_type;
         variable v_tmprxroom:   unsigned(rxfifosize_bits-1 downto 0);
         variable v_tmptxroom:   unsigned(txfifosize_bits-1 downto 0);
@@ -492,6 +502,8 @@ begin
         linki.txwrite   <= r.txfifo_rvalid and not r.txdiscard;
         linki.txflag    <= s_txfifo_rdata(8);
         linki.txdata    <= s_txfifo_rdata(7 downto 0);
+        linki.err_usr_i.err_inj_i <= err_inj_i;
+        linki.err_usr_i.err_sel_i <= err_sel_i;
 
         -- Drive divcnt input to spwxmit.
         if linko.running = '1' then
@@ -517,6 +529,7 @@ begin
         errpar      <= linko.errpar;
         erresc      <= linko.erresc;
         errcred     <= linko.errcred;
+        err_stat_o	<= linko.err_usr_o.err_stat_o;
 
         -- Reset.
         if rst = '1' then

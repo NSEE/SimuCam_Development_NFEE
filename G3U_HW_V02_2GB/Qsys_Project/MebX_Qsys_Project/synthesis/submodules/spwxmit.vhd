@@ -123,8 +123,14 @@ begin
             -- Transmitter enabled.
 
             v.allow_fct  := (not xmiti.stnull) and r.sent_null;
+            
+            -- If a char sequence error requested, force allow_char = '1'
+            if (xmiti.err_inj_ch_seq = '1') then
+            	v.allow_char := '1';
+            else  
             v.allow_char := (not xmiti.stnull) and r.sent_null and
                             (not xmiti.stfct) and r.sent_fct;
+            end if;
 
             -- On tick of transmission clock, put next bit on the output.
             if r.txclken = '1' then
@@ -145,7 +151,7 @@ begin
                         v.out_data  := r.parity;
                         v.bitshift(2 downto 0)  := "001";
                         v.bitcnt    := to_unsigned(3, v.bitcnt'length);
-                        v.parity    := '1';
+                       	v.parity    := '1';
                         v.sent_fct  := '1';
                     elsif (r.allow_char = '1') and (xmiti.txwrite = '1') then
                         -- Send N-Char.
@@ -166,7 +172,19 @@ begin
                     else
                         -- Send NULL.
                         v.out_data  := r.parity;
-                        v.bitshift(6 downto 0) := "0010111";
+                        -- Parity error injection check
+                        if (xmiti.err_inj_par = '1') then
+                        	-- Force wrong parity bit in fct portion code
+                        	-- It can´t be confused with eop, eep, or another esc.
+                        	v.bitshift(6 downto 0) := "0011111";
+						-- Escape error injection check                        	
+                        elsif (xmiti.err_inj_esc = '1') then
+                        	-- Force another esc in fct portion code: esc + esc.
+                        	v.bitshift(6 downto 0) := "1110111";
+                        -- Normal null code
+                        else
+                        	v.bitshift(6 downto 0) := "0010111";
+                        end if;
                         v.bitcnt    := to_unsigned(7, v.bitcnt'length);
                         v.parity    := '0';
                         v.sent_null := '1';
@@ -215,7 +233,7 @@ begin
             xmito.fctack  <= '0';
         end if;
 
-        -- Set txrdy high if (transmitter enabled) AND
+        -- Set txack high if (transmitter enabled) AND
         -- (ready for token) AND (characters enabled) AND
         -- (no timecode pending) AND (no FCT requested) AND
         -- (character requested)
