@@ -544,6 +544,21 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
 				bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 
+				/* Force the stop of any ongoing SpW Codec Errors */
+				bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+				bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+
+				/* Stop and correct SpW Destination Address Error */
+				if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+					xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				}
+
 				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
 				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
@@ -1158,57 +1173,269 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 			#endif
 		break;
-		case 46: /* TC_SCAMXX_SPW_ERR_TRIG */
+		/* TC_SCAMXX_SPW_ERR_TRIG */
+		case 46:
 			usiFeeInstL = xPusL->usiValues[0];
 			/* Disconnect Error Injection */
 			switch (xPusL->usiValues[3])
 			{
-				/* Exchange Level Error: Parity Error */
-				/* Exchange Level Error: Disconnect Error */
-				case 1:
-					/* SPW Disable */
-					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-					bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
 
-					/* SPW Enable */
-					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-					bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
-					#if DEBUG_ON
-						fprintf(fp, "ERROR INJECTION: SPW Disconnect\n\n" );
-					#endif
-				break;
-				/* Exchange Level Error: Escape Sequence Error */
-				/* Exchange Level Error: Character Sequence Error */
-				/* Exchange Level Error: Credit Error */
-				/* Network Level Error: EEP Received */
-				case 5:
+				/* Exchange Level Error: Parity Error */
+				case 0:
+					/* Stop others SpW Errors */
 					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
 					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop and correct SpW Destination Address Error */
+					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Force the stop of any ongoing SpW Codec Errors */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Wait SpW Codec Errors controller to be ready */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Inject the selected SpW Codec Error */
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdParity;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Parity Error\n" );
+					}
+					#endif
+					break;
+
+				/* Exchange Level Error: Disconnect Error */
+				case 1:
+					/* Stop others SpW Errors */
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop and correct SpW Destination Address Error */
+					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Force the stop of any ongoing SpW Codec Errors */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Wait SpW Codec Errors controller to be ready */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Inject the selected SpW Codec Error */
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdDiscon;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Disconnect Error\n" );
+					}
+					#endif
+					break;
+
+				/* Exchange Level Error: Escape Sequence Error */
+				case 2:
+					/* Stop others SpW Errors */
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop and correct SpW Destination Address Error */
+					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Force the stop of any ongoing SpW Codec Errors */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Wait SpW Codec Errors controller to be ready */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Inject the selected SpW Codec Error */
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdEscape;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Escape Sequence Error\n" );
+					}
+					#endif
+					break;
+
+				/* Exchange Level Error: Character Sequence Error */
+				case 3:
+					/* Stop others SpW Errors */
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop and correct SpW Destination Address Error */
+					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Force the stop of any ongoing SpW Codec Errors */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Wait SpW Codec Errors controller to be ready */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Inject the selected SpW Codec Error */
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdChar;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Character Sequence Error\n" );
+					}
+					#endif
+					break;
+
+				/* Exchange Level Error: Credit Error */
+				case 4:
+					/* Stop others SpW Errors */
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop and correct SpW Destination Address Error */
+					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Force the stop of any ongoing SpW Codec Errors */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Wait SpW Codec Errors controller to be ready */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Inject the selected SpW Codec Error */
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdCredit;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Character Sequence Error\n" );
+					}
+					#endif
+					break;
+
+				/* Network Level Error: EEP Received */
+				case 5:
+					/* Force the stop of any ongoing SpW Codec Errors */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop and correct SpW Destination Address Error */
+					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
+					/* Inject selected SpW Error */
 					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = TRUE;
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = xPusL->usiValues[2];
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = xPusL->usiValues[1];
 					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-						fprintf(fp, "ERROR INJECTION: EEP received\n\n" );
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Network Level Error - EEP Received\n" );
+					}
 					#endif
 					break;
+
 				/* Network Level Error: Invalid Destination Address */
+				case 6:
+					/* Force the stop of any ongoing SpW Codec Errors */
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop others SpW Errors */
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Inject selected SpW Error */
+					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr = pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr;
+					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = (alt_u8)xPusL->usiValues[1];
+					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = TRUE;
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Network Level Error - Invalid Destination Address\n" );
+					}
+					#endif
+					break;
+
 				default:
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp, "Invalid SPW error type\n\n" );
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Invalid Error\n" );
+					}
 					#endif
+					break;
 			}
 			break;
-		case 47: /* TC_SCAMXX_RMAP_ERR_TRIG */
+		/* TC_SCAMXX_RMAP_ERR_TRIG */
+		case 47:
 				usiFeeInstL = xPusL->usiValues[0];
 				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = xPusL->usiValues[1];
@@ -1216,10 +1443,11 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue    = (alt_u32)( (alt_u32)(xPusL->usiValues[3] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[4] & 0x0000ffff) );
 				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 				#if DEBUG_ON
-					fprintf(fp, "\nERROR INJECTION: RMAP ERROR\n" );
+					fprintf(fp, "TC_SCAMxx_RMAP_ERR_TRIG\n" );
 				#endif
 			break;
-		case 48: /* TC_SCAMXX_TICO_ERR_TRIG */
+		/* TC_SCAMXX_TICO_ERR_TRIG */
+		case 48:
 				usiFeeInstL = xPusL->usiValues[0];
 
 				switch (xPusL->usiValues[5]) {
@@ -1229,14 +1457,15 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp, "\nERROR INJECTION: MISSING TIMECODE\n" );
-					#endif
 					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 					xTimeCodeErrInj.bMissTC = TRUE;
 					xTimeCodeErrInj.bFEE_NUMBER[usiFeeInstL]  = TRUE;
 					xTimeCodeErrInj.usiMissCount[usiFeeInstL] = xPusL->usiValues[4];
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Time-Code Missing Error\n" );
+					}
+					#endif
 					break;
 
 				/* Wrong Time-Code Error */
@@ -1244,15 +1473,16 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = xPusL->usiValues[1];
 					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp, "\nERROR INJECTION: WRONG TIMECODE ON\n" );
-					#endif
 					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 					xTimeCodeErrInj.bWrongTC = TRUE;
 					xTimeCodeErrInj.bFEE_WRONG_NUMBER[usiFeeInstL] = TRUE;
 					xTimeCodeErrInj.usiWrongCount[usiFeeInstL] = xPusL->usiValues[4];
 					xTimeCodeErrInj.usiWrongOffSet[usiFeeInstL] = xPusL->usiValues[1];
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Wrong Time-Code Error\n" );
+					}
+					#endif
 					break;
 
 				/* Unexpected Time-Code Error */
@@ -1266,8 +1496,9 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					xTimeCodeErrInj.bUxp = TRUE;
 					xTimeCodeErrInj.bFEEUxp[usiFeeInstL] = TRUE;
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp, "\nERROR INJECTION: UNEXPECTED TIMECODE\n");
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Unexpected Time-Code Error\n" );
+					}
 					#endif
 					break;
 
@@ -1282,16 +1513,18 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					xTimeCodeErrInj.bJitter = TRUE;
 					xTimeCodeErrInj.usiJitterCount[usiFeeInstL] = xPusL->usiValues[4];
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp, "\nERROR INJECTION: JITTER TIMECODE\n" );
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Jitter on Time-Code Error\n" );
+					}
 					#endif
 					break;
 
 				/* Invalid Error Code */
 				default:
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp, "\nINVALID TIMECODE ERROR\n" );
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Invalid Error\n" );
+					}
 					#endif
 					break;
 				}
@@ -1409,6 +1642,21 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
 			bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+
+			/* Force the stop of any ongoing SpW Codec Errors */
+			bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+			bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+
+			/* Stop and correct SpW Destination Address Error */
+			if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+				xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+				bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+				bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			}
 
 			bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
 			bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);

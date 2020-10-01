@@ -67,6 +67,11 @@ typedef struct Defaults{
 	unsigned short int usiSpwPLength;
 }TDefaults;
 
+typedef struct SpacewireErrInj{
+	bool bDestinationErrorEn;
+	alt_u8 ucOriginalDestAddr;
+}TSpacewireErrInj;
+
 typedef struct TimeCodeErrInj{
 	bool  				bFEE_NUMBER[8];
 	alt_u16				usiMissCount[8];
@@ -106,6 +111,7 @@ extern alt_u8  usiRightImageWindowContentErr_Count;
 extern TImageWindowContentErr xLeftImageWindowContentErr[128];
 extern TImageWindowContentErr xRightImageWindowContentErr[128];
 extern TTimeCodeErrInj xTimeCodeErrInj;
+extern TSpacewireErrInj xSpacewireErrInj[N_OF_NFEE];
 extern bool bStartImgWinInj[N_OF_NFEE];
 extern bool bStartDataPktInj[N_OF_NFEE];
 
