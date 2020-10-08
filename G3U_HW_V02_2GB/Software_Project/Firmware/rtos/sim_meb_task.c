@@ -185,7 +185,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 	/* Check if the command is for MEB */
 	if ( uiCmdLocal.ucByte[3] == M_MEB_ADDR ) {
 		/* Parse the cmd that comes in the Queue */
-		volatile TCommChannel *vpxCommFChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+		volatile TCommChannel *vpxCommAChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 		switch (uiCmdLocal.ucByte[2]) {
 			/* Receive a PUS command */
 			case Q_MEB_PUS:
@@ -200,7 +200,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
-					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					fprintf(fp,"Channels TimeCode = %d\n", vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				break;
@@ -211,7 +211,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					fprintf(fp,"Channels TimeCode = %d\n", vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				break;
@@ -222,7 +222,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					fprintf(fp,"Channels TimeCode = %d\n", vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				for (int iCountFEE = 0; iCountFEE < N_OF_NFEE; iCountFEE++) {
@@ -561,6 +561,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
 				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 
 				bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
@@ -1418,6 +1420,13 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
 					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
 					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					/* Stop and correct SpW Destination Address Error */
+					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					}
 					/* Inject selected SpW Error */
 					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 					xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr = pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr;
@@ -1621,6 +1630,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
 			bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 
 			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);

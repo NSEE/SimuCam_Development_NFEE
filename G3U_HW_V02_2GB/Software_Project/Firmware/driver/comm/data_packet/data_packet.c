@@ -149,7 +149,9 @@ bool bDpktSetSpacewireErrInj(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktSpacewireErrInj = pxDpktCh->xDpktSpacewireErrInj;
+		vpxCommChannel->xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = pxDpktCh->xDpktSpacewireErrInj.usiSequenceCnt;
+		vpxCommChannel->xDataPacket.xDpktSpacewireErrInj.usiNRepeat = pxDpktCh->xDpktSpacewireErrInj.usiNRepeat;
+		vpxCommChannel->xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = pxDpktCh->xDpktSpacewireErrInj.bEepReceivedEn;
 
 		bStatus = TRUE;
 	}
@@ -182,7 +184,12 @@ bool bDpktSetSpwCodecErrInj(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktSpwCodecErrInj = pxDpktCh->xDpktSpwCodecErrInj;
+		vpxCommChannel->xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = pxDpktCh->xDpktSpwCodecErrInj.ucErrInjErrCode;
+		if (pxDpktCh->xDpktSpwCodecErrInj.bResetErrInj) {
+			vpxCommChannel->xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+		} else if (pxDpktCh->xDpktSpwCodecErrInj.bStartErrInj) {
+			vpxCommChannel->xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+		}
 
 		bStatus = TRUE;
 	}
@@ -215,7 +222,9 @@ bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktRmapErrInj = pxDpktCh->xDpktRmapErrInj;
+		vpxCommChannel->xDataPacket.xDpktRmapErrInj.ucErrorId = pxDpktCh->xDpktRmapErrInj.ucErrorId;
+		vpxCommChannel->xDataPacket.xDpktRmapErrInj.uliValue = pxDpktCh->xDpktRmapErrInj.uliValue;
+		vpxCommChannel->xDataPacket.xDpktRmapErrInj.bTriggerErr = pxDpktCh->xDpktRmapErrInj.bTriggerErr;
 
 		bStatus = TRUE;
 	}
@@ -248,7 +257,13 @@ bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj = pxDpktCh->xDpktTransmissionErrInj;
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxDpktCh->xDpktTransmissionErrInj.ucFrameNum;
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxDpktCh->xDpktTransmissionErrInj.usiSequenceCnt;
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxDpktCh->xDpktTransmissionErrInj.usiDataCnt;
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxDpktCh->xDpktTransmissionErrInj.usiNRepeat;
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxDpktCh->xDpktTransmissionErrInj.bTxDisabledEn;
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxDpktCh->xDpktTransmissionErrInj.bMissingPktsEn;
+		vpxCommChannel->xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxDpktCh->xDpktTransmissionErrInj.bMissingDataEn;
 
 		bStatus = TRUE;
 	}
