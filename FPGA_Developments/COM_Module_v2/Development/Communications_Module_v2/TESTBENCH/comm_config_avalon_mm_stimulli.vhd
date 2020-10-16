@@ -215,6 +215,12 @@ begin
 			avs_config_wr_regs_o.spw_error_injection_control_reg.spw_errinj_sequence_cnt                         <= std_logic_vector(to_unsigned(0, 16));
 			-- SpaceWire Error Injection Control Register : Number of Times the SpaceWire Error Repeats
 			avs_config_wr_regs_o.spw_error_injection_control_reg.spw_errinj_n_repeat                             <= std_logic_vector(to_unsigned(0, 16));
+			-- SpaceWire Codec Error Injection Control Register : Start SpaceWire Codec Error Injection
+			avs_config_wr_regs_o.spw_codec_errinj_control_reg.errinj_ctrl_start_errinj                           <= '0';
+			-- SpaceWire Codec Error Injection Control Register : Reset SpaceWire Codec Error Injection
+			avs_config_wr_regs_o.spw_codec_errinj_control_reg.errinj_ctrl_reset_errinj                           <= '0';
+			-- SpaceWire Codec Error Injection Control Register : SpaceWire Codec Error Injection Error Code
+			avs_config_wr_regs_o.spw_codec_errinj_control_reg.errinj_ctrl_errinj_code                            <= (others => '0');
 			-- RMAP Error Injection Control Register : Enable for RMAP Error
 			avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_trigger                            <= '0';
 			-- RMAP Error Injection Control Register : Error ID of RMAP Error
@@ -375,8 +381,12 @@ begin
 			avs_config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear                           <= '0';
 			-- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
 			avs_config_wr_regs_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                                <= '0';
+			-- SpaceWire Codec Error Injection Control Register : Start SpaceWire Codec Error Injection
+			avs_config_wr_regs_o.spw_codec_errinj_control_reg.errinj_ctrl_start_errinj                           <= '0';
+			-- SpaceWire Codec Error Injection Control Register : Reset SpaceWire Codec Error Injection
+			avs_config_wr_regs_o.spw_codec_errinj_control_reg.errinj_ctrl_reset_errinj                           <= '0';
 			-- RMAP Error Injection Control Register : Enable for RMAP Error
-			avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_trigger                             <= '0';
+			avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_trigger                            <= '0';
 			-- Left Content Error Injection Control Register : Open the Left Content Error List
 			avs_config_wr_regs_o.left_content_error_injection_control_reg.left_content_errinj_open               <= '0';
 			-- Left Content Error Injection Control Register : Close the Left Content Error List
@@ -496,14 +506,46 @@ begin
 					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay         <= std_logic_vector(to_unsigned(100, 32));
 					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay          <= std_logic_vector(to_unsigned(50, 32));
 					-- fee machine parameters
-					avs_config_wr_regs_o.fee_machine_config_reg.fee_buffer_overflow_en           <= '1';
+					avs_config_wr_regs_o.fee_machine_config_reg.fee_buffer_overflow_en           <= '0';
 					avs_config_wr_regs_o.fee_machine_config_reg.left_pixels_storage_size         <= std_logic_vector(to_unsigned(10, 32));
 					avs_config_wr_regs_o.fee_machine_config_reg.right_pixels_storage_size        <= std_logic_vector(to_unsigned(10, 32));
 					avs_config_wr_regs_o.fee_machine_config_reg.fee_digitalise_en                <= '1';
 					avs_config_wr_regs_o.fee_machine_config_reg.fee_readout_en                   <= '1';
 					-- windowing parameters
 					avs_config_wr_regs_o.windowing_parameters_reg.windowing_last_e_packet        <= std_logic_vector(to_unsigned(0, 10));
-					avs_config_wr_regs_o.windowing_parameters_reg.windowing_last_f_packet        <= std_logic_vector(to_unsigned(1, 10));
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_last_f_packet        <= std_logic_vector(to_unsigned(0, 10));
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_0  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_1  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_2  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_3  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_4  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_5  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_6  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_7  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_8  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_9  <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_10 <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_11 <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_12 <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_13 <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_14 <= x"55555555";
+					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_15 <= x"55555555";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_0  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_1  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_2  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_3  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_4  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_5  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_6  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_7  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_8  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_9  <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_10 <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_11 <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_12 <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_13 <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_14 <= x"AAAAAAAA";
+--					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_15 <= x"AAAAAAAA";
 --					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_0  <= x"FFFFFFFF";
 --					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_1  <= x"FFFFFFFF";
 --					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_2  <= x"FFFFFFFF";
@@ -522,7 +564,7 @@ begin
 --					avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_15 <= x"FFFFFFFF";
 					-- buffers data control
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_data_length_bytes  <= (others => '1');
-										avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
+					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_data_length_bytes <= (others => '1');
 					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start             <= '1';
 
