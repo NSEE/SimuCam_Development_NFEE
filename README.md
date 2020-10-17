@@ -27,4 +27,12 @@ More informmation about IMT could be found in the Institute official [website](h
 # NSEE (Nucleo de Sistemas Eletrônicos Embarcados)
 [NSEE (Nucleo de Sistemas Eletrônicos Embarcados)](https://maua.br/pesquisa/grupos-pesquisa/nucleo-sistemas-eletronicos-embarcados/), created on the initiative of the Mauá de Tecnologia Institute (IMT) based on participation in the initial version of INCT INEspaço, has developed research in the area of critical systems with direct application in the aerospace area. Its performance is related to the study of electronic systems that allow solving problems by meeting severe restrictions on communication speed, mass, consumption and real-time processing. Another area of expertise involves the development of multivariable control and signal processing systems, their algorithms and embedded implementations.
 
+# Team
+
+[Professor Vanderlei Cunha Parro - Coordinator](https://github.com/vparro) (2010 - 2020)
+
+[Professor Tiago Sanches da Silva - Software Architect, SW Team Leader and Developer](https://github.com/Tiagoeem) (2017-2020)
+
+[Engineer Érico Lucas Marques - Project Manager and System Engineer](https://github.com/ericolucasm) (2018-2020)
+
 
