@@ -80,6 +80,7 @@ begin
 			v_rightimg_valid    := '0';
 
 			-- outputs reset
+			data_trans_finished_o          <= '0';
 			data_trans_housekeep_control_o <= c_COMM_DATA_TRANS_CONTROL_RST;
 			data_trans_fullimage_control_o <= c_COMM_DATA_TRANS_CONTROL_RST;
 			data_trans_windowing_control_o <= c_COMM_DATA_TRANS_CONTROL_RST;

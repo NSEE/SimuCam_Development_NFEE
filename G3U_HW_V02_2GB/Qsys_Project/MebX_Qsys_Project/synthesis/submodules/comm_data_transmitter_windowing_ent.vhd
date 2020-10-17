@@ -202,7 +202,7 @@ begin
 								s_discard_data <= '1';
 							end if;
 							-- check if the send buffer data is windowing data
-							if ((send_buffer_leftimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) or (send_buffer_leftimg_status_i.rddata_type = c_COMM_NFEE_OVERSCAN_DATA)) then
+							if (send_buffer_leftimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) then
 								-- the send buffer data is windowing data
 								-- write windowing data operation
 								-- check if the packet is only a header (not be transmitted)
@@ -225,18 +225,18 @@ begin
 							else
 								-- the send buffer data is not windowing data
 								-- windowing data finished
-								-- go to finished
-								s_comm_data_transmitter_windowing_state <= FINISH_DELAY;
-								v_comm_data_transmitter_windowing_state := FINISH_DELAY;
+								-- go to waiting windowing discard ready
+								s_comm_data_transmitter_windowing_state <= WAITING_WINDOWING_DISCARD_READY;
+								v_comm_data_transmitter_windowing_state := WAITING_WINDOWING_DISCARD_READY;
 							end if;
 						-- check if the leftimg is finished and the leftimg is not valid
 						elsif ((data_trans_control_i.leftimg_finished = '1') and (data_trans_control_i.leftimg_valid = '0')) then
 							-- the leftimg is finished and the leftimg is not valid
 							-- clear transmitting flag
 							s_left_transmitting                     <= '0';
-							-- go to finished
-							s_comm_data_transmitter_windowing_state <= FINISH_DELAY;
-							v_comm_data_transmitter_windowing_state := FINISH_DELAY;
+							-- go to waiting windowing discard ready
+							s_comm_data_transmitter_windowing_state <= WAITING_WINDOWING_DISCARD_READY;
+							v_comm_data_transmitter_windowing_state := WAITING_WINDOWING_DISCARD_READY;
 						end if;
 					else
 						-- the left side is not transmitting
@@ -397,7 +397,7 @@ begin
 								s_discard_data <= '1';
 							end if;
 							-- check if the send buffer data is windowing data
-							if ((send_buffer_rightimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) or (send_buffer_rightimg_status_i.rddata_type = c_COMM_NFEE_OVERSCAN_DATA)) then
+							if (send_buffer_rightimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) then
 								-- the send buffer data is windowing data
 								-- write windowing data operation
 								-- check if the packet is only a header (not be transmitted)
@@ -420,18 +420,18 @@ begin
 							else
 								-- the send buffer data is not windowing data
 								-- windowing data finished
-								-- go to finished
-								s_comm_data_transmitter_windowing_state <= FINISH_DELAY;
-								v_comm_data_transmitter_windowing_state := FINISH_DELAY;
+								-- go to waiting windowing discard ready
+								s_comm_data_transmitter_windowing_state <= WAITING_WINDOWING_DISCARD_READY;
+								v_comm_data_transmitter_windowing_state := WAITING_WINDOWING_DISCARD_READY;
 							end if;
 						-- check if the rightimg is finished and the rightimg is not valid
 						elsif ((data_trans_control_i.rightimg_finished = '1') and (data_trans_control_i.rightimg_valid = '0')) then
 							-- the rightimg is finished and the rightimg is not valid
 							-- clear transmitting flag
 							s_right_transmitting                    <= '0';
-							-- go to finished
-							s_comm_data_transmitter_windowing_state <= FINISH_DELAY;
-							v_comm_data_transmitter_windowing_state := FINISH_DELAY;
+							-- go to waiting windowing discard ready
+							s_comm_data_transmitter_windowing_state <= WAITING_WINDOWING_DISCARD_READY;
+							v_comm_data_transmitter_windowing_state := WAITING_WINDOWING_DISCARD_READY;
 						end if;
 					else
 						-- the right side is not transmitting
@@ -583,7 +583,7 @@ begin
 						-- set transmitting flag
 						s_left_transmitting <= '1';
 						-- check if the send buffer data is fullimage data
-						if ((send_buffer_leftimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) or (send_buffer_leftimg_status_i.rddata_type = c_COMM_NFEE_OVERSCAN_DATA)) then
+						if (send_buffer_leftimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) then
 							-- the send buffer data is fullimage data
 							-- write fullimage data operation
 							-- check if the packet is only a header (not be transmitted)
@@ -614,7 +614,7 @@ begin
 						-- set transmitting flag
 						s_right_transmitting <= '1';
 						-- check if the send buffer data is fullimage data
-						if ((send_buffer_rightimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) or (send_buffer_rightimg_status_i.rddata_type = c_COMM_NFEE_OVERSCAN_DATA)) then
+						if (send_buffer_rightimg_status_i.rddata_type = c_COMM_NFEE_DATA_PACKET) then
 							-- the send buffer data is fullimage data
 							-- write fullimage data operation
 							-- check if the packet is only a header (not be transmitted)

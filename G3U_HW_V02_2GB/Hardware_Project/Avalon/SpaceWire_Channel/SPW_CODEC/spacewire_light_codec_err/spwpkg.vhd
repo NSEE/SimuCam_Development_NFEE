@@ -19,6 +19,7 @@ package spwpkg is
 
 	-- Input signals from toplevel to spwerr.
 	type spwerr_from_usr_type is record
+
 		err_inj_i : std_logic;
 		err_sel_i : t_spw_err_sel;
 	end record;

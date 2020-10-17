@@ -146,7 +146,7 @@ begin
 		);
 
 	-- send buffer instantiation
-	scom_send_buffer_ent_inst : entity work.scom_send_buffer_ent
+	send_buffer_ent_inst : entity work.send_buffer_ent
 		generic map(
 			g_1K_SEND_BUFFER_SIZE => '1' -- '0' : 32 KiB of send buffer / '1' : 1 KiB of send buffer
 		)
