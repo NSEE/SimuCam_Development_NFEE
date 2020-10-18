@@ -1,5 +1,15 @@
-# SimuCam Development
+# Repository Description
 This repository manages the release of the the software packages related with the SimuCam project, focusing on its N-FEE version, whose directly user  is the [LESIA (Laboratoire d’études spatiales et d’instrumentation en astrophysique)](https://lesia.obspm.fr/). This projet is a part of PLATO mission, and it is being developed by the NSEE (Núcleo de Sistemas Eletrônicos Embarcados) team, a laboratory that is part of [IMT (Instituto Mauá de Tecnologia)](https://maua.br/) at São Caetano do Sul, São Paulo, Brazil, in a partnership with [USP-IAG (Instituto de Astronomia, Geofísica e Ciências Atmosféricas)](https://www.iag.usp.br/) , funded by [FAPESP (Fundação de Amparo à Pesquisa do Estado de São Paulo )](https://fapesp.br/).
+
+## Repository Contributors
+
+- [Professor Vanderlei Cunha Parro - Laboratory and Project Coordinator](https://github.com/vparro) (2010 - 2020)
+- [Professor Tiago Sanches da Silva - Software Architect, SW Team Leader and Developer](https://github.com/Tiagoeem) (2017-2020)
+- [Engineer Rodrigo De Marca França - VHDL Architect and Developer](https://github.com/rodmarfran) (2017-2020)
+- [Engineer Érico Lucas Marques - Project Manager and System Engineer](https://github.com/ericolucasm) (2018-2020)
+- [Engineer Alexsander Deucher - SW Developer](https://github.com/adbtx) (2019-2020)
+- [Engineer Ricardo Napoli - Test Engineer](https://github.com/rnapoli) (2019-2020)
+
 
 # SimuCam
 The SimuCam is an electronic system with 8 independent SpaceWires links, emulating the behavior of PLATO’s cameras (N-FEE and F-FEE), and controlled by Ethernet.
@@ -26,13 +36,3 @@ More informmation about IMT could be found in the Institute official [website](h
 
 # NSEE (Nucleo de Sistemas Eletrônicos Embarcados)
 [NSEE (Nucleo de Sistemas Eletrônicos Embarcados)](https://maua.br/pesquisa/grupos-pesquisa/nucleo-sistemas-eletronicos-embarcados/), created on the initiative of the Mauá de Tecnologia Institute (IMT) based on participation in the initial version of INCT INEspaço, has developed research in the area of critical systems with direct application in the aerospace area. Its performance is related to the study of electronic systems that allow solving problems by meeting severe restrictions on communication speed, mass, consumption and real-time processing. Another area of expertise involves the development of multivariable control and signal processing systems, their algorithms and embedded implementations.
-
-# Team
-
-[Professor Vanderlei Cunha Parro - Coordinator](https://github.com/vparro) (2010 - 2020)
-
-[Professor Tiago Sanches da Silva - Software Architect, SW Team Leader and Developer](https://github.com/Tiagoeem) (2017-2020)
-
-[Engineer Érico Lucas Marques - Project Manager and System Engineer](https://github.com/ericolucasm) (2018-2020)
-
-
