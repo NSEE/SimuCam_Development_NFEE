@@ -1,4 +1,4 @@
-# Repository Description
+# Repository Description - SimuCam/N-FEE
 This repository manages the release of the the software packages related with the SimuCam project, focusing on its N-FEE version, whose directly user  is the [LESIA (Laboratoire d’études spatiales et d’instrumentation en astrophysique)](https://lesia.obspm.fr/). This projet is a part of PLATO mission, and it is being developed by the NSEE (Núcleo de Sistemas Eletrônicos Embarcados) team, a laboratory that is part of [IMT (Instituto Mauá de Tecnologia)](https://maua.br/) at São Caetano do Sul, São Paulo, Brazil, in a partnership with [USP-IAG (Instituto de Astronomia, Geofísica e Ciências Atmosféricas)](https://www.iag.usp.br/) , funded by [FAPESP (Fundação de Amparo à Pesquisa do Estado de São Paulo )](https://fapesp.br/).
 
 ## Repository Contributors
