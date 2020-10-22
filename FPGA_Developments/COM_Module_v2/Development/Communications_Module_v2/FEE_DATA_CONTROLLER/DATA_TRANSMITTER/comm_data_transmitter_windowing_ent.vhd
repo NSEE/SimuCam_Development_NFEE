@@ -639,6 +639,11 @@ begin
 							s_comm_data_transmitter_windowing_state <= FINISH_DELAY;
 							v_comm_data_transmitter_windowing_state := FINISH_DELAY;
 						end if;
+					else
+						-- there is no side left to transmitt
+						-- go to finished
+						s_comm_data_transmitter_windowing_state <= FINISH_DELAY;
+						v_comm_data_transmitter_windowing_state := FINISH_DELAY;
 					end if;
 
 				-- state "FINISH_DELAY"

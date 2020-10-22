@@ -58,6 +58,18 @@ void vFeeTaskV3(void *task_data) {
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+				if ((pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd + 1) > pxNFee->xCcdInfo.usiHeight) {
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd = pxNFee->xCcdInfo.usiHeight - 1;
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd - pxNFee->xCcdInfo.usiHeight;
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdImgEn = TRUE;
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdOvsEn = TRUE;
+				} else {
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd = 0;
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdImgEn = TRUE;
+					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdOvsEn = FALSE;
+				}
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFee->xMemMap.xCommon.ulHEnd;
@@ -2673,15 +2685,23 @@ void vInitialConfig_RMAPCodecConfig( TNFee *pxNFeeP ) {
 void vInitialConfig_DpktPacket( TNFee *pxNFeeP ) {
 
 	bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN;
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN;
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize = pxNFeeP->xCcdInfo.usiHeight;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize      = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize      = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize     = pxNFeeP->xCcdInfo.usiHeight;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFeeP->xCcdInfo.usiOLN;
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = xDefaults.usiSpwPLength;
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = pxNFeeP->xControl.ucROutOrder[0];
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart     = 0;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd       = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN - 1;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd    = pxNFeeP->xCcdInfo.usiHeight - 1;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd    = pxNFeeP->xCcdInfo.usiOLN - 1;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdHStart     = 0;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdHEnd       = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN - 1;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdImgEn        = TRUE;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdOvsEn        = TRUE;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength  = xDefaults.usiSpwPLength;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber      = pxNFeeP->xControl.ucROutOrder[0];
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode        = eDpktOff;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId     = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr    = xDefaults.usiDpuLogicalAddr;
 	bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 	pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength;
@@ -3334,6 +3354,17 @@ inline void vApplyRmap( TNFee *pxNFeeP ) {
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd;
+			if ((pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd + 1) > pxNFeeP->xCcdInfo.usiHeight) {
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd = pxNFeeP->xCcdInfo.usiHeight - 1;
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd - pxNFeeP->xCcdInfo.usiHeight;
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdImgEn = TRUE;
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdOvsEn = TRUE;
+			} else {
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd;
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd = 0;
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdImgEn = TRUE;
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdOvsEn = FALSE;
+			}
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 		}

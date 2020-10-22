@@ -38,9 +38,9 @@ end entity nrme_rmap_mem_area_nfee_arbiter_ent;
 
 architecture RTL of nrme_rmap_mem_area_nfee_arbiter_ent is
 
-	signal s_fee_rmap_waitrequest       : std_logic;
-	signal s_avalon_mm_rmap_waitrequest : std_logic;
-	signal s_rmap_waitrequest           : std_logic;
+--	signal s_fee_rmap_waitrequest       : std_logic;
+--	signal s_avalon_mm_rmap_waitrequest : std_logic;
+--	signal s_rmap_waitrequest           : std_logic;
 
 	type t_master_list is (
 		master_none,
@@ -295,9 +295,9 @@ begin
 	-- Signals assignments --
 
 	-- Waitrequest
-	s_fee_rmap_waitrequest       <= (fee_wr_rmap_cfg_hk_i.waitrequest) and (fee_rd_rmap_cfg_hk_i.waitrequest);
-	s_avalon_mm_rmap_waitrequest <= (avalon_mm_wr_rmap_i.waitrequest) and (avalon_mm_rd_rmap_i.waitrequest);
-	s_rmap_waitrequest           <= (s_fee_rmap_waitrequest) and (s_avalon_mm_rmap_waitrequest);
+--	s_fee_rmap_waitrequest       <= (fee_wr_rmap_cfg_hk_i.waitrequest) and (fee_rd_rmap_cfg_hk_i.waitrequest);
+--	s_avalon_mm_rmap_waitrequest <= (avalon_mm_wr_rmap_i.waitrequest) and (avalon_mm_rd_rmap_i.waitrequest);
+--	s_rmap_waitrequest           <= (s_fee_rmap_waitrequest) and (s_avalon_mm_rmap_waitrequest);
 
 	-- Windowing Area Address Flags
 	s_fee_0_wr_win_address_flag <= ('0') when (rst_i = '1')
