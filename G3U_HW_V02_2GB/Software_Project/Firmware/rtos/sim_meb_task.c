@@ -1453,9 +1453,9 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 47:
 				usiFeeInstL = xPusL->usiValues[0];
 				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = xPusL->usiValues[1];
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId   = xPusL->usiValues[2];
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue    = (alt_u32)( (alt_u32)(xPusL->usiValues[3] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[4] & 0x0000ffff) );
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId   = xPusL->usiValues[1];
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue    = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
 				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 				#if DEBUG_ON
 					fprintf(fp, "TC_SCAMxx_RMAP_ERR_TRIG\n" );
