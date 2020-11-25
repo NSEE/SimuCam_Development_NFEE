@@ -67,6 +67,8 @@ entity rmap_target_top is
 		spw_flag_i                 : in  t_rmap_target_spw_flag;
 		mem_flag_i                 : in  t_rmap_target_mem_flag;
 		conf_target_enable_i       : in  std_logic;
+		conf_target_pre_sync_i     : in  std_logic;
+		conf_target_sync_i         : in  std_logic;
 		conf_target_logical_addr_i : in  std_logic_vector(7 downto 0);
 		conf_target_key_i          : in  std_logic_vector(7 downto 0);
 		rmap_errinj_en_i           : in  std_logic;
@@ -262,13 +264,22 @@ begin
 
 	-- RMAP Target Disabled Reader
 	p_rmap_target_disabled_reader : process(clk_i, rst_i) is
+		variable v_codec_enabled : std_logic := '1';
 	begin
 		if (rst_i = '1') then
 			s_target_dis_rd_spw_rx_control.read <= '0';
+			v_codec_enabled                     := '1';
 		elsif rising_edge(clk_i) then
+
+			if (conf_target_pre_sync_i = '1') then
+				v_codec_enabled := '0';
+			elsif (conf_target_sync_i = '1') then
+				v_codec_enabled := '1';
+			end if;
+
 			s_target_dis_rd_spw_rx_control.read <= '0';
 			-- check if the target is disabled and the spw codec has valid data
-			if ((conf_target_enable_i = '0') and (spw_flag_i.receiver.valid = '1')) then
+			if (((conf_target_enable_i = '0') or (v_codec_enabled = '0')) and (spw_flag_i.receiver.valid = '1')) then
 				-- the target is disabled and the spw codec has valid data
 				-- read spw codec data
 				s_target_dis_rd_spw_rx_control.read <= '1';
