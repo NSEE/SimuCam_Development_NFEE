@@ -475,16 +475,13 @@ void vParserCommTask(void *task_data) {
 									/* FEE */
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
-									/* N repeat */
+									/* ERROR ID */
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
 									xTcPusL.ucNofValues++;
-									/* Sequence Counter */
+									/* VALUE */
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
 									xTcPusL.ucNofValues++;
-									/* Error Type */
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
-									xTcPusL.ucNofValues++;
-									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
 									xTcPusL.ucNofValues++;
 									/* Send the command to the MEB task */
 									bSendMessagePUStoMebTask(&xTcPusL);
