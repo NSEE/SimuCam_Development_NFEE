@@ -15,6 +15,7 @@
 bool bInitSync( void );
 bool bStartSync(void);
 bool bStopSync(void);
+bool bClearSync(void);
 void bClearCounterSync(void);
 
 #endif /* SYNC_HANDLER_H_ */

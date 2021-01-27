@@ -86,6 +86,7 @@ void vFeeTaskV3(void *task_data) {
 
 				pxNFee->xCopyRmap.bCopyDigitaliseEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
 				pxNFee->xCopyRmap.bCopyReadoutEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
+				pxNFee->xCopyRmap.bCopyChargeInjEn = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 
 				/* Clear all FEE Machine Statistics - [rfranca] */
 				bFeebClearMachineStatistics(&pxNFee->xChannel.xFeeBuffer);
@@ -3341,7 +3342,7 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 inline void vApplyRmap( TNFee *pxNFeeP ) {
 	bool bTemp;
 
-	bTemp = (pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd || pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize || pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder || pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase || pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd ) ;
+	bTemp = (pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd || pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection || pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize || pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder || pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase || pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd ) ;
 
 	/*Something update*/
 	if ( TRUE == bTemp ){
@@ -3351,6 +3352,7 @@ inline void vApplyRmap( TNFee *pxNFeeP ) {
 
 			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart;
 			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd;
+
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart;
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd;
@@ -3364,6 +3366,23 @@ inline void vApplyRmap( TNFee *pxNFeeP ) {
 				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd = 0;
 				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdImgEn = TRUE;
 				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdOvsEn = FALSE;
+			}
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+		}
+
+		/* [rfranca] */
+		if ( TRUE == pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection ) {
+
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = FALSE;
+			/* Check if charge injection mode is enabled */
+			if ( TRUE == pxNFeeP->xCopyRmap.bCopyChargeInjEn ) {
+				/* charge injection mode is enabled, v-start is forced to be 0 */
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = 0;
+			} else {
+				/* charge injection mode is disabled, v-start is the rmap config value */
+				pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart;
 			}
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
@@ -3450,6 +3469,8 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -3601,7 +3622,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 			}
@@ -3657,6 +3678,8 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -3812,7 +3835,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 					break;
@@ -3872,6 +3895,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -4030,7 +4055,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 					break;
@@ -4089,6 +4114,8 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -4256,7 +4283,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 			}
@@ -4315,6 +4342,8 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -4430,7 +4459,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 			}
@@ -4490,6 +4519,8 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -4643,7 +4674,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 			}
@@ -4704,6 +4735,8 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -4862,7 +4895,7 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 			}
@@ -4922,6 +4955,8 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x0C:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
+			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
 		case 0x10:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
@@ -5080,7 +5115,7 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 					bDpktSetPacketErrors(&pxNFeeP->xChannel.xDataPacket);
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", (alt_u8)pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig);
 					}
 					#endif
 					break;

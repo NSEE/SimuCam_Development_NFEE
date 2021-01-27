@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Memory_NFEE_Area "RMAP_Memory_NFEE_Area" v1.1
+# RMAP_Memory_NFEE_Area "RMAP_Memory_NFEE_Area" v1.2
 # rfranca 2020.04.04.23:17:08
 # 
 # 

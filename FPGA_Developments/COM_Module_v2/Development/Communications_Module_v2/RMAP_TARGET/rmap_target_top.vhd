@@ -105,6 +105,10 @@ end entity rmap_target_top;
 --============================================================================
 architecture rtl of rmap_target_top is
 
+	signal s_rmap_target_enabled          : std_logic;
+	signal s_rmap_target_spw_rxvalid_mask : std_logic;
+	signal s_rmap_target_busy             : std_logic;
+
 	signal s_rmap_target_control : t_rmap_target_control;
 	signal s_rmap_target_flags   : t_rmap_target_flags;
 	signal s_rmap_target_error   : t_rmap_target_error;
@@ -137,6 +141,7 @@ begin
 		port map(
 			clk_i                                 => clk_i,
 			rst_i                                 => rst_i,
+			enabled_i                             => s_rmap_target_enabled,
 			flags_i                               => s_rmap_target_flags,
 			error_i                               => s_rmap_target_rmap_error,
 			codecdata_i.target_logical_address    => s_rmap_target_rmap_data.target_logical_address,
@@ -148,6 +153,7 @@ begin
 			codecdata_i.memory_address            => s_rmap_target_rmap_data.address,
 			codecdata_i.data_length               => s_rmap_target_rmap_data.data_length,
 			configs_i                             => s_rmap_target_user_configs,
+			busy_o                                => s_rmap_target_busy,
 			control_o                             => s_rmap_target_control,
 			reply_status                          => s_rmap_target_rmap_data.status
 		);
@@ -268,6 +274,8 @@ begin
 	begin
 		if (rst_i = '1') then
 			s_target_dis_rd_spw_rx_control.read <= '0';
+			s_rmap_target_enabled               <= '1';
+			s_rmap_target_spw_rxvalid_mask      <= '1';
 			v_codec_enabled                     := '1';
 		elsif rising_edge(clk_i) then
 
@@ -277,20 +285,37 @@ begin
 				v_codec_enabled := '1';
 			end if;
 
-			s_target_dis_rd_spw_rx_control.read <= '0';
-			-- check if the target is disabled and the spw codec has valid data
-			if (((conf_target_enable_i = '0') or (v_codec_enabled = '0')) and (spw_flag_i.receiver.valid = '1')) then
-				-- the target is disabled and the spw codec has valid data
-				-- read spw codec data
-				s_target_dis_rd_spw_rx_control.read <= '1';
+			if ((conf_target_enable_i = '0') or (v_codec_enabled = '0')) then
+				s_rmap_target_enabled <= '0';
+				if (s_rmap_target_busy = '0') then
+					s_rmap_target_spw_rxvalid_mask <= '0';
+				end if;
+			else
+				s_rmap_target_enabled          <= '1';
+				s_rmap_target_spw_rxvalid_mask <= '1';
 			end if;
+
+			s_target_dis_rd_spw_rx_control.read <= '0';
+			-- check if the target is disabled and rmap target is not busy
+			if ((s_rmap_target_enabled = '0') and (s_rmap_target_busy = '0')) then
+				-- the target is disabled and rmap target is not busy
+				-- maks the spw rxvalid signal
+				s_rmap_target_spw_rxvalid_mask <= '0';
+				-- check if the spw codec has valid data
+				if (spw_flag_i.receiver.valid = '1') then
+					-- the spw codec has valid data
+					-- read spw codec data
+					s_target_dis_rd_spw_rx_control.read <= '1';
+				end if;
+			end if;
+
 		end if;
 	end process p_rmap_target_disabled_reader;
 
 	-- signals assignments --
 
 	-- spw rx flags signals assignments
-	s_target_spw_rx_flag.valid <= (spw_flag_i.receiver.valid) and (conf_target_enable_i); -- if the target is disabled, the spw rxvalid flag will be masked
+	s_target_spw_rx_flag.valid <= (spw_flag_i.receiver.valid) and (s_rmap_target_spw_rxvalid_mask); -- if the target is disabled, the spw rxvalid flag will be masked
 	s_target_spw_rx_flag.flag  <= spw_flag_i.receiver.flag;
 	s_target_spw_rx_flag.data  <= spw_flag_i.receiver.data;
 	s_target_spw_rx_flag.error <= spw_flag_i.receiver.error;

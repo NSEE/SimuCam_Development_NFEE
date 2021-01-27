@@ -54,7 +54,7 @@ package nrme_rmap_mem_area_nfee_pkg is
 
 	-- Allowed Addresses
 	constant c_NRME_AVALON_MM_NFEE_RMAP_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_NRME_AVALON_MM_NFEE_RMAP_MAX_ADDR : natural range 0 to 255 := 16#5F#;
+	constant c_NRME_AVALON_MM_NFEE_RMAP_MAX_ADDR : natural range 0 to 255 := 16#AC#;
 
 	-- Registers Types
 
@@ -82,7 +82,10 @@ package nrme_rmap_mem_area_nfee_pkg is
 		error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate : std_logic; -- Error Flags : Window Pixels Fall Outside CDD Boundary Due To Wrong Y Coordinate HK Field
 		error_flags_e_side_pixel_external_sram_buffer_is_full                         : std_logic; -- Error Flags : E Side Pixel External SRAM Buffer is Full HK Field
 		error_flags_f_side_pixel_external_sram_buffer_is_full                         : std_logic; -- Error Flags : F Side Pixel External SRAM Buffer is Full HK Field
-		error_flags_invalid_ccd_mode                                                  : std_logic; -- Error Flags : Invalid CCD Mode
+		error_flags_too_many_overlapping_windows                                      : std_logic; -- Error Flags : Too Many Overlapping Windows
+		error_flags_sram_edac_correctable                                             : std_logic; -- Error Flags : SRAM EDAC Correctable
+		error_flags_sram_edac_uncorrectable                                           : std_logic; -- Error Flags : SRAM EDAC Uncorrectable
+		error_flags_block_ram_edac_uncorrectable                                      : std_logic; -- Error Flags : BLOCK RAM EDAC Uncorrectable
 	end record t_reg_34_hk_rd_reg;
 
 	-- RMAP Area Config Register 0
@@ -131,7 +134,8 @@ package nrme_rmap_mem_area_nfee_pkg is
 		digitise_en                : std_logic; -- Digitalise Enable Config Field
 		dg_en                      : std_logic; -- DG (Drain Gate) Enable Field
 		ccd_read_en                : std_logic; -- CCD Readout Enable Field
-		reg_5_config_reserved      : std_logic_vector(5 downto 0); -- Register 5 Configuration Reserved
+		conv_dly                   : std_logic_vector(4 downto 0); -- Conversion Delay Value
+		high_precision_hk_en       : std_logic; -- High Precison Housekeep Enable Field
 	end record t_reg_5_config_wr_reg;
 
 	-- RMAP Area Config Register 6
@@ -231,7 +235,9 @@ package nrme_rmap_mem_area_nfee_pkg is
 	-- RMAP Area Config Register 21
 	type t_reg_21_config_wr_reg is record
 		ccd_ig_lo_config         : std_logic_vector(11 downto 0); -- CCD Ig Low Configuration Config Field
-		reg_21_config_reserved_0 : std_logic_vector(11 downto 0); -- Register 21 Configuration Reserved
+		trk_hld_hi               : std_logic_vector(4 downto 0); -- Trk Hld High Configuration Config Field
+		trk_hld_lo               : std_logic_vector(4 downto 0); -- Trk Hld Low Configuration Config Field
+		reg_21_config_reserved_0 : std_logic_vector(1 downto 0); -- Register 21 Configuration Reserved
 		ccd_mode_config          : std_logic_vector(3 downto 0); -- CCD Mode Configuration Config Field
 		reg_21_config_reserved_1 : std_logic_vector(2 downto 0); -- Register 21 Configuration Reserved
 		clear_error_flag         : std_logic; -- Clear Error Flag Config Field
@@ -478,7 +484,7 @@ package nrme_rmap_mem_area_nfee_pkg is
 
 	-- RMAP Area HK Register 34
 	type t_reg_34_hk_wr_reg is record
-		error_flags_error_flags_reserved : std_logic_vector(26 downto 0); -- Error Flags : Error Flags Reserved
+		error_flags_error_flags_reserved : std_logic_vector(23 downto 0); -- Error Flags : Error Flags Reserved
 	end record t_reg_34_hk_wr_reg;
 
 	-- RMAP Area HK Register 35

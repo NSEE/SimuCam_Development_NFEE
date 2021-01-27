@@ -39,7 +39,7 @@ architecture spwerr_arch of spwerr is
 	constant bool_to_logic : bool_to_logic_type := (false => '0', true => '1');
 
 	-- Max timer value (for timed state transitions), in clk cycles
-	constant MAX_TMR : integer := 1000;
+	constant MAX_TMR : integer := 2000;
 
 	-- Outputs to link pulse duration, in clk cycles (err inj. accepted -> err inj. ended)
 	-- The calibration of this times is important. Note that (a + b) values below
@@ -50,7 +50,7 @@ architecture spwerr_arch of spwerr is
 	constant PAR_PULS_TIME         : integer := 2 *  (8 + 14);	-- null with wrong parity + possible time code
 	constant ESC_PULS_TIME         : integer := 2 *  (8  + 14);	-- (esc+esc) + possible time code
 	constant CREDIT_PULS_TIME      : integer := 2 *  (32 + 14);	-- (8 x fct) + possible time code
-	constant CH_SEQ_PULS_TIME      : integer := 20 * (4  +  8);	-- eop + possible null (fct is only 4 bits)
+	constant CH_SEQ_PULS_TIME      : integer := 6 * 20 * (4  +  8);	-- eop + possible null (fct is only 4 bits)
 	-- Specific transition state duration, in clk cycles (for invalid err_sel and inconsistent request)
 	constant INVALID_SEL_TIME      : integer := 1;
 	constant INCONSISTENT_REQ_TIME : integer := 1;

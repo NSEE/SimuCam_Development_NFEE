@@ -1,10 +1,10 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development3/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/RMAP_Memory_NFEE_Area_tb.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development2/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/RMAP_Memory_NFEE_Area_tb.mpf
 # Loading project RMAP_Memory_NFEE_Area_tb
 # Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
-# Compile of nrme_rmap_mem_area_nfee_read_ent.vhd was successful.
+# Compile of nrme_rmap_mem_area_nfee_read_ent.vhd failed with 4 errors.
 # Compile of nrme_rmap_mem_area_nfee_write_ent.vhd was successful.
 # Compile of nrme_avm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_avm_rmap_nfee_read_ent.vhd was successful.
@@ -15,8 +15,9 @@
 # Compile of nrme_tb_avs_pkg.vhd was successful.
 # Compile of nrme_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd failed with 6 errors.
-# 15 compiles, 1 failed with 6 errors.
+# Compile of testbench_top.vhd was successful.
+# 15 compiles, 1 failed with 4 errors.
+# Compile of nrme_rmap_mem_area_nfee_read_ent.vhd was successful.
 # Compile of nrme_avalon_mm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_pkg.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.

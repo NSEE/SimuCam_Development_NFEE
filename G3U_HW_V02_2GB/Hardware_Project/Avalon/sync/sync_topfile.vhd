@@ -60,27 +60,29 @@ entity sync_ent is
 		g_PRE_SYNC_IRQ_NUMBER : natural := 0
 	);
 	port(
-		reset_sink_reset_i              : in  std_logic                     := '0';
-		clock_sink_clk_i                : in  std_logic                     := '0';
-		conduit_sync_signal_syncin_i    : in  std_logic                     := '0';
-		avalon_slave_address_i          : in  std_logic_vector(7 downto 0)  := (others => '0');
-		avalon_slave_read_i             : in  std_logic                     := '0';
-		avalon_slave_write_i            : in  std_logic                     := '0';
-		avalon_slave_writedata_i        : in  std_logic_vector(31 downto 0) := (others => '0');
-		avalon_slave_byteenable_i       : in  std_logic_vector(3 downto 0);
-		avalon_slave_readdata_o         : out std_logic_vector(31 downto 0);
-		avalon_slave_waitrequest_o      : out std_logic;
-		conduit_sync_signal_spw1_o      : out std_logic;
-		conduit_sync_signal_spw2_o      : out std_logic;
-		conduit_sync_signal_spw3_o      : out std_logic;
-		conduit_sync_signal_spw4_o      : out std_logic;
-		conduit_sync_signal_spw5_o      : out std_logic;
-		conduit_sync_signal_spw6_o      : out std_logic;
-		conduit_sync_signal_spw7_o      : out std_logic;
-		conduit_sync_signal_spw8_o      : out std_logic;
-		conduit_sync_signal_syncout_o   : out std_logic;
-		sync_interrupt_sender_irq_o     : out std_logic;
-		pre_sync_interrupt_sender_irq_o : out std_logic
+		reset_sink_reset_i               : in  std_logic                     := '0';
+		clock_sink_clk_i                 : in  std_logic                     := '0';
+		conduit_sync_signal_syncin_en_i  : in  std_logic                     := '0';
+		conduit_sync_signal_syncout_en_i : in  std_logic                     := '0';
+		conduit_sync_signal_syncin_i     : in  std_logic                     := '0';
+		avalon_slave_address_i           : in  std_logic_vector(7 downto 0)  := (others => '0');
+		avalon_slave_read_i              : in  std_logic                     := '0';
+		avalon_slave_write_i             : in  std_logic                     := '0';
+		avalon_slave_writedata_i         : in  std_logic_vector(31 downto 0) := (others => '0');
+		avalon_slave_byteenable_i        : in  std_logic_vector(3 downto 0);
+		avalon_slave_readdata_o          : out std_logic_vector(31 downto 0);
+		avalon_slave_waitrequest_o       : out std_logic;
+		conduit_sync_signal_spw1_o       : out std_logic;
+		conduit_sync_signal_spw2_o       : out std_logic;
+		conduit_sync_signal_spw3_o       : out std_logic;
+		conduit_sync_signal_spw4_o       : out std_logic;
+		conduit_sync_signal_spw5_o       : out std_logic;
+		conduit_sync_signal_spw6_o       : out std_logic;
+		conduit_sync_signal_spw7_o       : out std_logic;
+		conduit_sync_signal_spw8_o       : out std_logic;
+		conduit_sync_signal_syncout_o    : out std_logic;
+		sync_interrupt_sender_irq_o      : out std_logic;
+		pre_sync_interrupt_sender_irq_o  : out std_logic
 	);
 end entity sync_ent;
 
@@ -104,20 +106,26 @@ architecture rtl of sync_ent is
 
 	signal s_reset_n : std_logic;
 
+	signal s_enabled_sync_in     : std_logic;
+	signal s_unbuffered_sync_out : std_logic;
+
+	signal s_buffered_sync_in   : std_logic;
+	signal s_generated_sync_out : std_logic;
+
 	signal s_avalon_mm_read_waitrequest  : std_logic;
 	signal s_avalon_mm_write_waitrequest : std_logic;
 
 	signal s_sync_mm_write_registers : t_sync_mm_write_registers;
 	signal s_sync_mm_read_registers  : t_sync_mm_read_registers;
 
-	signal s_sync_signal    : std_logic;
+	--signal s_sync_signal    : std_logic;
 	signal s_syncgen_signal : std_logic;
 
 	signal s_pre_sync_signal   : std_logic;
 	signal s_next_cycle_number : std_logic_vector(7 downto 0);
 
 	signal s_sync_processed                   : std_logic;
-	signal s_sync_delay                       : std_logic;
+	signal s_sync_processed_delay             : std_logic;
 	signal s_sync_processed_cycle_number      : std_logic_vector(7 downto 0);
 	signal s_sync_processed_next_cycle_number : std_logic_vector(7 downto 0);
 	signal s_sync_processed_time_counting     : std_logic;
@@ -191,7 +199,7 @@ begin
 			clk_i                            => a_clock,
 			reset_n_i                        => s_reset_n,
 			-- Post mux sync signal (ext/int)
-			sync_signal_i                    => s_sync_signal,
+			sync_signal_i                    => s_sync_processed,
 			-- Blank pulse sync polarity
 			sync_pol_i                       => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
 			-- Enable controls
@@ -213,7 +221,7 @@ begin
 			sync_channels_o.channel_6_signal => conduit_sync_signal_spw6_o,
 			sync_channels_o.channel_7_signal => conduit_sync_signal_spw7_o,
 			sync_channels_o.channel_8_signal => conduit_sync_signal_spw8_o,
-			sync_channels_o.sync_out_signal  => conduit_sync_signal_syncout_o
+			sync_channels_o.sync_out_signal  => s_generated_sync_out
 		);
 
 	-- Sync Interrupt module instantiation
@@ -240,7 +248,7 @@ begin
 			-- Input watch signals (that can produce interrupts)
 			irq_watch_i.error_code_watch                 => s_sync_mm_read_registers.sync_status_reg.error_code,
 			irq_watch_i.sync_cycle_number                => s_sync_processed_cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
-			irq_watch_i.sync_wave_watch                  => s_sync_processed,
+			irq_watch_i.sync_wave_watch                  => s_sync_processed_delay,
 			-- Aux to inform sync polarity
 			irq_watch_i.sync_pol_watch                   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
 			-- Aux to inform sync number of cycles
@@ -276,7 +284,7 @@ begin
 			-- Input watch signals (that can produce interrupts)
 			irq_watch_i.pre_sync_cycle_number                => s_sync_processed_next_cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 			--			irq_watch_i.pre_sync_wave_watch                  => s_pre_sync_signal,
-			irq_watch_i.pre_sync_wave_watch                  => s_sync_processed,
+			irq_watch_i.pre_sync_wave_watch                  => s_sync_processed_delay,
 			-- Aux to inform pre-sync polarity
 			irq_watch_i.pre_sync_pol_watch                   => '0',
 			-- Aux to inform sync number of cycles
@@ -289,13 +297,27 @@ begin
 			irq_o                                            => a_pre_sync_irq
 		);
 
-	-- Sync process sigal
+	-- Sync Sync-In Inputs ALTIOBUF Instantiation
+	sync_sync_in_altiobuf_inst : entity work.sync_sync_in_altiobuf
+		port map(
+			datain(0)  => conduit_sync_signal_syncin_i,
+			dataout(0) => s_buffered_sync_in
+		);
+
+	-- Sync Sync-Out Outputs ALTIOBUF Instantiation
+	sync_sync_out_altiobuf_inst : entity work.sync_sync_out_altiobuf
+		port map(
+			datain(0)  => s_unbuffered_sync_out,
+			dataout(0) => conduit_sync_signal_syncout_o
+		);
+
+	-- Sync signal process
 	p_sync_process_signal : process(a_clock, s_reset_n) is
 		variable v_reseted_cnt : std_logic := '1';
 	begin
 		if (s_reset_n = '0') then
 			s_sync_processed                   <= '0';
-			s_sync_delay                       <= '0';
+			s_sync_processed_delay             <= '0';
 			s_sync_processed_cycle_number      <= std_logic_vector(to_unsigned(0, s_sync_processed_cycle_number'length));
 			s_sync_processed_next_cycle_number <= std_logic_vector(to_unsigned(1, s_sync_processed_next_cycle_number'length));
 			s_sync_processed_time_counting     <= '0';
@@ -303,12 +325,42 @@ begin
 			v_reseted_cnt                      := '1';
 		elsif (rising_edge(a_clock)) then
 
+			-- Sync mux: internal ou external sync
+			-- '1' -> internal sync
+			-- '0' -> external sync
+			if (s_sync_mm_write_registers.sync_control_reg.int_ext_n = '1') then
+				s_sync_processed <= s_syncgen_signal;
+			else
+				s_sync_processed <= s_enabled_sync_in;
+			end if;
+
 			-- delay sync signal
-			s_sync_delay     <= s_sync_signal;
-			s_sync_processed <= s_sync_signal;
+			s_sync_processed_delay <= s_sync_processed;
+
+			-- check if the timer is counting
+			if (s_sync_processed_time_counting = '1') then
+				-- check if the timer is finished
+				if (s_sync_processed_time_cnt = std_logic_vector(to_unsigned(0, s_sync_processed_time_cnt'length))) then
+					-- stop timer
+					s_sync_processed_time_counting <= '0';
+					s_sync_processed_time_cnt      <= (others => '0');
+					-- check sync value
+					--					if (s_sync_processed = '0') then
+					if (s_sync_processed /= s_sync_mm_write_registers.sync_general_config_reg.signal_polarity) then
+						-- reset counters to initial value
+						s_sync_processed_cycle_number      <= std_logic_vector(to_unsigned(0, s_sync_processed_cycle_number'length));
+						s_sync_processed_next_cycle_number <= std_logic_vector(to_unsigned(1, s_sync_processed_next_cycle_number'length));
+						v_reseted_cnt                      := '1';
+					end if;
+				else
+					-- decrement timer
+					s_sync_processed_time_cnt <= std_logic_vector(unsigned(s_sync_processed_time_cnt) - 1);
+				end if;
+			end if;
 
 			-- check if a rising edge ocurred
-			if ((s_sync_signal = '1') and (s_sync_delay = '0')) then
+			--			if ((s_sync_processed_delay = '0') and (s_sync_processed = '1')) then
+			if ((s_sync_processed_delay /= s_sync_mm_write_registers.sync_general_config_reg.signal_polarity) and (s_sync_processed = s_sync_mm_write_registers.sync_general_config_reg.signal_polarity)) then
 				-- rising edge ocurred
 				-- check if the cnt was just reseted (no need to increment)
 				if (v_reseted_cnt = '1') then
@@ -327,31 +379,12 @@ begin
 					end if;
 				end if;
 			-- check if a falling edge ocurred
-			elsif ((s_sync_signal = '0') and (s_sync_delay = '1')) then
+			--			elsif ((s_sync_processed_delay = '1') and (s_sync_processed = '0')) then
+			elsif ((s_sync_processed_delay = s_sync_mm_write_registers.sync_general_config_reg.signal_polarity) and (s_sync_processed /= s_sync_mm_write_registers.sync_general_config_reg.signal_polarity)) then
 				-- initiate 300 ms counter
 				s_sync_processed_time_counting <= '1';
 				s_sync_processed_time_cnt      <= std_logic_vector(unsigned(s_sync_mm_write_registers.sync_config_reg.master_detection_time) - 1);
 				--				s_sync_processed_time_cnt      <= std_logic_vector(to_unsigned(15 - 1, s_sync_processed_time_cnt'length));
-			end if;
-
-			-- check if the timer is counting
-			if (s_sync_processed_time_counting = '1') then
-				-- check if the timer is finished
-				if (s_sync_processed_time_cnt = std_logic_vector(to_unsigned(0, s_sync_processed_time_cnt'length))) then
-					-- stop timer
-					s_sync_processed_time_counting <= '0';
-					s_sync_processed_time_cnt      <= (others => '0');
-					-- check sync value
-					if (s_sync_signal = '0') then
-						-- reset counters to initial value
-						s_sync_processed_cycle_number      <= std_logic_vector(to_unsigned(0, s_sync_processed_cycle_number'length));
-						s_sync_processed_next_cycle_number <= std_logic_vector(to_unsigned(1, s_sync_processed_next_cycle_number'length));
-						v_reseted_cnt                      := '1';
-					end if;
-				else
-					-- decrement timer
-					s_sync_processed_time_cnt <= std_logic_vector(unsigned(s_sync_processed_time_cnt) - 1);
-				end if;
 			end if;
 
 		end if;
@@ -364,7 +397,7 @@ begin
 	-- Sync mux: internal ou external sync
 	-- '1' -> internal sync
 	-- '0' -> external sync
-	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.sync_control_reg.int_ext_n = '1') else (conduit_sync_signal_syncin_i);
+	--	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.sync_control_reg.int_ext_n = '1') else (s_enabled_sync_in);
 
 	-- Sync mux status
 	s_sync_mm_read_registers.sync_status_reg.int_ext_n <= s_sync_mm_write_registers.sync_control_reg.int_ext_n;
@@ -389,6 +422,16 @@ begin
 	--	s_sync_mm_read_registers.config_register.general.signal_polarity            <= '0';
 	--	s_sync_mm_read_registers.config_register.general.number_of_cycles           <= (others => '0');
 	--	s_sync_mm_read_registers.control_register                                   <= (others => '0');
+
+	-- Sync Sync-In Input Signals Assignments
+	s_enabled_sync_in <= ('0') when (s_reset_n = '0')
+	                     else (s_buffered_sync_in) when (conduit_sync_signal_syncin_en_i = '1')
+	                     else ('0');
+
+	-- Sync Sync-Out Output Signals Assignments
+	s_unbuffered_sync_out <= ('0') when (s_reset_n = '0')
+	                         else (s_generated_sync_out) when (conduit_sync_signal_syncout_en_i = '1')
+	                         else ('0');
 
 end architecture rtl;
 --============================================================================

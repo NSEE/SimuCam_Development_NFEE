@@ -105,9 +105,25 @@ void vSimMebTask(void *task_data) {
 
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds");
-						OSTimeDlyHMSM(0, 0, 5, 200);
+						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds\n");
 					#endif
+
+					OSTimeDlyHMSM(0, 0, 5, 200);
+
+					/* [rfranca] */
+					if (sInternal == pxMebC->eSync) {
+						bSyncCtrIntern(TRUE); /*TRUE = Internal*/
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+							fprintf(fp,"\nMEB Task: Sync Module Released\n");
+						#endif
+					} else {
+						bSyncCtrIntern(FALSE); /*TRUE = Internal*/
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+							fprintf(fp,"\nMEB Task: Waiting external Sync signal\n");
+						#endif
+					}
 
 					/*This sequence start the HW sync module*/
 					bSyncCtrReset();
@@ -200,7 +216,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
-					fprintf(fp,"Channels TimeCode = %d\n", vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					fprintf(fp,"Channels TimeCode = %d\n", (alt_u8)vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				break;
@@ -211,7 +227,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					fprintf(fp,"Channels TimeCode = %d\n", vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					fprintf(fp,"Channels TimeCode = %d\n", (alt_u8)vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				break;
@@ -222,7 +238,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					fprintf(fp,"Channels TimeCode = %d\n", vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
+					fprintf(fp,"Channels TimeCode = %d\n", (alt_u8)vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
 				for (int iCountFEE = 0; iCountFEE < N_OF_NFEE; iCountFEE++) {
@@ -449,35 +465,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	switch (xPusL->usiSubType) {
 		/* TC_SYNCH_SOURCE */
 		case 29:
-			/* Disable all sync IRQs [rfranca] */
-			bSyncIrqEnableError(FALSE);
-			bSyncIrqEnableBlankPulse(FALSE);
-			bSyncIrqEnableMasterPulse(FALSE);
-			bSyncIrqEnableNormalPulse(FALSE);
-			bSyncIrqEnableLastPulse(FALSE);
-			bSyncPreIrqEnableBlankPulse(FALSE);
-			bSyncPreIrqEnableMasterPulse(FALSE);
-			bSyncPreIrqEnableNormalPulse(FALSE);
-			bSyncPreIrqEnableLastPulse(FALSE);
 			/* Set sync source */
 			param1 = xPusL->usiValues[0];
-			bSyncCtrIntern(param1 == 0); /*TRUE = Internal*/
-			/* Clear all sync IRQ Flags [rfranca] */
-			bSyncIrqFlagClrError(TRUE);
-			bSyncIrqFlagClrBlankPulse(TRUE);
-			bSyncIrqFlagClrMasterPulse(TRUE);
-			bSyncIrqFlagClrNormalPulse(TRUE);
-			bSyncIrqFlagClrLastPulse(TRUE);
-			bSyncPreIrqFlagClrBlankPulse(TRUE);
-			bSyncPreIrqFlagClrMasterPulse(TRUE);
-			bSyncPreIrqFlagClrNormalPulse(TRUE);
-			bSyncPreIrqFlagClrLastPulse(TRUE);
-			/* Enable relevant sync IRQs [rfranca] */
-			bSyncIrqEnableMasterPulse(TRUE);
-			bSyncIrqEnableNormalPulse(TRUE);
-			bSyncIrqEnableLastPulse(TRUE);
-			bSyncPreIrqEnableBlankPulse(TRUE);
-			bSyncPreIrqEnableMasterPulse(TRUE);
+			if (0 == param1) {
+				/*TRUE = Internal*/
+				vChangeSyncSource( pxMebCLocal, sInternal );
+			} else {
+				vChangeSyncSource( pxMebCLocal, sExternal );
+			}
 			break;
 		/*case 34:
 			usiFeeInstL = xPusL->usiValues[0];
@@ -902,8 +897,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						bDpktGetRightContentErrInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nTotal Entry Left:%i\n", pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktLeftContentErrInj.ucErrorsCnt  );
-							fprintf(fp, "Total Entry Right:%i\n", pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktRightContentErrInj.ucErrorsCnt);
+							fprintf(fp, "\nTotal Entry Left:%i\n", (alt_u8)pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktLeftContentErrInj.ucErrorsCnt);
+							fprintf(fp, "Total Entry Right:%i\n", (alt_u8)pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktRightContentErrInj.ucErrorsCnt);
 						}
 						#endif
 					}
@@ -2040,6 +2035,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 	/* Stop the Sync (Stopping the simulation) */
 	bStopSync();
+	bClearSync();
 	vSyncClearCounter();
 
 	/* Give time to all tasks receive the command */

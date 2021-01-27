@@ -36,7 +36,7 @@ typedef struct SSpwcLinkConfig {
 	bool bDisconnect; /* SpaceWire Link Config Disconnect */
 	bool bLinkStart; /* SpaceWire Link Config Linkstart */
 	bool bAutostart; /* SpaceWire Link Config Autostart */
-	alt_u8 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
+	alt_u32 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
 } TSSpwcLinkConfig;
 
 /* SpaceWire Link Status Register Struct */
@@ -62,8 +62,8 @@ typedef struct SSpwcTimecodeConfig {
 
 /* SpaceWire Timecode Status Register Struct */
 typedef struct SSpwcTimecodeStatus {
-	alt_u8 ucTime; /* SpaceWire Timecode Time */
-	alt_u8 ucControl; /* SpaceWire Timecode Control */
+	alt_u32 ucTime; /* SpaceWire Timecode Time */
+	alt_u32 ucControl; /* SpaceWire Timecode Control */
 } TSSpwcTimecodeStatus;
 
 /* RMAP Device Address Register Struct */
@@ -73,8 +73,8 @@ typedef struct SRmapDevAddr {
 
 /* RMAP Codec Config Register Struct */
 typedef struct SRmapCodecConfig {
-	alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
-	alt_u8 ucKey; /* RMAP Target Key */
+	alt_u32 ucLogicalAddress; /* RMAP Target Logical Address */
+	alt_u32 ucKey; /* RMAP Target Key */
 } TSRmapCodecConfig;
 
 /* RMAP Codec Status Register Struct */
@@ -127,11 +127,11 @@ typedef struct SMachineControl {
 
 /* Data Packet Config Register Struct */
 typedef struct SDataPacketConfig {
-	alt_u16 usiPacketLength; /* Data Packet Packet Length */
-	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
-	alt_u8 ucCcdNumber; /* Data Packet CCD Number */
-	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
-	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
+	alt_u32 usiPacketLength; /* Data Packet Packet Length */
+	alt_u32 ucFeeMode; /* Data Packet FEE Mode */
+	alt_u32 ucCcdNumber; /* Data Packet CCD Number */
+	alt_u32 ucProtocolId; /* Data Packet Protocol ID */
+	alt_u32 ucLogicalAddr; /* Data Packet Logical Address */
 } TSDataPacketConfig;
 
 /* General Struct for Registers Access */

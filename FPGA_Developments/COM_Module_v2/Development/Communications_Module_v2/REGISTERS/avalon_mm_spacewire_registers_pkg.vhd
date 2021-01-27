@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#BB#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#D1#;
 
 	-- Registers Types
 
@@ -298,7 +298,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- RMAP Error Injection Control Register
 	type t_comm_rmap_error_injection_control_wr_reg is record
-		rmap_errinj_trigger : std_logic; -- Enable for RMAP Error
+		rmap_errinj_trigger : std_logic; -- Trigger RMAP Error
 		rmap_errinj_err_id  : std_logic_vector(3 downto 0); -- Error ID of RMAP Error
 		rmap_errinj_value   : std_logic_vector(31 downto 0); -- Value of RMAP Error
 	end record t_comm_rmap_error_injection_control_wr_reg;

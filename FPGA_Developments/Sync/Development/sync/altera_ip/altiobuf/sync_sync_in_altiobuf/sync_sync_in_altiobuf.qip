@@ -1,0 +1,9 @@
+set_global_assignment -name IP_TOOL_NAME "ALTIOBUF"
+set_global_assignment -name IP_TOOL_VERSION "18.1"
+set_global_assignment -name IP_GENERATED_DEVICE_FAMILY "{Stratix IV}"
+set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "sync_sync_in_altiobuf.vhd"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "sync_sync_in_altiobuf.bsf"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "sync_sync_in_altiobuf_inst.vhd"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "sync_sync_in_altiobuf.inc"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "sync_sync_in_altiobuf.cmp"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "sync_sync_in_altiobuf_syn.v"]

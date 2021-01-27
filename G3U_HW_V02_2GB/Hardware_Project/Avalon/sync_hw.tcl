@@ -4,7 +4,7 @@
 
 
 # 
-# Sync "Sync" v1.6
+# Sync "Sync" v1.7
 # Franca/Cassio 2019.08.28.16:44:28
 # Synchronism module - Plato Simucam - R0
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION "Synchronism module - Plato Simucam - R0"
 set_module_property NAME Sync
-set_module_property VERSION 1.6
+set_module_property VERSION 1.7
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR Franca/Cassio
@@ -52,6 +52,16 @@ add_fileset_file sync_common_pkg.vhd VHDL PATH sync/common/sync_common_pkg.vhd
 add_fileset_file sync_avalon_mm_pkg.vhd VHDL PATH sync/avalon/sync_avalon_mm_pkg.vhd
 add_fileset_file sync_avalon_mm_read.vhd VHDL PATH sync/avalon/sync_avalon_mm_read.vhd
 add_fileset_file sync_avalon_mm_write.vhd VHDL PATH sync/avalon/sync_avalon_mm_write.vhd
+add_fileset_file sync_sync_in_altiobuf.bsf OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.bsf
+add_fileset_file sync_sync_in_altiobuf.cmp OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.cmp
+add_fileset_file sync_sync_in_altiobuf.inc OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.inc
+add_fileset_file sync_sync_in_altiobuf.qip OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.qip
+add_fileset_file sync_sync_in_altiobuf.vhd VHDL PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.vhd
+add_fileset_file sync_sync_out_altiobuf.bsf OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.bsf
+add_fileset_file sync_sync_out_altiobuf.cmp OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.cmp
+add_fileset_file sync_sync_out_altiobuf.inc OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.inc
+add_fileset_file sync_sync_out_altiobuf.qip OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.qip
+add_fileset_file sync_sync_out_altiobuf.vhd VHDL  PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.vhd
 
 add_fileset SIM_VHDL SIM_VHDL "" ""
 set_fileset_property SIM_VHDL TOP_LEVEL sync_ent
@@ -70,6 +80,16 @@ add_fileset_file sync_common_pkg.vhd VHDL PATH sync/common/sync_common_pkg.vhd
 add_fileset_file sync_avalon_mm_pkg.vhd VHDL PATH sync/avalon/sync_avalon_mm_pkg.vhd
 add_fileset_file sync_avalon_mm_read.vhd VHDL PATH sync/avalon/sync_avalon_mm_read.vhd
 add_fileset_file sync_avalon_mm_write.vhd VHDL PATH sync/avalon/sync_avalon_mm_write.vhd
+add_fileset_file sync_sync_in_altiobuf.bsf OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.bsf
+add_fileset_file sync_sync_in_altiobuf.cmp OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.cmp
+add_fileset_file sync_sync_in_altiobuf.inc OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.inc
+add_fileset_file sync_sync_in_altiobuf.qip OTHER PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.qip
+add_fileset_file sync_sync_in_altiobuf.vhd VHDL PATH sync/altera_ip/altiobuf/sync_sync_in_altiobuf/sync_sync_in_altiobuf.vhd
+add_fileset_file sync_sync_out_altiobuf.bsf OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.bsf
+add_fileset_file sync_sync_out_altiobuf.cmp OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.cmp
+add_fileset_file sync_sync_out_altiobuf.inc OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.inc
+add_fileset_file sync_sync_out_altiobuf.qip OTHER PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.qip
+add_fileset_file sync_sync_out_altiobuf.vhd VHDL  PATH sync/altera_ip/altiobuf/sync_sync_out_altiobuf/sync_sync_out_altiobuf.vhd
 
 
 # 
@@ -171,6 +191,36 @@ set_interface_assignment avalon_mm_slave embeddedsw.configuration.isFlash 0
 set_interface_assignment avalon_mm_slave embeddedsw.configuration.isMemoryDevice 0
 set_interface_assignment avalon_mm_slave embeddedsw.configuration.isNonVolatileStorage 0
 set_interface_assignment avalon_mm_slave embeddedsw.configuration.isPrintableDevice 0
+
+
+# 
+# connection point sync_in_en
+# 
+add_interface sync_in_en conduit end
+set_interface_property sync_in_en associatedClock clock
+set_interface_property sync_in_en associatedReset ""
+set_interface_property sync_in_en ENABLED true
+set_interface_property sync_in_en EXPORT_OF ""
+set_interface_property sync_in_en PORT_NAME_MAP ""
+set_interface_property sync_in_en CMSIS_SVD_VARIABLES ""
+set_interface_property sync_in_en SVD_ADDRESS_GROUP ""
+
+add_interface_port sync_in_en conduit_sync_signal_syncin_en_i conduit Input 1
+
+
+# 
+# connection point sync_out_en
+# 
+add_interface sync_out_en conduit end
+set_interface_property sync_out_en associatedClock clock
+set_interface_property sync_out_en associatedReset ""
+set_interface_property sync_out_en ENABLED true
+set_interface_property sync_out_en EXPORT_OF ""
+set_interface_property sync_out_en PORT_NAME_MAP ""
+set_interface_property sync_out_en CMSIS_SVD_VARIABLES ""
+set_interface_property sync_out_en SVD_ADDRESS_GROUP ""
+
+add_interface_port sync_out_en conduit_sync_signal_syncout_en_i conduit Input 1
 
 
 # 

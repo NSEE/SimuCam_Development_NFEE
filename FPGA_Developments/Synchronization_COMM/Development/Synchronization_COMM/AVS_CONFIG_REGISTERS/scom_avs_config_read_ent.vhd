@@ -30,380 +30,390 @@ begin
 
 				when (16#00#) =>
 					-- Scom Device Address Register : Scom Device Base Address
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.scom_dev_addr_reg.scom_dev_base_addr(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
 						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.scom_dev_addr_reg.scom_dev_base_addr(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
 						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.scom_dev_addr_reg.scom_dev_base_addr(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
 						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.scom_dev_addr_reg.scom_dev_base_addr(31 downto 24);
-					end if;
+					-- end if;
 
 				when (16#01#) =>
 					-- SpaceWire Device Address Register : SpaceWire Device Base Address
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.spw_dev_addr_reg.spw_dev_base_addr(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
 						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.spw_dev_addr_reg.spw_dev_base_addr(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
 						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.spw_dev_addr_reg.spw_dev_base_addr(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
 						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.spw_dev_addr_reg.spw_dev_base_addr(31 downto 24);
-					end if;
+					-- end if;
 
 				when (16#02#) =>
 					-- SpaceWire Link Config Register : SpaceWire Link Config Disconnect
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_wr_regs_i.spw_link_config_reg.spw_lnkcfg_disconnect;
-					end if;
+					-- end if;
 
 				when (16#03#) =>
 					-- SpaceWire Link Config Register : SpaceWire Link Config Linkstart
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_wr_regs_i.spw_link_config_reg.spw_lnkcfg_linkstart;
-					end if;
+					-- end if;
 
 				when (16#04#) =>
 					-- SpaceWire Link Config Register : SpaceWire Link Config Autostart
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_wr_regs_i.spw_link_config_reg.spw_lnkcfg_autostart;
-					end if;
+					-- end if;
 
 				when (16#05#) =>
 					-- SpaceWire Link Config Register : SpaceWire Link Config TxDivCnt
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.spw_link_config_reg.spw_lnkcfg_txdivcnt;
-					end if;
+					-- end if;
 
 				when (16#06#) =>
 					-- SpaceWire Link Status Register : SpaceWire Link Running
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.spw_link_status_reg.spw_link_running;
-					end if;
+					-- end if;
 
 				when (16#07#) =>
 					-- SpaceWire Link Status Register : SpaceWire Link Connecting
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.spw_link_status_reg.spw_link_connecting;
-					end if;
+					-- end if;
 
 				when (16#08#) =>
 					-- SpaceWire Link Status Register : SpaceWire Link Started
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.spw_link_status_reg.spw_link_started;
-					end if;
+					-- end if;
 
 				when (16#09#) =>
 					-- SpaceWire Link Status Register : SpaceWire Error Disconnect
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.spw_link_status_reg.spw_err_disconnect;
-					end if;
+					-- end if;
 
 				when (16#0A#) =>
 					-- SpaceWire Link Status Register : SpaceWire Error Parity
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.spw_link_status_reg.spw_err_parity;
-					end if;
+					-- end if;
 
 				when (16#0B#) =>
 					-- SpaceWire Link Status Register : SpaceWire Error Escape
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.spw_link_status_reg.spw_err_escape;
-					end if;
+					-- end if;
 
 				when (16#0C#) =>
 					-- SpaceWire Link Status Register : SpaceWire Error Credit
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_rd_regs_i.spw_link_status_reg.spw_err_credit;
-					end if;
+					-- end if;
 
 				when (16#0D#) =>
 					-- SpaceWire Timecode Config Register : SpaceWire Timecode Clear
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_wr_regs_i.spw_timecode_config_reg.timecode_clear;
-					end if;
+					-- end if;
 
 				when (16#0E#) =>
 					-- SpaceWire Timecode Config Register : SpaceWire Timecode Enable
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(0) <= config_wr_regs_i.spw_timecode_config_reg.timecode_en;
-					end if;
+					-- end if;
 
 				when (16#0F#) =>
 					-- SpaceWire Timecode Status Register : SpaceWire Timecode Time
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(5 downto 0) <= config_rd_regs_i.spw_timecode_status_reg.timecode_time;
-					end if;
-					-- SpaceWire Timecode Status Register : SpaceWire Timecode Control
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(9 downto 8) <= config_rd_regs_i.spw_timecode_status_reg.timecode_control;
-					end if;
+					-- end if;
 
 				when (16#10#) =>
-					-- RMAP Device Address Register : RMAP Device Base Address
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(31 downto 24);
-					end if;
+					-- SpaceWire Timecode Status Register : SpaceWire Timecode Control
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(1 downto 0) <= config_rd_regs_i.spw_timecode_status_reg.timecode_control;
+					-- end if;
 
 				when (16#11#) =>
-					-- RMAP Codec Config Register : RMAP Target Logical Address
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_codec_config_reg.rmap_target_logical_addr;
-					end if;
-					-- RMAP Codec Config Register : RMAP Target Key
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_codec_config_reg.rmap_target_key;
-					end if;
+					-- RMAP Device Address Register : RMAP Device Base Address
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_dev_addr_reg.rmap_dev_base_addr(31 downto 24);
+					-- end if;
 
 				when (16#12#) =>
-					-- RMAP Codec Status Register : RMAP Status Command Received
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_command_received;
-					end if;
+					-- RMAP Codec Config Register : RMAP Target Logical Address
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_codec_config_reg.rmap_target_logical_addr;
+					-- end if;
 
 				when (16#13#) =>
-					-- RMAP Codec Status Register : RMAP Status Write Requested
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_write_requested;
-					end if;
+					-- RMAP Codec Config Register : RMAP Target Key
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_codec_config_reg.rmap_target_key;
+					-- end if;
 
 				when (16#14#) =>
-					-- RMAP Codec Status Register : RMAP Status Write Authorized
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_write_authorized;
-					end if;
+					-- RMAP Codec Status Register : RMAP Status Command Received
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_command_received;
+					-- end if;
 
 				when (16#15#) =>
-					-- RMAP Codec Status Register : RMAP Status Read Requested
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_read_requested;
-					end if;
+					-- RMAP Codec Status Register : RMAP Status Write Requested
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_write_requested;
+					-- end if;
 
 				when (16#16#) =>
-					-- RMAP Codec Status Register : RMAP Status Read Authorized
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_read_authorized;
-					end if;
+					-- RMAP Codec Status Register : RMAP Status Write Authorized
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_write_authorized;
+					-- end if;
 
 				when (16#17#) =>
-					-- RMAP Codec Status Register : RMAP Status Reply Sended
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_reply_sended;
-					end if;
+					-- RMAP Codec Status Register : RMAP Status Read Requested
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_read_requested;
+					-- end if;
 
 				when (16#18#) =>
-					-- RMAP Codec Status Register : RMAP Status Discarded Package
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_discarded_package;
-					end if;
+					-- RMAP Codec Status Register : RMAP Status Read Authorized
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_read_authorized;
+					-- end if;
 
 				when (16#19#) =>
-					-- RMAP Codec Status Register : RMAP Error Early EOP
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_early_eop;
-					end if;
+					-- RMAP Codec Status Register : RMAP Status Reply Sended
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_reply_sended;
+					-- end if;
 
 				when (16#1A#) =>
-					-- RMAP Codec Status Register : RMAP Error EEP
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_eep;
-					end if;
+					-- RMAP Codec Status Register : RMAP Status Discarded Package
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_stat_discarded_package;
+					-- end if;
 
 				when (16#1B#) =>
-					-- RMAP Codec Status Register : RMAP Error Header CRC
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_header_crc;
-					end if;
+					-- RMAP Codec Status Register : RMAP Error Early EOP
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_early_eop;
+					-- end if;
 
 				when (16#1C#) =>
-					-- RMAP Codec Status Register : RMAP Error Unused Packet Type
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_unused_packet_type;
-					end if;
+					-- RMAP Codec Status Register : RMAP Error EEP
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_eep;
+					-- end if;
 
 				when (16#1D#) =>
-					-- RMAP Codec Status Register : RMAP Error Invalid Command Code
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_invalid_command_code;
-					end if;
+					-- RMAP Codec Status Register : RMAP Error Header CRC
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_header_crc;
+					-- end if;
 
 				when (16#1E#) =>
-					-- RMAP Codec Status Register : RMAP Error Too Much Data
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_too_much_data;
-					end if;
+					-- RMAP Codec Status Register : RMAP Error Unused Packet Type
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_unused_packet_type;
+					-- end if;
 
 				when (16#1F#) =>
-					-- RMAP Codec Status Register : RMAP Error Invalid Data CRC
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_invalid_data_crc;
-					end if;
+					-- RMAP Codec Status Register : RMAP Error Invalid Command Code
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_invalid_command_code;
+					-- end if;
 
 				when (16#20#) =>
-					-- RMAP Memory Status Register : RMAP Last Write Address
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(31 downto 24);
-					end if;
+					-- RMAP Codec Status Register : RMAP Error Too Much Data
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_too_much_data;
+					-- end if;
 
 				when (16#21#) =>
-					-- RMAP Memory Status Register : RMAP Last Write Length [Bytes]
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(31 downto 24);
-					end if;
+					-- RMAP Codec Status Register : RMAP Error Invalid Data CRC
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_rd_regs_i.rmap_codec_status_reg.rmap_err_invalid_data_crc;
+					-- end if;
 
 				when (16#22#) =>
-					-- RMAP Memory Status Register : RMAP Last Read Address
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(31 downto 24);
-					end if;
+					-- RMAP Memory Status Register : RMAP Last Write Address
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_addr(31 downto 24);
+					-- end if;
 
 				when (16#23#) =>
-					-- RMAP Memory Status Register : RMAP Last Read Length [Bytes]
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(31 downto 24);
-					end if;
+					-- RMAP Memory Status Register : RMAP Last Write Length [Bytes]
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_write_length_bytes(31 downto 24);
+					-- end if;
 
 				when (16#24#) =>
-					-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(31 downto 24);
-					end if;
+					-- RMAP Memory Status Register : RMAP Last Read Address
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_addr(31 downto 24);
+					-- end if;
 
 				when (16#25#) =>
-					-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(31 downto 24);
-					end if;
+					-- RMAP Memory Status Register : RMAP Last Read Length [Bytes]
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(31 downto 24);
+					-- end if;
 
 				when (16#26#) =>
-					-- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(15 downto 8);
-					end if;
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(23 downto 16);
-					end if;
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(31 downto 24);
-					end if;
+					-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(31 downto 24);
+					-- end if;
 
 				when (16#27#) =>
-					-- FEE Machine Config Register : FEE Machine Clear
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_clear;
-					end if;
+					-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(31 downto 24);
+					-- end if;
 
 				when (16#28#) =>
-					-- FEE Machine Config Register : FEE Machine Stop
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_stop;
-					end if;
+					-- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(15 downto 8);
+					-- end if;
+					-- if (avs_config_i.byteenable(2) = '1') then
+						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(23 downto 16);
+					-- end if;
+					-- if (avs_config_i.byteenable(3) = '1') then
+						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(31 downto 24);
+					-- end if;
 
 				when (16#29#) =>
-					-- FEE Machine Config Register : FEE Machine Start
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_start;
-					end if;
+					-- FEE Machine Config Register : FEE Machine Clear
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_clear;
+					-- end if;
 
 				when (16#2A#) =>
-					-- Data Packet Config Register : Data Packet Packet Length
-					if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_packet_length(7 downto 0);
-					end if;
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.data_packet_config_reg.data_pkt_packet_length(15 downto 8);
-					end if;
-					-- Data Packet Config Register : Data Packet FEE Mode
-					if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(20 downto 16) <= config_wr_regs_i.data_packet_config_reg.data_pkt_fee_mode;
-					end if;
-					-- Data Packet Config Register : Data Packet CCD Number
-					if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(25 downto 24) <= config_wr_regs_i.data_packet_config_reg.data_pkt_ccd_number;
-					end if;
+					-- FEE Machine Config Register : FEE Machine Stop
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_stop;
+					-- end if;
 
 				when (16#2B#) =>
+					-- FEE Machine Config Register : FEE Machine Start
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(0) <= config_wr_regs_i.fee_machine_config_reg.fee_machine_start;
+					-- end if;
+
+				when (16#2C#) =>
+					-- Data Packet Config Register : Data Packet Packet Length
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_packet_length(7 downto 0);
+					-- end if;
+					-- if (avs_config_i.byteenable(1) = '1') then
+						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.data_packet_config_reg.data_pkt_packet_length(15 downto 8);
+					-- end if;
+
+				when (16#2D#) =>
+					-- Data Packet Config Register : Data Packet FEE Mode
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(4 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_fee_mode;
+					-- end if;
+
+				when (16#2E#) =>
+					-- Data Packet Config Register : Data Packet CCD Number
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(1 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_ccd_number;
+					-- end if;
+
+				when (16#2F#) =>
 					-- Data Packet Config Register : Data Packet Protocol ID
-					if (avs_config_i.byteenable(0) = '1') then
+					-- if (avs_config_i.byteenable(0) = '1') then
 						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_protocol_id;
-					end if;
+					-- end if;
+
+				when (16#30#) =>
 					-- Data Packet Config Register : Data Packet Logical Address
-					if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.data_packet_config_reg.data_pkt_logical_addr;
-					end if;
+					-- if (avs_config_i.byteenable(0) = '1') then
+						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.data_packet_config_reg.data_pkt_logical_addr;
+					-- end if;
 
 				when others =>
 					-- No register associated to the address, return with 0x00000000

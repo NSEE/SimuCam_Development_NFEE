@@ -39,6 +39,7 @@ void vSyncResetTask( void *task_data ){
 
         	/* Stop the Sync (Stopping the simulation) */
         	bStopSync();
+        	bClearSync();
         	vSyncClearCounter();
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {

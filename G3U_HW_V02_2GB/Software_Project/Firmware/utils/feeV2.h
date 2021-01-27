@@ -127,6 +127,7 @@ typedef struct FeeControl{
 
 typedef struct RmapChanges{
     volatile bool 	bvStartvEnd;
+    volatile bool 	bChargeInjection;
     volatile bool 	bReadoutOrder;
     volatile bool 	bhEnd;
     volatile bool 	bPacketSize;
@@ -140,6 +141,7 @@ typedef struct RmapCopy{
     volatile alt_u16 	  	usiCopyPacketLength; 	/* Data Packet Packet Length */
     volatile bool 		  	bCopyDigitaliseEn; 			/* FEE Digitalise Enable */
 	volatile bool 			bCopyReadoutEn; 			/* FEE Readout Enable */
+	volatile bool 			bCopyChargeInjEn; 			/* FEE Charge Injection Enable */
 } TRmapCopy;
 
 typedef struct NFee {

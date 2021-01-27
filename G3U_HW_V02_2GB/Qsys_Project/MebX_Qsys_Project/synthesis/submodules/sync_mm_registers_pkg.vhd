@@ -53,7 +53,7 @@ package sync_mm_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SYNC_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SYNC_MAX_ADDR : natural range 0 to 255 := 16#37#;
+	constant c_AVALON_MM_SYNC_MAX_ADDR : natural range 0 to 255 := 16#39#;
 
 	-- Registers Types
 

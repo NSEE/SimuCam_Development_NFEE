@@ -40,9 +40,9 @@ extern const alt_u8 cusiSyncNFeeNumberOfPulses;
 /* Sync Status Register Struct */
 typedef struct SyncStatus {
 	bool bIntExtN; /* Internal/External_n */
-	alt_u8 ucState; /* State */
-	alt_u8 ucErrorCode; /* Error code */
-	alt_u8 ucCycleNumber; /* Cycle number */
+	alt_u32 ucState; /* State */
+	alt_u32 ucErrorCode; /* Error code */
+	alt_u32 ucCycleNumber; /* Cycle number */
 } TSyncStatus;
 
 /* Sync Interrupt Enable Register Struct */
@@ -111,7 +111,7 @@ typedef struct SyncConfig {
 /* Sync General Config Register Struct */
 typedef struct SyncGeneralConfig {
 	bool bSignalPolarity; /* Signal polarity */
-	alt_u8 ucNumberOfCycles; /* Number of cycles */
+	alt_u32 ucNumberOfCycles; /* Number of cycles */
 } TSyncGeneralConfig;
 
 /* Sync Error Injection Register Struct */

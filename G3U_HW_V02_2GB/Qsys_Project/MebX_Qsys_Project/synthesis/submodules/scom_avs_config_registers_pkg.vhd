@@ -8,7 +8,7 @@ package scom_avs_config_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_SCOM_AVS_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_SCOM_AVS_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#2B#;
+	constant c_SCOM_AVS_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#30#;
 
 	-- Registers Types
 

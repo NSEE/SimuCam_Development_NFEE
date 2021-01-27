@@ -1303,7 +1303,7 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 #if DEBUG_ON
 		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
 			fprintf(fp, "\nSync Module Configuration:\n");
-			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
+			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", (alt_u8)vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
 			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
 			fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPreBlankTime));
 			fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime));

@@ -2053,7 +2053,13 @@
    dir="end" />
  <interface name="ssdp" internal="SEVEN_SEGMENT_CONTROLLER.SSDP_conduit" />
  <interface name="sync_in" internal="sync.sync_in" type="conduit" dir="end" />
+ <interface name="sync_in_en" internal="sync.sync_in_en" type="conduit" dir="end" />
  <interface name="sync_out" internal="sync.sync_out" type="conduit" dir="end" />
+ <interface
+   name="sync_out_en"
+   internal="sync.sync_out_en"
+   type="conduit"
+   dir="end" />
  <interface name="sync_spw1" internal="sync.sync_spw1" type="conduit" dir="end" />
  <interface name="sync_spw2" internal="sync.sync_spw2" type="conduit" dir="end" />
  <interface name="sync_spw3" internal="sync.sync_spw3" type="conduit" dir="end" />
@@ -3577,7 +3583,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="sync" kind="Sync" version="1.6" enabled="1">
+ <module name="sync" kind="Sync" version="1.7" enabled="1">
   <parameter name="g_PRE_SYNC_IRQ_NUMBER" value="12" />
   <parameter name="g_SYNC_IRQ_NUMBER" value="11" />
  </module>

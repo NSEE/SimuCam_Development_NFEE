@@ -786,7 +786,7 @@ void vLoadHardcodedDebugConf( void ) {
 
 	xDefaults.usiSyncPeriod     = 6250; /* ms */
 	xDefaults.usiRows           = 4510;
-	xDefaults.usiOLN            = 50;
+	xDefaults.usiOLN            = 300;
 	xDefaults.usiCols           = 2295;
 	xDefaults.usiPreScanSerial  = 0;
 	xDefaults.usiOverScanSerial = 0;

@@ -196,7 +196,9 @@
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X';             -- spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X';             -- spw_lvds_n_strobe_in_signal
 			sync_in_conduit                                             : in    std_logic                     := 'X';             -- conduit
+			sync_in_en_conduit                                          : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                            : out   std_logic;                                        -- conduit
+			sync_out_en_conduit                                         : in    std_logic                     := 'X';             -- conduit
 			sync_spw1_conduit                                           : out   std_logic;                                        -- conduit
 			sync_spw2_conduit                                           : out   std_logic;                                        -- conduit
 			sync_spw3_conduit                                           : out   std_logic;                                        -- conduit

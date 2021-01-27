@@ -218,7 +218,10 @@ begin
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
 			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-			s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_too_many_overlapping_windows                                      <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_correctable                                             <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_uncorrectable                                           <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_block_ram_edac_uncorrectable                                      <= '0';
 			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
 			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
 			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
@@ -247,20 +250,20 @@ begin
 			if ((s_hk_err_f_side_buffer_full_delayed = '0') and (channel_hk_err_f_side_buffer_full_i = '1')) then
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full <= '1';
 			end if;
-			if ((s_hk_err_invalid_ccd_mode_delayed = '0') and (channel_hk_err_invalid_ccd_mode_i = '1')) then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
-			end if;
+			--			if ((s_hk_err_invalid_ccd_mode_delayed = '0') and (channel_hk_err_invalid_ccd_mode_i = '1')) then
+			--				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+			--			end if;
 			if ((s_spw_err_link_escape_err = '0') and (channel_hk_spw_link_escape_err_i = '1')) then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error <= '1';
 			end if;
 			if ((s_spw_err_link_credit_err = '0') and (channel_hk_spw_link_credit_err_i = '1')) then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error <= '1';
 			end if;
 			if ((s_spw_err_link_parity_err = '0') and (channel_hk_spw_link_parity_err_i = '1')) then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error <= '1';
 			end if;
 			if ((s_spw_err_link_disconnect = '0') and (channel_hk_spw_link_disconnect_i = '1')) then
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
+				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect <= '1';
 			end if;
 			-- check if a error clear was requested
 			if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
@@ -268,7 +271,10 @@ begin
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
 				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_too_many_overlapping_windows                                      <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_correctable                                             <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_uncorrectable                                           <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_block_ram_edac_uncorrectable                                      <= '0';
 				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
 				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
 				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';

@@ -592,6 +592,8 @@ architecture bhv of MebX_TopLevel is
 			rtcc_sdo_export                                             : in    std_logic                     := 'X'; -- export
 			--
 			sync_in_conduit                                             : in    std_logic                     := 'X'; -- conduit
+			sync_in_en_conduit                                          : in    std_logic                     := '0'; -- conduit
+			sync_out_en_conduit                                         : in    std_logic                     := '0'; -- conduit
 			sync_out_conduit                                            : out   std_logic; --                         -- conduit
 			sync_spw1_conduit                                           : out   std_logic; --                         -- conduit
 			sync_spw2_conduit                                           : out   std_logic; --                         -- conduit
@@ -854,6 +856,8 @@ begin
 			rtcc_sdo_export                                             => RTCC_SDO,
 			--
 			sync_in_conduit                                             => s_sync_in, --           --                            sync_in.conduit
+			sync_in_en_conduit                                          => a_enable_iso_drivers,   --                 sync_in_en_conduit.conduit
+			sync_out_en_conduit                                         => a_enable_iso_drivers,   --                sync_out_en_conduit.conduit
 			sync_out_conduit                                            => s_sync_out, --          --                           sync_out.conduit
 			sync_spw1_conduit                                           => comm_1_sync, --         --                          sync_spw1.conduit
 			sync_spw2_conduit                                           => comm_2_sync, --         --                          sync_spw2.conduit

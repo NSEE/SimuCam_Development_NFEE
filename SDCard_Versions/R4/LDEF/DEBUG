@@ -4,7 +4,7 @@ S=6250;
 'Number of Lines (Height CCD)'
 L=4510;
 'OLN'
-O=50;
+O=300;
 'Number of Columns (Width CCD)'
 C=2295;
 'Pre scan serial'

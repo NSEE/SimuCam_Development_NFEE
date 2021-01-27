@@ -311,6 +311,8 @@ begin
 			mem_flag_i                 => s_rmap_mem_flag,
 			spw_control_o              => s_rmap_spw_control,
 			conf_target_enable_i       => '1',
+			conf_target_pre_sync_i     => s_ch_sync_clear,
+			conf_target_sync_i         => s_ch_sync_trigger,
 			conf_target_logical_addr_i => s_config_wr_regs.rmap_codec_config_reg.rmap_target_logical_addr,
 			conf_target_key_i          => s_config_wr_regs.rmap_codec_config_reg.rmap_target_key,
 			rmap_errinj_en_i           => '0',

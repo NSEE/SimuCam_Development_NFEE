@@ -204,7 +204,9 @@ entity MebX_Qsys_Project is
 		spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
 		spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
 		sync_in_conduit                                             : in    std_logic                     := '0';             --                                    sync_in.conduit
+		sync_in_en_conduit                                          : in    std_logic                     := '0';             --                                 sync_in_en.conduit
 		sync_out_conduit                                            : out   std_logic;                                        --                                   sync_out.conduit
+		sync_out_en_conduit                                         : in    std_logic                     := '0';             --                                sync_out_en.conduit
 		sync_spw1_conduit                                           : out   std_logic;                                        --                                  sync_spw1.conduit
 		sync_spw2_conduit                                           : out   std_logic;                                        --                                  sync_spw2.conduit
 		sync_spw3_conduit                                           : out   std_logic;                                        --                                  sync_spw3.conduit
@@ -1092,27 +1094,29 @@ architecture rtl of MebX_Qsys_Project is
 			g_PRE_SYNC_IRQ_NUMBER : natural := 0
 		);
 		port (
-			clock_sink_clk_i                : in  std_logic                     := 'X';             -- clk
-			reset_sink_reset_i              : in  std_logic                     := 'X';             -- reset
-			avalon_slave_address_i          : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- address
-			avalon_slave_read_i             : in  std_logic                     := 'X';             -- read
-			avalon_slave_write_i            : in  std_logic                     := 'X';             -- write
-			avalon_slave_writedata_i        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			avalon_slave_byteenable_i       : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
-			avalon_slave_readdata_o         : out std_logic_vector(31 downto 0);                    -- readdata
-			avalon_slave_waitrequest_o      : out std_logic;                                        -- waitrequest
-			conduit_sync_signal_syncin_i    : in  std_logic                     := 'X';             -- conduit
-			conduit_sync_signal_spw1_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_spw2_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_spw3_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_spw4_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_spw5_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_spw6_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_spw7_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_spw8_o      : out std_logic;                                        -- conduit
-			conduit_sync_signal_syncout_o   : out std_logic;                                        -- conduit
-			sync_interrupt_sender_irq_o     : out std_logic;                                        -- irq
-			pre_sync_interrupt_sender_irq_o : out std_logic                                         -- irq
+			clock_sink_clk_i                 : in  std_logic                     := 'X';             -- clk
+			reset_sink_reset_i               : in  std_logic                     := 'X';             -- reset
+			avalon_slave_address_i           : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- address
+			avalon_slave_read_i              : in  std_logic                     := 'X';             -- read
+			avalon_slave_write_i             : in  std_logic                     := 'X';             -- write
+			avalon_slave_writedata_i         : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			avalon_slave_byteenable_i        : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
+			avalon_slave_readdata_o          : out std_logic_vector(31 downto 0);                    -- readdata
+			avalon_slave_waitrequest_o       : out std_logic;                                        -- waitrequest
+			conduit_sync_signal_syncin_en_i  : in  std_logic                     := 'X';             -- conduit
+			conduit_sync_signal_syncout_en_i : in  std_logic                     := 'X';             -- conduit
+			conduit_sync_signal_syncin_i     : in  std_logic                     := 'X';             -- conduit
+			conduit_sync_signal_spw1_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw2_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw3_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw4_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw5_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw6_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw7_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw8_o       : out std_logic;                                        -- conduit
+			conduit_sync_signal_syncout_o    : out std_logic;                                        -- conduit
+			sync_interrupt_sender_irq_o      : out std_logic;                                        -- irq
+			pre_sync_interrupt_sender_irq_o  : out std_logic                                         -- irq
 		);
 	end component sync_ent;
 
@@ -5364,27 +5368,29 @@ begin
 			g_PRE_SYNC_IRQ_NUMBER => 12
 		)
 		port map (
-			clock_sink_clk_i                => clk50_clk,                                          --                     clock.clk
-			reset_sink_reset_i              => rst_controller_024_reset_out_reset,                 --                     reset.reset
-			avalon_slave_address_i          => mm_interconnect_2_sync_avalon_mm_slave_address,     --           avalon_mm_slave.address
-			avalon_slave_read_i             => mm_interconnect_2_sync_avalon_mm_slave_read,        --                          .read
-			avalon_slave_write_i            => mm_interconnect_2_sync_avalon_mm_slave_write,       --                          .write
-			avalon_slave_writedata_i        => mm_interconnect_2_sync_avalon_mm_slave_writedata,   --                          .writedata
-			avalon_slave_byteenable_i       => mm_interconnect_2_sync_avalon_mm_slave_byteenable,  --                          .byteenable
-			avalon_slave_readdata_o         => mm_interconnect_2_sync_avalon_mm_slave_readdata,    --                          .readdata
-			avalon_slave_waitrequest_o      => mm_interconnect_2_sync_avalon_mm_slave_waitrequest, --                          .waitrequest
-			conduit_sync_signal_syncin_i    => sync_in_conduit,                                    --                   sync_in.conduit
-			conduit_sync_signal_spw1_o      => sync_spw1_conduit,                                  --                 sync_spw1.conduit
-			conduit_sync_signal_spw2_o      => sync_spw2_conduit,                                  --                 sync_spw2.conduit
-			conduit_sync_signal_spw3_o      => sync_spw3_conduit,                                  --                 sync_spw3.conduit
-			conduit_sync_signal_spw4_o      => sync_spw4_conduit,                                  --                 sync_spw4.conduit
-			conduit_sync_signal_spw5_o      => sync_spw5_conduit,                                  --                 sync_spw5.conduit
-			conduit_sync_signal_spw6_o      => sync_spw6_conduit,                                  --                 sync_spw6.conduit
-			conduit_sync_signal_spw7_o      => sync_spw7_conduit,                                  --                 sync_spw7.conduit
-			conduit_sync_signal_spw8_o      => sync_spw8_conduit,                                  --                 sync_spw8.conduit
-			conduit_sync_signal_syncout_o   => sync_out_conduit,                                   --                  sync_out.conduit
-			sync_interrupt_sender_irq_o     => irq_synchronizer_004_receiver_irq(0),               --     sync_interrupt_sender.irq
-			pre_sync_interrupt_sender_irq_o => irq_synchronizer_003_receiver_irq(0)                -- pre_sync_interrupt_sender.irq
+			clock_sink_clk_i                 => clk50_clk,                                          --                     clock.clk
+			reset_sink_reset_i               => rst_controller_024_reset_out_reset,                 --                     reset.reset
+			avalon_slave_address_i           => mm_interconnect_2_sync_avalon_mm_slave_address,     --           avalon_mm_slave.address
+			avalon_slave_read_i              => mm_interconnect_2_sync_avalon_mm_slave_read,        --                          .read
+			avalon_slave_write_i             => mm_interconnect_2_sync_avalon_mm_slave_write,       --                          .write
+			avalon_slave_writedata_i         => mm_interconnect_2_sync_avalon_mm_slave_writedata,   --                          .writedata
+			avalon_slave_byteenable_i        => mm_interconnect_2_sync_avalon_mm_slave_byteenable,  --                          .byteenable
+			avalon_slave_readdata_o          => mm_interconnect_2_sync_avalon_mm_slave_readdata,    --                          .readdata
+			avalon_slave_waitrequest_o       => mm_interconnect_2_sync_avalon_mm_slave_waitrequest, --                          .waitrequest
+			conduit_sync_signal_syncin_en_i  => sync_in_en_conduit,                                 --                sync_in_en.conduit
+			conduit_sync_signal_syncout_en_i => sync_out_en_conduit,                                --               sync_out_en.conduit
+			conduit_sync_signal_syncin_i     => sync_in_conduit,                                    --                   sync_in.conduit
+			conduit_sync_signal_spw1_o       => sync_spw1_conduit,                                  --                 sync_spw1.conduit
+			conduit_sync_signal_spw2_o       => sync_spw2_conduit,                                  --                 sync_spw2.conduit
+			conduit_sync_signal_spw3_o       => sync_spw3_conduit,                                  --                 sync_spw3.conduit
+			conduit_sync_signal_spw4_o       => sync_spw4_conduit,                                  --                 sync_spw4.conduit
+			conduit_sync_signal_spw5_o       => sync_spw5_conduit,                                  --                 sync_spw5.conduit
+			conduit_sync_signal_spw6_o       => sync_spw6_conduit,                                  --                 sync_spw6.conduit
+			conduit_sync_signal_spw7_o       => sync_spw7_conduit,                                  --                 sync_spw7.conduit
+			conduit_sync_signal_spw8_o       => sync_spw8_conduit,                                  --                 sync_spw8.conduit
+			conduit_sync_signal_syncout_o    => sync_out_conduit,                                   --                  sync_out.conduit
+			sync_interrupt_sender_irq_o      => irq_synchronizer_004_receiver_irq(0),               --     sync_interrupt_sender.irq
+			pre_sync_interrupt_sender_irq_o  => irq_synchronizer_003_receiver_irq(0)                -- pre_sync_interrupt_sender.irq
 		);
 
 	sysid_qsys : component MebX_Qsys_Project_sysid_qsys
