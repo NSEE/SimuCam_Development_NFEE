@@ -109,8 +109,14 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.xTrap.bEnabled = FALSE;
     pxNfeeL->xControl.xTrap.bPumping = FALSE;
     pxNfeeL->xControl.xTrap.bEmiting = FALSE;
+    pxNfeeL->xControl.xTrap.dCI = 0.0;
+    pxNfeeL->xControl.xTrap.dSDT = 0.0;
+    pxNfeeL->xControl.xTrap.dTotalWait = 0.0;
+    pxNfeeL->xControl.xTrap.usiTOI = 0;
+    pxNfeeL->xControl.xTrap.usiOVRL = 0;
     pxNfeeL->xControl.xTrap.uliDT = 0;
-    pxNfeeL->xControl.xTrap.usiSH = 0;
+    pxNfeeL->xControl.xTrap.usiRP = 0;
+    pxNfeeL->xControl.xTrap.usiSC = 0;
     pxNfeeL->xControl.xTrap.usiNofSyncstoWait = 0;
     pxNfeeL->xControl.xTrap.ucICountSyncs = 0;
 

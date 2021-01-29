@@ -730,6 +730,25 @@ void vFeeTaskV3(void *task_data) {
 							pxNFee->xControl.xTrap.bPumping = FALSE;
 							pxNFee->xControl.xTrap.bEmiting = FALSE;
 
+							/* Update DataPacket with the information of actual readout information*/
+							bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+							switch (pxNFee->xControl.eMode) {
+								case sParTrap1:
+									pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping1Pump;
+									break;
+								case sParTrap2:
+									pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping2Pump;
+									break;
+								default:
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+										fprintf(fp,"\nNFEE-%hu Task: Mode not recognized: xDpktDataPacketConfig (Data Packet). Configuring On Mode.\n", pxNFee->ucId);
+									#endif
+									pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+									break;
+							}
+							bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+
 							/*Will check if is Master and if is to start all over again*/
 							pxNFee->xControl.eState = redoutCheckRestr;
 						} else {
@@ -738,12 +757,17 @@ void vFeeTaskV3(void *task_data) {
 							if ( xGlobal.bPreMaster == TRUE ) {
 
 								bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
-								pxNFee->xControl.xTrap.usiSH = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
-								// *20 ns (time unit from RAMP map config sheet)
-								pxNFee->xControl.xTrap.uliDT = 20*pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter;
-								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
+								pxNFee->xControl.xTrap.usiRP   = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiReadoutPauseCounter;
+								pxNFee->xControl.xTrap.usiTOI  = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelToiPeriod;
+								pxNFee->xControl.xTrap.usiOVRL = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelClkOverlap;
+								pxNFee->xControl.xTrap.usiSC   = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
+								pxNFee->xControl.xTrap.uliDT   = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter;
+//								bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 
-								pxNFee->xControl.xTrap.dTotalWait = CHARGE_TIME+((900+pxNFee->xControl.xTrap.uliDT)*pxNFee->xControl.xTrap.usiSH-6.5)*0.000001;
+								pxNFee->xControl.xTrap.dCI = (4 * (double)pxNFee->xControl.xTrap.usiTOI * 20E-9 + 4 * (double)pxNFee->xControl.xTrap.usiOVRL * 20E-9) * 4510;
+								pxNFee->xControl.xTrap.dSDT = (double)pxNFee->xControl.xTrap.usiSC * (4 * (double)pxNFee->xControl.xTrap.usiTOI * 20E-9 + 4 * (double)pxNFee->xControl.xTrap.usiOVRL * 20E-9 + 2 * (double)pxNFee->xControl.xTrap.uliDT * 20E-9);
+
+								pxNFee->xControl.xTrap.dTotalWait = (double)pxNFee->xControl.xTrap.usiRP * 1E-3 + pxNFee->xControl.xTrap.dCI + pxNFee->xControl.xTrap.dSDT;
 
 								fTimesSyncL = pxNFee->xControl.xTrap.dTotalWait / DEFAULT_SYNC_TIME;
 
@@ -799,17 +823,17 @@ void vFeeTaskV3(void *task_data) {
 
 				} else if ( pxNFee->xControl.xTrap.bEnabledSerial == TRUE ) {
 
-					bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
-					pxNFee->xControl.xTrap.usiSH = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
-					// *20 ns (time unit from RAMP map config sheet)
-					pxNFee->xControl.xTrap.uliDT = 20*pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter;
-					bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
-
-					/*Modify time delays*/
-					bDpktGetPixelDelay(&pxNFee->xChannel.xDataPacket);
-					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( (alt_u32)(CHARGE_TIME * 1000) );
-					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = pxNFee->xControl.xTrap.xRestoreDelays.uliLineDelay + uliPxDelayCalcPeriodNs( pxNFee->xControl.xTrap.uliDT + pxNFee->xControl.xTrap.usiSH );
-					bDpktSetPixelDelay(&pxNFee->xChannel.xDataPacket);
+//					bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
+//					pxNFee->xControl.xTrap.usiSH = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
+//					// *20 ns (time unit from RAMP map config sheet)
+//					pxNFee->xControl.xTrap.uliDT = 20*pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter;
+//					bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
+//
+//					/*Modify time delays*/
+//					bDpktGetPixelDelay(&pxNFee->xChannel.xDataPacket);
+//					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( (alt_u32)(CHARGE_TIME * 1000) );
+//					pxNFee->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = pxNFee->xControl.xTrap.xRestoreDelays.uliLineDelay + uliPxDelayCalcPeriodNs( pxNFee->xControl.xTrap.uliDT + pxNFee->xControl.xTrap.usiSH );
+//					bDpktSetPixelDelay(&pxNFee->xChannel.xDataPacket);
 
 
 					/* Update DataPacket with the information of actual readout information*/

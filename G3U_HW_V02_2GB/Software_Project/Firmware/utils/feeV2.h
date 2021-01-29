@@ -42,7 +42,6 @@ typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSi
 
 
 /*For TRAP Mode*/
-#define CHARGE_TIME 			0.5 //Seconds
 #define DEFAULT_SYNC_TIME 		6.25 //Seconds
 
 
@@ -90,9 +89,14 @@ typedef struct TrapModeControl{
 	bool bEmiting;
 	unsigned short ucICountSyncs;
 	unsigned short usiNofSyncstoWait;
+	double dCI;
+	double dSDT;
 	double dTotalWait;
+	alt_u16 usiTOI;
+	alt_u16 usiOVRL;
 	alt_u32 uliDT;
-	alt_u16 usiSH;
+	alt_u16 usiRP;
+	alt_u16 usiSC;
 	TDpktPixelDelay xRestoreDelays;
 } TTrapModeControl;
 
