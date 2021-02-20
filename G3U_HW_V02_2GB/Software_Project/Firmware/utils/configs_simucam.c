@@ -15,17 +15,8 @@ TDefaults xDefaults;
 TGlobal	xGlobal;
 TTimeCodeErrInj xTimeCodeErrInj;
 TSpacewireErrInj xSpacewireErrInj[N_OF_NFEE];
-TDataPktError xDataPKTErr[10];
-alt_u8  usiLeftImageWindowContentErr_Count;
-alt_u8  usiRightImageWindowContentErr_Count;
-TImageWindowContentErr xLeftImageWindowContentErr[128];
-TImageWindowContentErr xRightImageWindowContentErr[128];
-bool bStartImgWinInj[N_OF_NFEE];
-bool bStartDataPktInj[N_OF_NFEE];
 bool bEventReport;
 bool bLogReport;
-
-alt_u8  usiDataPktCount;
 
 /* Load ETH configuration values from SD Card */
 bool bLoadDefaultEthConf( void ) {

@@ -148,14 +148,46 @@ typedef struct RmapCopy{
 	volatile bool 			bCopyChargeInjEn; 			/* FEE Charge Injection Enable */
 } TRmapCopy;
 
+typedef struct DataPktErrorData{
+	alt_u16 usiFrameCounter;
+	alt_u16 usiSequenceCounter;
+	alt_u16 usiFieldId;
+	alt_u16 usiFieldValue;
+} TDataPktErrorData;
+
+typedef struct DataPktError{
+	alt_u8 ucErrorCnt;
+	TDataPktErrorData xErrorList[16];
+	bool bStartErrorInj;
+} TDataPktError;
+
+typedef struct ImgWinContentErrData {
+	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
+	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
+	alt_u16 usiCountFrames; /* Start Frame of Left Content Error */
+	alt_u16 usiFramesActive; /* Stop Frame of Left Content Error */
+	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
+} TImgWinContentErrData;
+
+typedef struct ImgWinContentErr{
+	alt_u8 ucLeftErrorCnt;
+	alt_u8 ucRightErrorCnt;
+	TImgWinContentErrData xLeftErrorList[128];
+	TImgWinContentErrData xRightErrorList[128];
+	bool bStartLeftErrorInj;
+	bool bStartRightErrorInj;
+} TImgWinContentErr;
+
 typedef struct NFee {
-    unsigned char ucId;             /* ID of the NFEE instance */
-    unsigned char ucSPWId;             /* ID of the SPW instance For This NFEE Instance */
-    TFEEMemoryMap xMemMap;          /* Memory map of the NFEE */
-    TFeeControl   xControl;         /* Operation Control of the NFEE */
-    TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */
-    TCommChannel xChannel;
-    TRmapCopy	 xCopyRmap;
+    unsigned char     ucId;              /* ID of the NFEE instance */
+    unsigned char     ucSPWId;           /* ID of the SPW instance For This NFEE Instance */
+    TFEEMemoryMap     xMemMap;           /* Memory map of the NFEE */
+    TFeeControl       xControl;          /* Operation Control of the NFEE */
+    TCcdInfos         xCcdInfo;          /* Pixel configuration of the NFEE */
+    TCommChannel      xChannel;
+    TRmapCopy	      xCopyRmap;
+    TDataPktError     xDataPktError;
+    TImgWinContentErr xImgWinContentErr;
 } TNFee;
 
 typedef struct FEETransmission{

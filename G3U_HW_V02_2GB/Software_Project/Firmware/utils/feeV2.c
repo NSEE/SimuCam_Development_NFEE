@@ -140,6 +140,14 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xCopyRmap.xbRmapChanges.bvStartvEnd = FALSE;
     pxNfeeL->xCopyRmap.xbRmapChanges.bChargeInjection = FALSE;
 
+    pxNfeeL->xDataPktError.ucErrorCnt = 0;
+    pxNfeeL->xDataPktError.bStartErrorInj = FALSE;
+
+    pxNfeeL->xImgWinContentErr.ucLeftErrorCnt = 0;
+    pxNfeeL->xImgWinContentErr.ucRightErrorCnt = 0;
+    pxNfeeL->xImgWinContentErr.bStartLeftErrorInj = FALSE;
+    pxNfeeL->xImgWinContentErr.bStartRightErrorInj = FALSE;
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */

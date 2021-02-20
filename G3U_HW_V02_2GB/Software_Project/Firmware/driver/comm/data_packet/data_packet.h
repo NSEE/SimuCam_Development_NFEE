@@ -120,12 +120,12 @@ bool bDpktGetLeftContentErrInj(TDpktChannel *pxDpktCh);
 bool bDpktSetRightContentErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh);
 
-bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh);
-bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh);
+bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
+bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
 alt_u8 ucDpktContentErrInjAddEntry(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide, alt_u16 usiStartFrame, alt_u16 usiStopFrame, alt_u16 usiPxColX, alt_u16 usiPxRowY, alt_u16 usiPxValue);
-bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh);
-bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh);
-bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh);
+bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
+bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
+bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
 
 bool bDpktSetHeaderErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetHeaderErrInj(TDpktChannel *pxDpktCh);

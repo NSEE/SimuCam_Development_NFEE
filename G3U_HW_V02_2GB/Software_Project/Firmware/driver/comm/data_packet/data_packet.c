@@ -354,7 +354,7 @@ bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh) {
 	return (bStatus);
 }
 
-bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh) {
+bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -362,31 +362,42 @@ bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
-		} else if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
+		switch (ucCcdSide) {
+			case eDpktCcdSideE:
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
+				} else if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
+				}
+
+				while (FALSE == vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+				vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bClearList = TRUE;
+
+				bStatus = TRUE;
+				break;
+			case eDpktCcdSideF:
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
+				} else if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
+				}
+
+				while (FALSE == vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+				vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bClearList = TRUE;
+
+				bStatus = TRUE;
+				break;
+			default:
+				bStatus = FALSE;
+				break;
 		}
-
-		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
-		} else if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
-		}
-
-		while (!(vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) && (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle)) {}
-
-		vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bClearList = TRUE;
-		vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bClearList = TRUE;
-
-		bStatus = TRUE;
 
 	}
 
 	return (bStatus);
 }
 
-bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh) {
+bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -394,31 +405,43 @@ bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
+		switch (ucCcdSide) {
+			case eDpktCcdSideE:
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
 
-			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+					while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+				}
+
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bOpenList = TRUE;
+
+				}
+
+				while (FALSE == vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {}
+
+				bStatus = TRUE;
+				break;
+			case eDpktCcdSideF:
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
+
+					while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+				}
+
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bOpenList = TRUE;
+
+				}
+
+				while (FALSE == vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {}
+
+				bStatus = TRUE;
+				break;
+			default:
+				bStatus = FALSE;
+				break;
 		}
-
-		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bOpenList = TRUE;
-
-		}
-
-		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
-
-			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
-		}
-
-		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bOpenList = TRUE;
-
-		}
-
-		while (!(vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) && (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording)) {}
-
-		bStatus = TRUE;
 
 	}
 
@@ -478,34 +501,37 @@ alt_u8 ucDpktContentErrInjAddEntry(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide, alt
 	return (ucEntries);
 }
 
-bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh) {
+bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide) {
 	bool bStatus = FALSE;
-	bool bLeftStatus = FALSE;
-	bool bRightStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
+		switch (ucCcdSide) {
+			case eDpktCcdSideE:
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
 
-			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+					while (FALSE == vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
 
-			bLeftStatus = TRUE;
-		}
+					bStatus = TRUE;
 
-		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
+				}
+				break;
+			case eDpktCcdSideF:
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
 
-			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+					while (FALSE == vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
 
-			bRightStatus = TRUE;
-		}
-
-		if ((bLeftStatus) && (bRightStatus)) {
-			bStatus = TRUE;
+					bStatus = TRUE;
+				}
+				break;
+			default:
+				bStatus = FALSE;
+				break;
 		}
 
 	}
@@ -513,7 +539,7 @@ bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh) {
 	return (bStatus);
 }
 
-bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh) {
+bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -521,65 +547,77 @@ bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
+		switch (ucCcdSide) {
+			case eDpktCcdSideE:
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bRecording) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bCloseList = TRUE;
 
-			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+					while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+				}
+
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStartInj = TRUE;
+				}
+
+//				while (FALSE == vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {}
+
+				bStatus = TRUE;
+				break;
+			case eDpktCcdSideF:
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
+
+					while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
+				}
+
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStartInj = TRUE;
+				}
+
+//				while (FALSE == vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {}
+
+				bStatus = TRUE;
+				break;
+			default:
+				bStatus = FALSE;
+				break;
 		}
-
-		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStartInj = TRUE;
-
-		}
-
-		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bRecording) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bCloseList = TRUE;
-
-			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
-		}
-
-		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStartInj = TRUE;
-
-		}
-
-		while (!(vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) && (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting)) {}
-
-		bStatus = TRUE;
 
 	}
 
 	return (bStatus);
 }
 
-bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh) {
+bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide) {
 	bool bStatus = FALSE;
-	bool bLeftStatus = FALSE;
-	bool bRightStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
-			vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
+		switch (ucCcdSide) {
+			case eDpktCcdSideE:
+				if (vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+					vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bStopInj = TRUE;
 
-			while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
+					while (!vpxCommChannel->xDataPacket.xDpktLeftContentErrInj.bIdle) {}
 
-			bLeftStatus = TRUE;
-		}
+					bStatus = TRUE;
+				}
+				break;
+			case eDpktCcdSideF:
+				if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
+					vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
 
-		if (vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bInjecting) {
-			vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bStopInj = TRUE;
+					while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
 
-			while (!vpxCommChannel->xDataPacket.xDpktRightContentErrInj.bIdle) {}
-
-			bRightStatus = TRUE;
-		}
-
-		if ((bLeftStatus) && (bRightStatus)) {
-			bStatus = TRUE;
+					bStatus = TRUE;
+				}
+				break;
+			default:
+				bStatus = FALSE;
+				break;
 		}
 
 	}
@@ -742,7 +780,7 @@ bool bDpktHeaderErrInjStartInj(TDpktChannel *pxDpktCh){
 
 		}
 
-		while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bInjecting) {}
+//		while (!vpxCommChannel->xDataPacket.xDpktHeaderErrInj.bInjecting) {}
 
 		bStatus = TRUE;
 

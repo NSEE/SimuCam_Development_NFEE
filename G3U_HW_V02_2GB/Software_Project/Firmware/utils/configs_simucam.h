@@ -88,32 +88,8 @@ typedef struct TimeCodeErrInj{
 	bool				bJitter;
 }TTimeCodeErrInj;
 
-typedef struct DataPktError{
-	alt_u16 usiFrameCounter;
-	alt_u16 usiSequenceCounter;
-	alt_u16 usiFieldId;
-	alt_u16 usiFieldValue;
-} TDataPktError;
-
-typedef struct ImageWindowContentErr {
-	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
-	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
-	alt_u16 usiCountFrames; /* Start Frame of Left Content Error */
-	alt_u16 usiFramesActive; /* Stop Frame of Left Content Error */
-	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
-} TImageWindowContentErr;
-
-
-extern alt_u8  usiDataPktCount;
-extern TDataPktError xDataPKTErr[10];
-extern alt_u8  usiLeftImageWindowContentErr_Count;
-extern alt_u8  usiRightImageWindowContentErr_Count;
-extern TImageWindowContentErr xLeftImageWindowContentErr[128];
-extern TImageWindowContentErr xRightImageWindowContentErr[128];
 extern TTimeCodeErrInj xTimeCodeErrInj;
 extern TSpacewireErrInj xSpacewireErrInj[N_OF_NFEE];
-extern bool bStartImgWinInj[N_OF_NFEE];
-extern bool bStartDataPktInj[N_OF_NFEE];
 
 extern bool bEventReport;
 extern bool bLogReport;

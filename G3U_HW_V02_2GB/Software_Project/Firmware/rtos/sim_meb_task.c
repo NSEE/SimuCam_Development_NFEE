@@ -11,9 +11,10 @@
 and also know the self state and what is allowed to be performed or not */
 int values[] = { 88, 56, 100, 2, 25 };
 
-bool bLeftExists;
-bool bRightExists;
 bool poweron;
+
+volatile TImgWinContentErr *vpxImgWinContentErr = NULL;
+volatile TDataPktError *vpxDataPktError = NULL;
 
 int cmpfunc (const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
@@ -242,21 +243,43 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				}
 				#endif
 				for (int iCountFEE = 0; iCountFEE < N_OF_NFEE; iCountFEE++) {
-					if (bStartImgWinInj[iCountFEE] == TRUE) {
-						if ( bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
+					if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartLeftErrorInj) {
+						bDpktGetLeftContentErrInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket);
+						if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+							bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideE);
+						}
+						if (bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideE)) {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START SUCCESS\n" );
+								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection started (left side)\n", iCountFEE);
 							#endif
 						} else {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION START PROBLEM\n" );
+								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection could not start (left side)\n", iCountFEE);
 							#endif
 						}
-						bStartImgWinInj[iCountFEE] = FALSE;
+						pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartLeftErrorInj = FALSE;
 					}
-					if (bStartDataPktInj[iCountFEE] == TRUE) {
+					if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartRightErrorInj) {
+						bDpktGetRightContentErrInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket);
+						if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket.xDpktRightContentErrInj.bInjecting) {
+							bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideF);
+						}
+						if (bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideF)) {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection started (right side)\n", iCountFEE);
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection could not start (right side)\n", iCountFEE);
+							#endif
+						}
+						pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartRightErrorInj = FALSE;
+					}
+					if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xDataPktError.bStartErrorInj) {
 						if ( bDpktHeaderErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -268,7 +291,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 								fprintf(fp, "\nDATA HEADER ERROR INJECTION START PROBLEM\n" );
 							#endif
 						}
-						bStartDataPktInj[iCountFEE] = FALSE;
+						pxMebCLocal->xFeeControl.xNfee[iCountFEE].xDataPktError.bStartErrorInj = FALSE;
 					}
 				}
 				break;
@@ -450,11 +473,17 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
-	unsigned short int param1 =0;
-	unsigned short int usiFeeInstL;
+	unsigned short int param1 = 0;
 	alt_u32 ulEP, ulStart, ulPx, ulLine;
 	unsigned char ucFeeInstL;
 	unsigned char ucDTSourceL;
+	alt_u16 usiCfgPxColX       = 0;
+	alt_u16 usiCfgPxRowY       = 0;
+	alt_u16 usiCfgPxSide       = 0;
+	alt_u16 usiCfgCountFrames  = 0;
+	alt_u16 usiCfgFramesActive = 0;
+	alt_u16 usiCfgPxValue      = 0;
+	bool bPixelAlreadyExist = FALSE;
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -475,7 +504,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 			break;
 		/*case 34:
-			usiFeeInstL = xPusL->usiValues[0];
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			char teste[32];
 			memset(teste,0,32);
 			teste[0] = xPusL->usiPusId;
@@ -488,29 +517,29 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;*/
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
-			usiFeeInstL = xPusL->usiValues[0];
-			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
+			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
 			}
 			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
-			usiFeeInstL = xPusL->usiValues[0];
-			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
+			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
 			}
 			#endif
 		break;
@@ -521,81 +550,81 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		/* TC_SCAM_ERR_OFF */
 		case 53:
-			usiFeeInstL = xPusL->usiValues[0];
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"TC_SCAM_ERR_OFF\n");
 				#endif
-				bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = FALSE;
-				bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+				bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = FALSE;
+				bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 
-				bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-				bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+				bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 				/* Force the stop of any ongoing SpW Codec Errors */
-				bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-				bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+				bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 				/* Stop and correct SpW Destination Address Error */
-				if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-					xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+					xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 				}
 
-				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
-				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
+				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
-				bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-				bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+				bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+				bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = 0;
 
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = 0;
 
-				bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-				bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+				bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
-				bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-				bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-				usiDataPktCount = 0;
+				bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError.ucErrorCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError.bStartErrorInj = FALSE;
 
-				bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-				bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-				usiLeftImageWindowContentErr_Count = 0;
-				usiRightImageWindowContentErr_Count = 0;
-				bLeftExists = FALSE;
-				bRightExists = FALSE;
+				bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE);
+				bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucLeftErrorCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucRightErrorCnt = 0;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartRightErrorInj = FALSE;
 			break;
 		/* TC_SCAMXX_SPW_ERR_TRIG */
 		case 46:
@@ -672,10 +701,10 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_FEE_TIME_CONFIG */
 		case 64:
-			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
-			ulStart= (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
-			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
-			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
+			ulEP = (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
+			ulStart = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+			ulPx = (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
+			ulLine = (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
 			xDefaults.ulLineDelay = ulLine;
 			xDefaults.ulADCPixelDelay = ulPx;
 			xDefaults.ulStartDelay = ulStart;
@@ -696,338 +725,433 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 
 
-			for (usiFeeInstL=0; usiFeeInstL < N_OF_NFEE; usiFeeInstL++) {
-				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
-				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			for (ucFeeInstL = 0; ucFeeInstL < N_OF_NFEE; ucFeeInstL++) {
+				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
+				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 			}
 
 			break;
 
-		/* TC_SCAM_FEE_DATA_SOURCE */
-		case 70:
-			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
-			ucDTSourceL = (unsigned char)xPusL->usiValues[1];
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-				fprintf(fp,"MEB Task: DATA_SOURCE ucFeeInstL= %hhu, ucDTSourceL= %hhu\n",ucFeeInstL,ucDTSourceL  );
-			#endif
-			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
-			break;
+	/* TC_SCAM_FEE_DATA_SOURCE */
+	case 70:
+		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+		ucDTSourceL = (unsigned char)xPusL->usiValues[1];
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			fprintf(fp,"MEB Task: DATA_SOURCE ucFeeInstL= %hhu, ucDTSourceL= %hhu\n",ucFeeInstL,ucDTSourceL  );
+		#endif
+		vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
+		break;
 
-		/* TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG */
-		case 73:
-			usiFeeInstL = xPusL->usiValues[0];
-			alt_u16 usiFramesActive = xPusL->usiValues[5];
-			if (usiFramesActive == 0) {
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: invalid frames active parameter (0)\n");
-				}
-				#endif
-			} else if ((usiLeftImageWindowContentErr_Count + usiRightImageWindowContentErr_Count) >= 100) {
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Already have 100 content errors \n" );
-				}
-				#endif
-				break;
-			} else {
-				/* Side: 0 = Left; 1 = Right; 2 = Both */
-				if ((xPusL->usiValues[3] == 0) || (xPusL->usiValues[3] == 2)) {
-					//Left = 0
-					if (usiLeftImageWindowContentErr_Count > 0){
-						for (int iSeekEquals = 0; iSeekEquals < usiLeftImageWindowContentErr_Count; iSeekEquals++) {
-							if  ( (xLeftImageWindowContentErr[iSeekEquals].usiPxColX == xPusL->usiValues[1]) && (xLeftImageWindowContentErr[iSeekEquals].usiPxRowY == xPusL->usiValues[2])) {
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-									fprintf(fp, "\nnTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Left Position X, Y already exists.\n");
-								}
-								#endif
-								bLeftExists = TRUE;
-								break;
-							} else {
-								bLeftExists = FALSE;
-							}
-						}
-					}
-					if (bLeftExists == FALSE) {
-						xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxColX 		= xPusL->usiValues[1];
-						xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxRowY 		= xPusL->usiValues[2];
-						xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiCountFrames	= xPusL->usiValues[4];
-						xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiFramesActive	= xPusL->usiValues[4] + xPusL->usiValues[5] - 1;
-						xLeftImageWindowContentErr[usiLeftImageWindowContentErr_Count].usiPxValue		= xPusL->usiValues[6];
+	/* TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG */
+	case 73:
+		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 
-						usiLeftImageWindowContentErr_Count++;
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG LEFT: %i\n", usiLeftImageWindowContentErr_Count);
-						}
-						#endif
-					}
-				}
-				if ( (xPusL->usiValues[3] == 1) || (xPusL->usiValues[3] == 2)){
-					//Right = 1
-					if (usiRightImageWindowContentErr_Count > 0){
-						for (int iSeekEquals = 0; iSeekEquals < usiRightImageWindowContentErr_Count; iSeekEquals++) {
-							if  ( (xRightImageWindowContentErr[iSeekEquals].usiPxColX == xPusL->usiValues[1]) && (xRightImageWindowContentErr[iSeekEquals].usiPxRowY == xPusL->usiValues[2])) {
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-									fprintf(fp, "\nnTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Right Position X, Y already exists.\n");
-								}
-								#endif
-								bRightExists = TRUE;
-								break;
-							} else {
-								bRightExists = FALSE;
-							}
-						}
-					}
-					if (bRightExists == FALSE) {
-						xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxColX 			= xPusL->usiValues[1];
-						xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxRowY 			= xPusL->usiValues[2];
-						xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiCountFrames		= xPusL->usiValues[4];
-						xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiFramesActive	= xPusL->usiValues[4] + xPusL->usiValues[5] - 1;
-						xRightImageWindowContentErr[usiRightImageWindowContentErr_Count].usiPxValue			= xPusL->usiValues[6];
+		usiCfgPxColX       = xPusL->usiValues[1];
+		usiCfgPxRowY       = xPusL->usiValues[2];
+		usiCfgPxSide       = xPusL->usiValues[3];
+		usiCfgCountFrames  = xPusL->usiValues[4];
+		usiCfgFramesActive = xPusL->usiValues[5];
+		usiCfgPxValue      = xPusL->usiValues[6];
 
-						usiRightImageWindowContentErr_Count++;
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG RIGHT: %i\n", usiRightImageWindowContentErr_Count);
-						}
-						#endif
-					}
-				}
-			}
+		bPixelAlreadyExist = FALSE;
+
+		vpxImgWinContentErr = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr);
+
+		if (usiCfgFramesActive == 0) {
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "\nTC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG\n" );
+				fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: invalid frames active parameter (0)\n", ucFeeInstL);
+			}
+			#endif
+		} else if (100 <= (vpxImgWinContentErr->ucLeftErrorCnt + vpxImgWinContentErr->ucRightErrorCnt)) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Already have 100 content errors \n", ucFeeInstL);
 			}
 			#endif
 			break;
-
-		/* TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG_FINISH */
-		case 74:
-				usiFeeInstL = xPusL->usiValues[0];
-				qsort (xLeftImageWindowContentErr, usiLeftImageWindowContentErr_Count, sizeof(TImageWindowContentErr), iCompareImgWinContent);
-				qsort (xRightImageWindowContentErr, usiRightImageWindowContentErr_Count, sizeof(TImageWindowContentErr), iCompareImgWinContent);
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp, "\nSW List Order Success\n" );
+		} else {
+			/* Side: 0 = Left; 1 = Right; 2 = Both */
+			if ((usiCfgPxSide == 0) || (usiCfgPxSide == 2)) {
+				bPixelAlreadyExist = FALSE;
+				if (vpxImgWinContentErr->ucLeftErrorCnt > 0){
+					for (int iSeekEquals = 0; iSeekEquals < vpxImgWinContentErr->ucLeftErrorCnt; iSeekEquals++) {
+						if  ( (vpxImgWinContentErr->xLeftErrorList[iSeekEquals].usiPxColX == usiCfgPxColX) && (vpxImgWinContentErr->xLeftErrorList[iSeekEquals].usiPxRowY == usiCfgPxRowY)) {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Left Position X, Y already exists\n", ucFeeInstL);
+							}
+							#endif
+							bPixelAlreadyExist = TRUE;
+							break;
+						}
+					}
 				}
-				#endif
-				if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
+				if (FALSE == bPixelAlreadyExist) {
+					vpxImgWinContentErr->xLeftErrorList[vpxImgWinContentErr->ucLeftErrorCnt].usiPxColX       = usiCfgPxColX;
+					vpxImgWinContentErr->xLeftErrorList[vpxImgWinContentErr->ucLeftErrorCnt].usiPxRowY       = usiCfgPxRowY;
+					vpxImgWinContentErr->xLeftErrorList[vpxImgWinContentErr->ucLeftErrorCnt].usiCountFrames  = usiCfgCountFrames;
+					vpxImgWinContentErr->xLeftErrorList[vpxImgWinContentErr->ucLeftErrorCnt].usiFramesActive = usiCfgCountFrames + usiCfgFramesActive - 1;
+					vpxImgWinContentErr->xLeftErrorList[vpxImgWinContentErr->ucLeftErrorCnt].usiPxValue      = usiCfgPxValue;
+
+					vpxImgWinContentErr->ucLeftErrorCnt++;
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp, "\nHW list cleared successfully\n" );
+						fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG LEFT: %u\n", ucFeeInstL, vpxImgWinContentErr->ucLeftErrorCnt);
 					}
 					#endif
-					if (bDpktContentErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nHW list opening successfully\n" );
+				}
+			}
+			/* Side: 0 = Left; 1 = Right; 2 = Both */
+			if ( (usiCfgPxSide == 1) || (usiCfgPxSide == 2)){
+				bPixelAlreadyExist = FALSE;
+				if (vpxImgWinContentErr->ucRightErrorCnt > 0){
+					for (int iSeekEquals = 0; iSeekEquals < vpxImgWinContentErr->ucRightErrorCnt; iSeekEquals++) {
+						if  ( (vpxImgWinContentErr->xRightErrorList[iSeekEquals].usiPxColX == usiCfgPxColX) && (vpxImgWinContentErr->xRightErrorList[iSeekEquals].usiPxRowY == usiCfgPxRowY)) {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Right Position X, Y already exists\n", ucFeeInstL);
+							}
+							#endif
+							bPixelAlreadyExist = TRUE;
+							break;
 						}
-						#endif
-						if (usiLeftImageWindowContentErr_Count > 0)
-						for (int iListCount=0; iListCount<usiLeftImageWindowContentErr_Count; iListCount++) {
-							ucDpktContentErrInjAddEntry( &pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket,
-														 0,
-														 xLeftImageWindowContentErr[iListCount].usiCountFrames,
-														 xLeftImageWindowContentErr[iListCount].usiFramesActive,
-														 xLeftImageWindowContentErr[iListCount].usiPxColX,
-														 xLeftImageWindowContentErr[iListCount].usiPxRowY,
-														 xLeftImageWindowContentErr[iListCount].usiPxValue);
+					}
+				}
+				if (FALSE == bPixelAlreadyExist) {
+					vpxImgWinContentErr->xRightErrorList[vpxImgWinContentErr->ucRightErrorCnt].usiPxColX       = usiCfgPxColX;
+					vpxImgWinContentErr->xRightErrorList[vpxImgWinContentErr->ucRightErrorCnt].usiPxRowY       = usiCfgPxRowY;
+					vpxImgWinContentErr->xRightErrorList[vpxImgWinContentErr->ucRightErrorCnt].usiCountFrames  = usiCfgCountFrames;
+					vpxImgWinContentErr->xRightErrorList[vpxImgWinContentErr->ucRightErrorCnt].usiFramesActive = usiCfgCountFrames + usiCfgFramesActive - 1;
+					vpxImgWinContentErr->xRightErrorList[vpxImgWinContentErr->ucRightErrorCnt].usiPxValue      = usiCfgPxValue;
+
+					vpxImgWinContentErr->ucRightErrorCnt++;
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG RIGHT: %u\n", ucFeeInstL, vpxImgWinContentErr->ucRightErrorCnt);
+					}
+					#endif
+				}
+			}
+		}
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG\n", ucFeeInstL);
+		}
+		#endif
+		break;
+
+	/* TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG_FINISH */
+	case 74:
+		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+		vpxImgWinContentErr = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr);
+
+		usiCfgPxSide = xPusL->usiValues[1];
+
+		/* Side: 0 = Left; 1 = Right; 2 = Both */
+		if ((0 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+			qsort((TImgWinContentErrData *)(vpxImgWinContentErr->xLeftErrorList), vpxImgWinContentErr->ucLeftErrorCnt, sizeof(TImgWinContentErrData), iCompareImgWinContent);
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: [FEE %u] Image and window content error list sorted (left side)\n", ucFeeInstL);
+			}
+			#endif
+
+			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list cleared (left side)\n", ucFeeInstL);
+				}
+				#endif
+				if (bDpktContentErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "MEB Task: [FEE %u] Image and window content error list opened (left side)\n", ucFeeInstL);
+					}
+					#endif
+					if (vpxImgWinContentErr->ucLeftErrorCnt > 0) {
+						for (int iListCount=0; iListCount < vpxImgWinContentErr->ucLeftErrorCnt; iListCount++) {
+							ucDpktContentErrInjAddEntry( &pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket,
+														 eDpktCcdSideE,
+														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiCountFrames,
+														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiFramesActive,
+														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxColX,
+														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxRowY,
+														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxValue);
 //							#if DEBUG_ON
 //							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 //								fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
-//								fprintf(fp, "HW Position X :%i\n", xLeftImageWindowContentErr[iListCount].usiPxColX);
-//								fprintf(fp, "HW Position Y :%i\n", xLeftImageWindowContentErr[iListCount].usiPxRowY);
-//								fprintf(fp, "HW Start Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiCountFrames);
-//								fprintf(fp, "HW Stop  Frame:%i\n", xLeftImageWindowContentErr[iListCount].usiFramesActive);
-//								fprintf(fp, "HW Pixel Value:%i\n", xLeftImageWindowContentErr[iListCount].usiPxValue);
+//								fprintf(fp, "HW Position X :%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxColX);
+//								fprintf(fp, "HW Position Y :%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxRowY);
+//								fprintf(fp, "HW Start Frame:%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiCountFrames);
+//								fprintf(fp, "HW Stop  Frame:%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiFramesActive);
+//								fprintf(fp, "HW Pixel Value:%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxValue);
 //							}
 //							#endif
 						}
+					}
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "MEB Task: [FEE %u] Finished adding image and window content error list to HW (left side)\n", ucFeeInstL);
+					}
+					#endif
+					if (bDpktContentErrInjCloseList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)){
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nHW Left list error add successfully\n" );
+							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closed (left side)\n", ucFeeInstL);
 						}
 						#endif
-						if (usiRightImageWindowContentErr_Count > 0)
-						for (int iListCount=0; iListCount<usiRightImageWindowContentErr_Count; iListCount++) {
-							ucDpktContentErrInjAddEntry( &pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket,
-														 1,
-														 xRightImageWindowContentErr[iListCount].usiCountFrames,
-														 xRightImageWindowContentErr[iListCount].usiFramesActive,
-														 xRightImageWindowContentErr[iListCount].usiPxColX,
-														 xRightImageWindowContentErr[iListCount].usiPxRowY,
-														 xRightImageWindowContentErr[iListCount].usiPxValue);
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closing problems (left side)\n", ucFeeInstL);
+						}
+						#endif
+					}
+					bDpktGetLeftContentErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "MEB Task: [FEE %u] Image and window content number of entries = %u (left side)\n", ucFeeInstL, (alt_u8)pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktLeftContentErrInj.ucErrorsCnt);
+					}
+					#endif
+				}
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list clear problem (left side)\n", ucFeeInstL);
+				}
+				#endif
+			}
+		}
+
+		/* Side: 0 = Left; 1 = Right; 2 = Both */
+		if ((1 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+			qsort((TImgWinContentErrData *)(vpxImgWinContentErr->xRightErrorList), vpxImgWinContentErr->ucRightErrorCnt, sizeof(TImgWinContentErrData), iCompareImgWinContent);
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: [FEE %u] Image and window content error list sorted (right side)\n", ucFeeInstL);
+			}
+			#endif
+
+			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list cleared (right side)\n", ucFeeInstL);
+				}
+				#endif
+				if (bDpktContentErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "MEB Task: [FEE %u] Image and window content error list opened (right side)\n", ucFeeInstL);
+					}
+					#endif
+					if (vpxImgWinContentErr->ucRightErrorCnt > 0) {
+						for (int iListCount=0; iListCount < vpxImgWinContentErr->ucRightErrorCnt; iListCount++) {
+							ucDpktContentErrInjAddEntry( &pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket,
+														 eDpktCcdSideF,
+														 vpxImgWinContentErr->xRightErrorList[iListCount].usiCountFrames,
+														 vpxImgWinContentErr->xRightErrorList[iListCount].usiFramesActive,
+														 vpxImgWinContentErr->xRightErrorList[iListCount].usiPxColX,
+														 vpxImgWinContentErr->xRightErrorList[iListCount].usiPxRowY,
+														 vpxImgWinContentErr->xRightErrorList[iListCount].usiPxValue);
 //							#if DEBUG_ON
 //							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 //								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
-//								fprintf(fp, "HW Position X :%i\n", xRightImageWindowContentErr[iListCount].usiPxColX);
-//								fprintf(fp, "HW Position Y :%i\n", xRightImageWindowContentErr[iListCount].usiPxRowY);
-//								fprintf(fp, "HW Start Frame:%i\n", xRightImageWindowContentErr[iListCount].usiCountFrames);
-//								fprintf(fp, "HW Stop  Frame:%i\n", xRightImageWindowContentErr[iListCount].usiFramesActive);
-//								fprintf(fp, "HW Pixel Value:%i\n", xRightImageWindowContentErr[iListCount].usiPxValue);
+//								fprintf(fp, "HW Position X :%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiPxColX);
+//								fprintf(fp, "HW Position Y :%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiPxRowY);
+//								fprintf(fp, "HW Start Frame:%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiCountFrames);
+//								fprintf(fp, "HW Stop  Frame:%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiFramesActive);
+//								fprintf(fp, "HW Pixel Value:%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiPxValue);
 //							}
 //							#endif
 						}
+					}
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "MEB Task: [FEE %u] Finished adding image and window content error list to HW (right side)\n", ucFeeInstL);
+					}
+					#endif
+					if (bDpktContentErrInjCloseList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)){
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nHW Right list error add successfully\n" );
+							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closed (right side)\n", ucFeeInstL);
 						}
 						#endif
-						if (bDpktContentErrInjCloseList(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)){
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp, "\nHW Close list successfully\n" );
-							}
-							#endif
-						} else {
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp, "\nHW Close list problem\n" );
-							}
-							#endif
-						}
-						bDpktGetLeftContentErrInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-						bDpktGetRightContentErrInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
+					} else {
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nTotal Entry Left:%i\n", (alt_u8)pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktLeftContentErrInj.ucErrorsCnt);
-							fprintf(fp, "Total Entry Right:%i\n", (alt_u8)pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktRightContentErrInj.ucErrorsCnt);
+							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closing problems (right side)\n", ucFeeInstL);
 						}
 						#endif
 					}
-				} else {
+					bDpktGetRightContentErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp, "\nHW Clear list problem\n" );
+						fprintf(fp, "MEB Task: [FEE %u] Image and window content number of entries = %u (right side)\n", ucFeeInstL, (alt_u8)pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRightContentErrInj.ucErrorsCnt);
 					}
 					#endif
-				}
-				//qsort (xDataPKTErr, usiDataPktCount, sizeof(TDataPktError), iCompareDataPktError);
-
-			break;
-
-		/* TC_SCAMxx_IMGWIN_CONTENT_ERR_CLEAR */
-		case 75:
-				ucFeeInstL = xPusL->usiValues[0];
-				if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp, "\nClear HW IMAGE AND WINDOW LIST SUCCESS\n" );
-					}
-					#endif
-
-				} else {
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp, "\nClear HW IMAGE AND WINDOW LIST PROBLEM\n" );
-					}
-					#endif
-				}
-				usiLeftImageWindowContentErr_Count = 0;
-				usiRightImageWindowContentErr_Count = 0;
-				bLeftExists = FALSE;
-				bRightExists = FALSE;
-			break;
-
-		/* TC_SCAMxx_DATA_PKT_ERR_CONFIG */
-		case 78:
-			ucFeeInstL = xPusL->usiValues[0];
-			if (usiDataPktCount < 10) {
-				xDataPKTErr[usiDataPktCount].usiFrameCounter 		= xPusL->usiValues[1];
-				xDataPKTErr[usiDataPktCount].usiSequenceCounter 	= xPusL->usiValues[2];
-				xDataPKTErr[usiDataPktCount].usiFieldId 			= xPusL->usiValues[3];
-				xDataPKTErr[usiDataPktCount].usiFieldValue 		= xPusL->usiValues[4];
-				usiDataPktCount++;
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp, "\nDATA PKT ADD TO LIST: %i \n", usiDataPktCount);
-				}
-				#endif
-				break;
-			} else {
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp, "\nDATA PKT ERROR:  Already have 10 header errors \n");
-				}
-				#endif
-				break;
-			}
-
-		/* TC_SCAMxx_DATA_PKT_ERR_CONFIG_FINISH */
-		case 79:
-			ucFeeInstL = xPusL->usiValues[0];
-			if (usiDataPktCount > 0){
-				qsort (xDataPKTErr, usiDataPktCount, sizeof(TDataPktError), iCompareDataPktError);
-			}
-			if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
-				if (bDpktHeaderErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp, "\nOPEN HW DATA HEADER LIST SUCCESS\n" );
-					}
-					#endif
-					for (int n=0; n<usiDataPktCount; n++){
-						ucDpktHeaderErrInjAddEntry(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket,
-													xDataPKTErr[n].usiFrameCounter,
-													xDataPKTErr[n].usiSequenceCounter,
-													xDataPKTErr[n].usiFieldId,
-													xDataPKTErr[n].usiFieldValue);
-
-					}
-					usiDataPktCount = 0;
-					if (&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket){
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-							fprintf(fp, "\nALL DATA ADD TO HW LIST\nHW LIST CLOSE\n" );
-						}
-						#endif
-					}
 				}
 			} else {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp, "\nClear DATA HEADER LIST PROBLEM\n" );
+					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list clear problem (right side)\n", ucFeeInstL);
 				}
 				#endif
 			}
-			break;
+		}
 
-		/* TC_SCAMxx_DATA_PKT_ERR_CLEAR */
-		case 80:
-				ucFeeInstL = xPusL->usiValues[0];
-				if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket)) {
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp, "\nHeader data list was cleared\n" );
-					}
-					#endif
-					usiDataPktCount = 0;
-				} else {
-					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp, "\nCLEAR DATA HEADER LIST PROBLEM\n" );
-					}
-					#endif
+		break;
+
+	/* TC_SCAMxx_IMGWIN_CONTENT_ERR_CLEAR */
+	case 75:
+		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+		vpxImgWinContentErr = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr);
+
+		usiCfgPxSide = xPusL->usiValues[1];
+
+		/* Side: 0 = Left; 1 = Right; 2 = Both */
+		if ((0 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Image and window error list cleared (left side)\n", ucFeeInstL);
 				}
-			break;
-		default:
+				#endif
+
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Image and window error list not cleared in HW (left side)\n", ucFeeInstL);
+				}
+				#endif
+			}
+			vpxImgWinContentErr->ucLeftErrorCnt = 0;
+		}
+
+		/* Side: 0 = Left; 1 = Right; 2 = Both */
+		if ((1 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Image and window error list cleared (right side)\n", ucFeeInstL);
+				}
+				#endif
+
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Image and window error list not cleared in HW (right side)\n", ucFeeInstL);
+				}
+				#endif
+			}
+			vpxImgWinContentErr->ucRightErrorCnt = 0;
+		}
+
+		break;
+
+	/* TC_SCAMxx_DATA_PKT_ERR_CONFIG */
+	case 78:
+		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+		vpxDataPktError = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError);
+
+		alt_u16 usiCfgFrameCounter    = xPusL->usiValues[1];
+		alt_u16 usiCfgSequenceCounter = xPusL->usiValues[2];
+		alt_u16 usiCfgFieldId         = xPusL->usiValues[3];
+		alt_u16 usiCfgFieldValue      = xPusL->usiValues[4];
+
+		if (10 >= vpxDataPktError->ucErrorCnt) {
+			vpxDataPktError->xErrorList[vpxDataPktError->ucErrorCnt].usiFrameCounter    = usiCfgFrameCounter;
+			vpxDataPktError->xErrorList[vpxDataPktError->ucErrorCnt].usiSequenceCounter = usiCfgSequenceCounter;
+			vpxDataPktError->xErrorList[vpxDataPktError->ucErrorCnt].usiFieldId         = usiCfgFieldId;
+			vpxDataPktError->xErrorList[vpxDataPktError->ucErrorCnt].usiFieldValue      = usiCfgFieldValue;
+			vpxDataPktError->ucErrorCnt++;
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
+				fprintf(fp, "MEB Task: [FEE %u] Data packet error added to list. Number of entries = %u\n", ucFeeInstL, vpxDataPktError->ucErrorCnt);
 			}
 			#endif
+			break;
+		} else {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: [FEE %u] Data packet error list already have 10 entries\n", ucFeeInstL);
+			}
+			#endif
+			break;
+		}
+
+	/* TC_SCAMxx_DATA_PKT_ERR_CONFIG_FINISH */
+	case 79:
+		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+		vpxDataPktError = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError);
+
+		if (vpxDataPktError->ucErrorCnt > 0){
+			qsort ((TDataPktErrorData *)(vpxDataPktError->xErrorList), vpxDataPktError->ucErrorCnt, sizeof(TDataPktErrorData), iCompareDataPktError);
+		}
+		if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket)) {
+			if (bDpktHeaderErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp, "MEB Task: [FEE %u] Data packet error list opened\n", ucFeeInstL);
+				}
+				#endif
+				for (int iListCount = 0 ; iListCount < vpxDataPktError->ucErrorCnt; iListCount++){
+					ucDpktHeaderErrInjAddEntry(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket,
+												vpxDataPktError->xErrorList[iListCount].usiFrameCounter,
+												vpxDataPktError->xErrorList[iListCount].usiSequenceCounter,
+												vpxDataPktError->xErrorList[iListCount].usiFieldId,
+												vpxDataPktError->xErrorList[iListCount].usiFieldValue);
+
+				}
+				if (&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket){
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp, "MEB Task: [FEE %u] Data packet error list closed. Finished adding errors to HW\n", ucFeeInstL);
+					}
+					#endif
+				}
+			}
+		} else {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: [FEE %u] Data packet error list clear problem\n", ucFeeInstL);
+			}
+			#endif
+		}
+		break;
+
+	/* TC_SCAMxx_DATA_PKT_ERR_CLEAR */
+	case 80:
+		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+		vpxDataPktError = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError);
+
+		if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket)) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: [FEE %u] Data packet error list cleared\n", ucFeeInstL);
+			}
+			#endif
+			vpxDataPktError->ucErrorCnt = 0;
+		} else {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: [FEE %u] Data packet error list clear problem\n", ucFeeInstL);
+			}
+			#endif
+		}
+		break;
+	default:
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
+		}
+		#endif
 	}
 }
-
-
-
 
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	#if DEBUG_ON
@@ -1037,9 +1161,9 @@ void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned short int usiFeeInstL;
+	unsigned char ucFeeInstL;
 
-	usiFeeInstL = xPusL->usiValues[0];
+	ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
@@ -1054,41 +1178,41 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* todo: For now we can only update the Logical Address and the RMAP Key */
 
 			/* Disable the RMAP interrupt */
-			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
-			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
+			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 
 			/* Change the configuration */
-			bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[6];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
-			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
+			bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap );
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[6];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
+			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap );
 
-			bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[5] == 1 );
+			bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire, xPusL->usiValues[5] == 1 );
 
-			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 			if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 			} else {
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
 			}
 
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[2] );
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[2] );
 
-			bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 
-			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
-			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
+			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 			/* Enable the RMAP interrupt */
-			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
-			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
+			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 
 			/* todo: Need to treat all the returns */
 			#if DEBUG_ON
@@ -1135,10 +1259,10 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned short int usiFeeInstL;
 	unsigned char ucFeeInstL;
 	unsigned char ucDTSourceL;
-	unsigned char ucShutDownI=0;
+	unsigned char ucShutDownI = 0;
+	alt_u16 usiCfgPxSide       = 0;
 
 	switch (xPusL->usiSubType) {
 		/* TC_SCAMxx_SYNCH_RST [bndky] */
@@ -1150,35 +1274,35 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
-			usiFeeInstL = xPusL->usiValues[0];
-			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
+			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
 			}
 			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
-			usiFeeInstL = xPusL->usiValues[0];
-			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			bRmapGetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
+			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
 			}
 			#endif
 		break;
 		/* TC_SCAMXX_SPW_ERR_TRIG */
 		case 46:
-			usiFeeInstL = xPusL->usiValues[0];
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			/* Disconnect Error Injection */
 			switch (xPusL->usiValues[3])
 			{
@@ -1186,34 +1310,34 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Exchange Level Error: Parity Error */
 				case 0:
 					/* Stop others SpW Errors */
-					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop and correct SpW Destination Address Error */
-					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Force the stop of any ongoing SpW Codec Errors */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Wait SpW Codec Errors controller to be ready */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
-						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Inject the selected SpW Codec Error */
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdParity;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdParity;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Parity Error\n" );
@@ -1224,34 +1348,34 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Exchange Level Error: Disconnect Error */
 				case 1:
 					/* Stop others SpW Errors */
-					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop and correct SpW Destination Address Error */
-					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Force the stop of any ongoing SpW Codec Errors */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Wait SpW Codec Errors controller to be ready */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
-						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Inject the selected SpW Codec Error */
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdDiscon;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdDiscon;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Disconnect Error\n" );
@@ -1262,34 +1386,34 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Exchange Level Error: Escape Sequence Error */
 				case 2:
 					/* Stop others SpW Errors */
-					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop and correct SpW Destination Address Error */
-					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Force the stop of any ongoing SpW Codec Errors */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Wait SpW Codec Errors controller to be ready */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
-						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Inject the selected SpW Codec Error */
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdEscape;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdEscape;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Escape Sequence Error\n" );
@@ -1300,34 +1424,34 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Exchange Level Error: Character Sequence Error */
 				case 3:
 					/* Stop others SpW Errors */
-					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop and correct SpW Destination Address Error */
-					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Force the stop of any ongoing SpW Codec Errors */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Wait SpW Codec Errors controller to be ready */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
-						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Inject the selected SpW Codec Error */
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdChar;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdChar;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Character Sequence Error\n" );
@@ -1338,34 +1462,34 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Exchange Level Error: Credit Error */
 				case 4:
 					/* Stop others SpW Errors */
-					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop and correct SpW Destination Address Error */
-					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Force the stop of any ongoing SpW Codec Errors */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Wait SpW Codec Errors controller to be ready */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					while (FALSE == pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
-						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					while (FALSE == pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bErrInjReady) {
+						bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Inject the selected SpW Codec Error */
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdCredit;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdCredit;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Character Sequence Error\n" );
@@ -1376,24 +1500,24 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Network Level Error: EEP Received */
 				case 5:
 					/* Force the stop of any ongoing SpW Codec Errors */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop and correct SpW Destination Address Error */
-					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Inject selected SpW Error */
-					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = xPusL->usiValues[2];
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = xPusL->usiValues[1];
-					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = xPusL->usiValues[2];
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = xPusL->usiValues[1];
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Network Level Error - EEP Received\n" );
@@ -1404,30 +1528,30 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Network Level Error: Invalid Destination Address */
 				case 6:
 					/* Force the stop of any ongoing SpW Codec Errors */
-					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop others SpW Errors */
-					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					/* Stop and correct SpW Destination Address Error */
-					if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-						xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+					if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+						xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+						bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+						pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+						bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					}
 					/* Inject selected SpW Error */
-					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr = pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = (alt_u8)xPusL->usiValues[1];
-					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-					xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = TRUE;
+					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr = pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = (alt_u8)xPusL->usiValues[1];
+					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+					xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = TRUE;
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Network Level Error - Invalid Destination Address\n" );
@@ -1446,31 +1570,31 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		/* TC_SCAMXX_RMAP_ERR_TRIG */
 		case 47:
-				usiFeeInstL = xPusL->usiValues[0];
-				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId   = xPusL->usiValues[1];
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue    = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
-				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+				ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+				bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId   = xPusL->usiValues[1];
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue    = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 				#if DEBUG_ON
 					fprintf(fp, "TC_SCAMxx_RMAP_ERR_TRIG\n" );
 				#endif
 			break;
 		/* TC_SCAMXX_TICO_ERR_TRIG */
 		case 48:
-				usiFeeInstL = xPusL->usiValues[0];
+				ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 
 				switch (xPusL->usiValues[5]) {
 
 				/* Time-Code Missing Error */
 				case 0:
-					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 					xTimeCodeErrInj.bMissTC = TRUE;
-					xTimeCodeErrInj.bFEE_NUMBER[usiFeeInstL]  = TRUE;
-					xTimeCodeErrInj.usiMissCount[usiFeeInstL] = xPusL->usiValues[4];
+					xTimeCodeErrInj.bFEE_NUMBER[ucFeeInstL]  = TRUE;
+					xTimeCodeErrInj.usiMissCount[ucFeeInstL] = xPusL->usiValues[4];
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Time-Code Missing Error\n" );
@@ -1480,14 +1604,14 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				/* Wrong Time-Code Error */
 				case 1:
-					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = xPusL->usiValues[1];
-					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = xPusL->usiValues[1];
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 					xTimeCodeErrInj.bWrongTC = TRUE;
-					xTimeCodeErrInj.bFEE_WRONG_NUMBER[usiFeeInstL] = TRUE;
-					xTimeCodeErrInj.usiWrongCount[usiFeeInstL] = xPusL->usiValues[4];
-					xTimeCodeErrInj.usiWrongOffSet[usiFeeInstL] = xPusL->usiValues[1];
+					xTimeCodeErrInj.bFEE_WRONG_NUMBER[ucFeeInstL] = TRUE;
+					xTimeCodeErrInj.usiWrongCount[ucFeeInstL] = xPusL->usiValues[4];
+					xTimeCodeErrInj.usiWrongOffSet[ucFeeInstL] = xPusL->usiValues[1];
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Wrong Time-Code Error\n" );
@@ -1497,14 +1621,14 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				/* Unexpected Time-Code Error */
 				case 2:
-					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = uliTimecodeCalcDelayMs((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
-					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					xTimeCodeErrInj.usiWrongCount[usiFeeInstL] =   xPusL->usiValues[4];
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = uliTimecodeCalcDelayMs((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					xTimeCodeErrInj.usiWrongCount[ucFeeInstL] =   xPusL->usiValues[4];
 					xTimeCodeErrInj.bUxp = TRUE;
-					xTimeCodeErrInj.bFEEUxp[usiFeeInstL] = TRUE;
+					xTimeCodeErrInj.bFEEUxp[ucFeeInstL] = TRUE;
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Unexpected Time-Code Error\n" );
@@ -1514,14 +1638,14 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				/* Jitter on Time-Code Error */
 				case 3:
-					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = uliTimecodeCalcDelayMs((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
-					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-					xTimeCodeErrInj.bFEEJitter[usiFeeInstL] = TRUE;
+					bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.uliSyncDelayValue = uliTimecodeCalcDelayMs((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
+					bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+					xTimeCodeErrInj.bFEEJitter[ucFeeInstL] = TRUE;
 					xTimeCodeErrInj.bJitter = TRUE;
-					xTimeCodeErrInj.usiJitterCount[usiFeeInstL] = xPusL->usiValues[4];
+					xTimeCodeErrInj.usiJitterCount[ucFeeInstL] = xPusL->usiValues[4];
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Jitter on Time-Code Error\n" );
@@ -1547,39 +1671,39 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = xPusL->usiValues[2];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = xPusL->usiValues[3];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = xPusL->usiValues[4];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
 			break;
 
 		/* TC_SCAM_IMAGE_ERR_NOMOREPKT_TRIG */
 		case 50:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
 			break;
 
 		/* TC_SCAM_WIN_ERR_MISS_PKT_TRIG */
 		case 51:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = xPusL->usiValues[2];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = xPusL->usiValues[3];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
 			/* Enable Window List */
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"\nTC_SCAM_WIN_ERR_MISS_PKT_TRIG\n");
@@ -1588,15 +1712,15 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_WIN_ERR_NOMOREPKT_TRIG */
 		case 52:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
 			/* Enable Window List */
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"\n TC_SCAM_WIN_ERR_NOMOREPKT_TRIG\n");
@@ -1605,107 +1729,107 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_ERR_OFF */
 		case 53:
-			usiFeeInstL = xPusL->usiValues[0];
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"TC_SCAM_ERR_OFF\n");
 			#endif
-			bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = FALSE;
-			bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = FALSE;
+			bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 
-			bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-			bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+			bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
-			bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
-			bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
+			bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = 0;
 
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = 0;
 
-			bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-			bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+			bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 			/* Force the stop of any ongoing SpW Codec Errors */
-			bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-			bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+			bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 			/* Stop and correct SpW Destination Address Error */
-			if (TRUE == xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn){
-				xSpacewireErrInj[usiFeeInstL].bDestinationErrorEn = FALSE;
-				bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[usiFeeInstL].ucOriginalDestAddr;
-				bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+				xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+				bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+				bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 			}
 
-			bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-			bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-			usiDataPktCount = 0;
+			bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError.ucErrorCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError.bStartErrorInj = FALSE;
 
-			bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-			bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-			usiLeftImageWindowContentErr_Count = 0;
-			usiRightImageWindowContentErr_Count = 0;
-			bLeftExists = FALSE;
-			bRightExists = FALSE;
+			bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE);
+			bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucLeftErrorCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucRightErrorCnt = 0;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartRightErrorInj = FALSE;
 			break;
 		/* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG */
 		case 63:
-			usiFeeInstL = xPusL->usiValues[0];
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = FALSE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = FALSE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 			/* Disable others windowing errors */
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
 			#if DEBUG_ON
-				fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
+				fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn);
 			#endif
 			break;
 
 		/* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG */
 		case 67:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = xPusL->usiValues[2];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = xPusL->usiValues[3];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = xPusL->usiValues[4];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
 			break;
 
 		/* TC_SCAM_CONFIG */
@@ -1755,65 +1879,112 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_WIN_ERR_MISSDATA_TRIG */
 		case 72:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = xPusL->usiValues[2];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = xPusL->usiValues[3];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
 			/* Enable Window List */
-			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
 				fprintf(fp, "\nTC_SCAM_WIN_ERR_MISSDATA_TRIG\n" );
 			#endif
 			break;
 
 		case 76: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_START_INJ */
-			usiFeeInstL = xPusL->usiValues[0];
-			bDpktGetRightContentErrInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-			bDpktGetLeftContentErrInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket);
-			if ((pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktRightContentErrInj.bInjecting == FALSE) || (pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket.xDpktLeftContentErrInj.bInjecting == FALSE)) {
-				bStartImgWinInj[usiFeeInstL] = TRUE;
-			} else {
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			vpxImgWinContentErr = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr);
+
+			usiCfgPxSide = xPusL->usiValues[1];
+
+			/* Side: 0 = Left; 1 = Right; 2 = Both */
+			if ((0 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+				vpxImgWinContentErr->bStartLeftErrorInj = TRUE;
+
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "MEB Task: [FEE %u] Image and window content error injection scheduled (left side)\n", ucFeeInstL);
+				#endif
+			}
+
+			/* Side: 0 = Left; 1 = Right; 2 = Both */
+			if ((1 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+				vpxImgWinContentErr->bStartRightErrorInj = TRUE;
+
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp, "MEB Task: [FEE %u] Image and window content error injection scheduled (right side)\n", ucFeeInstL);
+				#endif
+			}
+
+			break;
+
+		case 77: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_STOP_INJ */
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+
+			usiCfgPxSide = xPusL->usiValues[1];
+
+			/* Side: 0 = Left; 1 = Right; 2 = Both */
+			if ((0 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+				if ( bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE) ) {
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp, "\nERROR: You are already in data injection mode. Command cannot be overridden.\n" );
+						fprintf(fp, "MEB Task: [FEE %u] Image and window error injection stopped (left side)\n", ucFeeInstL);
 					#endif
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp, "MEB Task: [FEE %u] Image and window error was not injecting or injection had finished (left side)\n", ucFeeInstL);
+					#endif
+				}
 			}
-			break;
-		case 77: /* TC_SCAMxx_IMGWIN_CONTENT_ERR_STOP_INJ */
-			usiFeeInstL = xPusL->usiValues[0];
-			if ( bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket) ) {
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-					fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION STOP SUCCESS\n" );
-				#endif
-			} else {
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-					fprintf(fp, "\nIMAGE AND WINDOW ERROR INJECTION STOP PROBLEM\n" );
-				#endif
+
+			/* Side: 0 = Left; 1 = Right; 2 = Both */
+			if ((1 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
+				if ( bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF) ) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp, "MEB Task: [FEE %u] Image and window error injection stopped (right side)\n", ucFeeInstL);
+					#endif
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp, "MEB Task: [FEE %u] Image and window error was not injecting or injection had finished (right side)\n", ucFeeInstL);
+					#endif
+				}
 			}
+
 			break;
+
 		case 81: /* TC_SCAMxx_DATA_PKT_ERR_START_INJ */
-			usiFeeInstL = xPusL->usiValues[0];
-			bStartDataPktInj[usiFeeInstL] = TRUE;
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
+			vpxDataPktError = &(pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError);
+
+			vpxDataPktError->bStartErrorInj = TRUE;
+
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp, "MEB Task: [FEE %u] Data packet error injection scheduled\n", ucFeeInstL);
+			#endif
+
 			break;
+
 		case 82: /* TC_SCAMxx_DATA_PKT_ERR_STOP_INJ */
-			usiFeeInstL = xPusL->usiValues[0];
+			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			if ( bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket) ) {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-					fprintf(fp, "\nDATA HEADER ERROR INJECTION STOP SUCCESS\n" );
+					fprintf(fp, "MEB Task: [FEE %u] Data packet error injection stopped\n", ucFeeInstL);
 				#endif
 			} else {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-					fprintf(fp, "\nDATA HEADER ERROR INJECTION STOP PROBLEM\n" );
+					fprintf(fp, "MEB Task: [FEE %u] Data packet error was not injecting or injection had finished\n", ucFeeInstL);
 				#endif
 			}
 			break;
@@ -1894,47 +2065,47 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned short int usiFeeInstL;
+	unsigned char ucFeeInstL;
 
-	usiFeeInstL = xPusL->usiValues[0];
+	ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
-			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire)){
-				vSendEventLog(usiFeeInstL+1,0,0,0,1);
+			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
+			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire)){
+				vSendEventLog(ucFeeInstL + 1, 0, 0, 0, 1);
 			} else {
-				vSendEventLog(usiFeeInstL+1,0,0,0,3);
+				vSendEventLog(ucFeeInstL + 1, 0, 0, 0, 3);
 			}
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
-//			bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
-//			bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.bChannelEnable = TRUE;
+//			bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
+//			bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", usiFeeInstL);
+				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
 
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
-			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire)) {
-				vSendEventLog(usiFeeInstL+1,0,0,1,1);
+			bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire)) {
+				vSendEventLog(ucFeeInstL + 1, 0, 0, 1, 1);
 			} else {
-				vSendEventLog(usiFeeInstL+1,0,0,1,3);
+				vSendEventLog(ucFeeInstL + 1, 0, 0, 1, 3);
 			}
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
-//			bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
-//			bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.bChannelEnable = FALSE;
+//			bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
+//			bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", usiFeeInstL);
+				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
 
@@ -1945,47 +2116,47 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
 			/* todo: For now we can only update the Logical Address and the RAMP Key */
-			if ( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.eMode == sConfig ) {
+			if ( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.eMode == sConfig ) {
 				/* Disable the RMAP interrupt */
-				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
-				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
+				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 
 				/* Change the configuration */
-				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
-				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
+				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap );
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
+				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap );
 
-				bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[11] == 1 );
+				bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire, xPusL->usiValues[11] == 1 );
 
-				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 				if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 				} else {
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
 				}
 
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[8] );
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[8] );
 
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = xPusL->usiValues[10]; /*Dest Node*/
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = xPusL->usiValues[10]; /*Dest Node*/
 
-				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
 
 
 				/* Enable the RMAP interrupt */
-				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
-				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
+				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 
 			} else {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-					fprintf(fp,"MEB Task: NFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", usiFeeInstL);
+					fprintf(fp,"MEB Task: NFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", ucFeeInstL);
 				#endif
 			}
 
@@ -2030,8 +2201,7 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 
 /*This sequence is used more than one place, so it becomes a function*/
 void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
-	unsigned short int usiFeeInstL;
-
+	unsigned char ucFeeInstL;
 
 	/* Stop the Sync (Stopping the simulation) */
 	bStopSync();
@@ -2053,20 +2223,85 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);
 
-	for (usiFeeInstL=0; usiFeeInstL<N_OF_NFEE; usiFeeInstL++) {
-		bDpktGetTransmissionErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.ucFrameNum = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.usiDataCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.usiNRepeat = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = 0;
-		bDpktSetTransmissionErrInj(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+	/* Disable all errors */
+	for (ucFeeInstL = 0; ucFeeInstL < N_OF_NFEE; ucFeeInstL++) {
+
+		bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = FALSE;
+		bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
+
+		bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+		bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+
+		bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
+		bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+
+		bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+		bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
+
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.bMissingData = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiSequenceCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlFull.usiDataCnt = 0;
+
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.bMissingData = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiSequenceCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.xErrorSWCtrlWin.usiDataCnt = 0;
+
+		bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
+		bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+
+		/* Force the stop of any ongoing SpW Codec Errors */
+		bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
+		bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+
+		/* Stop and correct SpW Destination Address Error */
+		if (TRUE == xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn){
+			xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = FALSE;
+			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xSpacewireErrInj[ucFeeInstL].ucOriginalDestAddr;
+			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+		}
+
+		bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError.ucErrorCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xDataPktError.bStartErrorInj = FALSE;
+
+		bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE);
+		bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF);
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucLeftErrorCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucRightErrorCnt = 0;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
+		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartRightErrorInj = FALSE;
+
 	}
 
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
+
 }
 
 void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
@@ -2138,8 +2373,8 @@ int iCompareImgWinContent (const void *cvpImgWinA, const void *cvpImgWinB) {
 	 *   -- 2nd key: X position
 	 */
 
-	TImageWindowContentErr *pxImgWinA = (TImageWindowContentErr *)cvpImgWinA;
-	TImageWindowContentErr *pxImgWinB = (TImageWindowContentErr *)cvpImgWinB;
+	TImgWinContentErrData *pxImgWinA = (TImgWinContentErrData *)cvpImgWinA;
+	TImgWinContentErrData *pxImgWinB = (TImgWinContentErrData *)cvpImgWinB;
 
 	/* 1st key (Y position) compare */
 	if (pxImgWinA->usiPxRowY > pxImgWinB->usiPxRowY) {
@@ -2183,8 +2418,8 @@ int iCompareDataPktError (const void *cvpDataPktErrA, const void *cvpDataPktErrB
 	 *   -- 2nd key: Sequence Counter
 	 */
 
-	TDataPktError *pxDataPktErrA = (TDataPktError *)cvpDataPktErrA;
-	TDataPktError *pxDataPktErrB = (TDataPktError *)cvpDataPktErrB;
+	TDataPktErrorData *pxDataPktErrA = (TDataPktErrorData *)cvpDataPktErrA;
+	TDataPktErrorData *pxDataPktErrB = (TDataPktErrorData *)cvpDataPktErrB;
 
 	/* 1st key (Frame Number) compare */
 	if (pxDataPktErrA->usiFrameCounter > pxDataPktErrB->usiFrameCounter) {
