@@ -81,5 +81,7 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
 void vSync400Update( TNFee *pxNFeeP );
 void vApplyRmap( TNFee *pxNFeeP );
+void vActivateContentErrInj( TNFee *pxNFeeP );
+void vActivateDataPacketErrInj( TNFee *pxNFeeP );
 
 #endif /* RTOS_FEE_TASKV3_H_ */

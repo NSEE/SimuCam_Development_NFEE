@@ -242,58 +242,6 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 					fprintf(fp,"Channels TimeCode = %d\n", (alt_u8)vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
 				#endif
-				for (int iCountFEE = 0; iCountFEE < N_OF_NFEE; iCountFEE++) {
-					if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartLeftErrorInj) {
-						bDpktGetLeftContentErrInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket);
-						if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket.xDpktLeftContentErrInj.bInjecting) {
-							bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideE);
-						}
-						if (bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideE)) {
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection started (left side)\n", iCountFEE);
-							#endif
-						} else {
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection could not start (left side)\n", iCountFEE);
-							#endif
-						}
-						pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartLeftErrorInj = FALSE;
-					}
-					if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartRightErrorInj) {
-						bDpktGetRightContentErrInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket);
-						if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket.xDpktRightContentErrInj.bInjecting) {
-							bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideF);
-						}
-						if (bDpktContentErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket, eDpktCcdSideF)) {
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection started (right side)\n", iCountFEE);
-							#endif
-						} else {
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "MEB Task: [FEE %u] Image and window error injection could not start (right side)\n", iCountFEE);
-							#endif
-						}
-						pxMebCLocal->xFeeControl.xNfee[iCountFEE].xImgWinContentErr.bStartRightErrorInj = FALSE;
-					}
-					if (TRUE == pxMebCLocal->xFeeControl.xNfee[iCountFEE].xDataPktError.bStartErrorInj) {
-						if ( bDpktHeaderErrInjStartInj(&pxMebCLocal->xFeeControl.xNfee[iCountFEE].xChannel.xDataPacket) ) {
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "\nDATA HEADER ERROR INJECTION START SUCCESS\n" );
-							#endif
-						} else {
-							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-								fprintf(fp, "\nDATA HEADER ERROR INJECTION START PROBLEM\n" );
-							#endif
-						}
-						pxMebCLocal->xFeeControl.xNfee[iCountFEE].xDataPktError.bStartErrorInj = FALSE;
-					}
-				}
 				break;
 
 			case Q_MEB_DATA_MEM_UPD_FIN:

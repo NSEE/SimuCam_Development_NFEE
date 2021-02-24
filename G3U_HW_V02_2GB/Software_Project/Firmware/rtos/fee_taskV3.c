@@ -1422,6 +1422,8 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 
 			case M_BEFORE_MASTER:
 				vApplyRmap(pxNFeeP);
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 				break;
 			case M_BEFORE_SYNC:
 				/*Do nothing*/
@@ -1591,7 +1593,8 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 
 			case M_BEFORE_MASTER:
-			case M_BEFORE_SYNC:
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 				/* Stop the module Double Buffer */
 				bFeebStopCh(&pxNFeeP->xChannel.xFeeBuffer);
 				/* Clear all buffer form the Double Buffer */
@@ -1613,6 +1616,30 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 					#endif
 				}
 
+				pxNFeeP->xControl.eState = redoutConfigureTrans;
+				break;
+
+			case M_BEFORE_SYNC:
+				/* Stop the module Double Buffer */
+				bFeebStopCh(&pxNFeeP->xChannel.xFeeBuffer);
+				/* Clear all buffer form the Double Buffer */
+				bFeebClrCh(&pxNFeeP->xChannel.xFeeBuffer);
+				/* Start the module Double Buffer */
+				bFeebStartCh(&pxNFeeP->xChannel.xFeeBuffer);
+
+				/*The Meb My have sent a message to inform the finish of the update of the image*/
+				error_code = OSQFlush( xFeeQ[ pxNFeeP->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
+				if ( pxNFeeP->xControl.xTrap.bEnabledSerial == TRUE ) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						fprintf(fp,"NFEE %hhu Task: Could not finish the readout of vStar to vEnd in a entire sync. Please check the values of vStart and vEnd.\n", pxNFeeP->ucId);
+					}
+					#endif
+				}
 
 				pxNFeeP->xControl.eState = redoutConfigureTrans;
 				break;
@@ -1752,6 +1779,10 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPReadoutSync( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
 				break;
 			case M_BEFORE_MASTER:
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
+				break;
+
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
 				break;
@@ -1849,6 +1880,8 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case M_BEFORE_MASTER:
 				vApplyRmap(pxNFeeP);
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 				break;
 			case M_BEFORE_SYNC:
 				/*Do nothing*/
@@ -2038,6 +2071,8 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
 
 				vApplyRmap(pxNFeeP);
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 
 				if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eMode ) {
 					pxNFeeP->xControl.eState =  pxNFeeP->xControl.eNextMode;
@@ -2209,6 +2244,8 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
 
 				vApplyRmap(pxNFeeP);
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 
 				if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eMode ) {
 					pxNFeeP->xControl.eState =  pxNFeeP->xControl.eNextMode;
@@ -2328,6 +2365,10 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			case M_BEFORE_MASTER:
 				/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
+
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
+
 				if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eMode ) {
 					pxNFeeP->xControl.eState =  pxNFeeP->xControl.eNextMode;
 
@@ -2465,6 +2506,8 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			case M_BEFORE_MASTER:
 				vApplyRmap(pxNFeeP);
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 				break;
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
@@ -2616,6 +2659,8 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			case M_BEFORE_MASTER:
 				vApplyRmap(pxNFeeP);
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 
 				if ( pxNFeeP->xControl.eNextMode == pxNFeeP->xControl.eLastMode )
 					pxNFeeP->xControl.eState = redoutCycle_Out; /*Is time to start the preparation of the double buffer in order to transmit data just after sync arrives*/
@@ -3451,6 +3496,66 @@ inline void vApplyRmap( TNFee *pxNFeeP ) {
 			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd;
 		}
 
+	}
+
+}
+
+inline void vActivateContentErrInj( TNFee *pxNFeeP ) {
+
+	if (TRUE == pxNFeeP->xImgWinContentErr.bStartLeftErrorInj) {
+		bDpktGetLeftContentErrInj(&pxNFeeP->xChannel.xDataPacket);
+		if (TRUE == pxNFeeP->xChannel.xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+			bDpktContentErrInjStopInj(&pxNFeeP->xChannel.xDataPacket, eDpktCcdSideE);
+		}
+		if (bDpktContentErrInjStartInj(&pxNFeeP->xChannel.xDataPacket, eDpktCcdSideE)) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"NFEE %hhu Task: Image and window error injection started (left side)\n", pxNFeeP->ucId);
+			#endif
+		} else {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"NFEE %hhu Task: Image and window error injection could not start (left side)\n", pxNFeeP->ucId);
+			#endif
+		}
+		pxNFeeP->xImgWinContentErr.bStartLeftErrorInj = FALSE;
+	}
+	if (TRUE == pxNFeeP->xImgWinContentErr.bStartRightErrorInj) {
+		bDpktGetRightContentErrInj(&pxNFeeP->xChannel.xDataPacket);
+		if (TRUE == pxNFeeP->xChannel.xDataPacket.xDpktRightContentErrInj.bInjecting) {
+			bDpktContentErrInjStopInj(&pxNFeeP->xChannel.xDataPacket, eDpktCcdSideF);
+		}
+		if (bDpktContentErrInjStartInj(&pxNFeeP->xChannel.xDataPacket, eDpktCcdSideF)) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"NFEE %hhu Task: Image and window error injection started (right side)\n", pxNFeeP->ucId);
+			#endif
+		} else {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"NFEE %hhu Task: Image and window error injection could not start (right side)\n", pxNFeeP->ucId);
+			#endif
+		}
+		pxNFeeP->xImgWinContentErr.bStartRightErrorInj = FALSE;
+	}
+
+}
+
+inline void vActivateDataPacketErrInj( TNFee *pxNFeeP ) {
+
+	if (TRUE == pxNFeeP->xDataPktError.bStartErrorInj) {
+		if ( bDpktHeaderErrInjStartInj(&pxNFeeP->xChannel.xDataPacket) ) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"NFEE %hhu Task: Data packet header error injection started\n", pxNFeeP->ucId);
+			#endif
+		} else {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				fprintf(fp,"NFEE %hhu Task: Data packet header error injection could not start\n", pxNFeeP->ucId);
+			#endif
+		}
+		pxNFeeP->xDataPktError.bStartErrorInj = FALSE;
 	}
 
 }
