@@ -56,6 +56,8 @@ void vDataControlTaskV2(void *task_data) {
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
+				pxDataC->usiUpdatedEPn = 0;
+				pxDataC->bEPnUpdated = FALSE;
 				pxDataC->bFirstMaster = TRUE;
 
 				/* Clear the CMD Queue */
@@ -95,7 +97,12 @@ void vDataControlTaskV2(void *task_data) {
 				#endif
 				/* Anything that need be executed only once before the Run Mode
 				Should be put here!*/
-				pxDataC->usiEPn = 0;
+				if (TRUE == pxDataC->bEPnUpdated) {
+					pxDataC->usiEPn = pxDataC->usiUpdatedEPn;
+					pxDataC->bEPnUpdated = FALSE;
+				} else {
+					pxDataC->usiEPn = 0;
+				}
 				pxDataC->bFirstMaster = TRUE;
 
 				vFtdiStopModule(); // [rfranca]
@@ -131,7 +138,7 @@ void vDataControlTaskV2(void *task_data) {
 
 							/*Just a small time to*/
 							OSTimeDlyHMSM(0, 0, 0, 3000);
-							pxDataC->usiEPn = 0;
+//							pxDataC->usiEPn = 0;
 							pxDataC->bUpdateComplete = FALSE;
 							xGlobal.bDTCFinished = FALSE;
 
@@ -484,7 +491,12 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			vFtdiClearModule();
 			vFtdiStartModule();
 			if ( pxDTCP->bFirstMaster == FALSE )
-				pxDTCP->usiEPn++;
+				if (TRUE == pxDTCP->bEPnUpdated) {
+					pxDTCP->usiEPn = pxDTCP->usiUpdatedEPn;
+					pxDTCP->bEPnUpdated = FALSE;
+				} else {
+					pxDTCP->usiEPn++;
+				}
 			else
 				pxDTCP->bFirstMaster = FALSE;
 
@@ -570,7 +582,12 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 
 		case M_MASTER_SYNC:
 			if ( pxDTCP->bFirstMaster == FALSE )
-				pxDTCP->usiEPn++;
+				if (TRUE == pxDTCP->bEPnUpdated) {
+					pxDTCP->usiEPn = pxDTCP->usiUpdatedEPn;
+					pxDTCP->bEPnUpdated = FALSE;
+				} else {
+					pxDTCP->usiEPn++;
+				}
 			else
 				pxDTCP->bFirstMaster = FALSE;
 

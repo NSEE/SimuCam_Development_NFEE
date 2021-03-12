@@ -491,7 +491,16 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 			#endif
 		break;
-
+		/* TC_SCAMxx_EP_UPDATE  */
+		case 44:
+			pxMebCLocal->xDataControl.usiUpdatedEPn = xPusL->usiValues[0];
+			pxMebCLocal->xDataControl.bEPnUpdated = TRUE;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+				fprintf(fp, "MEB Task: Exposure Number updated to %u\n", xPusL->usiValues[0]);
+			}
+			#endif
+			break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
 			vSendHKUpdate(pxMebCLocal, xPusL);
@@ -1248,6 +1257,16 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 			#endif
 		break;
+		/* TC_SCAMxx_EP_UPDATE  */
+		case 44:
+			pxMebCLocal->xDataControl.usiUpdatedEPn = xPusL->usiValues[0];
+			pxMebCLocal->xDataControl.bEPnUpdated = TRUE;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+				fprintf(fp, "MEB Task: Exposure Number updated to %u\n", xPusL->usiValues[0]);
+			}
+			#endif
+			break;
 		/* TC_SCAMXX_SPW_ERR_TRIG */
 		case 46:
 			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
