@@ -122,6 +122,38 @@ bool bTestSimucamCriticalHW(void) {
 	return TRUE;
 }
 
+bool bTestSimucamBasicHW(void) {
+	bool bSuccess;
+
+#if DEBUG_ON
+	fprintf(fp, "SimuCam Basic HW Test:\n");
+#endif
+
+	/* Sync Connection Test */
+
+	/* Enable Isolator Board */
+	bEnableIsoDrivers();
+
+	/* Test Sync Connections */
+	bSuccess = bSyncTestConnection();
+
+	/* Disable Isolator  Board */
+	bDisableIsoDrivers();
+
+	if ( FALSE == bSuccess) {
+#if DEBUG_ON
+		fprintf(fp, "  WARNING! Sync connection test failed! Problem with the internal Sync connections or no Sync cable in loopback \n");
+#endif
+//		return (bSuccess);
+	} else {
+#if DEBUG_ON
+		fprintf(fp, "  Sync connection test successful.\n");
+#endif
+	}
+
+	return (bSuccess);
+}
+
 bool bDdr2MemoryFastTest(void) {
 	bool bSuccess = FALSE;
 	bool bM1Success = FALSE;

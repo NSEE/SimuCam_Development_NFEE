@@ -31,6 +31,24 @@ const bool cbSyncNFeePulsePolarity = TRUE;
 /* Number of pulses = 4 */
 const alt_u8 cusiSyncNFeeNumberOfPulses = 4;
 
+/* F-FEE Sync default parameters */
+/* Master blank time = 200 ms */
+const alt_u16 cusiSyncFFeeMasterBlankTimeMs = 200;
+/* Master detection time = 300 ms */
+const alt_u16 cusiSyncFFeeMasterDetectionTimeMs = 100;
+/* Normal blank time = 200 ms */
+const alt_u16 cusiSyncFFeeNormalBlankTimeMs = 200;
+/* Normal pulse duration = 2.5 s */
+const alt_u16 cusiSyncFFeeNormalPulseDurationMs = 2500;
+/* Sync Period = 2.5 s */
+const alt_u16 cusiSyncFFeeSyncPeriodMs = 2500;
+/* One shot time = 500 ms */
+const alt_u16 cusiSyncFFeeOneShotTimeMs = 500;
+/* Blank level polarity = '1' */
+const bool cbSyncFFeePulsePolarity = TRUE;
+/* Number of pulses = 1 */
+const alt_u8 cusiSyncFFeeNumberOfPulses = 1;
+
 //! [program memory public global variables]
 
 //! [data memory private global variables]
@@ -651,6 +669,40 @@ bool bSyncCtrOneShot(void) {
 bool bSyncCtrErrInj(void) {
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bErrInj = SYNC_BIT_ON;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncCtrHoldBlankPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Put the sync generator in hold during the next blank pulse end (0 -> disable hold blank pulse / 1 -> enable hold blank pulse)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncCtrHoldBlankPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bHoldBlankPulse = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncCtrHoldReleasePulse
+ * @brief
+ * @ingroup sync
+ *
+ * Put the sync generator in hold during the next release pulse end (0 -> disable hold release pulse / 1 -> enable hold release pulse)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncCtrHoldReleasePulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bHoldReleasePulse = bValue;
 	return TRUE;
 }
 
@@ -1280,9 +1332,50 @@ bool bSyncPreIrqFlagLastPulse(void) {
 	return bResult;
 }
 
+/* Test the Sync Signal Connection, imposing a Sync Out and trying to detect the value in Sync In */
+bool bSyncTestConnection(void) {
+	bool bSuccess = FALSE;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+
+	alt_u8 ucSyncTestCnt = 0;
+	bool bSyncTestFailure = FALSE;
+
+	const bool bSyncTestValues[32] = {
+			TRUE , TRUE , FALSE, TRUE , TRUE, FALSE, FALSE, FALSE,
+			TRUE , TRUE , FALSE, TRUE , TRUE, TRUE , FALSE, TRUE ,
+			FALSE, FALSE, TRUE , FALSE, TRUE, FALSE, FALSE, TRUE ,
+			FALSE, TRUE , TRUE , TRUE , TRUE, TRUE , FALSE, FALSE
+	};
+
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideEn = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideEn = TRUE;
+
+	for (ucSyncTestCnt = 0; ucSyncTestCnt < 32; ucSyncTestCnt++) {
+		usleep(1000);
+		vpxSyncModule->xSyncTestControl.bSyncOutOverrideValue = bSyncTestValues[ucSyncTestCnt];
+		if (bSyncTestValues[ucSyncTestCnt] != vpxSyncModule->xSyncTestStatus.SyncInValue) {
+			bSyncTestFailure = TRUE;
+		}
+		usleep(1000);
+	}
+
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideEn = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideEn = FALSE;
+
+	if (FALSE == bSyncTestFailure) {
+		bSuccess = TRUE;
+	}
+
+	return (bSuccess);
+}
+
 /* Configure the entire Sync Period for a N-FEE (default: 25.0 s) */
 bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 
 	if (cusiSyncNFeeSyncPeriodMs <= usiSyncPeriodMs) {
@@ -1301,7 +1394,7 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncNFeeOneShotTimeMs);
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
+		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "\nSync Module Configuration:\n");
 			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", (alt_u8)vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
 			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
@@ -1326,7 +1419,59 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 #endif
 	}
 
-	return bSuccess;
+	return (bSuccess);
+}
+
+/* Configure the entire Sync Period for a F-FEE (default: 2.5 s) */
+bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
+	bool bSuccess = FALSE;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+
+	if (cusiSyncFFeeSyncPeriodMs <= usiSyncPeriodMs) {
+
+		const alt_u16 cusiLastPulsePeriodMs = usiSyncPeriodMs - (cusiSyncFFeeNormalPulseDurationMs * (cusiSyncFFeeNumberOfPulses - 1));
+
+		vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncFFeeNumberOfPulses;
+		vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncFFeePulsePolarity;
+		vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs(100);
+		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs(usiSyncPeriodMs - cusiSyncFFeeMasterBlankTimeMs);
+//		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeMasterBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs(usiSyncPeriodMs - cusiSyncFFeeNormalBlankTimeMs);
+//		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeNormalBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliLastBlankTime = uliPerCalcPeriodMs(cusiLastPulsePeriodMs - cusiSyncFFeeMasterBlankTimeMs);
+//		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs);
+		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs(usiSyncPeriodMs);
+		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs(cusiLastPulsePeriodMs);
+		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs(cusiSyncFFeeMasterDetectionTimeMs);
+		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncFFeeOneShotTimeMs);
+
+#if DEBUG_ON
+		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+			fprintf(fp, "\nSync Module Configuration:\n");
+			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", (alt_u8)vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
+			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
+			fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPreBlankTime));
+			fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime));
+			fprintf(fp, "xSyncModule.uliBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliBlankTime));
+			fprintf(fp, "xSyncModule.uliLastBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod - vpxSyncModule->xSyncConfig.uliLastBlankTime));
+			fprintf(fp, "xSyncModule.uliPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod));
+			fprintf(fp, "xSyncModule.uliLastPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod));
+			fprintf(fp, "xSyncModule.uliMasterDetectionTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliMasterDetectionTime));
+			fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliOneShotTime));
+			fprintf(fp, "\n");
+		}
+#endif
+
+		bSuccess = TRUE;
+	} else {
+#if DEBUG_ON
+		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
+			fprintf(fp, "\nSync Module Configuration Failure!! Period is to small\n");
+		}
+#endif
+	}
+
+	return (bSuccess);
 }
 
 //! [private functions]

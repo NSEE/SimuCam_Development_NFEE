@@ -74,7 +74,7 @@ begin
 			avalon_slave_read_i              => s_avalon_mm_read,
 			avalon_slave_write_i             => s_avalon_mm_write,
 			avalon_slave_writedata_i         => s_avalon_mm_writedata,
-			avalon_slave_byteenable_i        => (others => '1'),
+--			avalon_slave_byteenable_i        => (others => '1'),
 			avalon_slave_readdata_o          => s_avalon_mm_readdata,
 			avalon_slave_waitrequest_o       => s_avalon_mm_waitrequest,
 			conduit_sync_signal_spw1_o       => s_dut_sync_signal_spwa,

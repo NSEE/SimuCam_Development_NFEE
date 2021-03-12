@@ -36,6 +36,16 @@ extern const alt_u16 cusiSyncNFeeOneShotTimeMs;
 extern const bool cbSyncNFeePulsePolarity;
 extern const alt_u8 cusiSyncNFeeNumberOfPulses;
 
+/* F-FEE - DLR */
+extern const alt_u16 cusiSyncFFeeMasterBlankTimeMs;
+extern const alt_u16 cusiSyncFFeeMasterDetectionTimeMs;
+extern const alt_u16 cusiSyncFFeeNormalBlankTimeMs;
+extern const alt_u16 cusiSyncFFeeSyncPeriodMs;
+extern const alt_u16 cusiSyncFFeeNormalPulseDurationMs;
+extern const alt_u16 cusiSyncFFeeOneShotTimeMs;
+extern const bool cbSyncFFeePulsePolarity;
+extern const alt_u8 cusiSyncFFeeNumberOfPulses;
+
 //! [public module structs definition]
 /* Sync Status Register Struct */
 typedef struct SyncStatus {
@@ -126,6 +136,8 @@ typedef struct SyncControl {
 	bool bReset; /* Reset bit */
 	bool bOneShot; /* One Shot bit */
 	bool bErrInj; /* Err_inj bit */
+	bool bHoldBlankPulse; /* Hold Blank Pulse */
+	bool bHoldReleasePulse; /* Hold Release Pulse */
 	bool bOutEn; /* Sync_out  out enable bit */
 	bool bChannel1En; /* Channel 1 out enable bit */
 	bool bChannel2En; /* Channel 2 out enable bit */
@@ -137,7 +149,21 @@ typedef struct SyncControl {
 	bool bChannel8En; /* Channel 8 out enable bit */
 } TSyncControl;
 
-/* Sync IRQ Number Register Struct */
+/* Sync Test Control Register Struct */
+typedef struct SyncTestControl {
+	bool bSyncInOverrideEn; /* Sync_in override enable */
+	bool bSyncInOverrideValue; /* Sync_in override value */
+	bool bSyncOutOverrideEn; /* Sync_out override enable */
+	bool bSyncOutOverrideValue; /* Sync_out override value */
+} TSyncTestControl;
+
+/* Sync Test Status Register Struct */
+typedef struct SyncTestStatus {
+	bool SyncInValue; /* Sync_in value */
+	bool SyncOutValue; /* Sync_out value */
+} TSyncTestStatus;
+
+ /* Sync IRQ Number Register Struct */
 typedef struct SyncIRQNumber {
 	alt_u32 uliSyncIrqNumber; /* Sync IRQ number */
 	alt_u32 uliPreSyncIrqNumber; /* Pre-Sync IRQ number */
@@ -156,6 +182,8 @@ typedef struct SyncModule {
 	TSyncGeneralConfig xSyncGeneralConfig;
 	TSyncErrorInjection xSyncErrorInjection;
 	TSyncControl xSyncControl;
+	TSyncTestControl xSyncTestControl;
+	TSyncTestStatus xSyncTestStatus;
 	TSyncIRQNumber xSyncIRQNumber;
 } TSyncModule;
 //! [public module structs definition]
@@ -225,6 +253,8 @@ bool bSyncCtrStart(void);
 bool bSyncCtrReset(void);
 bool bSyncCtrOneShot(void);
 bool bSyncCtrErrInj(void);
+bool bSyncCtrHoldBlankPulse(bool bValue);
+bool bSyncCtrHoldReleasePulse(bool bValue);
 bool bSyncCtrSyncOutEnable(bool bValue);
 bool bSyncCtrCh1OutEnable(bool bValue);
 bool bSyncCtrCh2OutEnable(bool bValue);
@@ -235,7 +265,10 @@ bool bSyncCtrCh6OutEnable(bool bValue);
 bool bSyncCtrCh7OutEnable(bool bValue);
 bool bSyncCtrCh8OutEnable(bool bValue);
 
+bool bSyncTestConnection(void);
+
 bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs);
+bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs);
 
 //! [private function prototypes]
 alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs);

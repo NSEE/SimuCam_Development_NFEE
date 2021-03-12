@@ -554,8 +554,9 @@ int main(void)
 		return -1;
 	}
 
-	/* Initialization of basic HW */
+	/* Initialization and Test of basic HW */
 	vInitSimucamBasicHW();
+	bTestSimucamBasicHW();
 
 	/* Initialization of the SD Card */
 	bIniSimucamStatus = bInitializeSDCard();
