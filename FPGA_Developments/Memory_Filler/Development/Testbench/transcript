@@ -1,0 +1,46 @@
+# Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/Memory_Filler/Development/Testbench/memory_filler_tb.mpf
+# Loading project memory_filler_tb
+vsim work.testbench_top
+# vsim work.testbench_top 
+# Start time: 17:39:43 on Mar 15,2021
+# Loading std.standard
+# ** Error: (vsim-13) Recompile work.mfil_memory_filler_top because work.mfil_avm_data_pkg has changed.
+# ** Error (suppressible): (vsim-12) Recompile work.testbench_top(rtl) after work.mfil_memory_filler_top is recompiled.
+# ** Error: (vsim-13) Recompile work.testbench_top(rtl) because work.mfil_avm_data_pkg has changed.
+# Error loading design
+# End time: 17:39:44 on Mar 15,2021, Elapsed time: 0:00:01
+# Errors: 3, Warnings: 0
+# Compile of mfil_config_avalon_mm_registers_pkg.vhd was successful.
+# Compile of mfil_config_avalon_mm_pkg.vhd was successful.
+# Compile of mfil_config_avalon_mm_read_ent.vhd was successful.
+# Compile of mfil_config_avalon_mm_write_ent.vhd was successful.
+# Compile of mfil_config_avalon_mm_stimulli.vhd was successful.
+# Compile of mfil_avm_data_pkg.vhd was successful.
+# Compile of mfil_avm_data_writer_ent.vhd was successful.
+# Compile of delay_block_ent.vhd was successful.
+# Compile of mfil_avm_writer_controller_ent.vhd was successful.
+# Compile of mfil_memory_filler_top.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 11 compiles, 0 failed with no errors.
+vsim work.testbench_top
+# vsim work.testbench_top 
+# Start time: 17:39:57 on Mar 15,2021
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.mfil_config_avalon_mm_registers_pkg(body)
+# Loading work.mfil_config_avalon_mm_pkg
+# Loading work.mfil_avm_data_pkg(body)
+# Loading work.testbench_top(rtl)
+# Loading work.mfil_memory_filler_top(rtl)
+# Loading work.mfil_config_avalon_mm_stimulli(rtl)
+# Loading work.mfil_avm_data_writer_ent(rtl)
+# Loading work.mfil_avm_writer_controller_ent(rtl)
+# Loading work.delay_block_ent(rtl)
+do D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/Memory_Filler/Development/Testbench/wave.do
+restart
+run
+# End time: 17:41:33 on Mar 15,2021, Elapsed time: 0:01:36
+# Errors: 0, Warnings: 0
