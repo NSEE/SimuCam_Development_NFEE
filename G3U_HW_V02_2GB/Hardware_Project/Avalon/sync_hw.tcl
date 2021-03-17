@@ -4,7 +4,7 @@
 
 
 # 
-# Sync "Sync" v1.7
+# Sync "Sync" v1.8
 # Franca/Cassio 2019.08.28.16:44:28
 # Synchronism module - Plato Simucam - R0
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION "Synchronism module - Plato Simucam - R0"
 set_module_property NAME Sync
-set_module_property VERSION 1.7
+set_module_property VERSION 1.8
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR Franca/Cassio
@@ -184,7 +184,7 @@ add_interface_port avalon_mm_slave avalon_slave_address_i address Input 8
 add_interface_port avalon_mm_slave avalon_slave_read_i read Input 1
 add_interface_port avalon_mm_slave avalon_slave_write_i write Input 1
 add_interface_port avalon_mm_slave avalon_slave_writedata_i writedata Input 32
-add_interface_port avalon_mm_slave avalon_slave_byteenable_i byteenable Input 4
+#add_interface_port avalon_mm_slave avalon_slave_byteenable_i byteenable Input 4
 add_interface_port avalon_mm_slave avalon_slave_readdata_o readdata Output 32
 add_interface_port avalon_mm_slave avalon_slave_waitrequest_o waitrequest Output 1
 set_interface_assignment avalon_mm_slave embeddedsw.configuration.isFlash 0

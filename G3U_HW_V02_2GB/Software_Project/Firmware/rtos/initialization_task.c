@@ -287,7 +287,7 @@ void vInitialTask(void *task_data)
 
 
 	/* Wait until all defaults are received */
-	while (FALSE == vbDefaultsReceived) {
+	while ( (FALSE == vbDefaultsReceived) && (vuliReceivedDefaultsQtd < vuliExpectedDefaultsQtd)) {
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 	OSTimeDlyHMSM(0, 0, DEFT_RETRANSMISSION_TIMEOUT, 0);
@@ -735,6 +735,14 @@ void vInitialTask(void *task_data)
 
 	OSTimeDlyHMSM(0, 0, 0, 200);
 
+	/* SimuCam Ready to be used */
+	OSTimeDlyHMSM(0, 0, 10, 0);
+//	vSendEventLog(0,1,0,4,1);
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"\n__________ Load Completed, SimuCam is ready to be used _________ \n\n");
+}
+#endif
 
 	/* Delete the Initialization Task  */
 	error_code = OSTaskDel(OS_PRIO_SELF); /* OS_PRIO_SELF = Means task self priority */

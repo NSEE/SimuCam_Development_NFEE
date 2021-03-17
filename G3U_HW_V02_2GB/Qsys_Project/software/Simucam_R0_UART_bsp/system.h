@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Thu Jan 21 09:46:42 BRST 2021
+ * Generated: Mon Mar 15 23:46:13 BRT 2021
  */
 
 /*
@@ -249,6 +249,7 @@
 #define __ALTERA_UP_SD_CARD_AVALON_INTERFACE
 #define __COMMUNICATION_MODULE_V2
 #define __FTDI_UMFT601A_MODULE
+#define __MEMORY_FILLER
 #define __RMAP_MEMORY_NFEE_AREA
 #define __RST_CONTROLLER
 #define __SYNC
@@ -267,6 +268,20 @@
 #define FTDI_UMFT601A_MODULE_NAME "/dev/FTDI_UMFT601A_Module"
 #define FTDI_UMFT601A_MODULE_SPAN 1024
 #define FTDI_UMFT601A_MODULE_TYPE "FTDI_UMFT601A_Module"
+
+
+/*
+ * Memory_Filler configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_Memory_Filler Memory_Filler
+#define MEMORY_FILLER_BASE 0x82000000
+#define MEMORY_FILLER_IRQ -1
+#define MEMORY_FILLER_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define MEMORY_FILLER_NAME "/dev/Memory_Filler"
+#define MEMORY_FILLER_SPAN 1024
+#define MEMORY_FILLER_TYPE "Memory_Filler"
 
 
 /*
@@ -1174,7 +1189,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1611202492
+#define SYSID_QSYS_TIMESTAMP 1615845911
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

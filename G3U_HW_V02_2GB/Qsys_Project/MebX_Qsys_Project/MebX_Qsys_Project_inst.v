@@ -195,7 +195,9 @@
 		.spwc_h_lvds_spw_lvds_p_strobe_in_signal                     (<connected-to-spwc_h_lvds_spw_lvds_p_strobe_in_signal>),                     //                                           .spw_lvds_p_strobe_in_signal
 		.spwc_h_lvds_spw_lvds_n_strobe_in_signal                     (<connected-to-spwc_h_lvds_spw_lvds_n_strobe_in_signal>),                     //                                           .spw_lvds_n_strobe_in_signal
 		.sync_in_conduit                                             (<connected-to-sync_in_conduit>),                                             //                                    sync_in.conduit
+		.sync_in_en_conduit                                          (<connected-to-sync_in_en_conduit>),                                          //                                 sync_in_en.conduit
 		.sync_out_conduit                                            (<connected-to-sync_out_conduit>),                                            //                                   sync_out.conduit
+		.sync_out_en_conduit                                         (<connected-to-sync_out_en_conduit>),                                         //                                sync_out_en.conduit
 		.sync_spw1_conduit                                           (<connected-to-sync_spw1_conduit>),                                           //                                  sync_spw1.conduit
 		.sync_spw2_conduit                                           (<connected-to-sync_spw2_conduit>),                                           //                                  sync_spw2.conduit
 		.sync_spw3_conduit                                           (<connected-to-sync_spw3_conduit>),                                           //                                  sync_spw3.conduit
@@ -224,8 +226,6 @@
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                           .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                           .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                           .umft_oe_n_signal
-		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                           .umft_siwu_n_signal
-		.sync_in_en_conduit                                          (<connected-to-sync_in_en_conduit>),                                          //                                 sync_in_en.conduit
-		.sync_out_en_conduit                                         (<connected-to-sync_out_en_conduit>)                                          //                                sync_out_en.conduit
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                           .umft_siwu_n_signal
 	);
 

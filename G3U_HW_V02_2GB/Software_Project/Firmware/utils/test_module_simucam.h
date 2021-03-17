@@ -14,6 +14,7 @@
 #include "../driver/sync/sync.h"
 #include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
 #include "../driver/reset/reset.h"
+#include "../driver/memory_filler/memory_filler.h"
 #include "../rtos/tasks_configurations.h"
 
 bool bTestSimucamCriticalHW(void);

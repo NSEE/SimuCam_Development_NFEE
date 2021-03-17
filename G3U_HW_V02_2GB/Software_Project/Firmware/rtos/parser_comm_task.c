@@ -111,12 +111,7 @@ void vParserCommTask(void *task_data) {
 					uliDefaultValue = (alt_u32) ((alt_u32)(PreParsedLocal.usiValues[3] & 0x0000FFFF) << 16 | (alt_u32)(PreParsedLocal.usiValues[4] & 0x0000FFFF));
 
 					if (255 == usiMebFee) {
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\n__________ Load Completed, SimuCam is ready to be used _________ \n\n");
-							vbDefaultsReceived = TRUE;
-						}
-						#endif
+						vbDefaultsReceived = TRUE;
 						vSendEventLog(0,1,0,4,1);
 					} else {
 						if (bSetDefaultValues(usiMebFee, usiDefaultId, uliDefaultValue)) {

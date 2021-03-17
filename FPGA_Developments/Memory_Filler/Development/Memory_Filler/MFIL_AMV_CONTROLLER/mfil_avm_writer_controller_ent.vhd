@@ -299,7 +299,6 @@ begin
 				when FINISHED =>
 					-- avm writer controller is finished
 					-- default output signals
-					controller_wr_busy_o             <= '1';
 					controller_wr_timeout_err_o      <= s_wr_timeout_error;
 					avm_master_wr_control_o.wr_abort <= '1';
 					-- conditional output signals

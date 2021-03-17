@@ -196,7 +196,9 @@
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X';             -- spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X';             -- spw_lvds_n_strobe_in_signal
 			sync_in_conduit                                             : in    std_logic                     := 'X';             -- conduit
+			sync_in_en_conduit                                          : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                            : out   std_logic;                                        -- conduit
+			sync_out_en_conduit                                         : in    std_logic                     := 'X';             -- conduit
 			sync_spw1_conduit                                           : out   std_logic;                                        -- conduit
 			sync_spw2_conduit                                           : out   std_logic;                                        -- conduit
 			sync_spw3_conduit                                           : out   std_logic;                                        -- conduit
@@ -225,9 +227,7 @@
 			umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            : out   std_logic;                                        -- umft_siwu_n_signal
-			sync_in_en_conduit                                          : in    std_logic                     := 'X';             -- conduit
-			sync_out_en_conduit                                         : in    std_logic                     := 'X'              -- conduit
+			umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -429,7 +429,9 @@
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                     => CONNECTED_TO_spwc_h_lvds_spw_lvds_p_strobe_in_signal,                     --                                           .spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                     => CONNECTED_TO_spwc_h_lvds_spw_lvds_n_strobe_in_signal,                     --                                           .spw_lvds_n_strobe_in_signal
 			sync_in_conduit                                             => CONNECTED_TO_sync_in_conduit,                                             --                                    sync_in.conduit
+			sync_in_en_conduit                                          => CONNECTED_TO_sync_in_en_conduit,                                          --                                 sync_in_en.conduit
 			sync_out_conduit                                            => CONNECTED_TO_sync_out_conduit,                                            --                                   sync_out.conduit
+			sync_out_en_conduit                                         => CONNECTED_TO_sync_out_en_conduit,                                         --                                sync_out_en.conduit
 			sync_spw1_conduit                                           => CONNECTED_TO_sync_spw1_conduit,                                           --                                  sync_spw1.conduit
 			sync_spw2_conduit                                           => CONNECTED_TO_sync_spw2_conduit,                                           --                                  sync_spw2.conduit
 			sync_spw3_conduit                                           => CONNECTED_TO_sync_spw3_conduit,                                           --                                  sync_spw3.conduit
@@ -458,8 +460,6 @@
 			umft601a_pins_umft_wr_n_signal                              => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                              --                                           .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                              --                                           .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                              --                                           .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                            --                                           .umft_siwu_n_signal
-			sync_in_en_conduit                                          => CONNECTED_TO_sync_in_en_conduit,                                          --                                 sync_in_en.conduit
-			sync_out_en_conduit                                         => CONNECTED_TO_sync_out_en_conduit                                          --                                sync_out_en.conduit
+			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                             --                                           .umft_siwu_n_signal
 		);
 

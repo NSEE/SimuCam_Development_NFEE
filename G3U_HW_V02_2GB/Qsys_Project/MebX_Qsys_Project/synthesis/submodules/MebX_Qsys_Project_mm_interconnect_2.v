@@ -132,7 +132,6 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		output wire        sync_avalon_mm_slave_read,                                              //                                                                 .read
 		input  wire [31:0] sync_avalon_mm_slave_readdata,                                          //                                                                 .readdata
 		output wire [31:0] sync_avalon_mm_slave_writedata,                                         //                                                                 .writedata
-		output wire [3:0]  sync_avalon_mm_slave_byteenable,                                        //                                                                 .byteenable
 		input  wire        sync_avalon_mm_slave_waitrequest,                                       //                                                                 .waitrequest
 		output wire [1:0]  temp_scl_s1_address,                                                    //                                                      temp_scl_s1.address
 		output wire        temp_scl_s1_write,                                                      //                                                                 .write
@@ -1955,11 +1954,11 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.av_read                (sync_avalon_mm_slave_read),                   //                         .read
 		.av_readdata            (sync_avalon_mm_slave_readdata),               //                         .readdata
 		.av_writedata           (sync_avalon_mm_slave_writedata),              //                         .writedata
-		.av_byteenable          (sync_avalon_mm_slave_byteenable),             //                         .byteenable
 		.av_waitrequest         (sync_avalon_mm_slave_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                            //              (terminated)
 		.av_beginbursttransfer  (),                                            //              (terminated)
 		.av_burstcount          (),                                            //              (terminated)
+		.av_byteenable          (),                                            //              (terminated)
 		.av_readdatavalid       (1'b0),                                        //              (terminated)
 		.av_writebyteenable     (),                                            //              (terminated)
 		.av_lock                (),                                            //              (terminated)

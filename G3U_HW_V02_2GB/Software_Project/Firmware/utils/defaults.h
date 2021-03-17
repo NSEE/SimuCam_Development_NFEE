@@ -17,6 +17,7 @@
 #define DEFT_MEB_DEFS_ID_LOWER_LIM      0
 #define DEFT_FEE_DEFS_ID_LOWER_LIM      1000
 #define DEFT_NUC_DEFS_ID_LOWER_LIM      10000
+#define DEFT_NUC_DEFS_ID_RESERVED       0xFFFF
 #define DEFT_RETRANSMISSION_TIMEOUT     5
 //! [constants definition]
 
@@ -60,6 +61,8 @@ bool bSetDefaultValues(alt_u16 usiMebFee, alt_u16 usiDefaultId, alt_u32 uliDefau
 
 //! [data memory public global variables - use extern]
 extern volatile bool vbDefaultsReceived;
+extern volatile alt_u32 vuliExpectedDefaultsQtd;
+extern volatile alt_u32 vuliReceivedDefaultsQtd;
 extern volatile TDeftMebDefaults vxDeftMebDefaults;
 extern volatile TDeftFeeDefaults vxDeftFeeDefaults[N_OF_NFEE];
 extern volatile TDeftNucDefaults vxDeftNucDefaults;

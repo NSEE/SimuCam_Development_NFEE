@@ -18,6 +18,8 @@
 
 //! [data memory private global variables]
 volatile bool vbDefaultsReceived = FALSE;
+volatile alt_u32 vuliExpectedDefaultsQtd = 1;
+volatile alt_u32 vuliReceivedDefaultsQtd = 0;
 volatile TDeftMebDefaults vxDeftMebDefaults;
 volatile TDeftFeeDefaults vxDeftFeeDefaults[N_OF_NFEE];
 volatile TDeftNucDefaults vxDeftNucDefaults;
@@ -383,6 +385,10 @@ bool bSetMebDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue) {
 	/* LogReport */
 	case 29:
 		vxDeftMebDefaults.bLogReport = (alt_u8) uliDefaultValue;
+		break;
+	/* Reserved Value - Number of defaults to be received */
+	case DEFT_NUC_DEFS_ID_RESERVED:
+		vuliExpectedDefaultsQtd = uliDefaultValue + 1;
 		break;
 	default:
 		bStatus = FALSE;
@@ -1093,7 +1099,7 @@ bool bSetDefaultValues(alt_u16 usiMebFee, alt_u16 usiDefaultId, alt_u32 uliDefau
 
 	if (0 == usiMebFee) { /* MEB or NUC Default */
 
-		if ((DEFT_MEB_DEFS_ID_LOWER_LIM <= usiDefaultId) && (DEFT_FEE_DEFS_ID_LOWER_LIM > usiDefaultId)) {
+		if (((DEFT_MEB_DEFS_ID_LOWER_LIM <= usiDefaultId) && (DEFT_FEE_DEFS_ID_LOWER_LIM > usiDefaultId)) || (DEFT_NUC_DEFS_ID_RESERVED == usiDefaultId)) {
 
 			/* Default ID is a MEB Default */
 			bStatus = bSetMebDefaultValues(usiDefaultId, uliDefaultValue);
@@ -1114,6 +1120,10 @@ bool bSetDefaultValues(alt_u16 usiMebFee, alt_u16 usiDefaultId, alt_u32 uliDefau
 
 		}
 
+	}
+
+	if (TRUE == bStatus) {
+		vuliReceivedDefaultsQtd++;
 	}
 
 	return (bStatus);

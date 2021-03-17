@@ -18,7 +18,7 @@ use work.sync_common_pkg.all;
 -------------------------------------------------------------------------------
 --
 -- unit name: sync generator (sync_gen)
---
+--z
 --! @brief 
 --
 --! @author Rodrigo França (rodrigo.franca@maua.br)
@@ -227,29 +227,33 @@ begin
 					else
 						-- check if the blank value was reached
 						if (s_sync_cnt = s_sync_blank) then
-							--							-- blank value reached, check cycle and update s_sync_blank
-							--							if (unsigned(s_registered_configs.number_of_cycles) <= 1) then
-							--								-- ok, only one cycle, s_sync_blank already contains MBT
-							--								s_sync_cycle_cnt      <= 0;
-							--								s_next_sync_cycle_cnt <= 0;
-							--								s_sync_blank          <= s_registered_configs.master_blank_time;
-							--							else
-							--								-- more than one cycle, check upper limit of cycle counter
-							--								if (s_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
-							--									-- upper limit reached
-							--									-- reset cycle counter
-							--									s_sync_cycle_cnt <= 0;
-							--									-- return to master blank time
-							--									s_sync_blank     <= s_registered_configs.master_blank_time;
-							--								else
-							--									-- keep cycle counting
-							--									s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
-							--									s_sync_blank     <= s_registered_configs.blank_time;
-							--								end if;
-							--							end if;
-							-- goto to R_RELEASE state
-							s_sync_gen_state <= R_RELEASE;
-							v_sync_gen_state := R_RELEASE;
+							-- check if the blank pulse is not on hold
+							if (control_i.hold_blank_pulse = '0') then
+								-- blank pulse is not on hold
+								--							-- blank value reached, check cycle and update s_sync_blank
+								--							if (unsigned(s_registered_configs.number_of_cycles) <= 1) then
+								--								-- ok, only one cycle, s_sync_blank already contains MBT
+								--								s_sync_cycle_cnt      <= 0;
+								--								s_next_sync_cycle_cnt <= 0;
+								--								s_sync_blank          <= s_registered_configs.master_blank_time;
+								--							else
+								--								-- more than one cycle, check upper limit of cycle counter
+								--								if (s_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
+								--									-- upper limit reached
+								--									-- reset cycle counter
+								--									s_sync_cycle_cnt <= 0;
+								--									-- return to master blank time
+								--									s_sync_blank     <= s_registered_configs.master_blank_time;
+								--								else
+								--									-- keep cycle counting
+								--									s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
+								--									s_sync_blank     <= s_registered_configs.blank_time;
+								--								end if;
+								--							end if;
+								-- goto to R_RELEASE state
+								s_sync_gen_state <= R_RELEASE;
+								v_sync_gen_state := R_RELEASE;
+							end if;
 						else
 							-- keep counting
 							s_sync_cnt <= std_logic_vector(unsigned(s_sync_cnt) + 1);
@@ -281,57 +285,61 @@ begin
 						if (s_sync_cnt = std_logic_vector(unsigned(s_sync_period) - 1)) then
 							-- pulse period reached
 
-							-- pulse period reached, check cycle and update s_sync_blank
-							if (unsigned(s_registered_configs.number_of_cycles) <= 1) then
-								-- ok, only one cycle, s_sync_blank already contains MBT
-								s_sync_cycle_cnt      <= 0;
-								v_sync_cycle          := 0;
-								-- set next cycle
-								s_next_sync_cycle_cnt <= 0;
-								v_next_sync_cycle     := 0;
-								s_sync_blank          <= s_registered_configs.master_blank_time;
-								s_sync_period         <= s_registered_configs.period;
-							else
-								-- more than one cycle, check upper limit of cycle counter
-								if (s_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
-									-- upper limit reached
-									-- reset cycle counter
+							-- check if the release pulse is not on hold
+							if (control_i.hold_release_pulse = '0') then
+								-- release pulse is not on hold
+								-- pulse period reached, check cycle and update s_sync_blank
+								if (unsigned(s_registered_configs.number_of_cycles) <= 1) then
+									-- ok, only one cycle, s_sync_blank already contains MBT
 									s_sync_cycle_cnt      <= 0;
-									v_sync_cycle          := 3;
+									v_sync_cycle          := 0;
 									-- set next cycle
-									s_next_sync_cycle_cnt <= 1;
+									s_next_sync_cycle_cnt <= 0;
 									v_next_sync_cycle     := 0;
-									--									-- return to master blank time
-									--									s_sync_blank          <= s_registered_configs.master_blank_time;
-									-- set blank time and period to last pulse
-									s_sync_blank          <= s_registered_configs.last_blank_time;
-									s_sync_period         <= s_registered_configs.last_period;
+									s_sync_blank          <= s_registered_configs.master_blank_time;
+									s_sync_period         <= s_registered_configs.period;
 								else
-									-- keep cycle counting
-									s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
-									if (v_sync_cycle = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
-										v_sync_cycle := 0;
+									-- more than one cycle, check upper limit of cycle counter
+									if (s_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
+										-- upper limit reached
+										-- reset cycle counter
+										s_sync_cycle_cnt      <= 0;
+										v_sync_cycle          := 3;
+										-- set next cycle
+										s_next_sync_cycle_cnt <= 1;
+										v_next_sync_cycle     := 0;
+										--									-- return to master blank time
+										--									s_sync_blank          <= s_registered_configs.master_blank_time;
+										-- set blank time and period to last pulse
+										s_sync_blank          <= s_registered_configs.last_blank_time;
+										s_sync_period         <= s_registered_configs.last_period;
 									else
-										v_sync_cycle := v_sync_cycle + 1;
+										-- keep cycle counting
+										s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
+										if (v_sync_cycle = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
+											v_sync_cycle := 0;
+										else
+											v_sync_cycle := v_sync_cycle + 1;
+										end if;
+										-- set next cycle
+										if (s_next_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
+											s_next_sync_cycle_cnt <= 0;
+											v_next_sync_cycle     := 3;
+										else
+											s_next_sync_cycle_cnt <= s_next_sync_cycle_cnt + 1;
+											v_next_sync_cycle     := v_next_sync_cycle + 1;
+										end if;
+										-- set blank time and period to normal pulse
+										s_sync_blank     <= s_registered_configs.blank_time;
+										s_sync_period    <= s_registered_configs.period;
 									end if;
-									-- set next cycle
-									if (s_next_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
-										s_next_sync_cycle_cnt <= 0;
-										v_next_sync_cycle     := 3;
-									else
-										s_next_sync_cycle_cnt <= s_next_sync_cycle_cnt + 1;
-										v_next_sync_cycle     := v_next_sync_cycle + 1;
-									end if;
-									-- set blank time and period to normal pulse
-									s_sync_blank     <= s_registered_configs.blank_time;
-									s_sync_period    <= s_registered_configs.period;
 								end if;
+								-- reset sync counter
+								s_sync_cnt       <= (others => '0');
+								-- go to R_BLANK state
+								s_sync_gen_state <= R_BLANK;
+								v_sync_gen_state := R_BLANK;
 							end if;
-							-- reset sync counter
-							s_sync_cnt       <= (others => '0');
-							-- go to R_BLANK state
-							s_sync_gen_state <= R_BLANK;
-							v_sync_gen_state := R_BLANK;
 						else
 							-- keep counting
 							s_sync_cnt <= std_logic_vector(unsigned(s_sync_cnt) + 1);

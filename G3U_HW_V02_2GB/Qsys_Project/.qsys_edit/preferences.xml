@@ -3,12 +3,12 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="1615" />
+   <connections preferredWidth="30" />
    <irq preferredWidth="34" />
-   <name preferredWidth="627" />
+   <name preferredWidth="265" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
+ <library expandedCategories="Project,Library" />
  <window width="1936" height="1056" x="-8" y="-8" />
  <generation synthesis="VHDL" />
  <hdlexample language="VHDL" />

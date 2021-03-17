@@ -78,10 +78,12 @@ package sync_gen_pkg is
 	end record t_sync_gen_error_injection;
 
 	type t_sync_gen_control is record
-		start    : std_logic;
-		reset    : std_logic;
-		one_shot : std_logic;
-		err_inj  : std_logic;
+		start              : std_logic;
+		reset              : std_logic;
+		one_shot           : std_logic;
+		err_inj            : std_logic;
+		hold_blank_pulse   : std_logic;
+		hold_release_pulse : std_logic;
 	end record t_sync_gen_control;
 
 	--=======================================

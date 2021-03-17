@@ -8,6 +8,7 @@
 #include "test_module_simucam.h"
 
 bool bDdr2MemoryFastTest(void);
+bool bDdr2MemoryZeroFill(void);
 
 bool bTestSimucamCriticalHW(void) {
 	bool bSuccess;
@@ -117,7 +118,12 @@ bool bTestSimucamCriticalHW(void) {
 #endif
 	}
 
-	bDdr2MemoryFastTest();
+//	bDdr2MemoryFastTest();
+
+	bSuccess = bDdr2MemoryZeroFill();
+	if ( FALSE == bSuccess) {
+		return (bSuccess);
+	}
 
 	return TRUE;
 }
@@ -294,6 +300,69 @@ bool bDdr2MemoryFastTest(void) {
 
 	bSuccess = FALSE;
 	if ((bM1Success) && (bM2Success)) {
+		bSuccess = TRUE;
+	}
+
+	return (bSuccess);
+}
+
+bool bDdr2MemoryZeroFill(void) {
+	bool bM1Success = FALSE;
+	bool bM2Success = FALSE;
+	bool bSuccess = FALSE;
+
+	const alt_u32 uliMemData[8] = {
+			0x00000000, 0x00000000, 0x00000000, 0x00000000,
+			0x00000000, 0x00000000, 0x00000000, 0x00000000
+	};
+
+	bMfilSetWrData(uliMemData);
+
+	bMfilResetDma(TRUE);
+
+	/* DDR2 Memory 1 Zero Fill */
+
+	if (bMfilDmaTransfer(eDdr2Memory1, (alt_u32 *)0x00000000, DDR2_M1_MEMORY_SIZE)) {
+		while ( ( TRUE == bMfilGetWrBusy() ) && ( FALSE == bMfilGetWrTimeoutErr() ) ) {
+			usleep(100);
+		}
+		if ( FALSE == bMfilGetWrTimeoutErr() ) {
+#if DEBUG_ON
+			fprintf(fp, "  DDR2 Memory 1 Cleared!\n");
+			bM1Success = TRUE;
+#endif
+		} else {
+#if DEBUG_ON
+			fprintf(fp, "  CRITICAL! DDR2 Memory 1 Failure!\n");
+			return (bM1Success);
+#endif
+		}
+	}
+
+	bMfilResetDma(TRUE);
+
+	/* DDR2 Memory 2 Zero Fill */
+
+	if (bMfilDmaTransfer(eDdr2Memory2, (alt_u32 *)0x00000000, DDR2_M2_MEMORY_SIZE)) {
+		while ( ( TRUE == bMfilGetWrBusy() ) && ( FALSE == bMfilGetWrTimeoutErr() ) ) {
+			usleep(100);
+		}
+		if ( FALSE == bMfilGetWrTimeoutErr() ) {
+#if DEBUG_ON
+			fprintf(fp, "  DDR2 Memory 2 Cleared!\n");
+			bM2Success = TRUE;
+#endif
+		} else {
+#if DEBUG_ON
+			fprintf(fp, "  CRITICAL! DDR2 Memory 2 Failure!\n");
+			return (bM2Success);
+#endif
+		}
+	}
+
+	bMfilResetDma(TRUE);
+
+	if ( ( TRUE == bM1Success ) && ( TRUE == bM2Success ) ) {
 		bSuccess = TRUE;
 	}
 

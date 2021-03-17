@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>27/01/2021 12:43:30</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1611758610659</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>D:\rfranca\Development\GitHub\SimuCam_Development4\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Mar 15, 2021 11:46:10 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1615862770509</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -2055,6 +2055,12 @@
                 <addressRange>0x8121AF50 - 0x8121AF57</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Memory_Filler</slaveDescriptor>
+                <addressRange>0x82000000 - 0x820003FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>ext_flash</slaveDescriptor>
