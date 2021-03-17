@@ -45,6 +45,7 @@
 #   V1.1 :| Eric Chen         :| 10/08/20  :| Change Flash for one die
 #   V1.3 :| Rodrigo Franca    :| 19/10/30  :| Added options for DE4-230 and DE4-530 boards
 #   V1.4 :| Rodrigo Franca    :| 20/06/05  :| Removed cable option from flash programming
+#   V1.5 :| Rodrigo Franca    :| 21/03/16  :| Added option to set cable for flash programming
 # ============================================================================
 
 
@@ -63,11 +64,11 @@ my $hw_image_file		  = "de4_hw.flash";
 my $sw_image_file		  = "de4_sw.flash";
 my $pfl_bits_file		  = "de4_hw.map.flash";
 my $zip_image_file		  = "rozipfs.flash";
+my $board_cable_name	  = "-";
 
 
 &init;
 &menu;
-
 
 
 sub	menu
@@ -76,7 +77,7 @@ sub	menu
 	until ($SELECT eq "D")# or $SELECT eq "0")
 	{
 		system "clear";
-		printf "DE4 Development Kit Flash Program Tools.  ver : 1.4.0.0\n";
+		printf "DE4 Development Kit Flash Program Tools.  ver : 1.5.0.0\n";
 		printf "\n";
 		printf "*************************   DE4-230 Board Menu   **************************\n";
 		printf "\n";
@@ -100,6 +101,14 @@ sub	menu
 #		printf "  -) Program pfl option bit into the DE4-530 board flash\n";
 #		printf "  -) Readme File for DE4-530 board\n";
 		printf "\n";
+		printf "*************************    Board Cable Menu    **************************\n";
+		printf "\n";
+		printf "  8) Set cable to use when programming the board flash\n";
+		printf "  9) Clear cable settings (will only work with a single cable)\n";
+		printf "  L) List all connected cables\n";
+		printf "\n";
+		printf "     Current board cabe: $board_cable_name\n";
+		printf "\n";
 		printf "***************************************************************************\n";
 		printf "\n";
 		printf "Enter a number (D for Done): ";
@@ -122,6 +131,9 @@ sub	menu
 #														printf "\nPress ENTER key to continuance... ";
 #														$RESULT = <STDIN>;
 #													} 
+		if	(                    ($SELECT eq "8"))	{&board_cable_set;}
+		if	(                    ($SELECT eq "9"))	{&board_cable_clear;}
+		if	(                    ($SELECT eq "L"))	{&board_cable_list;}
 	}
 }
 
@@ -228,15 +240,27 @@ sub write_file
 #==============================================================================
 sub erase_flash
 {
-	# Load board update portal file into FPGA.
-	printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-	#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
-	system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
-	# Programming flash with the FPGA configuration.
-	printf "\nErase flash, please wait a few minutes ...\n\n";
-	#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' --erase-all";
-	system "nios2-flash-programmer --base=$FLASH_0_BASE --erase-all";
+	if ($board_cable_name eq "-")
+	{
+		# Load board update portal file into FPGA.
+		printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+		system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
+		
+		# Programming flash with the FPGA configuration.
+		printf "\nErase flash, please wait a few minutes ...\n\n";
+		system "nios2-flash-programmer --base=$FLASH_0_BASE --erase-all";
+	}
+	else
+	{
+		# Load board update portal file into FPGA.
+		printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+		system "quartus_pgm -c '$board_cable_name' -m jtag -o p\\\;$flash_bup_SOF";
+		
+		# Programming flash with the FPGA configuration.
+		printf "\nErase flash, please wait a few minutes ...\n\n";
+		system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='$board_cable_name' --erase-all";
+	}
 
 	printf "\nPress ENTER key to continuance... ";
 	$RESULT = <STDIN>;
@@ -304,17 +328,28 @@ sub program_sof
 
 			if (-e $hw_image_file)
 			{
-				# Load board update portal file into FPGA.
-				printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-				#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
-				system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
+				if ($board_cable_name eq "-")
+				{
+					# Load board update portal file into FPGA.
+					printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+					system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
-				# Programming flash with the FPGA configuration.
-				printf "\nProgram flash, please wait a few minutes ...\n\n";
-				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $hw_image_file";
-				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $pfl_bits_file";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE $hw_image_file";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE $pfl_bits_file";
+					# Programming flash with the FPGA configuration.
+					printf "\nProgram flash, please wait a few minutes ...\n\n";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE $hw_image_file";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE $pfl_bits_file";
+				}
+				else
+				{
+					# Load board update portal file into FPGA.
+					printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+					system "quartus_pgm -c '$board_cable_name' -m jtag -o p\\\;$flash_bup_SOF";
+
+					# Programming flash with the FPGA configuration.
+					printf "\nProgram flash, please wait a few minutes ...\n\n";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='$board_cable_name' $hw_image_file";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='$board_cable_name' $pfl_bits_file";
+				}
 			}
 			else
 			{
@@ -402,15 +437,27 @@ sub program_elf
 
 			if (-e $sw_image_file)
 			{
-				# Load board update portal file into FPGA.
-				printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-				#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
-				system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
+				if ($board_cable_name eq "-")
+				{
+					# Load board update portal file into FPGA.
+					printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+					system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
-				# Programming flash with the FPGA configuration.
-				printf "\nProgram flash, please wait a few minutes ...\n\n";
-				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $sw_image_file";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE $sw_image_file";
+					# Programming flash with the FPGA configuration.
+					printf "\nProgram flash, please wait a few minutes ...\n\n";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE $sw_image_file";
+				}
+				else
+				{
+					# Load board update portal file into FPGA.
+					printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+					system "quartus_pgm -c '$board_cable_name' -m jtag -o p\\\;$flash_bup_SOF";
+
+					# Programming flash with the FPGA configuration.
+					printf "\nProgram flash, please wait a few minutes ...\n\n";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='$board_cable_name' $sw_image_file";
+				}
+
 			}
 			else
 			{
@@ -438,13 +485,23 @@ sub program_pfl
 
 	if (-e $pfl_bits_file)
 	{
-		printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-		#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
-		system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
-	
-		printf "\nProgram flash, please wait a few minutes ...\n\n";
-		#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $pfl_bits_file";	
-		system "nios2-flash-programmer --base=$FLASH_0_BASE $pfl_bits_file";	
+		if ($board_cable_name eq "-")
+		{
+			printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+			system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
+		
+			printf "\nProgram flash, please wait a few minutes ...\n\n";
+			system "nios2-flash-programmer --base=$FLASH_0_BASE $pfl_bits_file";
+		}
+		else
+		{
+			printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+			system "quartus_pgm -c '$board_cable_name' -m jtag -o p\\\;$flash_bup_SOF";
+		
+			printf "\nProgram flash, please wait a few minutes ...\n\n";
+			system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='$board_cable_name' $pfl_bits_file";
+		}
+		
 	}
 	else
 	{
@@ -529,15 +586,27 @@ sub program_zip
 
 			if (-e $zip_image_file)
 			{
-				# Load board update portal file into FPGA.
-				printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
-				#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
-				system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
+				if ($board_cable_name eq "-")
+				{
+					# Load board update portal file into FPGA.
+					printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+					system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
 
-				# Programming flash with the FPGA configuration.
-				printf "\nProgram flash, please wait a few minutes ...\n\n";
-				#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $zip_image_file";
-				system "nios2-flash-programmer --base=$FLASH_0_BASE $zip_image_file";
+					# Programming flash with the FPGA configuration.
+					printf "\nProgram flash, please wait a few minutes ...\n\n";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE $zip_image_file";
+				}
+				else
+				{
+					# Load board update portal file into FPGA.
+					printf "\nLoad board update portal file into FPGA, please wait ...\n\n";
+					system "quartus_pgm -c '$board_cable_name' -m jtag -o p\\\;$flash_bup_SOF";
+
+					# Programming flash with the FPGA configuration.
+					printf "\nProgram flash, please wait a few minutes ...\n\n";
+					system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='$board_cable_name' $zip_image_file";
+				}
+				
 			}
 			else
 			{
@@ -604,10 +673,16 @@ sub program_mac
 	
 	&generated_mac_address;
 	printf "Load board update portal file into FPGA, please wait ...\n";
-	#system "quartus_pgm -c USB-Blaster[USB-0] -m jtag -o p\\\;$flash_bup_SOF";
-	#system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='USB-Blaster [USB-0]' $mac_srec_file";
-	system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
-	system "nios2-flash-programmer --base=$FLASH_0_BASE $mac_srec_file";
+	if ($board_cable_name eq "-")
+	{
+		system "quartus_pgm -m jtag -o p\\\;$flash_bup_SOF";
+		system "nios2-flash-programmer --base=$FLASH_0_BASE $mac_srec_file";
+	}
+	else
+	{
+		system "quartus_pgm -c '$board_cable_name' -m jtag -o p\\\;$flash_bup_SOF";
+		system "nios2-flash-programmer --base=$FLASH_0_BASE --cable='$board_cable_name' $mac_srec_file";
+	}
 
 	printf "\nPress ENTER key to continuance... ";
 	$RESULT = <STDIN>;
@@ -717,6 +792,81 @@ sub generated_mac_address
   printf "\nMac SREC String is\n$mac_srec_string\n";
 
 }
+
 #==============================================================================
 #==============================================================================
 
+sub board_cable_set
+{
+	my $BOARD_CABLE_OK = Y;
+	my $BOARD_CABLE_NAME = "";
+	system "clear";
+	
+	do
+	{
+		printf "Please input board cable to be used : ";
+		$BOARD_CABLE_OK = "Y";
+		$BOARD_CABLE_NAME_IN = <STDIN>;
+		chop ($BOARD_CABLE_NAME_IN);
+		#$BOARD_CABLE_NAME_IN =~ tr/a-z/A-Z/;
+		$BOARD_CABLE_NAME_LEN = length($BOARD_CABLE_NAME_IN);
+
+		if ($BOARD_CABLE_NAME_LEN == 0)
+		{
+			printf "Not enter any board cable, please re-enter : ";
+			$BOARD_CABLE_OK = "N";
+		} 
+		else
+		{
+			$BOARD_CABLE_NAME = $BOARD_CABLE_NAME_IN;
+			
+			# Set the new board cable name
+			$board_cable_name = $BOARD_CABLE_NAME;
+			
+			printf "\n";
+			printf "Cable settings changed!\n";
+			printf "Programming options will use the selected cable to program the board flash.\n";
+			printf "\n";
+			printf "WARNING: Programming options will not work if the cable is wrong!\n";
+			
+		}
+
+	}
+	while ($BOARD_CABLE_OK ne "Y");
+	printf "\nPress ENTER key to continuance... ";
+	$RESULT = <STDIN>;
+}
+
+#==============================================================================
+#==============================================================================
+
+sub board_cable_clear
+{	
+	system "clear";
+	
+	$board_cable_name = "-";
+	
+	printf "Cable settings cleared!\n";
+	printf "Programming options will use any available cable to program the board flash.\n";
+	printf "\n";
+	printf "WARNING: Programming options will not work if multiple cables are connected!\n";
+		
+	printf "\nPress ENTER key to continuance... ";
+	$RESULT = <STDIN>;
+}
+
+#==============================================================================
+#==============================================================================
+
+sub board_cable_list
+{
+	system "clear";
+	
+	system "jtagconfig -n";
+	
+	printf "\nPress ENTER key to continuance... ";
+	$RESULT = <STDIN>;
+}
+
+#==============================================================================
+#==============================================================================
