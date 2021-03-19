@@ -125,10 +125,10 @@ bool bClearFeeDefault(alt_u8 ucFee) {
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucCcd2VrdConfig1             = 0x0E      ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcd3VrdConfig             = 0x0E65    ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcd4VrdConfig             = 0x0E65    ;
-		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucCcdVgdConfig0              = 0x0C      ;
-		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucCcdVgdConfig1              = 0xCC      ;
+		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucCcdVgdConfig0              = 0x0E      ;
+		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucCcdVgdConfig1              = 0xCF      ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcdVogConfig              = 0x019A    ;
-		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcdIgHiConfig             = 0x0CCC    ;
+		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcdIgHiConfig             = 0x0000    ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcdIgLoConfig             = 0x0000    ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucTrkHldHi                   = 0x04      ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucTrkHldLo                   = 0x0E      ;
@@ -136,6 +136,9 @@ bool bClearFeeDefault(alt_u8 ucFee) {
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucCcdModeConfig              = 0x00      ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucReg21ConfigReserved1       = 0x00      ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.bClearErrorFlag              = FALSE     ;
+		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucRCfg1                      = 0x07      ;
+		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucRCfg2                      = 0x0B      ;
+		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.ucCdsclpLo                   = 0x09      ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.uliReg22ConfigReserved       = 0x00000000;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcd1LastEPacket           = 0x0000    ;
 		vxDeftFeeDefaults[ucFee].xRmapMem.xRmapMemAreaConfig.usiCcd1LastFPacket           = 0x0000    ;

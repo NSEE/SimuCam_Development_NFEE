@@ -696,10 +696,10 @@ bool bRmapSoftRstMemAreaConfig(alt_u8 ucCommCh){
 		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd2VrdConfig1             = 0x0E      ;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd3VrdConfig             = 0x0E65    ;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd4VrdConfig             = 0x0E65    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdVgdConfig0              = 0x0C      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdVgdConfig1              = 0xCC      ;
+		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdVgdConfig0              = 0x0E      ;
+		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdVgdConfig1              = 0xCF      ;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdVogConfig              = 0x019A    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdIgHiConfig             = 0x0CCC    ;
+		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdIgHiConfig             = 0x0000    ;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdIgLoConfig             = 0x0000    ;
 		vpxRmapMemArea->xRmapMemAreaConfig.ucTrkHldHi                   = 0x04      ;
 		vpxRmapMemArea->xRmapMemAreaConfig.ucTrkHldLo                   = 0x0E      ;
@@ -707,6 +707,9 @@ bool bRmapSoftRstMemAreaConfig(alt_u8 ucCommCh){
 		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdModeConfig              = 0x00      ;
 		vpxRmapMemArea->xRmapMemAreaConfig.ucReg21ConfigReserved1       = 0x00      ;
 		vpxRmapMemArea->xRmapMemAreaConfig.bClearErrorFlag              = FALSE     ;
+		vpxRmapMemArea->xRmapMemAreaConfig.ucRCfg1                      = 0x07      ;
+		vpxRmapMemArea->xRmapMemAreaConfig.ucRCfg2                      = 0x0B      ;
+		vpxRmapMemArea->xRmapMemAreaConfig.ucCdsclpLo                   = 0x09      ;
 		vpxRmapMemArea->xRmapMemAreaConfig.uliReg22ConfigReserved       = 0x00000000;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1LastEPacket           = 0x0000    ;
 		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1LastFPacket           = 0x0000    ;

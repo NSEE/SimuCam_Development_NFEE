@@ -215,7 +215,7 @@ void vParserCommTask(void *task_data) {
 									tTMPus xTmPusL;
 									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = PreParsedLocal.usiValues[1];
+									xTmPusL.usiPid = xTcPusL.usiPid;
 									xTmPusL.usiCat = xTcPusL.usiCat;
 									xTmPusL.usiType = 250;
 									xTmPusL.usiSubType = 35;
@@ -373,6 +373,12 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg21ConfigReserved1;
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag;
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucRCfg1;
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucRCfg2;
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCdsclpLo;
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliReg22ConfigReserved >> 16;
 									xTmPusL.ucNofValues++;
@@ -1202,7 +1208,7 @@ void vParserCommTask(void *task_data) {
 						switch ( xTcPusL.usiSubType ) {
 							case 3:
 								xTmPusL.usiPusId = xTcPusL.usiPusId;
-								xTmPusL.usiPid = xTcPusL.usiPusId;
+								xTmPusL.usiPid = xTcPusL.usiPid;
 								xTmPusL.usiCat = xTcPusL.usiCat;
 								xTmPusL.usiType = 254;
 								xTmPusL.usiSubType = 4;
@@ -1228,7 +1234,7 @@ void vParserCommTask(void *task_data) {
 
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPusId;
+									xTmPusL.usiPid = xTcPusL.usiPid;
 									xTmPusL.usiCat = xTcPusL.usiCat;
 									xTmPusL.usiType = 254;
 									xTmPusL.usiSubType = 9;

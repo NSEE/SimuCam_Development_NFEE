@@ -84,6 +84,9 @@ typedef struct RmapMemAreaConfig {
 	alt_u32 ucCcdModeConfig; /* CCD Mode Configuration Config Field */
 	alt_u32 ucReg21ConfigReserved1; /* Register 21 Configuration Reserved */
 	bool bClearErrorFlag; /* Clear Error Flag Config Field */
+	alt_u32 ucRCfg1; /* R Config 1 Field */
+	alt_u32 ucRCfg2; /* R Config 2 Field */
+	alt_u32 ucCdsclpLo; /* Cdsclp Lo Field */
 	alt_u32 uliReg22ConfigReserved; /* Register 22 Configuration Reserved */
 	alt_u32 usiCcd1LastEPacket; /* CCD 1 Last E Packet Field */
 	alt_u32 usiCcd1LastFPacket; /* CCD 1 Last F Packet Field */
