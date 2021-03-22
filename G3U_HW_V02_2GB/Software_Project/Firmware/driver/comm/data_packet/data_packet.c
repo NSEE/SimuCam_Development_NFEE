@@ -224,6 +224,8 @@ bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel->xDataPacket.xDpktRmapErrInj.ucErrorId = pxDpktCh->xDpktRmapErrInj.ucErrorId;
 		vpxCommChannel->xDataPacket.xDpktRmapErrInj.uliValue = pxDpktCh->xDpktRmapErrInj.uliValue;
+		vpxCommChannel->xDataPacket.xDpktRmapErrInj.usiRepeats = pxDpktCh->xDpktRmapErrInj.usiRepeats;
+
 		vpxCommChannel->xDataPacket.xDpktRmapErrInj.bTriggerErr = pxDpktCh->xDpktRmapErrInj.bTriggerErr;
 
 		bStatus = TRUE;
@@ -244,6 +246,22 @@ bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh) {
 
 		bStatus = TRUE;
 
+	}
+
+	return (bStatus);
+}
+
+bool bDpktRstRmapErrInj(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktRmapErrInj.bResetErr = TRUE;
+
+		bStatus = TRUE;
 	}
 
 	return (bStatus);

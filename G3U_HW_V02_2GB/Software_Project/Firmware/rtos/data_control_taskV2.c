@@ -51,7 +51,8 @@ void vDataControlTaskV2(void *task_data) {
 				#endif
 				
 				/* Send Event Log */
-				vSendEventLog(0,1,0,0,1);
+//				vSendEventLog(0,1,0,0,1);
+				vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtMebInConfigMode]);
 
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
@@ -528,7 +529,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			vCommunicationErrorUSB3DTController();
 
 			/* Send Event Log */
-			vSendEventLog(0,0,1,0,3);
+//			vSendEventLog(0,0,1,0,3);
+			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtErrorReceivedFromUsbHw]);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"\nData Controller Task: CRITICAL! Receive error from USB HW.\n");

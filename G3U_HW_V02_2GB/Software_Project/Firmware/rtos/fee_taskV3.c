@@ -115,7 +115,8 @@ void vFeeTaskV3(void *task_data) {
 				/* Sends information to the NUC that it enter CONFIG mode */
 				vSendFEEStatus(pxNFee->ucId, 1);
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,0,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,0,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeConfig]);
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
@@ -223,7 +224,8 @@ void vFeeTaskV3(void *task_data) {
 				vSendFEEStatus(pxNFee->ucId, 0);
 								
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,6,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,6,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeOn]);
 				
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
@@ -305,7 +307,8 @@ void vFeeTaskV3(void *task_data) {
 				bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,1,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,1,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeStandby]);
 				
 
 				/* [rfranca] */
@@ -405,7 +408,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,4,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,4,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeFullImagePattern]);
 				
 
 				/* Real Fee State (graph) */
@@ -431,7 +435,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,5,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,5,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeWindowingPattern]);
 				
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
@@ -460,7 +465,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,2,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,2,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeFullImage]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -485,7 +491,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,3,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,3,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeWindowing]);
 
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucSensorSel = eRmapSenSelEFBoth;
 
@@ -512,7 +519,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,7,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,7,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtParallel1TrapMode]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -538,7 +546,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,8,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,8,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtParallel2TrapMode]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -563,7 +572,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,9,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,9,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSerial1TrapMode]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -595,7 +605,8 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* Send Event Log */
-				vSendEventLog(pxNFee->ucId+1,1,2,10,1);
+//				vSendEventLog(pxNFee->ucId+1,1,2,10,1);
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSerial2TrapMode]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
@@ -3568,7 +3579,9 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
 	/* Send Event Log */
-	vSendEventLog(pxNFeeP->ucId,1,3,0,1);
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
+
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
 
@@ -3781,6 +3794,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
+	/* Send Event Log */
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
@@ -3996,6 +4012,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
+	/* Send Event Log */
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
@@ -4216,6 +4235,9 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
+	/* Send Event Log */
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
@@ -4444,6 +4466,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
+	/* Send Event Log */
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
@@ -4620,6 +4645,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
+	/* Send Event Log */
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
@@ -4836,7 +4864,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-
+	/* Send Event Log */
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)
@@ -5056,6 +5086,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
+	/* Send Event Log */
+//	vSendEventLog(pxNFeeP->ucId+1,1,3,0,1);
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
 		case 0x00:// reg_0_config (v_start and v_end)

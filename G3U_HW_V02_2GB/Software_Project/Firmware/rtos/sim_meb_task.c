@@ -65,7 +65,8 @@ void vSimMebTask(void *task_data) {
 				#endif
 
 				/*Send Event Log*/
-				vSendEventLog(0,1,0,1,1);
+//				vSendEventLog(0,1,0,1,1);
+				vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtMebInRunMode]);
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
@@ -545,6 +546,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
 				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+				bDpktRstRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 				bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
@@ -1542,6 +1544,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = TRUE;
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId   = xPusL->usiValues[1];
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue    = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.usiRepeats  = 0;
 				bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 				#if DEBUG_ON
 					fprintf(fp, "TC_SCAMxx_RMAP_ERR_TRIG\n" );
@@ -1719,6 +1722,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
 			bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+			bDpktRstRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
@@ -2042,9 +2046,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
 			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire)){
-				vSendEventLog(ucFeeInstL + 1, 0, 0, 0, 1);
+//				vSendEventLog(ucFeeInstL + 1, 0, 0, 0, 1);
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwEnable]);
 			} else {
-				vSendEventLog(ucFeeInstL + 1, 0, 0, 0, 3);
+//				vSendEventLog(ucFeeInstL + 1, 0, 0, 0, 3);
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwEnableErr]);
 			}
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.bChannelEnable = TRUE;
 //			bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
@@ -2062,9 +2068,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
 			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire)) {
-				vSendEventLog(ucFeeInstL + 1, 0, 0, 1, 1);
+//				vSendEventLog(ucFeeInstL + 1, 0, 0, 1, 1);
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwDisable]);
 			} else {
-				vSendEventLog(ucFeeInstL + 1, 0, 0, 1, 3);
+//				vSendEventLog(ucFeeInstL + 1, 0, 0, 1, 3);
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwDisableErr]);
 			}
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xControl.bChannelEnable = FALSE;
 //			bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
@@ -2211,6 +2219,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
 		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
 		bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
+		bDpktRstRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 
 		bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;

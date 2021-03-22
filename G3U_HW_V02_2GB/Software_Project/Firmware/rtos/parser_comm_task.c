@@ -79,7 +79,8 @@ void vParserCommTask(void *task_data) {
 						}
 						#endif
 						/* Send Event Log */
-						vSendEventLog(0,1,0,4,1);
+//						vSendEventLog(0,1,0,4,1);
+						vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
 						eParserMode = sWaitingMessage;
 						break;
                     case PUS_CMD: /*PUS command to MEB - TC*/
@@ -112,7 +113,8 @@ void vParserCommTask(void *task_data) {
 
 					if (255 == usiMebFee) {
 						vbDefaultsReceived = TRUE;
-						vSendEventLog(0,1,0,4,1);
+//						vSendEventLog(0,1,0,4,1);
+						vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
 					} else {
 						if (bSetDefaultValues(usiMebFee, usiDefaultId, uliDefaultValue)) {
 							#if DEBUG_ON
@@ -744,7 +746,8 @@ void vParserCommTask(void *task_data) {
 								
 								
 								/* Send Event Log */
-								vSendEventLog(0,1,0,2,1);
+//								vSendEventLog(0,1,0,2,1);
+								vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtMebReset]);
 
 								/*Send the command to NUC in order to reset the NUC*/
 								vSendReset();
@@ -777,7 +780,8 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
 								/*Send the command to NUC in order to shutdown the NUC*/
-								vSendEventLog(0,1,0,3,1);
+//								vSendEventLog(0,1,0,3,1);
+								vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtShutdown]);
 								vSendTurnOff();
 								/* Send to Meb the shutdown command */
 								bSendMessagePUStoMebTask(&xTcPusL);

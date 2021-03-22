@@ -7,6 +7,38 @@
 
 #include "communication_utils.h"
 
+const alt_u8 cucEvtListData[30][4] = {
+		{0, 0,  0, 1}, /* Event SPW ENABLE */
+		{0, 0,  0, 3}, /* Event SPW ENABLE ERROR */
+		{0, 0,  1, 1}, /* Event SPW DISABLE */
+		{0, 0,  1, 3}, /* Event SPW DISABLE ERROR */
+		{0, 0,  2, 3}, /* Event NOT INTENTIONAL DISCONNECTION */
+		{0, 0,  2, 1}, /* Event NOT INTENTIONAL CONNECTION */
+		{0, 1,  0, 3}, /* Event ERROR RECEIVED FROM USB HW */
+		{1, 0,  0, 1}, /* Event MEB IN CONFIG MODE */
+		{1, 0,  1, 1}, /* Event MEB IN RUN MODE */
+		{1, 0,  2, 1}, /* Event MEB RESET */
+		{1, 0,  3, 1}, /* Event SHUTDOWN */
+		{1, 0,  4, 1}, /* Event POWER ON */
+		{1, 1,  0, 3}, /* Event DTC CRITICAL ERROR */
+		{1, 2,  0, 1}, /* Event FEE CONFIG */
+		{1, 2,  1, 1}, /* Event FEE STANDBY */
+		{1, 2,  2, 1}, /* Event FEE FULL IMAGE */
+		{1, 2,  3, 1}, /* Event FEE FULL IMAGE PATTERN */
+		{1, 2,  4, 1}, /* Event FEE WINDOWING */
+		{1, 2,  5, 1}, /* Event FEE WINDOWING PATTERN */
+		{1, 2,  6, 1}, /* Event FEE ON */
+		{1, 2,  7, 1}, /* Event PARALLEL 1 TRAP MODE  */
+		{1, 2,  8, 1}, /* Event PARALLEL 2 TRAP MODE */
+		{1, 2,  9, 1}, /* Event SERIAL 1 TRAP MODE */
+		{1, 2, 10, 1}, /* Event SERIAL 2 TRAP MODE */
+		{1, 3,  0, 1}, /* Event RMAP RECEIVED */
+		{2, 0,  0, 2}, /* Event IMAGE ID DUPLICATED */
+		{2, 0,  1, 2}, /* Event SSD NO SPACE LEFT */
+		{2, 1,  0, 3}, /* Event NO IMAGE DATA FOR FEE */
+		{2, 2,  0, 2}, /* Event PUS CLIENT DOES NOT EXISTS */
+		{2, 3,  0, 3}  /* Event COULD NOT START TCP SERVER */
+};
 
 bool bSendUART512v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;;
@@ -647,6 +679,9 @@ void vSendEventLog (char usiFEE_MEB_Number, char usiLayer, char usiType, char us
 	}
 }
 
+void vSendEventLogArr (alt_u8 ucFeeMebId, const alt_u8 cucEvtData[4]) {
+	vSendEventLog((char)ucFeeMebId, (char)cucEvtData[0], (char)cucEvtData[1], (char)cucEvtData[2], (char)cucEvtData[3]);
+}
 
 void vSendFEEStatus (char cFEENumber, char cConfigMode  ) {
     char cBufferLog[32] = "";
