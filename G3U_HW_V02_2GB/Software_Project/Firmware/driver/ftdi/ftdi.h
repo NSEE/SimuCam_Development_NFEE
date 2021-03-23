@@ -134,11 +134,12 @@ typedef struct FtdiLutTransStatus {
 	bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
 
-	/* FTDI Payload Delay Register Struct */
-typedef struct FtdiPayloadDelay {
+/* FTDI Payload Configuration Register Struct */
+typedef struct FtdiPayloadConfig {
+	alt_u32 uliRxPayRdForceLenBytes; /* Rx Payload Reader Force Length [Bytes] */
 	alt_u32 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
 	alt_u32 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
-} TFtdiPayloadDelay;
+} TFtdiPayloadConfig;
 
 /* FTDI Tx Data Control Register Struct */
 typedef struct FtdiTxDataControl {
@@ -268,7 +269,7 @@ typedef struct FtdiModule {
 	TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
 	TFtdiLutTransControl xFtdiLutTransControl;
 	TFtdiLutTransStatus xFtdiLutTransStatus;
-	TFtdiPayloadDelay xFtdiPayloadDelay;
+	TFtdiPayloadConfig xFtdiPayloadConfig;
 	TFtdiTxDataControl xFtdiTxDataControl;
 	TFtdiTxDataStatus xFtdiTxDataStatus;
 	TFtdiRxDataControl xFtdiRxDataControl;
@@ -293,7 +294,7 @@ void vFtdiTxIrqHandler(void* pvContext);
 bool bFtdiRxIrqInit(void);
 bool bFtdiTxIrqInit(void);
 
-bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight);
+bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight, alt_u32 uliPayloadLengthInBytes);
 bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight, alt_u32 uliLutLengthBytes);
 
 void vFtdiResetHalfCcdImg(void);

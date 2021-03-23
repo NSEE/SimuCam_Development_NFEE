@@ -132,7 +132,7 @@ begin
 			avalon_slave_config_readdata_o    => s_avalon_slave_config_readdata,
 			avalon_slave_config_waitrequest_o => s_avalon_slave_config_waitrequest,
 			avalon_master_data_readdata_i     => (others => '0'),
-			avalon_master_data_waitrequest_i  => '1',
+			avalon_master_data_waitrequest_i  => '0',
 			avalon_master_data_address_o      => open,
 			avalon_master_data_write_o        => open,
 			avalon_master_data_writedata_o    => open,

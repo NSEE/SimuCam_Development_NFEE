@@ -50,10 +50,6 @@ void vDataControlTaskV2(void *task_data) {
 					fprintf(fp,"Data Controller Task: Config Mode\n");
 				#endif
 				
-				/* Send Event Log */
-//				vSendEventLog(0,1,0,0,1);
-				vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtMebInConfigMode]);
-
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
@@ -264,10 +260,12 @@ void vDataControlTaskV2(void *task_data) {
 								vFtdiStartModule();
 								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
 								vFtdiResetHalfCcdImg();
-								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiOLN ) );
+								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiOLN ), ( pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST ) );
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();
+									/* Send Event Log */
+									vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 									pxDataC->sRunMode = sSubMemUpdated;
 								} else {
 
@@ -382,6 +380,8 @@ void vDataControlTaskV2(void *task_data) {
 								error_code = OSSemPost(xSemCommInit);
 								if ( error_code != OS_ERR_NONE ) {
 									vFailSendSemaphoreFromDTC();
+									/* Send Event Log */
+									vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 								}
 							}
 						}
@@ -455,6 +455,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 				/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
 				/* For now, critical failure! */
 				vCriticalFailUpdateMemoreDTController();
+				/* Send Event Log */
+				vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 				/* Stop the simulation for the Data Controller */
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -478,6 +480,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
 			/* For now, critical failure! */
 			vCriticalFailUpdateMemoreDTController();
+			/* Send Event Log */
+			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 			/* Stop the simulation for the Data Controller */
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -529,7 +533,6 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			vCommunicationErrorUSB3DTController();
 
 			/* Send Event Log */
-//			vSendEventLog(0,0,1,0,3);
 			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtErrorReceivedFromUsbHw]);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -641,7 +644,6 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxDTCP ) 
 	}
 }
 
-
 /* This function send command to meb_sim task*/
 bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
@@ -665,92 +667,3 @@ bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsi
 	}
 	return bSuccesL;
 }
-
-/* ================================ MOCK das libs do HW hardware ========================= */
-/* Mock */
-void vRxBuffer0FullIRQHandler(void) {
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_FULL;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
-
-	/*Sync the Meb task and tell that has a PUS command waiting*/
-	error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailSendBufferFullIRQtoDTC();
-	}
-}
-
-/* Mock */
-void vRxBuffer1FullIRQHandler(void) {
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_FULL;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
-
-	/*Sync the Meb task and tell that has a PUS command waiting*/
-	error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailSendBufferFullIRQtoDTC();
-	}
-}
-
-/* Mock */
-void vRxLastBufferFullIRQHandler(void) {
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_LAST;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
-
-	/*Sync the Meb task and tell that has a PUS command waiting*/
-	error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailSendBufferLastIRQtoDTC();
-	}
-}
-
-/* Mock */
-void vRxEmptyBufferFullIRQHandler(void) {
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_EMPTY;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
-
-	/*Sync the Meb task and tell that has a PUS command waiting*/
-	error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailSendBufferEmptyIRQtoDTC();
-	}
-	
-}
-
-/* Mock */
-void vRxCommErrorIRQHandler(void) {
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_DATA_FTDI_ERROR;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = ucFtdiGetRxErrorCode();
-
-	/*Sync the Meb task and tell that has a PUS command waiting*/
-	error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailFtdiErrorIRQtoDTC();
-	}
-	
-}
-

@@ -737,7 +737,6 @@ void vInitialTask(void *task_data)
 
 	/* SimuCam Ready to be used */
 	OSTimeDlyHMSM(0, 0, 10, 0);
-//	vSendEventLog(0,1,0,4,1);
 //	vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
 
 #if DEBUG_ON
