@@ -250,17 +250,19 @@ begin
 
                 when 20 =>
                     -- Request Half-CCD
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_fee_number      <= std_logic_vector(to_unsigned(3, 3));
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_number      <= std_logic_vector(to_unsigned(2, 2));
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_side        <= '1';
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height      <= std_logic_vector(to_unsigned(16, 13));
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width       <= std_logic_vector(to_unsigned(7, 12));
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number <= std_logic_vector(to_unsigned(875, 16));
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_req_timeout     <= std_logic_vector(to_unsigned(0, 16));
-                    avs_config_wr_regs_o.hccd_req_control_reg.req_request_hccd         <= '1';
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_fee_number                <= std_logic_vector(to_unsigned(3, 3));
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_number                <= std_logic_vector(to_unsigned(2, 2));
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_side                  <= '1';
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height                <= std_logic_vector(to_unsigned(16, 13));
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width                 <= std_logic_vector(to_unsigned(7, 12));
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number           <= std_logic_vector(to_unsigned(875, 16));
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_req_timeout               <= std_logic_vector(to_unsigned(0, 16));
+                    avs_config_wr_regs_o.hccd_req_control_reg.req_request_hccd                   <= '1';
+                    -- Payload Config
+                    avs_config_wr_regs_o.payload_config_reg.rx_payload_reader_force_length_bytes <= std_logic_vector(to_unsigned(864, 32));
                     -- AMV Controller
-                    avs_config_wr_regs_o.rx_data_control_reg.rx_wr_data_length_bytes   <= x"FFFFFFFF";
-                    avs_config_wr_regs_o.rx_data_control_reg.rx_wr_start               <= '1';
+                    avs_config_wr_regs_o.rx_data_control_reg.rx_wr_data_length_bytes             <= std_logic_vector(to_unsigned(864 - 32, 32));
+                    avs_config_wr_regs_o.rx_data_control_reg.rx_wr_start                         <= '1';
 
                 --				when 20 =>
                 --					-- Transmit LUT
