@@ -57,7 +57,7 @@ begin
 			if (ch_sync_trigger_i = '1') then
 				-- sync issued, increment frame
 				-- check if the frame was cleared
-				if (frame_clear_i = '1') then
+				if (s_frame_cleared = '1') then
 					-- the frame was cleared, no need to increment
 					-- clear the frame cleared flag
 					s_frame_cleared <= '0';

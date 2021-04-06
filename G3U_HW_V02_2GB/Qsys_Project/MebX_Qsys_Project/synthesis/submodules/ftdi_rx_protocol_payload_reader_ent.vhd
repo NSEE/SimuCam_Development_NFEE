@@ -91,7 +91,8 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 
     signal s_payload_write_flag             : std_logic;
     signal s_force_payload_length_flag      : std_logic;
-    signal s_registered_forced_length_bytes : unsigned(31 downto 0);
+    signal s_registered_forced_length_bytes : unsigned(26 downto 0); -- 2^32 bytes of maximum length / 32 bytes per write = 2^27 maximum write length
+    constant c_FORCED_LENGTH_BYTES_ZERO     : unsigned((s_registered_forced_length_bytes'length - 1) downto 0) := (others => '0');
 
     signal s_qqword_delay_clear    : std_logic;
     signal s_qqword_delay_trigger  : std_logic;
@@ -221,12 +222,12 @@ begin
                             v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_EOP;
                         end if;
                         -- check if the payload length need to be forced to a specific length
-                        if (payload_force_length_bytes_i /= x"00000000") then
+                        if ((payload_force_length_bytes_i /= x"00000000") and (payload_force_length_bytes_i /= payload_length_bytes_i)) then
                             -- the payload length need to be forced to a specific length
                             -- set the force payload length flag
                             s_force_payload_length_flag      <= '1';
-                            -- register the forced payload length
-                            s_registered_forced_length_bytes <= unsigned(payload_force_length_bytes_i);
+                            -- register the forced payload length to (forced payload length / 32)
+                            s_registered_forced_length_bytes <= unsigned(payload_force_length_bytes_i(31 downto 5));
                         end if;
                     end if;
 
@@ -713,7 +714,7 @@ begin
                     if (s_force_payload_length_flag = '1') then
                         -- the payload need to be forced to a specific length
                         -- check if the payload has passed the forced length
-                        if (s_registered_forced_length_bytes <= 32) then
+                        if (s_registered_forced_length_bytes <= 1) then
                             -- the payload has passed the forced length
                             -- clear the payload write flag
                             s_payload_write_flag             <= '0';
@@ -724,7 +725,7 @@ begin
                         else
                             -- the payload has passed not the forced length
                             -- decrement the 32 bytes written to the buffer
-                            s_registered_forced_length_bytes <= s_registered_forced_length_bytes - 32;
+                            s_registered_forced_length_bytes <= s_registered_forced_length_bytes - 1;
                         end if;
                     end if;
                     -- check if the rx data buffer is full
@@ -887,7 +888,7 @@ begin
                     if (s_force_payload_length_flag = '1') then
                         -- the payload need to be forced to a specific length
                         -- check if the payload need to be filled with zeros
-                        if (s_registered_forced_length_bytes /= x"00000000") then
+                        if (s_registered_forced_length_bytes /= c_FORCED_LENGTH_BYTES_ZERO) then
                             -- the payload need to be filled with zeros
                             -- go to payload wating fill
                             s_ftdi_tx_prot_payload_reader_state <= PAYLOAD_WAITING_FILL;
@@ -955,7 +956,7 @@ begin
                     v_mask_cnt                          := 0;
                     -- conditional state transition
                     -- check if the zero fill ended
-                    if (s_registered_forced_length_bytes <= 32) then
+                    if (s_registered_forced_length_bytes <= 1) then
                         -- the zero fill ended
                         -- go to finish payload rx
                         s_ftdi_tx_prot_payload_reader_state <= FINISH_PAYLOAD_RX;
@@ -963,7 +964,7 @@ begin
                     else
                         -- the zero fill has not ended
                         -- decrement the 32 bytes written to the buffer
-                        s_registered_forced_length_bytes    <= s_registered_forced_length_bytes - 32;
+                        s_registered_forced_length_bytes    <= s_registered_forced_length_bytes - 1;
                         -- go to payload wating fill
                         s_ftdi_tx_prot_payload_reader_state <= PAYLOAD_DELAY_FILL;
                         v_ftdi_tx_prot_payload_reader_state := PAYLOAD_DELAY_FILL;

@@ -88,6 +88,9 @@ architecture rtl of ftdi_usb3_top is
     signal s_avm_usb3_master_wr_status    : t_ftdi_avm_usb3_master_wr_status;
     signal s_avm_slave_wr_control_address : std_logic_vector((c_FTDI_AVM_USB3_ADRESS_SIZE - 1) downto 0);
 
+    -- FTDI AVM Controller Signals
+    signal s_avm_controller_wr_finished : std_logic;
+
     -- Tx Data Buffer Signals
     signal s_tx_buffer_wrdata     : std_logic_vector(255 downto 0);
     signal s_tx_buffer_wrreq      : std_logic;
@@ -271,6 +274,7 @@ begin
             buffer_rddata_i                            => s_rx_buffer_rddata,
             buffer_rdready_i                           => s_rx_buffer_rdready,
             controller_wr_busy_o                       => s_config_read_registers.rx_data_status_reg.rx_wr_busy,
+            controller_wr_finished_o                   => s_avm_controller_wr_finished,
             avm_master_wr_control_o                    => s_avm_usb3_master_wr_control,
             buffer_rdreq_o                             => s_rx_buffer_rdreq
         );
@@ -425,21 +429,22 @@ begin
     -- RX IRQ Manager
     ftdi_rx_irq_manager_ent_inst : entity work.ftdi_rx_irq_manager_ent
         port map(
-            clk_i                                 => a_avs_clock,
-            rst_i                                 => a_reset,
-            irq_manager_stop_i                    => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
-            irq_manager_start_i                   => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
-            global_irq_en_i                       => s_config_write_registers.ftdi_irq_control_reg.ftdi_global_irq_en,
-            irq_watches_i.rx_buffer_empty         => s_config_read_registers.rx_buffer_status_reg.rx_buffer_empty,
-            irq_watches_i.rly_hccd_last_rx_buffer => s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer,
-            irq_watches_i.rx_hccd_comm_err_state  => s_config_read_registers.rx_comm_error_reg.rx_comm_err_state,
-            irq_flags_en_i.rx_hccd_received       => s_config_write_registers.rx_irq_control_reg.rx_hccd_received_irq_en,
-            irq_flags_en_i.rx_hccd_comm_err       => s_config_write_registers.rx_irq_control_reg.rx_hccd_comm_err_irq_en,
-            irq_flags_clr_i.rx_hccd_received      => s_config_write_registers.rx_irq_flag_clear_reg.rx_hccd_received_irq_flag_clr,
-            irq_flags_clr_i.rx_hccd_comm_err      => s_config_write_registers.rx_irq_flag_clear_reg.rx_hccd_comm_err_irq_flag_clr,
-            irq_flags_o.rx_hccd_received          => s_config_read_registers.rx_irq_flag_reg.rx_hccd_received_irq_flag,
-            irq_flags_o.rx_hccd_comm_err          => s_config_read_registers.rx_irq_flag_reg.rx_hccd_comm_err_irq_flag,
-            irq_o                                 => a_irq_rx
+            clk_i                                    => a_avs_clock,
+            rst_i                                    => a_reset,
+            irq_manager_stop_i                       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+            irq_manager_start_i                      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+            global_irq_en_i                          => s_config_write_registers.ftdi_irq_control_reg.ftdi_global_irq_en,
+            --            irq_watches_i.rx_buffer_empty            => s_config_read_registers.rx_buffer_status_reg.rx_buffer_empty,
+            irq_watches_i.rly_hccd_last_rx_buffer    => s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer,
+            irq_watches_i.avm_controller_wr_finished => s_avm_controller_wr_finished,
+            irq_watches_i.rx_hccd_comm_err_state     => s_config_read_registers.rx_comm_error_reg.rx_comm_err_state,
+            irq_flags_en_i.rx_hccd_received          => s_config_write_registers.rx_irq_control_reg.rx_hccd_received_irq_en,
+            irq_flags_en_i.rx_hccd_comm_err          => s_config_write_registers.rx_irq_control_reg.rx_hccd_comm_err_irq_en,
+            irq_flags_clr_i.rx_hccd_received         => s_config_write_registers.rx_irq_flag_clear_reg.rx_hccd_received_irq_flag_clr,
+            irq_flags_clr_i.rx_hccd_comm_err         => s_config_write_registers.rx_irq_flag_clear_reg.rx_hccd_comm_err_irq_flag_clr,
+            irq_flags_o.rx_hccd_received             => s_config_read_registers.rx_irq_flag_reg.rx_hccd_received_irq_flag,
+            irq_flags_o.rx_hccd_comm_err             => s_config_read_registers.rx_irq_flag_reg.rx_hccd_comm_err_irq_flag,
+            irq_o                                    => a_irq_rx
         );
 
     -- TX IRQ Manager

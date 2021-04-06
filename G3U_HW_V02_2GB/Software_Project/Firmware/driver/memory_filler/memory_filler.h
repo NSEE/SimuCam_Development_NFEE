@@ -19,8 +19,8 @@
 #define MFIL_DATA_ACCESS_WIDTH_BYTES     (alt_u32)32
 #define MFIL_DATA_TRANSFER_SIZE_MASK     (alt_u32)0xFFFFFFE0
 
-/* Timeout scale is 0.5 ms. Timeout = 20000 = 10s */
-#define MFIL_WRITE_TIMEOUT               20000
+/* Timeout scale is 0.5 ms. Timeout = 30000 = 15s */
+#define MFIL_WRITE_TIMEOUT               30000
 
 //! [constants definition]
 

@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2021.03.15.19:05:11 -->
+ <!-- 2021.04.06.01:55:28 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1615845911</value>
+  <value>1617684927</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -72938,7 +72938,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_nfee_comm_1"
    kind="RMAP_Memory_NFEE_Area"
-   version="1.1"
+   version="1.3"
    path="rmap_mem_nfee_comm_1">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -74125,7 +74125,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_nfee_comm_2"
    kind="RMAP_Memory_NFEE_Area"
-   version="1.1"
+   version="1.3"
    path="rmap_mem_nfee_comm_2">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -75312,7 +75312,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_nfee_comm_3"
    kind="RMAP_Memory_NFEE_Area"
-   version="1.1"
+   version="1.3"
    path="rmap_mem_nfee_comm_3">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -76499,7 +76499,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_nfee_comm_4"
    kind="RMAP_Memory_NFEE_Area"
-   version="1.1"
+   version="1.3"
    path="rmap_mem_nfee_comm_4">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -77686,7 +77686,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_nfee_comm_5"
    kind="RMAP_Memory_NFEE_Area"
-   version="1.1"
+   version="1.3"
    path="rmap_mem_nfee_comm_5">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -78873,7 +78873,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_nfee_comm_6"
    kind="RMAP_Memory_NFEE_Area"
-   version="1.1"
+   version="1.3"
    path="rmap_mem_nfee_comm_6">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -80060,7 +80060,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_nfee_scom_0"
    kind="RMAP_Memory_NFEE_Area"
-   version="1.1"
+   version="1.3"
    path="rmap_mem_nfee_scom_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -89213,7 +89213,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1615845911</value>
+   <value>1617684927</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -89233,7 +89233,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1615845911</value>
+   <value>1617684927</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -89249,7 +89249,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1615845911</value>
+   <value>1617684927</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -107025,7 +107025,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>RMAP_Memory_NFEE_Area</displayName>
-  <version>1.1</version>
+  <version>1.3</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
