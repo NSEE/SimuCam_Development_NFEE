@@ -10,6 +10,7 @@ This repository manages the release of the software packages related with the Si
 - [Engineer Alexsander Deucher - SW Developer](https://github.com/adbtx) (2019-2020)
 - [Engineer Ricardo Napoli - Test Engineer](https://github.com/rnapoli) (2019-2020)
 - [Engineer Cassio Berni - SW Engineer](https://github.com/ccberni) (2019-2020)
+- [Engineer Rafael Corsi Ferrão - Hardware Engineer](https://github.com/rafaelcorsi) (2011-2016) 
 
 
 # SimuCam
