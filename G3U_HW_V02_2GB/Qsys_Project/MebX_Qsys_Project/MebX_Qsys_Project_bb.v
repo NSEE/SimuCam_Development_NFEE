@@ -77,12 +77,6 @@ module MebX_Qsys_Project (
 	m2_ddr2_memory_status_local_cal_fail,
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
-	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata,
-	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest,
-	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address,
-	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read,
-	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write,
-	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata,
 	rs232_uart_rxd,
 	rs232_uart_txd,
 	rst_reset_n,
@@ -306,12 +300,6 @@ module MebX_Qsys_Project (
 	output		m2_ddr2_memory_status_local_cal_fail;
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
-	input	[7:0]	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata;
-	input		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest;
-	output	[63:0]	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address;
-	output		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read;
-	output		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write;
-	output	[7:0]	rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata;
 	input		rs232_uart_rxd;
 	output		rs232_uart_txd;
 	input		rst_reset_n;

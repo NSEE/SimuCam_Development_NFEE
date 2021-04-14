@@ -319,35 +319,35 @@ begin
 						avs_config_o.readdata(31 downto 24) <= config_rd_regs_i.rmap_memory_status_reg.rmap_last_read_length_bytes(31 downto 24);
 					-- end if;
 
-				when (16#26#) =>
-					-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
-					-- if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(7 downto 0);
-					-- end if;
-					-- if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(15 downto 8);
-					-- end if;
-					-- if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(23 downto 16);
-					-- end if;
-					-- if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(31 downto 24);
-					-- end if;
-
-				when (16#27#) =>
-					-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
-					-- if (avs_config_i.byteenable(0) = '1') then
-						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(7 downto 0);
-					-- end if;
-					-- if (avs_config_i.byteenable(1) = '1') then
-						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(15 downto 8);
-					-- end if;
-					-- if (avs_config_i.byteenable(2) = '1') then
-						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(23 downto 16);
-					-- end if;
-					-- if (avs_config_i.byteenable(3) = '1') then
-						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(31 downto 24);
-					-- end if;
+--				when (16#26#) =>
+--					-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
+--					-- if (avs_config_i.byteenable(0) = '1') then
+--						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(7 downto 0);
+--					-- end if;
+--					-- if (avs_config_i.byteenable(1) = '1') then
+--						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(15 downto 8);
+--					-- end if;
+--					-- if (avs_config_i.byteenable(2) = '1') then
+--						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(23 downto 16);
+--					-- end if;
+--					-- if (avs_config_i.byteenable(3) = '1') then
+--						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_high_dword(31 downto 24);
+--					-- end if;
+--
+--				when (16#27#) =>
+--					-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
+--					-- if (avs_config_i.byteenable(0) = '1') then
+--						avs_config_o.readdata(7 downto 0) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(7 downto 0);
+--					-- end if;
+--					-- if (avs_config_i.byteenable(1) = '1') then
+--						avs_config_o.readdata(15 downto 8) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(15 downto 8);
+--					-- end if;
+--					-- if (avs_config_i.byteenable(2) = '1') then
+--						avs_config_o.readdata(23 downto 16) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(23 downto 16);
+--					-- end if;
+--					-- if (avs_config_i.byteenable(3) = '1') then
+--						avs_config_o.readdata(31 downto 24) <= config_wr_regs_i.rmap_memory_config_reg.rmap_win_area_offset_low_dword(31 downto 24);
+--					-- end if;
 
 				when (16#28#) =>
 					-- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer

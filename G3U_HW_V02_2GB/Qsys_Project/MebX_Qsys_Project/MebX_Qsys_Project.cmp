@@ -77,12 +77,6 @@
 			m2_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        -- local_cal_fail
 			m2_ddr2_oct_rdn                                             : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                             : in    std_logic                     := 'X';             -- rup
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- readdata
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      : in    std_logic                     := 'X';             -- waitrequest
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          : out   std_logic_vector(63 downto 0);                    -- address
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             : out   std_logic;                                        -- read
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            : out   std_logic;                                        -- write
-			rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        : out   std_logic_vector(7 downto 0);                     -- writedata
 			rs232_uart_rxd                                              : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                              : out   std_logic;                                        -- txd
 			rst_reset_n                                                 : in    std_logic                     := 'X';             -- reset_n
