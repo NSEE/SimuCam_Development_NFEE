@@ -1,0 +1,35 @@
+# Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/Testbench/RMAP_Memory_SCOM_Area_tb.mpf
+# Loading project RMAP_Memory_SCOM_Area_tb
+# Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd was successful.
+# Compile of srme_avm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_avm_rmap_scom_read_ent.vhd was successful.
+# Compile of srme_avm_rmap_scom_write_ent.vhd was successful.
+# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of srme_tb_avs_write_ent.vhd failed with 4 errors.
+# Compile of srme_tb_avs_pkg.vhd was successful.
+# Compile of srme_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 15 compiles, 1 failed with 4 errors.
+# Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd was successful.
+# Compile of srme_avm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_avm_rmap_scom_read_ent.vhd was successful.
+# Compile of srme_avm_rmap_scom_write_ent.vhd was successful.
+# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of srme_tb_avs_pkg.vhd was successful.
+# Compile of srme_tb_avs_write_ent.vhd was successful.
+# Compile of srme_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 15 compiles, 0 failed with no errors.
