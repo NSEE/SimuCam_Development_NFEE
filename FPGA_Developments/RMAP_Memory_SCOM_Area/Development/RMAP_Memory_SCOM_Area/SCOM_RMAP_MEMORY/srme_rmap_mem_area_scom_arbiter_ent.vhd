@@ -17,8 +17,8 @@ entity srme_rmap_mem_area_scom_arbiter_ent is
         avalon_0_mm_rd_rmap_i : in  t_srme_avalon_mm_rmap_scom_read_in;
         fee_wr_rmap_cfg_hk_i  : in  t_srme_scom_rmap_write_out;
         fee_rd_rmap_cfg_hk_i  : in  t_srme_scom_rmap_read_out;
-        fee_wr_rmap_win_i     : in  t_srme_scom_rmap_write_out;
-        fee_rd_rmap_win_i     : in  t_srme_scom_rmap_read_out;
+--        fee_wr_rmap_win_i     : in  t_srme_scom_rmap_write_out;
+--        fee_rd_rmap_win_i     : in  t_srme_scom_rmap_read_out;
         avalon_mm_wr_rmap_i   : in  t_srme_avalon_mm_rmap_scom_write_out;
         avalon_mm_rd_rmap_i   : in  t_srme_avalon_mm_rmap_scom_read_out;
         fee_0_wr_rmap_o       : out t_srme_scom_rmap_write_out;
@@ -29,8 +29,8 @@ entity srme_rmap_mem_area_scom_arbiter_ent is
         avalon_0_mm_rd_rmap_o : out t_srme_avalon_mm_rmap_scom_read_out;
         fee_wr_rmap_cfg_hk_o  : out t_srme_scom_rmap_write_in;
         fee_rd_rmap_cfg_hk_o  : out t_srme_scom_rmap_read_in;
-        fee_wr_rmap_win_o     : out t_srme_scom_rmap_write_in;
-        fee_rd_rmap_win_o     : out t_srme_scom_rmap_read_in;
+--        fee_wr_rmap_win_o     : out t_srme_scom_rmap_write_in;
+--        fee_rd_rmap_win_o     : out t_srme_scom_rmap_read_in;
         avalon_mm_wr_rmap_o   : out t_srme_avalon_mm_rmap_scom_write_in;
         avalon_mm_rd_rmap_o   : out t_srme_avalon_mm_rmap_scom_read_in
     );
@@ -301,16 +301,16 @@ begin
 
     -- Windowing Area Address Flags
     s_fee_0_wr_win_address_flag <= ('0') when (rst_i = '1')
-                                   else ('1') when ((fee_0_wr_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_wr_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+--                                   else ('1') when ((fee_0_wr_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_wr_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
                                    else ('0');
     s_fee_1_wr_win_address_flag <= ('0') when (rst_i = '1')
-                                   else ('1') when ((fee_1_wr_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_wr_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+--                                   else ('1') when ((fee_1_wr_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_wr_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
                                    else ('0');
     s_fee_0_rd_win_address_flag <= ('0') when (rst_i = '1')
-                                   else ('1') when ((fee_0_rd_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_rd_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+--                                   else ('1') when ((fee_0_rd_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_rd_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
                                    else ('0');
     s_fee_1_rd_win_address_flag <= ('0') when (rst_i = '1')
-                                   else ('1') when ((fee_1_rd_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_rd_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+--                                   else ('1') when ((fee_1_rd_rmap_i.address(c_SRME_SCOM_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_rd_rmap_i.address(31 downto (c_SRME_SCOM_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
                                    else ('0');
 
     -- Masters Write inputs
@@ -318,10 +318,10 @@ begin
                             else (fee_0_wr_rmap_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '0'))
                             else (fee_1_wr_rmap_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '0'))
                             else (c_SRME_SCOM_RMAP_WRITE_IN_RST);
-    fee_wr_rmap_win_o    <= (c_SRME_SCOM_RMAP_WRITE_IN_RST) when (rst_i = '1')
-                            else (fee_0_wr_rmap_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '1'))
-                            else (fee_1_wr_rmap_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '1'))
-                            else (c_SRME_SCOM_RMAP_WRITE_IN_RST);
+--    fee_wr_rmap_win_o    <= (c_SRME_SCOM_RMAP_WRITE_IN_RST) when (rst_i = '1')
+--                            else (fee_0_wr_rmap_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '1'))
+--                            else (fee_1_wr_rmap_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '1'))
+--                            else (c_SRME_SCOM_RMAP_WRITE_IN_RST);
     avalon_mm_wr_rmap_o  <= (c_SRME_AVALON_MM_RMAP_SCOM_WRITE_IN_RST) when (rst_i = '1')
                             else (avalon_0_mm_wr_rmap_i) when (s_selected_master = master_wr_avs_0)
                             else (c_SRME_AVALON_MM_RMAP_SCOM_WRITE_IN_RST);
@@ -329,11 +329,11 @@ begin
     -- Masters Write outputs
     fee_0_wr_rmap_o       <= (c_SRME_SCOM_RMAP_WRITE_OUT_RST) when (rst_i = '1')
                              else (fee_wr_rmap_cfg_hk_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '0'))
-                             else (fee_wr_rmap_win_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '1'))
+--                             else (fee_wr_rmap_win_i) when ((s_selected_master = master_wr_fee_0) and (s_fee_0_wr_win_address_flag = '1'))
                              else (c_SRME_SCOM_RMAP_WRITE_OUT_RST);
     fee_1_wr_rmap_o       <= (c_SRME_SCOM_RMAP_WRITE_OUT_RST) when (rst_i = '1')
                              else (fee_wr_rmap_cfg_hk_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '0'))
-                             else (fee_wr_rmap_win_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '1'))
+--                             else (fee_wr_rmap_win_i) when ((s_selected_master = master_wr_fee_1) and (s_fee_1_wr_win_address_flag = '1'))
                              else (c_SRME_SCOM_RMAP_WRITE_OUT_RST);
     avalon_0_mm_wr_rmap_o <= (c_SRME_AVALON_MM_RMAP_SCOM_WRITE_OUT_RST) when (rst_i = '1')
                              else (avalon_mm_wr_rmap_i) when (s_selected_master = master_wr_avs_0)
@@ -344,10 +344,10 @@ begin
                             else (fee_0_rd_rmap_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '0'))
                             else (fee_1_rd_rmap_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '0'))
                             else (c_SRME_SCOM_RMAP_READ_IN_RST);
-    fee_rd_rmap_win_o    <= (c_SRME_SCOM_RMAP_READ_IN_RST) when (rst_i = '1')
-                            else (fee_0_rd_rmap_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '1'))
-                            else (fee_1_rd_rmap_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '1'))
-                            else (c_SRME_SCOM_RMAP_READ_IN_RST);
+--    fee_rd_rmap_win_o    <= (c_SRME_SCOM_RMAP_READ_IN_RST) when (rst_i = '1')
+--                            else (fee_0_rd_rmap_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '1'))
+--                            else (fee_1_rd_rmap_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '1'))
+--                            else (c_SRME_SCOM_RMAP_READ_IN_RST);
     avalon_mm_rd_rmap_o  <= (c_SRME_AVALON_MM_RMAP_SCOM_READ_IN_RST) when (rst_i = '1')
                             else (avalon_0_mm_rd_rmap_i) when (s_selected_master = master_rd_avs_0)
                             else (c_SRME_AVALON_MM_RMAP_SCOM_READ_IN_RST);
@@ -355,11 +355,11 @@ begin
     -- Masters Read outputs
     fee_0_rd_rmap_o       <= (c_SRME_SCOM_RMAP_READ_OUT_RST) when (rst_i = '1')
                              else (fee_rd_rmap_cfg_hk_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '0'))
-                             else (fee_rd_rmap_win_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '1'))
+--                             else (fee_rd_rmap_win_i) when ((s_selected_master = master_rd_fee_0) and (s_fee_0_rd_win_address_flag = '1'))
                              else (c_SRME_SCOM_RMAP_READ_OUT_RST);
     fee_1_rd_rmap_o       <= (c_SRME_SCOM_RMAP_READ_OUT_RST) when (rst_i = '1')
                              else (fee_rd_rmap_cfg_hk_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '0'))
-                             else (fee_rd_rmap_win_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '1'))
+--                             else (fee_rd_rmap_win_i) when ((s_selected_master = master_rd_fee_1) and (s_fee_1_rd_win_address_flag = '1'))
                              else (c_SRME_SCOM_RMAP_READ_OUT_RST);
     avalon_0_mm_rd_rmap_o <= (c_SRME_AVALON_MM_RMAP_SCOM_READ_OUT_RST) when (rst_i = '1')
                              else (avalon_mm_rd_rmap_i) when (s_selected_master = master_rd_avs_0)

@@ -4,27 +4,71 @@
 # Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
 # Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
 # Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
-# Compile of srme_rmap_mem_area_scom_read_ent.vhd was successful.
-# Compile of srme_rmap_mem_area_scom_write_ent.vhd was successful.
-# Compile of srme_avm_rmap_scom_pkg.vhd was successful.
-# Compile of srme_avm_rmap_scom_read_ent.vhd was successful.
-# Compile of srme_avm_rmap_scom_write_ent.vhd was successful.
-# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd failed with 596 errors.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd failed with 521 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 31 errors.
 # Compile of rmap_avalon_stimuli.vhd was successful.
-# Compile of srme_tb_avs_write_ent.vhd failed with 4 errors.
 # Compile of srme_tb_avs_pkg.vhd was successful.
+# Compile of srme_tb_avs_write_ent.vhd was successful.
 # Compile of srme_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 15 compiles, 1 failed with 4 errors.
+# 12 compiles, 6 failed with 1148 errors.
+# Error opening D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd
+# Path name 'D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd' doesn't exist.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 31 errors.
 # Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
 # Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
 # Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
-# Compile of srme_rmap_mem_area_scom_read_ent.vhd was successful.
-# Compile of srme_rmap_mem_area_scom_write_ent.vhd was successful.
-# Compile of srme_avm_rmap_scom_pkg.vhd was successful.
-# Compile of srme_avm_rmap_scom_read_ent.vhd was successful.
-# Compile of srme_avm_rmap_scom_write_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd failed with 596 errors.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd failed with 521 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 39 errors.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of srme_tb_avs_pkg.vhd was successful.
+# Compile of srme_tb_avs_write_ent.vhd was successful.
+# Compile of srme_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 12 compiles, 6 failed with 1156 errors.
+# Error opening D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_write_ent.vhd
+# Path name 'D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_write_ent.vhd' doesn't exist.
+# Error opening D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd
+# Path name 'D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd' doesn't exist.
+# Error opening D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_pkg.vhd
+# Path name 'D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_pkg.vhd' doesn't exist.
+# Error opening D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_write_ent.vhd
+# Path name 'D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_write_ent.vhd' doesn't exist.
+# Error opening D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd
+# Path name 'D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd' doesn't exist.
+# Error opening D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_pkg.vhd
+# Path name 'D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_pkg.vhd' doesn't exist.
+# Error opening D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_write_ent.vhd
+# Path name 'D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_write_ent.vhd' doesn't exist.
+# Error opening D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd
+# Path name 'D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_SCOM_Area/Development/RMAP_Memory_SCOM_Area/SCOM_AVALON_MM_RMAP_MASTER/srme_avm_rmap_scom_read_ent.vhd' doesn't exist.
+# Error opening D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_pkg.vhd
+# Path name 'D:\rfranca\Development\GitHub\SimuCam_Development4\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\RMAP_Memory_SCOM_Area\SCOM_AVALON_MM_RMAP_MASTER\srme_avm_rmap_scom_pkg.vhd' doesn't exist.
+# Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd failed with 596 errors.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd failed with 521 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 39 errors.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of srme_tb_avs_pkg.vhd was successful.
+# Compile of srme_tb_avs_write_ent.vhd was successful.
+# Compile of srme_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 12 compiles, 3 failed with 1156 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 31 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 23 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 3 errors.
+# Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd failed with 596 errors.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd failed with 521 errors.
 # Compile of srme_rmap_memory_scom_area_top.vhd was successful.
 # Compile of rmap_avalon_stimuli.vhd was successful.
 # Compile of srme_tb_avs_pkg.vhd was successful.
@@ -32,4 +76,48 @@
 # Compile of srme_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 15 compiles, 0 failed with no errors.
+# 12 compiles, 2 failed with 1117 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 9 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 9 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 5 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd failed with 285 errors.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd failed with 304 errors.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd failed with 17 errors.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd failed with 9 errors.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd was successful.
+# Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd was successful.
+# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of srme_tb_avs_pkg.vhd was successful.
+# Compile of srme_tb_avs_write_ent.vhd was successful.
+# Compile of srme_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 12 compiles, 0 failed with no errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 5 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd failed with 3 errors.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd failed with 15 errors.
+# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# 2 compiles, 1 failed with 15 errors.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd failed with 6 errors.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
+# Compile of srme_avalon_mm_rmap_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_pkg.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_arbiter_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_read_ent.vhd was successful.
+# Compile of srme_rmap_mem_area_scom_write_ent.vhd was successful.
+# Compile of srme_rmap_memory_scom_area_top.vhd was successful.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of srme_tb_avs_pkg.vhd was successful.
+# Compile of srme_tb_avs_write_ent.vhd was successful.
+# Compile of srme_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 12 compiles, 0 failed with no errors.

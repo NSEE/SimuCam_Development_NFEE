@@ -90,13 +90,13 @@ entity scom_synchronization_comm_top is
 		channel_hk_spw_link_disconnect_o    : out std_logic; --                                     --                                        .spw_link_disconnect_signal
 		channel_hk_spw_link_running_o       : out std_logic; --                                     --                                        .spw_link_running_signal
 		channel_hk_frame_counter_o          : out std_logic_vector(15 downto 0); --                 --                                        .frame_counter_signal
-		channel_hk_frame_number_o           : out std_logic_vector(1 downto 0); --                  --                                        .frame_number_signal
-		channel_hk_err_win_wrong_x_coord_o  : out std_logic; --                                     --                                        .err_win_wrong_x_coord_signal
-		channel_hk_err_win_wrong_y_coord_o  : out std_logic; --                                     --                                        .err_win_wrong_y_coord_signal
-		channel_hk_err_e_side_buffer_full_o : out std_logic; --                                     --                                        .err_e_side_buffer_full_signal
-		channel_hk_err_f_side_buffer_full_o : out std_logic; --                                     --                                        .err_f_side_buffer_full_signal
-		channel_hk_err_invalid_ccd_mode_o   : out std_logic; --                                     --                                        .err_invalid_ccd_mode_signal
-		channel_win_mem_addr_offset_o       : out std_logic_vector(63 downto 0) ---                 --        conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+		channel_hk_frame_number_o           : out std_logic_vector(1 downto 0) ---                  --                                        .frame_number_signal
+--		channel_hk_err_win_wrong_x_coord_o  : out std_logic; --                                     --                                        .err_win_wrong_x_coord_signal
+--		channel_hk_err_win_wrong_y_coord_o  : out std_logic; --                                     --                                        .err_win_wrong_y_coord_signal
+--		channel_hk_err_e_side_buffer_full_o : out std_logic; --                                     --                                        .err_e_side_buffer_full_signal
+--		channel_hk_err_f_side_buffer_full_o : out std_logic; --                                     --                                        .err_f_side_buffer_full_signal
+--		channel_hk_err_invalid_ccd_mode_o   : out std_logic; --                                     --                                        .err_invalid_ccd_mode_signal
+--		channel_win_mem_addr_offset_o       : out std_logic_vector(63 downto 0) ---                 --        conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
 	);
 end entity scom_synchronization_comm_top;
 
@@ -457,14 +457,14 @@ begin
 	channel_hk_spw_link_running_o       <= s_config_rd_regs.spw_link_status_reg.spw_link_running;
 	channel_hk_frame_counter_o          <= s_frame_counter;
 	channel_hk_frame_number_o           <= s_frame_number;
-	channel_hk_err_win_wrong_x_coord_o  <= '0';
-	channel_hk_err_win_wrong_y_coord_o  <= '0';
-	channel_hk_err_e_side_buffer_full_o <= '0';
-	channel_hk_err_f_side_buffer_full_o <= '0';
-	channel_hk_err_invalid_ccd_mode_o   <= '0';
+--	channel_hk_err_win_wrong_x_coord_o  <= '0';
+--	channel_hk_err_win_wrong_y_coord_o  <= '0';
+--	channel_hk_err_e_side_buffer_full_o <= '0';
+--	channel_hk_err_f_side_buffer_full_o <= '0';
+--	channel_hk_err_invalid_ccd_mode_o   <= '0';
 
 	-- Channel Memory Offset Signals Assigments
-	channel_win_mem_addr_offset_o(63 downto 32) <= s_config_wr_regs.rmap_memory_config_reg.rmap_win_area_offset_high_dword;
-	channel_win_mem_addr_offset_o(31 downto 0)  <= s_config_wr_regs.rmap_memory_config_reg.rmap_win_area_offset_low_dword;
+--	channel_win_mem_addr_offset_o(63 downto 32) <= s_config_wr_regs.rmap_memory_config_reg.rmap_win_area_offset_high_dword;
+--	channel_win_mem_addr_offset_o(31 downto 0)  <= s_config_wr_regs.rmap_memory_config_reg.rmap_win_area_offset_low_dword;
 
 end architecture rtl;                   -- of scom_synchronization_comm_top

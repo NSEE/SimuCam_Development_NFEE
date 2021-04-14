@@ -14,7 +14,6 @@ use IEEE.numeric_std.all;
 
 use work.srme_avalon_mm_rmap_scom_pkg.all;
 use work.srme_rmap_mem_area_scom_pkg.all;
-use work.srme_avm_rmap_scom_pkg.all;
 
 entity srme_rmap_memory_scom_area_top is
     port(
@@ -26,7 +25,7 @@ entity srme_rmap_memory_scom_area_top is
         avs_0_rmap_readdata_o               : out std_logic_vector(31 downto 0); --                 --                                .readdata
         avs_0_rmap_writedata_i              : in  std_logic_vector(31 downto 0) := (others => '0'); --                                .writedata
         avs_0_rmap_waitrequest_o            : out std_logic; --                                     --                                .waitrequest
-        avs_0_rmap_byteenable_i             : in  std_logic_vector(3 downto 0)  := (others => '0'); --                                .byteenable
+--        avs_0_rmap_byteenable_i             : in  std_logic_vector(3 downto 0)  := (others => '0'); --                                .byteenable
         fee_0_rmap_wr_address_i             : in  std_logic_vector(31 downto 0) := (others => '0'); --    conduit_end_fee_rmap_slave_0.wr_address_signal
         fee_0_rmap_write_i                  : in  std_logic                     := '0'; --          --                                .write_signal
         fee_0_rmap_writedata_i              : in  std_logic_vector(7 downto 0)  := (others => '0'); --                                .writedata_signal
@@ -53,19 +52,12 @@ entity srme_rmap_memory_scom_area_top is
         channel_hk_spw_link_disconnect_i    : in  std_logic; --                                     --                                .spw_link_disconnect_signal
         channel_hk_spw_link_running_i       : in  std_logic; --                                     --                                .spw_link_running_signal
         channel_hk_frame_counter_i          : in  std_logic_vector(15 downto 0); --                 --                                .frame_counter_signal
-        channel_hk_frame_number_i           : in  std_logic_vector(1 downto 0)  := (others => '0'); --                                .frame_number_signal
-        channel_hk_err_win_wrong_x_coord_i  : in  std_logic; --                                     --                                .err_win_wrong_x_coord_signal
-        channel_hk_err_win_wrong_y_coord_i  : in  std_logic; --                                     --                                .err_win_wrong_y_coord_signal
-        channel_hk_err_e_side_buffer_full_i : in  std_logic; --                                     --                                .err_e_side_buffer_full_signal
-        channel_hk_err_f_side_buffer_full_i : in  std_logic; --                                     --                                .err_f_side_buffer_full_signal
-        channel_hk_err_invalid_ccd_mode_i   : in  std_logic; --                                     --                                .err_invalid_ccd_mode_signal
-        avm_rmap_readdata_i                 : in  std_logic_vector(7 downto 0)  := (others => '0'); --           avalon_mm_rmap_master.readdata
-        avm_rmap_waitrequest_i              : in  std_logic                     := '0'; --          --                                .waitrequest
-        avm_rmap_address_o                  : out std_logic_vector(63 downto 0); --                 --                                .address
-        avm_rmap_read_o                     : out std_logic; --                                     --                                .read
-        avm_rmap_write_o                    : out std_logic; --                                     --                                .write
-        avm_rmap_writedata_o                : out std_logic_vector(7 downto 0); --                  --                                .writedata
-        channel_win_mem_addr_offset_i       : in  std_logic_vector(63 downto 0) := (others => '0') --- conduit_end_rmap_avm_configs_in.win_mem_addr_offset_signal
+        channel_hk_frame_number_i           : in  std_logic_vector(1 downto 0)  := (others => '0') ---                                .frame_number_signal
+--        channel_hk_err_win_wrong_x_coord_i  : in  std_logic; --                                     --                                .err_win_wrong_x_coord_signal
+--        channel_hk_err_win_wrong_y_coord_i  : in  std_logic; --                                     --                                .err_win_wrong_y_coord_signal
+--        channel_hk_err_e_side_buffer_full_i : in  std_logic; --                                     --                                .err_e_side_buffer_full_signal
+--        channel_hk_err_f_side_buffer_full_i : in  std_logic; --                                     --                                .err_f_side_buffer_full_signal
+--        channel_hk_err_invalid_ccd_mode_i   : in  std_logic ---                                     --                                .err_invalid_ccd_mode_signal
     );
 end entity srme_rmap_memory_scom_area_top;
 
@@ -94,18 +86,18 @@ architecture rtl of srme_rmap_memory_scom_area_top is
     signal s_avalon_mm_rd_rmap_in              : t_srme_avalon_mm_rmap_scom_read_in;
     signal s_avalon_mm_rd_rmap_out             : t_srme_avalon_mm_rmap_scom_read_out;
     -- avm rmap & fee rmap win signals
-    signal s_avm_rmap_rd_address               : std_logic_vector((c_SRME_AVM_ADRESS_SIZE - 1) downto 0);
-    signal s_avm_rmap_wr_address               : std_logic_vector((c_SRME_AVM_ADRESS_SIZE - 1) downto 0);
-    signal s_fee_wr_rmap_win_in                : t_srme_scom_rmap_write_in;
-    signal s_fee_wr_rmap_win_out               : t_srme_scom_rmap_write_out;
-    signal s_fee_rd_rmap_win_in                : t_srme_scom_rmap_read_in;
-    signal s_fee_rd_rmap_win_out               : t_srme_scom_rmap_read_out;
+--    signal s_avm_rmap_rd_address               : std_logic_vector((c_SRME_AVM_ADRESS_SIZE - 1) downto 0);
+--    signal s_avm_rmap_wr_address               : std_logic_vector((c_SRME_AVM_ADRESS_SIZE - 1) downto 0);
+--    signal s_fee_wr_rmap_win_in                : t_srme_scom_rmap_write_in;
+--    signal s_fee_wr_rmap_win_out               : t_srme_scom_rmap_write_out;
+--    signal s_fee_rd_rmap_win_in                : t_srme_scom_rmap_read_in;
+--    signal s_fee_rd_rmap_win_out               : t_srme_scom_rmap_read_out;
     -- fee rmap hk errors signals
-    signal s_hk_err_win_wrong_x_coord_delayed  : std_logic;
-    signal s_hk_err_win_wrong_y_coord_delayed  : std_logic;
-    signal s_hk_err_e_side_buffer_full_delayed : std_logic;
-    signal s_hk_err_f_side_buffer_full_delayed : std_logic;
-    signal s_hk_err_invalid_ccd_mode_delayed   : std_logic;
+--    signal s_hk_err_win_wrong_x_coord_delayed  : std_logic;
+--    signal s_hk_err_win_wrong_y_coord_delayed  : std_logic;
+--    signal s_hk_err_e_side_buffer_full_delayed : std_logic;
+--    signal s_hk_err_f_side_buffer_full_delayed : std_logic;
+--    signal s_hk_err_invalid_ccd_mode_delayed   : std_logic;
     -- fee rmap spw errors signals
     signal s_spw_err_link_escape_err           : std_logic;
     signal s_spw_err_link_credit_err           : std_logic;
@@ -131,14 +123,16 @@ begin
             avalon_0_mm_wr_rmap_i.address     => avs_0_rmap_address_i,
             avalon_0_mm_wr_rmap_i.write       => avs_0_rmap_write_i,
             avalon_0_mm_wr_rmap_i.writedata   => avs_0_rmap_writedata_i,
-            avalon_0_mm_wr_rmap_i.byteenable  => avs_0_rmap_byteenable_i,
+--            avalon_0_mm_wr_rmap_i.byteenable  => avs_0_rmap_byteenable_i,
+            avalon_0_mm_wr_rmap_i.byteenable  => x"F",
             avalon_0_mm_rd_rmap_i.address     => avs_0_rmap_address_i,
             avalon_0_mm_rd_rmap_i.read        => avs_0_rmap_read_i,
-            avalon_0_mm_rd_rmap_i.byteenable  => avs_0_rmap_byteenable_i,
+--            avalon_0_mm_rd_rmap_i.byteenable  => avs_0_rmap_byteenable_i,
+            avalon_0_mm_rd_rmap_i.byteenable  => x"F",
             fee_wr_rmap_cfg_hk_i              => s_fee_wr_rmap_cfg_hk_out,
             fee_rd_rmap_cfg_hk_i              => s_fee_rd_rmap_cfg_hk_out,
-            fee_wr_rmap_win_i                 => s_fee_wr_rmap_win_out,
-            fee_rd_rmap_win_i                 => s_fee_rd_rmap_win_out,
+--            fee_wr_rmap_win_i                 => s_fee_wr_rmap_win_out,
+--            fee_rd_rmap_win_i                 => s_fee_rd_rmap_win_out,
             avalon_mm_wr_rmap_i               => s_avalon_mm_wr_rmap_out,
             avalon_mm_rd_rmap_i               => s_avalon_mm_rd_rmap_out,
             fee_0_wr_rmap_o.waitrequest       => fee_0_rmap_wr_waitrequest_o,
@@ -152,8 +146,8 @@ begin
             avalon_0_mm_rd_rmap_o.waitrequest => s_avs_0_rmap_rd_waitrequest,
             fee_wr_rmap_cfg_hk_o              => s_fee_wr_rmap_cfg_hk_in,
             fee_rd_rmap_cfg_hk_o              => s_fee_rd_rmap_cfg_hk_in,
-            fee_wr_rmap_win_o                 => s_fee_wr_rmap_win_in,
-            fee_rd_rmap_win_o                 => s_fee_rd_rmap_win_in,
+--            fee_wr_rmap_win_o                 => s_fee_wr_rmap_win_in,
+--            fee_rd_rmap_win_o                 => s_fee_rd_rmap_win_in,
             avalon_mm_wr_rmap_o               => s_avalon_mm_wr_rmap_in,
             avalon_mm_rd_rmap_o               => s_avalon_mm_rd_rmap_in
         );
@@ -182,55 +176,55 @@ begin
             rmap_registers_wr_o => s_rmap_mem_wr_area
         );
 
-    srme_avm_rmap_scom_read_ent_inst : entity work.srme_avm_rmap_scom_read_ent
-        port map(
-            clk_i                             => a_avs_clock,
-            rst_i                             => a_reset,
-            fee_rmap_rd_i                     => s_fee_rd_rmap_win_in,
-            avm_slave_rd_status_i.readdata    => avm_rmap_readdata_i,
-            avm_slave_rd_status_i.waitrequest => avm_rmap_waitrequest_i,
-            avm_rmap_mem_addr_offset_i        => channel_win_mem_addr_offset_i,
-            fee_rmap_rd_o                     => s_fee_rd_rmap_win_out,
-            avm_slave_rd_control_o.address    => s_avm_rmap_rd_address,
-            avm_slave_rd_control_o.read       => avm_rmap_read_o
-        );
-
-    srme_avm_rmap_scom_write_ent_inst : entity work.srme_avm_rmap_scom_write_ent
-        port map(
-            clk_i                             => a_avs_clock,
-            rst_i                             => a_reset,
-            fee_rmap_wr_i                     => s_fee_wr_rmap_win_in,
-            avm_slave_wr_status_i.waitrequest => avm_rmap_waitrequest_i,
-            avm_rmap_mem_addr_offset_i        => channel_win_mem_addr_offset_i,
-            fee_rmap_wr_o                     => s_fee_wr_rmap_win_out,
-            avm_slave_wr_control_o.address    => s_avm_rmap_wr_address,
-            avm_slave_wr_control_o.write      => avm_rmap_write_o,
-            avm_slave_wr_control_o.writedata  => avm_rmap_writedata_o
-        );
-
-    avm_rmap_address_o <= (s_avm_rmap_rd_address) or (s_avm_rmap_wr_address);
+--    srme_avm_rmap_scom_read_ent_inst : entity work.srme_avm_rmap_scom_read_ent
+--        port map(
+--            clk_i                             => a_avs_clock,
+--            rst_i                             => a_reset,
+--            fee_rmap_rd_i                     => s_fee_rd_rmap_win_in,
+--            avm_slave_rd_status_i.readdata    => avm_rmap_readdata_i,
+--            avm_slave_rd_status_i.waitrequest => avm_rmap_waitrequest_i,
+--            avm_rmap_mem_addr_offset_i        => channel_win_mem_addr_offset_i,
+--            fee_rmap_rd_o                     => s_fee_rd_rmap_win_out,
+--            avm_slave_rd_control_o.address    => s_avm_rmap_rd_address,
+--            avm_slave_rd_control_o.read       => avm_rmap_read_o
+--        );
+--
+--    srme_avm_rmap_scom_write_ent_inst : entity work.srme_avm_rmap_scom_write_ent
+--        port map(
+--            clk_i                             => a_avs_clock,
+--            rst_i                             => a_reset,
+--            fee_rmap_wr_i                     => s_fee_wr_rmap_win_in,
+--            avm_slave_wr_status_i.waitrequest => avm_rmap_waitrequest_i,
+--            avm_rmap_mem_addr_offset_i        => channel_win_mem_addr_offset_i,
+--            fee_rmap_wr_o                     => s_fee_wr_rmap_win_out,
+--            avm_slave_wr_control_o.address    => s_avm_rmap_wr_address,
+--            avm_slave_wr_control_o.write      => avm_rmap_write_o,
+--            avm_slave_wr_control_o.writedata  => avm_rmap_writedata_o
+--        );
+--
+--    avm_rmap_address_o <= (s_avm_rmap_rd_address) or (s_avm_rmap_wr_address);
 
     -- nrme nfee rmap error clear manager
     p_srme_scom_rmap_error_clear_manager : process(a_avs_clock, a_reset) is
     begin
         if (a_reset) = '1' then
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_too_many_overlapping_windows                                      <= '0';
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_correctable                                             <= '0';
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_uncorrectable                                           <= '0';
-            s_rmap_mem_rd_area.reg_34_hk.error_flags_block_ram_edac_uncorrectable                                      <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_too_many_overlapping_windows                                      <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_correctable                                             <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_uncorrectable                                           <= '0';
+--            s_rmap_mem_rd_area.reg_34_hk.error_flags_block_ram_edac_uncorrectable                                      <= '0';
             s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
             s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
             s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
             s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= '0';
-            s_hk_err_win_wrong_x_coord_delayed                                                                         <= '0';
-            s_hk_err_win_wrong_y_coord_delayed                                                                         <= '0';
-            s_hk_err_e_side_buffer_full_delayed                                                                        <= '0';
-            s_hk_err_f_side_buffer_full_delayed                                                                        <= '0';
-            s_hk_err_invalid_ccd_mode_delayed                                                                          <= '0';
+--            s_hk_err_win_wrong_x_coord_delayed                                                                         <= '0';
+--            s_hk_err_win_wrong_y_coord_delayed                                                                         <= '0';
+--            s_hk_err_e_side_buffer_full_delayed                                                                        <= '0';
+--            s_hk_err_f_side_buffer_full_delayed                                                                        <= '0';
+--            s_hk_err_invalid_ccd_mode_delayed                                                                          <= '0';
             s_spw_err_link_escape_err                                                                                  <= '0';
             s_spw_err_link_credit_err                                                                                  <= '0';
             s_spw_err_link_parity_err                                                                                  <= '0';
@@ -238,18 +232,18 @@ begin
         elsif rising_edge(a_avs_clock) then
             -- get error values to the rmap memory area
             -- check if a rising edge happened in any of the errors flags and register the error
-            if ((s_hk_err_win_wrong_x_coord_delayed = '0') and (channel_hk_err_win_wrong_x_coord_i = '1')) then
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '1';
-            end if;
-            if ((s_hk_err_win_wrong_y_coord_delayed = '0') and (channel_hk_err_win_wrong_y_coord_i = '1')) then
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '1';
-            end if;
-            if ((s_hk_err_e_side_buffer_full_delayed = '0') and (channel_hk_err_e_side_buffer_full_i = '1')) then
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full <= '1';
-            end if;
-            if ((s_hk_err_f_side_buffer_full_delayed = '0') and (channel_hk_err_f_side_buffer_full_i = '1')) then
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full <= '1';
-            end if;
+--            if ((s_hk_err_win_wrong_x_coord_delayed = '0') and (channel_hk_err_win_wrong_x_coord_i = '1')) then
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '1';
+--            end if;
+--            if ((s_hk_err_win_wrong_y_coord_delayed = '0') and (channel_hk_err_win_wrong_y_coord_i = '1')) then
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '1';
+--            end if;
+--            if ((s_hk_err_e_side_buffer_full_delayed = '0') and (channel_hk_err_e_side_buffer_full_i = '1')) then
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full <= '1';
+--            end if;
+--            if ((s_hk_err_f_side_buffer_full_delayed = '0') and (channel_hk_err_f_side_buffer_full_i = '1')) then
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full <= '1';
+--            end if;
             --			if ((s_hk_err_invalid_ccd_mode_delayed = '0') and (channel_hk_err_invalid_ccd_mode_i = '1')) then
             --				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
             --			end if;
@@ -266,26 +260,26 @@ begin
                 s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect <= '1';
             end if;
             -- check if a error clear was requested
-            if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_too_many_overlapping_windows                                      <= '0';
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_correctable                                             <= '0';
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_uncorrectable                                           <= '0';
-                s_rmap_mem_rd_area.reg_34_hk.error_flags_block_ram_edac_uncorrectable                                      <= '0';
-                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
-                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
-                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
-                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= '0';
-            end if;
+--            if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_too_many_overlapping_windows                                      <= '0';
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_correctable                                             <= '0';
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_sram_edac_uncorrectable                                           <= '0';
+--                s_rmap_mem_rd_area.reg_34_hk.error_flags_block_ram_edac_uncorrectable                                      <= '0';
+--                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
+--                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
+--                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
+--                s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= '0';
+--            end if;
             -- delay error signals
-            s_hk_err_win_wrong_x_coord_delayed  <= channel_hk_err_win_wrong_x_coord_i;
-            s_hk_err_win_wrong_y_coord_delayed  <= channel_hk_err_win_wrong_y_coord_i;
-            s_hk_err_e_side_buffer_full_delayed <= channel_hk_err_e_side_buffer_full_i;
-            s_hk_err_f_side_buffer_full_delayed <= channel_hk_err_f_side_buffer_full_i;
-            s_hk_err_invalid_ccd_mode_delayed   <= channel_hk_err_invalid_ccd_mode_i;
+--            s_hk_err_win_wrong_x_coord_delayed  <= channel_hk_err_win_wrong_x_coord_i;
+--            s_hk_err_win_wrong_y_coord_delayed  <= channel_hk_err_win_wrong_y_coord_i;
+--            s_hk_err_e_side_buffer_full_delayed <= channel_hk_err_e_side_buffer_full_i;
+--            s_hk_err_f_side_buffer_full_delayed <= channel_hk_err_f_side_buffer_full_i;
+--            s_hk_err_invalid_ccd_mode_delayed   <= channel_hk_err_invalid_ccd_mode_i;
             s_spw_err_link_escape_err           <= channel_hk_spw_link_escape_err_i;
             s_spw_err_link_credit_err           <= channel_hk_spw_link_credit_err_i;
             s_spw_err_link_parity_err           <= channel_hk_spw_link_parity_err_i;

@@ -51,10 +51,10 @@ begin
 			avs_config_wr_regs_o.rmap_codec_config_reg.rmap_target_logical_addr         <= x"51";
 			-- RMAP Codec Config Register : RMAP Target Key
 			avs_config_wr_regs_o.rmap_codec_config_reg.rmap_target_key                  <= x"D1";
-			-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
-			avs_config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_high_dword <= (others => '0');
-			-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
-			avs_config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_low_dword  <= (others => '0');
+--			-- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
+--			avs_config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_high_dword <= (others => '0');
+--			-- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
+--			avs_config_wr_regs_o.rmap_memory_config_reg.rmap_win_area_offset_low_dword  <= (others => '0');
 			-- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer
 			avs_config_wr_regs_o.rmap_mem_area_ptr_reg.rmap_mem_area_ptr                <= (others => '0');
 			-- FEE Machine Config Register : FEE Machine Clear
