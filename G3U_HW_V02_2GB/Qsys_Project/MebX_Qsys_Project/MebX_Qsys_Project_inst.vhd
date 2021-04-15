@@ -82,11 +82,6 @@
 			rst_reset_n                                                 : in    std_logic                     := 'X';             -- reset_n
 			rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := 'X';             -- t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- t_simucam_reset_signal
-			rtcc_alarm_export                                           : in    std_logic                     := 'X';             -- export
-			rtcc_cs_n_export                                            : out   std_logic;                                        -- export
-			rtcc_sck_export                                             : out   std_logic;                                        -- export
-			rtcc_sdi_export                                             : out   std_logic;                                        -- export
-			rtcc_sdo_export                                             : in    std_logic                     := 'X';             -- export
 			scom_0_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
 			sd_card_ip_b_SD_cmd                                         : inout std_logic                     := 'X';             -- b_SD_cmd
 			sd_card_ip_b_SD_dat                                         : inout std_logic                     := 'X';             -- b_SD_dat
@@ -309,11 +304,6 @@
 			rst_reset_n                                                 => CONNECTED_TO_rst_reset_n,                                                 --                                  rst.reset_n
 			rst_controller_conduit_reset_input_t_reset_input_signal     => CONNECTED_TO_rst_controller_conduit_reset_input_t_reset_input_signal,     --   rst_controller_conduit_reset_input.t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal => CONNECTED_TO_rst_controller_conduit_simucam_reset_t_simucam_reset_signal, -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
-			rtcc_alarm_export                                           => CONNECTED_TO_rtcc_alarm_export,                                           --                           rtcc_alarm.export
-			rtcc_cs_n_export                                            => CONNECTED_TO_rtcc_cs_n_export,                                            --                            rtcc_cs_n.export
-			rtcc_sck_export                                             => CONNECTED_TO_rtcc_sck_export,                                             --                             rtcc_sck.export
-			rtcc_sdi_export                                             => CONNECTED_TO_rtcc_sdi_export,                                             --                             rtcc_sdi.export
-			rtcc_sdo_export                                             => CONNECTED_TO_rtcc_sdo_export,                                             --                             rtcc_sdo.export
 			scom_0_sync_sync_signal                                     => CONNECTED_TO_scom_0_sync_sync_signal,                                     --                          scom_0_sync.sync_signal
 			sd_card_ip_b_SD_cmd                                         => CONNECTED_TO_sd_card_ip_b_SD_cmd,                                         --                           sd_card_ip.b_SD_cmd
 			sd_card_ip_b_SD_dat                                         => CONNECTED_TO_sd_card_ip_b_SD_dat,                                         --                                     .b_SD_dat

@@ -82,11 +82,6 @@
 			rst_reset_n                                                 : in    std_logic                     := 'X';             -- reset_n
 			rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := 'X';             -- t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- t_simucam_reset_signal
-			rtcc_alarm_export                                           : in    std_logic                     := 'X';             -- export
-			rtcc_cs_n_export                                            : out   std_logic;                                        -- export
-			rtcc_sck_export                                             : out   std_logic;                                        -- export
-			rtcc_sdi_export                                             : out   std_logic;                                        -- export
-			rtcc_sdo_export                                             : in    std_logic                     := 'X';             -- export
 			scom_0_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
 			sd_card_ip_b_SD_cmd                                         : inout std_logic                     := 'X';             -- b_SD_cmd
 			sd_card_ip_b_SD_dat                                         : inout std_logic                     := 'X';             -- b_SD_dat

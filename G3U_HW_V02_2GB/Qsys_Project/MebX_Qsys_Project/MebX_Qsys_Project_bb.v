@@ -82,11 +82,6 @@ module MebX_Qsys_Project (
 	rst_reset_n,
 	rst_controller_conduit_reset_input_t_reset_input_signal,
 	rst_controller_conduit_simucam_reset_t_simucam_reset_signal,
-	rtcc_alarm_export,
-	rtcc_cs_n_export,
-	rtcc_sck_export,
-	rtcc_sdi_export,
-	rtcc_sdo_export,
 	scom_0_sync_sync_signal,
 	sd_card_ip_b_SD_cmd,
 	sd_card_ip_b_SD_dat,
@@ -305,11 +300,6 @@ module MebX_Qsys_Project (
 	input		rst_reset_n;
 	input		rst_controller_conduit_reset_input_t_reset_input_signal;
 	output		rst_controller_conduit_simucam_reset_t_simucam_reset_signal;
-	input		rtcc_alarm_export;
-	output		rtcc_cs_n_export;
-	output		rtcc_sck_export;
-	output		rtcc_sdi_export;
-	input		rtcc_sdo_export;
 	input		scom_0_sync_sync_signal;
 	inout		sd_card_ip_b_SD_cmd;
 	inout		sd_card_ip_b_SD_dat;

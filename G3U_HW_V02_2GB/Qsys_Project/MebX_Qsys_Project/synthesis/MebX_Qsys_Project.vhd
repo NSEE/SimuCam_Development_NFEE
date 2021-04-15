@@ -8,234 +8,223 @@ use IEEE.numeric_std.all;
 
 entity MebX_Qsys_Project is
 	port (
-		button_export                                               : in    std_logic_vector(3 downto 0)  := (others => '0'); --                                     button.export
-		clk50_clk                                                   : in    std_logic                     := '0';             --                                      clk50.clk
-		comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                        comm_1_measurements.measurements_signal
-		comm_1_sync_sync_signal                                     : in    std_logic                     := '0';             --                                comm_1_sync.sync_signal
-		comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                        comm_2_measurements.measurements_signal
-		comm_2_sync_sync_signal                                     : in    std_logic                     := '0';             --                                comm_2_sync.sync_signal
-		comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                        comm_3_measurements.measurements_signal
-		comm_3_sync_sync_signal                                     : in    std_logic                     := '0';             --                                comm_3_sync.sync_signal
-		comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                        comm_4_measurements.measurements_signal
-		comm_4_sync_sync_signal                                     : in    std_logic                     := '0';             --                                comm_4_sync.sync_signal
-		comm_5_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                        comm_5_measurements.measurements_signal
-		comm_5_sync_sync_signal                                     : in    std_logic                     := '0';             --                                comm_5_sync.sync_signal
-		comm_6_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                        comm_6_measurements.measurements_signal
-		comm_6_sync_sync_signal                                     : in    std_logic                     := '0';             --                                comm_6_sync.sync_signal
-		csense_adc_fo_export                                        : out   std_logic;                                        --                              csense_adc_fo.export
-		csense_cs_n_export                                          : out   std_logic_vector(1 downto 0);                     --                                csense_cs_n.export
-		csense_sck_export                                           : out   std_logic;                                        --                                 csense_sck.export
-		csense_sdi_export                                           : out   std_logic;                                        --                                 csense_sdi.export
-		csense_sdo_export                                           : in    std_logic                     := '0';             --                                 csense_sdo.export
-		ctrl_io_lvds_export                                         : out   std_logic_vector(3 downto 0);                     --                               ctrl_io_lvds.export
-		dip_export                                                  : in    std_logic_vector(7 downto 0)  := (others => '0'); --                                        dip.export
-		ext_export                                                  : in    std_logic                     := '0';             --                                        ext.export
-		ftdi_clk_clk                                                : in    std_logic                     := '0';             --                                   ftdi_clk.clk
-		led_de4_export                                              : out   std_logic_vector(7 downto 0);                     --                                    led_de4.export
-		led_painel_export                                           : out   std_logic_vector(20 downto 0);                    --                                 led_painel.export
-		m1_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                            m1_ddr2_i2c_scl.export
-		m1_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                            m1_ddr2_i2c_sda.export
-		m1_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                             m1_ddr2_memory.mem_a
-		m1_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                           .mem_ba
-		m1_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                           .mem_ck
-		m1_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                           .mem_ck_n
-		m1_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                           .mem_cke
-		m1_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                           .mem_cs_n
-		m1_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                           .mem_dm
-		m1_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                           .mem_ras_n
-		m1_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                           .mem_cas_n
-		m1_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                           .mem_we_n
-		m1_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                           .mem_dq
-		m1_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                           .mem_dqs
-		m1_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                           .mem_dqs_n
-		m1_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                           .mem_odt
-		m1_ddr2_memory_pll_ref_clk_clk                              : in    std_logic                     := '0';             --                 m1_ddr2_memory_pll_ref_clk.clk
-		m1_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                      m1_ddr2_memory_status.local_init_done
-		m1_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                           .local_cal_success
-		m1_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                           .local_cal_fail
-		m1_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                                m1_ddr2_oct.rdn
-		m1_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                           .rup
-		m2_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                            m2_ddr2_i2c_scl.export
-		m2_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                            m2_ddr2_i2c_sda.export
-		m2_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                             m2_ddr2_memory.mem_a
-		m2_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                           .mem_ba
-		m2_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                           .mem_ck
-		m2_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                           .mem_ck_n
-		m2_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                           .mem_cke
-		m2_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                           .mem_cs_n
-		m2_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                           .mem_dm
-		m2_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                           .mem_ras_n
-		m2_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                           .mem_cas_n
-		m2_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                           .mem_we_n
-		m2_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                           .mem_dq
-		m2_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                           .mem_dqs
-		m2_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                           .mem_dqs_n
-		m2_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                           .mem_odt
-		m2_ddr2_memory_dll_sharing_dll_pll_locked                   : in    std_logic                     := '0';             --                 m2_ddr2_memory_dll_sharing.dll_pll_locked
-		m2_ddr2_memory_dll_sharing_dll_delayctrl                    : out   std_logic_vector(5 downto 0);                     --                                           .dll_delayctrl
-		m2_ddr2_memory_pll_sharing_pll_mem_clk                      : out   std_logic;                                        --                 m2_ddr2_memory_pll_sharing.pll_mem_clk
-		m2_ddr2_memory_pll_sharing_pll_write_clk                    : out   std_logic;                                        --                                           .pll_write_clk
-		m2_ddr2_memory_pll_sharing_pll_locked                       : out   std_logic;                                        --                                           .pll_locked
-		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk        : out   std_logic;                                        --                                           .pll_write_clk_pre_phy_clk
-		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk                 : out   std_logic;                                        --                                           .pll_addr_cmd_clk
-		m2_ddr2_memory_pll_sharing_pll_avl_clk                      : out   std_logic;                                        --                                           .pll_avl_clk
-		m2_ddr2_memory_pll_sharing_pll_config_clk                   : out   std_logic;                                        --                                           .pll_config_clk
-		m2_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                      m2_ddr2_memory_status.local_init_done
-		m2_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                           .local_cal_success
-		m2_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                           .local_cal_fail
-		m2_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                                m2_ddr2_oct.rdn
-		m2_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                           .rup
-		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata         : in    std_logic_vector(7 downto 0)  := (others => '0'); -- rmap_mem_nfee_scom_0_avalon_mm_rmap_master.readdata
-		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest      : in    std_logic                     := '0';             --                                           .waitrequest
-		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address          : out   std_logic_vector(63 downto 0);                    --                                           .address
-		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read             : out   std_logic;                                        --                                           .read
-		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write            : out   std_logic;                                        --                                           .write
-		rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata        : out   std_logic_vector(7 downto 0);                     --                                           .writedata
-		rs232_uart_rxd                                              : in    std_logic                     := '0';             --                                 rs232_uart.rxd
-		rs232_uart_txd                                              : out   std_logic;                                        --                                           .txd
-		rst_reset_n                                                 : in    std_logic                     := '0';             --                                        rst.reset_n
-		rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := '0';             --         rst_controller_conduit_reset_input.t_reset_input_signal
-		rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        --       rst_controller_conduit_simucam_reset.t_simucam_reset_signal
-		rtcc_alarm_export                                           : in    std_logic                     := '0';             --                                 rtcc_alarm.export
-		rtcc_cs_n_export                                            : out   std_logic;                                        --                                  rtcc_cs_n.export
-		rtcc_sck_export                                             : out   std_logic;                                        --                                   rtcc_sck.export
-		rtcc_sdi_export                                             : out   std_logic;                                        --                                   rtcc_sdi.export
-		rtcc_sdo_export                                             : in    std_logic                     := '0';             --                                   rtcc_sdo.export
-		scom_0_sync_sync_signal                                     : in    std_logic                     := '0';             --                                scom_0_sync.sync_signal
-		sd_card_ip_b_SD_cmd                                         : inout std_logic                     := '0';             --                                 sd_card_ip.b_SD_cmd
-		sd_card_ip_b_SD_dat                                         : inout std_logic                     := '0';             --                                           .b_SD_dat
-		sd_card_ip_b_SD_dat3                                        : inout std_logic                     := '0';             --                                           .b_SD_dat3
-		sd_card_ip_o_SD_clock                                       : out   std_logic;                                        --                                           .o_SD_clock
-		sd_card_wp_n_io_export                                      : in    std_logic                     := '0';             --                            sd_card_wp_n_io.export
-		spwc_a_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_a_enable.spw_rx_enable_signal
-		spwc_a_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_a_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_a_leds.spw_red_status_led_signal
-		spwc_a_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_a_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_a_lvds.spw_lvds_p_data_in_signal
-		spwc_a_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_a_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_a_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_a_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_a_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_a_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_a_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		spwc_b_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_b_enable.spw_rx_enable_signal
-		spwc_b_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_b_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_b_leds.spw_red_status_led_signal
-		spwc_b_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_b_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_b_lvds.spw_lvds_p_data_in_signal
-		spwc_b_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_b_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_b_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_b_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_b_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_b_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_b_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		spwc_c_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_c_enable.spw_rx_enable_signal
-		spwc_c_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_c_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_c_leds.spw_red_status_led_signal
-		spwc_c_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_c_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_c_lvds.spw_lvds_p_data_in_signal
-		spwc_c_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_c_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_c_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_c_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_c_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_c_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_c_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		spwc_d_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_d_enable.spw_rx_enable_signal
-		spwc_d_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_d_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_d_leds.spw_red_status_led_signal
-		spwc_d_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_d_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_d_lvds.spw_lvds_p_data_in_signal
-		spwc_d_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_d_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_d_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_d_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_d_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_d_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_d_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		spwc_e_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_e_enable.spw_rx_enable_signal
-		spwc_e_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_e_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_e_leds.spw_red_status_led_signal
-		spwc_e_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_e_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_e_lvds.spw_lvds_p_data_in_signal
-		spwc_e_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_e_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_e_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_e_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_e_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_e_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_e_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		spwc_f_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_f_enable.spw_rx_enable_signal
-		spwc_f_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_f_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_f_leds.spw_red_status_led_signal
-		spwc_f_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_f_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_f_lvds.spw_lvds_p_data_in_signal
-		spwc_f_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_f_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_f_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_f_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_f_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_f_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_f_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		spwc_g_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_g_enable.spw_rx_enable_signal
-		spwc_g_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_g_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_g_leds.spw_red_status_led_signal
-		spwc_g_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_g_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_g_lvds.spw_lvds_p_data_in_signal
-		spwc_g_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_g_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_g_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_g_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_g_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_g_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_g_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		spwc_h_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                              spwc_h_enable.spw_rx_enable_signal
-		spwc_h_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                           .spw_tx_enable_signal
-		spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                spwc_h_leds.spw_red_status_led_signal
-		spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                           .spw_green_status_led_signal
-		spwc_h_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                spwc_h_lvds.spw_lvds_p_data_in_signal
-		spwc_h_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                           .spw_lvds_n_data_in_signal
-		spwc_h_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_p_data_out_signal
-		spwc_h_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                           .spw_lvds_n_data_out_signal
-		spwc_h_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_p_strobe_out_signal
-		spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                           .spw_lvds_n_strobe_out_signal
-		spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_p_strobe_in_signal
-		spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                           .spw_lvds_n_strobe_in_signal
-		sync_in_conduit                                             : in    std_logic                     := '0';             --                                    sync_in.conduit
-		sync_in_en_conduit                                          : in    std_logic                     := '0';             --                                 sync_in_en.conduit
-		sync_out_conduit                                            : out   std_logic;                                        --                                   sync_out.conduit
-		sync_out_en_conduit                                         : in    std_logic                     := '0';             --                                sync_out_en.conduit
-		sync_spw1_conduit                                           : out   std_logic;                                        --                                  sync_spw1.conduit
-		sync_spw2_conduit                                           : out   std_logic;                                        --                                  sync_spw2.conduit
-		sync_spw3_conduit                                           : out   std_logic;                                        --                                  sync_spw3.conduit
-		sync_spw4_conduit                                           : out   std_logic;                                        --                                  sync_spw4.conduit
-		sync_spw5_conduit                                           : out   std_logic;                                        --                                  sync_spw5.conduit
-		sync_spw6_conduit                                           : out   std_logic;                                        --                                  sync_spw6.conduit
-		sync_spw7_conduit                                           : out   std_logic;                                        --                                  sync_spw7.conduit
-		sync_spw8_conduit                                           : out   std_logic;                                        --                                  sync_spw8.conduit
-		temp_scl_export                                             : out   std_logic;                                        --                                   temp_scl.export
-		temp_sda_export                                             : inout std_logic                     := '0';             --                                   temp_sda.export
-		timer_1ms_external_port_export                              : out   std_logic;                                        --                    timer_1ms_external_port.export
-		timer_1us_external_port_export                              : out   std_logic;                                        --                    timer_1us_external_port.export
-		tristate_conduit_tcm_address_out                            : out   std_logic_vector(25 downto 0);                    --                           tristate_conduit.tcm_address_out
-		tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);                     --                                           .tcm_read_n_out
-		tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     --                                           .tcm_write_n_out
-		tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => '0'); --                                           .tcm_data_out
-		tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     --                                           .tcm_chipselect_n_out
-		umft601a_pins_umft_clock_signal                             : in    std_logic                     := '0';             --                              umft601a_pins.umft_clock_signal
-		umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := '0';             --                                           .umft_txe_n_signal
-		umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := '0';             --                                           .umft_rxf_n_signal
-		umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => '0'); --                                           .umft_data_signal
-		umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => '0'); --                                           .umft_be_signal
-		umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := '0';             --                                           .umft_wakeup_n_signal
-		umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => '0'); --                                           .umft_gpio_bus_signal
-		umft601a_pins_umft_reset_n_signal                           : out   std_logic;                                        --                                           .umft_reset_n_signal
-		umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        --                                           .umft_wr_n_signal
-		umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        --                                           .umft_rd_n_signal
-		umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        --                                           .umft_oe_n_signal
-		umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         --                                           .umft_siwu_n_signal
+		button_export                                               : in    std_logic_vector(3 downto 0)  := (others => '0'); --                               button.export
+		clk50_clk                                                   : in    std_logic                     := '0';             --                                clk50.clk
+		comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_1_measurements.measurements_signal
+		comm_1_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_1_sync.sync_signal
+		comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_2_measurements.measurements_signal
+		comm_2_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_2_sync.sync_signal
+		comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_3_measurements.measurements_signal
+		comm_3_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_3_sync.sync_signal
+		comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_4_measurements.measurements_signal
+		comm_4_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_4_sync.sync_signal
+		comm_5_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_5_measurements.measurements_signal
+		comm_5_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_5_sync.sync_signal
+		comm_6_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_6_measurements.measurements_signal
+		comm_6_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_6_sync.sync_signal
+		csense_adc_fo_export                                        : out   std_logic;                                        --                        csense_adc_fo.export
+		csense_cs_n_export                                          : out   std_logic_vector(1 downto 0);                     --                          csense_cs_n.export
+		csense_sck_export                                           : out   std_logic;                                        --                           csense_sck.export
+		csense_sdi_export                                           : out   std_logic;                                        --                           csense_sdi.export
+		csense_sdo_export                                           : in    std_logic                     := '0';             --                           csense_sdo.export
+		ctrl_io_lvds_export                                         : out   std_logic_vector(3 downto 0);                     --                         ctrl_io_lvds.export
+		dip_export                                                  : in    std_logic_vector(7 downto 0)  := (others => '0'); --                                  dip.export
+		ext_export                                                  : in    std_logic                     := '0';             --                                  ext.export
+		ftdi_clk_clk                                                : in    std_logic                     := '0';             --                             ftdi_clk.clk
+		led_de4_export                                              : out   std_logic_vector(7 downto 0);                     --                              led_de4.export
+		led_painel_export                                           : out   std_logic_vector(20 downto 0);                    --                           led_painel.export
+		m1_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                      m1_ddr2_i2c_scl.export
+		m1_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                      m1_ddr2_i2c_sda.export
+		m1_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                       m1_ddr2_memory.mem_a
+		m1_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                     .mem_ba
+		m1_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck
+		m1_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck_n
+		m1_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_cke
+		m1_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_cs_n
+		m1_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                     .mem_dm
+		m1_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_ras_n
+		m1_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_cas_n
+		m1_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                     .mem_we_n
+		m1_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                     .mem_dq
+		m1_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs
+		m1_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs_n
+		m1_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_odt
+		m1_ddr2_memory_pll_ref_clk_clk                              : in    std_logic                     := '0';             --           m1_ddr2_memory_pll_ref_clk.clk
+		m1_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                m1_ddr2_memory_status.local_init_done
+		m1_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                     .local_cal_success
+		m1_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                     .local_cal_fail
+		m1_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                          m1_ddr2_oct.rdn
+		m1_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                     .rup
+		m2_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                      m2_ddr2_i2c_scl.export
+		m2_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                      m2_ddr2_i2c_sda.export
+		m2_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                       m2_ddr2_memory.mem_a
+		m2_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                     .mem_ba
+		m2_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck
+		m2_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck_n
+		m2_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_cke
+		m2_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_cs_n
+		m2_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                     .mem_dm
+		m2_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_ras_n
+		m2_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_cas_n
+		m2_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                     .mem_we_n
+		m2_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                     .mem_dq
+		m2_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs
+		m2_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs_n
+		m2_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_odt
+		m2_ddr2_memory_dll_sharing_dll_pll_locked                   : in    std_logic                     := '0';             --           m2_ddr2_memory_dll_sharing.dll_pll_locked
+		m2_ddr2_memory_dll_sharing_dll_delayctrl                    : out   std_logic_vector(5 downto 0);                     --                                     .dll_delayctrl
+		m2_ddr2_memory_pll_sharing_pll_mem_clk                      : out   std_logic;                                        --           m2_ddr2_memory_pll_sharing.pll_mem_clk
+		m2_ddr2_memory_pll_sharing_pll_write_clk                    : out   std_logic;                                        --                                     .pll_write_clk
+		m2_ddr2_memory_pll_sharing_pll_locked                       : out   std_logic;                                        --                                     .pll_locked
+		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk        : out   std_logic;                                        --                                     .pll_write_clk_pre_phy_clk
+		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk                 : out   std_logic;                                        --                                     .pll_addr_cmd_clk
+		m2_ddr2_memory_pll_sharing_pll_avl_clk                      : out   std_logic;                                        --                                     .pll_avl_clk
+		m2_ddr2_memory_pll_sharing_pll_config_clk                   : out   std_logic;                                        --                                     .pll_config_clk
+		m2_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                m2_ddr2_memory_status.local_init_done
+		m2_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                     .local_cal_success
+		m2_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                     .local_cal_fail
+		m2_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                          m2_ddr2_oct.rdn
+		m2_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                     .rup
+		rs232_uart_rxd                                              : in    std_logic                     := '0';             --                           rs232_uart.rxd
+		rs232_uart_txd                                              : out   std_logic;                                        --                                     .txd
+		rst_reset_n                                                 : in    std_logic                     := '0';             --                                  rst.reset_n
+		rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := '0';             --   rst_controller_conduit_reset_input.t_reset_input_signal
+		rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
+		scom_0_sync_sync_signal                                     : in    std_logic                     := '0';             --                          scom_0_sync.sync_signal
+		sd_card_ip_b_SD_cmd                                         : inout std_logic                     := '0';             --                           sd_card_ip.b_SD_cmd
+		sd_card_ip_b_SD_dat                                         : inout std_logic                     := '0';             --                                     .b_SD_dat
+		sd_card_ip_b_SD_dat3                                        : inout std_logic                     := '0';             --                                     .b_SD_dat3
+		sd_card_ip_o_SD_clock                                       : out   std_logic;                                        --                                     .o_SD_clock
+		sd_card_wp_n_io_export                                      : in    std_logic                     := '0';             --                      sd_card_wp_n_io.export
+		spwc_a_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_a_enable.spw_rx_enable_signal
+		spwc_a_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_a_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_a_leds.spw_red_status_led_signal
+		spwc_a_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_a_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_a_lvds.spw_lvds_p_data_in_signal
+		spwc_a_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_a_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_a_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_a_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_a_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_a_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_a_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		spwc_b_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_b_enable.spw_rx_enable_signal
+		spwc_b_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_b_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_b_leds.spw_red_status_led_signal
+		spwc_b_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_b_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_b_lvds.spw_lvds_p_data_in_signal
+		spwc_b_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_b_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_b_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_b_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_b_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_b_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_b_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		spwc_c_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_c_enable.spw_rx_enable_signal
+		spwc_c_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_c_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_c_leds.spw_red_status_led_signal
+		spwc_c_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_c_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_c_lvds.spw_lvds_p_data_in_signal
+		spwc_c_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_c_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_c_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_c_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_c_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_c_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_c_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		spwc_d_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_d_enable.spw_rx_enable_signal
+		spwc_d_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_d_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_d_leds.spw_red_status_led_signal
+		spwc_d_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_d_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_d_lvds.spw_lvds_p_data_in_signal
+		spwc_d_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_d_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_d_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_d_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_d_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_d_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_d_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		spwc_e_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_e_enable.spw_rx_enable_signal
+		spwc_e_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_e_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_e_leds.spw_red_status_led_signal
+		spwc_e_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_e_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_e_lvds.spw_lvds_p_data_in_signal
+		spwc_e_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_e_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_e_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_e_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_e_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_e_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_e_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		spwc_f_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_f_enable.spw_rx_enable_signal
+		spwc_f_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_f_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_f_leds.spw_red_status_led_signal
+		spwc_f_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_f_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_f_lvds.spw_lvds_p_data_in_signal
+		spwc_f_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_f_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_f_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_f_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_f_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_f_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_f_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		spwc_g_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_g_enable.spw_rx_enable_signal
+		spwc_g_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_g_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_g_leds.spw_red_status_led_signal
+		spwc_g_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_g_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_g_lvds.spw_lvds_p_data_in_signal
+		spwc_g_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_g_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_g_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_g_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_g_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_g_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_g_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		spwc_h_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_h_enable.spw_rx_enable_signal
+		spwc_h_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
+		spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_h_leds.spw_red_status_led_signal
+		spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
+		spwc_h_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_h_lvds.spw_lvds_p_data_in_signal
+		spwc_h_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
+		spwc_h_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
+		spwc_h_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
+		spwc_h_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
+		spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
+		spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
+		spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
+		sync_in_conduit                                             : in    std_logic                     := '0';             --                              sync_in.conduit
+		sync_in_en_conduit                                          : in    std_logic                     := '0';             --                           sync_in_en.conduit
+		sync_out_conduit                                            : out   std_logic;                                        --                             sync_out.conduit
+		sync_out_en_conduit                                         : in    std_logic                     := '0';             --                          sync_out_en.conduit
+		sync_spw1_conduit                                           : out   std_logic;                                        --                            sync_spw1.conduit
+		sync_spw2_conduit                                           : out   std_logic;                                        --                            sync_spw2.conduit
+		sync_spw3_conduit                                           : out   std_logic;                                        --                            sync_spw3.conduit
+		sync_spw4_conduit                                           : out   std_logic;                                        --                            sync_spw4.conduit
+		sync_spw5_conduit                                           : out   std_logic;                                        --                            sync_spw5.conduit
+		sync_spw6_conduit                                           : out   std_logic;                                        --                            sync_spw6.conduit
+		sync_spw7_conduit                                           : out   std_logic;                                        --                            sync_spw7.conduit
+		sync_spw8_conduit                                           : out   std_logic;                                        --                            sync_spw8.conduit
+		temp_scl_export                                             : out   std_logic;                                        --                             temp_scl.export
+		temp_sda_export                                             : inout std_logic                     := '0';             --                             temp_sda.export
+		timer_1ms_external_port_export                              : out   std_logic;                                        --              timer_1ms_external_port.export
+		timer_1us_external_port_export                              : out   std_logic;                                        --              timer_1us_external_port.export
+		tristate_conduit_tcm_address_out                            : out   std_logic_vector(25 downto 0);                    --                     tristate_conduit.tcm_address_out
+		tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);                     --                                     .tcm_read_n_out
+		tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     --                                     .tcm_write_n_out
+		tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => '0'); --                                     .tcm_data_out
+		tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     --                                     .tcm_chipselect_n_out
+		umft601a_pins_umft_clock_signal                             : in    std_logic                     := '0';             --                        umft601a_pins.umft_clock_signal
+		umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := '0';             --                                     .umft_txe_n_signal
+		umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := '0';             --                                     .umft_rxf_n_signal
+		umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => '0'); --                                     .umft_data_signal
+		umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => '0'); --                                     .umft_be_signal
+		umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := '0';             --                                     .umft_wakeup_n_signal
+		umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => '0'); --                                     .umft_gpio_bus_signal
+		umft601a_pins_umft_reset_n_signal                           : out   std_logic;                                        --                                     .umft_reset_n_signal
+		umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        --                                     .umft_wr_n_signal
+		umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        --                                     .umft_rd_n_signal
+		umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        --                                     .umft_oe_n_signal
+		umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         --                                     .umft_siwu_n_signal
 	);
 end entity MebX_Qsys_Project;
 
@@ -552,81 +541,75 @@ architecture rtl of MebX_Qsys_Project is
 
 	component scom_synchronization_comm_top is
 		port (
-			reset_sink_reset_i                  : in  std_logic                     := 'X';             -- reset
-			clock_sink_clk_i                    : in  std_logic                     := 'X';             -- clk
-			channel_sync_i                      : in  std_logic                     := 'X';             -- sync_signal
-			avs_config_address_i                : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- address
-			avs_config_byteenable_i             : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
-			avs_config_write_i                  : in  std_logic                     := 'X';             -- write
-			avs_config_writedata_i              : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			avs_config_read_i                   : in  std_logic                     := 'X';             -- read
-			avs_config_readdata_o               : out std_logic_vector(31 downto 0);                    -- readdata
-			avs_config_waitrequest_o            : out std_logic;                                        -- waitrequest
-			spw_link_status_started_i           : in  std_logic                     := 'X';             -- spw_link_status_started_signal
-			spw_link_status_connecting_i        : in  std_logic                     := 'X';             -- spw_link_status_connecting_signal
-			spw_link_status_running_i           : in  std_logic                     := 'X';             -- spw_link_status_running_signal
-			spw_link_error_errdisc_i            : in  std_logic                     := 'X';             -- spw_link_error_errdisc_signal
-			spw_link_error_errpar_i             : in  std_logic                     := 'X';             -- spw_link_error_errpar_signal
-			spw_link_error_erresc_i             : in  std_logic                     := 'X';             -- spw_link_error_erresc_signal
-			spw_link_error_errcred_i            : in  std_logic                     := 'X';             -- spw_link_error_errcred_signal
-			spw_timecode_rx_tick_out_i          : in  std_logic                     := 'X';             -- spw_timecode_rx_tick_out_signal
-			spw_timecode_rx_ctrl_out_i          : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- spw_timecode_rx_ctrl_out_signal
-			spw_timecode_rx_time_out_i          : in  std_logic_vector(5 downto 0)  := (others => 'X'); -- spw_timecode_rx_time_out_signal
-			spw_data_rx_status_rxvalid_i        : in  std_logic                     := 'X';             -- spw_data_rx_status_rxvalid_signal
-			spw_data_rx_status_rxhalff_i        : in  std_logic                     := 'X';             -- spw_data_rx_status_rxhalff_signal
-			spw_data_rx_status_rxflag_i         : in  std_logic                     := 'X';             -- spw_data_rx_status_rxflag_signal
-			spw_data_rx_status_rxdata_i         : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- spw_data_rx_status_rxdata_signal
-			spw_data_tx_status_txrdy_i          : in  std_logic                     := 'X';             -- spw_data_tx_status_txrdy_signal
-			spw_data_tx_status_txhalff_i        : in  std_logic                     := 'X';             -- spw_data_tx_status_txhalff_signal
-			spw_errinj_ctrl_errinj_busy_i       : in  std_logic                     := 'X';             -- spw_errinj_ctrl_errinj_busy_signal
-			spw_errinj_ctrl_errinj_ready_i      : in  std_logic                     := 'X';             -- spw_errinj_ctrl_errinj_ready_signal
-			spw_link_command_autostart_o        : out std_logic;                                        -- spw_link_command_autostart_signal
-			spw_link_command_linkstart_o        : out std_logic;                                        -- spw_link_command_linkstart_signal
-			spw_link_command_linkdis_o          : out std_logic;                                        -- spw_link_command_linkdis_signal
-			spw_link_command_txdivcnt_o         : out std_logic_vector(7 downto 0);                     -- spw_link_command_txdivcnt_signal
-			spw_timecode_tx_tick_in_o           : out std_logic;                                        -- spw_timecode_tx_tick_in_signal
-			spw_timecode_tx_ctrl_in_o           : out std_logic_vector(1 downto 0);                     -- spw_timecode_tx_ctrl_in_signal
-			spw_timecode_tx_time_in_o           : out std_logic_vector(5 downto 0);                     -- spw_timecode_tx_time_in_signal
-			spw_data_rx_command_rxread_o        : out std_logic;                                        -- spw_data_rx_command_rxread_signal
-			spw_data_tx_command_txwrite_o       : out std_logic;                                        -- spw_data_tx_command_txwrite_signal
-			spw_data_tx_command_txflag_o        : out std_logic;                                        -- spw_data_tx_command_txflag_signal
-			spw_data_tx_command_txdata_o        : out std_logic_vector(7 downto 0);                     -- spw_data_tx_command_txdata_signal
-			spw_errinj_ctrl_start_errinj_o      : out std_logic;                                        -- spw_errinj_ctrl_start_errinj_signal
-			spw_errinj_ctrl_reset_errinj_o      : out std_logic;                                        -- spw_errinj_ctrl_reset_errinj_signal
-			spw_errinj_ctrl_errinj_code_o       : out std_logic_vector(3 downto 0);                     -- spw_errinj_ctrl_errinj_code_signal
-			rmm_rmap_target_wr_waitrequest_i    : in  std_logic                     := 'X';             -- wr_waitrequest_signal
-			rmm_rmap_target_readdata_i          : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- readdata_signal
-			rmm_rmap_target_rd_waitrequest_i    : in  std_logic                     := 'X';             -- rd_waitrequest_signal
-			rmm_rmap_target_wr_address_o        : out std_logic_vector(31 downto 0);                    -- wr_address_signal
-			rmm_rmap_target_write_o             : out std_logic;                                        -- write_signal
-			rmm_rmap_target_writedata_o         : out std_logic_vector(7 downto 0);                     -- writedata_signal
-			rmm_rmap_target_rd_address_o        : out std_logic_vector(31 downto 0);                    -- rd_address_signal
-			rmm_rmap_target_read_o              : out std_logic;                                        -- read_signal
-			rmm_fee_hk_wr_waitrequest_i         : in  std_logic                     := 'X';             -- wr_waitrequest_signal
-			rmm_fee_hk_readdata_i               : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- readdata_signal
-			rmm_fee_hk_rd_waitrequest_i         : in  std_logic                     := 'X';             -- rd_waitrequest_signal
-			rmm_fee_hk_wr_address_o             : out std_logic_vector(31 downto 0);                    -- wr_address_signal
-			rmm_fee_hk_write_o                  : out std_logic;                                        -- write_signal
-			rmm_fee_hk_writedata_o              : out std_logic_vector(7 downto 0);                     -- writedata_signal
-			rmm_fee_hk_rd_address_o             : out std_logic_vector(31 downto 0);                    -- rd_address_signal
-			rmm_fee_hk_read_o                   : out std_logic;                                        -- read_signal
-			channel_hk_timecode_control_o       : out std_logic_vector(1 downto 0);                     -- timecode_control_signal
-			channel_hk_timecode_time_o          : out std_logic_vector(5 downto 0);                     -- timecode_time_signal
-			channel_hk_rmap_target_status_o     : out std_logic_vector(7 downto 0);                     -- rmap_target_status_signal
-			channel_hk_rmap_target_indicate_o   : out std_logic;                                        -- rmap_target_indicate_signal
-			channel_hk_spw_link_escape_err_o    : out std_logic;                                        -- spw_link_escape_err_signal
-			channel_hk_spw_link_credit_err_o    : out std_logic;                                        -- spw_link_credit_err_signal
-			channel_hk_spw_link_parity_err_o    : out std_logic;                                        -- spw_link_parity_err_signal
-			channel_hk_spw_link_disconnect_o    : out std_logic;                                        -- spw_link_disconnect_signal
-			channel_hk_spw_link_running_o       : out std_logic;                                        -- spw_link_running_signal
-			channel_hk_frame_counter_o          : out std_logic_vector(15 downto 0);                    -- frame_counter_signal
-			channel_hk_frame_number_o           : out std_logic_vector(1 downto 0);                     -- frame_number_signal
-			channel_hk_err_win_wrong_x_coord_o  : out std_logic;                                        -- err_win_wrong_x_coord_signal
-			channel_hk_err_win_wrong_y_coord_o  : out std_logic;                                        -- err_win_wrong_y_coord_signal
-			channel_hk_err_e_side_buffer_full_o : out std_logic;                                        -- err_e_side_buffer_full_signal
-			channel_hk_err_f_side_buffer_full_o : out std_logic;                                        -- err_f_side_buffer_full_signal
-			channel_hk_err_invalid_ccd_mode_o   : out std_logic;                                        -- err_invalid_ccd_mode_signal
-			channel_win_mem_addr_offset_o       : out std_logic_vector(63 downto 0)                     -- win_mem_addr_offset_signal
+			reset_sink_reset_i                : in  std_logic                     := 'X';             -- reset
+			clock_sink_clk_i                  : in  std_logic                     := 'X';             -- clk
+			channel_sync_i                    : in  std_logic                     := 'X';             -- sync_signal
+			avs_config_address_i              : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- address
+			avs_config_byteenable_i           : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
+			avs_config_write_i                : in  std_logic                     := 'X';             -- write
+			avs_config_writedata_i            : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			avs_config_read_i                 : in  std_logic                     := 'X';             -- read
+			avs_config_readdata_o             : out std_logic_vector(31 downto 0);                    -- readdata
+			avs_config_waitrequest_o          : out std_logic;                                        -- waitrequest
+			spw_link_status_started_i         : in  std_logic                     := 'X';             -- spw_link_status_started_signal
+			spw_link_status_connecting_i      : in  std_logic                     := 'X';             -- spw_link_status_connecting_signal
+			spw_link_status_running_i         : in  std_logic                     := 'X';             -- spw_link_status_running_signal
+			spw_link_error_errdisc_i          : in  std_logic                     := 'X';             -- spw_link_error_errdisc_signal
+			spw_link_error_errpar_i           : in  std_logic                     := 'X';             -- spw_link_error_errpar_signal
+			spw_link_error_erresc_i           : in  std_logic                     := 'X';             -- spw_link_error_erresc_signal
+			spw_link_error_errcred_i          : in  std_logic                     := 'X';             -- spw_link_error_errcred_signal
+			spw_timecode_rx_tick_out_i        : in  std_logic                     := 'X';             -- spw_timecode_rx_tick_out_signal
+			spw_timecode_rx_ctrl_out_i        : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- spw_timecode_rx_ctrl_out_signal
+			spw_timecode_rx_time_out_i        : in  std_logic_vector(5 downto 0)  := (others => 'X'); -- spw_timecode_rx_time_out_signal
+			spw_data_rx_status_rxvalid_i      : in  std_logic                     := 'X';             -- spw_data_rx_status_rxvalid_signal
+			spw_data_rx_status_rxhalff_i      : in  std_logic                     := 'X';             -- spw_data_rx_status_rxhalff_signal
+			spw_data_rx_status_rxflag_i       : in  std_logic                     := 'X';             -- spw_data_rx_status_rxflag_signal
+			spw_data_rx_status_rxdata_i       : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- spw_data_rx_status_rxdata_signal
+			spw_data_tx_status_txrdy_i        : in  std_logic                     := 'X';             -- spw_data_tx_status_txrdy_signal
+			spw_data_tx_status_txhalff_i      : in  std_logic                     := 'X';             -- spw_data_tx_status_txhalff_signal
+			spw_errinj_ctrl_errinj_busy_i     : in  std_logic                     := 'X';             -- spw_errinj_ctrl_errinj_busy_signal
+			spw_errinj_ctrl_errinj_ready_i    : in  std_logic                     := 'X';             -- spw_errinj_ctrl_errinj_ready_signal
+			spw_link_command_autostart_o      : out std_logic;                                        -- spw_link_command_autostart_signal
+			spw_link_command_linkstart_o      : out std_logic;                                        -- spw_link_command_linkstart_signal
+			spw_link_command_linkdis_o        : out std_logic;                                        -- spw_link_command_linkdis_signal
+			spw_link_command_txdivcnt_o       : out std_logic_vector(7 downto 0);                     -- spw_link_command_txdivcnt_signal
+			spw_timecode_tx_tick_in_o         : out std_logic;                                        -- spw_timecode_tx_tick_in_signal
+			spw_timecode_tx_ctrl_in_o         : out std_logic_vector(1 downto 0);                     -- spw_timecode_tx_ctrl_in_signal
+			spw_timecode_tx_time_in_o         : out std_logic_vector(5 downto 0);                     -- spw_timecode_tx_time_in_signal
+			spw_data_rx_command_rxread_o      : out std_logic;                                        -- spw_data_rx_command_rxread_signal
+			spw_data_tx_command_txwrite_o     : out std_logic;                                        -- spw_data_tx_command_txwrite_signal
+			spw_data_tx_command_txflag_o      : out std_logic;                                        -- spw_data_tx_command_txflag_signal
+			spw_data_tx_command_txdata_o      : out std_logic_vector(7 downto 0);                     -- spw_data_tx_command_txdata_signal
+			spw_errinj_ctrl_start_errinj_o    : out std_logic;                                        -- spw_errinj_ctrl_start_errinj_signal
+			spw_errinj_ctrl_reset_errinj_o    : out std_logic;                                        -- spw_errinj_ctrl_reset_errinj_signal
+			spw_errinj_ctrl_errinj_code_o     : out std_logic_vector(3 downto 0);                     -- spw_errinj_ctrl_errinj_code_signal
+			rmm_rmap_target_wr_waitrequest_i  : in  std_logic                     := 'X';             -- wr_waitrequest_signal
+			rmm_rmap_target_readdata_i        : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- readdata_signal
+			rmm_rmap_target_rd_waitrequest_i  : in  std_logic                     := 'X';             -- rd_waitrequest_signal
+			rmm_rmap_target_wr_address_o      : out std_logic_vector(31 downto 0);                    -- wr_address_signal
+			rmm_rmap_target_write_o           : out std_logic;                                        -- write_signal
+			rmm_rmap_target_writedata_o       : out std_logic_vector(7 downto 0);                     -- writedata_signal
+			rmm_rmap_target_rd_address_o      : out std_logic_vector(31 downto 0);                    -- rd_address_signal
+			rmm_rmap_target_read_o            : out std_logic;                                        -- read_signal
+			rmm_fee_hk_wr_waitrequest_i       : in  std_logic                     := 'X';             -- wr_waitrequest_signal
+			rmm_fee_hk_readdata_i             : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- readdata_signal
+			rmm_fee_hk_rd_waitrequest_i       : in  std_logic                     := 'X';             -- rd_waitrequest_signal
+			rmm_fee_hk_wr_address_o           : out std_logic_vector(31 downto 0);                    -- wr_address_signal
+			rmm_fee_hk_write_o                : out std_logic;                                        -- write_signal
+			rmm_fee_hk_writedata_o            : out std_logic_vector(7 downto 0);                     -- writedata_signal
+			rmm_fee_hk_rd_address_o           : out std_logic_vector(31 downto 0);                    -- rd_address_signal
+			rmm_fee_hk_read_o                 : out std_logic;                                        -- read_signal
+			channel_hk_timecode_control_o     : out std_logic_vector(1 downto 0);                     -- timecode_control_signal
+			channel_hk_timecode_time_o        : out std_logic_vector(5 downto 0);                     -- timecode_time_signal
+			channel_hk_rmap_target_status_o   : out std_logic_vector(7 downto 0);                     -- rmap_target_status_signal
+			channel_hk_rmap_target_indicate_o : out std_logic;                                        -- rmap_target_indicate_signal
+			channel_hk_spw_link_escape_err_o  : out std_logic;                                        -- spw_link_escape_err_signal
+			channel_hk_spw_link_credit_err_o  : out std_logic;                                        -- spw_link_credit_err_signal
+			channel_hk_spw_link_parity_err_o  : out std_logic;                                        -- spw_link_parity_err_signal
+			channel_hk_spw_link_disconnect_o  : out std_logic;                                        -- spw_link_disconnect_signal
+			channel_hk_spw_link_running_o     : out std_logic;                                        -- spw_link_running_signal
+			channel_hk_frame_counter_o        : out std_logic_vector(15 downto 0);                    -- frame_counter_signal
+			channel_hk_frame_number_o         : out std_logic_vector(1 downto 0)                      -- frame_number_signal
 		);
 	end component scom_synchronization_comm_top;
 
@@ -1061,6 +1044,46 @@ architecture rtl of MebX_Qsys_Project is
 			channel_win_mem_addr_offset_i       : in  std_logic_vector(63 downto 0) := (others => 'X')  -- win_mem_addr_offset_signal
 		);
 	end component nrme_rmap_memory_nfee_area_top;
+
+	component srme_RMAP_Memory_SCOM_Area_top is
+		port (
+			reset_i                           : in  std_logic                     := 'X';             -- reset
+			clk_100_i                         : in  std_logic                     := 'X';             -- clk
+			avs_0_rmap_address_i              : in  std_logic_vector(11 downto 0) := (others => 'X'); -- address
+			avs_0_rmap_write_i                : in  std_logic                     := 'X';             -- write
+			avs_0_rmap_read_i                 : in  std_logic                     := 'X';             -- read
+			avs_0_rmap_readdata_o             : out std_logic_vector(31 downto 0);                    -- readdata
+			avs_0_rmap_writedata_i            : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			avs_0_rmap_waitrequest_o          : out std_logic;                                        -- waitrequest
+			fee_0_rmap_wr_address_i           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- wr_address_signal
+			fee_0_rmap_write_i                : in  std_logic                     := 'X';             -- write_signal
+			fee_0_rmap_writedata_i            : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata_signal
+			fee_0_rmap_rd_address_i           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- rd_address_signal
+			fee_0_rmap_read_i                 : in  std_logic                     := 'X';             -- read_signal
+			fee_0_rmap_wr_waitrequest_o       : out std_logic;                                        -- wr_waitrequest_signal
+			fee_0_rmap_readdata_o             : out std_logic_vector(7 downto 0);                     -- readdata_signal
+			fee_0_rmap_rd_waitrequest_o       : out std_logic;                                        -- rd_waitrequest_signal
+			fee_1_rmap_wr_address_i           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- wr_address_signal
+			fee_1_rmap_write_i                : in  std_logic                     := 'X';             -- write_signal
+			fee_1_rmap_writedata_i            : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata_signal
+			fee_1_rmap_rd_address_i           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- rd_address_signal
+			fee_1_rmap_read_i                 : in  std_logic                     := 'X';             -- read_signal
+			fee_1_rmap_wr_waitrequest_o       : out std_logic;                                        -- wr_waitrequest_signal
+			fee_1_rmap_readdata_o             : out std_logic_vector(7 downto 0);                     -- readdata_signal
+			fee_1_rmap_rd_waitrequest_o       : out std_logic;                                        -- rd_waitrequest_signal
+			channel_hk_timecode_control_i     : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- timecode_control_signal
+			channel_hk_timecode_time_i        : in  std_logic_vector(5 downto 0)  := (others => 'X'); -- timecode_time_signal
+			channel_hk_rmap_target_status_i   : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- rmap_target_status_signal
+			channel_hk_rmap_target_indicate_i : in  std_logic                     := 'X';             -- rmap_target_indicate_signal
+			channel_hk_spw_link_escape_err_i  : in  std_logic                     := 'X';             -- spw_link_escape_err_signal
+			channel_hk_spw_link_credit_err_i  : in  std_logic                     := 'X';             -- spw_link_credit_err_signal
+			channel_hk_spw_link_parity_err_i  : in  std_logic                     := 'X';             -- spw_link_parity_err_signal
+			channel_hk_spw_link_disconnect_i  : in  std_logic                     := 'X';             -- spw_link_disconnect_signal
+			channel_hk_spw_link_running_i     : in  std_logic                     := 'X';             -- spw_link_running_signal
+			channel_hk_frame_counter_i        : in  std_logic_vector(15 downto 0) := (others => 'X'); -- frame_counter_signal
+			channel_hk_frame_number_i         : in  std_logic_vector(1 downto 0)  := (others => 'X')  -- frame_number_signal
+		);
+	end component srme_RMAP_Memory_SCOM_Area_top;
 
 	component MebX_Qsys_Project_rs232_uart is
 		port (
@@ -1523,7 +1546,6 @@ architecture rtl of MebX_Qsys_Project is
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read                      : out std_logic;                                        -- read
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_readdata                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata                 : out std_logic_vector(31 downto 0);                    -- writedata
-			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable                : out std_logic_vector(3 downto 0);                     -- byteenable
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest               : in  std_logic                     := 'X';             -- waitrequest
 			Synchronization_COMM_0_avalon_mm_config_slave_address              : out std_logic_vector(7 downto 0);                     -- address
 			Synchronization_COMM_0_avalon_mm_config_slave_write                : out std_logic;                                        -- write
@@ -1638,25 +1660,6 @@ architecture rtl of MebX_Qsys_Project is
 			rst_controller_avalon_rst_controller_slave_readdata                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			rst_controller_avalon_rst_controller_slave_writedata                   : out std_logic_vector(31 downto 0);                    -- writedata
 			rst_controller_avalon_rst_controller_slave_waitrequest                 : in  std_logic                     := 'X';             -- waitrequest
-			rtcc_alarm_s1_address                                                  : out std_logic_vector(1 downto 0);                     -- address
-			rtcc_alarm_s1_readdata                                                 : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			rtcc_cs_n_s1_address                                                   : out std_logic_vector(1 downto 0);                     -- address
-			rtcc_cs_n_s1_write                                                     : out std_logic;                                        -- write
-			rtcc_cs_n_s1_readdata                                                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			rtcc_cs_n_s1_writedata                                                 : out std_logic_vector(31 downto 0);                    -- writedata
-			rtcc_cs_n_s1_chipselect                                                : out std_logic;                                        -- chipselect
-			rtcc_sck_s1_address                                                    : out std_logic_vector(1 downto 0);                     -- address
-			rtcc_sck_s1_write                                                      : out std_logic;                                        -- write
-			rtcc_sck_s1_readdata                                                   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			rtcc_sck_s1_writedata                                                  : out std_logic_vector(31 downto 0);                    -- writedata
-			rtcc_sck_s1_chipselect                                                 : out std_logic;                                        -- chipselect
-			rtcc_sdi_s1_address                                                    : out std_logic_vector(1 downto 0);                     -- address
-			rtcc_sdi_s1_write                                                      : out std_logic;                                        -- write
-			rtcc_sdi_s1_readdata                                                   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			rtcc_sdi_s1_writedata                                                  : out std_logic_vector(31 downto 0);                    -- writedata
-			rtcc_sdi_s1_chipselect                                                 : out std_logic;                                        -- chipselect
-			rtcc_sdo_s1_address                                                    : out std_logic_vector(1 downto 0);                     -- address
-			rtcc_sdo_s1_readdata                                                   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			sd_card_wp_n_s1_address                                                : out std_logic_vector(1 downto 0);                     -- address
 			sd_card_wp_n_s1_readdata                                               : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			sync_avalon_mm_slave_address                                           : out std_logic_vector(7 downto 0);                     -- address
@@ -2185,22 +2188,17 @@ architecture rtl of MebX_Qsys_Project is
 	signal communication_module_v2_ch6_conduit_end_channel_hk_out_frame_counter_signal                      : std_logic_vector(15 downto 0);  -- Communication_Module_v2_Ch6:channel_hk_frame_counter_o -> rmap_mem_nfee_comm_6:channel_hk_frame_counter_i
 	signal communication_module_v2_ch6_conduit_end_channel_hk_out_timecode_control_signal                   : std_logic_vector(1 downto 0);   -- Communication_Module_v2_Ch6:channel_hk_timecode_control_o -> rmap_mem_nfee_comm_6:channel_hk_timecode_control_i
 	signal communication_module_v2_ch6_conduit_end_channel_hk_out_frame_number_signal                       : std_logic_vector(1 downto 0);   -- Communication_Module_v2_Ch6:channel_hk_frame_number_o -> rmap_mem_nfee_comm_6:channel_hk_frame_number_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_err_e_side_buffer_full_signal                  : std_logic;                      -- Synchronization_COMM_0:channel_hk_err_e_side_buffer_full_o -> rmap_mem_nfee_scom_0:channel_hk_err_e_side_buffer_full_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_escape_err_signal                     : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_escape_err_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_escape_err_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_indicate_signal                    : std_logic;                      -- Synchronization_COMM_0:channel_hk_rmap_target_indicate_o -> rmap_mem_nfee_scom_0:channel_hk_rmap_target_indicate_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_err_win_wrong_y_coord_signal                   : std_logic;                      -- Synchronization_COMM_0:channel_hk_err_win_wrong_y_coord_o -> rmap_mem_nfee_scom_0:channel_hk_err_win_wrong_y_coord_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_running_signal                        : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_running_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_running_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_credit_err_signal                     : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_credit_err_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_credit_err_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_err_win_wrong_x_coord_signal                   : std_logic;                      -- Synchronization_COMM_0:channel_hk_err_win_wrong_x_coord_o -> rmap_mem_nfee_scom_0:channel_hk_err_win_wrong_x_coord_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_status_signal                      : std_logic_vector(7 downto 0);   -- Synchronization_COMM_0:channel_hk_rmap_target_status_o -> rmap_mem_nfee_scom_0:channel_hk_rmap_target_status_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_err_f_side_buffer_full_signal                  : std_logic;                      -- Synchronization_COMM_0:channel_hk_err_f_side_buffer_full_o -> rmap_mem_nfee_scom_0:channel_hk_err_f_side_buffer_full_i
 	signal synchronization_comm_0_conduit_end_channel_hk_out_timecode_time_signal                           : std_logic_vector(5 downto 0);   -- Synchronization_COMM_0:channel_hk_timecode_time_o -> rmap_mem_nfee_scom_0:channel_hk_timecode_time_i
 	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_parity_err_signal                     : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_parity_err_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_parity_err_i
 	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_disconnect_signal                     : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_disconnect_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_disconnect_i
-	signal synchronization_comm_0_conduit_end_channel_hk_out_err_invalid_ccd_mode_signal                    : std_logic;                      -- Synchronization_COMM_0:channel_hk_err_invalid_ccd_mode_o -> rmap_mem_nfee_scom_0:channel_hk_err_invalid_ccd_mode_i
+	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_escape_err_signal                     : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_escape_err_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_escape_err_i
+	signal synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_indicate_signal                    : std_logic;                      -- Synchronization_COMM_0:channel_hk_rmap_target_indicate_o -> rmap_mem_nfee_scom_0:channel_hk_rmap_target_indicate_i
+	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_running_signal                        : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_running_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_running_i
 	signal synchronization_comm_0_conduit_end_channel_hk_out_frame_counter_signal                           : std_logic_vector(15 downto 0);  -- Synchronization_COMM_0:channel_hk_frame_counter_o -> rmap_mem_nfee_scom_0:channel_hk_frame_counter_i
+	signal synchronization_comm_0_conduit_end_channel_hk_out_spw_link_credit_err_signal                     : std_logic;                      -- Synchronization_COMM_0:channel_hk_spw_link_credit_err_o -> rmap_mem_nfee_scom_0:channel_hk_spw_link_credit_err_i
 	signal synchronization_comm_0_conduit_end_channel_hk_out_timecode_control_signal                        : std_logic_vector(1 downto 0);   -- Synchronization_COMM_0:channel_hk_timecode_control_o -> rmap_mem_nfee_scom_0:channel_hk_timecode_control_i
 	signal synchronization_comm_0_conduit_end_channel_hk_out_frame_number_signal                            : std_logic_vector(1 downto 0);   -- Synchronization_COMM_0:channel_hk_frame_number_o -> rmap_mem_nfee_scom_0:channel_hk_frame_number_i
+	signal synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_status_signal                      : std_logic_vector(7 downto 0);   -- Synchronization_COMM_0:channel_hk_rmap_target_status_o -> rmap_mem_nfee_scom_0:channel_hk_rmap_target_status_i
 	signal communication_module_v2_ch5_conduit_end_channel_hk_out_err_e_side_buffer_full_signal             : std_logic;                      -- Communication_Module_v2_Ch5:channel_hk_err_e_side_buffer_full_o -> rmap_mem_nfee_comm_5:channel_hk_err_e_side_buffer_full_i
 	signal communication_module_v2_ch5_conduit_end_channel_hk_out_spw_link_escape_err_signal                : std_logic;                      -- Communication_Module_v2_Ch5:channel_hk_spw_link_escape_err_o -> rmap_mem_nfee_comm_5:channel_hk_spw_link_escape_err_i
 	signal communication_module_v2_ch5_conduit_end_channel_hk_out_rmap_target_indicate_signal               : std_logic;                      -- Communication_Module_v2_Ch5:channel_hk_rmap_target_indicate_o -> rmap_mem_nfee_comm_5:channel_hk_rmap_target_indicate_i
@@ -2257,6 +2255,14 @@ architecture rtl of MebX_Qsys_Project is
 	signal rmap_mem_nfee_comm_6_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_comm_6:fee_0_rmap_wr_waitrequest_o -> Communication_Module_v2_Ch6:rmm_rmap_target_wr_waitrequest_i
 	signal communication_module_v2_ch6_conduit_end_rmap_mem_master_rmap_target_writedata_signal             : std_logic_vector(7 downto 0);   -- Communication_Module_v2_Ch6:rmm_rmap_target_writedata_o -> rmap_mem_nfee_comm_6:fee_0_rmap_writedata_i
 	signal rmap_mem_nfee_comm_6_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_comm_6:fee_0_rmap_rd_waitrequest_o -> Communication_Module_v2_Ch6:rmm_rmap_target_rd_waitrequest_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_write_signal                      : std_logic;                      -- Synchronization_COMM_0:rmm_rmap_target_write_o -> rmap_mem_nfee_scom_0:fee_0_rmap_write_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_rd_address_signal                 : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_rmap_target_rd_address_o -> rmap_mem_nfee_scom_0:fee_0_rmap_rd_address_i
+	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_readdata_signal                                : std_logic_vector(7 downto 0);   -- rmap_mem_nfee_scom_0:fee_0_rmap_readdata_o -> Synchronization_COMM_0:rmm_rmap_target_readdata_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_wr_address_signal                 : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_rmap_target_wr_address_o -> rmap_mem_nfee_scom_0:fee_0_rmap_wr_address_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_read_signal                       : std_logic;                      -- Synchronization_COMM_0:rmm_rmap_target_read_o -> rmap_mem_nfee_scom_0:fee_0_rmap_read_i
+	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_0_rmap_wr_waitrequest_o -> Synchronization_COMM_0:rmm_rmap_target_wr_waitrequest_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_writedata_signal                  : std_logic_vector(7 downto 0);   -- Synchronization_COMM_0:rmm_rmap_target_writedata_o -> rmap_mem_nfee_scom_0:fee_0_rmap_writedata_i
+	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_0_rmap_rd_waitrequest_o -> Synchronization_COMM_0:rmm_rmap_target_rd_waitrequest_i
 	signal communication_module_v2_ch1_conduit_end_rmap_mem_master_fee_hk_write_signal                      : std_logic;                      -- Communication_Module_v2_Ch1:rmm_fee_hk_write_o -> rmap_mem_nfee_comm_1:fee_1_rmap_write_i
 	signal communication_module_v2_ch1_conduit_end_rmap_mem_master_fee_hk_rd_address_signal                 : std_logic_vector(31 downto 0);  -- Communication_Module_v2_Ch1:rmm_fee_hk_rd_address_o -> rmap_mem_nfee_comm_1:fee_1_rmap_rd_address_i
 	signal rmap_mem_nfee_comm_1_conduit_end_fee_rmap_slave_1_readdata_signal                                : std_logic_vector(7 downto 0);   -- rmap_mem_nfee_comm_1:fee_1_rmap_readdata_o -> Communication_Module_v2_Ch1:rmm_fee_hk_readdata_i
@@ -2305,17 +2311,8 @@ architecture rtl of MebX_Qsys_Project is
 	signal rmap_mem_nfee_comm_6_conduit_end_fee_rmap_slave_1_wr_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_comm_6:fee_1_rmap_wr_waitrequest_o -> Communication_Module_v2_Ch6:rmm_fee_hk_wr_waitrequest_i
 	signal communication_module_v2_ch6_conduit_end_rmap_mem_master_fee_hk_writedata_signal                  : std_logic_vector(7 downto 0);   -- Communication_Module_v2_Ch6:rmm_fee_hk_writedata_o -> rmap_mem_nfee_comm_6:fee_1_rmap_writedata_i
 	signal rmap_mem_nfee_comm_6_conduit_end_fee_rmap_slave_1_rd_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_comm_6:fee_1_rmap_rd_waitrequest_o -> Communication_Module_v2_Ch6:rmm_fee_hk_rd_waitrequest_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_write_signal                           : std_logic;                      -- Synchronization_COMM_0:rmm_fee_hk_write_o -> rmap_mem_nfee_scom_0:fee_1_rmap_write_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_rd_address_signal                      : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_fee_hk_rd_address_o -> rmap_mem_nfee_scom_0:fee_1_rmap_rd_address_i
-	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_readdata_signal                                : std_logic_vector(7 downto 0);   -- rmap_mem_nfee_scom_0:fee_1_rmap_readdata_o -> Synchronization_COMM_0:rmm_fee_hk_readdata_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_wr_address_signal                      : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_fee_hk_wr_address_o -> rmap_mem_nfee_scom_0:fee_1_rmap_wr_address_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_read_signal                            : std_logic;                      -- Synchronization_COMM_0:rmm_fee_hk_read_o -> rmap_mem_nfee_scom_0:fee_1_rmap_read_i
-	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_wr_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_1_rmap_wr_waitrequest_o -> Synchronization_COMM_0:rmm_fee_hk_wr_waitrequest_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_writedata_signal                       : std_logic_vector(7 downto 0);   -- Synchronization_COMM_0:rmm_fee_hk_writedata_o -> rmap_mem_nfee_scom_0:fee_1_rmap_writedata_i
-	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_rd_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_1_rmap_rd_waitrequest_o -> Synchronization_COMM_0:rmm_fee_hk_rd_waitrequest_i
 	signal communication_module_v2_ch6_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal          : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch6:channel_win_mem_addr_offset_o -> rmap_mem_nfee_comm_6:channel_win_mem_addr_offset_i
 	signal communication_module_v2_ch1_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal          : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch1:channel_win_mem_addr_offset_o -> rmap_mem_nfee_comm_1:channel_win_mem_addr_offset_i
-	signal synchronization_comm_0_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal               : std_logic_vector(63 downto 0);  -- Synchronization_COMM_0:channel_win_mem_addr_offset_o -> rmap_mem_nfee_scom_0:channel_win_mem_addr_offset_i
 	signal communication_module_v2_ch2_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal          : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch2:channel_win_mem_addr_offset_o -> rmap_mem_nfee_comm_2:channel_win_mem_addr_offset_i
 	signal communication_module_v2_ch3_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal          : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch3:channel_win_mem_addr_offset_o -> rmap_mem_nfee_comm_3:channel_win_mem_addr_offset_i
 	signal communication_module_v2_ch4_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal          : std_logic_vector(63 downto 0);  -- Communication_Module_v2_Ch4:channel_win_mem_addr_offset_o -> rmap_mem_nfee_comm_4:channel_win_mem_addr_offset_i
@@ -2368,6 +2365,14 @@ architecture rtl of MebX_Qsys_Project is
 	signal communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrdata_signal                     : std_logic_vector(7 downto 0);   -- Communication_Module_v2_Ch3:rmap_echo_out_fifo_wrdata_o -> RMAP_Echoing:rmap_echo_2_out_fifo_wrdata_i
 	signal communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrdata_signal                      : std_logic_vector(7 downto 0);   -- Communication_Module_v2_Ch3:rmap_echo_in_fifo_wrdata_o -> RMAP_Echoing:rmap_echo_2_in_fifo_wrdata_i
 	signal communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_en_signal                             : std_logic;                      -- Communication_Module_v2_Ch3:rmap_echo_echo_en_o -> RMAP_Echoing:rmap_echo_2_echo_en_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_write_signal                           : std_logic;                      -- Synchronization_COMM_0:rmm_fee_hk_write_o -> rmap_mem_nfee_scom_0:fee_1_rmap_write_i
+	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_readdata_signal                                : std_logic_vector(7 downto 0);   -- rmap_mem_nfee_scom_0:fee_1_rmap_readdata_o -> Synchronization_COMM_0:rmm_fee_hk_readdata_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_rd_address_signal                      : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_fee_hk_rd_address_o -> rmap_mem_nfee_scom_0:fee_1_rmap_rd_address_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_wr_address_signal                      : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_fee_hk_wr_address_o -> rmap_mem_nfee_scom_0:fee_1_rmap_wr_address_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_read_signal                            : std_logic;                      -- Synchronization_COMM_0:rmm_fee_hk_read_o -> rmap_mem_nfee_scom_0:fee_1_rmap_read_i
+	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_wr_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_1_rmap_wr_waitrequest_o -> Synchronization_COMM_0:rmm_fee_hk_wr_waitrequest_i
+	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_rd_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_1_rmap_rd_waitrequest_o -> Synchronization_COMM_0:rmm_fee_hk_rd_waitrequest_i
+	signal synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_writedata_signal                       : std_logic_vector(7 downto 0);   -- Synchronization_COMM_0:rmm_fee_hk_writedata_o -> rmap_mem_nfee_scom_0:fee_1_rmap_writedata_i
 	signal communication_module_v2_ch3_conduit_end_rmap_mem_master_rmap_target_write_signal                 : std_logic;                      -- Communication_Module_v2_Ch3:rmm_rmap_target_write_o -> rmap_mem_nfee_comm_3:fee_0_rmap_write_i
 	signal rmap_mem_nfee_comm_3_conduit_end_fee_rmap_slave_0_readdata_signal                                : std_logic_vector(7 downto 0);   -- rmap_mem_nfee_comm_3:fee_0_rmap_readdata_o -> Communication_Module_v2_Ch3:rmm_rmap_target_readdata_i
 	signal communication_module_v2_ch3_conduit_end_rmap_mem_master_rmap_target_rd_address_signal            : std_logic_vector(31 downto 0);  -- Communication_Module_v2_Ch3:rmm_rmap_target_rd_address_o -> rmap_mem_nfee_comm_3:fee_0_rmap_rd_address_i
@@ -2376,14 +2381,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal rmap_mem_nfee_comm_3_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_comm_3:fee_0_rmap_wr_waitrequest_o -> Communication_Module_v2_Ch3:rmm_rmap_target_wr_waitrequest_i
 	signal rmap_mem_nfee_comm_3_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_comm_3:fee_0_rmap_rd_waitrequest_o -> Communication_Module_v2_Ch3:rmm_rmap_target_rd_waitrequest_i
 	signal communication_module_v2_ch3_conduit_end_rmap_mem_master_rmap_target_writedata_signal             : std_logic_vector(7 downto 0);   -- Communication_Module_v2_Ch3:rmm_rmap_target_writedata_o -> rmap_mem_nfee_comm_3:fee_0_rmap_writedata_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_write_signal                      : std_logic;                      -- Synchronization_COMM_0:rmm_rmap_target_write_o -> rmap_mem_nfee_scom_0:fee_0_rmap_write_i
-	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_readdata_signal                                : std_logic_vector(7 downto 0);   -- rmap_mem_nfee_scom_0:fee_0_rmap_readdata_o -> Synchronization_COMM_0:rmm_rmap_target_readdata_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_rd_address_signal                 : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_rmap_target_rd_address_o -> rmap_mem_nfee_scom_0:fee_0_rmap_rd_address_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_wr_address_signal                 : std_logic_vector(31 downto 0);  -- Synchronization_COMM_0:rmm_rmap_target_wr_address_o -> rmap_mem_nfee_scom_0:fee_0_rmap_wr_address_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_read_signal                       : std_logic;                      -- Synchronization_COMM_0:rmm_rmap_target_read_o -> rmap_mem_nfee_scom_0:fee_0_rmap_read_i
-	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_0_rmap_wr_waitrequest_o -> Synchronization_COMM_0:rmm_rmap_target_wr_waitrequest_i
-	signal rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal                          : std_logic;                      -- rmap_mem_nfee_scom_0:fee_0_rmap_rd_waitrequest_o -> Synchronization_COMM_0:rmm_rmap_target_rd_waitrequest_i
-	signal synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_writedata_signal                  : std_logic_vector(7 downto 0);   -- Synchronization_COMM_0:rmm_rmap_target_writedata_o -> rmap_mem_nfee_scom_0:fee_0_rmap_writedata_i
 	signal spacewire_channel_a_conduit_end_spacewire_channel_spw_data_rx_status_rxvalid_signal              : std_logic;                      -- SpaceWire_Channel_A:spw_data_rx_status_rxvalid_o -> Communication_Module_v2_Ch1:spw_data_rx_status_rxvalid_i
 	signal spacewire_channel_a_conduit_end_spacewire_channel_spw_errinj_ctrl_errinj_busy_signal             : std_logic;                      -- SpaceWire_Channel_A:spw_errinj_ctrl_errinj_busy_o -> Communication_Module_v2_Ch1:spw_errinj_ctrl_errinj_busy_i
 	signal communication_module_v2_ch1_conduit_end_spacewire_controller_spw_errinj_ctrl_start_errinj_signal : std_logic;                      -- Communication_Module_v2_Ch1:spw_errinj_ctrl_start_errinj_o -> SpaceWire_Channel_A:spw_errinj_ctrl_start_errinj_i
@@ -2888,7 +2885,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest                           : std_logic;                      -- rmap_mem_nfee_scom_0:avs_0_rmap_waitrequest_o -> mm_interconnect_1:rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest
 	signal mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_address                               : std_logic_vector(11 downto 0);  -- mm_interconnect_1:rmap_mem_nfee_scom_0_avalon_rmap_slave_0_address -> rmap_mem_nfee_scom_0:avs_0_rmap_address_i
 	signal mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read                                  : std_logic;                      -- mm_interconnect_1:rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read -> rmap_mem_nfee_scom_0:avs_0_rmap_read_i
-	signal mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable                            : std_logic_vector(3 downto 0);   -- mm_interconnect_1:rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable -> rmap_mem_nfee_scom_0:avs_0_rmap_byteenable_i
 	signal mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_write                                 : std_logic;                      -- mm_interconnect_1:rmap_mem_nfee_scom_0_avalon_rmap_slave_0_write -> rmap_mem_nfee_scom_0:avs_0_rmap_write_i
 	signal mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata                             : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata -> rmap_mem_nfee_scom_0:avs_0_rmap_writedata_i
 	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_readdata                              : std_logic_vector(31 downto 0);  -- FTDI_UMFT601A_Module:avalon_slave_config_readdata_o -> mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_readdata
@@ -3067,25 +3063,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_led_painel_s1_address                                                      : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_LED_painel_s1_address -> pio_LED_painel:address
 	signal mm_interconnect_2_pio_led_painel_s1_write                                                        : std_logic;                      -- mm_interconnect_2:pio_LED_painel_s1_write -> mm_interconnect_2_pio_led_painel_s1_write:in
 	signal mm_interconnect_2_pio_led_painel_s1_writedata                                                    : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_LED_painel_s1_writedata -> pio_LED_painel:writedata
-	signal mm_interconnect_2_rtcc_alarm_s1_readdata                                                         : std_logic_vector(31 downto 0);  -- rtcc_alarm:readdata -> mm_interconnect_2:rtcc_alarm_s1_readdata
-	signal mm_interconnect_2_rtcc_alarm_s1_address                                                          : std_logic_vector(1 downto 0);   -- mm_interconnect_2:rtcc_alarm_s1_address -> rtcc_alarm:address
-	signal mm_interconnect_2_rtcc_sdo_s1_readdata                                                           : std_logic_vector(31 downto 0);  -- rtcc_sdo:readdata -> mm_interconnect_2:rtcc_sdo_s1_readdata
-	signal mm_interconnect_2_rtcc_sdo_s1_address                                                            : std_logic_vector(1 downto 0);   -- mm_interconnect_2:rtcc_sdo_s1_address -> rtcc_sdo:address
-	signal mm_interconnect_2_rtcc_sdi_s1_chipselect                                                         : std_logic;                      -- mm_interconnect_2:rtcc_sdi_s1_chipselect -> rtcc_sdi:chipselect
-	signal mm_interconnect_2_rtcc_sdi_s1_readdata                                                           : std_logic_vector(31 downto 0);  -- rtcc_sdi:readdata -> mm_interconnect_2:rtcc_sdi_s1_readdata
-	signal mm_interconnect_2_rtcc_sdi_s1_address                                                            : std_logic_vector(1 downto 0);   -- mm_interconnect_2:rtcc_sdi_s1_address -> rtcc_sdi:address
-	signal mm_interconnect_2_rtcc_sdi_s1_write                                                              : std_logic;                      -- mm_interconnect_2:rtcc_sdi_s1_write -> mm_interconnect_2_rtcc_sdi_s1_write:in
-	signal mm_interconnect_2_rtcc_sdi_s1_writedata                                                          : std_logic_vector(31 downto 0);  -- mm_interconnect_2:rtcc_sdi_s1_writedata -> rtcc_sdi:writedata
-	signal mm_interconnect_2_rtcc_sck_s1_chipselect                                                         : std_logic;                      -- mm_interconnect_2:rtcc_sck_s1_chipselect -> rtcc_sck:chipselect
-	signal mm_interconnect_2_rtcc_sck_s1_readdata                                                           : std_logic_vector(31 downto 0);  -- rtcc_sck:readdata -> mm_interconnect_2:rtcc_sck_s1_readdata
-	signal mm_interconnect_2_rtcc_sck_s1_address                                                            : std_logic_vector(1 downto 0);   -- mm_interconnect_2:rtcc_sck_s1_address -> rtcc_sck:address
-	signal mm_interconnect_2_rtcc_sck_s1_write                                                              : std_logic;                      -- mm_interconnect_2:rtcc_sck_s1_write -> mm_interconnect_2_rtcc_sck_s1_write:in
-	signal mm_interconnect_2_rtcc_sck_s1_writedata                                                          : std_logic_vector(31 downto 0);  -- mm_interconnect_2:rtcc_sck_s1_writedata -> rtcc_sck:writedata
-	signal mm_interconnect_2_rtcc_cs_n_s1_chipselect                                                        : std_logic;                      -- mm_interconnect_2:rtcc_cs_n_s1_chipselect -> rtcc_cs_n:chipselect
-	signal mm_interconnect_2_rtcc_cs_n_s1_readdata                                                          : std_logic_vector(31 downto 0);  -- rtcc_cs_n:readdata -> mm_interconnect_2:rtcc_cs_n_s1_readdata
-	signal mm_interconnect_2_rtcc_cs_n_s1_address                                                           : std_logic_vector(1 downto 0);   -- mm_interconnect_2:rtcc_cs_n_s1_address -> rtcc_cs_n:address
-	signal mm_interconnect_2_rtcc_cs_n_s1_write                                                             : std_logic;                      -- mm_interconnect_2:rtcc_cs_n_s1_write -> mm_interconnect_2_rtcc_cs_n_s1_write:in
-	signal mm_interconnect_2_rtcc_cs_n_s1_writedata                                                         : std_logic_vector(31 downto 0);  -- mm_interconnect_2:rtcc_cs_n_s1_writedata -> rtcc_cs_n:writedata
 	signal mm_interconnect_2_rs232_uart_s1_chipselect                                                       : std_logic;                      -- mm_interconnect_2:rs232_uart_s1_chipselect -> rs232_uart:chipselect
 	signal mm_interconnect_2_rs232_uart_s1_readdata                                                         : std_logic_vector(15 downto 0);  -- rs232_uart:readdata -> mm_interconnect_2:rs232_uart_s1_readdata
 	signal mm_interconnect_2_rs232_uart_s1_address                                                          : std_logic_vector(2 downto 0);   -- mm_interconnect_2:rs232_uart_s1_address -> rs232_uart:address
@@ -3203,16 +3180,13 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_csense_cs_n_s1_write_ports_inv                                                 : std_logic;                      -- mm_interconnect_2_csense_cs_n_s1_write:inv -> csense_cs_n:write_n
 	signal mm_interconnect_2_csense_adc_fo_s1_write_ports_inv                                               : std_logic;                      -- mm_interconnect_2_csense_adc_fo_s1_write:inv -> csense_adc_fo:write_n
 	signal mm_interconnect_2_pio_led_painel_s1_write_ports_inv                                              : std_logic;                      -- mm_interconnect_2_pio_led_painel_s1_write:inv -> pio_LED_painel:write_n
-	signal mm_interconnect_2_rtcc_sdi_s1_write_ports_inv                                                    : std_logic;                      -- mm_interconnect_2_rtcc_sdi_s1_write:inv -> rtcc_sdi:write_n
-	signal mm_interconnect_2_rtcc_sck_s1_write_ports_inv                                                    : std_logic;                      -- mm_interconnect_2_rtcc_sck_s1_write:inv -> rtcc_sck:write_n
-	signal mm_interconnect_2_rtcc_cs_n_s1_write_ports_inv                                                   : std_logic;                      -- mm_interconnect_2_rtcc_cs_n_s1_write:inv -> rtcc_cs_n:write_n
 	signal mm_interconnect_2_rs232_uart_s1_read_ports_inv                                                   : std_logic;                      -- mm_interconnect_2_rs232_uart_s1_read:inv -> rs232_uart:read_n
 	signal mm_interconnect_2_rs232_uart_s1_write_ports_inv                                                  : std_logic;                      -- mm_interconnect_2_rs232_uart_s1_write:inv -> rs232_uart:write_n
 	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_write_ports_inv                                            : std_logic;                      -- mm_interconnect_2_pio_ctrl_io_lvds_s1_write:inv -> pio_ctrl_io_lvds:write_n
 	signal mm_interconnect_3_m1_ddr2_memory_avl_inv                                                         : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_3:m1_ddr2_memory_avl_waitrequest
 	signal rst_controller_001_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_001_reset_out_reset:inv -> Altera_UP_SD_Card_Avalon_Interface_0:i_reset_n
 	signal rst_controller_008_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_008_reset_out_reset:inv -> [jtag_uart_0:rst_n, sysid_qsys:reset_n]
-	signal rst_controller_019_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_019_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
+	signal rst_controller_019_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_019_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
 	signal m2_ddr2_memory_afi_reset_reset_ports_inv                                                         : std_logic;                      -- m2_ddr2_memory_afi_reset_reset:inv -> rst_controller_021:reset_in0
 	signal rst_controller_022_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_022_reset_out_reset:inv -> nios2_gen2_0:reset_n
 	signal rst_controller_023_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_023_reset_out_reset:inv -> rs232_uart:reset_n
@@ -4372,81 +4346,75 @@ begin
 
 	synchronization_comm_0 : component scom_synchronization_comm_top
 		port map (
-			reset_sink_reset_i                  => rst_controller_018_reset_out_reset,                                                          --                              reset_sink.reset
-			clock_sink_clk_i                    => m2_ddr2_memory_afi_half_clk_clk,                                                             --                              clock_sink.clk
-			channel_sync_i                      => scom_0_sync_sync_signal,                                                                     --                conduit_end_channel_sync.sync_signal
-			avs_config_address_i                => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_address,                     --                  avalon_mm_config_slave.address
-			avs_config_byteenable_i             => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_byteenable,                  --                                        .byteenable
-			avs_config_write_i                  => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_write,                       --                                        .write
-			avs_config_writedata_i              => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_writedata,                   --                                        .writedata
-			avs_config_read_i                   => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_read,                        --                                        .read
-			avs_config_readdata_o               => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_readdata,                    --                                        .readdata
-			avs_config_waitrequest_o            => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_waitrequest,                 --                                        .waitrequest
-			spw_link_status_started_i           => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_started_signal,            --        conduit_end_spacewire_controller.spw_link_status_started_signal
-			spw_link_status_connecting_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_connecting_signal,         --                                        .spw_link_status_connecting_signal
-			spw_link_status_running_i           => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_running_signal,            --                                        .spw_link_status_running_signal
-			spw_link_error_errdisc_i            => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_errdisc_signal,             --                                        .spw_link_error_errdisc_signal
-			spw_link_error_errpar_i             => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_errpar_signal,              --                                        .spw_link_error_errpar_signal
-			spw_link_error_erresc_i             => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_erresc_signal,              --                                        .spw_link_error_erresc_signal
-			spw_link_error_errcred_i            => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_errcred_signal,             --                                        .spw_link_error_errcred_signal
-			spw_timecode_rx_tick_out_i          => spacewire_channel_g_conduit_end_spacewire_channel_spw_timecode_rx_tick_out_signal,           --                                        .spw_timecode_rx_tick_out_signal
-			spw_timecode_rx_ctrl_out_i          => spacewire_channel_g_conduit_end_spacewire_channel_spw_timecode_rx_ctrl_out_signal,           --                                        .spw_timecode_rx_ctrl_out_signal
-			spw_timecode_rx_time_out_i          => spacewire_channel_g_conduit_end_spacewire_channel_spw_timecode_rx_time_out_signal,           --                                        .spw_timecode_rx_time_out_signal
-			spw_data_rx_status_rxvalid_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxvalid_signal,         --                                        .spw_data_rx_status_rxvalid_signal
-			spw_data_rx_status_rxhalff_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxhalff_signal,         --                                        .spw_data_rx_status_rxhalff_signal
-			spw_data_rx_status_rxflag_i         => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxflag_signal,          --                                        .spw_data_rx_status_rxflag_signal
-			spw_data_rx_status_rxdata_i         => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxdata_signal,          --                                        .spw_data_rx_status_rxdata_signal
-			spw_data_tx_status_txrdy_i          => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_tx_status_txrdy_signal,           --                                        .spw_data_tx_status_txrdy_signal
-			spw_data_tx_status_txhalff_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_tx_status_txhalff_signal,         --                                        .spw_data_tx_status_txhalff_signal
-			spw_errinj_ctrl_errinj_busy_i       => spacewire_channel_g_conduit_end_spacewire_channel_spw_errinj_ctrl_errinj_busy_signal,        --                                        .spw_errinj_ctrl_errinj_busy_signal
-			spw_errinj_ctrl_errinj_ready_i      => spacewire_channel_g_conduit_end_spacewire_channel_spw_errinj_ctrl_errinj_ready_signal,       --                                        .spw_errinj_ctrl_errinj_ready_signal
-			spw_link_command_autostart_o        => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_autostart_signal,   --                                        .spw_link_command_autostart_signal
-			spw_link_command_linkstart_o        => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_linkstart_signal,   --                                        .spw_link_command_linkstart_signal
-			spw_link_command_linkdis_o          => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_linkdis_signal,     --                                        .spw_link_command_linkdis_signal
-			spw_link_command_txdivcnt_o         => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_txdivcnt_signal,    --                                        .spw_link_command_txdivcnt_signal
-			spw_timecode_tx_tick_in_o           => synchronization_comm_0_conduit_end_spacewire_controller_spw_timecode_tx_tick_in_signal,      --                                        .spw_timecode_tx_tick_in_signal
-			spw_timecode_tx_ctrl_in_o           => synchronization_comm_0_conduit_end_spacewire_controller_spw_timecode_tx_ctrl_in_signal,      --                                        .spw_timecode_tx_ctrl_in_signal
-			spw_timecode_tx_time_in_o           => synchronization_comm_0_conduit_end_spacewire_controller_spw_timecode_tx_time_in_signal,      --                                        .spw_timecode_tx_time_in_signal
-			spw_data_rx_command_rxread_o        => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_rx_command_rxread_signal,   --                                        .spw_data_rx_command_rxread_signal
-			spw_data_tx_command_txwrite_o       => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_tx_command_txwrite_signal,  --                                        .spw_data_tx_command_txwrite_signal
-			spw_data_tx_command_txflag_o        => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_tx_command_txflag_signal,   --                                        .spw_data_tx_command_txflag_signal
-			spw_data_tx_command_txdata_o        => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_tx_command_txdata_signal,   --                                        .spw_data_tx_command_txdata_signal
-			spw_errinj_ctrl_start_errinj_o      => synchronization_comm_0_conduit_end_spacewire_controller_spw_errinj_ctrl_start_errinj_signal, --                                        .spw_errinj_ctrl_start_errinj_signal
-			spw_errinj_ctrl_reset_errinj_o      => synchronization_comm_0_conduit_end_spacewire_controller_spw_errinj_ctrl_reset_errinj_signal, --                                        .spw_errinj_ctrl_reset_errinj_signal
-			spw_errinj_ctrl_errinj_code_o       => synchronization_comm_0_conduit_end_spacewire_controller_spw_errinj_ctrl_errinj_code_signal,  --                                        .spw_errinj_ctrl_errinj_code_signal
-			rmm_rmap_target_wr_waitrequest_i    => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal,                     -- conduit_end_rmap_mem_master_rmap_target.wr_waitrequest_signal
-			rmm_rmap_target_readdata_i          => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_readdata_signal,                           --                                        .readdata_signal
-			rmm_rmap_target_rd_waitrequest_i    => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal,                     --                                        .rd_waitrequest_signal
-			rmm_rmap_target_wr_address_o        => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_wr_address_signal,            --                                        .wr_address_signal
-			rmm_rmap_target_write_o             => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_write_signal,                 --                                        .write_signal
-			rmm_rmap_target_writedata_o         => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_writedata_signal,             --                                        .writedata_signal
-			rmm_rmap_target_rd_address_o        => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_rd_address_signal,            --                                        .rd_address_signal
-			rmm_rmap_target_read_o              => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_read_signal,                  --                                        .read_signal
-			rmm_fee_hk_wr_waitrequest_i         => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_wr_waitrequest_signal,                     --      conduit_end_rmap_mem_master_fee_hk.wr_waitrequest_signal
-			rmm_fee_hk_readdata_i               => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_readdata_signal,                           --                                        .readdata_signal
-			rmm_fee_hk_rd_waitrequest_i         => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_rd_waitrequest_signal,                     --                                        .rd_waitrequest_signal
-			rmm_fee_hk_wr_address_o             => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_wr_address_signal,                 --                                        .wr_address_signal
-			rmm_fee_hk_write_o                  => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_write_signal,                      --                                        .write_signal
-			rmm_fee_hk_writedata_o              => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_writedata_signal,                  --                                        .writedata_signal
-			rmm_fee_hk_rd_address_o             => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_rd_address_signal,                 --                                        .rd_address_signal
-			rmm_fee_hk_read_o                   => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_read_signal,                       --                                        .read_signal
-			channel_hk_timecode_control_o       => synchronization_comm_0_conduit_end_channel_hk_out_timecode_control_signal,                   --              conduit_end_channel_hk_out.timecode_control_signal
-			channel_hk_timecode_time_o          => synchronization_comm_0_conduit_end_channel_hk_out_timecode_time_signal,                      --                                        .timecode_time_signal
-			channel_hk_rmap_target_status_o     => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_status_signal,                 --                                        .rmap_target_status_signal
-			channel_hk_rmap_target_indicate_o   => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_indicate_signal,               --                                        .rmap_target_indicate_signal
-			channel_hk_spw_link_escape_err_o    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_escape_err_signal,                --                                        .spw_link_escape_err_signal
-			channel_hk_spw_link_credit_err_o    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_credit_err_signal,                --                                        .spw_link_credit_err_signal
-			channel_hk_spw_link_parity_err_o    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_parity_err_signal,                --                                        .spw_link_parity_err_signal
-			channel_hk_spw_link_disconnect_o    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_disconnect_signal,                --                                        .spw_link_disconnect_signal
-			channel_hk_spw_link_running_o       => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_running_signal,                   --                                        .spw_link_running_signal
-			channel_hk_frame_counter_o          => synchronization_comm_0_conduit_end_channel_hk_out_frame_counter_signal,                      --                                        .frame_counter_signal
-			channel_hk_frame_number_o           => synchronization_comm_0_conduit_end_channel_hk_out_frame_number_signal,                       --                                        .frame_number_signal
-			channel_hk_err_win_wrong_x_coord_o  => synchronization_comm_0_conduit_end_channel_hk_out_err_win_wrong_x_coord_signal,              --                                        .err_win_wrong_x_coord_signal
-			channel_hk_err_win_wrong_y_coord_o  => synchronization_comm_0_conduit_end_channel_hk_out_err_win_wrong_y_coord_signal,              --                                        .err_win_wrong_y_coord_signal
-			channel_hk_err_e_side_buffer_full_o => synchronization_comm_0_conduit_end_channel_hk_out_err_e_side_buffer_full_signal,             --                                        .err_e_side_buffer_full_signal
-			channel_hk_err_f_side_buffer_full_o => synchronization_comm_0_conduit_end_channel_hk_out_err_f_side_buffer_full_signal,             --                                        .err_f_side_buffer_full_signal
-			channel_hk_err_invalid_ccd_mode_o   => synchronization_comm_0_conduit_end_channel_hk_out_err_invalid_ccd_mode_signal,               --                                        .err_invalid_ccd_mode_signal
-			channel_win_mem_addr_offset_o       => synchronization_comm_0_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal           --        conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+			reset_sink_reset_i                => rst_controller_018_reset_out_reset,                                                          --                              reset_sink.reset
+			clock_sink_clk_i                  => m2_ddr2_memory_afi_half_clk_clk,                                                             --                              clock_sink.clk
+			channel_sync_i                    => scom_0_sync_sync_signal,                                                                     --                conduit_end_channel_sync.sync_signal
+			avs_config_address_i              => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_address,                     --                  avalon_mm_config_slave.address
+			avs_config_byteenable_i           => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_byteenable,                  --                                        .byteenable
+			avs_config_write_i                => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_write,                       --                                        .write
+			avs_config_writedata_i            => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_writedata,                   --                                        .writedata
+			avs_config_read_i                 => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_read,                        --                                        .read
+			avs_config_readdata_o             => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_readdata,                    --                                        .readdata
+			avs_config_waitrequest_o          => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_waitrequest,                 --                                        .waitrequest
+			spw_link_status_started_i         => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_started_signal,            --        conduit_end_spacewire_controller.spw_link_status_started_signal
+			spw_link_status_connecting_i      => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_connecting_signal,         --                                        .spw_link_status_connecting_signal
+			spw_link_status_running_i         => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_running_signal,            --                                        .spw_link_status_running_signal
+			spw_link_error_errdisc_i          => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_errdisc_signal,             --                                        .spw_link_error_errdisc_signal
+			spw_link_error_errpar_i           => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_errpar_signal,              --                                        .spw_link_error_errpar_signal
+			spw_link_error_erresc_i           => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_erresc_signal,              --                                        .spw_link_error_erresc_signal
+			spw_link_error_errcred_i          => spacewire_channel_g_conduit_end_spacewire_channel_spw_link_error_errcred_signal,             --                                        .spw_link_error_errcred_signal
+			spw_timecode_rx_tick_out_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_timecode_rx_tick_out_signal,           --                                        .spw_timecode_rx_tick_out_signal
+			spw_timecode_rx_ctrl_out_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_timecode_rx_ctrl_out_signal,           --                                        .spw_timecode_rx_ctrl_out_signal
+			spw_timecode_rx_time_out_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_timecode_rx_time_out_signal,           --                                        .spw_timecode_rx_time_out_signal
+			spw_data_rx_status_rxvalid_i      => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxvalid_signal,         --                                        .spw_data_rx_status_rxvalid_signal
+			spw_data_rx_status_rxhalff_i      => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxhalff_signal,         --                                        .spw_data_rx_status_rxhalff_signal
+			spw_data_rx_status_rxflag_i       => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxflag_signal,          --                                        .spw_data_rx_status_rxflag_signal
+			spw_data_rx_status_rxdata_i       => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_rx_status_rxdata_signal,          --                                        .spw_data_rx_status_rxdata_signal
+			spw_data_tx_status_txrdy_i        => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_tx_status_txrdy_signal,           --                                        .spw_data_tx_status_txrdy_signal
+			spw_data_tx_status_txhalff_i      => spacewire_channel_g_conduit_end_spacewire_channel_spw_data_tx_status_txhalff_signal,         --                                        .spw_data_tx_status_txhalff_signal
+			spw_errinj_ctrl_errinj_busy_i     => spacewire_channel_g_conduit_end_spacewire_channel_spw_errinj_ctrl_errinj_busy_signal,        --                                        .spw_errinj_ctrl_errinj_busy_signal
+			spw_errinj_ctrl_errinj_ready_i    => spacewire_channel_g_conduit_end_spacewire_channel_spw_errinj_ctrl_errinj_ready_signal,       --                                        .spw_errinj_ctrl_errinj_ready_signal
+			spw_link_command_autostart_o      => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_autostart_signal,   --                                        .spw_link_command_autostart_signal
+			spw_link_command_linkstart_o      => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_linkstart_signal,   --                                        .spw_link_command_linkstart_signal
+			spw_link_command_linkdis_o        => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_linkdis_signal,     --                                        .spw_link_command_linkdis_signal
+			spw_link_command_txdivcnt_o       => synchronization_comm_0_conduit_end_spacewire_controller_spw_link_command_txdivcnt_signal,    --                                        .spw_link_command_txdivcnt_signal
+			spw_timecode_tx_tick_in_o         => synchronization_comm_0_conduit_end_spacewire_controller_spw_timecode_tx_tick_in_signal,      --                                        .spw_timecode_tx_tick_in_signal
+			spw_timecode_tx_ctrl_in_o         => synchronization_comm_0_conduit_end_spacewire_controller_spw_timecode_tx_ctrl_in_signal,      --                                        .spw_timecode_tx_ctrl_in_signal
+			spw_timecode_tx_time_in_o         => synchronization_comm_0_conduit_end_spacewire_controller_spw_timecode_tx_time_in_signal,      --                                        .spw_timecode_tx_time_in_signal
+			spw_data_rx_command_rxread_o      => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_rx_command_rxread_signal,   --                                        .spw_data_rx_command_rxread_signal
+			spw_data_tx_command_txwrite_o     => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_tx_command_txwrite_signal,  --                                        .spw_data_tx_command_txwrite_signal
+			spw_data_tx_command_txflag_o      => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_tx_command_txflag_signal,   --                                        .spw_data_tx_command_txflag_signal
+			spw_data_tx_command_txdata_o      => synchronization_comm_0_conduit_end_spacewire_controller_spw_data_tx_command_txdata_signal,   --                                        .spw_data_tx_command_txdata_signal
+			spw_errinj_ctrl_start_errinj_o    => synchronization_comm_0_conduit_end_spacewire_controller_spw_errinj_ctrl_start_errinj_signal, --                                        .spw_errinj_ctrl_start_errinj_signal
+			spw_errinj_ctrl_reset_errinj_o    => synchronization_comm_0_conduit_end_spacewire_controller_spw_errinj_ctrl_reset_errinj_signal, --                                        .spw_errinj_ctrl_reset_errinj_signal
+			spw_errinj_ctrl_errinj_code_o     => synchronization_comm_0_conduit_end_spacewire_controller_spw_errinj_ctrl_errinj_code_signal,  --                                        .spw_errinj_ctrl_errinj_code_signal
+			rmm_rmap_target_wr_waitrequest_i  => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal,                     -- conduit_end_rmap_mem_master_rmap_target.wr_waitrequest_signal
+			rmm_rmap_target_readdata_i        => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_readdata_signal,                           --                                        .readdata_signal
+			rmm_rmap_target_rd_waitrequest_i  => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal,                     --                                        .rd_waitrequest_signal
+			rmm_rmap_target_wr_address_o      => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_wr_address_signal,            --                                        .wr_address_signal
+			rmm_rmap_target_write_o           => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_write_signal,                 --                                        .write_signal
+			rmm_rmap_target_writedata_o       => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_writedata_signal,             --                                        .writedata_signal
+			rmm_rmap_target_rd_address_o      => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_rd_address_signal,            --                                        .rd_address_signal
+			rmm_rmap_target_read_o            => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_read_signal,                  --                                        .read_signal
+			rmm_fee_hk_wr_waitrequest_i       => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_wr_waitrequest_signal,                     --      conduit_end_rmap_mem_master_fee_hk.wr_waitrequest_signal
+			rmm_fee_hk_readdata_i             => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_readdata_signal,                           --                                        .readdata_signal
+			rmm_fee_hk_rd_waitrequest_i       => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_rd_waitrequest_signal,                     --                                        .rd_waitrequest_signal
+			rmm_fee_hk_wr_address_o           => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_wr_address_signal,                 --                                        .wr_address_signal
+			rmm_fee_hk_write_o                => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_write_signal,                      --                                        .write_signal
+			rmm_fee_hk_writedata_o            => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_writedata_signal,                  --                                        .writedata_signal
+			rmm_fee_hk_rd_address_o           => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_rd_address_signal,                 --                                        .rd_address_signal
+			rmm_fee_hk_read_o                 => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_read_signal,                       --                                        .read_signal
+			channel_hk_timecode_control_o     => synchronization_comm_0_conduit_end_channel_hk_out_timecode_control_signal,                   --              conduit_end_channel_hk_out.timecode_control_signal
+			channel_hk_timecode_time_o        => synchronization_comm_0_conduit_end_channel_hk_out_timecode_time_signal,                      --                                        .timecode_time_signal
+			channel_hk_rmap_target_status_o   => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_status_signal,                 --                                        .rmap_target_status_signal
+			channel_hk_rmap_target_indicate_o => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_indicate_signal,               --                                        .rmap_target_indicate_signal
+			channel_hk_spw_link_escape_err_o  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_escape_err_signal,                --                                        .spw_link_escape_err_signal
+			channel_hk_spw_link_credit_err_o  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_credit_err_signal,                --                                        .spw_link_credit_err_signal
+			channel_hk_spw_link_parity_err_o  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_parity_err_signal,                --                                        .spw_link_parity_err_signal
+			channel_hk_spw_link_disconnect_o  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_disconnect_signal,                --                                        .spw_link_disconnect_signal
+			channel_hk_spw_link_running_o     => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_running_signal,                   --                                        .spw_link_running_signal
+			channel_hk_frame_counter_o        => synchronization_comm_0_conduit_end_channel_hk_out_frame_counter_signal,                      --                                        .frame_counter_signal
+			channel_hk_frame_number_o         => synchronization_comm_0_conduit_end_channel_hk_out_frame_number_signal                        --                                        .frame_number_signal
 		);
 
 	clock_bridge_afi_50 : component mebx_qsys_project_clock_bridge_afi_50
@@ -5259,56 +5227,43 @@ begin
 			channel_win_mem_addr_offset_i       => communication_module_v2_ch6_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal  -- conduit_end_rmap_avm_configs_in.win_mem_addr_offset_signal
 		);
 
-	rmap_mem_nfee_scom_0 : component nrme_rmap_memory_nfee_area_top
+	rmap_mem_nfee_scom_0 : component srme_RMAP_Memory_SCOM_Area_top
 		port map (
-			reset_i                             => rst_controller_018_reset_out_reset,                                                 --                      reset_sink.reset
-			clk_100_i                           => m2_ddr2_memory_afi_half_clk_clk,                                                    --               clock_sink_100mhz.clk
-			avs_0_rmap_address_i                => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_address,                 --             avalon_rmap_slave_0.address
-			avs_0_rmap_write_i                  => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_write,                   --                                .write
-			avs_0_rmap_read_i                   => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read,                    --                                .read
-			avs_0_rmap_readdata_o               => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_readdata,                --                                .readdata
-			avs_0_rmap_writedata_i              => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata,               --                                .writedata
-			avs_0_rmap_waitrequest_o            => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest,             --                                .waitrequest
-			avs_0_rmap_byteenable_i             => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable,              --                                .byteenable
-			fee_0_rmap_wr_address_i             => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_wr_address_signal,   --    conduit_end_fee_rmap_slave_0.wr_address_signal
-			fee_0_rmap_write_i                  => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_write_signal,        --                                .write_signal
-			fee_0_rmap_writedata_i              => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_writedata_signal,    --                                .writedata_signal
-			fee_0_rmap_rd_address_i             => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_rd_address_signal,   --                                .rd_address_signal
-			fee_0_rmap_read_i                   => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_read_signal,         --                                .read_signal
-			fee_0_rmap_wr_waitrequest_o         => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal,            --                                .wr_waitrequest_signal
-			fee_0_rmap_readdata_o               => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_readdata_signal,                  --                                .readdata_signal
-			fee_0_rmap_rd_waitrequest_o         => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal,            --                                .rd_waitrequest_signal
-			fee_1_rmap_wr_address_i             => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_wr_address_signal,        --    conduit_end_fee_rmap_slave_1.wr_address_signal
-			fee_1_rmap_write_i                  => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_write_signal,             --                                .write_signal
-			fee_1_rmap_writedata_i              => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_writedata_signal,         --                                .writedata_signal
-			fee_1_rmap_rd_address_i             => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_rd_address_signal,        --                                .rd_address_signal
-			fee_1_rmap_read_i                   => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_read_signal,              --                                .read_signal
-			fee_1_rmap_wr_waitrequest_o         => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_wr_waitrequest_signal,            --                                .wr_waitrequest_signal
-			fee_1_rmap_readdata_o               => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_readdata_signal,                  --                                .readdata_signal
-			fee_1_rmap_rd_waitrequest_o         => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_rd_waitrequest_signal,            --                                .rd_waitrequest_signal
-			channel_hk_timecode_control_i       => synchronization_comm_0_conduit_end_channel_hk_out_timecode_control_signal,          --       conduit_end_channel_hk_in.timecode_control_signal
-			channel_hk_timecode_time_i          => synchronization_comm_0_conduit_end_channel_hk_out_timecode_time_signal,             --                                .timecode_time_signal
-			channel_hk_rmap_target_status_i     => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_status_signal,        --                                .rmap_target_status_signal
-			channel_hk_rmap_target_indicate_i   => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_indicate_signal,      --                                .rmap_target_indicate_signal
-			channel_hk_spw_link_escape_err_i    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_escape_err_signal,       --                                .spw_link_escape_err_signal
-			channel_hk_spw_link_credit_err_i    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_credit_err_signal,       --                                .spw_link_credit_err_signal
-			channel_hk_spw_link_parity_err_i    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_parity_err_signal,       --                                .spw_link_parity_err_signal
-			channel_hk_spw_link_disconnect_i    => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_disconnect_signal,       --                                .spw_link_disconnect_signal
-			channel_hk_spw_link_running_i       => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_running_signal,          --                                .spw_link_running_signal
-			channel_hk_frame_counter_i          => synchronization_comm_0_conduit_end_channel_hk_out_frame_counter_signal,             --                                .frame_counter_signal
-			channel_hk_frame_number_i           => synchronization_comm_0_conduit_end_channel_hk_out_frame_number_signal,              --                                .frame_number_signal
-			channel_hk_err_win_wrong_x_coord_i  => synchronization_comm_0_conduit_end_channel_hk_out_err_win_wrong_x_coord_signal,     --                                .err_win_wrong_x_coord_signal
-			channel_hk_err_win_wrong_y_coord_i  => synchronization_comm_0_conduit_end_channel_hk_out_err_win_wrong_y_coord_signal,     --                                .err_win_wrong_y_coord_signal
-			channel_hk_err_e_side_buffer_full_i => synchronization_comm_0_conduit_end_channel_hk_out_err_e_side_buffer_full_signal,    --                                .err_e_side_buffer_full_signal
-			channel_hk_err_f_side_buffer_full_i => synchronization_comm_0_conduit_end_channel_hk_out_err_f_side_buffer_full_signal,    --                                .err_f_side_buffer_full_signal
-			channel_hk_err_invalid_ccd_mode_i   => synchronization_comm_0_conduit_end_channel_hk_out_err_invalid_ccd_mode_signal,      --                                .err_invalid_ccd_mode_signal
-			avm_rmap_readdata_i                 => rmap_mem_nfee_scom_0_avalon_mm_rmap_master_readdata,                                --           avalon_mm_rmap_master.readdata
-			avm_rmap_waitrequest_i              => rmap_mem_nfee_scom_0_avalon_mm_rmap_master_waitrequest,                             --                                .waitrequest
-			avm_rmap_address_o                  => rmap_mem_nfee_scom_0_avalon_mm_rmap_master_address,                                 --                                .address
-			avm_rmap_read_o                     => rmap_mem_nfee_scom_0_avalon_mm_rmap_master_read,                                    --                                .read
-			avm_rmap_write_o                    => rmap_mem_nfee_scom_0_avalon_mm_rmap_master_write,                                   --                                .write
-			avm_rmap_writedata_o                => rmap_mem_nfee_scom_0_avalon_mm_rmap_master_writedata,                               --                                .writedata
-			channel_win_mem_addr_offset_i       => synchronization_comm_0_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal  -- conduit_end_rmap_avm_configs_in.win_mem_addr_offset_signal
+			reset_i                           => rst_controller_018_reset_out_reset,                                               --                   reset_sink.reset
+			clk_100_i                         => m2_ddr2_memory_afi_half_clk_clk,                                                  --            clock_sink_100mhz.clk
+			avs_0_rmap_address_i              => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_address,               --          avalon_rmap_slave_0.address
+			avs_0_rmap_write_i                => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_write,                 --                             .write
+			avs_0_rmap_read_i                 => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read,                  --                             .read
+			avs_0_rmap_readdata_o             => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_readdata,              --                             .readdata
+			avs_0_rmap_writedata_i            => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata,             --                             .writedata
+			avs_0_rmap_waitrequest_o          => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest,           --                             .waitrequest
+			fee_0_rmap_wr_address_i           => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_wr_address_signal, -- conduit_end_fee_rmap_slave_0.wr_address_signal
+			fee_0_rmap_write_i                => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_write_signal,      --                             .write_signal
+			fee_0_rmap_writedata_i            => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_writedata_signal,  --                             .writedata_signal
+			fee_0_rmap_rd_address_i           => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_rd_address_signal, --                             .rd_address_signal
+			fee_0_rmap_read_i                 => synchronization_comm_0_conduit_end_rmap_mem_master_rmap_target_read_signal,       --                             .read_signal
+			fee_0_rmap_wr_waitrequest_o       => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_wr_waitrequest_signal,          --                             .wr_waitrequest_signal
+			fee_0_rmap_readdata_o             => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_readdata_signal,                --                             .readdata_signal
+			fee_0_rmap_rd_waitrequest_o       => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_0_rd_waitrequest_signal,          --                             .rd_waitrequest_signal
+			fee_1_rmap_wr_address_i           => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_wr_address_signal,      -- conduit_end_fee_rmap_slave_1.wr_address_signal
+			fee_1_rmap_write_i                => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_write_signal,           --                             .write_signal
+			fee_1_rmap_writedata_i            => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_writedata_signal,       --                             .writedata_signal
+			fee_1_rmap_rd_address_i           => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_rd_address_signal,      --                             .rd_address_signal
+			fee_1_rmap_read_i                 => synchronization_comm_0_conduit_end_rmap_mem_master_fee_hk_read_signal,            --                             .read_signal
+			fee_1_rmap_wr_waitrequest_o       => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_wr_waitrequest_signal,          --                             .wr_waitrequest_signal
+			fee_1_rmap_readdata_o             => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_readdata_signal,                --                             .readdata_signal
+			fee_1_rmap_rd_waitrequest_o       => rmap_mem_nfee_scom_0_conduit_end_fee_rmap_slave_1_rd_waitrequest_signal,          --                             .rd_waitrequest_signal
+			channel_hk_timecode_control_i     => synchronization_comm_0_conduit_end_channel_hk_out_timecode_control_signal,        --    conduit_end_channel_hk_in.timecode_control_signal
+			channel_hk_timecode_time_i        => synchronization_comm_0_conduit_end_channel_hk_out_timecode_time_signal,           --                             .timecode_time_signal
+			channel_hk_rmap_target_status_i   => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_status_signal,      --                             .rmap_target_status_signal
+			channel_hk_rmap_target_indicate_i => synchronization_comm_0_conduit_end_channel_hk_out_rmap_target_indicate_signal,    --                             .rmap_target_indicate_signal
+			channel_hk_spw_link_escape_err_i  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_escape_err_signal,     --                             .spw_link_escape_err_signal
+			channel_hk_spw_link_credit_err_i  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_credit_err_signal,     --                             .spw_link_credit_err_signal
+			channel_hk_spw_link_parity_err_i  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_parity_err_signal,     --                             .spw_link_parity_err_signal
+			channel_hk_spw_link_disconnect_i  => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_disconnect_signal,     --                             .spw_link_disconnect_signal
+			channel_hk_spw_link_running_i     => synchronization_comm_0_conduit_end_channel_hk_out_spw_link_running_signal,        --                             .spw_link_running_signal
+			channel_hk_frame_counter_i        => synchronization_comm_0_conduit_end_channel_hk_out_frame_counter_signal,           --                             .frame_counter_signal
+			channel_hk_frame_number_i         => synchronization_comm_0_conduit_end_channel_hk_out_frame_number_signal             --                             .frame_number_signal
 		);
 
 	rs232_uart : component MebX_Qsys_Project_rs232_uart
@@ -5351,60 +5306,6 @@ begin
 			avalon_slave_rst_controller_waitrequest => mm_interconnect_2_rst_controller_avalon_rst_controller_slave_waitrequest, --                            .waitrequest
 			simucam_reset_signal                    => rst_controller_conduit_simucam_reset_t_simucam_reset_signal,              --       conduit_simucam_reset.t_simucam_reset_signal
 			reset_input_signal                      => rst_controller_conduit_reset_input_t_reset_input_signal                   --         conduit_reset_input.t_reset_input_signal
-		);
-
-	rtcc_alarm : component MebX_Qsys_Project_csense_sdo
-		port map (
-			clk      => clk50_clk,                                    --                 clk.clk
-			reset_n  => rst_controller_019_reset_out_reset_ports_inv, --               reset.reset_n
-			address  => mm_interconnect_2_rtcc_alarm_s1_address,      --                  s1.address
-			readdata => mm_interconnect_2_rtcc_alarm_s1_readdata,     --                    .readdata
-			in_port  => rtcc_alarm_export                             -- external_connection.export
-		);
-
-	rtcc_cs_n : component MebX_Qsys_Project_csense_adc_fo
-		port map (
-			clk        => clk50_clk,                                      --                 clk.clk
-			reset_n    => rst_controller_019_reset_out_reset_ports_inv,   --               reset.reset_n
-			address    => mm_interconnect_2_rtcc_cs_n_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_2_rtcc_cs_n_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_2_rtcc_cs_n_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_2_rtcc_cs_n_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_2_rtcc_cs_n_s1_readdata,        --                    .readdata
-			out_port   => rtcc_cs_n_export                                -- external_connection.export
-		);
-
-	rtcc_sck : component MebX_Qsys_Project_csense_adc_fo
-		port map (
-			clk        => clk50_clk,                                     --                 clk.clk
-			reset_n    => rst_controller_019_reset_out_reset_ports_inv,  --               reset.reset_n
-			address    => mm_interconnect_2_rtcc_sck_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_2_rtcc_sck_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_2_rtcc_sck_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_2_rtcc_sck_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_2_rtcc_sck_s1_readdata,        --                    .readdata
-			out_port   => rtcc_sck_export                                -- external_connection.export
-		);
-
-	rtcc_sdi : component MebX_Qsys_Project_csense_adc_fo
-		port map (
-			clk        => clk50_clk,                                     --                 clk.clk
-			reset_n    => rst_controller_019_reset_out_reset_ports_inv,  --               reset.reset_n
-			address    => mm_interconnect_2_rtcc_sdi_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_2_rtcc_sdi_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_2_rtcc_sdi_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_2_rtcc_sdi_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_2_rtcc_sdi_s1_readdata,        --                    .readdata
-			out_port   => rtcc_sdi_export                                -- external_connection.export
-		);
-
-	rtcc_sdo : component MebX_Qsys_Project_csense_sdo
-		port map (
-			clk      => clk50_clk,                                    --                 clk.clk
-			reset_n  => rst_controller_019_reset_out_reset_ports_inv, --               reset.reset_n
-			address  => mm_interconnect_2_rtcc_sdo_s1_address,        --                  s1.address
-			readdata => mm_interconnect_2_rtcc_sdo_s1_readdata,       --                    .readdata
-			in_port  => rtcc_sdo_export                               -- external_connection.export
 		);
 
 	sd_card_wp_n : component MebX_Qsys_Project_csense_sdo
@@ -5851,7 +5752,6 @@ begin
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read                      => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read,                  --                                                             .read
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_readdata                  => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_readdata,              --                                                             .readdata
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata                 => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata,             --                                                             .writedata
-			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable                => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable,            --                                                             .byteenable
 			rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest               => mm_interconnect_1_rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest,           --                                                             .waitrequest
 			Synchronization_COMM_0_avalon_mm_config_slave_address              => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_address,          --                Synchronization_COMM_0_avalon_mm_config_slave.address
 			Synchronization_COMM_0_avalon_mm_config_slave_write                => mm_interconnect_1_synchronization_comm_0_avalon_mm_config_slave_write,            --                                                             .write
@@ -5965,25 +5865,6 @@ begin
 			rst_controller_avalon_rst_controller_slave_readdata                    => mm_interconnect_2_rst_controller_avalon_rst_controller_slave_readdata,                  --                                                                 .readdata
 			rst_controller_avalon_rst_controller_slave_writedata                   => mm_interconnect_2_rst_controller_avalon_rst_controller_slave_writedata,                 --                                                                 .writedata
 			rst_controller_avalon_rst_controller_slave_waitrequest                 => mm_interconnect_2_rst_controller_avalon_rst_controller_slave_waitrequest,               --                                                                 .waitrequest
-			rtcc_alarm_s1_address                                                  => mm_interconnect_2_rtcc_alarm_s1_address,                                                --                                                    rtcc_alarm_s1.address
-			rtcc_alarm_s1_readdata                                                 => mm_interconnect_2_rtcc_alarm_s1_readdata,                                               --                                                                 .readdata
-			rtcc_cs_n_s1_address                                                   => mm_interconnect_2_rtcc_cs_n_s1_address,                                                 --                                                     rtcc_cs_n_s1.address
-			rtcc_cs_n_s1_write                                                     => mm_interconnect_2_rtcc_cs_n_s1_write,                                                   --                                                                 .write
-			rtcc_cs_n_s1_readdata                                                  => mm_interconnect_2_rtcc_cs_n_s1_readdata,                                                --                                                                 .readdata
-			rtcc_cs_n_s1_writedata                                                 => mm_interconnect_2_rtcc_cs_n_s1_writedata,                                               --                                                                 .writedata
-			rtcc_cs_n_s1_chipselect                                                => mm_interconnect_2_rtcc_cs_n_s1_chipselect,                                              --                                                                 .chipselect
-			rtcc_sck_s1_address                                                    => mm_interconnect_2_rtcc_sck_s1_address,                                                  --                                                      rtcc_sck_s1.address
-			rtcc_sck_s1_write                                                      => mm_interconnect_2_rtcc_sck_s1_write,                                                    --                                                                 .write
-			rtcc_sck_s1_readdata                                                   => mm_interconnect_2_rtcc_sck_s1_readdata,                                                 --                                                                 .readdata
-			rtcc_sck_s1_writedata                                                  => mm_interconnect_2_rtcc_sck_s1_writedata,                                                --                                                                 .writedata
-			rtcc_sck_s1_chipselect                                                 => mm_interconnect_2_rtcc_sck_s1_chipselect,                                               --                                                                 .chipselect
-			rtcc_sdi_s1_address                                                    => mm_interconnect_2_rtcc_sdi_s1_address,                                                  --                                                      rtcc_sdi_s1.address
-			rtcc_sdi_s1_write                                                      => mm_interconnect_2_rtcc_sdi_s1_write,                                                    --                                                                 .write
-			rtcc_sdi_s1_readdata                                                   => mm_interconnect_2_rtcc_sdi_s1_readdata,                                                 --                                                                 .readdata
-			rtcc_sdi_s1_writedata                                                  => mm_interconnect_2_rtcc_sdi_s1_writedata,                                                --                                                                 .writedata
-			rtcc_sdi_s1_chipselect                                                 => mm_interconnect_2_rtcc_sdi_s1_chipselect,                                               --                                                                 .chipselect
-			rtcc_sdo_s1_address                                                    => mm_interconnect_2_rtcc_sdo_s1_address,                                                  --                                                      rtcc_sdo_s1.address
-			rtcc_sdo_s1_readdata                                                   => mm_interconnect_2_rtcc_sdo_s1_readdata,                                                 --                                                                 .readdata
 			sd_card_wp_n_s1_address                                                => mm_interconnect_2_sd_card_wp_n_s1_address,                                              --                                                  sd_card_wp_n_s1.address
 			sd_card_wp_n_s1_readdata                                               => mm_interconnect_2_sd_card_wp_n_s1_readdata,                                             --                                                                 .readdata
 			sync_avalon_mm_slave_address                                           => mm_interconnect_2_sync_avalon_mm_slave_address,                                         --                                             sync_avalon_mm_slave.address
@@ -7860,12 +7741,6 @@ begin
 	mm_interconnect_2_csense_adc_fo_s1_write_ports_inv <= not mm_interconnect_2_csense_adc_fo_s1_write;
 
 	mm_interconnect_2_pio_led_painel_s1_write_ports_inv <= not mm_interconnect_2_pio_led_painel_s1_write;
-
-	mm_interconnect_2_rtcc_sdi_s1_write_ports_inv <= not mm_interconnect_2_rtcc_sdi_s1_write;
-
-	mm_interconnect_2_rtcc_sck_s1_write_ports_inv <= not mm_interconnect_2_rtcc_sck_s1_write;
-
-	mm_interconnect_2_rtcc_cs_n_s1_write_ports_inv <= not mm_interconnect_2_rtcc_cs_n_s1_write;
 
 	mm_interconnect_2_rs232_uart_s1_read_ports_inv <= not mm_interconnect_2_rs232_uart_s1_read;
 

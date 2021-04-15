@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Tue Apr 06 10:21:26 BRT 2021
+ * Generated: Wed Apr 14 21:27:15 BRT 2021
  */
 
 /*
@@ -251,6 +251,7 @@
 #define __FTDI_UMFT601A_MODULE
 #define __MEMORY_FILLER
 #define __RMAP_MEMORY_NFEE_AREA
+#define __RMAP_MEMORY_SCOM_AREA
 #define __RST_CONTROLLER
 #define __SYNC
 #define __SYNCHRONIZATION_COMM
@@ -953,13 +954,13 @@
  *
  */
 
-#define ALT_MODULE_CLASS_rmap_mem_nfee_scom_0 RMAP_Memory_NFEE_Area
+#define ALT_MODULE_CLASS_rmap_mem_nfee_scom_0 RMAP_Memory_SCOM_Area
 #define RMAP_MEM_NFEE_SCOM_0_BASE 0x81000000
 #define RMAP_MEM_NFEE_SCOM_0_IRQ -1
 #define RMAP_MEM_NFEE_SCOM_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define RMAP_MEM_NFEE_SCOM_0_NAME "/dev/rmap_mem_nfee_scom_0"
 #define RMAP_MEM_NFEE_SCOM_0_SPAN 16384
-#define RMAP_MEM_NFEE_SCOM_0_TYPE "RMAP_Memory_NFEE_Area"
+#define RMAP_MEM_NFEE_SCOM_0_TYPE "RMAP_Memory_SCOM_Area"
 
 
 /*
@@ -999,141 +1000,6 @@
 #define RST_CONTROLLER_NAME "/dev/rst_controller"
 #define RST_CONTROLLER_SPAN 64
 #define RST_CONTROLLER_TYPE "rst_controller"
-
-
-/*
- * rtcc_alarm configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_alarm altera_avalon_pio
-#define RTCC_ALARM_BASE 0x800008f0
-#define RTCC_ALARM_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_ALARM_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_ALARM_CAPTURE 0
-#define RTCC_ALARM_DATA_WIDTH 1
-#define RTCC_ALARM_DO_TEST_BENCH_WIRING 0
-#define RTCC_ALARM_DRIVEN_SIM_VALUE 0
-#define RTCC_ALARM_EDGE_TYPE "NONE"
-#define RTCC_ALARM_FREQ 50000000
-#define RTCC_ALARM_HAS_IN 1
-#define RTCC_ALARM_HAS_OUT 0
-#define RTCC_ALARM_HAS_TRI 0
-#define RTCC_ALARM_IRQ -1
-#define RTCC_ALARM_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_ALARM_IRQ_TYPE "NONE"
-#define RTCC_ALARM_NAME "/dev/rtcc_alarm"
-#define RTCC_ALARM_RESET_VALUE 0
-#define RTCC_ALARM_SPAN 16
-#define RTCC_ALARM_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_cs_n configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_cs_n altera_avalon_pio
-#define RTCC_CS_N_BASE 0x800008b0
-#define RTCC_CS_N_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_CS_N_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_CS_N_CAPTURE 0
-#define RTCC_CS_N_DATA_WIDTH 1
-#define RTCC_CS_N_DO_TEST_BENCH_WIRING 0
-#define RTCC_CS_N_DRIVEN_SIM_VALUE 0
-#define RTCC_CS_N_EDGE_TYPE "NONE"
-#define RTCC_CS_N_FREQ 50000000
-#define RTCC_CS_N_HAS_IN 0
-#define RTCC_CS_N_HAS_OUT 1
-#define RTCC_CS_N_HAS_TRI 0
-#define RTCC_CS_N_IRQ -1
-#define RTCC_CS_N_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_CS_N_IRQ_TYPE "NONE"
-#define RTCC_CS_N_NAME "/dev/rtcc_cs_n"
-#define RTCC_CS_N_RESET_VALUE 0
-#define RTCC_CS_N_SPAN 16
-#define RTCC_CS_N_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_sck configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_sck altera_avalon_pio
-#define RTCC_SCK_BASE 0x800008c0
-#define RTCC_SCK_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_SCK_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_SCK_CAPTURE 0
-#define RTCC_SCK_DATA_WIDTH 1
-#define RTCC_SCK_DO_TEST_BENCH_WIRING 0
-#define RTCC_SCK_DRIVEN_SIM_VALUE 0
-#define RTCC_SCK_EDGE_TYPE "NONE"
-#define RTCC_SCK_FREQ 50000000
-#define RTCC_SCK_HAS_IN 0
-#define RTCC_SCK_HAS_OUT 1
-#define RTCC_SCK_HAS_TRI 0
-#define RTCC_SCK_IRQ -1
-#define RTCC_SCK_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_SCK_IRQ_TYPE "NONE"
-#define RTCC_SCK_NAME "/dev/rtcc_sck"
-#define RTCC_SCK_RESET_VALUE 0
-#define RTCC_SCK_SPAN 16
-#define RTCC_SCK_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_sdi configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_sdi altera_avalon_pio
-#define RTCC_SDI_BASE 0x800008d0
-#define RTCC_SDI_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_SDI_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_SDI_CAPTURE 0
-#define RTCC_SDI_DATA_WIDTH 1
-#define RTCC_SDI_DO_TEST_BENCH_WIRING 0
-#define RTCC_SDI_DRIVEN_SIM_VALUE 0
-#define RTCC_SDI_EDGE_TYPE "NONE"
-#define RTCC_SDI_FREQ 50000000
-#define RTCC_SDI_HAS_IN 0
-#define RTCC_SDI_HAS_OUT 1
-#define RTCC_SDI_HAS_TRI 0
-#define RTCC_SDI_IRQ -1
-#define RTCC_SDI_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_SDI_IRQ_TYPE "NONE"
-#define RTCC_SDI_NAME "/dev/rtcc_sdi"
-#define RTCC_SDI_RESET_VALUE 0
-#define RTCC_SDI_SPAN 16
-#define RTCC_SDI_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_sdo configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_sdo altera_avalon_pio
-#define RTCC_SDO_BASE 0x800008e0
-#define RTCC_SDO_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_SDO_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_SDO_CAPTURE 0
-#define RTCC_SDO_DATA_WIDTH 1
-#define RTCC_SDO_DO_TEST_BENCH_WIRING 0
-#define RTCC_SDO_DRIVEN_SIM_VALUE 0
-#define RTCC_SDO_EDGE_TYPE "NONE"
-#define RTCC_SDO_FREQ 50000000
-#define RTCC_SDO_HAS_IN 1
-#define RTCC_SDO_HAS_OUT 0
-#define RTCC_SDO_HAS_TRI 0
-#define RTCC_SDO_IRQ -1
-#define RTCC_SDO_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_SDO_IRQ_TYPE "NONE"
-#define RTCC_SDO_NAME "/dev/rtcc_sdo"
-#define RTCC_SDO_RESET_VALUE 0
-#define RTCC_SDO_SPAN 16
-#define RTCC_SDO_TYPE "altera_avalon_pio"
 
 
 /*
@@ -1189,7 +1055,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1617684927
+#define SYSID_QSYS_TIMESTAMP 1618432228
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

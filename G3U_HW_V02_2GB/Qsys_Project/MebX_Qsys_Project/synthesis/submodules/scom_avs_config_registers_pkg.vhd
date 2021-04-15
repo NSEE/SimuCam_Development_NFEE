@@ -90,11 +90,11 @@ package scom_avs_config_registers_pkg is
 		rmap_last_read_length_bytes  : std_logic_vector(31 downto 0); -- RMAP Last Read Length [Bytes]
 	end record t_scom_rmap_memory_status_rd_reg;
 
-	-- RMAP Memory Config Register
-	type t_scom_rmap_memory_config_wr_reg is record
-		rmap_win_area_offset_high_dword : std_logic_vector(31 downto 0); -- RMAP Windowing Area Offset (High Dword)
-		rmap_win_area_offset_low_dword  : std_logic_vector(31 downto 0); -- RMAP Windowing Area Offset (Low Dword)
-	end record t_scom_rmap_memory_config_wr_reg;
+--	-- RMAP Memory Config Register
+--	type t_scom_rmap_memory_config_wr_reg is record
+--		rmap_win_area_offset_high_dword : std_logic_vector(31 downto 0); -- RMAP Windowing Area Offset (High Dword)
+--		rmap_win_area_offset_low_dword  : std_logic_vector(31 downto 0); -- RMAP Windowing Area Offset (Low Dword)
+--	end record t_scom_rmap_memory_config_wr_reg;
 
 	-- RMAP Memory Area Pointer Register
 	type t_scom_rmap_mem_area_ptr_wr_reg is record
@@ -127,7 +127,7 @@ package scom_avs_config_registers_pkg is
 		spw_timecode_config_reg : t_scom_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
 		rmap_dev_addr_reg       : t_scom_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
 		rmap_codec_config_reg   : t_scom_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
-		rmap_memory_config_reg  : t_scom_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
+--		rmap_memory_config_reg  : t_scom_rmap_memory_config_wr_reg; -- RMAP Memory Config Register
 		rmap_mem_area_ptr_reg   : t_scom_rmap_mem_area_ptr_wr_reg; -- RMAP Memory Area Pointer Register
 		fee_machine_config_reg  : t_scom_fee_machine_config_wr_reg; -- FEE Machine Config Register
 		data_packet_config_reg  : t_scom_data_packet_config_wr_reg; -- Data Packet Config Register

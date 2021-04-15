@@ -1915,31 +1915,11 @@
    internal="rst_controller.conduit_simucam_reset"
    type="conduit"
    dir="end" />
- <interface
-   name="rtcc_alarm"
-   internal="rtcc_alarm.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="rtcc_cs_n"
-   internal="rtcc_cs_n.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="rtcc_sck"
-   internal="rtcc_sck.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="rtcc_sdi"
-   internal="rtcc_sdi.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="rtcc_sdo"
-   internal="rtcc_sdo.external_connection"
-   type="conduit"
-   dir="end" />
+ <interface name="rtcc_alarm" internal="rtcc_alarm.external_connection" />
+ <interface name="rtcc_cs_n" internal="rtcc_cs_n.external_connection" />
+ <interface name="rtcc_sck" internal="rtcc_sck.external_connection" />
+ <interface name="rtcc_sdi" internal="rtcc_sdi.external_connection" />
+ <interface name="rtcc_sdo" internal="rtcc_sdo.external_connection" />
  <interface
    name="scom_0_sync"
    internal="Synchronization_COMM_0.conduit_end_channel_sync"
@@ -3182,7 +3162,7 @@
   <parameter name="dataAddrWidth" value="32" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='rmap_mem_nfee_scom_0.avalon_rmap_slave_0' start='0x81000000' end='0x81004000' type='RMAP_Memory_SCOM_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81004000' end='0x81008000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81008000' end='0x8100C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x8100C000' end='0x81010000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x81010000' end='0x81014000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81014000' end='0x81018000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81018000' end='0x8101C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='Synchronization_COMM_0.avalon_mm_config_slave' start='0x8101C000' end='0x8101C400' type='Synchronization_COMM.avalon_mm_config_slave' /><slave name='FTDI_UMFT601A_Module.avalon_slave_config' start='0x8101C400' end='0x8101C800' type='FTDI_UMFT601A_Module.avalon_slave_config' /><slave name='Communication_Module_v2_Ch6.avalon_mm_config_slave' start='0x8101C800' end='0x8101CC00' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch5.avalon_mm_config_slave' start='0x8101CC00' end='0x8101D000' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch4.avalon_mm_config_slave' start='0x8101D000' end='0x8101D400' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch3.avalon_mm_config_slave' start='0x8101D400' end='0x8101D800' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch2.avalon_mm_config_slave' start='0x8101D800' end='0x8101DC00' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch1.avalon_mm_config_slave' start='0x8101DC00' end='0x8101E000' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x8101E000' end='0x8101E008' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x81100000' end='0x811B0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='Memory_Filler.avalon_slave_config' start='0x82000000' end='0x82000400' type='Memory_Filler.avalon_slave_config' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='rmap_mem_nfee_scom_0.avalon_rmap_slave_0' start='0x81000000' end='0x81004000' type='RMAP_Memory_SCOM_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81004000' end='0x81008000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81008000' end='0x8100C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x8100C000' end='0x81010000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x81010000' end='0x81014000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81014000' end='0x81018000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81018000' end='0x8101C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /><slave name='Synchronization_COMM_0.avalon_mm_config_slave' start='0x8101C000' end='0x8101C400' type='Synchronization_COMM.avalon_mm_config_slave' /><slave name='FTDI_UMFT601A_Module.avalon_slave_config' start='0x8101C400' end='0x8101C800' type='FTDI_UMFT601A_Module.avalon_slave_config' /><slave name='Communication_Module_v2_Ch6.avalon_mm_config_slave' start='0x8101C800' end='0x8101CC00' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch5.avalon_mm_config_slave' start='0x8101CC00' end='0x8101D000' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch4.avalon_mm_config_slave' start='0x8101D000' end='0x8101D400' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch3.avalon_mm_config_slave' start='0x8101D400' end='0x8101D800' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch2.avalon_mm_config_slave' start='0x8101D800' end='0x8101DC00' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='Communication_Module_v2_Ch1.avalon_mm_config_slave' start='0x8101DC00' end='0x8101E000' type='Communication_Module_v2.avalon_mm_config_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x8101E000' end='0x8101E008' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x81100000' end='0x811B0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='Memory_Filler.avalon_slave_config' start='0x82000000' end='0x82000400' type='Memory_Filler.avalon_slave_config' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -3520,7 +3500,7 @@
   <parameter name="useRelativePathForSimFile" value="false" />
  </module>
  <module name="rst_controller" kind="rst_controller" version="1.5" enabled="1" />
- <module name="rtcc_alarm" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="rtcc_alarm" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3534,7 +3514,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="rtcc_cs_n" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="rtcc_cs_n" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3548,7 +3528,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="rtcc_sck" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="rtcc_sck" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3562,7 +3542,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="rtcc_sdi" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="rtcc_sdi" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3576,7 +3556,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="rtcc_sdo" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="rtcc_sdo" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />

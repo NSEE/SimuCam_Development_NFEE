@@ -158,7 +158,6 @@ C_SRCS += driver/i2c/i2c.c
 C_SRCS += driver/leds/leds.c
 C_SRCS += driver/power_spi/power_spi.c
 C_SRCS += driver/reset/reset.c
-C_SRCS += driver/rtcc_spi/rtcc_spi.c
 C_SRCS += driver/seven_seg/seven_seg.c
 C_SRCS += driver/sync/sync.c
 C_SRCS += rtos/data_control_taskV2.c

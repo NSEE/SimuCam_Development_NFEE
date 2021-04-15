@@ -192,7 +192,6 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		output wire        rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read,                      //                                                             .read
 		input  wire [31:0] rmap_mem_nfee_scom_0_avalon_rmap_slave_0_readdata,                  //                                                             .readdata
 		output wire [31:0] rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata,                 //                                                             .writedata
-		output wire [3:0]  rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable,                //                                                             .byteenable
 		input  wire        rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest,               //                                                             .waitrequest
 		output wire [7:0]  Synchronization_COMM_0_avalon_mm_config_slave_address,              //                Synchronization_COMM_0_avalon_mm_config_slave.address
 		output wire        Synchronization_COMM_0_avalon_mm_config_slave_write,                //                                                             .write
@@ -2787,11 +2786,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (rmap_mem_nfee_scom_0_avalon_rmap_slave_0_read),                   //                         .read
 		.av_readdata            (rmap_mem_nfee_scom_0_avalon_rmap_slave_0_readdata),               //                         .readdata
 		.av_writedata           (rmap_mem_nfee_scom_0_avalon_rmap_slave_0_writedata),              //                         .writedata
-		.av_byteenable          (rmap_mem_nfee_scom_0_avalon_rmap_slave_0_byteenable),             //                         .byteenable
 		.av_waitrequest         (rmap_mem_nfee_scom_0_avalon_rmap_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                //              (terminated)
 		.av_beginbursttransfer  (),                                                                //              (terminated)
 		.av_burstcount          (),                                                                //              (terminated)
+		.av_byteenable          (),                                                                //              (terminated)
 		.av_readdatavalid       (1'b0),                                                            //              (terminated)
 		.av_writebyteenable     (),                                                                //              (terminated)
 		.av_lock                (),                                                                //              (terminated)

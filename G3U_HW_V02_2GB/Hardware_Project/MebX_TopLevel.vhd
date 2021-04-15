@@ -585,11 +585,11 @@ architecture bhv of MebX_TopLevel is
 			csense_sdi_export                                           : out   std_logic;
 			csense_sdo_export                                           : in    std_logic;
 			--
-			rtcc_alarm_export                                           : in    std_logic                     := 'X'; -- export
-			rtcc_cs_n_export                                            : out   std_logic; --                         -- export
-			rtcc_sck_export                                             : out   std_logic; --                         -- export
-			rtcc_sdi_export                                             : out   std_logic; --                         -- export
-			rtcc_sdo_export                                             : in    std_logic                     := 'X'; -- export
+--			rtcc_alarm_export                                           : in    std_logic                     := 'X'; -- export
+--			rtcc_cs_n_export                                            : out   std_logic; --                         -- export
+--			rtcc_sck_export                                             : out   std_logic; --                         -- export
+--			rtcc_sdi_export                                             : out   std_logic; --                         -- export
+--			rtcc_sdo_export                                             : in    std_logic                     := 'X'; -- export
 			--
 			sync_in_conduit                                             : in    std_logic                     := 'X'; -- conduit
 			sync_in_en_conduit                                          : in    std_logic                     := '0'; -- conduit
@@ -849,11 +849,11 @@ begin
 			csense_sdi_export                                           => csense_sdi,
 			csense_sdo_export                                           => csense_sdo,
 			--
-			rtcc_alarm_export                                           => RTCC_ALARM,
-			rtcc_cs_n_export                                            => RTCC_CS_n,
-			rtcc_sck_export                                             => RTCC_SCK,
-			rtcc_sdi_export                                             => RTCC_SDI,
-			rtcc_sdo_export                                             => RTCC_SDO,
+--			rtcc_alarm_export                                           => RTCC_ALARM,
+--			rtcc_cs_n_export                                            => RTCC_CS_n,
+--			rtcc_sck_export                                             => RTCC_SCK,
+--			rtcc_sdi_export                                             => RTCC_SDI,
+--			rtcc_sdo_export                                             => RTCC_SDO,
 			--
 			sync_in_conduit                                             => s_sync_in, --           --                            sync_in.conduit
 			sync_in_en_conduit                                          => a_enable_iso_drivers,   --                 sync_in_en_conduit.conduit

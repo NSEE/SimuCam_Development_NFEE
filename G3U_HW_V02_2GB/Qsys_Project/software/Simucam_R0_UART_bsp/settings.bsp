@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Apr 6, 2021 10:21:25 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1617715285881</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Apr 14, 2021 9:27:14 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1618446434106</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1807,36 +1807,6 @@
         <MemoryMap>
                 <slaveDescriptor>pio_ctrl_io_lvds</slaveDescriptor>
                 <addressRange>0x800008A0 - 0x800008AF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_cs_n</slaveDescriptor>
-                <addressRange>0x800008B0 - 0x800008BF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_sck</slaveDescriptor>
-                <addressRange>0x800008C0 - 0x800008CF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_sdi</slaveDescriptor>
-                <addressRange>0x800008D0 - 0x800008DF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_sdo</slaveDescriptor>
-                <addressRange>0x800008E0 - 0x800008EF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_alarm</slaveDescriptor>
-                <addressRange>0x800008F0 - 0x800008FF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>

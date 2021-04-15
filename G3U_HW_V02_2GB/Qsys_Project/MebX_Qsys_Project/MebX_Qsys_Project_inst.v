@@ -81,11 +81,6 @@
 		.rst_reset_n                                                 (<connected-to-rst_reset_n>),                                                 //                                  rst.reset_n
 		.rst_controller_conduit_reset_input_t_reset_input_signal     (<connected-to-rst_controller_conduit_reset_input_t_reset_input_signal>),     //   rst_controller_conduit_reset_input.t_reset_input_signal
 		.rst_controller_conduit_simucam_reset_t_simucam_reset_signal (<connected-to-rst_controller_conduit_simucam_reset_t_simucam_reset_signal>), // rst_controller_conduit_simucam_reset.t_simucam_reset_signal
-		.rtcc_alarm_export                                           (<connected-to-rtcc_alarm_export>),                                           //                           rtcc_alarm.export
-		.rtcc_cs_n_export                                            (<connected-to-rtcc_cs_n_export>),                                            //                            rtcc_cs_n.export
-		.rtcc_sck_export                                             (<connected-to-rtcc_sck_export>),                                             //                             rtcc_sck.export
-		.rtcc_sdi_export                                             (<connected-to-rtcc_sdi_export>),                                             //                             rtcc_sdi.export
-		.rtcc_sdo_export                                             (<connected-to-rtcc_sdo_export>),                                             //                             rtcc_sdo.export
 		.scom_0_sync_sync_signal                                     (<connected-to-scom_0_sync_sync_signal>),                                     //                          scom_0_sync.sync_signal
 		.sd_card_ip_b_SD_cmd                                         (<connected-to-sd_card_ip_b_SD_cmd>),                                         //                           sd_card_ip.b_SD_cmd
 		.sd_card_ip_b_SD_dat                                         (<connected-to-sd_card_ip_b_SD_dat>),                                         //                                     .b_SD_dat
