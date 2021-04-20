@@ -82,10 +82,6 @@
 		.rst_controller_conduit_reset_input_t_reset_input_signal     (<connected-to-rst_controller_conduit_reset_input_t_reset_input_signal>),     //   rst_controller_conduit_reset_input.t_reset_input_signal
 		.rst_controller_conduit_simucam_reset_t_simucam_reset_signal (<connected-to-rst_controller_conduit_simucam_reset_t_simucam_reset_signal>), // rst_controller_conduit_simucam_reset.t_simucam_reset_signal
 		.scom_0_sync_sync_signal                                     (<connected-to-scom_0_sync_sync_signal>),                                     //                          scom_0_sync.sync_signal
-		.sd_card_ip_b_SD_cmd                                         (<connected-to-sd_card_ip_b_SD_cmd>),                                         //                           sd_card_ip.b_SD_cmd
-		.sd_card_ip_b_SD_dat                                         (<connected-to-sd_card_ip_b_SD_dat>),                                         //                                     .b_SD_dat
-		.sd_card_ip_b_SD_dat3                                        (<connected-to-sd_card_ip_b_SD_dat3>),                                        //                                     .b_SD_dat3
-		.sd_card_ip_o_SD_clock                                       (<connected-to-sd_card_ip_o_SD_clock>),                                       //                                     .o_SD_clock
 		.sd_card_wp_n_io_export                                      (<connected-to-sd_card_wp_n_io_export>),                                      //                      sd_card_wp_n_io.export
 		.spwc_a_enable_spw_rx_enable_signal                          (<connected-to-spwc_a_enable_spw_rx_enable_signal>),                          //                        spwc_a_enable.spw_rx_enable_signal
 		.spwc_a_enable_spw_tx_enable_signal                          (<connected-to-spwc_a_enable_spw_tx_enable_signal>),                          //                                     .spw_tx_enable_signal

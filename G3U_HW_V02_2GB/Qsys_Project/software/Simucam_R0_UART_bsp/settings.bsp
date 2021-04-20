@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Apr 14, 2021 9:27:14 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1618446434106</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Apr 16, 2021 9:02:02 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1618574522528</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1766,12 +1766,6 @@
                 <slaveDescriptor>ddr2_address_span_extender_windowed_slave</slaveDescriptor>
                 <addressRange>0x00000000 - 0x7FFFFFFF</addressRange>
                 <addressSpan>2147483648</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>Altera_UP_SD_Card_Avalon_Interface_0</slaveDescriptor>
-                <addressRange>0x80000000 - 0x800003FF</addressRange>
-                <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>

@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2021.04.14.17:30:30</td>
+    <td class="l">2021.04.16.01:26:58</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -108,9 +108,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <a href="#module_nios2_gen2_0"><b>nios2_gen2_0</b>
      </a> Nios II 18.1
      <br/>All Components
-     <br/>&#160;&#160;
-     <a href="#module_Altera_UP_SD_Card_Avalon_Interface_0"><b>Altera_UP_SD_Card_Avalon_Interface_0</b>
-     </a> Altera_UP_SD_Card_Avalon_Interface 18.0
      <br/>&#160;&#160;
      <a href="#module_Communication_Module_v2_Ch1"><b>Communication_Module_v2_Ch1</b>
      </a> Communication_Module_v2 1.5
@@ -236,7 +233,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> altera_avalon_uart 18.1
      <br/>&#160;&#160;
      <a href="#module_rst_controller"><b>rst_controller</b>
-     </a> rst_controller 1.5
+     </a> rst_controller 1.6
      <br/>&#160;&#160;
      <a href="#module_sd_card_wp_n"><b>sd_card_wp_n</b>
      </a> altera_avalon_pio 18.1
@@ -354,61 +351,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="masterlr">&#160;avalon_mm_rmap_master</td>
     <td class="masterlr">&#160;avalon_mm_rmap_master</td>
     <td class="masterlr">&#160;avalon_mm_rmap_master</td>
-   </tr>
-   <tr>
-    <td class="slavemodule">&#160;
-     <a href="#module_Altera_UP_SD_Card_Avalon_Interface_0"><b>Altera_UP_SD_Card_Avalon_Interface_0</b>
-     </a>
-    </td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-   </tr>
-   <tr>
-    <td class="slaveb">avalon_sdcard_slave&#160;</td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="addr"><span style="color:#989898">0x</span>80000000</td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
-    <td class="empty"></td>
    </tr>
    <tr>
     <td class="slavemodule">&#160;
@@ -3022,89 +2964,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
    </tr>
   </table>
-  <a name="module_Altera_UP_SD_Card_Avalon_Interface_0"> </a>
-  <div>
-   <hr/>
-   <h2>Altera_UP_SD_Card_Avalon_Interface_0</h2>Altera_UP_SD_Card_Avalon_Interface v18.0
-   <br/>
-   <div class="greydiv">
-    <table class="connectionboxes">
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_clock_bridge_afi_50">clock_bridge_afi_50</a>
-      </td>
-      <td class="from">m0&#160;&#160;</td>
-      <td class="main" rowspan="10">Altera_UP_SD_Card_Avalon_Interface_0</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;avalon_sdcard_slave</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="4">
-       <a href="#module_clk_50">clk_50</a>
-      </td>
-      <td class="from">clk&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;clk</td>
-     </tr>
-     <tr>
-      <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_sd_card&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-    </table>
-   </div>
-   <br/>
-   <br/>
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Parameters</h2>
-      <table>
-       <tr>
-        <td class="parametername">AUTO_DEVICE_FAMILY</td>
-        <td class="parametervalue">STRATIXIV</td>
-       </tr>
-       <tr>
-        <td class="parametername">AUTO_CLK_CLOCK_RATE</td>
-        <td class="parametervalue">50000000</td>
-       </tr>
-       <tr>
-        <td class="parametername">deviceFamily</td>
-        <td class="parametervalue">Stratix IV</td>
-       </tr>
-       <tr>
-        <td class="parametername">generateLegacySim</td>
-        <td class="parametervalue">false</td>
-       </tr>
-      </table>
-     </td>
-    </tr>
-   </table>&#160;&#160;
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Software Assignments</h2>(none)</td>
-    </tr>
-   </table>
-  </div>
   <a name="module_Communication_Module_v2_Ch1"> </a>
   <div>
    <hr/>
@@ -3117,7 +2976,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="39">Communication_Module_v2_Ch1</td>
+      <td class="main" rowspan="36">Communication_Module_v2_Ch1</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_config_slave</td>
@@ -3212,18 +3071,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
      </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
      <tr>
       <td></td>
       <td></td>
@@ -3313,7 +3160,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="40">Communication_Module_v2_Ch2</td>
+      <td class="main" rowspan="37">Communication_Module_v2_Ch2</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_config_slave</td>
@@ -3398,18 +3245,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -3519,7 +3354,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="40">Communication_Module_v2_Ch3</td>
+      <td class="main" rowspan="37">Communication_Module_v2_Ch3</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_config_slave</td>
@@ -3574,18 +3409,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -3737,7 +3560,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="40">Communication_Module_v2_Ch4</td>
+      <td class="main" rowspan="37">Communication_Module_v2_Ch4</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_config_slave</td>
@@ -3822,18 +3645,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -3943,7 +3754,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="40">Communication_Module_v2_Ch5</td>
+      <td class="main" rowspan="37">Communication_Module_v2_Ch5</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_config_slave</td>
@@ -4010,18 +3821,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -4157,7 +3956,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="39">Communication_Module_v2_Ch6</td>
+      <td class="main" rowspan="36">Communication_Module_v2_Ch6</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_config_slave</td>
@@ -4248,18 +4047,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -4573,7 +4360,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="42">RMAP_Echoing</td>
+      <td class="main" rowspan="25">RMAP_Echoing</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -4598,60 +4385,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="16">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td class="from">reset_source_comm_ch8&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -4789,7 +4522,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="13">SpaceWire_Channel_A</td>
+      <td class="main" rowspan="10">SpaceWire_Channel_A</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -4814,18 +4547,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -4883,7 +4604,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="13">SpaceWire_Channel_B</td>
+      <td class="main" rowspan="10">SpaceWire_Channel_B</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -4908,18 +4629,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -4977,7 +4686,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="14">SpaceWire_Channel_C</td>
+      <td class="main" rowspan="11">SpaceWire_Channel_C</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -5014,18 +4723,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -5070,7 +4767,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="13">SpaceWire_Channel_D</td>
+      <td class="main" rowspan="10">SpaceWire_Channel_D</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -5095,18 +4792,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -5164,7 +4849,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="14">SpaceWire_Channel_E</td>
+      <td class="main" rowspan="11">SpaceWire_Channel_E</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -5201,18 +4886,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -5257,7 +4930,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="13">SpaceWire_Channel_F</td>
+      <td class="main" rowspan="10">SpaceWire_Channel_F</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -5282,18 +4955,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -5351,7 +5012,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="13">SpaceWire_Channel_G</td>
+      <td class="main" rowspan="10">SpaceWire_Channel_G</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -5376,18 +5037,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -5445,7 +5094,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="14">SpaceWire_Channel_H</td>
+      <td class="main" rowspan="11">SpaceWire_Channel_H</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_sink_100mhz</td>
@@ -5482,18 +5131,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch8&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -5538,7 +5175,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="21">Synchronization_COMM_0</td>
+      <td class="main" rowspan="18">Synchronization_COMM_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_config_slave</td>
@@ -5593,18 +5230,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -6627,7 +6252,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="83">clock_bridge_afi_50</td>
+      <td class="main" rowspan="80">clock_bridge_afi_50</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;s0</td>
@@ -6696,22 +6321,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;avalon_rst_controller_slave</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">m0&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Altera_UP_SD_Card_Avalon_Interface_0">Altera_UP_SD_Card_Avalon_Interface_0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_sdcard_slave</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -23228,7 +22837,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /&gt;&lt;slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /&gt;&lt;slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /&gt;&lt;slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /&gt;&lt;slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /&gt;&lt;slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /&gt;&lt;slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /&gt;&lt;slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rmap_mem_nfee_scom_0.avalon_rmap_slave_0' start='0x81000000' end='0x81004000' type='RMAP_Memory_SCOM_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81004000' end='0x81008000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81008000' end='0x8100C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x8100C000' end='0x81010000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x81010000' end='0x81014000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81014000' end='0x81018000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81018000' end='0x8101C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='Synchronization_COMM_0.avalon_mm_config_slave' start='0x8101C000' end='0x8101C400' type='Synchronization_COMM.avalon_mm_config_slave' /&gt;&lt;slave name='FTDI_UMFT601A_Module.avalon_slave_config' start='0x8101C400' end='0x8101C800' type='FTDI_UMFT601A_Module.avalon_slave_config' /&gt;&lt;slave name='Communication_Module_v2_Ch6.avalon_mm_config_slave' start='0x8101C800' end='0x8101CC00' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch5.avalon_mm_config_slave' start='0x8101CC00' end='0x8101D000' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch4.avalon_mm_config_slave' start='0x8101D000' end='0x8101D400' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch3.avalon_mm_config_slave' start='0x8101D400' end='0x8101D800' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch2.avalon_mm_config_slave' start='0x8101D800' end='0x8101DC00' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch1.avalon_mm_config_slave' start='0x8101DC00' end='0x8101E000' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='ddr2_address_span_extender.cntl' start='0x8101E000' end='0x8101E008' type='altera_address_span_extender.cntl' /&gt;&lt;slave name='onchip_memory.s1' start='0x81100000' end='0x811B0000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='Memory_Filler.avalon_slave_config' start='0x82000000' end='0x82000400' type='Memory_Filler.avalon_slave_config' /&gt;&lt;slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /&gt;&lt;slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /&gt;&lt;slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /&gt;&lt;slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /&gt;&lt;slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /&gt;&lt;slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /&gt;&lt;slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rmap_mem_nfee_scom_0.avalon_rmap_slave_0' start='0x81000000' end='0x81004000' type='RMAP_Memory_SCOM_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_6.avalon_rmap_slave_0' start='0x81004000' end='0x81008000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_5.avalon_rmap_slave_0' start='0x81008000' end='0x8100C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_4.avalon_rmap_slave_0' start='0x8100C000' end='0x81010000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_3.avalon_rmap_slave_0' start='0x81010000' end='0x81014000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_2.avalon_rmap_slave_0' start='0x81014000' end='0x81018000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='rmap_mem_nfee_comm_1.avalon_rmap_slave_0' start='0x81018000' end='0x8101C000' type='RMAP_Memory_NFEE_Area.avalon_rmap_slave_0' /&gt;&lt;slave name='Synchronization_COMM_0.avalon_mm_config_slave' start='0x8101C000' end='0x8101C400' type='Synchronization_COMM.avalon_mm_config_slave' /&gt;&lt;slave name='FTDI_UMFT601A_Module.avalon_slave_config' start='0x8101C400' end='0x8101C800' type='FTDI_UMFT601A_Module.avalon_slave_config' /&gt;&lt;slave name='Communication_Module_v2_Ch6.avalon_mm_config_slave' start='0x8101C800' end='0x8101CC00' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch5.avalon_mm_config_slave' start='0x8101CC00' end='0x8101D000' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch4.avalon_mm_config_slave' start='0x8101D000' end='0x8101D400' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch3.avalon_mm_config_slave' start='0x8101D400' end='0x8101D800' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch2.avalon_mm_config_slave' start='0x8101D800' end='0x8101DC00' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='Communication_Module_v2_Ch1.avalon_mm_config_slave' start='0x8101DC00' end='0x8101E000' type='Communication_Module_v2.avalon_mm_config_slave' /&gt;&lt;slave name='ddr2_address_span_extender.cntl' start='0x8101E000' end='0x8101E008' type='altera_address_span_extender.cntl' /&gt;&lt;slave name='onchip_memory.s1' start='0x81100000' end='0x811B0000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='nios2_gen2_0.debug_mem_slave' start='0x81218800' end='0x81219000' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='sysid_qsys.control_slave' start='0x8121AF40' end='0x8121AF48' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x8121AF50' end='0x8121AF58' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='Memory_Filler.avalon_slave_config' start='0x82000000' end='0x82000400' type='Memory_Filler.avalon_slave_config' /&gt;&lt;slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">tightlyCoupledDataMaster0MapParam</td>
@@ -24938,7 +24547,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="25">rmap_mem_nfee_comm_1</td>
+      <td class="main" rowspan="22">rmap_mem_nfee_comm_1</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rmap_slave_0</td>
@@ -24963,18 +24572,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -25094,7 +24691,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="26">rmap_mem_nfee_comm_2</td>
+      <td class="main" rowspan="23">rmap_mem_nfee_comm_2</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rmap_slave_0</td>
@@ -25131,18 +24728,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -25252,7 +24837,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="26">rmap_mem_nfee_comm_3</td>
+      <td class="main" rowspan="23">rmap_mem_nfee_comm_3</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rmap_slave_0</td>
@@ -25295,18 +24880,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -25406,7 +24979,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="26">rmap_mem_nfee_comm_4</td>
+      <td class="main" rowspan="23">rmap_mem_nfee_comm_4</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rmap_slave_0</td>
@@ -25443,18 +25016,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -25564,7 +25125,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="26">rmap_mem_nfee_comm_5</td>
+      <td class="main" rowspan="23">rmap_mem_nfee_comm_5</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rmap_slave_0</td>
@@ -25607,18 +25168,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -25718,7 +25267,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="25">rmap_mem_nfee_comm_6</td>
+      <td class="main" rowspan="22">rmap_mem_nfee_comm_6</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rmap_slave_0</td>
@@ -25743,18 +25292,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -25874,7 +25411,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="18">rmap_mem_nfee_scom_0</td>
+      <td class="main" rowspan="15">rmap_mem_nfee_scom_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rmap_slave_0</td>
@@ -25911,18 +25448,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_50">clk_50</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -26179,7 +25704,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_rst_controller"> </a>
   <div>
    <hr/>
-   <h2>rst_controller</h2>rst_controller v1.5
+   <h2>rst_controller</h2>rst_controller v1.6
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -26188,7 +25713,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clock_bridge_afi_50">clock_bridge_afi_50</a>
       </td>
       <td class="from">m0&#160;&#160;</td>
-      <td class="main" rowspan="98">rst_controller</td>
+      <td class="main" rowspan="9">rst_controller</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_rst_controller_slave</td>
@@ -26214,479 +25739,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Communication_Module_v2_Ch1">Communication_Module_v2_Ch1</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rmap_mem_nfee_comm_1">rmap_mem_nfee_comm_1</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
-      <td class="neighbor" rowspan="16">
-       <a href="#module_RMAP_Echoing">RMAP_Echoing</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch8&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch1&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_A">SpaceWire_Channel_A</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Communication_Module_v2_Ch2">Communication_Module_v2_Ch2</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rmap_mem_nfee_comm_2">rmap_mem_nfee_comm_2</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch2&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_B">SpaceWire_Channel_B</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Communication_Module_v2_Ch3">Communication_Module_v2_Ch3</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rmap_mem_nfee_comm_3">rmap_mem_nfee_comm_3</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch3&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_C">SpaceWire_Channel_C</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Communication_Module_v2_Ch4">Communication_Module_v2_Ch4</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rmap_mem_nfee_comm_4">rmap_mem_nfee_comm_4</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch4&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_D">SpaceWire_Channel_D</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Communication_Module_v2_Ch5">Communication_Module_v2_Ch5</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rmap_mem_nfee_comm_5">rmap_mem_nfee_comm_5</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch5&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_E">SpaceWire_Channel_E</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Communication_Module_v2_Ch6">Communication_Module_v2_Ch6</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rmap_mem_nfee_comm_6">rmap_mem_nfee_comm_6</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch6&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_F">SpaceWire_Channel_F</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_G">SpaceWire_Channel_G</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Synchronization_COMM_0">Synchronization_COMM_0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch7&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rmap_mem_nfee_scom_0">rmap_mem_nfee_scom_0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_comm_ch8&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_SpaceWire_Channel_H">SpaceWire_Channel_H</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
       <td class="from">reset_source_rs232&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_rs232_uart">rs232_uart</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_sd_card&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_Altera_UP_SD_Card_Avalon_Interface_0">Altera_UP_SD_Card_Avalon_Interface_0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_sync&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_sync">sync</a>
       </td>
      </tr>
      <tr>
@@ -26932,7 +25987,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clock_bridge_afi_50">clock_bridge_afi_50</a>
       </td>
       <td class="from">m0&#160;&#160;</td>
-      <td class="main" rowspan="15">sync</td>
+      <td class="main" rowspan="12">sync</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_slave</td>
@@ -26972,18 +26027,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;sync_interrupt_sender</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_rst_controller">rst_controller</a>
-      </td>
-      <td class="from">reset_source_sync&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset</td>
      </tr>
     </table>
    </div>
@@ -27077,7 +26120,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1618432228</td>
+        <td class="parametervalue">1618547216</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -27102,7 +26145,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1618432228</td>
+        <td class="parametervalue">1618547216</td>
        </tr>
       </table>
      </td>
@@ -27981,7 +27024,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0,03 seconds</td>
-    <td class="r">rendering took 1,54 seconds</td>
+    <td class="r">rendering took 0,65 seconds</td>
    </tr>
   </table>
  </body>

@@ -11,18 +11,20 @@
 TSDHandle xSdHandle;
 
 bool bSDcardIsPresent( void ){
-	return alt_up_sd_card_is_Present();
+//	return alt_up_sd_card_is_Present();
+	return (FALSE);
 }
 
 bool bSDcardFAT16Check( void ){
-	return alt_up_sd_card_is_FAT16();
+//	return alt_up_sd_card_is_FAT16();
+	return (FALSE);
 }
 
 bool bInitializeSDCard( void ){
 	bool bSucess = FALSE;
 	xSdHandle.deviceHandle = NULL;
 
-	xSdHandle.deviceHandle = alt_up_sd_card_open_dev(ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_NAME);
+//	xSdHandle.deviceHandle = alt_up_sd_card_open_dev(ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_NAME);
 	if ( xSdHandle.deviceHandle != NULL ) {
 
 		bSucess = bSDcardIsPresent();
@@ -59,13 +61,16 @@ bool bInitializeSDCard( void ){
 }
 
 short int siOpenFile( char *filename ) {
-	return alt_up_sd_card_fopen( filename, FALSE );
+//	return alt_up_sd_card_fopen( filename, FALSE );
+	return (FALSE);
 }
 
 bool siCloseFile( short int file_handle ) {
-	return alt_up_sd_card_fclose( file_handle );
+//	return alt_up_sd_card_fclose( file_handle );
+	return (FALSE);
 }
 
 char cGetNextChar( short int file_handle ) {
-	return (char)alt_up_sd_card_read( file_handle );
+//	return (char)alt_up_sd_card_read( file_handle );
+	return ('\0');
 }

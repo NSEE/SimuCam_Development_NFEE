@@ -415,7 +415,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AH14      :        :                   :      
 VCCIO4A                      : AH15      : power  :                   : 1.8V    : 4A        :                
 M1_DDR2_dq[34]               : AH16      : bidir  : SSTL-18 Class I   :         : 4B        : Y              
 M1_DDR2_dq[37]               : AH17      : bidir  : SSTL-18 Class I   :         : 4B        : Y              
-I_SD_CARD_WP_n               : AH18      : input  : 1.8 V             :         : 4C        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AH18      :        :                   :         : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH19      :        :                   :         : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH20      :        :                   :         : 3C        :                
 VCCIO3C                      : AH21      : power  :                   : 1.8V    : 3C        :                
@@ -639,7 +639,7 @@ GXB_NC                       : AP4       :        :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP5       :        :                   :         : 5C        :                
 LED_PAINEL_LED_3G            : AP6       : output : 3.3-V LVCMOS      :         : 5C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP7       :        :                   :         : 5A        :                
-RTCC_CS_n                    : AP8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP8       :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP9       :        :                   :         : 5A        :                
 SYNC_OUT                     : AP10      : output : 3.3-V LVTTL       :         : 5A        : Y              
 nCSO                         : AP11      :        :                   :         : 1A        :                
@@ -690,7 +690,7 @@ M1_DDR2_dqsn[5]              : AR16      : bidir  : Differential 1.8-V SSTL Clas
 M1_DDR2_dq[40]               : AR17      : bidir  : SSTL-18 Class I   :         : 4B        : Y              
 GND                          : AR18      : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AR19      :        :                   :         : 4C        :                
-B_SD_CARD_DAT                : AR20      : bidir  : 1.8 V             :         : 4C        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AR20      :        :                   :         : 4C        :                
 GND                          : AR21      : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AR22      :        :                   :         : 3C        :                
 M1_DDR2_dq[21]               : AR23      : bidir  : SSTL-18 Class I   :         : 3C        : Y              
@@ -728,7 +728,7 @@ M1_DDR2_dq[47]               : AT15      : bidir  : SSTL-18 Class I   :         
 M1_DDR2_dm[5]                : AT16      : output : SSTL-18 Class I   :         : 4B        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT17      :        :                   :         : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT18      :        :                   :         : 4C        :                
-O_SD_CARD_CLOCK              : AT19      : output : 1.8 V             :         : 4C        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT19      :        :                   :         : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT20      :        :                   :         : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT21      :        :                   :         : 3C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT22      :        :                   :         : 3C        :                
@@ -758,7 +758,7 @@ LED_PAINEL_LED_1G            : AU6       : output : 3.3-V LVCMOS      :         
 LED_PAINEL_LED_2G            : AU7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 LED_PAINEL_LED_ST4           : AU8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU9       :        :                   :         : 5A        :                
-RTCC_SDI                     : AU10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU10      :        :                   :         : 5A        :                
 M1_DDR2_dq[54]               : AU11      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 M1_DDR2_dq[51]               : AU12      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 VCCIO4A                      : AU13      : power  :                   : 1.8V    : 4A        :                
@@ -768,7 +768,7 @@ M1_DDR2_dq[42]               : AU16      : bidir  : SSTL-18 Class I   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU17      :        :                   :         : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU18      :        :                   :         : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU19      :        :                   :         : 4C        :                
-B_SD_CARD_DAT3               : AU20      : bidir  : 1.8 V             :         : 4C        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AU20      :        :                   :         : 4C        :                
 VCCIO4C                      : AU21      : power  :                   : 1.8V    : 4C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU22      :        :                   :         : 3C        :                
 M1_DDR2_dm[2]                : AU23      : output : SSTL-18 Class I   :         : 3C        : Y              
@@ -795,7 +795,7 @@ NC                           : AV4       :        :                   :         
 EN_ISO_DRIVERS               : AV5       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 GND                          : AV6       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AV7       :        :                   :         : 5A        :                
-RTCC_SDO                     : AV8       : input  : 3.3-V LVCMOS      :         : 5A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV8       :        :                   :         : 5A        :                
 GND                          : AV9       : gnd    :                   :         :           :                
 LED_PAINEL_LED_ST2           : AV10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AV11      :        :                   :         : 4A        :                
@@ -807,7 +807,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AV16      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AV17      :        :                   :         : 4C        :                
 GND                          : AV18      : gnd    :                   :         :           :                
 OSC_50_BANK4                 : AV19      : input  : 1.8 V             :         : 4C        : Y              
-B_SD_CARD_CMD                : AV20      : bidir  : 1.8 V             :         : 4C        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AV20      :        :                   :         : 4C        :                
 GND                          : AV21      : gnd    :                   :         :           :                
 OSC_50_BANK3                 : AV22      : input  : 1.8 V             :         : 3C        : Y              
 M1_DDR2_addr[0]              : AV23      : output : SSTL-18 Class I   :         : 3C        : Y              
@@ -829,8 +829,8 @@ GND                          : AV38      : gnd    :                   :         
 GND                          : AV39      : gnd    :                   :         :           :                
 RREF                         : AW2       :        :                   :         :           :                
 GND                          : AW3       : gnd    :                   :         :           :                
-RTCC_SCK                     : AW4       : output : 3.3-V LVCMOS      :         : 5A        : Y              
-RTCC_ALARM                   : AW5       : input  : 3.3-V LVCMOS      :         : 5A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW4       :        :                   :         : 5A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : AW5       :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AW6       :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AW7       :        :                   :         : 5A        :                
 LED_PAINEL_LED_ST1           : AW8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
@@ -1245,7 +1245,7 @@ GND                          : L27       : gnd    :                   :         
 NC                           : L28       :        :                   :         :           :                
 FSM_D[3]                     : L29       : bidir  : 2.5 V             :         : 1A        : Y              
 GND                          : L30       : gnd    :                   :         :           :                
-FSM_A[0]                     : L31       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L31       :        :                   :         : 1A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L32       :        :                   :         : 1C        :                
 GND                          : L33       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L34       :        :                   :         : 1C        :                
@@ -1398,7 +1398,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :      
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
+FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                

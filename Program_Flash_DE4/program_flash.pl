@@ -46,6 +46,7 @@
 #   V1.3 :| Rodrigo Franca    :| 19/10/30  :| Added options for DE4-230 and DE4-530 boards
 #   V1.4 :| Rodrigo Franca    :| 20/06/05  :| Removed cable option from flash programming
 #   V1.5 :| Rodrigo Franca    :| 21/03/16  :| Added option to set cable for flash programming
+#   V1.6 :| Rodrigo Franca    :| 21/04/16  :| Added option to set programming files names
 # ============================================================================
 
 
@@ -65,6 +66,9 @@ my $sw_image_file		  = "de4_sw.flash";
 my $pfl_bits_file		  = "de4_hw.map.flash";
 my $zip_image_file		  = "rozipfs.flash";
 my $board_cable_name	  = "-";
+my $prog_sof_file_name	  = "-";
+my $prog_elf_file_name	  = "-";
+my $prog_both_files 	  = "N";
 
 
 &init;
@@ -77,7 +81,7 @@ sub	menu
 	until ($SELECT eq "D")# or $SELECT eq "0")
 	{
 		system "clear";
-		printf "DE4 Development Kit Flash Program Tools.  ver : 1.5.0.0\n";
+		printf "DE4 Development Kit Flash Program Tools.  ver : 1.6.0.0\n";
 		printf "\n";
 		printf "*************************   DE4-230 Board Menu   **************************\n";
 		printf "\n";
@@ -109,6 +113,15 @@ sub	menu
 		printf "\n";
 		printf "     Current board cabe: $board_cable_name\n";
 		printf "\n";
+		printf "**********************    Programming Files Menu    ***********************\n";
+		printf "\n";
+		printf "  S) Set .sof programming file to use when programming the board flash\n";
+		printf "  E) Set .elf programming file to use when programming the board flash\n";
+		printf "  C) Clear programming files (will ask for file name during programming)\n";
+		printf "\n";
+		printf "     Current sof file: $prog_sof_file_name\n";
+		printf "     Current elf file: $prog_elf_file_name\n";
+		printf "\n";
 		printf "***************************************************************************\n";
 		printf "\n";
 		printf "Enter a number (D for Done): ";
@@ -117,6 +130,8 @@ sub	menu
 		chop($SELECT);
 		$SELECT =~ tr/a-z/A-Z/; 
 
+		if	(($SELECT eq "0") || ($SELECT eq "4"))	{$prog_both_files = "Y";} else {$prog_both_files = "N";}			# program both .elf and .sof
+		
 		if	(					 ($SELECT eq "1"))	{$flash_bup_SOF = $flash_bup_de4_230_SOF; &erase_flash;}			# erase flash
 		if	(($SELECT eq "0") || ($SELECT eq "2"))	{$flash_bup_SOF = $flash_bup_de4_230_SOF; &program_sof;}
 		if	(($SELECT eq "0") || ($SELECT eq "3"))	{$flash_bup_SOF = $flash_bup_de4_230_SOF; &program_elf;}
@@ -134,6 +149,10 @@ sub	menu
 		if	(                    ($SELECT eq "8"))	{&board_cable_set;}
 		if	(                    ($SELECT eq "9"))	{&board_cable_clear;}
 		if	(                    ($SELECT eq "L"))	{&board_cable_list;}
+		if	(                    ($SELECT eq "S"))	{&sof_file_set;}
+		if	(                    ($SELECT eq "E"))	{&elf_file_set;}
+		if	(                    ($SELECT eq "C"))	{&programming_files_clear;}
+
 	}
 }
 
@@ -275,12 +294,27 @@ sub program_sof
 	
 	do
 	{
-		printf "Please input .sof file name : ";
-		$SOF_FILE_OK = "Y";
-		$SOF_FILE_NAME_IN = <STDIN>;
-		chop ($SOF_FILE_NAME_IN);
-		$SOF_FILE_NAME_IN =~ tr/a-z/A-Z/;
-		$SOF_FILE_NAME_LEN = length($SOF_FILE_NAME_IN);
+		
+		if ($sof_file_name eq "-")
+		{
+
+			printf "Please input .sof file name : ";
+			$SOF_FILE_OK = "Y";
+			$SOF_FILE_NAME_IN = <STDIN>;
+			chop ($SOF_FILE_NAME_IN);
+			$SOF_FILE_NAME_IN =~ tr/a-z/A-Z/;
+			$SOF_FILE_NAME_LEN = length($SOF_FILE_NAME_IN);
+			
+		}
+		else
+		{
+
+			printf "Programming board flash with .sof file : $prog_sof_file_name\n";
+			$SOF_FILE_OK = "Y";
+			$SOF_FILE_NAME_IN = $prog_sof_file_name;
+			$SOF_FILE_NAME_LEN = length($SOF_FILE_NAME_IN);
+
+		}
 
 		if ($SOF_FILE_NAME_LEN == 0)
 		{
@@ -366,8 +400,12 @@ sub program_sof
 		}
 	}
 	while ($SOF_FILE_OK ne "Y");
-	printf "\nPress ENTER key to continuance... ";
-	$RESULT = <STDIN>;
+	
+	if (($board_cable_name eq "N") || ($sof_file_name eq "-") || ($elf_file_name eq "-")) {
+		printf "\nPress ENTER key to continuance... ";
+		$RESULT = <STDIN>;
+	}
+
 }
 
 #==============================================================================
@@ -381,15 +419,32 @@ sub program_elf
 	$KIT_ROOTDIR = $ENV{SOPC_KIT_NIOS2};
 	$KIT_ROOTDIR =~ s/nios2eds//g;
 
-	system "clear";
+	if (($board_cable_name eq "N") || ($sof_file_name eq "-") || ($elf_file_name eq "-")) {
+		system "clear";
+	}
 	do
 	{
-		printf "Please input .ELF file name : ";
-		$ELF_FILE_OK = "Y";
-		$ELF_FILE_NAME_IN = <STDIN>;
-		chop ($ELF_FILE_NAME_IN);
-		$ELF_FILE_NAME_IN =~ tr/a-z/A-Z/;
-		$ELF_FILE_NAME_LEN = length($ELF_FILE_NAME_IN);
+		
+		if ($elf_file_name eq "-")
+		{
+
+			printf "Please input .ELF file name : ";
+			$ELF_FILE_OK = "Y";
+			$ELF_FILE_NAME_IN = <STDIN>;
+			chop ($ELF_FILE_NAME_IN);
+			$ELF_FILE_NAME_IN =~ tr/a-z/A-Z/;
+			$ELF_FILE_NAME_LEN = length($ELF_FILE_NAME_IN);
+			
+		}
+		else
+		{
+
+			printf "Programming board flash with .elf file : $prog_elf_file_name\n";
+			$ELF_FILE_OK = "Y";
+			$ELF_FILE_NAME_IN = $prog_elf_file_name;
+			$ELF_FILE_NAME_LEN = length($ELF_FILE_NAME_IN);
+
+		}
 
 		if ($ELF_FILE_NAME_LEN == 0)
 		{
@@ -474,6 +529,7 @@ sub program_elf
 		}
 	}
 	while ($ELF_FILE_OK ne "Y");
+	
 	printf "\nPress ENTER key to continuance... ";
 	$RESULT = <STDIN>;
 }
@@ -864,6 +920,111 @@ sub board_cable_list
 	
 	system "jtagconfig -n";
 	
+	printf "\nPress ENTER key to continuance... ";
+	$RESULT = <STDIN>;
+}
+
+#==============================================================================
+#==============================================================================
+
+sub sof_file_set
+{
+	my $SOF_FILE_OK = Y;
+	my $SOF_FILE_NAME = "";
+	system "clear";
+	
+	do
+	{
+		printf "Please input .sof file to be used : ";
+		$SOF_FILE_OK = "Y";
+		$SOF_FILE_CABLE_NAME_IN = <STDIN>;
+		chop ($SOF_FILE_CABLE_NAME_IN);
+		#$SOF_FILE_CABLE_NAME_IN =~ tr/a-z/A-Z/;
+		$SOF_FILE_NAME_LEN = length($SOF_FILE_CABLE_NAME_IN);
+
+		if ($SOF_FILE_NAME_LEN == 0)
+		{
+			printf "Not entered .sof file, please re-enter : ";
+			$SOF_FILE_OK = "N";
+		} 
+		else
+		{
+			$SOF_FILE_NAME = $SOF_FILE_CABLE_NAME_IN;
+			
+			# Set the new .sof file name
+			$prog_sof_file_name = $SOF_FILE_NAME;
+			
+			printf "\n";
+			printf "Programming .sof file changed!\n";
+			printf "Programming .sof file will be used when programming the board flash.\n";
+			printf "\n";
+			printf "WARNING: Programming .sof file will not work if the file is wrong!\n";
+			
+		}
+
+	}
+	while ($SOF_FILE_OK ne "Y");
+	printf "\nPress ENTER key to continuance... ";
+	$RESULT = <STDIN>;
+}
+
+#==============================================================================
+#==============================================================================
+
+sub elf_file_set
+{
+	my $ELF_FILE_OK = Y;
+	my $ELF_FILE_NAME = "";
+	system "clear";
+	
+	do
+	{
+		printf "Please input .elf file to be used : ";
+		$ELF_FILE_OK = "Y";
+		$ELF_FILE_CABLE_NAME_IN = <STDIN>;
+		chop ($ELF_FILE_CABLE_NAME_IN);
+		#$ELF_FILE_CABLE_NAME_IN =~ tr/a-z/A-Z/;
+		$ELF_FILE_NAME_LEN = length($ELF_FILE_CABLE_NAME_IN);
+
+		if ($ELF_FILE_NAME_LEN == 0)
+		{
+			printf "Not entered .elf file, please re-enter : ";
+			$ELF_FILE_OK = "N";
+		} 
+		else
+		{
+			$ELF_FILE_NAME = $ELF_FILE_CABLE_NAME_IN;
+			
+			# Set the new .elf file name
+			$prog_elf_file_name = $ELF_FILE_NAME;
+			
+			printf "\n";
+			printf "Programming .elf file changed!\n";
+			printf "Programming .elf file will be used when programming the board flash.\n";
+			printf "\n";
+			printf "WARNING: Programming .elf file will not work if the file is wrong!\n";
+			
+		}
+
+	}
+	while ($ELF_FILE_OK ne "Y");
+	printf "\nPress ENTER key to continuance... ";
+	$RESULT = <STDIN>;
+}
+
+#==============================================================================
+#==============================================================================
+
+sub programming_files_clear
+{	
+	system "clear";
+	
+	$prog_sof_file_name = "-";
+	$prog_elf_file_name = "-";
+	
+	printf "Programming files cleared!\n";
+	printf "Programming files names will be asked during programming of the board flash.\n";
+		
 	printf "\nPress ENTER key to continuance... ";
 	$RESULT = <STDIN>;
 }

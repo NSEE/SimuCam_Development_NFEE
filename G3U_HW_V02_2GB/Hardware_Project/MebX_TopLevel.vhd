@@ -76,11 +76,11 @@ entity MebX_TopLevel is
 		-- FANs
 		FAN_CTRL               : out   std_logic;
 		-- SD CARD
-		I_SD_CARD_WP_n         : in    std_logic;
-		B_SD_CARD_CMD          : inout std_logic;
-		B_SD_CARD_DAT          : inout std_logic;
-		B_SD_CARD_DAT3         : inout std_logic;
-		O_SD_CARD_CLOCK        : out   std_logic;
+--		I_SD_CARD_WP_n         : in    std_logic;
+--		B_SD_CARD_CMD          : inout std_logic;
+--		B_SD_CARD_DAT          : inout std_logic;
+--		B_SD_CARD_DAT3         : inout std_logic;
+--		O_SD_CARD_CLOCK        : out   std_logic;
 		--		-- Ethernet
 		--		ETH_MDC                : out   std_logic_vector(3 downto 0);
 		--		ETH_INT_n              : in    std_logic_vector(3 downto 0);
@@ -229,11 +229,11 @@ entity MebX_TopLevel is
 		CSENSE_SDI             : out   std_logic;
 		CSENSE_SDO             : in    std_logic;
 		-- Real Time Clock
-		RTCC_ALARM             : in    std_logic;
-		RTCC_CS_n              : out   std_logic;
-		RTCC_SCK               : out   std_logic;
-		RTCC_SDI               : out   std_logic;
-		RTCC_SDO               : in    std_logic;
+--		RTCC_ALARM             : in    std_logic;
+--		RTCC_CS_n              : out   std_logic;
+--		RTCC_SCK               : out   std_logic;
+--		RTCC_SDI               : out   std_logic;
+--		RTCC_SDO               : in    std_logic;
 		-- Synchronization
 		SYNC_IN                : in    std_logic;
 		SYNC_OUT               : out   std_logic;
@@ -604,11 +604,11 @@ architecture bhv of MebX_TopLevel is
 			sync_spw7_conduit                                           : out   std_logic; --                         -- conduit
 			sync_spw8_conduit                                           : out   std_logic; --                         -- conduit
 			--
-			sd_card_wp_n_io_export                                      : in    std_logic                     := 'X'; -- export
-			sd_card_ip_b_SD_cmd                                         : inout std_logic                     := 'X'; -- b_SD_cmd
-			sd_card_ip_b_SD_dat                                         : inout std_logic                     := 'X'; -- b_SD_dat
-			sd_card_ip_b_SD_dat3                                        : inout std_logic                     := 'X'; -- b_SD_dat3
-			sd_card_ip_o_SD_clock                                       : out   std_logic; --                         -- o_SD_clock
+--			sd_card_wp_n_io_export                                      : in    std_logic                     := 'X'; -- export
+--			sd_card_ip_b_SD_cmd                                         : inout std_logic                     := 'X'; -- b_SD_cmd
+--			sd_card_ip_b_SD_dat                                         : inout std_logic                     := 'X'; -- b_SD_dat
+--			sd_card_ip_b_SD_dat3                                        : inout std_logic                     := 'X'; -- b_SD_dat3
+--			sd_card_ip_o_SD_clock                                       : out   std_logic; --                         -- o_SD_clock
 			--
 			rs232_uart_rxd                                              : in    std_logic                     := 'X'; -- rxd
 			rs232_uart_txd                                              : out   std_logic; --                         -- txd
@@ -868,11 +868,11 @@ begin
 			sync_spw7_conduit                                           => comm_7_sync, --         --                          sync_spw7.conduit
 			sync_spw8_conduit                                           => comm_8_sync, --         --                          sync_spw8.conduit
 			--
-			sd_card_wp_n_io_export                                      => I_SD_CARD_WP_n, --      --                    sd_card_wp_n_io.export
-			sd_card_ip_b_SD_cmd                                         => B_SD_CARD_CMD, --       --                         sd_card_ip.b_SD_cmd
-			sd_card_ip_b_SD_dat                                         => B_SD_CARD_DAT, --       --                                   .b_SD_dat
-			sd_card_ip_b_SD_dat3                                        => B_SD_CARD_DAT3, --      --                                   .b_SD_dat3
-			sd_card_ip_o_SD_clock                                       => O_SD_CARD_CLOCK, --     --                                   .o_SD_clock
+--			sd_card_wp_n_io_export                                      => I_SD_CARD_WP_n, --      --                    sd_card_wp_n_io.export
+--			sd_card_ip_b_SD_cmd                                         => B_SD_CARD_CMD, --       --                         sd_card_ip.b_SD_cmd
+--			sd_card_ip_b_SD_dat                                         => B_SD_CARD_DAT, --       --                                   .b_SD_dat
+--			sd_card_ip_b_SD_dat3                                        => B_SD_CARD_DAT3, --      --                                   .b_SD_dat3
+--			sd_card_ip_o_SD_clock                                       => O_SD_CARD_CLOCK, --     --                                   .o_SD_clock
 			--
 			rs232_uart_rxd                                              => I_RS232_UART_RXD, --    --                         rs232_uart.rxd
 			rs232_uart_txd                                              => O_RS232_UART_TXD, --    --                                   .txd

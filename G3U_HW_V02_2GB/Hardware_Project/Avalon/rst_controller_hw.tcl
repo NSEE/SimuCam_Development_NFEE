@@ -4,7 +4,7 @@
 
 
 # 
-# rst_controller "rst_controller" v1.5
+# rst_controller "rst_controller" v1.6
 #  2019.10.30.18:50:36
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME rst_controller
-set_module_property VERSION 1.5
+set_module_property VERSION 1.6
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -96,40 +96,6 @@ add_interface_port reset_sink reset_sink_reset reset Input 1
 
 
 # 
-# connection point reset_source_ftdi
-# 
-add_interface reset_source_ftdi reset start
-set_interface_property reset_source_ftdi associatedClock clock_sink
-set_interface_property reset_source_ftdi associatedDirectReset ""
-set_interface_property reset_source_ftdi associatedResetSinks reset_sink
-set_interface_property reset_source_ftdi synchronousEdges DEASSERT
-set_interface_property reset_source_ftdi ENABLED true
-set_interface_property reset_source_ftdi EXPORT_OF ""
-set_interface_property reset_source_ftdi PORT_NAME_MAP ""
-set_interface_property reset_source_ftdi CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_ftdi SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_ftdi reset_source_ftdi_reset reset Output 1
-
-
-# 
-# connection point reset_source_sync
-# 
-add_interface reset_source_sync reset start
-set_interface_property reset_source_sync associatedClock clock_sink
-set_interface_property reset_source_sync associatedDirectReset ""
-set_interface_property reset_source_sync associatedResetSinks reset_sink
-set_interface_property reset_source_sync synchronousEdges DEASSERT
-set_interface_property reset_source_sync ENABLED true
-set_interface_property reset_source_sync EXPORT_OF ""
-set_interface_property reset_source_sync PORT_NAME_MAP ""
-set_interface_property reset_source_sync CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_sync SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_sync reset_source_sync_reset reset Output 1
-
-
-# 
 # connection point reset_source_rs232
 # 
 add_interface reset_source_rs232 reset start
@@ -144,159 +110,6 @@ set_interface_property reset_source_rs232 CMSIS_SVD_VARIABLES ""
 set_interface_property reset_source_rs232 SVD_ADDRESS_GROUP ""
 
 add_interface_port reset_source_rs232 reset_source_rs232_reset reset Output 1
-
-
-# 
-# connection point reset_source_sd_card
-# 
-add_interface reset_source_sd_card reset start
-set_interface_property reset_source_sd_card associatedClock clock_sink
-set_interface_property reset_source_sd_card associatedDirectReset ""
-set_interface_property reset_source_sd_card associatedResetSinks reset_sink
-set_interface_property reset_source_sd_card synchronousEdges DEASSERT
-set_interface_property reset_source_sd_card ENABLED true
-set_interface_property reset_source_sd_card EXPORT_OF ""
-set_interface_property reset_source_sd_card PORT_NAME_MAP ""
-set_interface_property reset_source_sd_card CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_sd_card SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_sd_card reset_source_sd_card_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch8
-# 
-add_interface reset_source_comm_ch8 reset start
-set_interface_property reset_source_comm_ch8 associatedClock clock_sink
-set_interface_property reset_source_comm_ch8 associatedDirectReset ""
-set_interface_property reset_source_comm_ch8 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch8 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch8 ENABLED true
-set_interface_property reset_source_comm_ch8 EXPORT_OF ""
-set_interface_property reset_source_comm_ch8 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch8 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch8 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch8 reset_source_comm_ch8_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch7
-# 
-add_interface reset_source_comm_ch7 reset start
-set_interface_property reset_source_comm_ch7 associatedClock clock_sink
-set_interface_property reset_source_comm_ch7 associatedDirectReset ""
-set_interface_property reset_source_comm_ch7 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch7 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch7 ENABLED true
-set_interface_property reset_source_comm_ch7 EXPORT_OF ""
-set_interface_property reset_source_comm_ch7 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch7 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch7 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch7 reset_source_comm_ch7_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch6
-# 
-add_interface reset_source_comm_ch6 reset start
-set_interface_property reset_source_comm_ch6 associatedClock clock_sink
-set_interface_property reset_source_comm_ch6 associatedDirectReset ""
-set_interface_property reset_source_comm_ch6 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch6 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch6 ENABLED true
-set_interface_property reset_source_comm_ch6 EXPORT_OF ""
-set_interface_property reset_source_comm_ch6 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch6 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch6 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch6 reset_source_comm_ch6_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch5
-# 
-add_interface reset_source_comm_ch5 reset start
-set_interface_property reset_source_comm_ch5 associatedClock clock_sink
-set_interface_property reset_source_comm_ch5 associatedDirectReset ""
-set_interface_property reset_source_comm_ch5 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch5 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch5 ENABLED true
-set_interface_property reset_source_comm_ch5 EXPORT_OF ""
-set_interface_property reset_source_comm_ch5 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch5 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch5 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch5 reset_source_comm_ch5_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch4
-# 
-add_interface reset_source_comm_ch4 reset start
-set_interface_property reset_source_comm_ch4 associatedClock clock_sink
-set_interface_property reset_source_comm_ch4 associatedDirectReset ""
-set_interface_property reset_source_comm_ch4 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch4 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch4 ENABLED true
-set_interface_property reset_source_comm_ch4 EXPORT_OF ""
-set_interface_property reset_source_comm_ch4 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch4 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch4 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch4 reset_source_comm_ch4_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch3
-# 
-add_interface reset_source_comm_ch3 reset start
-set_interface_property reset_source_comm_ch3 associatedClock clock_sink
-set_interface_property reset_source_comm_ch3 associatedDirectReset ""
-set_interface_property reset_source_comm_ch3 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch3 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch3 ENABLED true
-set_interface_property reset_source_comm_ch3 EXPORT_OF ""
-set_interface_property reset_source_comm_ch3 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch3 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch3 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch3 reset_source_comm_ch3_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch2
-# 
-add_interface reset_source_comm_ch2 reset start
-set_interface_property reset_source_comm_ch2 associatedClock clock_sink
-set_interface_property reset_source_comm_ch2 associatedDirectReset ""
-set_interface_property reset_source_comm_ch2 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch2 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch2 ENABLED true
-set_interface_property reset_source_comm_ch2 EXPORT_OF ""
-set_interface_property reset_source_comm_ch2 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch2 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch2 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch2 reset_source_comm_ch2_reset reset Output 1
-
-
-# 
-# connection point reset_source_comm_ch1
-# 
-add_interface reset_source_comm_ch1 reset start
-set_interface_property reset_source_comm_ch1 associatedClock clock_sink
-set_interface_property reset_source_comm_ch1 associatedDirectReset ""
-set_interface_property reset_source_comm_ch1 associatedResetSinks reset_sink
-set_interface_property reset_source_comm_ch1 synchronousEdges DEASSERT
-set_interface_property reset_source_comm_ch1 ENABLED true
-set_interface_property reset_source_comm_ch1 EXPORT_OF ""
-set_interface_property reset_source_comm_ch1 PORT_NAME_MAP ""
-set_interface_property reset_source_comm_ch1 CMSIS_SVD_VARIABLES ""
-set_interface_property reset_source_comm_ch1 SVD_ADDRESS_GROUP ""
-
-add_interface_port reset_source_comm_ch1 reset_source_comm_ch1_reset reset Output 1
 
 
 # 

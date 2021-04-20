@@ -10,6 +10,9 @@
 bool bInitSimucamCoreHW(void) {
 	bool bSuccess = FALSE;
 
+	/* DEBUG */
+	fprintf(fp, "Reset Counter = %u\n", ucRstcGetResetCounter());
+
 	/* Release SimuCam Reset Signal */
 	vRstcReleaseSimucamReset(0);
 

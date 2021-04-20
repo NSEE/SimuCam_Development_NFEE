@@ -83,10 +83,6 @@ module MebX_Qsys_Project (
 	rst_controller_conduit_reset_input_t_reset_input_signal,
 	rst_controller_conduit_simucam_reset_t_simucam_reset_signal,
 	scom_0_sync_sync_signal,
-	sd_card_ip_b_SD_cmd,
-	sd_card_ip_b_SD_dat,
-	sd_card_ip_b_SD_dat3,
-	sd_card_ip_o_SD_clock,
 	sd_card_wp_n_io_export,
 	spwc_a_enable_spw_rx_enable_signal,
 	spwc_a_enable_spw_tx_enable_signal,
@@ -301,10 +297,6 @@ module MebX_Qsys_Project (
 	input		rst_controller_conduit_reset_input_t_reset_input_signal;
 	output		rst_controller_conduit_simucam_reset_t_simucam_reset_signal;
 	input		scom_0_sync_sync_signal;
-	inout		sd_card_ip_b_SD_cmd;
-	inout		sd_card_ip_b_SD_dat;
-	inout		sd_card_ip_b_SD_dat3;
-	output		sd_card_ip_o_SD_clock;
 	input		sd_card_wp_n_io_export;
 	input		spwc_a_enable_spw_rx_enable_signal;
 	input		spwc_a_enable_spw_tx_enable_signal;

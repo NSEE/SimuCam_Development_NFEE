@@ -17,6 +17,7 @@
 #define RSTC_CONTROLLER_BASE_ADDR       RST_CONTROLLER_BASE
 #define RSTC_SIMUCAM_RESET_REG_OFFSET   0
 #define RSTC_DEVICE_RESET_REG_OFFSET    1
+#define RSTC_RESET_COUNTER_REG_OFFSET   2
 
 // bit masks
 #define RSTC_SIMUCAM_RST_CTRL_MSK       (1 << 31)
@@ -35,7 +36,9 @@
 #define RSTC_DEV_COMM_CH2_RST_CTRL_MSK  (1 << 1)
 #define RSTC_DEV_COMM_CH1_RST_CTRL_MSK  (1 << 0)
 
-#define RSTC_DEV_ALL_MSK                (0x0FFF)
+#define RSTC_DEV_ALL_MSK                (0x00000FFF)
+
+#define RSTC_RESET_CNT_MSK              (0x00000007)
 //! [constants definition]
 
 //! [public module structs definition]
@@ -47,6 +50,8 @@ void vRstcHoldSimucamReset(alt_u32 uliRstCnt);
 
 void vRstcReleaseDeviceReset(alt_u32 usiRstMask);
 void vRstcHoldDeviceReset(alt_u32 usiRstMask);
+
+unsigned char ucRstcGetResetCounter(void);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

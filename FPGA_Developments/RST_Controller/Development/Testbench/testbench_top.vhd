@@ -30,18 +30,7 @@ begin
 			reset_sink_reset                        => '0',
 			reset_input_signal                      => rst,
 			simucam_reset_signal                    => open,
-			reset_source_ftdi_reset                 => open,
-			reset_source_sync_reset                 => open,
-			reset_source_rs232_reset                => open,
-			reset_source_sd_card_reset              => open,
-			reset_source_comm_ch8_reset             => open,
-			reset_source_comm_ch7_reset             => open,
-			reset_source_comm_ch6_reset             => open,
-			reset_source_comm_ch5_reset             => open,
-			reset_source_comm_ch4_reset             => open,
-			reset_source_comm_ch3_reset             => open,
-			reset_source_comm_ch2_reset             => open,
-			reset_source_comm_ch1_reset             => open
+			reset_source_rs232_reset                => open
 		);
 
 end architecture RTL;

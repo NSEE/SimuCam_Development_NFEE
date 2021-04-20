@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Wed Apr 14 21:27:15 BRT 2021
+ * Generated: Fri Apr 16 09:02:03 BRT 2021
  */
 
 /*
@@ -53,20 +53,6 @@
 
 /* Include definitions from linker script generator */
 #include "linker.h"
-
-
-/*
- * Altera_UP_SD_Card_Avalon_Interface_0 configuration
- *
- */
-
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_BASE 0x80000000
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_IRQ -1
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_NAME "/dev/Altera_UP_SD_Card_Avalon_Interface_0"
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_SPAN 1024
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_TYPE "Altera_UP_SD_Card_Avalon_Interface"
-#define ALT_MODULE_CLASS_Altera_UP_SD_Card_Avalon_Interface_0 Altera_UP_SD_Card_Avalon_Interface
 
 
 /*
@@ -246,7 +232,6 @@
 #define __ALTERA_AVALON_UART
 #define __ALTERA_GENERIC_TRISTATE_CONTROLLER
 #define __ALTERA_NIOS2_GEN2
-#define __ALTERA_UP_SD_CARD_AVALON_INTERFACE
 #define __COMMUNICATION_MODULE_V2
 #define __FTDI_UMFT601A_MODULE
 #define __MEMORY_FILLER
@@ -1055,7 +1040,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1618432228
+#define SYSID_QSYS_TIMESTAMP 1618547216
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

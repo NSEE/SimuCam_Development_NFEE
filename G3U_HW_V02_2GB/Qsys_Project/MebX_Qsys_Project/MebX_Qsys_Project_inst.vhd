@@ -83,10 +83,6 @@
 			rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := 'X';             -- t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- t_simucam_reset_signal
 			scom_0_sync_sync_signal                                     : in    std_logic                     := 'X';             -- sync_signal
-			sd_card_ip_b_SD_cmd                                         : inout std_logic                     := 'X';             -- b_SD_cmd
-			sd_card_ip_b_SD_dat                                         : inout std_logic                     := 'X';             -- b_SD_dat
-			sd_card_ip_b_SD_dat3                                        : inout std_logic                     := 'X';             -- b_SD_dat3
-			sd_card_ip_o_SD_clock                                       : out   std_logic;                                        -- o_SD_clock
 			sd_card_wp_n_io_export                                      : in    std_logic                     := 'X';             -- export
 			spwc_a_enable_spw_rx_enable_signal                          : in    std_logic                     := 'X';             -- spw_rx_enable_signal
 			spwc_a_enable_spw_tx_enable_signal                          : in    std_logic                     := 'X';             -- spw_tx_enable_signal
@@ -305,10 +301,6 @@
 			rst_controller_conduit_reset_input_t_reset_input_signal     => CONNECTED_TO_rst_controller_conduit_reset_input_t_reset_input_signal,     --   rst_controller_conduit_reset_input.t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal => CONNECTED_TO_rst_controller_conduit_simucam_reset_t_simucam_reset_signal, -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
 			scom_0_sync_sync_signal                                     => CONNECTED_TO_scom_0_sync_sync_signal,                                     --                          scom_0_sync.sync_signal
-			sd_card_ip_b_SD_cmd                                         => CONNECTED_TO_sd_card_ip_b_SD_cmd,                                         --                           sd_card_ip.b_SD_cmd
-			sd_card_ip_b_SD_dat                                         => CONNECTED_TO_sd_card_ip_b_SD_dat,                                         --                                     .b_SD_dat
-			sd_card_ip_b_SD_dat3                                        => CONNECTED_TO_sd_card_ip_b_SD_dat3,                                        --                                     .b_SD_dat3
-			sd_card_ip_o_SD_clock                                       => CONNECTED_TO_sd_card_ip_o_SD_clock,                                       --                                     .o_SD_clock
 			sd_card_wp_n_io_export                                      => CONNECTED_TO_sd_card_wp_n_io_export,                                      --                      sd_card_wp_n_io.export
 			spwc_a_enable_spw_rx_enable_signal                          => CONNECTED_TO_spwc_a_enable_spw_rx_enable_signal,                          --                        spwc_a_enable.spw_rx_enable_signal
 			spwc_a_enable_spw_tx_enable_signal                          => CONNECTED_TO_spwc_a_enable_spw_tx_enable_signal,                          --                                     .spw_tx_enable_signal

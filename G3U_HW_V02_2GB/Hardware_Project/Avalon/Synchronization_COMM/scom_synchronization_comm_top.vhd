@@ -299,9 +299,9 @@ begin
 	-- RMAP Target Top Instantiation
 	rmap_target_top_inst : entity work.rmap_target_top
 		generic map(
-			g_VERIFY_BUFFER_WIDTH  => 8,
+			g_VERIFY_BUFFER_WIDTH  => 3,
 			g_MEMORY_ADDRESS_WIDTH => 32,
-			g_DATA_LENGTH_WIDTH    => 24,
+			g_DATA_LENGTH_WIDTH    => 13,
 			g_MEMORY_ACCESS_WIDTH  => 0
 		)
 		port map(
