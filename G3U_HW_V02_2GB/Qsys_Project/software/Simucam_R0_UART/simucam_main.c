@@ -550,8 +550,27 @@ int main(void)
 	/* Test of some critical IPCores HW interfaces in the Simucam */
 	bIniSimucamStatus = bTestSimucamCriticalHW();
 	if (bIniSimucamStatus == FALSE) {
-		vFailTestCriticasParts();
-		return -1;
+#if DEBUG_ON
+		fprintf(fp, "\n");
+		fprintf(fp, "Failure to initialize SimuCam Critical HW!\n");
+		fprintf(fp, "Initialization attempt %u, ", ucRstcGetResetCounter());
+#endif
+		/* Need to reset 2 times (3 tries) before locking the SimuCam */
+		if (3 > ucRstcGetResetCounter()) {
+			/* There are more initialization tries to make */
+#if DEBUG_ON
+			fprintf(fp, "SimuCam will be reseted now!\n");
+#endif
+			vRstcHoldSimucamReset(0);
+		} else {
+			/* No more tries, lock the SimuCam */
+#if DEBUG_ON
+
+			fprintf(fp, "SimuCam will be locked now!\n");
+#endif
+			vFailTestCriticasParts();
+		}
+		return (-1);
 	}
 
 #if DEBUG_ON

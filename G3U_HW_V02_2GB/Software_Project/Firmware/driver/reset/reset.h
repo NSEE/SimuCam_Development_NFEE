@@ -51,7 +51,7 @@ void vRstcHoldSimucamReset(alt_u32 uliRstCnt);
 void vRstcReleaseDeviceReset(alt_u32 usiRstMask);
 void vRstcHoldDeviceReset(alt_u32 usiRstMask);
 
-unsigned char ucRstcGetResetCounter(void);
+alt_u8 ucRstcGetResetCounter(void);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

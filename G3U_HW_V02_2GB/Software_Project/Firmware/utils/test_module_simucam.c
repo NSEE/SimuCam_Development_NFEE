@@ -125,7 +125,7 @@ bool bTestSimucamCriticalHW(void) {
 		return (bSuccess);
 	}
 
-	return TRUE;
+	return (TRUE);
 }
 
 bool bTestSimucamBasicHW(void) {
