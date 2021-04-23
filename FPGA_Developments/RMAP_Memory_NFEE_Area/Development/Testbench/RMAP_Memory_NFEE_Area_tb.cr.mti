@@ -123,17 +123,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_mem_area_nfee_read
 -- Compiling architecture RTL of rmap_mem_area_nfee_read
 
-} {} {}} ../RMAP_Memory_NFEE_Area/RMAP_MEMORY/nrme_rmap_mem_area_nfee_read.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/RMAP_MEMORY/nrme_rmap_mem_area_nfee_read.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package nrme_rmap_mem_area_nfee_pkg
--- Loading package nrme_avalon_mm_rmap_nfee_pkg
--- Compiling entity nrme_rmap_mem_area_nfee_read
--- Compiling architecture RTL of nrme_rmap_mem_area_nfee_read
-
 } {} {}} ../RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_arbiter_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_arbiter_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -145,6 +134,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity nrme_rmap_mem_area_nfee_arbiter_ent
 -- Compiling architecture RTL of nrme_rmap_mem_area_nfee_arbiter_ent
 
+} {} {}} ../RMAP_Memory_NFEE_Area/RMAP_MEMORY/nrme_rmap_mem_area_nfee_read.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/RMAP_MEMORY/nrme_rmap_mem_area_nfee_read.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package nrme_rmap_mem_area_nfee_pkg
+-- Loading package nrme_avalon_mm_rmap_nfee_pkg
+-- Compiling entity nrme_rmap_mem_area_nfee_read
+-- Compiling architecture RTL of nrme_rmap_mem_area_nfee_read
+
 } {} {}} ../Testbench/fee_0_rmap_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/fee_0_rmap_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -155,16 +155,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity fee_0_rmap_stimuli
 -- Compiling architecture RTL of fee_0_rmap_stimuli
 
-} {} {}} ../RMAP_Memory_NFEE_Area/RMAP_MEMORY/rmap_mem_area_nfee_arbiter_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/RMAP_MEMORY/rmap_mem_area_nfee_arbiter_ent.vhd
+} {} {}} ../RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/nrme_mem_area_altsyncram_controller.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/nrme_mem_area_altsyncram_controller.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Loading package rmap_mem_area_nfee_pkg
--- Loading package avalon_mm_spacewire_pkg
--- Compiling entity rmap_mem_area_nfee_arbiter_ent
--- Compiling architecture RTL of rmap_mem_area_nfee_arbiter_ent
+-- Compiling entity nrme_mem_area_altsyncram_controller
+-- Compiling architecture RTL of nrme_mem_area_altsyncram_controller
+-- Loading package altera_mf_components
+-- Loading entity nrme_mem_area_altsyncram
 
 } {} {}} ../RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_write_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -177,13 +177,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity nrme_rmap_mem_area_nfee_write_ent
 -- Compiling architecture RTL of nrme_rmap_mem_area_nfee_write_ent
 
-} {} {}} ../RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd
+} {} {}} ../RMAP_Memory_NFEE_Area/RMAP_MEMORY/rmap_mem_area_nfee_arbiter_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/RMAP_MEMORY/rmap_mem_area_nfee_arbiter_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package nrme_avalon_mm_rmap_nfee_pkg
+-- Loading package rmap_mem_area_nfee_pkg
+-- Loading package avalon_mm_spacewire_pkg
+-- Compiling entity rmap_mem_area_nfee_arbiter_ent
+-- Compiling architecture RTL of rmap_mem_area_nfee_arbiter_ent
 
 } {} {}} ../RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -194,6 +197,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package nrme_rmap_mem_area_nfee_pkg
 -- Compiling package body nrme_rmap_mem_area_nfee_pkg
 -- Loading package nrme_rmap_mem_area_nfee_pkg
+
+} {} {}} ../RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package nrme_avalon_mm_rmap_nfee_pkg
 
 } {} {}} ../RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_write.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_write.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -216,16 +227,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body rmap_mem_area_nfee_pkg
 -- Loading package rmap_mem_area_nfee_pkg
 
-} {} {}} ./rmap_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/rmap_avalon_stimuli.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package nrme_avalon_mm_rmap_nfee_pkg
--- Compiling entity rmap_avalon_stimuli
--- Compiling architecture RTL of rmap_avalon_stimuli
-
 } {} {}} ../RMAP_Memory_NFEE_Area/RMAP_MEMORY/rmap_mem_area_nfee_write.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/RMAP_MEMORY/rmap_mem_area_nfee_write.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -237,13 +238,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_mem_area_nfee_write
 -- Compiling architecture RTL of rmap_mem_area_nfee_write
 
-} {} {}} ../RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd
+} {} {}} ./rmap_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/rmap_avalon_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package avalon_mm_spacewire_pkg
+-- Loading package nrme_avalon_mm_rmap_nfee_pkg
+-- Compiling entity rmap_avalon_stimuli
+-- Compiling architecture RTL of rmap_avalon_stimuli
 
 } {} {}} ../RMAP_Memory_NFEE_Area/AVALON_RMAP_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_RMAP_REGISTERS/nrme_avalon_mm_rmap_nfee_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -253,22 +256,22 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling package nrme_avalon_mm_rmap_nfee_pkg
 
-} {} {}} ../RMAP_Memory_NFEE_Area/nrme_rmap_memory_nfee_area_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/nrme_rmap_memory_nfee_area_top.vhd
+} {} {}} ../RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Loading package nrme_avalon_mm_rmap_nfee_pkg
--- Loading package nrme_rmap_mem_area_nfee_pkg
--- Loading package nrme_avm_rmap_nfee_pkg
--- Compiling entity nrme_rmap_memory_nfee_area_top
--- Compiling architecture rtl of nrme_rmap_memory_nfee_area_top
--- Loading entity nrme_rmap_mem_area_nfee_arbiter_ent
--- Loading entity nrme_rmap_mem_area_nfee_read_ent
--- Loading entity nrme_rmap_mem_area_nfee_write_ent
--- Loading entity nrme_avm_rmap_nfee_read_ent
--- Loading entity nrme_avm_rmap_nfee_write_ent
+-- Compiling package avalon_mm_spacewire_pkg
+
+} {} {}} ../RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/nrme_mem_area_altsyncram/nrme_mem_area_altsyncram.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/nrme_mem_area_altsyncram/nrme_mem_area_altsyncram.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package altera_mf_components
+-- Compiling entity nrme_mem_area_altsyncram
+-- Compiling architecture SYN of nrme_mem_area_altsyncram
 
 } {} {}} ./testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/Testbench/testbench_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -287,5 +290,23 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity nrme_rmap_memory_nfee_area_top
 -- Loading entity nrme_tb_avs_read_ent
 -- Loading entity nrme_tb_avs_write_ent
+
+} {} {}} ../RMAP_Memory_NFEE_Area/nrme_rmap_memory_nfee_area_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Memory_NFEE_Area/Development/RMAP_Memory_NFEE_Area/nrme_rmap_memory_nfee_area_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package nrme_avalon_mm_rmap_nfee_pkg
+-- Loading package nrme_rmap_mem_area_nfee_pkg
+-- Loading package nrme_avm_rmap_nfee_pkg
+-- Compiling entity nrme_rmap_memory_nfee_area_top
+-- Compiling architecture rtl of nrme_rmap_memory_nfee_area_top
+-- Loading entity nrme_rmap_mem_area_nfee_arbiter_ent
+-- Loading entity nrme_rmap_mem_area_nfee_read_ent
+-- Loading entity nrme_rmap_mem_area_nfee_write_ent
+-- Loading entity nrme_avm_rmap_nfee_read_ent
+-- Loading entity nrme_avm_rmap_nfee_write_ent
+-- Loading entity nrme_mem_area_altsyncram_controller
 
 } {} {}}

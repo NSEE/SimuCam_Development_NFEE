@@ -290,12 +290,13 @@ sub program_sof
 {
 	my $SOF_FILE_OK = Y;
 	my $SOF_FILE_NAME = "";
+	
 	system "clear";
 	
 	do
 	{
 		
-		if ($sof_file_name eq "-")
+		if ($prog_sof_file_name eq "-")
 		{
 
 			printf "Please input .sof file name : ";
@@ -312,6 +313,7 @@ sub program_sof
 			printf "Programming board flash with .sof file : $prog_sof_file_name\n";
 			$SOF_FILE_OK = "Y";
 			$SOF_FILE_NAME_IN = $prog_sof_file_name;
+			$SOF_FILE_NAME_IN =~ tr/a-z/A-Z/;
 			$SOF_FILE_NAME_LEN = length($SOF_FILE_NAME_IN);
 
 		}
@@ -395,13 +397,13 @@ sub program_sof
 		else
 		{
 			printf "\n";
-			printf "Files do not exist,please make sure.\n";
+			printf "Files do not exist, please make sure.\n";
 			$SOF_FILE_OK = "N";
 		}
 	}
 	while ($SOF_FILE_OK ne "Y");
 	
-	if (($board_cable_name eq "N") || ($sof_file_name eq "-") || ($elf_file_name eq "-")) {
+	if (($prog_both_files eq "N") || ($prog_sof_file_name eq "-") || ($prog_elf_file_name eq "-")) {
 		printf "\nPress ENTER key to continuance... ";
 		$RESULT = <STDIN>;
 	}
@@ -419,13 +421,13 @@ sub program_elf
 	$KIT_ROOTDIR = $ENV{SOPC_KIT_NIOS2};
 	$KIT_ROOTDIR =~ s/nios2eds//g;
 
-	if (($board_cable_name eq "N") || ($sof_file_name eq "-") || ($elf_file_name eq "-")) {
+	if (($prog_both_files eq "N") || ($prog_sof_file_name eq "-") || ($prog_elf_file_name eq "-")) {
 		system "clear";
 	}
 	do
 	{
 		
-		if ($elf_file_name eq "-")
+		if ($prog_elf_file_name eq "-")
 		{
 
 			printf "Please input .ELF file name : ";
@@ -442,6 +444,7 @@ sub program_elf
 			printf "Programming board flash with .elf file : $prog_elf_file_name\n";
 			$ELF_FILE_OK = "Y";
 			$ELF_FILE_NAME_IN = $prog_elf_file_name;
+			$ELF_FILE_NAME_IN =~ tr/a-z/A-Z/;
 			$ELF_FILE_NAME_LEN = length($ELF_FILE_NAME_IN);
 
 		}
@@ -524,7 +527,7 @@ sub program_elf
 		else
 		{
 			printf "\n";
-			printf "Files do not exist,please make sure.\n";
+			printf "Files do not exist, please make sure.\n";
 			$ELF_FILE_OK = "N";
 		}
 	}

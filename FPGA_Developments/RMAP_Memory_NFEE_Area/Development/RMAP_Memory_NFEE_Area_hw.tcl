@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Memory_NFEE_Area "RMAP_Memory_NFEE_Area" v1.3
+# RMAP_Memory_NFEE_Area "RMAP_Memory_NFEE_Area" v1.4
 # rfranca 2020.04.04.23:17:08
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME RMAP_Memory_NFEE_Area
-set_module_property VERSION 1.3
+set_module_property VERSION 1.4
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca
@@ -44,6 +44,8 @@ add_fileset_file nrme_rmap_mem_area_nfee_pkg.vhd VHDL PATH RMAP_Memory_NFEE_Area
 add_fileset_file nrme_rmap_mem_area_nfee_arbiter_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_arbiter_ent.vhd
 add_fileset_file nrme_rmap_mem_area_nfee_read_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_read_ent.vhd
 add_fileset_file nrme_rmap_mem_area_nfee_write_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_write_ent.vhd
+add_fileset_file nrme_mem_area_altsyncram.vhd VHDL PATH RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/nrme_mem_area_altsyncram/nrme_mem_area_altsyncram.vhd
+add_fileset_file nrme_mem_area_altsyncram_controller.vhd VHDL PATH RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/nrme_mem_area_altsyncram_controller.vhd
 add_fileset_file nrme_avm_rmap_nfee_pkg.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_AVALON_MM_RMAP_MASTER/nrme_avm_rmap_nfee_pkg.vhd
 add_fileset_file nrme_avm_rmap_nfee_read_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_AVALON_MM_RMAP_MASTER/nrme_avm_rmap_nfee_read_ent.vhd
 add_fileset_file nrme_avm_rmap_nfee_write_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_AVALON_MM_RMAP_MASTER/nrme_avm_rmap_nfee_write_ent.vhd
@@ -58,6 +60,8 @@ add_fileset_file nrme_rmap_mem_area_nfee_pkg.vhd VHDL PATH RMAP_Memory_NFEE_Area
 add_fileset_file nrme_rmap_mem_area_nfee_arbiter_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_arbiter_ent.vhd
 add_fileset_file nrme_rmap_mem_area_nfee_read_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_read_ent.vhd
 add_fileset_file nrme_rmap_mem_area_nfee_write_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_RMAP_MEMORY/nrme_rmap_mem_area_nfee_write_ent.vhd
+add_fileset_file nrme_mem_area_altsyncram.vhd VHDL PATH RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/nrme_mem_area_altsyncram/nrme_mem_area_altsyncram.vhd
+add_fileset_file nrme_mem_area_altsyncram_controller.vhd VHDL PATH RMAP_Memory_NFEE_Area/RAM_MEMORY_AREA/nrme_mem_area_altsyncram_controller.vhd
 add_fileset_file nrme_avm_rmap_nfee_pkg.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_AVALON_MM_RMAP_MASTER/nrme_avm_rmap_nfee_pkg.vhd
 add_fileset_file nrme_avm_rmap_nfee_read_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_AVALON_MM_RMAP_MASTER/nrme_avm_rmap_nfee_read_ent.vhd
 add_fileset_file nrme_avm_rmap_nfee_write_ent.vhd VHDL PATH RMAP_Memory_NFEE_Area/NFEE_AVALON_MM_RMAP_MASTER/nrme_avm_rmap_nfee_write_ent.vhd

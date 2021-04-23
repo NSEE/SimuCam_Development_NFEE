@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Tue Jul 28 02:06:06 BRT 2020
+ * Generated: Fri Apr 23 07:11:36 BRT 2021
  */
 
 /*
@@ -51,7 +51,7 @@
 MEMORY
 {
     onchip_memory_BEFORE_EXCEPTION : ORIGIN = 0x81100000, LENGTH = 32
-    onchip_memory : ORIGIN = 0x81100020, LENGTH = 720864
+    onchip_memory : ORIGIN = 0x81100020, LENGTH = 786400
     ext_flash_BEFORE_RESET : ORIGIN = 0x84000000, LENGTH = 33685504
     reset : ORIGIN = 0x86020000, LENGTH = 32
     ext_flash : ORIGIN = 0x86020020, LENGTH = 33423328
@@ -348,7 +348,7 @@ SECTIONS
 /*
  * Don't override this, override the __alt_stack_* symbols instead.
  */
-__alt_data_end = 0x811b0000;
+__alt_data_end = 0x811c0000;
 
 /*
  * The next two symbols define the location of the default stack.  You can
@@ -364,4 +364,4 @@ PROVIDE( __alt_stack_limit   = __alt_stack_base );
  * Override this symbol to put the heap in a different memory.
  */
 PROVIDE( __alt_heap_start    = end );
-PROVIDE( __alt_heap_limit    = 0x811b0000 );
+PROVIDE( __alt_heap_limit    = 0x811c0000 );

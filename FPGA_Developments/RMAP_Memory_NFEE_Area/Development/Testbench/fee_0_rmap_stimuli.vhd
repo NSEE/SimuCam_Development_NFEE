@@ -47,7 +47,7 @@ begin
 			fee_0_rmap_writedata_o  <= (others => '0');
 			fee_0_rmap_rd_address_o <= (others => '0');
 			fee_0_rmap_read_o       <= '0';
-			s_counter               <= s_counter + 1;
+--			s_counter               <= s_counter + 1;
 
 			case s_counter is
 

@@ -6,6 +6,8 @@
 # Compile of nrme_rmap_mem_area_nfee_arbiter_ent.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_read_ent.vhd was successful.
 # Compile of nrme_rmap_mem_area_nfee_write_ent.vhd was successful.
+# Compile of nrme_mem_area_altsyncram.vhd was successful.
+# Compile of nrme_mem_area_altsyncram_controller.vhd was successful.
 # Compile of nrme_avm_rmap_nfee_pkg.vhd was successful.
 # Compile of nrme_avm_rmap_nfee_read_ent.vhd was successful.
 # Compile of nrme_avm_rmap_nfee_write_ent.vhd was successful.
@@ -16,4 +18,4 @@
 # Compile of nrme_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 15 compiles, 0 failed with no errors.
+# 17 compiles, 0 failed with no errors.

@@ -80,14 +80,23 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 
     signal s_ftdi_tx_prot_payload_reader_state : t_ftdi_tx_prot_payload_reader_fsm;
 
-    signal s_rx_dword_0 : std_logic_vector(31 downto 0);
-    signal s_rx_dword_1 : std_logic_vector(31 downto 0);
-    signal s_rx_dword_2 : std_logic_vector(31 downto 0);
-    signal s_rx_dword_3 : std_logic_vector(31 downto 0);
-    signal s_rx_dword_4 : std_logic_vector(31 downto 0);
-    signal s_rx_dword_5 : std_logic_vector(31 downto 0);
-    signal s_rx_dword_6 : std_logic_vector(31 downto 0);
-    signal s_rx_dword_7 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_0 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_1 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_2 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_3 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_4 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_5 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_6 : std_logic_vector(31 downto 0);
+    --    signal s_rx_dword_7 : std_logic_vector(31 downto 0);
+
+    alias a_rx_dword_0 : std_logic_vector(31 downto 0) is buffer_wrdata_o(31 downto 0);
+    alias a_rx_dword_1 : std_logic_vector(31 downto 0) is buffer_wrdata_o(63 downto 32);
+    alias a_rx_dword_2 : std_logic_vector(31 downto 0) is buffer_wrdata_o(95 downto 64);
+    alias a_rx_dword_3 : std_logic_vector(31 downto 0) is buffer_wrdata_o(127 downto 96);
+    alias a_rx_dword_4 : std_logic_vector(31 downto 0) is buffer_wrdata_o(159 downto 128);
+    alias a_rx_dword_5 : std_logic_vector(31 downto 0) is buffer_wrdata_o(191 downto 160);
+    alias a_rx_dword_6 : std_logic_vector(31 downto 0) is buffer_wrdata_o(223 downto 192);
+    alias a_rx_dword_7 : std_logic_vector(31 downto 0) is buffer_wrdata_o(255 downto 224);
 
     signal s_payload_write_flag             : std_logic;
     signal s_force_payload_length_flag      : std_logic;
@@ -120,6 +129,15 @@ begin
         );
 
     p_ftdi_tx_prot_payload_reader : process(clk_i, rst_i) is
+        --
+        function f_swap_words(dword_unswaped_i : std_logic_vector) return std_logic_vector is
+            variable v_dword_swaped : std_logic_vector(31 downto 0) := (others => '0');
+        begin
+            v_dword_swaped(15 downto 0)  := dword_unswaped_i(31 downto 16);
+            v_dword_swaped(31 downto 16) := dword_unswaped_i(15 downto 0);
+            return v_dword_swaped;
+        end function f_swap_words;
+        --
         variable v_ftdi_tx_prot_payload_reader_state : t_ftdi_tx_prot_payload_reader_fsm := STOPPED;
         variable v_fetch_dword                       : std_logic;
         variable v_read_dword                        : std_logic;
@@ -150,16 +168,24 @@ begin
             payload_last_rx_buffer_o            <= '0';
             rx_dc_data_fifo_rdreq_o             <= '0';
             buffer_data_loaded_o                <= '0';
-            buffer_wrdata_o                     <= (others => '0');
+            --            buffer_wrdata_o                     <= (others => '0');
             buffer_wrreq_o                      <= '0';
-            s_rx_dword_0                        <= (others => '0');
-            s_rx_dword_1                        <= (others => '0');
-            s_rx_dword_2                        <= (others => '0');
-            s_rx_dword_3                        <= (others => '0');
-            s_rx_dword_4                        <= (others => '0');
-            s_rx_dword_5                        <= (others => '0');
-            s_rx_dword_6                        <= (others => '0');
-            s_rx_dword_7                        <= (others => '0');
+            --            s_rx_dword_0                        <= (others => '0');
+            --            s_rx_dword_1                        <= (others => '0');
+            --            s_rx_dword_2                        <= (others => '0');
+            --            s_rx_dword_3                        <= (others => '0');
+            --            s_rx_dword_4                        <= (others => '0');
+            --            s_rx_dword_5                        <= (others => '0');
+            --            s_rx_dword_6                        <= (others => '0');
+            --            s_rx_dword_7                        <= (others => '0');
+            a_rx_dword_0                        <= (others => '0');
+            a_rx_dword_1                        <= (others => '0');
+            a_rx_dword_2                        <= (others => '0');
+            a_rx_dword_3                        <= (others => '0');
+            a_rx_dword_4                        <= (others => '0');
+            a_rx_dword_5                        <= (others => '0');
+            a_rx_dword_6                        <= (others => '0');
+            a_rx_dword_7                        <= (others => '0');
         elsif rising_edge(clk_i) then
 
             -- States transitions FSM
@@ -1043,16 +1069,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "IDLE"
@@ -1066,16 +1100,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "WAITING_RX_DATA_SOP"
@@ -1089,16 +1131,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "PAYLOAD_RX_START_OF_PAYLOAD"
@@ -1112,16 +1162,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '1';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "WAITING_RX_READY"
@@ -1134,16 +1192,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "PRE_FETCH_DELAY"
@@ -1156,16 +1222,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '1';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                     -- conditional output signals
                     -- check if the word does not need to be fetched
                     if (v_fetch_dword = '0') then
@@ -1181,7 +1255,7 @@ begin
                     payload_eop_error_o      <= '0';
                     payload_last_rx_buffer_o <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be fetched
@@ -1198,20 +1272,24 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_0(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_0(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_0(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_0(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_0 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_0 <= (others => '0');
+                        --                        s_rx_dword_0 <= (others => '0');
+                        a_rx_dword_0 <= (others => '0');
                     end if;
 
                 -- state "FETCH_RX_DWORD_1"
@@ -1223,7 +1301,7 @@ begin
                     payload_eop_error_o      <= '0';
                     payload_last_rx_buffer_o <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be fetched
@@ -1239,20 +1317,24 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_1(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_1(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_1(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_1(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_1 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_1 <= (others => '0');
+                        --                        s_rx_dword_1 <= (others => '0');
+                        a_rx_dword_1 <= (others => '0');
                     end if;
 
                 -- state "FETCH_RX_DWORD_2"
@@ -1264,7 +1346,7 @@ begin
                     payload_eop_error_o      <= '0';
                     payload_last_rx_buffer_o <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be fetched
@@ -1280,20 +1362,24 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_2(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_2(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_2(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_2(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_2 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_2 <= (others => '0');
+                        --                        s_rx_dword_2 <= (others => '0');
+                        a_rx_dword_2 <= (others => '0');
                     end if;
 
                 -- state "FETCH_RX_DWORD_3"
@@ -1305,7 +1391,7 @@ begin
                     payload_eop_error_o      <= '0';
                     payload_last_rx_buffer_o <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be fetched
@@ -1321,20 +1407,24 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_3(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_3(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_3(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_3(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_3 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_3 <= (others => '0');
+                        --                        s_rx_dword_3 <= (others => '0');
+                        a_rx_dword_3 <= (others => '0');
                     end if;
 
                 -- state "FETCH_RX_DWORD_4"
@@ -1346,7 +1436,7 @@ begin
                     payload_eop_error_o      <= '0';
                     payload_last_rx_buffer_o <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be fetched
@@ -1362,20 +1452,24 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_4(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_4(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_4(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_4(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_4 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_4 <= (others => '0');
+                        --                        s_rx_dword_4 <= (others => '0');
+                        a_rx_dword_4 <= (others => '0');
                     end if;
 
                 -- state "FETCH_RX_DWORD_5"
@@ -1387,7 +1481,7 @@ begin
                     payload_eop_error_o      <= '0';
                     payload_last_rx_buffer_o <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be fetched
@@ -1403,20 +1497,24 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_5(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_5(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_5(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_5(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_5 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_5 <= (others => '0');
+                        --                        s_rx_dword_5 <= (others => '0');
+                        a_rx_dword_5 <= (others => '0');
                     end if;
 
                 -- state "FETCH_RX_DWORD_6"
@@ -1428,7 +1526,7 @@ begin
                     payload_eop_error_o      <= '0';
                     payload_last_rx_buffer_o <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be fetched
@@ -1444,20 +1542,24 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_6(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_6(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_6(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_6(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_6 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_6 <= (others => '0');
+                        --                        s_rx_dword_6 <= (others => '0');
+                        a_rx_dword_6 <= (others => '0');
                     end if;
 
                 -- state "FETCH_RX_DWORD_7"
@@ -1470,7 +1572,7 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
                     -- conditional output signals
                     -- check if the word need to be read
@@ -1480,42 +1582,46 @@ begin
                             -- check if the data is pixels or masks
                             if (v_mask_cnt < 32) then
                                 -- pixel data, need to swap words
-                                s_rx_dword_7(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
-                                s_rx_dword_7(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                --                                s_rx_dword_7(15 downto 0)  <= rx_dc_data_fifo_rddata_data_i(31 downto 16);
+                                --                                s_rx_dword_7(31 downto 16) <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
+                                a_rx_dword_7 <= f_swap_words(rx_dc_data_fifo_rddata_data_i);
                             else
                                 -- mask data, need to swap dwords
-                                s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
+                                --                                s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
+                                a_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
                             end if;
                         else
                             -- windowing parameters are not over
                             -- windowing parameter data, no need to swap
-                            s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
+                            --                            s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
+                            a_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
                         end if;
                         s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
                     else
-                        s_rx_dword_7 <= (others => '0');
+                        --                        s_rx_dword_7 <= (others => '0');
+                        a_rx_dword_7 <= (others => '0');
                     end if;
 
                 -- state "WRITE_RX_QQWORD"
                 when WRITE_RX_QQWORD =>
                     -- write rx qqword data (256b)
                     -- default output signals
-                    payload_reader_busy_o           <= '1';
-                    payload_crc32_match_o           <= '0';
-                    payload_eop_error_o             <= '0';
-                    payload_last_rx_buffer_o        <= '0';
-                    rx_dc_data_fifo_rdreq_o         <= '0';
-                    buffer_data_loaded_o            <= '0';
-                    buffer_wrdata_o(31 downto 0)    <= s_rx_dword_0;
-                    buffer_wrdata_o(63 downto 32)   <= s_rx_dword_1;
-                    buffer_wrdata_o(95 downto 64)   <= s_rx_dword_2;
-                    buffer_wrdata_o(127 downto 96)  <= s_rx_dword_3;
-                    buffer_wrdata_o(159 downto 128) <= s_rx_dword_4;
-                    buffer_wrdata_o(191 downto 160) <= s_rx_dword_5;
-                    buffer_wrdata_o(223 downto 192) <= s_rx_dword_6;
-                    buffer_wrdata_o(255 downto 224) <= s_rx_dword_7;
+                    payload_reader_busy_o    <= '1';
+                    payload_crc32_match_o    <= '0';
+                    payload_eop_error_o      <= '0';
+                    payload_last_rx_buffer_o <= '0';
+                    rx_dc_data_fifo_rdreq_o  <= '0';
+                    buffer_data_loaded_o     <= '0';
+                    --                    buffer_wrdata_o(31 downto 0)    <= s_rx_dword_0;
+                    --                    buffer_wrdata_o(63 downto 32)   <= s_rx_dword_1;
+                    --                    buffer_wrdata_o(95 downto 64)   <= s_rx_dword_2;
+                    --                    buffer_wrdata_o(127 downto 96)  <= s_rx_dword_3;
+                    --                    buffer_wrdata_o(159 downto 128) <= s_rx_dword_4;
+                    --                    buffer_wrdata_o(191 downto 160) <= s_rx_dword_5;
+                    --                    buffer_wrdata_o(223 downto 192) <= s_rx_dword_6;
+                    --                    buffer_wrdata_o(255 downto 224) <= s_rx_dword_7;
                     --                    buffer_wrreq_o                  <= '1';
-                    buffer_wrreq_o                  <= s_payload_write_flag;
+                    buffer_wrreq_o           <= s_payload_write_flag;
                     -- conditional output signals
                     -- check if it is the last buffer
                     if (unsigned(s_payload_length_cnt) < 8) then -- payload length counter comparison need adjust to generate correct output
@@ -1532,16 +1638,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                     -- conditional output signals
                     -- check if it is the last buffer
                     if (unsigned(s_payload_length_cnt) < 4) then
@@ -1558,16 +1672,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                     -- conditional output signals
                     -- check if it is the last buffer
                     if (unsigned(s_payload_length_cnt) < 4) then
@@ -1584,16 +1706,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                     -- conditional output signals
                     -- check if it is the last buffer
                     if (unsigned(s_payload_length_cnt) < 4) then
@@ -1610,16 +1740,24 @@ begin
                     payload_last_rx_buffer_o <= '1';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '1';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "WAITING_RX_DATA_CRC"
@@ -1632,16 +1770,24 @@ begin
                     payload_last_rx_buffer_o <= '1';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "PAYLOAD_RX_PAYLOAD_CRC"
@@ -1654,16 +1800,24 @@ begin
                     payload_last_rx_buffer_o <= '1';
                     rx_dc_data_fifo_rdreq_o  <= '1';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "WAITING_RX_DATA_EOP"
@@ -1677,16 +1831,24 @@ begin
                     payload_last_rx_buffer_o <= '1';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "PAYLOAD_RX_END_OF_PAYLOAD"
@@ -1700,16 +1862,24 @@ begin
                     payload_last_rx_buffer_o <= '1';
                     rx_dc_data_fifo_rdreq_o  <= '1';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "PAYLOAD_RX_ABORT"
@@ -1723,16 +1893,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                     -- conditional output signals
                     -- check if the rx fifo must be read
                     if (v_read_dword = '1') then
@@ -1750,16 +1928,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "PAYLOAD_ZERO_FILL"
@@ -1773,16 +1959,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '1';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "PAYLOAD_DELAY_FILL"
@@ -1796,16 +1990,24 @@ begin
                     payload_last_rx_buffer_o <= '0';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                 -- conditional output signals
 
                 -- state "FINISH_PAYLOAD_RX"
@@ -1819,16 +2021,24 @@ begin
                     payload_last_rx_buffer_o <= '1';
                     rx_dc_data_fifo_rdreq_o  <= '0';
                     buffer_data_loaded_o     <= '0';
-                    buffer_wrdata_o          <= (others => '0');
+                    --                    buffer_wrdata_o          <= (others => '0');
                     buffer_wrreq_o           <= '0';
-                    s_rx_dword_0             <= (others => '0');
-                    s_rx_dword_1             <= (others => '0');
-                    s_rx_dword_2             <= (others => '0');
-                    s_rx_dword_3             <= (others => '0');
-                    s_rx_dword_4             <= (others => '0');
-                    s_rx_dword_5             <= (others => '0');
-                    s_rx_dword_6             <= (others => '0');
-                    s_rx_dword_7             <= (others => '0');
+                    --                    s_rx_dword_0             <= (others => '0');
+                    --                    s_rx_dword_1             <= (others => '0');
+                    --                    s_rx_dword_2             <= (others => '0');
+                    --                    s_rx_dword_3             <= (others => '0');
+                    --                    s_rx_dword_4             <= (others => '0');
+                    --                    s_rx_dword_5             <= (others => '0');
+                    --                    s_rx_dword_6             <= (others => '0');
+                    --                    s_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0             <= (others => '0');
+                    a_rx_dword_1             <= (others => '0');
+                    a_rx_dword_2             <= (others => '0');
+                    a_rx_dword_3             <= (others => '0');
+                    a_rx_dword_4             <= (others => '0');
+                    a_rx_dword_5             <= (others => '0');
+                    a_rx_dword_6             <= (others => '0');
+                    a_rx_dword_7             <= (others => '0');
                     -- conditional output signals
 
             end case;

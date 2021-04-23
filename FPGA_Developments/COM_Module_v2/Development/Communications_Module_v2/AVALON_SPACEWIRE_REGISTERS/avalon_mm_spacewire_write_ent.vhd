@@ -136,55 +136,74 @@ begin
             -- Data Packet Device Channel Address Register : Data Packet Device Base Address
             spacewire_write_registers_o.data_packet_dev_addr_reg.data_packet_dev_base_addr                              <= (others => '0');
             -- Data Packet Config Register : Data Packet CCD X Size
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_x_size                                      <= std_logic_vector(to_unsigned(2295, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_x_size                                      <= std_logic_vector(to_unsigned(2295, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_x_size                                      <= x"08F7";
             -- Data Packet Config Register : Data Packet CCD Y Size
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_y_size                                      <= std_logic_vector(to_unsigned(4560, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_y_size                                      <= std_logic_vector(to_unsigned(4560, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_y_size                                      <= x"11D0";
             -- Data Packet Config Register : Data Packet Data Y Size
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_data_y_size                                     <= std_logic_vector(to_unsigned(4510, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_data_y_size                                     <= std_logic_vector(to_unsigned(4510, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_data_y_size                                     <= x"119E";
             -- Data Packet Config Register : Data Packet Overscan Y Size
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_overscan_y_size                                 <= std_logic_vector(to_unsigned(50, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_overscan_y_size                                 <= std_logic_vector(to_unsigned(50, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_overscan_y_size                                 <= x"0032";
             -- Data Packet Config Register : Data Packet CCD V-Start
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_start                                     <= std_logic_vector(to_unsigned(0, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_start                                     <= std_logic_vector(to_unsigned(0, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_start                                     <= x"0000";
             -- Data Packet Config Register : Data Packet CCD V-End
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_end                                       <= std_logic_vector(to_unsigned(4539, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_end                                       <= std_logic_vector(to_unsigned(4539, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_end                                       <= x"11BB";
             -- Data Packet Config Register : Data Packet CCD Image V-End
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_v_end                                   <= std_logic_vector(to_unsigned(4509, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_v_end                                   <= std_logic_vector(to_unsigned(4509, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_v_end                                   <= x"119D";
             -- Data Packet Config Register : Data Packet CCD Overscan V-End
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_v_end                                   <= std_logic_vector(to_unsigned(29, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_v_end                                   <= std_logic_vector(to_unsigned(29, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_v_end                                   <= x"001D";
             -- Data Packet Config Register : Data Packet CCD H-Start
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_start                                     <= std_logic_vector(to_unsigned(0, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_start                                     <= std_logic_vector(to_unsigned(0, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_start                                     <= x"0000";
             -- Data Packet Config Register : Data Packet CCD H-End
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_end                                       <= std_logic_vector(to_unsigned(2294, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_end                                       <= std_logic_vector(to_unsigned(2294, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_end                                       <= x"08F6";
             -- Data Packet Config Register : Data Packet CCD Image Enable
             spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_en                                      <= '1';
             -- Data Packet Config Register : Data Packet CCD Overscan Enable
             spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_en                                      <= '1';
             -- Data Packet Config Register : Data Packet Packet Length
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length                                   <= std_logic_vector(to_unsigned(32768, 16));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length                                   <= std_logic_vector(to_unsigned(32768, 16));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length                                   <= x"8000";
             -- Data Packet Config Register : Data Packet Logical Address
             spacewire_write_registers_o.data_packet_config_reg.data_pkt_logical_addr                                    <= x"50";
             -- Data Packet Config Register : Data Packet Protocol ID
             spacewire_write_registers_o.data_packet_config_reg.data_pkt_protocol_id                                     <= x"F0";
             -- Data Packet Config Register : Data Packet FEE Mode
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode                                        <= std_logic_vector(to_unsigned(0, 5));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode                                        <= std_logic_vector(to_unsigned(0, 5));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode                                        <= "00000";
             -- Data Packet Config Register : Data Packet CCD Number
-            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_number                                      <= std_logic_vector(to_unsigned(0, 2));
+            --            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_number                                      <= std_logic_vector(to_unsigned(0, 2));
+            spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_number                                      <= "00";
             -- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
             spacewire_write_registers_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                                <= '0';
             -- Data Packet Pixel Delay Register : Data Packet Start Delay
-            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_start_delay                                <= std_logic_vector(to_unsigned(0, 32));
+            --            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_start_delay                                <= std_logic_vector(to_unsigned(0, 32));
+            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_start_delay                                <= x"00000000";
             -- Data Packet Pixel Delay Register : Data Packet Skip Delay
-            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_skip_delay                                 <= std_logic_vector(to_unsigned(11000, 32));
+            --            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_skip_delay                                 <= std_logic_vector(to_unsigned(11000, 32));
+            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_skip_delay                                 <= x"00002AF8";
             -- Data Packet Pixel Delay Register : Data Packet Line Delay
-            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_line_delay                                 <= std_logic_vector(to_unsigned(9000, 32));
+            --            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_line_delay                                 <= std_logic_vector(to_unsigned(9000, 32));
+            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_line_delay                                 <= x"00002328";
             -- Data Packet Pixel Delay Register : Data Packet ADC Delay
-            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_adc_delay                                  <= std_logic_vector(to_unsigned(33, 32));
+            --            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_adc_delay                                  <= std_logic_vector(to_unsigned(33, 32));
+            spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_adc_delay                                  <= x"00000021";
             -- SpaceWire Error Injection Control Register : Enable for "EEP Received" SpaceWire Error
             spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_eep_received                         <= '0';
             -- SpaceWire Error Injection Control Register : Sequence Counter of SpaceWire Error
-            spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_sequence_cnt                         <= std_logic_vector(to_unsigned(0, 16));
+            --            spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_sequence_cnt                         <= std_logic_vector(to_unsigned(0, 16));
+            spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_sequence_cnt                         <= x"0000";
             -- SpaceWire Error Injection Control Register : Number of Times the SpaceWire Error Repeats
-            spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_n_repeat                             <= std_logic_vector(to_unsigned(0, 16));
+            --            spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_n_repeat                             <= std_logic_vector(to_unsigned(0, 16));
+            spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_n_repeat                             <= x"0000";
             -- SpaceWire Codec Error Injection Control Register : Start SpaceWire Codec Error Injection
             spacewire_write_registers_o.spw_codec_errinj_control_reg.errinj_ctrl_start_errinj                           <= '0';
             -- SpaceWire Codec Error Injection Control Register : Reset SpaceWire Codec Error Injection
@@ -208,13 +227,17 @@ begin
             -- Transmission Error Injection Control Register : Enable for "Missing Data" Transmission Error
             spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_missing_data                     <= '0';
             -- Transmission Error Injection Control Register : Frame Number of Transmission Error
-            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_frame_num                        <= std_logic_vector(to_unsigned(0, 2));
+            --            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_frame_num                        <= std_logic_vector(to_unsigned(0, 2));
+            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_frame_num                        <= "00";
             -- Transmission Error Injection Control Register : Sequence Counter of Transmission Error
-            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_sequence_cnt                     <= std_logic_vector(to_unsigned(0, 16));
+            --            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_sequence_cnt                     <= std_logic_vector(to_unsigned(0, 16));
+            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_sequence_cnt                     <= x"0000";
             -- Transmission Error Injection Control Register : Data Counter of Transmission Error
-            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_data_cnt                         <= std_logic_vector(to_unsigned(0, 16));
+            --            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_data_cnt                         <= std_logic_vector(to_unsigned(0, 16));
+            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_data_cnt                         <= x"0000";
             -- Transmission Error Injection Control Register : Number of Times the Transmission Error Repeats
-            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_n_repeat                         <= std_logic_vector(to_unsigned(0, 16));
+            --            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_n_repeat                         <= std_logic_vector(to_unsigned(0, 16));
+            spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_n_repeat                         <= x"0000";
             -- Left Content Error Injection Control Register : Open the Left Content Error List
             spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_open               <= '0';
             -- Left Content Error Injection Control Register : Close the Left Content Error List

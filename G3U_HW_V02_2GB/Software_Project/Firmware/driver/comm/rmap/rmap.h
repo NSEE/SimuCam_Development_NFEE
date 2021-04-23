@@ -85,6 +85,11 @@ bool vRmapInitIrq(alt_u8 ucCommCh);
 bool bRmapSoftRstMemAreaConfig(alt_u8 ucCommCh);
 bool bRmapSoftRstMemAreaHk(alt_u8 ucCommCh);
 
+/*
+bool bRmapDumpMemAreaConfig(alt_u8 ucCommCh);
+bool bRmapDumpMemAreaHk(alt_u8 ucCommCh);
+*/
+
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware
 
