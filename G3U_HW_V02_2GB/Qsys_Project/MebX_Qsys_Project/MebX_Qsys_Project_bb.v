@@ -1,32 +1,6 @@
 
 module MebX_Qsys_Project (
-	button_export,
 	clk50_clk,
-	comm_1_measurements_measurements_signal,
-	comm_1_sync_sync_signal,
-	comm_2_measurements_measurements_signal,
-	comm_2_sync_sync_signal,
-	comm_3_measurements_measurements_signal,
-	comm_3_sync_sync_signal,
-	comm_4_measurements_measurements_signal,
-	comm_4_sync_sync_signal,
-	comm_5_measurements_measurements_signal,
-	comm_5_sync_sync_signal,
-	comm_6_measurements_measurements_signal,
-	comm_6_sync_sync_signal,
-	csense_adc_fo_export,
-	csense_cs_n_export,
-	csense_sck_export,
-	csense_sdi_export,
-	csense_sdo_export,
-	ctrl_io_lvds_export,
-	dip_export,
-	ext_export,
-	ftdi_clk_clk,
-	led_de4_export,
-	led_painel_export,
-	m1_ddr2_i2c_scl_export,
-	m1_ddr2_i2c_sda_export,
 	m1_ddr2_memory_mem_a,
 	m1_ddr2_memory_mem_ba,
 	m1_ddr2_memory_mem_ck,
@@ -47,8 +21,6 @@ module MebX_Qsys_Project (
 	m1_ddr2_memory_status_local_cal_fail,
 	m1_ddr2_oct_rdn,
 	m1_ddr2_oct_rup,
-	m2_ddr2_i2c_scl_export,
-	m2_ddr2_i2c_sda_export,
 	m2_ddr2_memory_mem_a,
 	m2_ddr2_memory_mem_ba,
 	m2_ddr2_memory_mem_ck,
@@ -77,13 +49,7 @@ module MebX_Qsys_Project (
 	m2_ddr2_memory_status_local_cal_fail,
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
-	rs232_uart_rxd,
-	rs232_uart_txd,
 	rst_reset_n,
-	rst_controller_conduit_reset_input_t_reset_input_signal,
-	rst_controller_conduit_simucam_reset_t_simucam_reset_signal,
-	scom_0_sync_sync_signal,
-	sd_card_wp_n_io_export,
 	spwc_a_enable_spw_rx_enable_signal,
 	spwc_a_enable_spw_tx_enable_signal,
 	spwc_a_leds_spw_red_status_led_signal,
@@ -180,67 +146,32 @@ module MebX_Qsys_Project (
 	spwc_h_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_h_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_h_lvds_spw_lvds_n_strobe_in_signal,
-	sync_in_conduit,
-	sync_in_en_conduit,
-	sync_out_conduit,
-	sync_out_en_conduit,
-	sync_spw1_conduit,
-	sync_spw2_conduit,
-	sync_spw3_conduit,
-	sync_spw4_conduit,
-	sync_spw5_conduit,
-	sync_spw6_conduit,
-	sync_spw7_conduit,
-	sync_spw8_conduit,
-	temp_scl_export,
-	temp_sda_export,
-	timer_1ms_external_port_export,
-	timer_1us_external_port_export,
-	tristate_conduit_tcm_address_out,
-	tristate_conduit_tcm_read_n_out,
-	tristate_conduit_tcm_write_n_out,
-	tristate_conduit_tcm_data_out,
-	tristate_conduit_tcm_chipselect_n_out,
-	umft601a_pins_umft_clock_signal,
-	umft601a_pins_umft_txe_n_signal,
-	umft601a_pins_umft_rxf_n_signal,
-	umft601a_pins_umft_data_signal,
-	umft601a_pins_umft_be_signal,
-	umft601a_pins_umft_wakeup_n_signal,
-	umft601a_pins_umft_gpio_bus_signal,
-	umft601a_pins_umft_reset_n_signal,
-	umft601a_pins_umft_wr_n_signal,
-	umft601a_pins_umft_rd_n_signal,
-	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal);	
+	spwr_drivers_isolator_en_drivers_isolator_en_signal,
+	spwr_router_control_router_config_en_signal,
+	spwr_router_control_router_path_0_select_signal,
+	spwr_router_control_router_path_1_select_signal,
+	m1_ddr2_memory_avl_waitrequest_n,
+	m1_ddr2_memory_avl_beginbursttransfer,
+	m1_ddr2_memory_avl_address,
+	m1_ddr2_memory_avl_readdatavalid,
+	m1_ddr2_memory_avl_readdata,
+	m1_ddr2_memory_avl_writedata,
+	m1_ddr2_memory_avl_byteenable,
+	m1_ddr2_memory_avl_read,
+	m1_ddr2_memory_avl_write,
+	m1_ddr2_memory_avl_burstcount,
+	m2_ddr2_memory_avl_waitrequest_n,
+	m2_ddr2_memory_avl_beginbursttransfer,
+	m2_ddr2_memory_avl_address,
+	m2_ddr2_memory_avl_readdatavalid,
+	m2_ddr2_memory_avl_readdata,
+	m2_ddr2_memory_avl_writedata,
+	m2_ddr2_memory_avl_byteenable,
+	m2_ddr2_memory_avl_read,
+	m2_ddr2_memory_avl_write,
+	m2_ddr2_memory_avl_burstcount);	
 
-	input	[3:0]	button_export;
 	input		clk50_clk;
-	output	[7:0]	comm_1_measurements_measurements_signal;
-	input		comm_1_sync_sync_signal;
-	output	[7:0]	comm_2_measurements_measurements_signal;
-	input		comm_2_sync_sync_signal;
-	output	[7:0]	comm_3_measurements_measurements_signal;
-	input		comm_3_sync_sync_signal;
-	output	[7:0]	comm_4_measurements_measurements_signal;
-	input		comm_4_sync_sync_signal;
-	output	[7:0]	comm_5_measurements_measurements_signal;
-	input		comm_5_sync_sync_signal;
-	output	[7:0]	comm_6_measurements_measurements_signal;
-	input		comm_6_sync_sync_signal;
-	output		csense_adc_fo_export;
-	output	[1:0]	csense_cs_n_export;
-	output		csense_sck_export;
-	output		csense_sdi_export;
-	input		csense_sdo_export;
-	output	[3:0]	ctrl_io_lvds_export;
-	input	[7:0]	dip_export;
-	input		ext_export;
-	input		ftdi_clk_clk;
-	output	[7:0]	led_de4_export;
-	output	[20:0]	led_painel_export;
-	output		m1_ddr2_i2c_scl_export;
-	inout		m1_ddr2_i2c_sda_export;
 	output	[13:0]	m1_ddr2_memory_mem_a;
 	output	[2:0]	m1_ddr2_memory_mem_ba;
 	output	[1:0]	m1_ddr2_memory_mem_ck;
@@ -261,8 +192,6 @@ module MebX_Qsys_Project (
 	output		m1_ddr2_memory_status_local_cal_fail;
 	input		m1_ddr2_oct_rdn;
 	input		m1_ddr2_oct_rup;
-	output		m2_ddr2_i2c_scl_export;
-	inout		m2_ddr2_i2c_sda_export;
 	output	[13:0]	m2_ddr2_memory_mem_a;
 	output	[2:0]	m2_ddr2_memory_mem_ba;
 	output	[1:0]	m2_ddr2_memory_mem_ck;
@@ -291,13 +220,7 @@ module MebX_Qsys_Project (
 	output		m2_ddr2_memory_status_local_cal_fail;
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
-	input		rs232_uart_rxd;
-	output		rs232_uart_txd;
 	input		rst_reset_n;
-	input		rst_controller_conduit_reset_input_t_reset_input_signal;
-	output		rst_controller_conduit_simucam_reset_t_simucam_reset_signal;
-	input		scom_0_sync_sync_signal;
-	input		sd_card_wp_n_io_export;
 	input		spwc_a_enable_spw_rx_enable_signal;
 	input		spwc_a_enable_spw_tx_enable_signal;
 	output		spwc_a_leds_spw_red_status_led_signal;
@@ -394,37 +317,28 @@ module MebX_Qsys_Project (
 	output		spwc_h_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_h_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_h_lvds_spw_lvds_n_strobe_in_signal;
-	input		sync_in_conduit;
-	input		sync_in_en_conduit;
-	output		sync_out_conduit;
-	input		sync_out_en_conduit;
-	output		sync_spw1_conduit;
-	output		sync_spw2_conduit;
-	output		sync_spw3_conduit;
-	output		sync_spw4_conduit;
-	output		sync_spw5_conduit;
-	output		sync_spw6_conduit;
-	output		sync_spw7_conduit;
-	output		sync_spw8_conduit;
-	output		temp_scl_export;
-	inout		temp_sda_export;
-	output		timer_1ms_external_port_export;
-	output		timer_1us_external_port_export;
-	output	[25:0]	tristate_conduit_tcm_address_out;
-	output	[0:0]	tristate_conduit_tcm_read_n_out;
-	output	[0:0]	tristate_conduit_tcm_write_n_out;
-	inout	[15:0]	tristate_conduit_tcm_data_out;
-	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
-	input		umft601a_pins_umft_clock_signal;
-	input		umft601a_pins_umft_txe_n_signal;
-	input		umft601a_pins_umft_rxf_n_signal;
-	inout	[31:0]	umft601a_pins_umft_data_signal;
-	inout	[3:0]	umft601a_pins_umft_be_signal;
-	inout		umft601a_pins_umft_wakeup_n_signal;
-	inout	[1:0]	umft601a_pins_umft_gpio_bus_signal;
-	output		umft601a_pins_umft_reset_n_signal;
-	output		umft601a_pins_umft_wr_n_signal;
-	output		umft601a_pins_umft_rd_n_signal;
-	output		umft601a_pins_umft_oe_n_signal;
-	output		umft601a_pins_umft_siwu_n_signal;
+	output		spwr_drivers_isolator_en_drivers_isolator_en_signal;
+	input		spwr_router_control_router_config_en_signal;
+	input	[1:0]	spwr_router_control_router_path_0_select_signal;
+	input	[1:0]	spwr_router_control_router_path_1_select_signal;
+	output		m1_ddr2_memory_avl_waitrequest_n;
+	input		m1_ddr2_memory_avl_beginbursttransfer;
+	input	[25:0]	m1_ddr2_memory_avl_address;
+	output		m1_ddr2_memory_avl_readdatavalid;
+	output	[255:0]	m1_ddr2_memory_avl_readdata;
+	input	[255:0]	m1_ddr2_memory_avl_writedata;
+	input	[31:0]	m1_ddr2_memory_avl_byteenable;
+	input		m1_ddr2_memory_avl_read;
+	input		m1_ddr2_memory_avl_write;
+	input	[7:0]	m1_ddr2_memory_avl_burstcount;
+	output		m2_ddr2_memory_avl_waitrequest_n;
+	input		m2_ddr2_memory_avl_beginbursttransfer;
+	input	[25:0]	m2_ddr2_memory_avl_address;
+	output		m2_ddr2_memory_avl_readdatavalid;
+	output	[255:0]	m2_ddr2_memory_avl_readdata;
+	input	[255:0]	m2_ddr2_memory_avl_writedata;
+	input	[31:0]	m2_ddr2_memory_avl_byteenable;
+	input		m2_ddr2_memory_avl_read;
+	input		m2_ddr2_memory_avl_write;
+	input	[7:0]	m2_ddr2_memory_avl_burstcount;
 endmodule

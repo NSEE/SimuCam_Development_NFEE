@@ -1,0 +1,291 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/rfranca/Development/GitHub/IWF_SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench
+Espwc_spacewire_mux_top
+Z0 w1613096311
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dD:/rfranca/Development/GitHub/IWF_SimuCam_Development/FPGA_Developments/SpaceWire_Mux/Development/Testbench
+Z5 8D:/rfranca/Development/GitHub/IWF_SimuCam_Development/FPGA_Developments/SpaceWire_Mux/Development/SpaceWire_Mux/spwc_spacewire_mux_top.vhd
+Z6 FD:/rfranca/Development/GitHub/IWF_SimuCam_Development/FPGA_Developments/SpaceWire_Mux/Development/SpaceWire_Mux/spwc_spacewire_mux_top.vhd
+l0
+L15
+ViEAl>z1Pj95;F?6Im_k_U1
+!s100 TlhBCm@`hOa2C:m58V3500
+Z7 OV;C;10.5b;63
+32
+Z8 !s110 1613096428
+!i10b 1
+Z9 !s108 1613096428.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/IWF_SimuCam_Development/FPGA_Developments/SpaceWire_Mux/Development/SpaceWire_Mux/spwc_spacewire_mux_top.vhd|
+Z11 !s107 D:/rfranca/Development/GitHub/IWF_SimuCam_Development/FPGA_Developments/SpaceWire_Mux/Development/SpaceWire_Mux/spwc_spacewire_mux_top.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1 CvgOpt 0
+Artl
+R1
+R2
+R3
+DEx4 work 22 spwc_spacewire_mux_top 0 22 iEAl>z1Pj95;F?6Im_k_U1
+l131
+L118
+V;Qf=7D3>SD79KdnTPe]H;3
+!s100 a1jN9g;:LC`D85M?FYE=Z1
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Espwd_spacewire_demux_top
+Z14 w1619287518
+R1
+R2
+R3
+Z15 dD:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Demux/Development/Testbench
+Z16 8D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Demux/Development/SpaceWire_Demux/spwd_spacewire_demux_top.vhd
+Z17 FD:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Demux/Development/SpaceWire_Demux/spwd_spacewire_demux_top.vhd
+l0
+L15
+V0?L_LJiTGA8Jak?[^J5hg3
+!s100 M4oD1ZBC_4BcnkUM1b>zM3
+R7
+32
+Z18 !s110 1619287627
+!i10b 1
+Z19 !s108 1619287627.000000
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Demux/Development/SpaceWire_Demux/spwd_spacewire_demux_top.vhd|
+Z21 !s107 D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Demux/Development/SpaceWire_Demux/spwd_spacewire_demux_top.vhd|
+!i113 1
+R12
+R13
+Artl
+R1
+R2
+R3
+DEx4 work 24 spwd_spacewire_demux_top 0 22 0?L_LJiTGA8Jak?[^J5hg3
+l166
+L151
+Vi:cjcb>1HZlALE7FB9FQY1
+!s100 i8n_JCM3Y:cT4f8AQGT<F2
+R7
+32
+R18
+!i10b 1
+R19
+R20
+R21
+!i113 1
+R12
+R13
+Espwr_dvriso_en_out_altiobuf
+Z22 w1619316912
+R2
+R3
+Z23 dD:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/Testbench
+Z24 8D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_dvriso_en_out_altiobuf/spwr_dvriso_en_out_altiobuf.vhd
+Z25 FD:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_dvriso_en_out_altiobuf/spwr_dvriso_en_out_altiobuf.vhd
+l0
+L101
+VWTdU9>e=652?=NJPJLAdb1
+!s100 8D`O1Uf=0PJRQ<IDP_PY71
+R7
+32
+Z26 !s110 1619317152
+!i10b 1
+Z27 !s108 1619317152.000000
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_dvriso_en_out_altiobuf/spwr_dvriso_en_out_altiobuf.vhd|
+Z29 !s107 D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_dvriso_en_out_altiobuf/spwr_dvriso_en_out_altiobuf.vhd|
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+Z30 DEx4 work 27 spwr_dvriso_en_out_altiobuf 0 22 WTdU9>e=652?=NJPJLAdb1
+l123
+L110
+V>iz8eSPcBC0@>44<GS=n^0
+!s100 [?klnNeBZCP;D`l[o1cNM1
+R7
+32
+R26
+!i10b 1
+R27
+R28
+R29
+!i113 1
+R12
+R13
+Espwr_dvriso_en_out_altiobuf_iobuf_out_1ts
+R22
+R2
+R3
+R23
+R24
+R25
+l0
+L46
+ViBo:BH:^XL23D>NR7zeR72
+!s100 AT>O3EK7fL^za4Ylf]PPj0
+R7
+32
+R26
+!i10b 1
+R27
+R28
+R29
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+DEx4 work 41 spwr_dvriso_en_out_altiobuf_iobuf_out_1ts 0 22 iBo:BH:^XL23D>NR7zeR72
+l78
+L54
+VYAYIhf>4kAZjhEN?lWL<j2
+!s100 _T8g@l7F?W2[WCSOlMko81
+R7
+32
+R26
+!i10b 1
+R27
+R28
+R29
+!i113 1
+R12
+R13
+Espwr_select_in_altiobuf
+Z31 w1619315192
+R2
+R3
+R23
+Z32 8D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_select_in_altiobuf/spwr_select_in_altiobuf.vhd
+Z33 FD:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_select_in_altiobuf/spwr_select_in_altiobuf.vhd
+l0
+L97
+VAVY^82TB;TfgfNgT1STcf1
+!s100 84fbh2>3KYJG^fPLVS:Hk2
+R7
+32
+R26
+!i10b 1
+R27
+Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_select_in_altiobuf/spwr_select_in_altiobuf.vhd|
+Z35 !s107 D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/altera_ip/altiobuf/spwr_select_in_altiobuf/spwr_select_in_altiobuf.vhd|
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+Z36 DEx4 work 23 spwr_select_in_altiobuf 0 22 AVY^82TB;TfgfNgT1STcf1
+l119
+L106
+VVO0g@0Oa<WAZGoTd2EIS91
+!s100 gC0k?i91oC[2]XAQJ9jH80
+R7
+32
+R26
+!i10b 1
+R27
+R34
+R35
+!i113 1
+R12
+R13
+Espwr_select_in_altiobuf_iobuf_in_b5i
+R31
+R2
+R3
+R23
+R32
+R33
+l0
+L46
+VJ=M>??;9Qnd<A7A>TW>1;2
+!s100 <^oWe]UM2ln2BGk>=2iNQ1
+R7
+32
+R26
+!i10b 1
+R27
+R34
+R35
+!i113 1
+R12
+R13
+Artl
+R2
+R3
+DEx4 work 36 spwr_select_in_altiobuf_iobuf_in_b5i 0 22 J=M>??;9Qnd<A7A>TW>1;2
+l74
+L54
+VJhJAEGg1GhTDY?VS5H`;H0
+!s100 2eQDK>[25_3Pc6=eVb3j]3
+R7
+32
+R26
+!i10b 1
+R27
+R34
+R35
+!i113 1
+R12
+R13
+Espwr_spacewire_router_controller_top
+Z37 w1619317082
+R1
+R2
+R3
+R23
+Z38 8D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/spwr_spacewire_router_controller_top.vhd
+Z39 FD:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/spwr_spacewire_router_controller_top.vhd
+l0
+L15
+VeaKGEOMnTOSHHmZNMznnD0
+!s100 CRZacJaY>`5Q@KlYd:m9H0
+R7
+32
+R26
+!i10b 1
+R27
+Z40 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/spwr_spacewire_router_controller_top.vhd|
+Z41 !s107 D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/SpaceWire_Router_Controller/spwr_spacewire_router_controller_top.vhd|
+!i113 1
+R12
+R13
+Artl
+R30
+R36
+R1
+R2
+R3
+Z42 DEx4 work 36 spwr_spacewire_router_controller_top 0 22 eaKGEOMnTOSHHmZNMznnD0
+l54
+L30
+VVa>^oB0_U]IRJZK79Tk=n2
+!s100 K3SY5dWk??@7Bcof:j7^;3
+R7
+32
+R26
+!i10b 1
+R27
+R40
+R41
+!i113 1
+R12
+R13

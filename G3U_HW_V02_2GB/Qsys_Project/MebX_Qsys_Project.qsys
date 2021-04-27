@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "52";
+         value = "57";
          type = "int";
       }
       datum sopceditor_expanded
@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "19";
          type = "int";
       }
       datum sopceditor_expanded
@@ -55,7 +55,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "22";
          type = "int";
       }
       datum sopceditor_expanded
@@ -76,7 +76,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "25";
          type = "int";
       }
       datum sopceditor_expanded
@@ -97,7 +97,7 @@
    {
       datum _sortIndex
       {
-         value = "23";
+         value = "28";
          type = "int";
       }
       datum sopceditor_expanded
@@ -118,7 +118,7 @@
    {
       datum _sortIndex
       {
-         value = "26";
+         value = "31";
          type = "int";
       }
       datum sopceditor_expanded
@@ -139,7 +139,7 @@
    {
       datum _sortIndex
       {
-         value = "29";
+         value = "34";
          type = "int";
       }
       datum sopceditor_expanded
@@ -160,7 +160,7 @@
    {
       datum _sortIndex
       {
-         value = "37";
+         value = "42";
          type = "int";
       }
       datum sopceditor_expanded
@@ -318,11 +318,19 @@
          type = "String";
       }
    }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
    element Memory_Filler
    {
       datum _sortIndex
       {
-         value = "38";
+         value = "43";
          type = "int";
       }
       datum sopceditor_expanded
@@ -343,7 +351,7 @@
    {
       datum _sortIndex
       {
-         value = "35";
+         value = "40";
          type = "int";
       }
       datum sopceditor_expanded
@@ -356,7 +364,7 @@
    {
       datum _sortIndex
       {
-         value = "60";
+         value = "65";
          type = "int";
       }
       datum sopceditor_expanded
@@ -377,7 +385,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "18";
          type = "int";
       }
       datum sopceditor_expanded
@@ -390,7 +398,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "21";
          type = "int";
       }
       datum sopceditor_expanded
@@ -403,7 +411,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "24";
          type = "int";
       }
       datum sopceditor_expanded
@@ -416,7 +424,7 @@
    {
       datum _sortIndex
       {
-         value = "22";
+         value = "27";
          type = "int";
       }
       datum sopceditor_expanded
@@ -429,7 +437,7 @@
    {
       datum _sortIndex
       {
-         value = "25";
+         value = "30";
          type = "int";
       }
       datum sopceditor_expanded
@@ -442,7 +450,7 @@
    {
       datum _sortIndex
       {
-         value = "28";
+         value = "33";
          type = "int";
       }
       datum sopceditor_expanded
@@ -455,7 +463,7 @@
    {
       datum _sortIndex
       {
-         value = "31";
+         value = "36";
          type = "int";
       }
       datum sopceditor_expanded
@@ -468,7 +476,72 @@
    {
       datum _sortIndex
       {
-         value = "34";
+         value = "39";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SpaceWire_Demux_0
+   {
+      datum _sortIndex
+      {
+         value = "16";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SpaceWire_Demux_1
+   {
+      datum _sortIndex
+      {
+         value = "17";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SpaceWire_PassThrough_0
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SpaceWire_PassThrough_1
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SpaceWire_Router_Controller
+   {
+      datum _sortIndex
+      {
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -481,7 +554,7 @@
    {
       datum _sortIndex
       {
-         value = "32";
+         value = "37";
          type = "int";
       }
       datum sopceditor_expanded
@@ -549,7 +622,7 @@
    {
       datum _sortIndex
       {
-         value = "36";
+         value = "41";
          type = "int";
       }
       datum sopceditor_expanded
@@ -562,7 +635,7 @@
    {
       datum _sortIndex
       {
-         value = "39";
+         value = "44";
          type = "int";
       }
       datum sopceditor_expanded
@@ -596,7 +669,7 @@
    {
       datum _sortIndex
       {
-         value = "55";
+         value = "60";
          type = "int";
       }
       datum sopceditor_expanded
@@ -617,7 +690,7 @@
    {
       datum _sortIndex
       {
-         value = "56";
+         value = "61";
          type = "int";
       }
       datum sopceditor_expanded
@@ -638,7 +711,7 @@
    {
       datum _sortIndex
       {
-         value = "57";
+         value = "62";
          type = "int";
       }
       datum sopceditor_expanded
@@ -659,7 +732,7 @@
    {
       datum _sortIndex
       {
-         value = "58";
+         value = "63";
          type = "int";
       }
       datum sopceditor_expanded
@@ -680,7 +753,7 @@
    {
       datum _sortIndex
       {
-         value = "59";
+         value = "64";
          type = "int";
       }
       datum sopceditor_expanded
@@ -813,7 +886,7 @@
    {
       datum _sortIndex
       {
-         value = "47";
+         value = "52";
          type = "int";
       }
       datum sopceditor_expanded
@@ -834,7 +907,7 @@
    {
       datum _sortIndex
       {
-         value = "48";
+         value = "53";
          type = "int";
       }
       datum sopceditor_expanded
@@ -881,7 +954,7 @@
    {
       datum _sortIndex
       {
-         value = "49";
+         value = "54";
          type = "int";
       }
       datum sopceditor_expanded
@@ -902,7 +975,7 @@
    {
       datum _sortIndex
       {
-         value = "50";
+         value = "55";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1097,7 +1170,7 @@
    {
       datum _sortIndex
       {
-         value = "42";
+         value = "47";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1118,7 +1191,7 @@
    {
       datum _sortIndex
       {
-         value = "43";
+         value = "48";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1139,7 +1212,7 @@
    {
       datum _sortIndex
       {
-         value = "44";
+         value = "49";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1160,7 +1233,7 @@
    {
       datum _sortIndex
       {
-         value = "45";
+         value = "50";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1181,7 +1254,7 @@
    {
       datum _sortIndex
       {
-         value = "46";
+         value = "51";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1202,7 +1275,7 @@
    {
       datum _sortIndex
       {
-         value = "67";
+         value = "72";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1223,7 +1296,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "20";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1244,7 +1317,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "23";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1265,7 +1338,7 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "26";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1286,7 +1359,7 @@
    {
       datum _sortIndex
       {
-         value = "24";
+         value = "29";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1307,7 +1380,7 @@
    {
       datum _sortIndex
       {
-         value = "27";
+         value = "32";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1328,7 +1401,7 @@
    {
       datum _sortIndex
       {
-         value = "30";
+         value = "35";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1349,7 +1422,7 @@
    {
       datum _sortIndex
       {
-         value = "33";
+         value = "38";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1370,7 +1443,7 @@
    {
       datum _sortIndex
       {
-         value = "66";
+         value = "71";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1391,7 +1464,7 @@
    {
       datum _sortIndex
       {
-         value = "69";
+         value = "74";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1417,7 +1490,7 @@
    {
       datum _sortIndex
       {
-         value = "61";
+         value = "66";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1438,7 +1511,7 @@
    {
       datum _sortIndex
       {
-         value = "62";
+         value = "67";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1459,7 +1532,7 @@
    {
       datum _sortIndex
       {
-         value = "63";
+         value = "68";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1480,7 +1553,7 @@
    {
       datum _sortIndex
       {
-         value = "64";
+         value = "69";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1501,7 +1574,7 @@
    {
       datum _sortIndex
       {
-         value = "65";
+         value = "70";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1522,7 +1595,7 @@
    {
       datum _sortIndex
       {
-         value = "51";
+         value = "56";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1556,7 +1629,7 @@
    {
       datum _sortIndex
       {
-         value = "68";
+         value = "73";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1603,7 +1676,7 @@
    {
       datum _sortIndex
       {
-         value = "53";
+         value = "58";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1624,7 +1697,7 @@
    {
       datum _sortIndex
       {
-         value = "54";
+         value = "59";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1645,7 +1718,7 @@
    {
       datum _sortIndex
       {
-         value = "40";
+         value = "45";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1666,7 +1739,7 @@
    {
       datum _sortIndex
       {
-         value = "41";
+         value = "46";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1717,137 +1790,66 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface
-   name="button"
-   internal="pio_BUTTON.external_connection"
-   type="conduit"
-   dir="end" />
+ <interface name="button" internal="pio_BUTTON.external_connection" />
  <interface name="clk50" internal="clk_50.clk_in" type="clock" dir="end" />
  <interface
    name="comm_1_measurements"
-   internal="Communication_Module_v2_Ch1.conduit_end_comm_measurements"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch1.conduit_end_comm_measurements" />
  <interface
    name="comm_1_sync"
-   internal="Communication_Module_v2_Ch1.conduit_end_channel_sync"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch1.conduit_end_channel_sync" />
  <interface
    name="comm_2_measurements"
-   internal="Communication_Module_v2_Ch2.conduit_end_comm_measurements"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch2.conduit_end_comm_measurements" />
  <interface
    name="comm_2_sync"
-   internal="Communication_Module_v2_Ch2.conduit_end_channel_sync"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch2.conduit_end_channel_sync" />
  <interface
    name="comm_3_measurements"
-   internal="Communication_Module_v2_Ch3.conduit_end_comm_measurements"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch3.conduit_end_comm_measurements" />
  <interface
    name="comm_3_sync"
-   internal="Communication_Module_v2_Ch3.conduit_end_channel_sync"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch3.conduit_end_channel_sync" />
  <interface
    name="comm_4_measurements"
-   internal="Communication_Module_v2_Ch4.conduit_end_comm_measurements"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch4.conduit_end_comm_measurements" />
  <interface
    name="comm_4_sync"
-   internal="Communication_Module_v2_Ch4.conduit_end_channel_sync"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch4.conduit_end_channel_sync" />
  <interface
    name="comm_5_measurements"
-   internal="Communication_Module_v2_Ch5.conduit_end_comm_measurements"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch5.conduit_end_comm_measurements" />
  <interface
    name="comm_5_sync"
-   internal="Communication_Module_v2_Ch5.conduit_end_channel_sync"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch5.conduit_end_channel_sync" />
  <interface
    name="comm_6_measurements"
-   internal="Communication_Module_v2_Ch6.conduit_end_comm_measurements"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch6.conduit_end_comm_measurements" />
  <interface
    name="comm_6_sync"
-   internal="Communication_Module_v2_Ch6.conduit_end_channel_sync"
-   type="conduit"
-   dir="end" />
- <interface
-   name="csense_adc_fo"
-   internal="csense_adc_fo.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="csense_cs_n"
-   internal="csense_cs_n.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="csense_sck"
-   internal="csense_sck.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="csense_sdi"
-   internal="csense_sdi.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="csense_sdo"
-   internal="csense_sdo.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="ctrl_io_lvds"
-   internal="pio_ctrl_io_lvds.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="dip"
-   internal="pio_DIP.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="ext"
-   internal="pio_EXT.external_connection"
-   type="conduit"
-   dir="end" />
- <interface name="ftdi_clk" internal="clk_ftdi.clk_in" type="clock" dir="end" />
- <interface
-   name="led_de4"
-   internal="pio_LED.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="led_painel"
-   internal="pio_LED_painel.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="m1_ddr2_i2c_scl"
-   internal="m1_ddr2_i2c_scl.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="m1_ddr2_i2c_sda"
-   internal="m1_ddr2_i2c_sda.external_connection"
-   type="conduit"
-   dir="end" />
+   internal="Communication_Module_v2_Ch6.conduit_end_channel_sync" />
+ <interface name="csense_adc_fo" internal="csense_adc_fo.external_connection" />
+ <interface name="csense_cs_n" internal="csense_cs_n.external_connection" />
+ <interface name="csense_sck" internal="csense_sck.external_connection" />
+ <interface name="csense_sdi" internal="csense_sdi.external_connection" />
+ <interface name="csense_sdo" internal="csense_sdo.external_connection" />
+ <interface name="ctrl_io_lvds" internal="pio_ctrl_io_lvds.external_connection" />
+ <interface name="dip" internal="pio_DIP.external_connection" />
+ <interface name="ext" internal="pio_EXT.external_connection" />
+ <interface name="ftdi_clk" internal="clk_ftdi.clk_in" />
+ <interface name="led_de4" internal="pio_LED.external_connection" />
+ <interface name="led_painel" internal="pio_LED_painel.external_connection" />
+ <interface name="m1_ddr2_i2c_scl" internal="m1_ddr2_i2c_scl.external_connection" />
+ <interface name="m1_ddr2_i2c_sda" internal="m1_ddr2_i2c_sda.external_connection" />
  <interface
    name="m1_ddr2_memory"
    internal="m1_ddr2_memory.memory"
    type="conduit"
+   dir="end" />
+ <interface
+   name="m1_ddr2_memory_avl"
+   internal="m1_ddr2_memory.avl"
+   type="avalon"
    dir="end" />
  <interface
    name="m1_ddr2_memory_pll_ref_clk"
@@ -1864,20 +1866,17 @@
    internal="m1_ddr2_memory.oct"
    type="conduit"
    dir="end" />
- <interface
-   name="m2_ddr2_i2c_scl"
-   internal="m2_ddr2_i2c_scl.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="m2_ddr2_i2c_sda"
-   internal="m2_ddr2_i2c_sda.external_connection"
-   type="conduit"
-   dir="end" />
+ <interface name="m2_ddr2_i2c_scl" internal="m2_ddr2_i2c_scl.external_connection" />
+ <interface name="m2_ddr2_i2c_sda" internal="m2_ddr2_i2c_sda.external_connection" />
  <interface
    name="m2_ddr2_memory"
    internal="m2_ddr2_memory.memory"
    type="conduit"
+   dir="end" />
+ <interface
+   name="m2_ddr2_memory_avl"
+   internal="m2_ddr2_memory.avl"
+   type="avalon"
    dir="end" />
  <interface
    name="m2_ddr2_memory_dll_sharing"
@@ -1899,22 +1898,14 @@
    internal="m2_ddr2_memory.oct"
    type="conduit"
    dir="end" />
- <interface
-   name="rs232_uart"
-   internal="rs232_uart.external_connection"
-   type="conduit"
-   dir="end" />
+ <interface name="rs232_uart" internal="rs232_uart.external_connection" />
  <interface name="rst" internal="clk_50.clk_in_reset" type="reset" dir="end" />
  <interface
    name="rst_controller_conduit_reset_input"
-   internal="rst_controller.conduit_reset_input"
-   type="conduit"
-   dir="end" />
+   internal="rst_controller.conduit_reset_input" />
  <interface
    name="rst_controller_conduit_simucam_reset"
-   internal="rst_controller.conduit_simucam_reset"
-   type="conduit"
-   dir="end" />
+   internal="rst_controller.conduit_simucam_reset" />
  <interface name="rtcc_alarm" internal="rtcc_alarm.external_connection" />
  <interface name="rtcc_cs_n" internal="rtcc_cs_n.external_connection" />
  <interface name="rtcc_sck" internal="rtcc_sck.external_connection" />
@@ -1922,17 +1913,11 @@
  <interface name="rtcc_sdo" internal="rtcc_sdo.external_connection" />
  <interface
    name="scom_0_sync"
-   internal="Synchronization_COMM_0.conduit_end_channel_sync"
-   type="conduit"
-   dir="end" />
+   internal="Synchronization_COMM_0.conduit_end_channel_sync" />
  <interface
    name="sd_card_ip"
    internal="Altera_UP_SD_Card_Avalon_Interface_0.conduit_end" />
- <interface
-   name="sd_card_wp_n_io"
-   internal="sd_card_wp_n.external_connection"
-   type="conduit"
-   dir="end" />
+ <interface name="sd_card_wp_n_io" internal="sd_card_wp_n.external_connection" />
  <interface
    name="spwc_a_enable"
    internal="SpaceWire_Channel_A.conduit_end_spacewire_enable"
@@ -2053,23 +2038,29 @@
    internal="SpaceWire_Channel_H.conduit_end_spacewire_lvds"
    type="conduit"
    dir="end" />
- <interface name="ssdp" internal="SEVEN_SEGMENT_CONTROLLER.SSDP_conduit" />
- <interface name="sync_in" internal="sync.sync_in" type="conduit" dir="end" />
- <interface name="sync_in_en" internal="sync.sync_in_en" type="conduit" dir="end" />
- <interface name="sync_out" internal="sync.sync_out" type="conduit" dir="end" />
  <interface
-   name="sync_out_en"
-   internal="sync.sync_out_en"
+   name="spwr_drivers_isolator_en"
+   internal="SpaceWire_Router_Controller.conduit_end_drivers_isolator_en"
    type="conduit"
    dir="end" />
- <interface name="sync_spw1" internal="sync.sync_spw1" type="conduit" dir="end" />
- <interface name="sync_spw2" internal="sync.sync_spw2" type="conduit" dir="end" />
- <interface name="sync_spw3" internal="sync.sync_spw3" type="conduit" dir="end" />
- <interface name="sync_spw4" internal="sync.sync_spw4" type="conduit" dir="end" />
- <interface name="sync_spw5" internal="sync.sync_spw5" type="conduit" dir="end" />
- <interface name="sync_spw6" internal="sync.sync_spw6" type="conduit" dir="end" />
- <interface name="sync_spw7" internal="sync.sync_spw7" type="conduit" dir="end" />
- <interface name="sync_spw8" internal="sync.sync_spw8" type="conduit" dir="end" />
+ <interface
+   name="spwr_router_control"
+   internal="SpaceWire_Router_Controller.conduit_end_router_control"
+   type="conduit"
+   dir="end" />
+ <interface name="ssdp" internal="SEVEN_SEGMENT_CONTROLLER.SSDP_conduit" />
+ <interface name="sync_in" internal="sync.sync_in" />
+ <interface name="sync_in_en" internal="sync.sync_in_en" />
+ <interface name="sync_out" internal="sync.sync_out" />
+ <interface name="sync_out_en" internal="sync.sync_out_en" />
+ <interface name="sync_spw1" internal="sync.sync_spw1" />
+ <interface name="sync_spw2" internal="sync.sync_spw2" />
+ <interface name="sync_spw3" internal="sync.sync_spw3" />
+ <interface name="sync_spw4" internal="sync.sync_spw4" />
+ <interface name="sync_spw5" internal="sync.sync_spw5" />
+ <interface name="sync_spw6" internal="sync.sync_spw6" />
+ <interface name="sync_spw7" internal="sync.sync_spw7" />
+ <interface name="sync_spw8" internal="sync.sync_spw8" />
  <interface name="sync_spwa" internal="sync.sync_spwa" />
  <interface name="sync_spwb" internal="sync.sync_spwb" />
  <interface name="sync_spwc" internal="sync.sync_spwc" />
@@ -2078,36 +2069,14 @@
  <interface name="sync_spwf" internal="sync.sync_spwf" />
  <interface name="sync_spwg" internal="sync.sync_spwg" />
  <interface name="sync_spwh" internal="sync.sync_spwh" />
- <interface
-   name="temp_scl"
-   internal="temp_scl.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="temp_sda"
-   internal="temp_sda.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="timer_1ms_external_port"
-   internal="timer_1ms.external_port"
-   type="conduit"
-   dir="end" />
- <interface
-   name="timer_1us_external_port"
-   internal="timer_1us.external_port"
-   type="conduit"
-   dir="end" />
- <interface
-   name="tristate_conduit"
-   internal="tristate_conduit_bridge_0.out"
-   type="conduit"
-   dir="end" />
+ <interface name="temp_scl" internal="temp_scl.external_connection" />
+ <interface name="temp_sda" internal="temp_sda.external_connection" />
+ <interface name="timer_1ms_external_port" internal="timer_1ms.external_port" />
+ <interface name="timer_1us_external_port" internal="timer_1us.external_port" />
+ <interface name="tristate_conduit" internal="tristate_conduit_bridge_0.out" />
  <interface
    name="umft601a_pins"
-   internal="FTDI_UMFT601A_Module.conduit_umft601a_pins"
-   type="conduit"
-   dir="end" />
+   internal="FTDI_UMFT601A_Module.conduit_umft601a_pins" />
  <module
    name="Altera_UP_SD_Card_Avalon_Interface_0"
    kind="Altera_UP_SD_Card_Avalon_Interface"
@@ -2120,39 +2089,39 @@
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
    version="1.5"
-   enabled="1" />
+   enabled="0" />
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
    version="1.5"
-   enabled="1" />
+   enabled="0" />
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
    version="1.5"
-   enabled="1" />
+   enabled="0" />
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
    version="1.5"
-   enabled="1" />
+   enabled="0" />
  <module
    name="Communication_Module_v2_Ch5"
    kind="Communication_Module_v2"
    version="1.5"
-   enabled="1" />
+   enabled="0" />
  <module
    name="Communication_Module_v2_Ch6"
    kind="Communication_Module_v2"
    version="1.5"
-   enabled="1" />
+   enabled="0" />
  <module
    name="FTDI_UMFT601A_Module"
    kind="FTDI_UMFT601A_Module"
    version="2.3"
-   enabled="1" />
- <module name="Memory_Filler" kind="Memory_Filler" version="1.0" enabled="1" />
- <module name="RMAP_Echoing" kind="RMAP_Echoing" version="1.2" enabled="1" />
+   enabled="0" />
+ <module name="Memory_Filler" kind="Memory_Filler" version="1.0" enabled="0" />
+ <module name="RMAP_Echoing" kind="RMAP_Echoing" version="1.2" enabled="0" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER"
    kind="SEVEN_SEGMENT_CONTROLLER"
@@ -2199,10 +2168,35 @@
    version="1.4"
    enabled="1" />
  <module
+   name="SpaceWire_Demux_0"
+   kind="SpaceWire_Demux"
+   version="1.1"
+   enabled="1" />
+ <module
+   name="SpaceWire_Demux_1"
+   kind="SpaceWire_Demux"
+   version="1.1"
+   enabled="1" />
+ <module
+   name="SpaceWire_PassThrough_0"
+   kind="SpaceWire_PassThrough"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="SpaceWire_PassThrough_1"
+   kind="SpaceWire_PassThrough"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="SpaceWire_Router_Controller"
+   kind="SpaceWire_Router_Controller"
+   version="1.0"
+   enabled="1" />
+ <module
    name="Synchronization_COMM_0"
    kind="Synchronization_COMM"
    version="1.2"
-   enabled="1" />
+   enabled="0" />
  <module name="clk_100" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="100000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -2221,7 +2215,7 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="clk_ftdi" kind="clock_source" version="18.1" enabled="1">
+ <module name="clk_ftdi" kind="clock_source" version="18.1" enabled="0">
   <parameter name="clockFrequency" value="100000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
@@ -2231,7 +2225,7 @@
    name="clock_bridge_afi_50"
    kind="altera_avalon_mm_clock_crossing_bridge"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
   <parameter name="ADDRESS_WIDTH" value="32" />
   <parameter name="COMMAND_FIFO_DEPTH" value="4" />
@@ -2241,14 +2235,14 @@
   <parameter name="RESPONSE_FIFO_DEPTH" value="4" />
   <parameter name="SLAVE_SYNC_DEPTH" value="2" />
   <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="12" />
+  <parameter name="SYSINFO_ADDR_WIDTH" value="10" />
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
  </module>
  <module
    name="csense_adc_fo"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2266,7 +2260,7 @@
    name="csense_cs_n"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2280,7 +2274,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="2" />
  </module>
- <module name="csense_sck" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="csense_sck" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2294,7 +2288,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="csense_sdi" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="csense_sdi" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2308,7 +2302,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="csense_sdo" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="csense_sdo" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2326,7 +2320,7 @@
    name="ddr2_address_span_extender"
    kind="altera_address_span_extender"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="BURSTCOUNT_WIDTH" value="8" />
   <parameter name="DATA_WIDTH" value="32" />
   <parameter name="ENABLE_SLAVE_PORT" value="true" />
@@ -2340,7 +2334,7 @@
    name="ext_flash"
    kind="altera_generic_tristate_controller"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="ACTIVE_LOW_BEGINTRANSFER" value="0" />
   <parameter name="ACTIVE_LOW_BYTEENABLE" value="0" />
   <parameter name="ACTIVE_LOW_CHIPSELECT" value="1" />
@@ -2396,7 +2390,7 @@
    name="jtag_uart_0"
    kind="altera_avalon_jtag_uart"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
   <parameter name="clkFreq" value="100000000" />
@@ -2415,7 +2409,7 @@
    name="m1_clock_bridge"
    kind="altera_avalon_mm_clock_crossing_bridge"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
   <parameter name="ADDRESS_WIDTH" value="31" />
   <parameter name="COMMAND_FIFO_DEPTH" value="8" />
@@ -2432,7 +2426,7 @@
    name="m1_ddr2_i2c_scl"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2450,7 +2444,7 @@
    name="m1_ddr2_i2c_sda"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2786,7 +2780,7 @@
    name="m2_ddr2_i2c_scl"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -2804,7 +2798,7 @@
    name="m2_ddr2_i2c_sda"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3140,7 +3134,7 @@
    name="nios2_gen2_0"
    kind="altera_nios2_gen2"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="5" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="5" />
   <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
@@ -3322,9 +3316,9 @@
    name="onchip_memory"
    kind="altera_avalon_onchip_memory2"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory</parameter>
+  <parameter name="autoInitializationFileName">MebX_Qsys_Project_onchip_memory</parameter>
   <parameter name="blockType" value="M9K" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -3350,7 +3344,7 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
- <module name="pio_BUTTON" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="pio_BUTTON" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3364,7 +3358,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="4" />
  </module>
- <module name="pio_DIP" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="pio_DIP" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3378,7 +3372,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="8" />
  </module>
- <module name="pio_EXT" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="pio_EXT" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="true" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3392,7 +3386,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="pio_LED" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="pio_LED" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3410,7 +3404,7 @@
    name="pio_LED_painel"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3428,7 +3422,7 @@
    name="pio_ctrl_io_lvds"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3446,42 +3440,42 @@
    name="rmap_mem_nfee_comm_1"
    kind="RMAP_Memory_NFEE_Area"
    version="1.4"
-   enabled="1" />
+   enabled="0" />
  <module
    name="rmap_mem_nfee_comm_2"
    kind="RMAP_Memory_NFEE_Area"
    version="1.4"
-   enabled="1" />
+   enabled="0" />
  <module
    name="rmap_mem_nfee_comm_3"
    kind="RMAP_Memory_NFEE_Area"
    version="1.4"
-   enabled="1" />
+   enabled="0" />
  <module
    name="rmap_mem_nfee_comm_4"
    kind="RMAP_Memory_NFEE_Area"
    version="1.4"
-   enabled="1" />
+   enabled="0" />
  <module
    name="rmap_mem_nfee_comm_5"
    kind="RMAP_Memory_NFEE_Area"
    version="1.4"
-   enabled="1" />
+   enabled="0" />
  <module
    name="rmap_mem_nfee_comm_6"
    kind="RMAP_Memory_NFEE_Area"
    version="1.4"
-   enabled="1" />
+   enabled="0" />
  <module
    name="rmap_mem_nfee_scom_0"
    kind="RMAP_Memory_SCOM_Area"
    version="1.3"
-   enabled="1" />
+   enabled="0" />
  <module
    name="rs232_uart"
    kind="altera_avalon_uart"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="baud" value="115200" />
   <parameter name="clockRate" value="50000000" />
   <parameter name="dataBits" value="8" />
@@ -3497,7 +3491,7 @@
   <parameter name="useEopRegister" value="false" />
   <parameter name="useRelativePathForSimFile" value="false" />
  </module>
- <module name="rst_controller" kind="rst_controller" version="1.6" enabled="1" />
+ <module name="rst_controller" kind="rst_controller" version="1.6" enabled="0" />
  <module name="rtcc_alarm" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -3572,7 +3566,7 @@
    name="sd_card_wp_n"
    kind="altera_avalon_pio"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3586,7 +3580,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="sync" kind="Sync" version="1.8" enabled="1">
+ <module name="sync" kind="Sync" version="1.8" enabled="0">
   <parameter name="g_PRE_SYNC_IRQ_NUMBER" value="12" />
   <parameter name="g_SYNC_IRQ_NUMBER" value="11" />
  </module>
@@ -3594,10 +3588,10 @@
    name="sysid_qsys"
    kind="altera_avalon_sysid_qsys"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="id" value="113" />
  </module>
- <module name="temp_scl" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="temp_scl" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3611,7 +3605,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="temp_sda" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="temp_sda" kind="altera_avalon_pio" version="18.1" enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -3629,7 +3623,7 @@
    name="timer_1ms"
    kind="altera_avalon_timer"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="alwaysRun" value="true" />
   <parameter name="counterSize" value="32" />
   <parameter name="fixedPeriod" value="false" />
@@ -3645,7 +3639,7 @@
    name="timer_1us"
    kind="altera_avalon_timer"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="alwaysRun" value="true" />
   <parameter name="counterSize" value="32" />
   <parameter name="fixedPeriod" value="false" />
@@ -3661,8 +3655,8 @@
    name="tristate_conduit_bridge_0"
    kind="altera_tristate_conduit_bridge"
    version="18.1"
-   enabled="1">
-  <parameter name="INTERFACE_INFO"><![CDATA[<info><slave name="tcs"><master name="ext_flash.tcm"><pin role="write_n" width="1" type="Output" output_name="tcm_write_n_out" output_enable_name="" input_name="" /><pin role="read_n" width="1" type="Output" output_name="tcm_read_n_out" output_enable_name="" input_name="" /><pin role="chipselect_n" width="1" type="Output" output_name="tcm_chipselect_n_out" output_enable_name="" input_name="" /><pin role="" width="1" type="Invalid" output_name="" output_enable_name="" input_name="" /><pin role="address" width="26" type="Output" output_name="tcm_address_out" output_enable_name="" input_name="" /><pin role="data" width="16" type="Bidirectional" output_name="tcm_data_out" output_enable_name="tcm_data_outen" input_name="tcm_data_in" /></master></slave></info>]]></parameter>
+   enabled="0">
+  <parameter name="INTERFACE_INFO"><![CDATA[<info><slave name="tcs" /></info>]]></parameter>
  </module>
  <connection
    kind="avalon"
@@ -4726,6 +4720,31 @@
    kind="clock"
    version="18.1"
    start="clk_100.clk"
+   end="SpaceWire_PassThrough_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="SpaceWire_PassThrough_1.clock_sink" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="SpaceWire_Demux_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="SpaceWire_Router_Controller.clock_sink" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
+   end="SpaceWire_Demux_1.clock_sink" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_100.clk"
    end="rmap_mem_nfee_comm_1.clock_sink_100mhz" />
  <connection
    kind="clock"
@@ -4942,6 +4961,28 @@
  <connection
    kind="conduit"
    version="18.1"
+   start="SpaceWire_Router_Controller.conduit_end_demux_0_select"
+   end="SpaceWire_Demux_0.conduit_end_demux_select">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Demux_1.conduit_end_demux_select"
+   end="SpaceWire_Router_Controller.conduit_end_demux_1_select">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
    start="rmap_mem_nfee_comm_1.conduit_end_fee_rmap_slave_0"
    end="Communication_Module_v2_Ch1.conduit_end_rmap_mem_master_rmap_target">
   <parameter name="endPort" value="" />
@@ -5065,6 +5106,28 @@
    version="18.1"
    start="rmap_mem_nfee_comm_6.conduit_end_fee_rmap_slave_1"
    end="Communication_Module_v2_Ch6.conduit_end_rmap_mem_master_fee_hk">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_PassThrough_0.conduit_end_passthrough_enable"
+   end="SpaceWire_Router_Controller.conduit_end_passthrough_0_enable">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_PassThrough_1.conduit_end_passthrough_enable"
+   end="SpaceWire_Router_Controller.conduit_end_passthrough_1_enable">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -5314,6 +5377,116 @@
   <parameter name="width" value="0" />
  </connection>
  <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_PassThrough_0.conduit_end_spacewire_controller_0"
+   end="SpaceWire_Channel_A.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_PassThrough_1.conduit_end_spacewire_controller_0"
+   end="SpaceWire_Channel_B.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Demux_0.conduit_end_spacewire_controller_0"
+   end="SpaceWire_Channel_C.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Demux_1.conduit_end_spacewire_controller_0"
+   end="SpaceWire_Channel_D.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_PassThrough_0.conduit_end_spacewire_controller_1"
+   end="SpaceWire_Demux_0.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_PassThrough_1.conduit_end_spacewire_controller_1"
+   end="SpaceWire_Demux_1.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Demux_0.conduit_end_spacewire_controller_1"
+   end="SpaceWire_Channel_E.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Demux_1.conduit_end_spacewire_controller_1"
+   end="SpaceWire_Channel_F.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Demux_0.conduit_end_spacewire_controller_2"
+   end="SpaceWire_Channel_G.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="SpaceWire_Demux_1.conduit_end_spacewire_controller_2"
+   end="SpaceWire_Channel_H.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
@@ -5457,7 +5630,17 @@
    kind="reset"
    version="18.1"
    start="m2_ddr2_memory.afi_reset"
+   end="m1_ddr2_memory.global_reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="m2_ddr2_memory.afi_reset"
    end="m1_clock_bridge.m0_reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="m2_ddr2_memory.afi_reset"
+   end="m1_ddr2_memory.soft_reset" />
  <connection
    kind="reset"
    version="18.1"
@@ -5809,6 +5992,31 @@
    version="18.1"
    start="clk_50.clk_reset"
    end="rmap_mem_nfee_scom_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="SpaceWire_PassThrough_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="SpaceWire_PassThrough_1.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="SpaceWire_Demux_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="SpaceWire_Router_Controller.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="SpaceWire_Demux_1.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

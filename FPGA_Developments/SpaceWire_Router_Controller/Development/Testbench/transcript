@@ -1,0 +1,7 @@
+# Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Developmen_Router/FPGA_Developments/SpaceWire_Router_Controller/Development/Testbench/SpaceWire_Router_Controller_tb.mpf
+# Loading project SpaceWire_Router_Controller_tb
+# Compile of spwr_select_in_altiobuf.vhd was successful.
+# Compile of spwr_dvriso_en_out_altiobuf.vhd was successful.
+# Compile of spwr_spacewire_router_controller_top.vhd was successful.
+# 3 compiles, 0 failed with no errors.
