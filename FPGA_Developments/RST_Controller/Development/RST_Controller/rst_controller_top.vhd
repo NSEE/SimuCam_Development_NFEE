@@ -59,7 +59,7 @@ architecture rtl of rst_controller_top is
     signal s_simucam_reset_cmd_delayed : std_logic;
 
     -- reset counter
-    signal s_reset_cnt : unsigned(2 downto 0) := (others => '0');
+    signal s_reset_cnt : unsigned(31 downto 0) := (others => '0');
 
 begin
 

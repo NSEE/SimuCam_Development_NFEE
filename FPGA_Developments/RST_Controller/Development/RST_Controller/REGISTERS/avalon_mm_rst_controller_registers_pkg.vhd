@@ -42,7 +42,7 @@ package avalon_mm_rst_controller_registers_pkg is
     end record t_rstc_device_reset_register;
 
     type t_rstc_reset_counter_register is record
-        reset_cnt : std_logic_vector(2 downto 0);
+        reset_cnt : std_logic_vector(31 downto 0);
     end record t_rstc_reset_counter_register;
 
     type t_rst_controller_write_registers is record
