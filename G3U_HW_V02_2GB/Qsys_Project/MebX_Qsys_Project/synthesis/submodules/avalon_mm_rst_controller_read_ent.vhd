@@ -64,10 +64,8 @@ begin
 
                 --  Reset Counter Status Register                  (32 bits):
                 when (c_RSTC_RESET_COUNTER_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
-                    --    31- 3 : Reserved                               [-/-]
-                    avalon_mm_spacewire_o.readdata(31 downto 3) <= (others => '0');
-                    --     2- 0 : Reset Counter status value             [R/-]
-                    avalon_mm_spacewire_o.readdata(2 downto 0)  <= rst_controller_read_registers_i.reset_counter.reset_cnt;
+                    --    31- 0 : Reset Counter status value             [R/-]
+                    avalon_mm_spacewire_o.readdata(31 downto 0)  <= rst_controller_read_registers_i.reset_counter.reset_cnt;
 
                 when others =>
                     avalon_mm_spacewire_o.readdata <= (others => '0');

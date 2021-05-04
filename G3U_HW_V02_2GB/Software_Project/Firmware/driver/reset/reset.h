@@ -38,7 +38,7 @@
 
 #define RSTC_DEV_ALL_MSK                (0x00000FFF)
 
-#define RSTC_RESET_CNT_MSK              (0x00000007)
+#define RSTC_RESET_CNT_MSK              (0xFFFFFFFF)
 //! [constants definition]
 
 //! [public module structs definition]
@@ -51,7 +51,7 @@ void vRstcHoldSimucamReset(alt_u32 uliRstCnt);
 void vRstcReleaseDeviceReset(alt_u32 usiRstMask);
 void vRstcHoldDeviceReset(alt_u32 usiRstMask);
 
-alt_u8 ucRstcGetResetCounter(void);
+alt_u32 uliRstcGetResetCounter(void);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

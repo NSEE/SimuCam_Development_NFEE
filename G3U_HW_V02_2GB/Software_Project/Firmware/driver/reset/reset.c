@@ -59,16 +59,16 @@ void vRstcHoldDeviceReset(alt_u32 usiRstMask) {
 	vRstcWriteReg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR, RSTC_DEVICE_RESET_REG_OFFSET, uliReg);
 }
 
-alt_u8 ucRstcGetResetCounter(void) {
-	alt_u8 ucReturn = 0;
+alt_u32 uliRstcGetResetCounter(void) {
+	alt_u32 uliReturn = 0;
 	alt_u32 uliReg = 0;
 
 	uliReg = uliRstReadReg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR, RSTC_RESET_COUNTER_REG_OFFSET);
 	uliReg &= (alt_u32) RSTC_RESET_CNT_MSK;
 
-	ucReturn = (alt_u8)uliReg;
+	uliReturn = (alt_u32)uliReg;
 
-	return (ucReturn);
+	return (uliReturn);
 }
 //! [public functions]
 

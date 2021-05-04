@@ -553,10 +553,10 @@ int main(void)
 #if DEBUG_ON
 		fprintf(fp, "\n");
 		fprintf(fp, "Failure to initialize SimuCam Critical HW!\n");
-		fprintf(fp, "Initialization attempt %u, ", ucRstcGetResetCounter());
+		fprintf(fp, "Initialization attempt %lu, ", uliRstcGetResetCounter());
 #endif
 		/* Need to reset 2 times (3 tries) before locking the SimuCam */
-		if (3 > ucRstcGetResetCounter()) {
+		if (3 > uliRstcGetResetCounter()) {
 			/* There are more initialization tries to make */
 #if DEBUG_ON
 			fprintf(fp, "SimuCam will be reseted now!\n");
