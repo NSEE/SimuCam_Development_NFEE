@@ -4,7 +4,7 @@
 
 
 # 
-# SpaceWire_Channel "SpaceWire_Channel" v1.4
+# SpaceWire_Channel "SpaceWire_Channel" v1.5
 # rfranca 2020.06.30.17:45:51
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME SpaceWire_Channel
-set_module_property VERSION 1.4
+set_module_property VERSION 1.5
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca
@@ -287,6 +287,7 @@ set_interface_property conduit_end_spacewire_channel PORT_NAME_MAP ""
 set_interface_property conduit_end_spacewire_channel CMSIS_SVD_VARIABLES ""
 set_interface_property conduit_end_spacewire_channel SVD_ADDRESS_GROUP ""
 
+add_interface_port conduit_end_spacewire_channel spw_link_command_enable_i spw_link_command_enable_signal Input 1
 add_interface_port conduit_end_spacewire_channel spw_link_command_autostart_i spw_link_command_autostart_signal Input 1
 add_interface_port conduit_end_spacewire_channel spw_link_command_linkstart_i spw_link_command_linkstart_signal Input 1
 add_interface_port conduit_end_spacewire_channel spw_link_command_linkdis_i spw_link_command_linkdis_signal Input 1

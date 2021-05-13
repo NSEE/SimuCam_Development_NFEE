@@ -187,13 +187,17 @@ BEGIN
 	END PROCESS GLOBAL;
 	
 	SEVEN_SEG_DSP1_OUT <= 
+		X"FF"          WHEN (RST = '1')                                 ELSE
 		X"FF"          WHEN (SEG1_ON_OFF = '0')                         ELSE
 		X"00"          WHEN ((SEG1_ON_OFF = '1') AND (SEG1_TEST = '1')) ELSE
-		SEG1_DBITS_OUT WHEN ((SEG1_ON_OFF = '1') AND (SEG1_TEST = '0'));
+		SEG1_DBITS_OUT WHEN ((SEG1_ON_OFF = '1') AND (SEG1_TEST = '0')) ELSE
+		X"FF";
 		
 	SEVEN_SEG_DSP0_OUT <= 
+		X"FF"          WHEN (RST = '1')                                 ELSE
 		X"FF"          WHEN (SEG0_ON_OFF = '0')                         ELSE
 		X"00"          WHEN ((SEG0_ON_OFF = '1') AND (SEG0_TEST = '1')) ELSE
-		SEG0_DBITS_OUT WHEN ((SEG0_ON_OFF = '1') AND (SEG0_TEST = '0'));
+		SEG0_DBITS_OUT WHEN ((SEG0_ON_OFF = '1') AND (SEG0_TEST = '0')) ELSE
+		X"FF";
 	
 END ARCHITECTURE TOP;

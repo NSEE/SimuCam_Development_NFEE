@@ -9,33 +9,32 @@ use ieee.numeric_std.all;
 
 entity spwram is
 
-    generic (
-        abits:      integer;
-        dbits:      integer );
+    generic(
+        abits : integer;
+        dbits : integer);
 
-    port (
-        rclk:       in  std_logic;
-        wclk:       in  std_logic;
-        ren:        in  std_logic;
-        raddr:      in  std_logic_vector(abits-1 downto 0);
-        rdata:      out std_logic_vector(dbits-1 downto 0);
-        wen:        in  std_logic;
-        waddr:      in  std_logic_vector(abits-1 downto 0);
-        wdata:      in  std_logic_vector(dbits-1 downto 0) );
+    port(
+        rclk  : in  std_logic;
+        wclk  : in  std_logic;
+        ren   : in  std_logic;
+        raddr : in  std_logic_vector(abits - 1 downto 0);
+        rdata : out std_logic_vector(dbits - 1 downto 0);
+        wen   : in  std_logic;
+        waddr : in  std_logic_vector(abits - 1 downto 0);
+        wdata : in  std_logic_vector(dbits - 1 downto 0));
 
 end entity spwram;
 
 architecture spwram_arch of spwram is
 
-    type mem_type is array(0 to (2**abits - 1)) of
-                     std_logic_vector(dbits-1 downto 0);
+    type mem_type is array (0 to (2**abits - 1)) of std_logic_vector(dbits - 1 downto 0);
 
-    signal s_mem:   mem_type;
+    signal s_mem : mem_type;
 
 begin
 
     -- read process
-    process (rclk) is
+    process(rclk) is
     begin
         if rising_edge(rclk) then
             if ren = '1' then
@@ -45,7 +44,7 @@ begin
     end process;
 
     -- write process
-    process (wclk) is
+    process(wclk) is
     begin
         if rising_edge(wclk) then
             if wen = '1' then

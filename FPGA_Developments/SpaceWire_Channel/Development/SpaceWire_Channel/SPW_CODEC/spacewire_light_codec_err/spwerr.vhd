@@ -89,7 +89,7 @@ architecture spwerr_arch of spwerr is
 begin
 
     -- Combinatorial process
-    process(r, err_usr_i, err_link_i) is
+    process(r, rst, err_usr_i, err_link_i) is
         variable v : regs_type;
     begin
         v := r;
@@ -319,16 +319,25 @@ begin
             end if;
         end if;
 
+        -- Reset
+        if rst = '1' then
+            v                       := regs_reset;
+            err_usr_o.err_stat_o    <= stby;
+            err_link_o.err_disc_o   <= '0';
+            err_link_o.err_par_o    <= '0';
+            err_link_o.err_esc_o    <= '0';
+            err_link_o.err_credit_o <= '0';
+            err_link_o.err_ch_seq_o <= '0';
+        end if;
+
         -- Update future state regs.
         rin <= v;
     end process;
 
-    -- Sequential process - rst, update regs.
-    process(clk, rst) is
+    -- Sequential process - update regs.
+    process(clk) is
     begin
-        if (rst = '1') then
-            r <= regs_reset;
-        elsif rising_edge(clk) then
+        if rising_edge(clk) then
             r <= rin;
         end if;
     end process;

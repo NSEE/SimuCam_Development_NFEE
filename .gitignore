@@ -5,6 +5,7 @@
 *.o
 *.ko
 *.obj
+*.objdump
 #*.elf
 
 # Linker output
