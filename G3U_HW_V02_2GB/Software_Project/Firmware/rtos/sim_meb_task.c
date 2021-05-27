@@ -582,8 +582,6 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE);
 				bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF);
-				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucLeftErrorCnt = 0;
-				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucRightErrorCnt = 0;
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartRightErrorInj = FALSE;
 			break;
@@ -1773,8 +1771,6 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE);
 			bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF);
-			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucLeftErrorCnt = 0;
-			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucRightErrorCnt = 0;
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartRightErrorInj = FALSE;
 			break;
@@ -2266,8 +2262,6 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 		bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE);
 		bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucLeftErrorCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.ucRightErrorCnt = 0;
 		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
 		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xImgWinContentErr.bStartRightErrorInj = FALSE;
 

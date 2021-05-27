@@ -2366,9 +2366,6 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_BEFORE_MASTER:
 				/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
 
-				vActivateContentErrInj(pxNFeeP);
-				vActivateDataPacketErrInj(pxNFeeP);
-
 				if ( pxNFeeP->xControl.eNextMode != pxNFeeP->xControl.eMode ) {
 					pxNFeeP->xControl.eState =  pxNFeeP->xControl.eNextMode;
 
@@ -2377,6 +2374,9 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+						vActivateContentErrInj(pxNFeeP);
+						vActivateDataPacketErrInj(pxNFeeP);
 					}
 				}
 				break;

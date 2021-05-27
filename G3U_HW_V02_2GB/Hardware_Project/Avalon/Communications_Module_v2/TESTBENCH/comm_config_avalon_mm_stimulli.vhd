@@ -486,14 +486,14 @@ begin
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_protocol_id             <= x"02";
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number              <= std_logic_vector(to_unsigned(3, 2));
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_OFF_MODE; -- N-FEE Off Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_ON_MODE; -- N-FEE On Mode
+                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_ON_MODE; -- N-FEE On Mode
                     --										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_PATTERN_MODE; -- N-FEE Full-Image Pattern Mode
                     --										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_PATTERN_MODE; -- N-FEE Windowing Pattern Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_STANDBY_MODE; -- N-FEE Standby Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_MODE_PATTERN_MODE; -- N-FEE Full-Image Mode / Pattern Mode
+                    --					avs_config_wr_regs_o.data_packet_config_reg.dcccata_pkt_fee_mode                <= c_DPKT_FULLIMAGE_MODE_PATTERN_MODE; -- N-FEE Full-Image Mode / Pattern Mode
                     --															avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_FULLIMAGE_MODE_SSD_MODE; -- N-FEE Full-Image Mode / SSD Mode
                     --										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_PATTERN_MODE; -- N-FEE Windowing Mode / Pattern Mode
-                    avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDIMG_MODE; -- N-FEE Windowing Mode / SSD Image Mode
+--                    avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDIMG_MODE; -- N-FEE Windowing Mode / SSD Image Mode
                     --										avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_WINDOWING_MODE_SSDWIN_MODE; -- N-FEE Windowing Mode / SSD Window Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_PERFORMANCE_TEST_MODE; -- N-FEE Performance Test Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode                <= c_DPKT_PAR_TRAP_PUMP_1_MODE_PUMP_MODE; -- N-FEE Parallel Trap Pumping 1 Mode / Pumping Mode
@@ -580,49 +580,49 @@ begin
                 --					avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_err_id <= c_RMAP_ERRINJ_ERR_ID_DATA_CRC;
                 --					avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_value  <= x"AABBCCDD";
 
-                --				when 50 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_open <= '1';
-                --
-                --				when 60 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(2, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(2, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(0, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(0, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"AAAA";
-                --
-                --				when 70 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(1, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(1, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(1, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(5, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"BBBB";
-                --
-                --				when 80 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(0, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(0, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(2, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(15, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"CCCC";
-                --
-                --				when 90 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(0, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(2, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(2, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(30, 16));
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"DDDD";
-                --
-                --				when 100 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_close <= '1';
-                --
-                --				when 110 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start <= '1';
-                --
-                --				when 60000 =>
-                --					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop <= '1';
+                				when 50 =>
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_open <= '1';
+                
+                				when 60 =>
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(2, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(2, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(0, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(0, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"AAAA";
+                
+                				when 70 =>
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(1, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(1, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(1, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(5, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"BBBB";
+                
+                				when 80 =>
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(0, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(0, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(2, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(15, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"CCCC";
+                
+                				when 90 =>
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_write       <= '1';
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start_frame <= std_logic_vector(to_unsigned(0, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame  <= std_logic_vector(to_unsigned(2, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col   <= std_logic_vector(to_unsigned(2, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row   <= std_logic_vector(to_unsigned(30, 16));
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value <= x"DDDD";
+                
+                				when 100 =>
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_close <= '1';
+                
+                				when 110 =>
+                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_start <= '1';
+                
+--                				when 60000 =>
+--                					avs_config_wr_regs_o.right_content_error_injection_control_reg.right_content_errinj_stop <= '1';
 
                 --				when 50 =>
                 --					avs_config_wr_regs_o.header_error_injection_control_reg.header_errinj_open <= '1';

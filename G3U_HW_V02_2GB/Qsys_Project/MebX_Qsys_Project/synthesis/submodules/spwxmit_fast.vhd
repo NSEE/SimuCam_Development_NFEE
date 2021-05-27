@@ -149,215 +149,208 @@ use work.spwpkg.all;
 
 entity spwxmit_fast is
 
-    port (
+    port(
         -- System clock.
-        clk:        in  std_logic;
-
+        clk    : in  std_logic;
         -- Transmit clock.
-        txclk:      in  std_logic;
-
+        txclk  : in  std_logic;
         -- Synchronous reset (active-high)
         -- Used asynchronously by fast clock domain (must be glitch-free).
-        rst:        in  std_logic;
-
+        rst    : in  std_logic;
         -- Scaling factor minus 1, used to scale the system clock into the
         -- transmission bit rate. The system clock is divided by
         -- (unsigned(divcnt) + 1). Changing this signal will immediately
         -- change the transmission rate.
-        divcnt:     in  std_logic_vector(7 downto 0);
-
+        divcnt : in  std_logic_vector(7 downto 0);
         -- Input signals from spwlink.
-        xmiti:      in  spw_xmit_in_type;
-
+        xmiti  : in  spw_xmit_in_type;
         -- Output signals to spwlink.
-        xmito:      out spw_xmit_out_type;
-
+        xmito  : out spw_xmit_out_type;
         -- Data Out signal to SpaceWire bus.
-        spw_do:     out std_logic;
-
+        spw_do : out std_logic;
         -- Strobe Out signal to SpaceWire bus.
-        spw_so:     out std_logic
+        spw_so : out std_logic
     );
 
     -- Turn off FSM extraction to avoid synchronization problems.
-    attribute FSM_EXTRACT: string;
-    attribute FSM_EXTRACT of spwxmit_fast: entity is "NO";
+    attribute FSM_EXTRACT : string;
+    attribute FSM_EXTRACT of spwxmit_fast : entity is "NO";
 
 end entity spwxmit_fast;
 
 architecture spwxmit_fast_arch of spwxmit_fast is
 
     -- Convert boolean to std_logic.
-    type bool_to_logic_type is array(boolean) of std_ulogic;
-    constant bool_to_logic: bool_to_logic_type := (false => '0', true => '1');
+    type bool_to_logic_type is array (boolean) of std_ulogic;
+    constant bool_to_logic : bool_to_logic_type := (false => '0', true => '1');
 
     -- Data records passed between clock domains.
     type token_type is record
-        tick:       std_ulogic;                     -- send time code
-        fct:        std_ulogic;                     -- send FCT
-        fctpiggy:   std_ulogic;                     -- send FCT and N-char
-        flag:       std_ulogic;                     -- send EOP or EEP
-        char:       std_logic_vector(7 downto 0);   -- character or time code
+        tick     : std_ulogic;          -- send time code
+        fct      : std_ulogic;          -- send FCT
+        fctpiggy : std_ulogic;          -- send FCT and N-char
+        flag     : std_ulogic;          -- send EOP or EEP
+        char     : std_logic_vector(7 downto 0); -- character or time code
     end record;
 
     -- Registers in txclk domain
     type txregs_type is record
         -- sync to system clock domain
-        txflip0:    std_ulogic;
-        txflip1:    std_ulogic;
+        txflip0   : std_ulogic;
+        txflip1   : std_ulogic;
         -- stage B
-        b_update:   std_ulogic;
-        b_mux:      std_ulogic;
-        b_txflip:   std_ulogic;
-        b_valid:    std_ulogic;
-        b_token:    token_type;
+        b_update  : std_ulogic;
+        b_mux     : std_ulogic;
+        b_txflip  : std_ulogic;
+        b_valid   : std_ulogic;
+        b_token   : token_type;
         -- stage C
-        c_update:   std_ulogic;
-        c_busy:     std_ulogic;
-        c_esc:      std_ulogic;
-        c_fct:      std_ulogic;
-        c_bits:     std_logic_vector(8 downto 0);
+        c_update  : std_ulogic;
+        c_busy    : std_ulogic;
+        c_esc     : std_ulogic;
+        c_fct     : std_ulogic;
+        c_bits    : std_logic_vector(8 downto 0);
         -- stage D
-        d_bits:     std_logic_vector(8 downto 0);
-        d_cnt4:     std_ulogic;
-        d_cnt10:    std_ulogic;
+        d_bits    : std_logic_vector(8 downto 0);
+        d_cnt4    : std_ulogic;
+        d_cnt10   : std_ulogic;
         -- stage E
-        e_valid:    std_ulogic;
-        e_shift:    std_logic_vector(9 downto 0);
-        e_count:    std_logic_vector(9 downto 0);
-        e_parity:   std_ulogic;
+        e_valid   : std_ulogic;
+        e_shift   : std_logic_vector(9 downto 0);
+        e_count   : std_logic_vector(9 downto 0);
+        e_parity  : std_ulogic;
         -- stage F
-        f_spwdo:    std_ulogic;
-        f_spwso:    std_ulogic;
+        f_spwdo   : std_ulogic;
+        f_spwso   : std_ulogic;
         -- tx clock enable logic
-        txclken:    std_ulogic;
-        txclkpre:   std_ulogic;
-        txclkcnt:   std_logic_vector(7 downto 0);
-        txclkcy:    std_logic_vector(2 downto 0);
-        txclkdone:  std_logic_vector(1 downto 0);
-        txclkdiv:   std_logic_vector(7 downto 0);
-        txdivnorm:  std_ulogic;
+        txclken   : std_ulogic;
+        txclkpre  : std_ulogic;
+        txclkcnt  : std_logic_vector(7 downto 0);
+        txclkcy   : std_logic_vector(2 downto 0);
+        txclkdone : std_logic_vector(1 downto 0);
+        txclkdiv  : std_logic_vector(7 downto 0);
+        txdivnorm : std_ulogic;
     end record;
 
     -- Registers in system clock domain
     type regs_type is record
         -- sync status to txclk domain
-        txenreg:    std_ulogic;
-        txdivreg:   std_logic_vector(7 downto 0);
-        txdivnorm:  std_ulogic;
-        txdivtmp:   std_logic_vector(1 downto 0);
-        txdivsafe:  std_ulogic;
+        txenreg    : std_ulogic;
+        txdivreg   : std_logic_vector(7 downto 0);
+        txdivnorm  : std_ulogic;
+        txdivtmp   : std_logic_vector(1 downto 0);
+        txdivsafe  : std_ulogic;
         -- data stream to txclk domain
-        sysflip0:   std_ulogic;
-        sysflip1:   std_ulogic;
-        token0:     token_type;
-        token1:     token_type;
-        tokmux:     std_ulogic;
+        sysflip0   : std_ulogic;
+        sysflip1   : std_ulogic;
+        token0     : token_type;
+        token1     : token_type;
+        tokmux     : std_ulogic;
         -- transmitter management
-        pend_fct:   std_ulogic;                     -- '1' if an outgoing FCT is pending
-        pend_char:  std_ulogic;                     -- '1' if an outgoing N-Char is pending
-        pend_data:  std_logic_vector(8 downto 0);   -- control flag and data bits of pending char
-        pend_tick:  std_ulogic;                     -- '1' if an outgoing time tick is pending
-        pend_time:  std_logic_vector(7 downto 0);   -- data bits of pending time tick
-        allow_fct:  std_ulogic;                     -- '1' when allowed to send FCTs
-        allow_char: std_ulogic;                     -- '1' when allowed to send data and time
-        sent_fct:   std_ulogic;                     -- '1' when at least one FCT token was sent
+        pend_fct   : std_ulogic;        -- '1' if an outgoing FCT is pending
+        pend_char  : std_ulogic;        -- '1' if an outgoing N-Char is pending
+        pend_data  : std_logic_vector(8 downto 0); -- control flag and data bits of pending char
+        pend_tick  : std_ulogic;        -- '1' if an outgoing time tick is pending
+        pend_time  : std_logic_vector(7 downto 0); -- data bits of pending time tick
+        allow_fct  : std_ulogic;        -- '1' when allowed to send FCTs
+        allow_char : std_ulogic;        -- '1' when allowed to send data and time
+        sent_fct   : std_ulogic;        -- '1' when at least one FCT token was sent
     end record;
 
     -- Initial state of system clock domain
-    constant token_reset: token_type := (
-        tick        => '0',
-        fct         => '0',
-        fctpiggy    => '0',
-        flag        => '0',
-        char        => (others => '0') );
-    constant regs_reset: regs_type := (
-        txenreg     => '0',
-        txdivreg    => (others => '0'),
-        txdivnorm   => '0',
-        txdivtmp    => "00",
-        txdivsafe   => '0',
-        sysflip0    => '0',
-        sysflip1    => '0',
-        token0      => token_reset,
-        token1      => token_reset,
-        tokmux      => '0',
-        pend_fct    => '0',
-        pend_char   => '0',
-        pend_data   => (others => '0'),
-        pend_tick   => '0',
-        pend_time   => (others => '0'),
-        allow_fct   => '0',
-        allow_char  => '0',
-        sent_fct    => '0' );
+    constant token_reset : token_type := (
+        tick     => '0',
+        fct      => '0',
+        fctpiggy => '0',
+        flag     => '0',
+        char     => (others => '0'));
+    constant regs_reset  : regs_type  := (
+        txenreg    => '0',
+        txdivreg   => (others => '0'),
+        txdivnorm  => '0',
+        txdivtmp   => "00",
+        txdivsafe  => '0',
+        sysflip0   => '0',
+        sysflip1   => '0',
+        token0     => token_reset,
+        token1     => token_reset,
+        tokmux     => '0',
+        pend_fct   => '0',
+        pend_char  => '0',
+        pend_data  => (others => '0'),
+        pend_tick  => '0',
+        pend_time  => (others => '0'),
+        allow_fct  => '0',
+        allow_char => '0',
+        sent_fct   => '0');
 
     -- Signals that are re-synchronized from system clock to txclk domain.
     type synctx_type is record
-        rstn:       std_ulogic;
-        sysflip0:   std_ulogic;
-        sysflip1:   std_ulogic;
-        txen:       std_ulogic;
-        txdivsafe:  std_ulogic;
+        rstn      : std_ulogic;
+        sysflip0  : std_ulogic;
+        sysflip1  : std_ulogic;
+        txen      : std_ulogic;
+        txdivsafe : std_ulogic;
     end record;
 
     -- Signals that are re-synchronized from txclk to system clock domain.
     type syncsys_type is record
-        txflip0:    std_ulogic;
-        txflip1:    std_ulogic;
+        txflip0 : std_ulogic;
+        txflip1 : std_ulogic;
     end record;
 
     -- Registers
-    signal rtx:     txregs_type;
-    signal rtxin:   txregs_type;
-    signal r:       regs_type := regs_reset;
-    signal rin:     regs_type;
+    signal rtx   : txregs_type;
+    signal rtxin : txregs_type;
+    signal r     : regs_type := regs_reset;
+    signal rin   : regs_type;
 
     -- Synchronized signals after crossing clock domains.
-    signal synctx:  synctx_type;
-    signal syncsys: syncsys_type;
+    signal synctx  : synctx_type;
+    signal syncsys : syncsys_type;
 
     -- Output flip-flops
-    signal s_spwdo: std_logic;
-    signal s_spwso: std_logic;
+    signal s_spwdo : std_logic;
+    signal s_spwso : std_logic;
 
     -- Force use of IOB flip-flops
-    attribute IOB: string;
-    attribute IOB of s_spwdo: signal is "TRUE";
-    attribute IOB of s_spwso: signal is "TRUE";
+    attribute IOB : string;
+    attribute IOB of s_spwdo : signal is "TRUE";
+    attribute IOB of s_spwso : signal is "TRUE";
 
 begin
 
     -- Reset synchronizer for txclk domain.
-    synctx_rst: syncdff
-        port map ( clk => txclk, rst => rst, di => '1',         do => synctx.rstn );
+    synctx_rst : syncdff
+        port map(clk => txclk, rst => rst, di => '1', do => synctx.rstn);
 
     -- Synchronize signals from system clock domain to txclk domain.
-    synctx_sysflip0: syncdff
-        port map ( clk => txclk, rst => rst, di => r.sysflip0,  do => synctx.sysflip0 );
-    synctx_sysflip1: syncdff
-        port map ( clk => txclk, rst => rst, di => r.sysflip1,  do => synctx.sysflip1 );
-    synctx_txen: syncdff
-        port map ( clk => txclk, rst => rst, di => r.txenreg,   do => synctx.txen );
-    synctx_txdivsafe: syncdff
-        port map ( clk => txclk, rst => rst, di => r.txdivsafe, do => synctx.txdivsafe );
+    synctx_sysflip0 : syncdff
+        port map(clk => txclk, rst => rst, di => r.sysflip0, do => synctx.sysflip0);
+    synctx_sysflip1 : syncdff
+        port map(clk => txclk, rst => rst, di => r.sysflip1, do => synctx.sysflip1);
+    synctx_txen : syncdff
+        port map(clk => txclk, rst => rst, di => r.txenreg, do => synctx.txen);
+    synctx_txdivsafe : syncdff
+        port map(clk => txclk, rst => rst, di => r.txdivsafe, do => synctx.txdivsafe);
 
     -- Synchronize signals from txclk domain to system clock domain.
-    syncsys_txflip0: syncdff
-        port map ( clk => clk,   rst => rst, di => rtx.txflip0, do => syncsys.txflip0 );
-    syncsys_txflip1: syncdff
-        port map ( clk => clk,   rst => rst, di => rtx.txflip1, do => syncsys.txflip1 );
+    syncsys_txflip0 : syncdff
+        port map(clk => clk, rst => rst, di => rtx.txflip0, do => syncsys.txflip0);
+    syncsys_txflip1 : syncdff
+        port map(clk => clk, rst => rst, di => rtx.txflip1, do => syncsys.txflip1);
 
     -- Drive SpaceWire output signals
-    spw_do      <= s_spwdo;
-    spw_so      <= s_spwso;
+    spw_do <= s_spwdo;
+    spw_so <= s_spwso;
 
     -- Combinatorial process
-    process (r, rtx, rst, divcnt, xmiti, synctx, syncsys) is
-        variable v:         regs_type;
-        variable vtx:       txregs_type;
-        variable v_needtoken: std_ulogic;
-        variable v_havetoken: std_ulogic;
-        variable v_token:     token_type;
+    process(r, rtx, rst, divcnt, xmiti, synctx, syncsys) is
+        variable v           : regs_type;
+        variable vtx         : txregs_type;
+        variable v_needtoken : std_ulogic;
+        variable v_havetoken : std_ulogic;
+        variable v_token     : token_type;
     begin
         v           := r;
         vtx         := rtx;
@@ -406,45 +399,42 @@ begin
             -- Time-codes are broken into two tokens: ESC + char.
 
             -- Enable c_esc on the first pass of a NULL or a time-code.
-            vtx.c_esc   := (rtx.b_token.tick or (not rtx.b_valid)) and
-                           (not rtx.c_esc);
+            vtx.c_esc := (rtx.b_token.tick or (not rtx.b_valid)) and (not rtx.c_esc);
 
             -- Enable c_fct on the first pass of an FCT and on
             -- the second pass of a NULL (also the first pass, but c_esc
             -- is stronger than c_fct).
-            vtx.c_fct   := (rtx.b_token.fct and (not rtx.c_busy)) or
-                           (not rtx.b_valid);
+            vtx.c_fct := (rtx.b_token.fct and (not rtx.c_busy)) or (not rtx.b_valid);
 
             -- Enable c_busy on the first pass of a NULL or a time-code
             -- or a piggy-backed FCT. This will tell stage B that we are
             -- not done yet.
-            vtx.c_busy  := (rtx.b_token.tick or (not rtx.b_valid) or
-                            rtx.b_token.fctpiggy) and (not rtx.c_busy);
+            vtx.c_busy := (rtx.b_token.tick or (not rtx.b_valid) or rtx.b_token.fctpiggy) and (not rtx.c_busy);
 
             if rtx.b_token.flag = '1' then
                 if rtx.b_token.char(0) = '0' then
                     -- prepare to send EOP
-                    vtx.c_bits  := "000000101"; -- EOP = P101
+                    vtx.c_bits := "000000101"; -- EOP = P101
                 else
                     -- prepare to send EEP
-                    vtx.c_bits  := "000000011"; -- EEP = P110
+                    vtx.c_bits := "000000011"; -- EEP = P110
                 end if;
             else
                 -- prepare to send data char
-                vtx.c_bits  := rtx.b_token.char & '0';
+                vtx.c_bits := rtx.b_token.char & '0';
             end if;
         end if;
 
         -- Stage D: Prepare to transmit FCT, ESC, or the stuff from stage C.
         if rtx.c_esc = '1' then
             -- prepare to send ESC
-            vtx.d_bits  := "000000111";     -- ESC = P111
-            vtx.d_cnt4  := '1';             -- 3 bits + implicit parity bit
+            vtx.d_bits  := "000000111"; -- ESC = P111
+            vtx.d_cnt4  := '1';         -- 3 bits + implicit parity bit
             vtx.d_cnt10 := '0';
         elsif rtx.c_fct = '1' then
             -- prepare to send FCT
-            vtx.d_bits  := "000000001";     -- FCT = P100
-            vtx.d_cnt4  := '1';             -- 3 bits + implicit parity bit
+            vtx.d_bits  := "000000001"; -- FCT = P100
+            vtx.d_cnt4  := '1';         -- 3 bits + implicit parity bit
             vtx.d_cnt10 := '0';
         else
             -- send the stuff from stage C.
@@ -457,11 +447,11 @@ begin
         if rtx.txclken = '1' then
             if rtx.e_count(0) = '1' then
                 -- reload shift register; output parity bit
-                vtx.e_valid  := '1';
+                vtx.e_valid                            := '1';
                 vtx.e_shift(vtx.e_shift'high downto 1) := rtx.d_bits;
-                vtx.e_shift(0) := not (rtx.e_parity xor rtx.d_bits(0));
-                vtx.e_count  := rtx.d_cnt10 & "00000" & rtx.d_cnt4 & "000";
-                vtx.e_parity := rtx.d_bits(0);
+                vtx.e_shift(0)                         := not (rtx.e_parity xor rtx.d_bits(0));
+                vtx.e_count                            := rtx.d_cnt10 & "00000" & rtx.d_cnt4 & "000";
+                vtx.e_parity                           := rtx.d_bits(0);
             else
                 -- shift bits to output; update parity bit
                 vtx.e_shift  := '0' & rtx.e_shift(rtx.e_shift'high downto 1);
@@ -493,15 +483,15 @@ begin
         vtx.txclkcnt(5 downto 4) := std_logic_vector(unsigned(rtx.txclkcnt(5 downto 4)) - unsigned(rtx.txclkcy(1 downto 1)));
         vtx.txclkcnt(7 downto 6) := std_logic_vector(unsigned(rtx.txclkcnt(7 downto 6)) - unsigned(rtx.txclkcy(2 downto 2)));
         -- propagate carry in blocks of two bits
-        vtx.txclkcy(0) := bool_to_logic(rtx.txclkcnt(1 downto 0) = "00");
-        vtx.txclkcy(1) := rtx.txclkcy(0) and bool_to_logic(rtx.txclkcnt(3 downto 2) = "00");
-        vtx.txclkcy(2) := rtx.txclkcy(1) and bool_to_logic(rtx.txclkcnt(5 downto 4) = "00");
+        vtx.txclkcy(0)           := bool_to_logic(rtx.txclkcnt(1 downto 0) = "00");
+        vtx.txclkcy(1)           := rtx.txclkcy(0) and bool_to_logic(rtx.txclkcnt(3 downto 2) = "00");
+        vtx.txclkcy(2)           := rtx.txclkcy(1) and bool_to_logic(rtx.txclkcnt(5 downto 4) = "00");
         -- detect value 2 in counter
-        vtx.txclkdone(0) := bool_to_logic(rtx.txclkcnt(3 downto 0) = "0010");
-        vtx.txclkdone(1) := bool_to_logic(rtx.txclkcnt(7 downto 4) = "0000");
+        vtx.txclkdone(0)         := bool_to_logic(rtx.txclkcnt(3 downto 0) = "0010");
+        vtx.txclkdone(1)         := bool_to_logic(rtx.txclkcnt(7 downto 4) = "0000");
         -- trigger txclken
-        vtx.txclken  := (rtx.txclkdone(0) and rtx.txclkdone(1)) or rtx.txclkpre;
-        vtx.txclkpre := (not rtx.txdivnorm) and ((not rtx.txclkpre) or (not rtx.txclkdiv(0)));
+        vtx.txclken              := (rtx.txclkdone(0) and rtx.txclkdone(1)) or rtx.txclkpre;
+        vtx.txclkpre             := (not rtx.txdivnorm) and ((not rtx.txclkpre) or (not rtx.txclkdiv(0)));
         -- reload counter
         if rtx.txclken = '1' then
             vtx.txclkcnt  := rtx.txclkdiv;
@@ -517,21 +507,21 @@ begin
 
         -- Transmitter disabled.
         if synctx.txen = '0' then
-            vtx.txflip0   := '0';
-            vtx.txflip1   := '0';
-            vtx.b_update  := '0';
-            vtx.b_mux     := '0';
-            vtx.b_valid   := '0';
-            vtx.c_update  := '0';
-            vtx.c_busy    := '1';
-            vtx.c_esc     := '1';           -- need to send 2nd part of NULL
-            vtx.c_fct     := '1';
-            vtx.d_bits    := "000000111";   -- ESC = P111
-            vtx.d_cnt4    := '1';           -- 3 bits + implicit parity bit
-            vtx.d_cnt10   := '0';
-            vtx.e_valid   := '0';
-            vtx.e_parity  := '0';
-            vtx.e_count   := (0 => '1', others => '0');
+            vtx.txflip0  := '0';
+            vtx.txflip1  := '0';
+            vtx.b_update := '0';
+            vtx.b_mux    := '0';
+            vtx.b_valid  := '0';
+            vtx.c_update := '0';
+            vtx.c_busy   := '1';
+            vtx.c_esc    := '1';        -- need to send 2nd part of NULL
+            vtx.c_fct    := '1';
+            vtx.d_bits   := "000000111"; -- ESC = P111
+            vtx.d_cnt4   := '1';        -- 3 bits + implicit parity bit
+            vtx.d_cnt10  := '0';
+            vtx.e_valid  := '0';
+            vtx.e_parity := '0';
+            vtx.e_count  := (0 => '1', others => '0');
         end if;
 
         -- Reset.
@@ -548,7 +538,7 @@ begin
         -- ---- SYSTEM CLOCK DOMAIN ----
 
         -- Hold divcnt and txen for use by txclk domain.
-        v.txdivtmp  := std_logic_vector(unsigned(r.txdivtmp) - 1);
+        v.txdivtmp := std_logic_vector(unsigned(r.txdivtmp) - 1);
         if r.txdivtmp = "00" then
             if r.txdivsafe = '0' then
                 -- Latch the current value of divcnt and txen.
@@ -569,26 +559,26 @@ begin
 
         -- Pass falling edge of txen signal as soon as possible.
         if xmiti.txen = '0' then
-            v.txenreg   := '0';
+            v.txenreg := '0';
         end if;
 
         -- Store requests for FCT transmission.
         if xmiti.fct_in = '1' and r.allow_fct = '1' then
-            v.pend_fct  := '1';
+            v.pend_fct := '1';
         end if;
 
         if xmiti.txen = '0' then
 
             -- Transmitter disabled; reset state.
-            v.sysflip0    := '0';
-            v.sysflip1    := '0';
-            v.tokmux      := '0';
-            v.pend_fct    := '0';
-            v.pend_char   := '0';
-            v.pend_tick   := '0';
-            v.allow_fct   := '0';
-            v.allow_char  := '0';
-            v.sent_fct    := '0';
+            v.sysflip0   := '0';
+            v.sysflip1   := '0';
+            v.tokmux     := '0';
+            v.pend_fct   := '0';
+            v.pend_char  := '0';
+            v.pend_tick  := '0';
+            v.allow_fct  := '0';
+            v.allow_char := '0';
+            v.sent_fct   := '0';
 
         else
 
@@ -606,23 +596,23 @@ begin
             -- Prepare new token.
             if r.allow_char = '1' and r.pend_tick = '1' then
                 -- prepare to send time code
-                v_token.tick  := '1';
-                v_token.fct   := '0';
+                v_token.tick     := '1';
+                v_token.fct      := '0';
                 v_token.fctpiggy := '0';
-                v_token.flag  := '0';
-                v_token.char  := r.pend_time;
-                v_havetoken   := '1';
+                v_token.flag     := '0';
+                v_token.char     := r.pend_time;
+                v_havetoken      := '1';
                 if v_needtoken = '1' then
                     v.pend_tick := '0';
                 end if;
             else
                 if r.allow_fct = '1' and (xmiti.fct_in = '1' or r.pend_fct = '1') then
                     -- prepare to send FCT
-                    v_token.fct   := '1';
-                    v_havetoken   := '1';
+                    v_token.fct := '1';
+                    v_havetoken := '1';
                     if v_needtoken = '1' then
-                        v.pend_fct  := '0';
-                        v.sent_fct  := '1';
+                        v.pend_fct := '0';
+                        v.sent_fct := '1';
                     end if;
                 end if;
                 if r.allow_char = '1' and r.pend_char = '1' then
@@ -630,9 +620,9 @@ begin
                     -- Note: it is possible to send an FCT and an N-Char
                     -- together by enabling the fctpiggy flag.
                     v_token.fctpiggy := v_token.fct;
-                    v_token.flag  := r.pend_data(8);
-                    v_token.char  := r.pend_data(7 downto 0);
-                    v_havetoken   := '1';
+                    v_token.flag     := r.pend_data(8);
+                    v_token.char     := r.pend_data(7 downto 0);
+                    v_havetoken      := '1';
                     if v_needtoken = '1' then
                         v.pend_char := '0';
                     end if;
@@ -643,15 +633,15 @@ begin
             if v_havetoken = '1' then
                 if r.tokmux = '0' then
                     if r.sysflip0 = syncsys.txflip0 then
-                        v.sysflip0  := not r.sysflip0;
-                        v.token0    := v_token;
-                        v.tokmux    := '1';
+                        v.sysflip0 := not r.sysflip0;
+                        v.token0   := v_token;
+                        v.tokmux   := '1';
                     end if;
                 else
                     if r.sysflip1 = syncsys.txflip1 then
-                        v.sysflip1  := not r.sysflip1;
-                        v.token1    := v_token;
-                        v.tokmux    := '0';
+                        v.sysflip1 := not r.sysflip1;
+                        v.token1   := v_token;
+                        v.tokmux   := '0';
                     end if;
                 end if;
             end if;
@@ -662,8 +652,8 @@ begin
 
             -- Store request for data transmission.
             if xmiti.txwrite = '1' and r.allow_char = '1' and r.pend_char = '0' then
-                v.pend_char  := '1';
-                v.pend_data  := xmiti.txflag & xmiti.txdata;
+                v.pend_char := '1';
+                v.pend_data := xmiti.txflag & xmiti.txdata;
             end if;
 
             -- Store requests for time tick transmission.
@@ -684,33 +674,31 @@ begin
 
         -- Set fctack high if (FCT requested) and (FCTs allowed) AND
         -- (no FCT pending)
-        xmito.fctack <= xmiti.fct_in and xmiti.txen and r.allow_fct and
-                        (not r.pend_fct);
+        xmito.fctack <= xmiti.fct_in and xmiti.txen and r.allow_fct and (not r.pend_fct);
 
         -- Set txack high if (character requested) AND (characters allowed) AND
         -- (no character pending)
-        xmito.txack <= xmiti.txwrite and xmiti.txen and r.allow_char and
-                       (not r.pend_char);
+        xmito.txack <= xmiti.txwrite and xmiti.txen and r.allow_char and (not r.pend_char);
 
         -- Update registers.
-        rin     <= v;
-        rtxin   <= vtx;
+        rin   <= v;
+        rtxin <= vtx;
     end process;
 
     -- Synchronous process in txclk domain
-    process (txclk) is
+    process(txclk) is
     begin
         if rising_edge(txclk) then
             -- drive spacewire output signals
             s_spwdo <= rtx.f_spwdo;
             s_spwso <= rtx.f_spwso;
             -- update registers
-            rtx <= rtxin;
+            rtx     <= rtxin;
         end if;
     end process;
 
     -- Synchronous process in system clock domain
-    process (clk) is
+    process(clk) is
     begin
         if rising_edge(clk) then
             -- update registers
