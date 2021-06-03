@@ -11,6 +11,35 @@
 #include "../../../simucam_definitions.h"
 
 //! [constants definition]
+enum RmapConfigRegsAddr {
+	eRmapConfigReg0Addr  = 0x00000000, /* RMAP Area Config Register 0 */
+	eRmapConfigReg1Addr  = 0x00000004, /* RMAP Area Config Register 1 */
+	eRmapConfigReg2Addr  = 0x00000008, /* RMAP Area Config Register 2 */
+	eRmapConfigReg3Addr  = 0x0000000C, /* RMAP Area Config Register 3 */
+	eRmapConfigReg4Addr  = 0x00000010, /* RMAP Area Config Register 4 */
+	eRmapConfigReg5Addr  = 0x00000014, /* RMAP Area Config Register 5 */
+	eRmapConfigReg6Addr  = 0x00000018, /* RMAP Area Config Register 6 */
+	eRmapConfigReg7Addr  = 0x0000001C, /* RMAP Area Config Register 7 */
+	eRmapConfigReg8Addr  = 0x00000020, /* RMAP Area Config Register 8 */
+	eRmapConfigReg9Addr  = 0x00000024, /* RMAP Area Config Register 9 */
+	eRmapConfigReg10Addr = 0x00000028, /* RMAP Area Config Register 10 */
+	eRmapConfigReg11Addr = 0x0000002C, /* RMAP Area Config Register 11 */
+	eRmapConfigReg12Addr = 0x00000030, /* RMAP Area Config Register 12 */
+	eRmapConfigReg13Addr = 0x00000034, /* RMAP Area Config Register 13 */
+	eRmapConfigReg14Addr = 0x00000038, /* RMAP Area Config Register 14 */
+	eRmapConfigReg15Addr = 0x0000003C, /* RMAP Area Config Register 15 */
+	eRmapConfigReg16Addr = 0x00000040, /* RMAP Area Config Register 16 */
+	eRmapConfigReg17Addr = 0x00000044, /* RMAP Area Config Register 17 */
+	eRmapConfigReg18Addr = 0x00000048, /* RMAP Area Config Register 18 */
+	eRmapConfigReg19Addr = 0x0000004C, /* RMAP Area Config Register 19 */
+	eRmapConfigReg20Addr = 0x00000050, /* RMAP Area Config Register 20 */
+	eRmapConfigReg21Addr = 0x00000054, /* RMAP Area Config Register 21 */
+	eRmapConfigReg22Addr = 0x00000058, /* RMAP Area Config Register 22 */
+	eRmapConfigReg23Addr = 0x0000005C, /* RMAP Area Config Register 23 */
+	eRmapConfigReg24Addr = 0x00000060, /* RMAP Area Config Register 24 */
+	eRmapConfigReg25Addr = 0x00000064, /* RMAP Area Config Register 25 */
+	eRmapConfigReg26Addr = 0x00000068  /* RMAP Area Config Register 26 */
+} ERmapConfigRegsAddr;
 //! [constants definition]
 
 //! [public module structs definition]

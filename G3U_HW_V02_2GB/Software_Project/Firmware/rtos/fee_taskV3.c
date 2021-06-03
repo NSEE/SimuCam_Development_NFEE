@@ -3646,7 +3646,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
@@ -3654,14 +3654,14 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
@@ -3671,18 +3671,18 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
@@ -3690,34 +3690,34 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -3832,8 +3832,11 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -3861,20 +3864,20 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
@@ -3882,52 +3885,52 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -4048,8 +4051,11 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -4066,7 +4072,6 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 		}
 }
 
-
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
@@ -4078,21 +4083,21 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
@@ -4101,52 +4106,52 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -4270,8 +4275,11 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -4288,7 +4296,6 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
-
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
@@ -4300,21 +4307,21 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
@@ -4322,52 +4329,52 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -4499,8 +4506,11 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					#endif
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -4518,7 +4528,6 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 
 }
 
-
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
@@ -4530,20 +4539,20 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
@@ -4552,52 +4561,52 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -4677,8 +4686,11 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					#endif
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -4694,7 +4706,6 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 	}
 }
-
 
 //todo: Sera implementado apos mudancas nos registradores do RMAP
 /* RMAP command received, while waiting for sync*/
@@ -4708,21 +4719,21 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
@@ -4731,52 +4742,52 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
 
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -4894,8 +4905,11 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -4912,8 +4926,6 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
-
-
 //todo: Sera implementado apos mudancas nos registradores do RMAP
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
@@ -4926,21 +4938,21 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
@@ -4948,18 +4960,18 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
@@ -4967,34 +4979,34 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -5116,8 +5128,11 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					#endif
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -5147,21 +5162,21 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	switch (ucADDRReg) {
-		case 0x00:// reg_0_config (v_start and v_end)
+		case eRmapConfigReg0Addr:// reg_0_config (v_start and v_end)
 			pxNFeeP->xCopyRmap.xbRmapChanges.bvStartvEnd = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 
 			break;
-		case 0x04:// reg_1_config
+		case eRmapConfigReg1Addr:// reg_1_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+		case eRmapConfigReg2Addr:// reg_2_config -> ccd_readout_order[7:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bReadoutOrder = TRUE;
 
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
@@ -5170,18 +5185,18 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.xCopyControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder;
 			break;
-		case 0x0C:// reg_3_config
+		case eRmapConfigReg3Addr:// reg_3_config
 			pxNFeeP->xCopyRmap.xbRmapChanges.bhEnd = TRUE;
 			pxNFeeP->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
 			pxNFeeP->xCopyRmap.xbRmapChanges.bChargeInjection = TRUE;
 			pxNFeeP->xCopyRmap.bCopyChargeInjEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
 			break;
-		case 0x10:// reg_4_config -> packet_size[15:0]
+		case eRmapConfigReg4Addr:// reg_4_config -> packet_size[15:0]
 			pxNFeeP->xCopyRmap.xbRmapChanges.bPacketSize = TRUE;
 
 			pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
 			break;
-		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+		case eRmapConfigReg5Addr:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
 
 			//todo: Tiago sync_sel[0] not implemented yet
 			pxNFeeP->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = TRUE;
@@ -5189,34 +5204,34 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xCopyRmap.bCopyDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
 			pxNFeeP->xCopyRmap.bCopyReadoutEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
 			break;
-		case 0x18:// reg_6_config
-		case 0x1C:// reg_7_config
-		case 0x20:// reg_8_config
-		case 0x24:// reg_9_config
-		case 0x28:// reg_10_config
-		case 0x2C:// reg_11_config
-		case 0x30:// reg_12_config
-		case 0x34:// reg_13_config
-		case 0x38:// reg_14_config
-		case 0x3C:// reg_15_config
-		case 0x40:// reg_16_config
-		case 0x44:// reg_17_config
+		case eRmapConfigReg6Addr:// reg_6_config
+		case eRmapConfigReg7Addr:// reg_7_config
+		case eRmapConfigReg8Addr:// reg_8_config
+		case eRmapConfigReg9Addr:// reg_9_config
+		case eRmapConfigReg10Addr:// reg_10_config
+		case eRmapConfigReg11Addr:// reg_11_config
+		case eRmapConfigReg12Addr:// reg_12_config
+		case eRmapConfigReg13Addr:// reg_13_config
+		case eRmapConfigReg14Addr:// reg_14_config
+		case eRmapConfigReg15Addr:// reg_15_config
+		case eRmapConfigReg16Addr:// reg_16_config
+		case eRmapConfigReg17Addr:// reg_17_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x48:// reg_18_config
-		case 0x4C:// reg_19_config
-		case 0x50:// reg_20_config
+		case eRmapConfigReg18Addr:// reg_18_config
+		case eRmapConfigReg19Addr:// reg_19_config
+		case eRmapConfigReg20Addr:// reg_20_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
 			}
 			#endif
 			break;
-		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+		case eRmapConfigReg21Addr:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
 			pxNFeeP->xMemMap.xCommon.ulHStart = 0;
 
 			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig ) {
@@ -5339,8 +5354,11 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 			}
 			break;
-		case 0x58:// reg_22_config
-		case 0x5C:// reg_23_config
+		case eRmapConfigReg22Addr:// reg_22_config
+		case eRmapConfigReg23Addr:// reg_23_config
+		case eRmapConfigReg24Addr:// reg_24_config
+		case eRmapConfigReg25Addr:// reg_25_config
+		case eRmapConfigReg26Addr:// reg_26_config
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
@@ -5356,4 +5374,3 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 			break;
 	}
 }
-
