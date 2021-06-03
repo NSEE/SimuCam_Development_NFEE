@@ -1183,18 +1183,6 @@ void vParserCommTask(void *task_data) {
 									xTcPusL.ucNofValues++; /*todo: Will be needed for future command, don't remove until you sure it will not be used anymore*/
 								}
 
-								#if DEBUG_ON
-								if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
-									fprintf(fp, "Parser Task: TC_SCAM_SPW_RMAP_CONFIG_UPDATE:\n" );
-									fprintf(fp, "- FEESIM_INSTANCE: %hu;\n", usiFeeInstL );
-									fprintf(fp, "- MODE: %hu;\n", PreParsedLocal.usiValues[7] );
-									fprintf(fp, "- LINK_SPEED: %hu;\n", PreParsedLocal.usiValues[8] );
-									fprintf(fp, "- LOGICAL_ADDR: 0x%02X;\n", PreParsedLocal.usiValues[9] );
-									fprintf(fp, "- DEST_NODE_ADDR: 0x%02X;\n", PreParsedLocal.usiValues[10] );
-									fprintf(fp, "- TIME_CODE_GEN: %hu;\n", PreParsedLocal.usiValues[11] );
-									fprintf(fp, "- RMAP_KEY: 0x%02X;\n", PreParsedLocal.usiValues[12] );
-								}
-								#endif
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
