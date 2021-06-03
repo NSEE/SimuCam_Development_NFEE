@@ -2802,214 +2802,303 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue 
 	bRmapGetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 
 	/* Switch case to assign value to register */
-	switch(ucRmapHkID){
-		case eRmapHkTouSense1:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkTouSense2:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkTouSense3:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkTouSense4:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense4 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkTouSense5:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense5 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkTouSense6:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense6 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd1Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1Ts = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd2Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2Ts = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd3Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3Ts = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd4Ts:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4Ts = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkPrt1:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt1 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkPrt2:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt2 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkPrt3:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt3 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkPrt4:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt4 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkPrt5:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt5 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkZeroDiffAmp:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiZeroDiffAmp = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd1VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VodMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd1VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VogMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd1VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonE = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd2VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VodMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd2VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VogMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd2VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonE = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd3VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VodMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd3VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VogMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd3VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonE = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd4VodMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VodMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd4VogMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VogMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd4VrdMonE:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonE = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVccd:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccd = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVrclkMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkViclk:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclk = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVrclkLow:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkLow = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk5vbPosMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbPosMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk5vbNegMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbNegMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk3v3bMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3bMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk2v5aMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5aMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk3v3dMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3dMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk2v5dMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5dMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk1v5dMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi1v5dMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHk5vrefMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vrefMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVccdPosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccdPosRaw = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVclkPosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVclkPosRaw = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVan1PosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan1PosRaw = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVan3NegMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan3NegMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVan2PosRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan2PosRaw = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVdigRaw:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkVdigRaw2:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw2 = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkViclkLow:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclkLow = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd1VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonF = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd1VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VddMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd1VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VgdMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd2VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonF = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd2VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VddMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd2VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VgdMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd3VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonF = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd3VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VddMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd3VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VgdMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd4VrdMonF:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonF = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd4VddMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VddMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkCcd4VgdMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VgdMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkIgHiMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgHiMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkIgLoMon:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkTsenseA:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkTsenseB:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB = (alt_u16)uliRawValue;
-		break;
-		case eRmapHkFpgaMinVer:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMinorVersion = (alt_u8)uliRawValue;
-		break;
-		case eRmapHkFpgaMajVer:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMajorVersion = (alt_u8)uliRawValue;
-		break;
-		case eRmapHkBoardId:
-			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiBoardId = (alt_u16)uliRawValue;
-		break;
+	switch(ucRmapHkID + 2000){ /* The offset of 2000 is necessary to comply with the Defaults IDs. TODO: change RMAP HK ID to 16-bits */
+
+		/* N-FEE RMAP Area HK Register 0, TOU Sense 1 HK Field */
+		case eDeftNfeeRmapAreaHkTouSense1Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 0, TOU Sense 2 HK Field */
+		case eDeftNfeeRmapAreaHkTouSense2Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 1, TOU Sense 3 HK Field */
+		case eDeftNfeeRmapAreaHkTouSense3Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 1, TOU Sense 4 HK Field */
+		case eDeftNfeeRmapAreaHkTouSense4Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense4                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 2, TOU Sense 5 HK Field */
+		case eDeftNfeeRmapAreaHkTouSense5Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense5                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 2, TOU Sense 6 HK Field */
+		case eDeftNfeeRmapAreaHkTouSense6Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense6                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 3, CCD 1 TS HK Field */
+		case eDeftNfeeRmapAreaHkCcd1TsId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1Ts                    = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 3, CCD 2 TS HK Field */
+		case eDeftNfeeRmapAreaHkCcd2TsId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2Ts                    = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 4, CCD 3 TS HK Field */
+		case eDeftNfeeRmapAreaHkCcd3TsId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3Ts                    = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 4, CCD 4 TS HK Field */
+		case eDeftNfeeRmapAreaHkCcd4TsId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4Ts                    = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 5, PRT 1 HK Field */
+		case eDeftNfeeRmapAreaHkPrt1Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt1                      = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 5, PRT 2 HK Field */
+		case eDeftNfeeRmapAreaHkPrt2Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt2                      = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 6, PRT 3 HK Field */
+		case eDeftNfeeRmapAreaHkPrt3Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt3                      = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 6, PRT 4 HK Field */
+		case eDeftNfeeRmapAreaHkPrt4Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt4                      = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 7, PRT 5 HK Field */
+		case eDeftNfeeRmapAreaHkPrt5Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt5                      = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 7, Zero Diff Amplifier HK Field */
+		case eDeftNfeeRmapAreaHkZeroDiffAmpId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiZeroDiffAmp               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 8, CCD 1 Vod Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd1VodMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VodMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 8, CCD 1 Vog Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd1VogMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VogMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 9, CCD 1 Vrd Monitor E HK Field */
+		case eDeftNfeeRmapAreaHkCcd1VrdMonEId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonE               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 9, CCD 2 Vod Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd2VodMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VodMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 10, CCD 2 Vog Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd2VogMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VogMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 10, CCD 2 Vrd Monitor E HK Field */
+		case eDeftNfeeRmapAreaHkCcd2VrdMonEId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonE               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 11, CCD 3 Vod Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd3VodMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VodMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 11, CCD 3 Vog Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd3VogMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VogMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 12, CCD 3 Vrd Monitor E HK Field */
+		case eDeftNfeeRmapAreaHkCcd3VrdMonEId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonE               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 12, CCD 4 Vod Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd4VodMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VodMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 13, CCD 4 Vog Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd4VogMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VogMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 13, CCD 4 Vrd Monitor E HK Field */
+		case eDeftNfeeRmapAreaHkCcd4VrdMonEId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonE               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 14, V CCD HK Field */
+		case eDeftNfeeRmapAreaHkVccdId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccd                      = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 14, VRClock Monitor HK Field */
+		case eDeftNfeeRmapAreaHkVrclkMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkMon                  = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 15, VIClock HK Field */
+		case eDeftNfeeRmapAreaHkViclkId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclk                     = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 15, VRClock Low HK Field */
+		case eDeftNfeeRmapAreaHkVrclkLowId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkLow                  = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 16, 5Vb Positive Monitor HK Field */
+		case eDeftNfeeRmapAreaHk5vbPosMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbPosMon                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 16, 5Vb Negative Monitor HK Field */
+		case eDeftNfeeRmapAreaHk5vbNegMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbNegMon                 = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 17, 3V3b Monitor HK Field */
+		case eDeftNfeeRmapAreaHk3v3bMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3bMon                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 17, 2V5a Monitor HK Field */
+		case eDeftNfeeRmapAreaHk2v5aMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5aMon                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 18, 3V3d Monitor HK Field */
+		case eDeftNfeeRmapAreaHk3v3dMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3dMon                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 18, 2V5d Monitor HK Field */
+		case eDeftNfeeRmapAreaHk2v5dMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5dMon                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 19, 1V5d Monitor HK Field */
+		case eDeftNfeeRmapAreaHk1v5dMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi1v5dMon                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 19, 5Vref Monitor HK Field */
+		case eDeftNfeeRmapAreaHk5vrefMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vrefMon                  = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 20, Vccd Positive Raw HK Field */
+		case eDeftNfeeRmapAreaHkVccdPosRawId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccdPosRaw                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 20, Vclk Positive Raw HK Field */
+		case eDeftNfeeRmapAreaHkVclkPosRawId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVclkPosRaw                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 21, Van 1 Positive Raw HK Field */
+		case eDeftNfeeRmapAreaHkVan1PosRawId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan1PosRaw                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 21, Van 3 Negative Monitor HK Field */
+		case eDeftNfeeRmapAreaHkVan3NegMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan3NegMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 22, Van Positive Raw HK Field */
+		case eDeftNfeeRmapAreaHkVan2PosRawId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan2PosRaw                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 22, Vdig Raw HK Field */
+		case eDeftNfeeRmapAreaHkVdigRawId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 23, Vdig Raw 2 HK Field */
+		case eDeftNfeeRmapAreaHkVdigRaw2Id:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw2                  = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 23, VIClock Low HK Field */
+		case eDeftNfeeRmapAreaHkViclkLowId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclkLow                  = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 24, CCD 1 Vrd Monitor F HK Field */
+		case eDeftNfeeRmapAreaHkCcd1VrdMonFId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonF               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 24, CCD 1 Vdd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd1VddMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VddMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 25, CCD 1 Vgd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd1VgdMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VgdMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 25, CCD 2 Vrd Monitor F HK Field */
+		case eDeftNfeeRmapAreaHkCcd2VrdMonFId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonF               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 26, CCD 2 Vdd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd2VddMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VddMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 26, CCD 2 Vgd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd2VgdMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VgdMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 27, CCD 3 Vrd Monitor F HK Field */
+		case eDeftNfeeRmapAreaHkCcd3VrdMonFId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonF               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 27, CCD 3 Vdd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd3VddMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VddMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 28, CCD 3 Vgd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd3VgdMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VgdMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 28, CCD 4 Vrd Monitor F HK Field */
+		case eDeftNfeeRmapAreaHkCcd4VrdMonFId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonF               = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 29, CCD 4 Vdd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd4VddMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VddMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 29, CCD 4 Vgd Monitor HK Field */
+		case eDeftNfeeRmapAreaHkCcd4VgdMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VgdMon                = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 30, Ig High Monitor HK Field */
+		case eDeftNfeeRmapAreaHkIgHiMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgHiMon                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 30, Ig Low Monitor HK Field */
+		case eDeftNfeeRmapAreaHkIgLoMonId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 31, Tsense A HK Field */
+		case eDeftNfeeRmapAreaHkTsenseAId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 31, Tsense B HK Field */
+		case eDeftNfeeRmapAreaHkTsenseBId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 32, SpW Status: SpaceWire Status Reserved */
+		case eDeftNfeeRmapAreaHkSpwStatusSpwStatusReservedId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucSpwStatusSpwStatusReserved = (alt_u8) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 32, Register 32 HK Reserved */
+		case eDeftNfeeRmapAreaHkReg32HkReservedId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucReg32HkReserved            = (alt_u8) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 33, Register 33 HK Reserved */
+		case eDeftNfeeRmapAreaHkReg33HkReservedId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiReg33HkReserved           = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 33, Operational Mode HK Field */
+		case eDeftNfeeRmapAreaHkOpModeId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode                     = (alt_u8) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 35, FPGA Minor Version Field */
+		case eDeftNfeeRmapAreaHkFpgaMinorVersionId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMinorVersion           = (alt_u8) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 35, FPGA Major Version Field */
+		case eDeftNfeeRmapAreaHkFpgaMajorVersionId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMajorVersion           = (alt_u8) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 35, Board ID Field */
+		case eDeftNfeeRmapAreaHkBoardIdId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiBoardId                   = (alt_u16) uliRawValue;
+			break;
+		/* N-FEE RMAP Area HK Register 35, Register 35 HK Reserved HK Field */
+		case eDeftNfeeRmapAreaHkReg35HkReservedId:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiReg35HkReserved           = (alt_u16) uliRawValue;
+			break;
+
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 				fprintf(fp, "HK update: HK ID out of bounds: %u;\n", ucRmapHkID );
 			#endif
-		break;
+			break;
 	}
 
 	bRmapSetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);

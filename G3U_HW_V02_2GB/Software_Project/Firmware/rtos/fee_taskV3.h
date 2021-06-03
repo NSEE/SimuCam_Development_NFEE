@@ -27,21 +27,6 @@
 #include "../utils/defaults.h"
 #include "../driver/comm/windowing/windowing.h"
 
-/* HK values enum */
-enum FeeHKValues{
-	eRmapHkTouSense1 = 0, eRmapHkTouSense2, eRmapHkTouSense3, eRmapHkTouSense4, eRmapHkTouSense5, eRmapHkTouSense6,
-	eRmapHkCcd1Ts, eRmapHkCcd2Ts, eRmapHkCcd3Ts, eRmapHkCcd4Ts, eRmapHkPrt1, eRmapHkPrt2, eRmapHkPrt3, eRmapHkPrt4,
-	eRmapHkPrt5, eRmapHkZeroDiffAmp, eRmapHkCcd1VodMon, eRmapHkCcd1VogMon, eRmapHkCcd1VrdMonE, eRmapHkCcd2VodMon,
-	eRmapHkCcd2VogMon, eRmapHkCcd2VrdMonE, eRmapHkCcd3VodMon, eRmapHkCcd3VogMon, eRmapHkCcd3VrdMonE, eRmapHkCcd4VodMon,
-	eRmapHkCcd4VogMon, eRmapHkCcd4VrdMonE, eRmapHkVccd, eRmapHkVrclkMon, eRmapHkViclk, eRmapHkVrclkLow, eRmapHk5vbPosMon,
-	eRmapHk5vbNegMon, eRmapHk3v3bMon, eRmapHk2v5aMon, eRmapHk3v3dMon, eRmapHk2v5dMon, eRmapHk1v5dMon, eRmapHk5vrefMon,
-	eRmapHkVccdPosRaw, eRmapHkVclkPosRaw, eRmapHkVan1PosRaw, eRmapHkVan3NegMon, eRmapHkVan2PosRaw, eRmapHkVdigRaw,
-	eRmapHkVdigRaw2, eRmapHkViclkLow, eRmapHkCcd1VrdMonF, eRmapHkCcd1VddMon, eRmapHkCcd1VgdMon, eRmapHkCcd2VrdMonF,
-	eRmapHkCcd2VddMon, eRmapHkCcd2VgdMon, eRmapHkCcd3VrdMonF, eRmapHkCcd3VddMon, eRmapHkCcd3VgdMon, eRmapHkCcd4VrdMonF,
-	eRmapHkCcd4VddMon, eRmapHkCcd4VgdMon, eRmapHkIgHiMon, eRmapHkIgLoMon, eRmapHkTsenseA, eRmapHkTsenseB,
-	eRmapHkFpgaMinVer, eRmapHkFpgaMajVer, eRmapHkBoardId
-} EFeeHKValues;
-
 void vFeeTaskV3(void *task_data);
 void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd );
