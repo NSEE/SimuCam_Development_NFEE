@@ -59,20 +59,6 @@ typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFu
 
 typedef enum { dsPattern = 0, dsSSD, dsWindowStack } tDataSource;
 
-
- /* Error Injection Control Register Struct */
-typedef struct DpktErrorCopy {
-	volatile bool bEnabled;		/*Is error injection Enabled?*/
-	volatile bool bTxDisabled; /* Error Injection Tx Disabled Enable */
-	volatile bool bMissingPkts; /* Error Injection Missing Packets Enable */
-	volatile bool bMissingData; /* Error Injection Missing Data Enable */
-	volatile alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
-	volatile alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
-	volatile alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
-	volatile alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
-} TDpktErrorCopy;
-
-
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/
     unsigned long ulTotalBytes;     /* Total of bytes of the FEE in the memory */
@@ -80,7 +66,6 @@ typedef struct FEEMemoryMap{
     TCcdMemDef xCommon;             /* Common value of memory definitions for the 4 CCds */
     TFullCcdMemMap xCcd[N_OF_CCD];   /* Memory map of the four Full CCDs (xLeft,xRight) */
 } TFEEMemoryMap;
-
 
 typedef struct TrapModeControl{
 	bool bEnabledSerial;
@@ -122,8 +107,6 @@ typedef struct FeeControl{
     tFEEStates eNextMode;
 
     TTrapModeControl xTrap;
-    TDpktErrorCopy	xErrorSWCtrlFull;
-    TDpktErrorCopy	xErrorSWCtrlWin;
 
     tDataSource eDataSource;
 
@@ -148,12 +131,40 @@ typedef struct RmapCopy{
 	volatile bool 			bCopyChargeInjEn; 			/* FEE Charge Injection Enable */
 } TRmapCopy;
 
+typedef struct SpacewireErrInj{
+	bool bDestinationErrorEn;
+	alt_u8 ucOriginalDestAddr;
+}TSpacewireErrInj;
+
+typedef struct DpktErrorCopy {
+	bool bEnabled;		/*Is error injection Enabled?*/
+	bool bTxDisabled; /* Error Injection Tx Disabled Enable */
+	bool bMissingPkts; /* Error Injection Missing Packets Enable */
+	bool bMissingData; /* Error Injection Missing Data Enable */
+	alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
+	alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
+	alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
+	alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
+} TDpktErrorCopy;
+
 typedef struct DataPktErrorData{
 	alt_u16 usiFrameCounter;
 	alt_u16 usiSequenceCounter;
 	alt_u16 usiFieldId;
 	alt_u16 usiFieldValue;
 } TDataPktErrorData;
+
+typedef struct TimeCodeErrInj{
+	alt_u16	usiMissCount;
+	bool	bMissTC;
+	alt_u16	usiWrongCount;
+	alt_u16	usiWrongOffSet;
+	bool	bWrongTC;
+	alt_u16	usiUxpCount;
+	alt_u16	usiJitterCount;
+	bool	bUxp;
+	bool	bJitter;
+}TTimeCodeErrInj;
 
 typedef struct DataPktError{
 	alt_u8 ucErrorCnt;
@@ -178,6 +189,15 @@ typedef struct ImgWinContentErr{
 	bool bStartRightErrorInj;
 } TImgWinContentErr;
 
+typedef struct ErrorInjControl{
+    TDpktErrorCopy	  xErrorSWCtrlFull;
+    TDpktErrorCopy	  xErrorSWCtrlWin;
+    TSpacewireErrInj  xSpacewireErrInj;
+    TTimeCodeErrInj   xTimeCodeErrInj;
+    TDataPktError     xDataPktError;
+    TImgWinContentErr xImgWinContentErr;
+} TErrorInjControl;
+
 typedef struct NFee {
     unsigned char     ucId;              /* ID of the NFEE instance */
     unsigned char     ucSPWId;           /* ID of the SPW instance For This NFEE Instance */
@@ -186,8 +206,7 @@ typedef struct NFee {
     TCcdInfos         xCcdInfo;          /* Pixel configuration of the NFEE */
     TCommChannel      xChannel;
     TRmapCopy	      xCopyRmap;
-    TDataPktError     xDataPktError;
-    TImgWinContentErr xImgWinContentErr;
+    TErrorInjControl  xErrorInjControl;
 } TNFee;
 
 typedef struct FEETransmission{

@@ -51,8 +51,6 @@ TEthInterfaceParams xConfEth;
 TGenSimulationParams xDefaults;
 TSpwInterfaceParams xConfSpw[N_OF_NFEE];
 TGlobal	xGlobal;
-TTimeCodeErrInj xTimeCodeErrInj;
-TSpacewireErrInj xSpacewireErrInj[N_OF_NFEE];
 
 /* Load ETH configuration values from SD Card */
 bool bLoadDefaultEthConf( void ) {

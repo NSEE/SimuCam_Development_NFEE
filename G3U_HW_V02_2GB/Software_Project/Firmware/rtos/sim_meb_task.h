@@ -63,6 +63,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 
 void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL); /* [bndky] */
 
+void vErrorInjOff(TSimucam_MEB *pxMebCLocal, alt_u8 ucFee);
+
 void vTimeCodeMissCounter(TSimucam_MEB * pxMebCLocal);
 
 int iCompareDataPktError (const void *cvpDataPktErrA, const void *cvpDataPktErrB);
