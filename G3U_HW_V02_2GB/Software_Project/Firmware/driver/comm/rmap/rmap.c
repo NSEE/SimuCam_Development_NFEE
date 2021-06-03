@@ -11,6 +11,187 @@
 //! [private function prototypes]
 
 //! [data memory public global variables]
+const TRmapMemAreaConfig cxDefaultsRmapMemAreaConfig = {
+	.usiVStart                    = 0x0000,
+	.usiVEnd                      = 0x119D,
+	.usiChargeInjectionWidth      = 0x0000,
+	.usiChargeInjectionGap        = 0x0000,
+	.usiParallelToiPeriod         = 0x0465,
+	.usiParallelClkOverlap        = 0x00FA,
+	.ucCcdReadoutOrder1stCcd      = 0x00,
+	.ucCcdReadoutOrder2ndCcd      = 0x01,
+	.ucCcdReadoutOrder3rdCcd      = 0x02,
+	.ucCcdReadoutOrder4thCcd      = 0x03,
+	.usiNFinalDump                = 0x0000,
+	.usiHEnd                      = 0x08F6,
+	.bChargeInjectionEn           = FALSE,
+	.bTriLevelClkEn               = FALSE,
+	.bImgClkDir                   = FALSE,
+	.bRegClkDir                   = FALSE,
+	.usiPacketSize                = 0x7D8C,
+	.usiIntSyncPeriod             = 0x186A,
+	.uliTrapPumpingDwellCounter   = 0x000030D4,
+	.bSyncSel                     = FALSE,
+	.ucSensorSel                  = 0x03,
+	.bDigitiseEn                  = TRUE,
+	.bDGEn                        = FALSE,
+	.bCcdReadEn                   = TRUE,
+	.ucConvDly                    = 0x0F,
+	.bHighPrecisionHkEn           = FALSE,
+	.uliCcd1WinListPtr            = 0x00000000,
+	.uliCcd1PktorderListPtr       = 0x00000000,
+	.usiCcd1WinListLength         = 0x0000,
+	.ucCcd1WinSizeX               = 0x00,
+	.ucCcd1WinSizeY               = 0x00,
+	.ucReg8ConfigReserved         = 0x00,
+	.uliCcd2WinListPtr            = 0x00000000,
+	.uliCcd2PktorderListPtr       = 0x00000000,
+	.usiCcd2WinListLength         = 0x0000,
+	.ucCcd2WinSizeX               = 0x00,
+	.ucCcd2WinSizeY               = 0x00,
+	.ucReg11ConfigReserved        = 0x00,
+	.uliCcd3WinListPtr            = 0x00000000,
+	.uliCcd3PktorderListPtr       = 0x00000000,
+	.usiCcd3WinListLength         = 0x0000,
+	.ucCcd3WinSizeX               = 0x00,
+	.ucCcd3WinSizeY               = 0x00,
+	.ucReg14ConfigReserved        = 0x00,
+	.uliCcd4WinListPtr            = 0x00000000,
+	.uliCcd4PktorderListPtr       = 0x00000000,
+	.usiCcd4WinListLength         = 0x0000,
+	.ucCcd4WinSizeX               = 0x00,
+	.ucCcd4WinSizeY               = 0x00,
+	.ucReg17ConfigReserved        = 0x00,
+	.usiCcdVodConfig              = 0x0CCC,
+	.usiCcd1VrdConfig             = 0x0E65,
+	.ucCcd2VrdConfig0             = 0x65,
+	.ucCcd2VrdConfig1             = 0x0E,
+	.usiCcd3VrdConfig             = 0x0E65,
+	.usiCcd4VrdConfig             = 0x0E65,
+	.ucCcdVgdConfig0              = 0x0E,
+	.ucCcdVgdConfig1              = 0xCF,
+	.usiCcdVogConfig              = 0x019A,
+	.usiCcdIgHiConfig             = 0x0000,
+	.usiCcdIgLoConfig             = 0x0000,
+	.ucTrkHldHi                   = 0x04,
+	.ucTrkHldLo                   = 0x0E,
+	.ucReg21ConfigReserved0       = 0x00,
+	.ucCcdModeConfig              = 0x00,
+	.ucReg21ConfigReserved1       = 0x00,
+	.bClearErrorFlag              = FALSE,
+	.ucRCfg1                      = 0x07,
+	.ucRCfg2                      = 0x0B,
+	.ucCdsclpLo                   = 0x09,
+	.uliReg22ConfigReserved       = 0x00000000,
+	.usiCcd1LastEPacket           = 0x0000,
+	.usiCcd1LastFPacket           = 0x0000,
+	.usiCcd2LastEPacket           = 0x0000,
+	.ucReg23ConfigReserved        = 0x00,
+	.usiCcd2LastFPacket           = 0x0000,
+	.usiCcd3LastEPacket           = 0x0000,
+	.usiCcd3LastFPacket           = 0x0000,
+	.ucReg24ConfigReserved        = 0x00,
+	.usiCcd4LastEPacket           = 0x0000,
+	.usiCcd4LastFPacket           = 0x0000,
+	.usiSurfaceInversionCounter   = 0x0064,
+	.ucReg25ConfigReserved        = 0x00,
+	.usiReadoutPauseCounter       = 0x07D0,
+	.usiTrapPumpingShuffleCounter = 0x03E8
+};
+
+const TRmapMemAreaHk cxDefaultsRmapMemAreaHk = {
+	.usiTouSense1                                                       = 0xFFFF,
+	.usiTouSense2                                                       = 0xFFFF,
+	.usiTouSense3                                                       = 0xFFFF,
+	.usiTouSense4                                                       = 0xFFFF,
+	.usiTouSense5                                                       = 0xFFFF,
+	.usiTouSense6                                                       = 0xFFFF,
+	.usiCcd1Ts                                                          = 0xFFFF,
+	.usiCcd2Ts                                                          = 0xFFFF,
+	.usiCcd3Ts                                                          = 0xFFFF,
+	.usiCcd4Ts                                                          = 0xFFFF,
+	.usiPrt1                                                            = 0xFFFF,
+	.usiPrt2                                                            = 0xFFFF,
+	.usiPrt3                                                            = 0xFFFF,
+	.usiPrt4                                                            = 0xFFFF,
+	.usiPrt5                                                            = 0xFFFF,
+	.usiZeroDiffAmp                                                     = 0xFFFF,
+	.usiCcd1VodMon                                                      = 0xFFFF,
+	.usiCcd1VogMon                                                      = 0xFFFF,
+	.usiCcd1VrdMonE                                                     = 0xFFFF,
+	.usiCcd2VodMon                                                      = 0xFFFF,
+	.usiCcd2VogMon                                                      = 0xFFFF,
+	.usiCcd2VrdMonE                                                     = 0xFFFF,
+	.usiCcd3VodMon                                                      = 0xFFFF,
+	.usiCcd3VogMon                                                      = 0xFFFF,
+	.usiCcd3VrdMonE                                                     = 0xFFFF,
+	.usiCcd4VodMon                                                      = 0xFFFF,
+	.usiCcd4VogMon                                                      = 0xFFFF,
+	.usiCcd4VrdMonE                                                     = 0xFFFF,
+	.usiVccd                                                            = 0xFFFF,
+	.usiVrclkMon                                                        = 0xFFFF,
+	.usiViclk                                                           = 0xFFFF,
+	.usiVrclkLow                                                        = 0xFFFF,
+	.usi5vbPosMon                                                       = 0xFFFF,
+	.usi5vbNegMon                                                       = 0xFFFF,
+	.usi3v3bMon                                                         = 0xFFFF,
+	.usi2v5aMon                                                         = 0xFFFF,
+	.usi3v3dMon                                                         = 0xFFFF,
+	.usi2v5dMon                                                         = 0xFFFF,
+	.usi1v5dMon                                                         = 0xFFFF,
+	.usi5vrefMon                                                        = 0xFFFF,
+	.usiVccdPosRaw                                                      = 0xFFFF,
+	.usiVclkPosRaw                                                      = 0xFFFF,
+	.usiVan1PosRaw                                                      = 0xFFFF,
+	.usiVan3NegMon                                                      = 0xFFFF,
+	.usiVan2PosRaw                                                      = 0xFFFF,
+	.usiVdigRaw                                                         = 0xFFFF,
+	.usiVdigRaw2                                                        = 0xFFFF,
+	.usiViclkLow                                                        = 0xFFFF,
+	.usiCcd1VrdMonF                                                     = 0xFFFF,
+	.usiCcd1VddMon                                                      = 0xFFFF,
+	.usiCcd1VgdMon                                                      = 0xFFFF,
+	.usiCcd2VrdMonF                                                     = 0xFFFF,
+	.usiCcd2VddMon                                                      = 0xFFFF,
+	.usiCcd2VgdMon                                                      = 0xFFFF,
+	.usiCcd3VrdMonF                                                     = 0xFFFF,
+	.usiCcd3VddMon                                                      = 0xFFFF,
+	.usiCcd3VgdMon                                                      = 0xFFFF,
+	.usiCcd4VrdMonF                                                     = 0xFFFF,
+	.usiCcd4VddMon                                                      = 0xFFFF,
+	.usiCcd4VgdMon                                                      = 0xFFFF,
+	.usiIgHiMon                                                         = 0xFFFF,
+	.usiIgLoMon                                                         = 0xFFFF,
+	.usiTsenseA                                                         = 0xFFFF,
+	.usiTsenseB                                                         = 0xFFFF,
+	.ucSpwStatusTimecodeFromSpw                                         = 0x00,
+	.ucSpwStatusRmapTargetStatus                                        = 0x00,
+	.ucSpwStatusSpwStatusReserved                                       = 0x00,
+	.bSpwStatusRmapTargetIndicate                                       = FALSE,
+	.bSpwStatusStatLinkEscapeError                                      = FALSE,
+	.bSpwStatusStatLinkCreditError                                      = FALSE,
+	.bSpwStatusStatLinkParityError                                      = FALSE,
+	.bSpwStatusStatLinkDisconnect                                       = FALSE,
+	.bSpwStatusStatLinkRunning                                          = FALSE,
+	.ucReg32HkReserved                                                  = 0x00,
+	.usiFrameCounter                                                    = 0x0000,
+	.usiReg33HkReserved                                                 = 0x0000,
+	.ucOpMode                                                           = 0x00,
+	.ucFrameNumber                                                      = 0x00,
+	.bErrorFlagsWindowPixelsFallOutsideCddBoundaryDueToWrongXCoordinate = FALSE,
+	.bErrorFlagsWindowPixelsFallOutsideCddBoundaryDueToWrongYCoordinate = FALSE,
+	.bErrorFlagsESidePixelExternalSramBufferIsFull                      = FALSE,
+	.bErrorFlagsFSidePixelExternalSramBufferIsFull                      = FALSE,
+	.bErrorFlagsTooManyOverlappingWindows                               = FALSE,
+	.bErrorFlagsSramEdacCorrectable                                     = FALSE,
+	.bErrorFlagsSramEdacUncorrectable                                   = FALSE,
+	.bErrorFlagsBlockRamEdacUncorrectable                               = FALSE,
+	.uliErrorFlagsErrorFlagsReserved                                    = 0x00000000,
+	.ucFpgaMinorVersion                                                 = 0x00,
+	.ucFpgaMajorVersion                                                 = 0x00,
+	.usiBoardId                                                         = 0x0000,
+	.usiReg35HkReserved                                                 = 0x0000
+};
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -51,7 +232,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
@@ -64,7 +245,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
 		}
 #endif
@@ -115,7 +296,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
@@ -128,7 +309,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
 		}
 #endif
@@ -179,7 +360,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
@@ -192,7 +373,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
 		}
 #endif
@@ -243,7 +424,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
@@ -256,7 +437,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
 		}
 #endif
@@ -307,7 +488,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
@@ -320,7 +501,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
 		}
 #endif
@@ -371,7 +552,7 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
@@ -384,7 +565,7 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
 		}
 #endif
@@ -640,91 +821,7 @@ bool bRmapSoftRstMemAreaConfig(alt_u8 ucCommCh){
 
 	if (bValidCh) {
 
-		vpxRmapMemArea->xRmapMemAreaConfig.usiVStart                    = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiVEnd                      = 0x119D    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiChargeInjectionWidth      = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiChargeInjectionGap        = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiParallelToiPeriod         = 0x0465    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiParallelClkOverlap        = 0x00FA    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd      = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd      = 0x01      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd      = 0x02      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd      = 0x03      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiNFinalDump                = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiHEnd                      = 0x08F6    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bChargeInjectionEn           = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bTriLevelClkEn               = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bImgClkDir                   = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bRegClkDir                   = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiPacketSize                = 0x7D8C    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiIntSyncPeriod             = 0x186A    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliTrapPumpingDwellCounter   = 0x000030D4;
-		vpxRmapMemArea->xRmapMemAreaConfig.bSyncSel                     = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucSensorSel                  = 0x03      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bDigitiseEn                  = TRUE      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bDGEn                        = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bCcdReadEn                   = TRUE      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucConvDly                    = 0x0F      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bHighPrecisionHkEn           = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd1WinListPtr            = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd1PktorderListPtr       = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1WinListLength         = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd1WinSizeX               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd1WinSizeY               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg8ConfigReserved         = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd2WinListPtr            = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd2PktorderListPtr       = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd2WinListLength         = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd2WinSizeX               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd2WinSizeY               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg11ConfigReserved        = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd3WinListPtr            = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd3PktorderListPtr       = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd3WinListLength         = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd3WinSizeX               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd3WinSizeY               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg14ConfigReserved        = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd4WinListPtr            = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliCcd4PktorderListPtr       = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd4WinListLength         = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd4WinSizeX               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd4WinSizeY               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg17ConfigReserved        = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdVodConfig              = 0x0CCC    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1VrdConfig             = 0x0E65    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd2VrdConfig0             = 0x65      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcd2VrdConfig1             = 0x0E      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd3VrdConfig             = 0x0E65    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd4VrdConfig             = 0x0E65    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdVgdConfig0              = 0x0E      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdVgdConfig1              = 0xCF      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdVogConfig              = 0x019A    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdIgHiConfig             = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcdIgLoConfig             = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucTrkHldHi                   = 0x04      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucTrkHldLo                   = 0x0E      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg21ConfigReserved0       = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCcdModeConfig              = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg21ConfigReserved1       = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.bClearErrorFlag              = FALSE     ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucRCfg1                      = 0x07      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucRCfg2                      = 0x0B      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucCdsclpLo                   = 0x09      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.uliReg22ConfigReserved       = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1LastEPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd1LastFPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd2LastEPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg23ConfigReserved        = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd2LastFPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd3LastEPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd3LastFPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg24ConfigReserved        = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd4LastEPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiCcd4LastFPacket           = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiSurfaceInversionCounter   = 0x0064    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.ucReg25ConfigReserved        = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiReadoutPauseCounter       = 0x07D0    ;
-		vpxRmapMemArea->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter = 0x03E8    ;
+		vpxRmapMemArea->xRmapMemAreaConfig = cxDefaultsRmapMemAreaConfig;
 
 		bStatus = TRUE;
 	}
@@ -769,79 +866,7 @@ bool bRmapSoftRstMemAreaHk(alt_u8 ucCommCh){
 
 	if (bValidCh) {
 
-		vpxRmapMemArea->xRmapMemAreaHk.usiTouSense1                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiTouSense2                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiTouSense3                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiTouSense4                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiTouSense5                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiTouSense6                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd1Ts                       = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd2Ts                       = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd3Ts                       = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd4Ts                       = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiPrt1                         = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiPrt2                         = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiPrt3                         = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiPrt4                         = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiPrt5                         = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiZeroDiffAmp                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd1VodMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd1VogMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd1VrdMonE                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd2VodMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd2VogMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd2VrdMonE                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd3VodMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd3VogMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd3VrdMonE                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd4VodMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd4VogMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd4VrdMonE                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVccd                         = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVrclkMon                     = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiViclk                        = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVrclkLow                     = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi5vbPosMon                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi5vbNegMon                    = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi3v3bMon                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi2v5aMon                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi3v3dMon                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi2v5dMon                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi1v5dMon                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usi5vrefMon                     = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVccdPosRaw                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVclkPosRaw                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVan1PosRaw                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVan3NegMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVan2PosRaw                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVdigRaw                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiVdigRaw2                     = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiViclkLow                     = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd1VrdMonF                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd1VddMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd1VgdMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd2VrdMonF                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd2VddMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd2VgdMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd3VrdMonF                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd3VddMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd3VgdMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd4VrdMonF                  = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd4VddMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiCcd4VgdMon                   = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiIgHiMon                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiIgLoMon                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiTsenseA                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiTsenseB                      = 0xFFFF    ;
-		vpxRmapMemArea->xRmapMemAreaHk.ucSpwStatusSpwStatusReserved    = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaHk.ucReg32HkReserved               = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiReg33HkReserved              = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaHk.ucOpMode                        = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaHk.uliErrorFlagsErrorFlagsReserved = 0x00000000;
-		vpxRmapMemArea->xRmapMemAreaHk.ucFpgaMinorVersion              = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaHk.ucFpgaMajorVersion              = 0x00      ;
-		vpxRmapMemArea->xRmapMemAreaHk.usiBoardId                      = 0x0000    ;
-		vpxRmapMemArea->xRmapMemAreaHk.uliReg35HkReserved              = 0x00000000;
+		vpxRmapMemArea->xRmapMemAreaHk = cxDefaultsRmapMemAreaHk;
 
 		bStatus = TRUE;
 	}

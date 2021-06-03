@@ -11,6 +11,7 @@
 #include "../../simucam_definitions.h"
 #include "../../utils/configs_simucam.h"
 #include "../comm/rmap/rmap_mem_area.h"
+#include "../comm/rmap/rmap.h"
 
 //! [constants definition]
 

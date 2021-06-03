@@ -18,6 +18,8 @@
 //! [constants definition]
 // address
 // bit masks
+extern const TRmapMemAreaConfig cxDefaultsRmapMemAreaConfig;
+extern const TRmapMemAreaHk cxDefaultsRmapMemAreaHk;
 //! [constants definition]
 
 enum RmapCcdReadoutOrder {

@@ -29,7 +29,7 @@ void vNFeeControlTaskV3(void *task_data) {
 	pxFeeC = (TNFee_Control *) task_data;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage )
         debug(fp,"FEE Controller Task. (Task on)\n");
     #endif
 
@@ -47,7 +47,7 @@ void vNFeeControlTaskV3(void *task_data) {
 			case sMebToConfig:
 				/* Transition state */
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 					fprintf(fp,"NFEE Controller Task: Config Mode\n");
 				#endif
 
@@ -87,7 +87,7 @@ void vNFeeControlTaskV3(void *task_data) {
 				/* Transition state */
 				vEvtChangeFeeControllerMode();
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 					fprintf(fp,"NFEE Controller Task: RUN Mode\n");
 				#endif
 
@@ -134,7 +134,7 @@ void vNFeeControlTaskV3(void *task_data) {
 								vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
 							} else {
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 									fprintf(fp,"NFEE Controller Task: Received a CMD with wrong addr. (xQMaskFeeCtrl)\n");
 								}
 								#endif
@@ -145,7 +145,7 @@ void vNFeeControlTaskV3(void *task_data) {
 				break;
 			default:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					debug(fp,"NFEE Controller Task: Unknown state, backing to Config Mode.\n");
 				}
 				#endif
@@ -165,7 +165,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 		case M_NFC_CONFIG_FORCED:
 		case M_NFC_CONFIG:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 				debug(fp,"NFEE Controller Task: NFC already in the Config Mode\n");
 			}
 			#endif
@@ -182,7 +182,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif
 	}
@@ -215,7 +215,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 
 		case M_NFC_RUN:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 				debug(fp,"NFEE Controller Task: NFC already in the Running Mode\n");
 			}
 			#endif
@@ -226,7 +226,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			}
 			#endif

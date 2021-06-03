@@ -23,7 +23,7 @@ void vLutHandlerTask(void *task_data) {
 
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 		fprintf(fp,"LUT Handler Task. (Task on)\n");
 	}
 	#endif
@@ -55,7 +55,7 @@ void vLutHandlerTask(void *task_data) {
 					vQCmdLUTCmd( pxMebC, uiCmdFEE.ulWord );
 				} else {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"LUT Handler Task: Can't get cmd from Queue (sRunLut) \n");
 					}
 					#endif
@@ -71,7 +71,7 @@ void vLutHandlerTask(void *task_data) {
 					pxMebC->xLut.eState = sRequestFTDI;
 				} else {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"\nLUT Handle Task: CRITICAL error, could not get mutex, for NFEE %u\n", ucIReq);
 					}
 					#endif
@@ -106,7 +106,7 @@ void vLutHandlerTask(void *task_data) {
 								ucIReq++;
 							} else {
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 									fprintf(fp,"\nLUT Handle Task: DMA Schedule fail, for NFEE %u\n", ucIReq);
 								}
 								#endif
@@ -114,7 +114,7 @@ void vLutHandlerTask(void *task_data) {
 
 						} else {
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"\nLUT Handle Task: Request to send LUT fail, for NFEE %u\n", ucIReq);
 							}
 							#endif
@@ -138,7 +138,7 @@ void vLutHandlerTask(void *task_data) {
 					vQCmdLUTWaitIRQFinish( pxMebC, uiCmdFEE.ulWord );
 				} else {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp,"LUT Handler Task: Can't get cmd from Queue (sWaitingIRQFinish) \n");
 					}
 					#endif
@@ -164,7 +164,7 @@ void vLutHandlerTask(void *task_data) {
 
 			default:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					debug(fp,"LUT Handler Task: Unknown state\n");
 				#endif
 				/* todo:Aplicar toda logica de mudança de esteado aqui */
@@ -217,7 +217,7 @@ void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"LUT Task: Unexpected command. \n");
 			}
 			#endif
@@ -265,7 +265,7 @@ void vQCmdLUTWaitIRQFinish( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"LUT Task: Unexpected command. \n");
 			}
 			#endif

@@ -12,7 +12,7 @@ void vTimeoutCheckerTaskv2(void *task_data) {
 	INT8U ucErrorCode = 0;
 
     #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage )
         fprintf(fp,"vTimeoutCheckerTask, enter task.\n");
     #endif   
 
@@ -45,7 +45,7 @@ void vCheck( void ) {
     if ( ucErrorCode != OS_NO_ERR ) {
         /* Should never get here, is a blocking operation */
 		#if DEBUG_ON
-    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+    	if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"Should never get here. Trying to get xTxUARTMutex. (vCheck)\n");
 		#endif
         return;

@@ -42,13 +42,13 @@ void vSyncResetTask( void *task_data ){
         	bClearSync();
         	vSyncClearCounter();
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"++++ Sync Stopped\n");
 			}
 			#endif
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"++++ Force Reset Internals\n");
 			}
 			#endif
@@ -59,7 +59,7 @@ void vSyncResetTask( void *task_data ){
         	OSTimeDlyHMSM(0, 0, 0, 50);
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"++++ Setting all FEEs to mode ON\n");
 			}
 			#endif
@@ -81,7 +81,7 @@ void vSyncResetTask( void *task_data ){
         	vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"++++ Restarting the sky to EP 0\n");
 			}
 			#endif
@@ -106,7 +106,7 @@ void vSyncResetTask( void *task_data ){
 			bStartSync();
         } else{
             #if DEBUG_ON        //TODO verif se esta tudo certo com o erro
-                if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+                if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
                     fprintf(fp,"Sync Reset: Sync Reset Error 3\n");
                 }
             #endif

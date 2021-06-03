@@ -26,7 +26,7 @@ void vCriticalErrorLedPanel( void ) {
 void vFailSendSemaphoreFromDTC( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendSemaphoreFromDTC. (exit)\n");
 	}
 	#endif
@@ -39,7 +39,7 @@ void vFailSendSemaphoreFromDTC( void )
 void vFailInitRTOSResources( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailInitRTOSResources. (exit)\n");
 	}
 	#endif
@@ -52,7 +52,7 @@ void vFailInitRTOSResources( void )
 void vCriticalFailUpdateMemoreDTController( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCriticalFailUpdateMemoreDTController. (exit)\n");
 	}
 	#endif
@@ -65,7 +65,7 @@ void vCriticalFailUpdateMemoreDTController( void )
 void vCommunicationErrorUSB3DTController( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCommunicationErrorUSB3DTController. (exit)\n");
 	}
 	#endif
@@ -78,7 +78,7 @@ void vCommunicationErrorUSB3DTController( void )
 void vFailSendRequestDTController( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"bFTDIRequestFullImage returned FALSE. (exit)\n");
 	}
 	#endif
@@ -91,7 +91,7 @@ void vFailSendRequestDTController( void )
 void vFailFTDIDMASchedule( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailFTDIDMASchedule. (exit)\n");
 	}
 	#endif
@@ -105,7 +105,7 @@ void vFailFTDIDMASchedule( void )
 void vFailCreateMutexSResources( INT8U error_code )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateMutexSResources. (exit)\n");
 		printErrorTask(error_code);
 	}
@@ -119,7 +119,7 @@ void vFailCreateMutexSResources( INT8U error_code )
 void vFailCreateMutexDMA( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp," CRITICAL: vFailCreateMutexDMA. (exit)\n");
 	}
 	#endif
@@ -133,7 +133,7 @@ void vFailCreateMutexDMA( void )
 void vFailReadETHConf( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailReadETHConf. (exit)\n");
 	}
 	#endif
@@ -147,7 +147,7 @@ void vFailReadETHConf( void )
 void vFailCreateSemaphoreResources( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateSemaphoreResources. (exit)\n");
 	}
 	#endif
@@ -162,7 +162,7 @@ void vFailCreateSemaphoreResources( void )
 void vFailTestCriticasParts( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailTestCriticasParts. (exit)\n");
 	}
 	#endif
@@ -177,7 +177,7 @@ void vFailTestCriticasParts( void )
 void vFailSDCard( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSDCard. (exit)\n");
 	}
 	#endif
@@ -192,7 +192,7 @@ void vFailSDCard( void )
 void vFailSendxSemCommInit( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendxSemCommInit. (exit)");
 		debug(fp,"Could not send the vParserRXTask. (exit)\n");
 	}
@@ -206,7 +206,7 @@ void vFailSendxSemCommInit( void )
 void vFailSendPreParsedSemaphore( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPreParsedSemaphore. (exit)\n");
 	}
 	#endif
@@ -219,7 +219,7 @@ void vFailSendPreParsedSemaphore( void )
 void vFailSendPreAckReceiverSemaphore( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPreAckReceiverSemaphore. (exit)\n");
 	}
 	#endif
@@ -233,7 +233,7 @@ void vFailSendPreAckReceiverSemaphore( void )
 void vFailSendPreAckSenderSemaphore( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPreAckSenderSemaphore. (exit)\n");
 	}
 	#endif
@@ -247,7 +247,7 @@ void vFailSendPreAckSenderSemaphore( void )
 void vFailGetCountSemaphoreSenderTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphoreSenderTask. (exit)\n");
 		debug(fp,"Could not get the semaphore and some error happens.(vSenderAckTask)\n");
 	}
@@ -261,7 +261,7 @@ void vFailGetCountSemaphoreSenderTask( void )
 void vFailGetMutexSenderTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMutexSenderTask. (exit)\n");
 		debug(fp,"Could not get mutex that protects the xSenderACK.(vSenderAckTask)\n");
 	}
@@ -276,7 +276,7 @@ void vFailGetMutexSenderTask( void )
 void vFailGetCountSemaphoreReceiverTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphoreReceiverTask. (exit)\n");
 		debug(fp,"Could not get the semaphore and some error happens.(vReceiverAckTask)\n");
 	}
@@ -290,7 +290,7 @@ void vFailGetCountSemaphoreReceiverTask( void )
 void vFailGetMutexReceiverTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMutexReceiverTask. (exit)\n");
 		debug(fp,"Could not get mutex that protects the xSenderACK.(vReceiverAckTask)\n");
 	}
@@ -305,7 +305,7 @@ void vFailGetMutexReceiverTask( void )
 void vFailGetMutexTxUARTSenderTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMutexTxUARTSenderTask. (exit)\n");
 		debug(fp,"Could not get mutex that protects the tx buffer.(vSenderAckTask)\n");
 	}
@@ -320,7 +320,7 @@ void vFailGetMutexTxUARTSenderTask( void )
 void vFailGetMacRTC( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMacRTC\n");
 	}
 	#endif
@@ -334,7 +334,7 @@ void vFailGetMacRTC( void )
 void vFailInitialization( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailInitialization\n");
 	}
 	#endif
@@ -350,7 +350,7 @@ void vFailInitialization( void )
 void vFailReceiverCreate( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vReceiverUartTask\n");
 	}
 	#endif
@@ -364,7 +364,7 @@ void vFailReceiverCreate( void )
 void vFailSenderCreate( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSenderCreate\n");
 	}
 	#endif
@@ -378,7 +378,7 @@ void vFailSenderCreate( void )
 void vFailDeleteInitialization( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailDeleteInitialization\n");
 	}
 	#endif
@@ -392,7 +392,7 @@ void vFailDeleteInitialization( void )
 void vFailSetCountSemaphorexBuffer32( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetCountSemaphorexBuffer32. (exit)\n");
 		debug(fp,"Could not post to the semaphore.()\n");
 	}
@@ -406,7 +406,7 @@ void vFailSetCountSemaphorexBuffer32( void )
 void vFailSetCountSemaphorexBuffer64( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetCountSemaphorexBuffer64. (exit)\n");
 		debug(fp,"Could not post to the semaphore.()\n");
 	}
@@ -421,7 +421,7 @@ void vFailSetCountSemaphorexBuffer64( void )
 void vFailSetCountSemaphorexBuffer512( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetCountSemaphorexBuffer512. (exit)\n");
 		debug(fp,"Could not post to the semaphore.()\n");
 	}
@@ -433,7 +433,7 @@ void vFailSetCountSemaphorexBuffer512( void )
 void vFailSetCountSemaphorexBuffer128( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetCountSemaphorexBuffer128. (exit)\n");
 		debug(fp,"Could not post to the semaphore.()\n");
 	}
@@ -447,7 +447,7 @@ void vFailSetCountSemaphorexBuffer128( void )
 void vFailGetCountSemaphorexBuffer512( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorexBuffer512. (exit)\n");
 		debug(fp,"Could not get to the semaphore.()\n");
 	}
@@ -457,7 +457,7 @@ void vFailGetCountSemaphorexBuffer512( void )
 void vFailGetCountSemaphorexBuffer128( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorexBuffer128. (exit)\n");
 		debug(fp,"Could not get to the semaphore.()\n");
 	}
@@ -471,7 +471,7 @@ void vFailGetCountSemaphorexBuffer128( void )
 void vFailGetCountSemaphorexBuffer64( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorexBuffer64. (exit)\n");
 		debug(fp,"Could not get to the semaphore.()\n");
 	}
@@ -485,7 +485,7 @@ void vFailGetCountSemaphorexBuffer64( void )
 void vFailGetCountSemaphorexBuffer32( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorexBuffer32. (exit)\n");
 		debug(fp,"Could not get to the semaphore.()\n");
 	}
@@ -499,7 +499,7 @@ void vFailGetCountSemaphorexBuffer32( void )
 void vFailFoundBufferRetransmission( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"Warning: Incomming Ack id doesn't exists.\n");
 		debug(fp,"Could not found the id in the (re)transmission buffers.(In Ack Handler)\n");
 	}
@@ -513,7 +513,7 @@ void vFailFoundBufferRetransmission( void )
 void vFailGetCountSemaphoreSenderBuffer( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphoreSenderBuffer. (exit)\n");
 		debug(fp,"Could not get the semaphore and some error happens.(Sender task)\n");
 	}
@@ -527,7 +527,7 @@ void vFailGetCountSemaphoreSenderBuffer( void )
 void vFailGetCountSemaphorePreParsedBuffer( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorePreParsedBuffer. (exit)\n");
 		debug(fp,"Could not get the semaphore and some error happens.(vParserRXTask)\n");
 	}
@@ -542,7 +542,7 @@ void vFailGetCountSemaphorePreParsedBuffer( void )
 void vFailGetxMutexPreParsedParserRxTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetxMutexPreParsedParserRxTask. (exit)\n");
 		debug(fp,"Could not get the mutex and some error happens.(vParserRXTask)\n");
 	}
@@ -556,7 +556,7 @@ void vFailGetxMutexPreParsedParserRxTask( void )
 void vFailGetxMutexSenderBuffer128( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetxMutexSenderBuffer128. (exit)\n");
 		debug(fp,"Could not get the mutex and some error happens.(vSender)\n");
 	}
@@ -570,7 +570,7 @@ void vFailGetxMutexSenderBuffer128( void )
 void vNoContentInPreParsedBuffer( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vNoContentInPreParsedBuffer. (exit)\n");
 		debug(fp,"Semaphore was post by some task but has no message in the PreParsedBuffer.(vParserRXTask)\n");
 	}
@@ -584,7 +584,7 @@ void vNoContentInPreParsedBuffer( void )
 void vNoContentInSenderBuffer( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vNoContentInSenderBuffer. (exit)\n");
 		debug(fp,"Semaphore was post by some task but has no message.(Sender)\n");
 	}
@@ -599,7 +599,7 @@ void vNoContentInSenderBuffer( void )
 void vCouldNotSendEthConfUART( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendEthConfUART. (exit)\n");
 		debug(fp,"Could not send or not write ETH conf of the NUC in the (re)transmission buffer.(vSendEthConf)\n");
 	}
@@ -613,7 +613,7 @@ void vCouldNotSendEthConfUART( void )
 void vFailSendNack( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendNack. (exit)\n");
 		debug(fp,"Send Nack using the PreAckSender buffer. \n");
 	}
@@ -627,7 +627,7 @@ void vFailSendNack( void )
 void vFailSetPreAckSenderBuffer( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetPreAckSenderBuffer. (exit)\n");
 		debug(fp,"Could not send the message to the task out_ack_handler using the PreAckSender buffer.\n");
 	}
@@ -641,7 +641,7 @@ void vFailSetPreAckSenderBuffer( void )
 void vFailSetPreParsedBuffer( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetPreParsedBuffer. (exit)\n");
 		debug(fp,"Could not send the message to the task parser_comm using the PreParsed buffer.\n");
 	}
@@ -656,7 +656,7 @@ void vFailSetPreParsedBuffer( void )
 void vFailSetPreAckReceiverBuffer( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetPreAckReceiverBuffer. (exit)\n");
 		debug(fp,"Could not send the message to the task in_out_handler using the PreAckReceiver buffer.\n");
 	}
@@ -671,7 +671,7 @@ void vFailSetPreAckReceiverBuffer( void )
 void vFailParserCommTaskCreate( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailParserCommTaskCreate\n");
 	}
 	#endif
@@ -684,7 +684,7 @@ void vFailParserCommTaskCreate( void )
 void vFailInAckHandlerTaskCreate( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailInAckHandlerTaskCreate\n");
 	}
 	#endif
@@ -697,7 +697,7 @@ void vFailInAckHandlerTaskCreate( void )
 void vFailOutAckHandlerTaskCreate( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailInAckHandlerTaskCreate\n");
 	}
 	#endif
@@ -711,7 +711,7 @@ void vFailOutAckHandlerTaskCreate( void )
 void vFailCreateTimerRetransmisison( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateTimerRetransmisison\n");
 	}
 	#endif
@@ -725,7 +725,7 @@ void vFailCreateTimerRetransmisison( void )
 void vCouldNotCheckBufferTimeOutFunction( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotCheckBufferTimeOutFunction\n");
 	}
 	#endif
@@ -739,7 +739,7 @@ void vCouldNotCheckBufferTimeOutFunction( void )
 void vFailTimeoutCheckerTaskCreate( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailTimeoutCheckerTaskCreate (Critico)\n");
 	}
 	#endif
@@ -753,7 +753,7 @@ void vFailTimeoutCheckerTaskCreate( void )
 void vFailGetBlockingSemTimeoutTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetBlockingSemTimeoutTask. (exit)\n");
 		debug(fp,"Retrun from a blocking (0) OSSemPend with a error.\n");
 	}
@@ -767,7 +767,7 @@ void vFailGetBlockingSemTimeoutTask( void )
 void vFailPostBlockingSemTimeoutTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailPostBlockingSemTimeoutTask. (exit)\n");
 		debug(fp,"Could not Post the semaphore for the TimeoutTask.\n");
 	}
@@ -782,7 +782,7 @@ void vFailPostBlockingSemTimeoutTask( void )
 void vFailCouldNotRetransmitTimeoutTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCouldNotRetransmitTimeoutTask. (exit)\n");
 		debug(fp,"After sleep for 50 ticks, could not get access to the tx uart. No retransmission occurs.\n");
 	}
@@ -797,7 +797,7 @@ void vFailCouldNotRetransmitTimeoutTask( void )
 void vCouldNotRetransmitB32TimeoutTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotRetransmitB32TimeoutTask. (exit)\n");
 		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (32).\n");
 	}
@@ -811,7 +811,7 @@ void vCouldNotRetransmitB32TimeoutTask( void )
 void vCouldNotRetransmitB64TimeoutTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotRetransmitB64TimeoutTask. (exit)\n");
 		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (64).\n");
 	}
@@ -825,7 +825,7 @@ void vCouldNotRetransmitB64TimeoutTask( void )
 void vCouldNotRetransmitB128TimeoutTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotRetransmitB128TimeoutTask. (exit)\n");
 		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (128).\n");
 	}
@@ -840,7 +840,7 @@ void vCouldNotRetransmitB128TimeoutTask( void )
 void vFailStartTimerRetransmission( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailStartTimerRetransmission. (exit)\n");
 		debug(fp,"Fail trying to start the timer xTimerRetransmission.\n");
 	}
@@ -855,7 +855,7 @@ void vFailStartTimerRetransmission( void )
 void vCouldNotSendTurnOff( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendTurnOff. (exit)\n");
 		debug(fp,"Could not send the turn off command. \n");
 	}
@@ -869,7 +869,7 @@ void vCouldNotSendTurnOff( void )
 void vCouldNotSendGenericMessageInternalCMD( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendGenericMessageInternalCMD. (exit)\n");
 	}
 	#endif
@@ -882,7 +882,7 @@ void vCouldNotSendGenericMessageInternalCMD( void )
 void vCouldNotSendReset( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendReset. (exit)\n");
 		debug(fp,"Could not send the reset command. \n");
 	}
@@ -896,7 +896,7 @@ void vCouldNotSendReset( void )
 void vCouldNotSendLog( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendLog. (exit)\n");
 		debug(fp,"Could not send log packet to NUC. \n");
 	}
@@ -911,7 +911,7 @@ void vCouldNotSendLog( void )
 void vCouldNotSendTMPusCommand( const char *cData )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendTMPusCommand. (exit)\n");
 		debug(fp,"Could not send the TM PUS command to NUC. \n");
 		debug(fp,"cData");
@@ -927,7 +927,7 @@ void vCouldNotSendTMPusCommand( const char *cData )
 void vWarnCouldNotgetMutexRetrans128( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vWarnCouldNotgetMutexRetrans128. (exit)\n");
 		debug(fp,"Warning: Could not get the mutex for the retransmission. The message will be lost.\n");
 	}
@@ -943,7 +943,7 @@ void vWarnCouldNotgetMutexRetrans128( void )
 void vFailCreateScheduleQueue( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateScheduleQueue. (exit)\n");
 		debug(fp,"CRITICAL: Could not create the Queue to shcedule the access to the DMA.\n");
 	}
@@ -958,7 +958,7 @@ void vFailCreateScheduleQueue( void )
 void vFailCreateNFEEQueue( unsigned char ucID )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateNFEEQueue. (exit)\n");
 		fprintf(fp,"CRITICAL: Could not create the Queue to the NSEE %hhu.\n",ucID);
 	}
@@ -973,7 +973,7 @@ void vFailCreateNFEEQueue( unsigned char ucID )
 void vFailCreateMebQueue( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateMebQueue. (exit)\n");
 		fprintf(fp,"CRITICAL: Could not create the Queue to the NSEE.\n");
 	}
@@ -988,7 +988,7 @@ void vFailCreateMebQueue( void )
 void vFailCreateLUTQueue( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateLUTQueue. (exit)\n");
 		fprintf(fp,"CRITICAL: Could not create the Queue to the NSEE.\n");
 	}
@@ -1003,7 +1003,7 @@ void vFailCreateLUTQueue( void )
 void vFailCreateNFEESyncQueue( unsigned char ucID )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateNFEESyncQueue. (exit)\n");
 		fprintf(fp,"CRITICAL: Could not create the Queue to the NFEE %hhu.\n",ucID);
 	}
@@ -1017,7 +1017,7 @@ void vFailCreateNFEESyncQueue( unsigned char ucID )
 void vCoudlNotCreateNFee0Task( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee0Task. (exit)\n");
 		debug(fp,"Could not create NFEE 0 Task.\n");
 	}
@@ -1032,7 +1032,7 @@ void vCoudlNotCreateNFee0Task( void )
 void vCoudlNotCreateNFee1Task( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee1Task. (exit)\n");
 		debug(fp,"Could not create NFEE 1 Task.\n");
 	}
@@ -1046,7 +1046,7 @@ void vCoudlNotCreateNFee1Task( void )
 void vCoudlNotCreateNFee2Task( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee2Task. (exit)\n");
 		debug(fp,"Could not create NFEE 2 Task.\n");
 	}
@@ -1060,7 +1060,7 @@ void vCoudlNotCreateNFee2Task( void )
 void vCoudlNotCreateNFee3Task( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee3Task. (exit)\n");
 		debug(fp,"Could not create NFEE 3 Task.\n");
 	}
@@ -1074,7 +1074,7 @@ void vCoudlNotCreateNFee3Task( void )
 void vCoudlNotCreateNFee4Task( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee4Task. (exit)\n");
 		debug(fp,"Could not create NFEE 4 Task.\n");
 	}
@@ -1088,7 +1088,7 @@ void vCoudlNotCreateNFee4Task( void )
 void vCoudlNotCreateNFee5Task( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee5Task. (exit)\n");
 		debug(fp,"Could not create NFEE 5 Task.\n");
 	}
@@ -1103,7 +1103,7 @@ void vCoudlNotCreateNFee5Task( void )
 void vCoudlNotCreateNFeeControllerTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFeeControllerTask. (exit)\n");
 		debug(fp,"Could not create NFEE Controller Task.\n");
 	}
@@ -1118,7 +1118,7 @@ void vCoudlNotCreateNFeeControllerTask( void )
 void vCoudlNotCreateDataControllerTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateDataControllerTask. (exit)\n");
 		debug(fp,"Could not create Data Controller Task.\n");
 	}
@@ -1133,7 +1133,7 @@ void vCoudlNotCreateDataControllerTask( void )
 void vCoudlNotCreateMebTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateMebTask. (exit)\n");
 		debug(fp,"Could not create Meb Task.\n");
 	}
@@ -1148,7 +1148,7 @@ void vCoudlNotCreateMebTask( void )
 void vFailCreateMutexSPUSQueueMeb( INT8U error_code )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateMutexSPUSQueueMeb. (exit)\n");
 		printErrorTask(error_code);
 	}
@@ -1162,7 +1162,7 @@ void vFailCreateMutexSPUSQueueMeb( INT8U error_code )
 void vFailSendPUStoMebTask( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPUStoMebTask. (exit)\n");
 	}
 	#endif
@@ -1175,7 +1175,7 @@ void vFailSendPUStoMebTask( void )
 void vCouldNotGetCmdQueueMeb( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vCouldNotGetCmdQueueMeb. (exit)\n");
 		debug(fp,"Could not get COmmand from Queue in the Meb Task. \n");
 	}
@@ -1190,7 +1190,7 @@ void vCouldNotGetCmdQueueMeb( void )
 void vCouldNotGetMutexMebPus( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotGetMutexMebPus. (exit)\n");
 	}
 	#endif
@@ -1204,7 +1204,7 @@ void vCouldNotGetMutexMebPus( void )
 void vCouldNotCreateQueueMaskNfeeCtrl( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotCreateQueueMaskNfeeCtrl. (exit)\n");
 		debug(fp,"Could not Create Queue Mask for NFEE Controller. \n");
 	}
@@ -1218,7 +1218,7 @@ void vCouldNotCreateQueueMaskNfeeCtrl( void )
 void vCouldNotCreateQueueMaskDataCtrl( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotCreateQueueMaskDataCtrl. (exit)\n");
 		debug(fp,"Could not Create Queue Mask for Data Controller. \n");
 	}
@@ -1232,7 +1232,7 @@ void vCouldNotCreateQueueMaskDataCtrl( void )
 void vCouldNotGetQueueMaskNfeeCtrl( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotGetQueueMaskNfeeCtrl. (exit)\n");
 		debug(fp,"Could not get Queue Mask for NFEE Controller. \n");
 	}
@@ -1246,7 +1246,7 @@ void vCouldNotGetQueueMaskNfeeCtrl( void )
 void vCouldNotGetQueueMaskDataCtrl( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotGetQueueMaskDataCtrl. (exit)\n");
 		debug(fp,"Could not get Queue Mask for Data Controller. \n");
 	}
@@ -1261,7 +1261,7 @@ void vCouldNotGetQueueMaskDataCtrl( void )
 void vFailSendMsgAccessDMA( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgAccessDMA. FEE n:%hhu \n", ucTemp);
 	}
 	#endif
@@ -1274,7 +1274,7 @@ void vFailSendMsgAccessDMA( unsigned char ucTemp)
 void vFailRequestDMA( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailRequestDMA. FEE n:%hhu \n", ucTemp);
 	}
 	#endif
@@ -1286,7 +1286,7 @@ void vFailRequestDMA( unsigned char ucTemp)
 
 void vFailFromFEE ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMSGMebTaskfromFEE \n");
 	}
 	#endif
@@ -1294,7 +1294,7 @@ void vFailFromFEE ( void ) {
 
 void vFailSendMSGMebTask ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMSGMebTask \n");
 	}
 	#endif
@@ -1302,7 +1302,7 @@ void vFailSendMSGMebTask ( void ) {
 
 void vFailSendBufferFullIRQtoDTC ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
 	}
 	#endif
@@ -1310,7 +1310,7 @@ void vFailSendBufferFullIRQtoDTC ( void ) {
 
 void vFailSendBufferLastIRQtoLUT ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendBufferLastIRQtoLUT \n");
 	}
 	#endif
@@ -1318,7 +1318,7 @@ void vFailSendBufferLastIRQtoLUT ( void ) {
 
 void vFailFtdiErrorIRQtoLUT ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailFtdiErrorIRQtoLUT \n");
 	}
 	#endif
@@ -1326,7 +1326,7 @@ void vFailFtdiErrorIRQtoLUT ( void ) {
 
 void vFailSendBufferLastIRQtoDTC ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
 	}
 	#endif
@@ -1334,7 +1334,7 @@ void vFailSendBufferLastIRQtoDTC ( void ) {
 
 void vFailFtdiErrorIRQtoDTC ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
 	}
 	#endif
@@ -1342,7 +1342,7 @@ void vFailFtdiErrorIRQtoDTC ( void ) {
 
 void vFailSendBufferEmptyIRQtoDTC ( void ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
 	}
 	#endif
@@ -1352,7 +1352,7 @@ void vFailSendBufferEmptyIRQtoDTC ( void ) {
 void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailRequestDMAFromIRQ. FEE n:%hhu \n", ucTemp);
 	}
 	#endif
@@ -1366,7 +1366,7 @@ void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 void vFailSendRMAPFromIRQ( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendRMAPFromIRQ. FEE n:%hhu \n", ucTemp);
 	}
 	#endif
@@ -1380,7 +1380,7 @@ void vFailSendRMAPFromIRQ( unsigned char ucTemp)
 void vFailSendMsgSync( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgSync. FEE n:%hhu \n", ucTemp);
 	}
 	#endif
@@ -1393,7 +1393,7 @@ void vFailSendMsgSync( unsigned char ucTemp)
 void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgSyncRMAPTRIGGER (FORCED MODE). FEE n:%hhu \n", ucTemp);
 	}
 	#endif
@@ -1407,7 +1407,7 @@ void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp)
 void vFailSendMsgMasterSyncDTC( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgMasterSyncDTC \n");
 	}
 	#endif
@@ -1420,7 +1420,7 @@ void vFailSendMsgMasterSyncDTC( void )
 void vFailSendMsgMasterSyncLut( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgMasterSyncLut \n");
 	}
 	#endif
@@ -1433,7 +1433,7 @@ void vFailSendMsgMasterSyncLut( void )
 void vFailSendMsgMasterSyncMeb( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgMasterSyncMeb \n");
 	}
 	#endif
@@ -1446,7 +1446,7 @@ void vFailSendMsgMasterSyncMeb( void )
 void vFailSendMsgFeeCTRL( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendMsgFeeCTRL.  \n");
 	}
 	#endif
@@ -1459,7 +1459,7 @@ void vFailSendMsgFeeCTRL( void )
 void vFailSendMsgDataCTRL( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendMsgDataCTRL.  \n");
 	}
 	#endif
@@ -1472,7 +1472,7 @@ void vFailSendMsgDataCTRL( void )
 void vFailFlushQueue( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushQueue.  \n");
 	}
 	#endif
@@ -1485,7 +1485,7 @@ void vFailFlushQueue( void )
 void vFailFlushQueueData( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushQueueData.  \n");
 	}
 	#endif
@@ -1499,7 +1499,7 @@ void vFailFlushQueueData( void )
 void vFailFlushMEBQueue( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushMEBQueue.  \n");
 	}
 	#endif
@@ -1512,7 +1512,7 @@ void vFailFlushMEBQueue( void )
 void vFailFlushNFEEQueue( void )
 {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushNFEEQueue.  \n");
 	}
 	#endif
@@ -1525,7 +1525,7 @@ void vFailFlushNFEEQueue( void )
 /* [bndky] */
 void vFailSyncResetCreate( void ){
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vSyncResetTask\n");
 	}
 	#endif

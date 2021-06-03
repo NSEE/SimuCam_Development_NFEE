@@ -196,7 +196,7 @@ typedef struct RmapMemAreaHk {
 	alt_u32 ucFpgaMinorVersion; /* FPGA Minor Version Field */
 	alt_u32 ucFpgaMajorVersion; /* FPGA Major Version Field */
 	alt_u32 usiBoardId; /* Board ID Field */
-	alt_u32 uliReg35HkReserved; /* Register 35 HK Reserved HK Field */
+	alt_u32 usiReg35HkReserved; /* Register 35 HK Reserved HK Field */
 } TRmapMemAreaHk;
 
 /* RMAP Memory Area Register Struct */

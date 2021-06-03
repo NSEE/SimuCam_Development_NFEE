@@ -28,7 +28,7 @@ void vSimMebTask(void *task_data) {
 	pxMebC = (TSimucam_MEB *) task_data;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage )
         fprintf(fp,"MEB Controller Task. (Task on)\n");
     #endif
 
@@ -43,7 +43,7 @@ void vSimMebTask(void *task_data) {
 
 			case sMebToConfig:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 					fprintf(fp,"MEB Task: Config Mode\n");
 				#endif
 
@@ -63,7 +63,7 @@ void vSimMebTask(void *task_data) {
 				pxMebC->ucNextDDR = 0;
 
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 					fprintf(fp,"\nMEB Task: Going to Run Mode\n");
 				#endif
 
@@ -71,7 +71,7 @@ void vSimMebTask(void *task_data) {
 				vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtMebInRunMode]);
 
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 					fprintf(fp,"MEB Task: First DTC will load at least one full sky from SSD.\n");
 					fprintf(fp,"MEB Task: All other modules will wait until DTC finishes.\n");
 				#endif
@@ -85,7 +85,7 @@ void vSimMebTask(void *task_data) {
 				OSSemPend(xSemCommInit, 0, &error_code); /*Blocking*/
 				if ( error_code == OS_ERR_NONE ) {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 						fprintf(fp,"MEB Task: FEE Controller and FEEs to RUN.\n");
 					#endif
 
@@ -108,7 +108,7 @@ void vSimMebTask(void *task_data) {
 					vScomClearTimecode();
 
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds\n");
 					#endif
 
@@ -118,13 +118,13 @@ void vSimMebTask(void *task_data) {
 					if (sInternal == pxMebC->eSync) {
 						bSyncCtrIntern(TRUE); /*TRUE = Internal*/
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 							fprintf(fp,"\nMEB Task: Sync Module Released\n");
 						#endif
 					} else {
 						bSyncCtrIntern(FALSE); /*TRUE = Internal*/
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 							fprintf(fp,"\nMEB Task: Waiting external Sync signal\n");
 						#endif
 					}
@@ -139,7 +139,7 @@ void vSimMebTask(void *task_data) {
 				} else {
 					/* Send Error to NUC */
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 						fprintf(fp,"MEB Task: CRITICAL! Could no receive the sync semaphore from DTC, backing to Config Mode\n");
 					#endif
 					pxMebC->eMode = sMebToConfig;
@@ -150,7 +150,7 @@ void vSimMebTask(void *task_data) {
 			case sMebConfig:
 
 /*				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebConfig - Waiting for command.");
 				#endif
 				break;*/
@@ -167,7 +167,7 @@ void vSimMebTask(void *task_data) {
 			case sMebRun:
 
 /*				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebRun - Waiting for command.");
 				#endif
 				break;*/
@@ -186,7 +186,7 @@ void vSimMebTask(void *task_data) {
 
 			default:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					debug(fp,"MEB Task: Unknown state, backing to Config Mode\n");
 				#endif
 				/* todo:Aplicar toda logica de mudança de esteado aqui */
@@ -218,7 +218,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vTimeCodeMissCounter(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
 					fprintf(fp,"Channels TimeCode = %d\n", (alt_u8)vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
@@ -229,7 +229,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vTimeCodeMissCounter(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
 					fprintf(fp,"Channels TimeCode = %d\n", (alt_u8)vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
@@ -240,7 +240,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vTimeCodeMissCounter(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n-------------- Sync --------------\n\n");
 					fprintf(fp,"Channels TimeCode = %d\n", (alt_u8)vpxCommAChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
 				}
@@ -264,13 +264,13 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 
 			default:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdLocal.ucByte[2]);
 				#endif
 		}
 	} else {
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
 		#endif
 	}
@@ -282,7 +282,7 @@ void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLoc
 	uiCmdLocal.ulWord = uiCmdParam;
 
 #if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 	fprintf(fp,"MEB Task: vPerformActionMebInConfig - CMD.ulWord:0x%08x ",uiCmdLocal.ulWord );
 #endif
 
@@ -300,7 +300,7 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 			case M_PRE_MASTER:
 			case M_MASTER_SYNC:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
 				#endif
 				break;
@@ -310,13 +310,13 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 			default:
 
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"MEB Task: Unknown command for the Config Mode (Queue xMebQ, cmd= %hhu)\n", uiCmdLocal.ucByte[2]);
 				#endif
 		}
 	} else {
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
 		#endif
 	}
@@ -330,7 +330,7 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 		bSpwcGetTimecodeStatus(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
 		tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
 		tCodeNext = ( tCode ) % 4;
@@ -352,7 +352,7 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	static tTMPus xPusLocal;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 		fprintf(fp,"MEB Task: vPusMebTask\n");
 	#endif
 
@@ -390,7 +390,7 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 		}
 	} else {
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 			fprintf(fp,"MEB Task: vPusMebTask - Don't found Pus command in xPus.");
 		#endif
 	}
@@ -416,7 +416,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (CONFIG)\n\n" );
 			#endif
 	}
@@ -437,7 +437,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	bool bPixelAlreadyExist = FALSE;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 		fprintf(fp,"MEB Task: vPusType250conf - Command: %hhu.", xPusL->usiSubType);
 	#endif
 
@@ -450,8 +450,10 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if (0 == param1) {
 				/*TRUE = Internal*/
 				vChangeSyncSource( pxMebCLocal, sInternal );
+				xDefaults.ucSyncSource = sInternal;
 			} else {
 				vChangeSyncSource( pxMebCLocal, sExternal );
+				xDefaults.ucSyncSource = sExternal;
 			}
 			break;
 		/*case 34:
@@ -474,7 +476,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
 				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
@@ -488,7 +490,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
 			}
@@ -499,7 +501,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xDataControl.usiUpdatedEPn = xPusL->usiValues[0];
 			pxMebCLocal->xDataControl.bEPnUpdated = TRUE;
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "MEB Task: Exposure Number updated to %u\n", xPusL->usiValues[0]);
 			}
 			#endif
@@ -512,7 +514,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 53:
 			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp,"TC_SCAM_ERR_OFF\n");
 				#endif
 				bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
@@ -588,7 +590,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMXX_SPW_ERR_TRIG */
 		case 46:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: Can't configure SpaceWire errors while in MEB Config. Mode \n" );
 			}
 			#endif
@@ -596,7 +598,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMXX_RMAP_ERR_TRIG */
 		case 47:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: Can't configure RMAP errors while in MEB Config. Mode \n" );
 			}
 			#endif
@@ -604,7 +606,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMXX_TICO_ERR_TRIG */
 		case 48:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: Can't configure TimeCode errors while in MEB Config. Mode \n" );
 			}
 			#endif
@@ -616,7 +618,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG */
 		case 67:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: Can't configure Image Transmission errors while in MEB Config. Mode \n" );
 			}
 			#endif
@@ -630,7 +632,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG */
 		case 63:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: Can't configure Windowing Transmission errors while in MEB Config. Mode \n" );
 			}
 			#endif
@@ -664,12 +666,13 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ulStart = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
 			ulPx = (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
 			ulLine = (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
+
 			xDefaults.ulLineDelay = ulLine;
 			xDefaults.ulADCPixelDelay = ulPx;
 			xDefaults.ulStartDelay = ulStart;
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "---TIME_CONFIG: EP: %lu (ms)\n", ulEP);
 				fprintf(fp, "---TIME_CONFIG: Start Delay: %lu (ms)\n", ulStart);
 				fprintf(fp, "---TIME_CONFIG: Px Delay: %lu (ns)\n", ulPx);
@@ -680,9 +683,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/*Configure EP*/
 			//bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ); // Change to update usiEP em xMeb for STATUS REPORT
 			if (bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ) == TRUE) {
-				pxMebCLocal->usiEP = (alt_u16)ulEP;
+				vChangeEPValue(pxMebCLocal, (alt_u16)ulEP);
+				xDefaults.usiExposurePeriod = (alt_u16)ulEP;
 			}
-
 
 			for (ucFeeInstL = 0; ucFeeInstL < N_OF_NFEE; ucFeeInstL++) {
 				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
@@ -699,7 +702,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 		ucDTSourceL = (unsigned char)xPusL->usiValues[1];
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: DATA_SOURCE ucFeeInstL= %hhu, ucDTSourceL= %hhu\n",ucFeeInstL,ucDTSourceL  );
 		#endif
 		vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
@@ -722,13 +725,13 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		if (usiCfgFramesActive == 0) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: invalid frames active parameter (0)\n", ucFeeInstL);
 			}
 			#endif
 		} else if (100 <= (vpxImgWinContentErr->ucLeftErrorCnt + vpxImgWinContentErr->ucRightErrorCnt)) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Already have 100 content errors \n", ucFeeInstL);
 			}
 			#endif
@@ -741,7 +744,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					for (int iSeekEquals = 0; iSeekEquals < vpxImgWinContentErr->ucLeftErrorCnt; iSeekEquals++) {
 						if  ( (vpxImgWinContentErr->xLeftErrorList[iSeekEquals].usiPxColX == usiCfgPxColX) && (vpxImgWinContentErr->xLeftErrorList[iSeekEquals].usiPxRowY == usiCfgPxRowY)) {
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Left Position X, Y already exists\n", ucFeeInstL);
 							}
 							#endif
@@ -759,7 +762,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 					vpxImgWinContentErr->ucLeftErrorCnt++;
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG LEFT: %u\n", ucFeeInstL, vpxImgWinContentErr->ucLeftErrorCnt);
 					}
 					#endif
@@ -772,7 +775,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					for (int iSeekEquals = 0; iSeekEquals < vpxImgWinContentErr->ucRightErrorCnt; iSeekEquals++) {
 						if  ( (vpxImgWinContentErr->xRightErrorList[iSeekEquals].usiPxColX == usiCfgPxColX) && (vpxImgWinContentErr->xRightErrorList[iSeekEquals].usiPxRowY == usiCfgPxRowY)) {
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG ERROR: Right Position X, Y already exists\n", ucFeeInstL);
 							}
 							#endif
@@ -790,7 +793,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 					vpxImgWinContentErr->ucRightErrorCnt++;
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG RIGHT: %u\n", ucFeeInstL, vpxImgWinContentErr->ucRightErrorCnt);
 					}
 					#endif
@@ -798,7 +801,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 		}
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			fprintf(fp, "MEB Task: [FEE %u] TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG\n", ucFeeInstL);
 		}
 		#endif
@@ -815,20 +818,20 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		if ((0 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
 			qsort((TImgWinContentErrData *)(vpxImgWinContentErr->xLeftErrorList), vpxImgWinContentErr->ucLeftErrorCnt, sizeof(TImgWinContentErrData), iCompareImgWinContent);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] Image and window content error list sorted (left side)\n", ucFeeInstL);
 			}
 			#endif
 
 			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list cleared (left side)\n", ucFeeInstL);
 				}
 				#endif
 				if (bDpktContentErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)) {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] Image and window content error list opened (left side)\n", ucFeeInstL);
 					}
 					#endif
@@ -842,7 +845,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxRowY,
 														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxValue);
 //							#if DEBUG_ON
-//							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 //								fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
 //								fprintf(fp, "HW Position X :%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxColX);
 //								fprintf(fp, "HW Position Y :%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxRowY);
@@ -854,33 +857,33 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						}
 					}
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] Finished adding image and window content error list to HW (left side)\n", ucFeeInstL);
 					}
 					#endif
 					if (bDpktContentErrInjCloseList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)){
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closed (left side)\n", ucFeeInstL);
 						}
 						#endif
 					} else {
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closing problems (left side)\n", ucFeeInstL);
 						}
 						#endif
 					}
 					bDpktGetLeftContentErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] Image and window content number of entries = %u (left side)\n", ucFeeInstL, (alt_u8)pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktLeftContentErrInj.ucErrorsCnt);
 					}
 					#endif
 				}
 			} else {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list clear problem (left side)\n", ucFeeInstL);
 				}
 				#endif
@@ -891,20 +894,20 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		if ((1 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
 			qsort((TImgWinContentErrData *)(vpxImgWinContentErr->xRightErrorList), vpxImgWinContentErr->ucRightErrorCnt, sizeof(TImgWinContentErrData), iCompareImgWinContent);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] Image and window content error list sorted (right side)\n", ucFeeInstL);
 			}
 			#endif
 
 			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list cleared (right side)\n", ucFeeInstL);
 				}
 				#endif
 				if (bDpktContentErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)) {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] Image and window content error list opened (right side)\n", ucFeeInstL);
 					}
 					#endif
@@ -918,7 +921,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 vpxImgWinContentErr->xRightErrorList[iListCount].usiPxRowY,
 														 vpxImgWinContentErr->xRightErrorList[iListCount].usiPxValue);
 //							#if DEBUG_ON
-//							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 //								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
 //								fprintf(fp, "HW Position X :%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiPxColX);
 //								fprintf(fp, "HW Position Y :%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiPxRowY);
@@ -930,33 +933,33 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 						}
 					}
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] Finished adding image and window content error list to HW (right side)\n", ucFeeInstL);
 					}
 					#endif
 					if (bDpktContentErrInjCloseList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)){
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closed (right side)\n", ucFeeInstL);
 						}
 						#endif
 					} else {
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp, "MEB Task: [FEE %u] Image and window content error list closing problems (right side)\n", ucFeeInstL);
 						}
 						#endif
 					}
 					bDpktGetRightContentErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] Image and window content number of entries = %u (right side)\n", ucFeeInstL, (alt_u8)pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRightContentErrInj.ucErrorsCnt);
 					}
 					#endif
 				}
 			} else {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window content error list clear problem (right side)\n", ucFeeInstL);
 				}
 				#endif
@@ -976,14 +979,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		if ((0 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
 			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE)) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window error list cleared (left side)\n", ucFeeInstL);
 				}
 				#endif
 
 			} else {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window error list not cleared in HW (left side)\n", ucFeeInstL);
 				}
 				#endif
@@ -995,14 +998,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		if ((1 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
 			if (bDpktContentErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF)) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window error list cleared (right side)\n", ucFeeInstL);
 				}
 				#endif
 
 			} else {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Image and window error list not cleared in HW (right side)\n", ucFeeInstL);
 				}
 				#endif
@@ -1029,14 +1032,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			vpxDataPktError->xErrorList[vpxDataPktError->ucErrorCnt].usiFieldValue      = usiCfgFieldValue;
 			vpxDataPktError->ucErrorCnt++;
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] Data packet error added to list. Number of entries = %u\n", ucFeeInstL, vpxDataPktError->ucErrorCnt);
 			}
 			#endif
 			break;
 		} else {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] Data packet error list already have 10 entries\n", ucFeeInstL);
 			}
 			#endif
@@ -1054,7 +1057,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket)) {
 			if (bDpktHeaderErrInjOpenList(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket)) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp, "MEB Task: [FEE %u] Data packet error list opened\n", ucFeeInstL);
 				}
 				#endif
@@ -1068,7 +1071,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				}
 				if (&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket){
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "MEB Task: [FEE %u] Data packet error list closed. Finished adding errors to HW\n", ucFeeInstL);
 					}
 					#endif
@@ -1076,7 +1079,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 		} else {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] Data packet error list clear problem\n", ucFeeInstL);
 			}
 			#endif
@@ -1090,14 +1093,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		if (bDpktHeaderErrInjClearEntries(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket)) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] Data packet error list cleared\n", ucFeeInstL);
 			}
 			#endif
 			vpxDataPktError->ucErrorCnt = 0;
 		} else {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: [FEE %u] Data packet error list clear problem\n", ucFeeInstL);
 			}
 			#endif
@@ -1105,7 +1108,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		break;
 	default:
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 		}
 		#endif
@@ -1114,7 +1117,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 		fprintf(fp, "MEB Task: Can't change the mode of the NFEE while MEB is Config mode\n\n" );
 	#endif
 }
@@ -1128,7 +1131,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
 		case 5: /* TC_SCAM_SPW_LINK_RESET */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 				fprintf(fp,"MEB Task: Can't perform this operation in the Link while Meb is Config mode \n\n");
 			#endif
 			break;
@@ -1175,7 +1178,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* todo: Need to treat all the returns */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[6] , xPusL->usiValues[3]);
 			#endif
 			break;
@@ -1184,7 +1187,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 			#endif
 	}
@@ -1210,7 +1213,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (RUN)\n\n" );
 			#endif
 	}
@@ -1239,7 +1242,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
 				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
@@ -1253,7 +1256,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
 			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xRmap);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 				fprintf(fp, "ucFeeInstL : %hu;\n", ucFeeInstL           );
 			}
@@ -1264,7 +1267,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xDataControl.usiUpdatedEPn = xPusL->usiValues[0];
 			pxMebCLocal->xDataControl.bEPnUpdated = TRUE;
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "MEB Task: Exposure Number updated to %u\n", xPusL->usiValues[0]);
 			}
 			#endif
@@ -1308,7 +1311,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdParity;
 					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Parity Error\n" );
 					}
 					#endif
@@ -1346,7 +1349,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdDiscon;
 					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Disconnect Error\n" );
 					}
 					#endif
@@ -1384,7 +1387,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdEscape;
 					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Escape Sequence Error\n" );
 					}
 					#endif
@@ -1422,7 +1425,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdChar;
 					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Character Sequence Error\n" );
 					}
 					#endif
@@ -1460,7 +1463,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdCredit;
 					bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Exchange Level Error - Character Sequence Error\n" );
 					}
 					#endif
@@ -1488,7 +1491,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = xPusL->usiValues[1];
 					bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Network Level Error - EEP Received\n" );
 					}
 					#endif
@@ -1522,7 +1525,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 					xSpacewireErrInj[ucFeeInstL].bDestinationErrorEn = TRUE;
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Network Level Error - Invalid Destination Address\n" );
 					}
 					#endif
@@ -1530,7 +1533,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 				default:
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "TC_SCAMxx_SPW_ERR_TRIG : Invalid Error\n" );
 					}
 					#endif
@@ -1566,7 +1569,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					xTimeCodeErrInj.bFEE_NUMBER[ucFeeInstL]  = TRUE;
 					xTimeCodeErrInj.usiMissCount[ucFeeInstL] = xPusL->usiValues[4];
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Time-Code Missing Error\n" );
 					}
 					#endif
@@ -1583,7 +1586,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					xTimeCodeErrInj.usiWrongCount[ucFeeInstL] = xPusL->usiValues[4];
 					xTimeCodeErrInj.usiWrongOffSet[ucFeeInstL] = xPusL->usiValues[1];
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Wrong Time-Code Error\n" );
 					}
 					#endif
@@ -1600,7 +1603,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					xTimeCodeErrInj.bUxp = TRUE;
 					xTimeCodeErrInj.bFEEUxp[ucFeeInstL] = TRUE;
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Unexpected Time-Code Error\n" );
 					}
 					#endif
@@ -1617,7 +1620,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					xTimeCodeErrInj.bJitter = TRUE;
 					xTimeCodeErrInj.usiJitterCount[ucFeeInstL] = xPusL->usiValues[4];
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+					if ( xDefaults.ucDebugLevel <= dlMajorMessage ){
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Jitter on Time-Code Error\n" );
 					}
 					#endif
@@ -1626,7 +1629,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				/* Invalid Error Code */
 				default:
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 						fprintf(fp, "TC_SCAMxx_TICO_ERR_TRIG : Invalid Error\n" );
 					}
 					#endif
@@ -1675,7 +1678,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
 			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"\nTC_SCAM_WIN_ERR_MISS_PKT_TRIG\n");
 			#endif
 			break;
@@ -1692,7 +1695,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
 			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"\n TC_SCAM_WIN_ERR_NOMOREPKT_TRIG\n");
 			#endif
 			break;
@@ -1701,7 +1704,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 53:
 			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"TC_SCAM_ERR_OFF\n");
 			#endif
 			bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
@@ -1830,7 +1833,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_FEE_TIME_CONFIG */
 		case 64:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n" );
 			#endif
 			break;
@@ -1840,7 +1843,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			ucDTSourceL = (unsigned char)xPusL->usiValues[1];
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"MEB Task: DATA_SOURCE ucFeeInstL= %hhu, ucDTSourceL= %hhu\n",ucFeeInstL,ucDTSourceL  );
 			#endif
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
@@ -1876,7 +1879,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				vpxImgWinContentErr->bStartLeftErrorInj = TRUE;
 
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp, "MEB Task: [FEE %u] Image and window content error injection scheduled (left side)\n", ucFeeInstL);
 				#endif
 			}
@@ -1886,7 +1889,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				vpxImgWinContentErr->bStartRightErrorInj = TRUE;
 
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp, "MEB Task: [FEE %u] Image and window content error injection scheduled (right side)\n", ucFeeInstL);
 				#endif
 			}
@@ -1902,12 +1905,12 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ((0 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
 				if ( bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE) ) {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 						fprintf(fp, "MEB Task: [FEE %u] Image and window error injection stopped (left side)\n", ucFeeInstL);
 					#endif
 				} else {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 						fprintf(fp, "MEB Task: [FEE %u] Image and window error was not injecting or injection had finished (left side)\n", ucFeeInstL);
 					#endif
 				}
@@ -1917,12 +1920,12 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ((1 == usiCfgPxSide) || (2 == usiCfgPxSide)) {
 				if ( bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF) ) {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 						fprintf(fp, "MEB Task: [FEE %u] Image and window error injection stopped (right side)\n", ucFeeInstL);
 					#endif
 				} else {
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 						fprintf(fp, "MEB Task: [FEE %u] Image and window error was not injecting or injection had finished (right side)\n", ucFeeInstL);
 					#endif
 				}
@@ -1937,7 +1940,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			vpxDataPktError->bStartErrorInj = TRUE;
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: [FEE %u] Data packet error injection scheduled\n", ucFeeInstL);
 			#endif
 
@@ -1947,19 +1950,19 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 			if ( bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[xPusL->usiValues[0]].xChannel.xDataPacket) ) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp, "MEB Task: [FEE %u] Data packet error injection stopped\n", ucFeeInstL);
 				#endif
 			} else {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 					fprintf(fp, "MEB Task: [FEE %u] Data packet error was not injecting or injection had finished\n", ucFeeInstL);
 				#endif
 			}
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
 			#endif
 	}
@@ -2027,7 +2030,7 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 0:
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not implemented yet (SubType:%hu)\n\n",xPusL->usiSubType );
 			#endif
 	}
@@ -2053,7 +2056,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 //			bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
@@ -2073,7 +2076,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 //			bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].ucSPWId ) );
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
@@ -2124,21 +2127,21 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			} else {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 					fprintf(fp,"MEB Task: NFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", ucFeeInstL);
 				#endif
 			}
 
 			/* todo: Need to treat all the returns */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[12] , xPusL->usiValues[9]);
 			#endif
 			break;
 
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;

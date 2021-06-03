@@ -154,7 +154,7 @@ void vSyncReset( unsigned short int usiSynchDelayL, TNFee_Control *pxFeeCP ) {
     if (iErrorCodeL == OS_ERR_NONE){
 
 		#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 				fprintf(fp,"\n\n+++++++++++++++++++ Sync Reset: T = %hu ms+++++++++++++++++++++\n\n\n", usiSynchDelayL);
 		#endif
 
@@ -163,13 +163,13 @@ void vSyncReset( unsigned short int usiSynchDelayL, TNFee_Control *pxFeeCP ) {
 
         if (iErrorCodeL != OS_NO_ERR){
             #if DEBUG_ON
-                if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+                if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
                     fprintf(fp,"Sync Reset: Sync Reset Error 1\n");
             #endif
         }
     } else{
         #if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"Sync Reset: Sync Reset Error 2\n");
 		#endif
     }

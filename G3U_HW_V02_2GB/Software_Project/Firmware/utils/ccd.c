@@ -17,7 +17,7 @@ void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
 	ccdDef->usiSPrescanN = xDefaults.usiPreScanSerial;
 
 #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 		fprintf(fp,"\nusiHeight %hu\n", ccdDef->usiHeight);
 		fprintf(fp,"usiOLN %hu\n", ccdDef->usiOLN);
 		fprintf(fp,"usiHalfWidth %hu\n", ccdDef->usiHalfWidth);

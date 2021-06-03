@@ -91,7 +91,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	}
 
 #if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
 #endif
@@ -159,7 +159,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	}
 
 #if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
 #endif
@@ -227,7 +227,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	}
 
 #if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
 #endif
@@ -295,7 +295,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	}
 
 #if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
 #endif
@@ -363,7 +363,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	}
 
 #if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
 #endif
@@ -431,7 +431,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	}
 
 #if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
 #endif

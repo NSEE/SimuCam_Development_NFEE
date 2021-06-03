@@ -75,7 +75,7 @@ void _print_codec_status(int codec_status) {
 	int running = (int) ((codec_status >> 4) & 1);
 
 #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 		sprintf(cDebugBuffer, "-------- link status \n");
 		debug(fp, cDebugBuffer);
 		sprintf(cDebugBuffer, "Link started    : %s \n", (started == 1) ? "S" : "N");
@@ -146,7 +146,7 @@ alt_u8 aatoh(alt_u8 *buffer) {
 alt_u8 Verif_Error(alt_u8 error_code) {
 	if (!error_code) {
 #if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 	debug(fp, "ERROR\n\r");
 }
 #endif

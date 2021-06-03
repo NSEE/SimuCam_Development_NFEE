@@ -13,17 +13,18 @@ void bInitFTDI(void);
 void vInitialTask(void *task_data)
 {
 	INT8U error_code = OS_ERR_NONE;
+	alt_u8 ucFee = 0;
 
 	#if ( STACK_MONITOR == 1)
 		OSStatInit();
 	#endif
 
 	/* Clear all defaults structures */
-	vClearMebDefault();
-	for (alt_u8 ucFee = 0; ucFee < N_OF_NFEE; ucFee++) {
-		bClearFeeDefault(ucFee);
+	vDeftInitMebDefault();
+	for (ucFee = 0; ucFee < N_OF_NFEE; ucFee++) {
+		bDeftInitFeeDefault(ucFee);
 	}
-	vClearNucDefault();
+	vDeftInitNucDefault();
 
 /* ================== All the task that need syncronization should be started first ========================= */
 
@@ -53,7 +54,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -90,7 +91,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -127,7 +128,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -164,7 +165,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -201,7 +202,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -255,7 +256,7 @@ void vInitialTask(void *task_data)
 
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 		fprintf(fp,"\n__________ Waiting NUC load _________ \n\n");
 	}
 	#endif
@@ -265,7 +266,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for sender comm packets */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -287,36 +288,31 @@ void vInitialTask(void *task_data)
 
 
 	/* Wait until all defaults are received */
-	while ( (FALSE == vbDefaultsReceived) && (vuliReceivedDefaultsQtd < vuliExpectedDefaultsQtd)) {
+	while ( (FALSE == vbDeftDefaultsReceived) && (vuliDeftReceivedDefaultsQtd < vuliDeftExpectedDefaultsQtd)) {
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 	OSTimeDlyHMSM(0, 0, DEFT_RETRANSMISSION_TIMEOUT, 0);
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 		fprintf(fp,"\n___________________ Finish Loading Defaults ____________________ \n\n");
 	}
 	#endif
 
-
 /* ================================== All defaults received. Load defaults ================================== */
 
-
-	/* MEB defaults */
-	xDefaults = vxDeftMebDefaults.xDebug;
-	vChangeSyncSource(&xSimMeb, vxDeftMebDefaults.ucSyncSource);
-	vChangeEPValue(&xSimMeb, vxDeftMebDefaults.usiExposurePeriod);
-	bEventReport = vxDeftMebDefaults.bEventReport;
-	bLogReport = vxDeftMebDefaults.bLogReport;
-
-	/* NUC defaults */
-	xConfEth = vxDeftNucDefaults.xEthernet;
+	/* Set General Simulation Parameters */
+	vChangeSyncSource(&xSimMeb, xDefaults.ucSyncSource);
+	vChangeEPValue(&xSimMeb, xDefaults.usiExposurePeriod);
 
 #if DEBUG_ON
-//		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 		vShowDebugConfig();
 		vShowChannelsConfig();
+		for (ucFee = 0; ucFee < N_OF_NFEE; ucFee++) {
+			bShowSpwConfig(ucFee);
+		}
 		vShowEthConfig();
 	}
 #endif
@@ -362,7 +358,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -574,7 +570,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -612,7 +608,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -650,7 +646,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -688,7 +684,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -725,7 +721,7 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
 		}
 		#endif
@@ -740,7 +736,7 @@ void vInitialTask(void *task_data)
 //	vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
 
 #if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 	fprintf(fp,"\n__________ Load Completed, SimuCam is ready to be used _________ \n\n");
 }
 #endif
@@ -751,7 +747,7 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		/*	Can't delete the initialization task, the problem is that the priority of this
 			is that the PRIO is so high that will cause starvation if not deleted */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );		
 		}
 		#endif

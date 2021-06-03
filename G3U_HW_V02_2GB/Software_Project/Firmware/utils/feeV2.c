@@ -10,9 +10,8 @@
 
 /* Initialize the structure of control of NFEE with the default Configurations */
 void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
-    unsigned char ucIL = 0;
 
-    /* NFEE id [0..5] */
+	/* NFEE id [0..5] */
     pxNfeeL->ucId = ucIdNFEE;
 
     /* Load the default values of the CCDs regarding pixels configuration */
@@ -44,17 +43,10 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 
     pxNfeeL->ucSPWId = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIdNFEE ];
 
-    /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
-        hard coded values */
-
-    /* Set the default redout order [ 0, 1, 2, 3 ] */
-    for ( ucIL = 0; ucIL < 4; ucIL++)
-        pxNfeeL->xControl.ucROutOrder[ucIL] =  xDefaults.ucReadOutOrder[ucIL];
-
     /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
     if ( bCommInitCh(&pxNfeeL->xChannel, pxNfeeL->ucSPWId ) == FALSE ) {
 		#if DEBUG_ON
-    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+    	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
     	}
 		#endif
@@ -62,7 +54,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 
     if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId ) == FALSE ) {
 		#if DEBUG_ON
-    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+    	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
     	}
 		#endif
@@ -74,6 +66,12 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
     pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
     bDpktSetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
+
+    /* Set the default redout order [ 0, 1, 2, 3 ] */
+	pxNfeeL->xControl.ucROutOrder[0] =  pxNfeeL->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+	pxNfeeL->xControl.ucROutOrder[1] =  pxNfeeL->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+	pxNfeeL->xControl.ucROutOrder[2] =  pxNfeeL->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+	pxNfeeL->xControl.ucROutOrder[3] =  pxNfeeL->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
 
     /* Copy to control what should be applied in the master Sync - FullImage */
     pxNfeeL->xControl.xErrorSWCtrlFull.bEnabled = FALSE;

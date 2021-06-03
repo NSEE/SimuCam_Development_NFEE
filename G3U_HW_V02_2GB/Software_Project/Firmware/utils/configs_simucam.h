@@ -20,16 +20,16 @@
 #define ETH_FILE_NAME "LDEF/ETH"
 #define DEBUG_FILE_NAME "LDEF/DEBUG"
 
-typedef struct ConfEth{
-	unsigned char ucIP[4];
-	unsigned char ucGTW[4];
-	unsigned char ucSubNet[4];
-	unsigned char ucDNS[4];
-//	unsigned char ucMAC[6];
-	unsigned short int siPortPUS;
+typedef struct EthInterfaceParams{
+	alt_u16 siPortPUS;
 	bool bDHCP;
-	unsigned char ucPID;
-}TConfEth;
+	alt_u8 ucIP[4];
+	alt_u8 ucSubNet[4];
+	alt_u8 ucGTW[4];
+	alt_u8 ucDNS[4];
+	alt_u8 ucPID;
+	alt_u8 ucPCAT;
+}TEthInterfaceParams;
 
 typedef struct Globals{
 	bool bSyncReset;
@@ -40,32 +40,33 @@ typedef struct Globals{
 	unsigned char ucEP0_3;	/*Indicate which sequence are 0, 1, 2, 3 => 0: Master Sync*/
 }TGlobal;
 
-
-typedef struct Defaults{
-	unsigned char ucReadOutOrder[4];
-	unsigned short int usiOverScanSerial;
-	unsigned short int usiPreScanSerial;
-	unsigned short int usiOLN;
-	unsigned short int usiCols;
-	unsigned short int usiRows;
-	unsigned short int usiSyncPeriod;
-	unsigned short int usiPreBtSync;
+typedef struct GenSimulationParams{
+	alt_u16 usiOverScanSerial;
+	alt_u16 usiPreScanSerial;
+	alt_u16 usiOLN;
+	alt_u16 usiCols;
+	alt_u16 usiRows;
+	alt_u16 usiExposurePeriod;
 	bool bBufferOverflowEn;
-	unsigned long ulStartDelay;
-	unsigned long ulSkipDelay;
-	unsigned long ulLineDelay;
-	unsigned long ulADCPixelDelay;
-	unsigned short int ucRmapKey;
-	unsigned short int ucLogicalAddr;
+	alt_u32 ulStartDelay;
+	alt_u32 ulSkipDelay;
+	alt_u32 ulLineDelay;
+	alt_u32 ulADCPixelDelay;
+	alt_u8 ucDebugLevel;
+	alt_u16 usiGuardFEEDelay;
+	alt_u8 ucSyncSource;
+}TGenSimulationParams;
+
+typedef struct SpwInterfaceParams{
 	bool bSpwLinkStart;
-	unsigned short int usiLinkNFEE0;
-	unsigned short int usiDebugLevel;
-	unsigned short int usiPatternType;
-	unsigned short int usiGuardNFEEDelay;
-	unsigned short int usiDataProtId;
-	unsigned short int usiDpuLogicalAddr;
-	unsigned short int usiSpwPLength;
-}TDefaults;
+	bool bSpwLinkAutostart;
+	alt_u8 ucSpwLinkSpeed;
+	bool bTimeCodeTransmissionEn;
+	alt_u8 ucLogicalAddr;
+	alt_u8 ucRmapKey;
+	alt_u8 ucDataProtId;
+	alt_u8 ucDpuLogicalAddr;
+}TSpwInterfaceParams;
 
 typedef struct SpacewireErrInj{
 	bool bDestinationErrorEn;
@@ -94,9 +95,14 @@ extern TSpacewireErrInj xSpacewireErrInj[N_OF_NFEE];
 extern bool bEventReport;
 extern bool bLogReport;
 
-extern TConfEth xConfEth;
-extern TDefaults xDefaults;
-extern TGlobal	xGlobal;
+extern TEthInterfaceParams xConfEth;
+extern TGenSimulationParams xDefaults;
+extern TSpwInterfaceParams xConfSpw[N_OF_NFEE];
+extern TGlobal xGlobal;
+
+extern const TEthInterfaceParams cxDefaultsEthInterfaceParams;
+extern const TGenSimulationParams cxDefaultsGenSimulationParams;
+extern const TSpwInterfaceParams cxDefaultsSpwInterfaceParams;
 
 /*Functions*/
 bool bLoadDefaultEthConf( void );
@@ -104,9 +110,11 @@ bool bLoadDefaultDebugConf( void );
 
 void vLoadHardcodedEthConf( void );
 void vLoadHardcodedDebugConf( void );
+bool bLoadHardcodedSpwConf( alt_u8 ucFee );
 
 #if DEBUG_ON
 	void vShowEthConfig( void );
 	void vShowDebugConfig( void );
+	bool bShowSpwConfig( alt_u8 ucFee );
 #endif
 #endif /* CONFIGS_SIMUCAM_H_ */

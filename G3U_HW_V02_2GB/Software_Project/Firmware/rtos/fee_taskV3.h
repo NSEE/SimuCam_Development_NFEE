@@ -66,8 +66,8 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
 bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh );
-bool bEnableSPWChannel( TSpwcChannel *xSPW );
-bool bDisableSPWChannel( TSpwcChannel *xSPW );
+bool bEnableSPWChannel( TSpwcChannel *xSPW, unsigned char ucId );
+bool bDisableSPWChannel( TSpwcChannel *xSPW, unsigned char ucId );
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
 bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
 void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd );

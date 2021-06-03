@@ -73,7 +73,7 @@ bool bWindCopyMebWindowingParam(alt_u32 uliMebWindowingParamAddr, alt_u8 ucMemor
 		bStatus = TRUE;
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 //		fprintf(fp, "\n");
 			fprintf(fp, "Channel %d Windowing Parameters:\n", ucCommCh);
 			fprintf(fp, "xDpktWindowingParam.xPacketOrderList = 0x");

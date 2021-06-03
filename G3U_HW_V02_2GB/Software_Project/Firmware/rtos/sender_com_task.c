@@ -23,7 +23,7 @@ void vSenderComTask(void *task_data)
     eSenderMode = sConfiguringSender;
 
     #if DEBUG_ON
-    if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+    if ( xDefaults.ucDebugLevel <= dlMajorMessage )
         fprintf(fp,"Sender Comm Task. (Task on)\n");
     #endif
 
@@ -40,7 +40,7 @@ void vSenderComTask(void *task_data)
                     vReceiverComTask is responsible to send this semaphore.
                     OSSemAccept -> Non blocking Pend*/
                 #if DEBUG_ON
-            	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+            	if ( xDefaults.ucDebugLevel <= dlMinorMessage )
                     fprintf(fp,"Preparing the Start Sequence.\n");
                 #endif
 
@@ -49,12 +49,12 @@ void vSenderComTask(void *task_data)
                 if ( bSuccess == TRUE ) {
                     eSenderMode = sDummySender;
                     #if DEBUG_ON
-                    if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+                    if ( xDefaults.ucDebugLevel <= dlMinorMessage )
                         fprintf(fp,"Success, start message in the retransmission buffer.\n");
                     #endif                    
                 } else {
                     #if DEBUG_ON
-                	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+                	if ( xDefaults.ucDebugLevel <= dlMinorMessage )
                         fprintf(fp,"Fail, try again in 5 seconds.\n");
                     #endif 
                     eSenderMode = sStartingConnSender;
@@ -114,7 +114,7 @@ void vSenderComTask(void *task_data)
                 /* code */
                 eSenderMode = sDummySender;
                 #if DEBUG_ON
-                if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+                if ( xDefaults.ucDebugLevel <= dlMinorMessage )
                     fprintf(fp,"Working...\n");
                 #endif
 
@@ -123,7 +123,7 @@ void vSenderComTask(void *task_data)
 
             default:
                 #if DEBUG_ON
-            	if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+            	if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
                     fprintf(fp,"Sender default\n");
                 #endif
                 eSenderMode = sDummySender;

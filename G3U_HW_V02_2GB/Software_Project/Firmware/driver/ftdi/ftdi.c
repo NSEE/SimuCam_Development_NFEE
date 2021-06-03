@@ -41,7 +41,7 @@ void vFtdiRxIrqHandler(void* pvContext) {
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 
 //#if DEBUG_ON
-//if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 //	fprintf(fp,"--FTDI Irq--\n");
 //}
 //#endif
@@ -63,7 +63,7 @@ void vFtdiRxIrqHandler(void* pvContext) {
 		}
 		/*
 		 #if DEBUG_ON
-		 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		 if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 		 fprintf(fp,"FTDI Irq Empty 0\n");
 		 }
 		 #endif
@@ -88,7 +88,7 @@ void vFtdiRxIrqHandler(void* pvContext) {
 		}
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "FTDI Rx Irq Err \n");
 //			fprintf(fp, "FTDI Rx Irq Err : Payload CRC %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayCrcErr);
 //			fprintf(fp, "FTDI Rx Irq Err : Payload EOP %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayEopErr);
@@ -152,7 +152,7 @@ void vFtdiTxIrqHandler(void* pvContext) {
 		}
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "FTDI Tx Irq Err \n");
 //			fprintf(fp, "FTDI Tx Irq Err : Payload NACK %d\n", vpxFtdiModule->xFtdiTxCommError.bLutPayloadNackErr);
 		}

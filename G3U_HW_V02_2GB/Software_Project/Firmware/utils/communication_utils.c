@@ -62,7 +62,7 @@ bool bSendUART512v2 ( char *cBuffer, short int siIdMessage ) {
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex, so we need to give the semaphore back */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xMutexBuffer512(128) that protect xBuffer512(128). (bSendUART512v2)\n");
 		}
 		#endif
@@ -114,7 +114,7 @@ bool bSendUART512v2 ( char *cBuffer, short int siIdMessage ) {
 		/* Could not get the mutex of TX */
 		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART128v2)\n");
 		}
 		#endif
@@ -166,7 +166,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex, so we need to give the semaphore back */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xMutexBuffer128 that protect xBuffer128. (bSendUART128v2)\n");
 		}
 		#endif
@@ -218,7 +218,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 		/* Could not get the mutex of TX */
 		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART128v2)\n");
 		}
 		#endif
@@ -272,7 +272,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex, so we need to give the semaphore back */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xMutexBuffer64 that protect xBuffer64. (bSendUART64v2)\n");
 		}
 		#endif
@@ -323,7 +323,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 		/* Could not get the mutex of TX */
 		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART64v2)\n");
 		}
 		#endif
@@ -378,7 +378,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex, so we need to give the semaphore back */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xMutexBuffer32 that protect xBuffer32. (bSendUART32v2)\n");
 		}
 		#endif
@@ -428,7 +428,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 		/* Could not get the mutex of TX */
 		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART32v2)\n");
 		}
 		#endif
