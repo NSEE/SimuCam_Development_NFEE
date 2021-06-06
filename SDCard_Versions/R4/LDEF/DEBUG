@@ -1,9 +1,9 @@
 'IMT Use only - For Debug and General Control'
-'Sync (milliseconds)'
-S=6250;
+'Exposure (milliseconds)'
+S=25000;
 'Number of Lines (Height CCD)'
 L=4510;
-'OLN'
+'Number of Overscan Lines'
 O=300;
 'Number of Columns (Width CCD)'
 C=2295;
@@ -21,14 +21,6 @@ J=90000;
 M=333;
 'Buffer overflow enabled (1) ; Buffer overflow disabled (0)'
 T=1;
-'RMAP KEY (0xD1)'
-R=209;
-'Logical Addr 0x51'
-A=81;
-'SpaceWire LinkStart ? 1:(TRUE) 0:(FALSE) '
-Z=0;
-'(Not used!)Link SPW for the NFEE-0'
-B=0;
 'Delay at the to wait before empty the buffer, waiting HW (Fee Task) (milliseconds)'
 Y=50;
 'If the Debug messages are enable, than this feature will set the debug level of the messages'
@@ -42,17 +34,7 @@ Y=50;
 '7: Only Critical Failures'
 '8 or higher: None - I want to be blind!'
 F=4;
-'Pattern type - 0:Official URD   1:Byte Sequencial    2:0xFF 0xFF    3:Pixel Sequencial'
-Q=0;
-'Data packet protocol ID ( 0xF0 = 240 , 0x02 = 2 ) (Use only decimal representation)'
-D=240;
-'Data Packet DPU Logical Address ( 0x50 = 80 )'
-H=80;
-'Sequence of CCD Redout - Range[0..3]'
-E=0.1.2.3;
-'Initial SPW Packet Lenght ( 32k LESIA = 32140 )'
-I=32140;
-'Pre Sync Period (milliseconds)'
-X=200;
+'Sync Source: internal (0) / external (1)'
+W=0;
 <<
 'Keep the "less than" (<) caracter, this is used in the parser'
