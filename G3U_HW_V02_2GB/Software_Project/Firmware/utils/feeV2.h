@@ -17,6 +17,11 @@
 /* Meb state is here to Data controller and NFEE controller use the same enum */
 typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSimucamStates;
 
+/* Meb "real" operating mode, for status purposes */
+typedef enum MebRealStates{
+	eMebRealStConfig = 0,
+	eMebRealStRun
+} TMebRealStates;
 
 /* Definition of offset for each FEE in the DDR Memory */
 /* Worksheet: ccd_logic_math.xlsx */
@@ -56,6 +61,30 @@ typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFu
 	sWaitSync, redoutWaitSync,
 	redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
 	redoutTransmission, redoutEndSch, readoutWaitingFinishTransmission} tFEEStates;
+
+/* FEE "real" operating modes, for status purposes */
+typedef enum FeeRealStates {
+	eFeeRealStConfig = 0,
+	eFeeRealStOn,
+	eFeeRealStStandBy,
+	eFeeRealStFullPattern,
+	eFeeRealStWinPattern,
+	eFeeRealStFullImage,
+	eFeeRealStWindowing,
+	eFeeRealStParTrap1,
+	eFeeRealStParTrap2,
+	eFeeRealStSerialTrap1,
+	eFeeRealStSerialTrap2
+} TFeeRealStates;
+
+/* FEE SpaceWire Status*/
+typedef enum FeeSpwStatus {
+	eFeeSpwDisconnected = 0,
+	eFeeSpwDisconnectedAutoStart,
+	eFeeSpwConnecting,
+	eFeeSpwStarted,
+	eFeeSpwRunning
+} TFeeSpwStatus;
 
 typedef enum { dsPattern = 0, dsSSD, dsWindowStack } tDataSource;
 
@@ -105,6 +134,8 @@ typedef struct FeeControl{
     tFEEStates eLastMode;
     tFEEStates eMode;
     tFEEStates eNextMode;
+
+    TFeeRealStates eFeeRealMode;
 
     TTrapModeControl xTrap;
 

@@ -170,6 +170,8 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sConfig;
 				pxNFee->xControl.eNextMode = sConfig;
 
+				pxNFee->xControl.eFeeRealMode = eFeeRealStConfig;
+
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
 
@@ -264,6 +266,8 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sOn;
 				pxNFee->xControl.eNextMode = sOn;
 
+				pxNFee->xControl.eFeeRealMode = eFeeRealStOn;
+
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
 
@@ -281,6 +285,7 @@ void vFeeTaskV3(void *task_data) {
 				break;
 
 			case sOn:
+
 				/*Wait for commands in the Queue*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -342,6 +347,8 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sStandBy;
 				pxNFee->xControl.eNextMode = sStandBy;
 
+				pxNFee->xControl.eFeeRealMode = eFeeRealStStandBy;
+
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
 
@@ -359,6 +366,7 @@ void vFeeTaskV3(void *task_data) {
 
 
 			case sStandBy:
+
 				/*Wait for commands in the Queue*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -411,6 +419,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sFullPattern;
 				pxNFee->xControl.eNextMode = sFullPattern;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStFullPattern;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
@@ -441,6 +450,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sWinPattern;
 				pxNFee->xControl.eNextMode = sWinPattern;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStWinPattern;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
@@ -465,6 +475,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sFullImage;
 				pxNFee->xControl.eNextMode = sFullImage;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStFullImage;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
@@ -492,6 +503,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sWindowing;
 				pxNFee->xControl.eNextMode = sWindowing;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStWindowing;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
@@ -517,6 +529,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sParTrap1;
 				pxNFee->xControl.eNextMode = sParTrap1;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStParTrap1;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = TRUE;
@@ -543,6 +556,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sParTrap2;
 				pxNFee->xControl.eNextMode = sParTrap2;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStParTrap2;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = FALSE;
 				pxNFee->xControl.xTrap.bEnabled = TRUE;
@@ -568,6 +582,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sSerialTrap1;
 				pxNFee->xControl.eNextMode = sSerialTrap1;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStSerialTrap1;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = TRUE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;
@@ -600,6 +615,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.eMode = sSerialTrap2;
 				pxNFee->xControl.eNextMode = sSerialTrap2;
 				/* Real State */
+				pxNFee->xControl.eFeeRealMode = eFeeRealStSerialTrap2;
 
 				pxNFee->xControl.xTrap.bEnabledSerial = TRUE;
 				pxNFee->xControl.xTrap.bEnabled = FALSE;

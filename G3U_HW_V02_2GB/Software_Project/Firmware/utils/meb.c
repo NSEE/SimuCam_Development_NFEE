@@ -16,6 +16,8 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* Simucam start in the Meb Config Mode */
     xMeb->eMode = sMebInit;
 
+    xMeb->eMebRealMode = eMebRealStConfig;
+
     /* Load EP */
     vLoadDefaultEPValue( xMeb );
     /* Load RT */

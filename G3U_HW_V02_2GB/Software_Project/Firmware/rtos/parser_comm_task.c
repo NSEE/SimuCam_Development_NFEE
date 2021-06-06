@@ -1204,7 +1204,7 @@ void vParserCommTask(void *task_data) {
 								xTmPusL.usiType = 254;
 								xTmPusL.usiSubType = 4;
 								xTmPusL.ucNofValues = 0;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMebRealMode; /* MEB operation MODE */
 								xTmPusL.ucNofValues++;
 								uiEPinMilliSeconds = xSimMeb.usiEP;
 								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1� Word */
@@ -1218,10 +1218,7 @@ void vParserCommTask(void *task_data) {
 							case 8:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								if ( usiFeeInstL <= N_OF_NFEE ) {
-									unsigned short int usiSPWStatusTotal;
-									unsigned short int usiSPWRunning;
-									unsigned short int usiSPWConnecting;
-									unsigned short int usiSPWStarted;
+									unsigned short int usiSPWStatus;
 
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
@@ -1232,28 +1229,22 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues = 0;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xControl.eMode;
+									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xControl.eFeeRealMode;
 									xTmPusL.ucNofValues++;
 									bSpwcGetLinkStatus(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == TRUE) {
-										usiSPWRunning = 0b001;
+									if (TRUE == xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bStarted){
+										usiSPWStatus = eFeeSpwStarted;
+									} else if (TRUE == xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bConnecting) {
+										usiSPWStatus = eFeeSpwConnecting;
+									} else if (TRUE == xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning) {
+										usiSPWStatus = eFeeSpwRunning;
+									} else if (TRUE == xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart) {
+										usiSPWStatus = eFeeSpwDisconnectedAutoStart;
 									} else {
-										usiSPWRunning = 0;
+										usiSPWStatus = eFeeSpwDisconnected;
 									}
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bConnecting == TRUE) {
-										usiSPWConnecting = 0b010;
-									} else {
-										usiSPWConnecting = 0;
-									}
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bStarted == TRUE) {
-										usiSPWStarted = 0b100;
-									} else {
-										usiSPWStarted = 0;
-									}
-									usiSPWStatusTotal = usiSPWRunning^usiSPWConnecting^usiSPWStarted;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=usiSPWStatusTotal;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiSPWStatus;
 									xTmPusL.ucNofValues++;
-
 									bDpktGetPixelDelay(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 									bDpktGetPacketConfig(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd )

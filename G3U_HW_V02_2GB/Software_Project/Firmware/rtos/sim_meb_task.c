@@ -52,6 +52,7 @@ void vSimMebTask(void *task_data) {
 
 				vEnterConfigRoutine( pxMebC );
 				pxMebC->eMode = sMebConfig;
+				pxMebC->eMebRealMode = eMebRealStConfig;
 				break;
 
 			case sMebToRun:
@@ -136,6 +137,7 @@ void vSimMebTask(void *task_data) {
 
 					vEvtChangeMebMode();
 					pxMebC->eMode = sMebRun;
+					pxMebC->eMebRealMode = eMebRealStRun;
 				} else {
 					/* Send Error to NUC */
 					#if DEBUG_ON

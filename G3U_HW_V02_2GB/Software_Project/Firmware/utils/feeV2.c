@@ -39,6 +39,8 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.eMode = sInit;
     pxNfeeL->xControl.eNextMode = sInit;
 
+    pxNfeeL->xControl.eFeeRealMode = eFeeRealStConfig;
+
     pxNfeeL->xControl.eDataSource = dsPattern;
 
     pxNfeeL->ucSPWId = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIdNFEE ];

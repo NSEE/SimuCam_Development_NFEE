@@ -38,6 +38,7 @@ typedef struct SwapControl {
 typedef struct Simucam_MEB {
     tFeeType        eType;                  /* Normal or Fast FEE */
     tSimucamStates  eMode;                  /* Mode of operation for the Simucam */
+    TMebRealStates  eMebRealMode;           /* Meb "real" operating mode, for status purposes */
     unsigned char ucActualDDR;              /* Control the swap mechanism of DDRs ( 0: DDR0 or 1: DDR1 ) */
     unsigned char ucNextDDR;              /* Control the swap mechanism of DDRs ( 0: DDR0 or 1: DDR1 ) */
     /* Note 3: The EP and RT parameters are common to all the N-FEE simulation entities. */
