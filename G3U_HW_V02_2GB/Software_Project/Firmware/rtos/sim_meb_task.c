@@ -2090,77 +2090,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 	/* Disable all errors */
 	for (ucFeeInstL = 0; ucFeeInstL < N_OF_NFEE; ucFeeInstL++) {
-
-		bSpwcGetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.ucTimeOffset = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncTriggerEnable = TRUE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire.xSpwcTimecodeConfig.bSyncDelayTriggerEn = FALSE;
-		bSpwcSetTimecodeConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xSpacewire);
-
-		bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-		bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-
-		bDpktGetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.bTriggerErr = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.ucErrorId = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktRmapErrInj.uliValue = 0;
-		bDpktSetRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-		bDpktRstRmapErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-
-		bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
-		bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xFeeBuffer);
-
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.bMissingData = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.ucFrameNum = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.usiSequenceCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.usiNRepeat = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.usiDataCnt = 0;
-
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlWin.bMissingData = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlWin.ucFrameNum = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlWin.usiSequenceCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlWin.usiNRepeat = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlWin.usiDataCnt = 0;
-
-		bDpktGetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.bEepReceivedEn = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiSequenceCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpacewireErrInj.usiNRepeat     = 0;
-		bDpktSetSpacewireErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-
-		/* Force the stop of any ongoing SpW Codec Errors */
-		bDpktGetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bStartErrInj = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.bResetErrInj = TRUE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktSpwCodecErrInj.ucErrInjErrCode = eDpktSpwCodecErrIdNone;
-		bDpktSetSpwCodecErrInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-
-		/* Stop and correct SpW Destination Address Error */
-		if (TRUE == pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xSpacewireErrInj.bDestinationErrorEn){
-			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xSpacewireErrInj.bDestinationErrorEn = FALSE;
-			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xSpacewireErrInj.ucOriginalDestAddr;
-			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-		}
-
-		bDpktHeaderErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xDataPktError.ucErrorCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xDataPktError.bStartErrorInj = FALSE;
-
-		bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideE);
-		bDpktContentErrInjStopInj(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket, eDpktCcdSideF);
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xImgWinContentErr.bStartLeftErrorInj = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xImgWinContentErr.bStartRightErrorInj = FALSE;
-
+		vErrorInjOff(pxMebCLocal, ucFeeInstL);
 	}
 
 	bDisableIsoDrivers();
@@ -2217,7 +2147,7 @@ void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
 	u_HKValue.usiValues[0] = xPus->usiValues[3];
 	u_HKValue.usiValues[1] = xPus->usiValues[2];
 
-	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], (alt_u8)xPus->usiValues[1], u_HKValue.uliValue);
+	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], xPus->usiValues[1], u_HKValue.uliValue);
 
 }
 

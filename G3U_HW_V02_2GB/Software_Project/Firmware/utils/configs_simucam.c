@@ -15,7 +15,8 @@ const TEthInterfaceParams cxDefaultsEthInterfaceParams = {
 	.ucGTW     = {192, 168, 17, 1},
 	.ucDNS     = {1, 1, 1, 1},
 	.ucPID     = 112,
-	.ucPCAT    = 6
+	.ucPCAT    = 6,
+	.ucEncap   = 0
 };
 
 const TGenSimulationParams cxDefaultsGenSimulationParams = {
@@ -792,21 +793,23 @@ bool bLoadHardcodedSpwConf( alt_u8 ucFee ) {
 
 //		fprintf(fp, "  MAC: %02X:%02X:%02X:%02X:%02X:%02X \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
 
-		fprintf(fp, "  IP: %i.%i.%i.%i \n", xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
+		fprintf(fp, "  PUS TCP address IPv4: %i.%i.%i.%i \n", xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
 
-		fprintf(fp, "  GTW: %i.%i.%i.%i \n", xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3]);
+		fprintf(fp, "  PUS TCP gateway IPv4: %i.%i.%i.%i \n", xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3]);
 
-		fprintf(fp, "  Sub: %i.%i.%i.%i \n", xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3]);
+		fprintf(fp, "  PUS TCP subnet IPv4: %i.%i.%i.%i \n", xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3]);
 
-		fprintf(fp, "  DNS: %i.%i.%i.%i \n", xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3]);
+		fprintf(fp, "  PUS TCP DNS IPv4: %i.%i.%i.%i \n", xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3]);
 
-		fprintf(fp, "  Server Port: %i\n", xConfEth.siPortPUS);
+		fprintf(fp, "  PUS TCP Server Port: %i\n", xConfEth.siPortPUS);
 
-		fprintf(fp, "  Use DHCP: %i\n", xConfEth.bDHCP);
+		fprintf(fp, "  PUS TCP Enable DHCP (dynamic) IP: %i\n", xConfEth.bDHCP);
 
-		fprintf(fp, "  PUS PID: %i\n", xConfEth.ucPID);
+		fprintf(fp, "  PUS HP_PID identification: %i\n", xConfEth.ucPID);
 
-		fprintf(fp, "  PUS PCAT: %i\n", xConfEth.ucPCAT);
+		fprintf(fp, "  PUS HP_PCAT identification: %i\n", xConfEth.ucPCAT);
+
+		fprintf(fp, "  PUS Default Encapsulation Protocol: %i\n", xConfEth.ucEncap);
 
 		fprintf(fp, "\n");
 

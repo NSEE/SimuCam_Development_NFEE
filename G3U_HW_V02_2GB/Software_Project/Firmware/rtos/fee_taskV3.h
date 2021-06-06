@@ -63,7 +63,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
-void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValue );
 void vSync400Update( TNFee *pxNFeeP );
 void vApplyRmap( TNFee *pxNFeeP );
 void vActivateContentErrInj( TNFee *pxNFeeP );

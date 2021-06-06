@@ -29,6 +29,7 @@ typedef struct EthInterfaceParams{
 	alt_u8 ucDNS[4];
 	alt_u8 ucPID;
 	alt_u8 ucPCAT;
+	alt_u8 ucEncap;
 }TEthInterfaceParams;
 
 typedef struct Globals{

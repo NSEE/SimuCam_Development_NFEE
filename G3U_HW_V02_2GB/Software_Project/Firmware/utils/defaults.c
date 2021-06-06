@@ -854,6 +854,10 @@ bool bDeftSetNucDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue) {
 	case eDeftEthPusHpPcatId:
 		vxDeftNucDefaults.pxEthInterfaceParams->ucPCAT = (alt_u8) uliDefaultValue;
 		break;
+	/* PUS Default Encapsulation Protocol (0 = None, 1 = EDEN) */
+	case eDeftEthPusEncapId:
+		vxDeftNucDefaults.pxEthInterfaceParams->ucEncap = (alt_u8) uliDefaultValue;
+		break;
 	default:
 		bStatus = FALSE;
 		break;

@@ -2796,13 +2796,13 @@ void vInitialConfig_RmapMemArea( TNFee *pxNFeeP ) {
  *
  * @retval void
  **/
-void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue ){
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValue ){
 	
 	/* Load current values */
 	bRmapGetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 
 	/* Switch case to assign value to register */
-	switch(ucRmapHkID + 2000){ /* The offset of 2000 is necessary to comply with the Defaults IDs. TODO: change RMAP HK ID to 16-bits */
+	switch(usiRmapHkID){
 
 		/* N-FEE RMAP Area HK Register 0, TOU Sense 1 HK Field */
 		case eDeftNfeeRmapAreaHkTouSense1Id:
@@ -3096,7 +3096,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue 
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMajorMessage )
-				fprintf(fp, "HK update: HK ID out of bounds: %u;\n", ucRmapHkID );
+				fprintf(fp, "HK update [FEE %u]: HK ID out of bounds: %u;\n", pxNFeeP->ucId, usiRmapHkID );
 			#endif
 			break;
 	}

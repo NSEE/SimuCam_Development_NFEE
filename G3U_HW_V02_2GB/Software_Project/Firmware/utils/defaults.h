@@ -223,7 +223,8 @@ enum DeftEthInterfaceParamsID {
 	eDeftEthIpV4GatewayId   = 10004, /* PUS TCP gateway IPv4 uint32 representation (Example is 192.168.17.1) */
 	eDeftEthIpV4DNSId       = 10005, /* PUS TCP DNS IPv4 uint32 representation (Example is 1.1.1.1) */
 	eDeftEthPusHpPidId      = 10006, /* PUS HP_PID identification (>127 to disable verification) */
-	eDeftEthPusHpPcatId     = 10007  /* PUS HP_PCAT identification (> 15 to disable verification) */
+	eDeftEthPusHpPcatId     = 10007, /* PUS HP_PCAT identification (> 15 to disable verification) */
+	eDeftEthPusEncapId      = 10008  /* PUS Default Encapsulation Protocol (0 = None, 1 = EDEN) */
 } EDeftEthInterfaceParamsID;
 //! [constants definition]
 
