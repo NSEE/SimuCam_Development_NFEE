@@ -572,6 +572,15 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 			break;
 
+		case 59: /* TC_SCAM_RESET */
+
+			/* Wait some time for the NUC to finish reseting */
+			OSTimeDlyHMSM(0,0,3,0);
+
+			/* Reset the SimuCam */
+			vRstcHoldSimucamReset(0);
+			break;
+
 		/* TC_SCAM_RUN */
 		case 61:
 			pxMebCLocal->eMode = sMebToRun;
