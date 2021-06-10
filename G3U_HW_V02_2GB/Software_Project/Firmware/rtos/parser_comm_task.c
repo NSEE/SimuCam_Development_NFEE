@@ -744,16 +744,12 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
-								
-								
 								/* Send Event Log */
 								vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtMebReset]);
-
 								/*Send the command to NUC in order to reset the NUC*/
 								vSendReset();
-								
-								OSTimeDlyHMSM(0,0,3,0);
-								vRstcHoldSimucamReset(0);
+								/* Send to Meb the reset command */
+								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
 							case 60: /* TC_SCAM_CONFIG */
@@ -779,8 +775,9 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
-								/*Send the command to NUC in order to shutdown the NUC*/
+								/* Send Event Log */
 								vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtShutdown]);
+								/*Send the command to NUC in order to shutdown the NUC*/
 								vSendTurnOff();
 								/* Send to Meb the shutdown command */
 								bSendMessagePUStoMebTask(&xTcPusL);
