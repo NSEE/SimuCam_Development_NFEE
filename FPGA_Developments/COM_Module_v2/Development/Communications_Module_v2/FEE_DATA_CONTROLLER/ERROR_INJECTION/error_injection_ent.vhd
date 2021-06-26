@@ -54,7 +54,7 @@ architecture RTL of error_injection_ent is
 	alias a_dpkt_length_msb        : std_logic_vector(7 downto 0) is s_data_packet_header(2)(7 downto 0);
 	alias a_dpkt_length_lsb        : std_logic_vector(7 downto 0) is s_data_packet_header(3)(7 downto 0);
 	alias a_dpkt_type_reserved     : std_logic_vector(4 downto 0) is s_data_packet_header(4)(7 downto 3);
-	alias a_dpkt_type_mode         : std_logic_vector(2 downto 0) is s_data_packet_header(4)(2 downto 0);
+	alias a_dpkt_type_mode         : std_logic_vector(3 downto 0) is s_data_packet_header(4)(3 downto 0);
 	alias a_dpkt_type_last_pkt     : std_logic is s_data_packet_header(5)(7);
 	alias a_dpkt_type_ccd_side     : std_logic is s_data_packet_header(5)(6);
 	alias a_dpkt_type_ccd_number   : std_logic_vector(1 downto 0) is s_data_packet_header(5)(5 downto 4);
@@ -230,7 +230,7 @@ begin
 								-- inject the correct header field error
 								case (header_errinj_field_id_i) is
 									when c_HEADER_ERRINJ_FIELD_ID_MODE =>
-										a_dpkt_type_mode <= header_errinj_value_i(2 downto 0);
+										a_dpkt_type_mode <= header_errinj_value_i(3 downto 0);
 									when c_HEADER_ERRINJ_FIELD_ID_LAST_PKT =>
 										a_dpkt_type_last_pkt <= header_errinj_value_i(0);
 									when c_HEADER_ERRINJ_FIELD_ID_CCD_SIDE =>
