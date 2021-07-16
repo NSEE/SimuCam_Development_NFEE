@@ -1,16 +1,19 @@
+##SimuCam Development - N-FEE (LESIA/IAA)
+
 # Repository Description - SimuCam/N-FEE
 This repository manages the release of the software packages related with the SimuCam project, focusing on its N-FEE version, whose directly user  is the [LESIA (Laboratoire d’études spatiales et d’instrumentation en astrophysique)](https://lesia.obspm.fr/). This projet is a part of PLATO mission, and it is being developed by the NSEE (Núcleo de Sistemas Eletrônicos Embarcados) team, a laboratory that is part of [IMT (Instituto Mauá de Tecnologia)](https://maua.br/) at São Caetano do Sul, São Paulo, Brazil, in a partnership with [USP-IAG (Instituto de Astronomia, Geofísica e Ciências Atmosféricas)](https://www.iag.usp.br/) , funded by [FAPESP (Fundação de Amparo à Pesquisa do Estado de São Paulo )](https://fapesp.br/).
 
 ## Repository Contributors
 
-- [Professor Vanderlei Cunha Parro - Laboratory and Project Coordinator](https://github.com/vparro) (2010 - 2020)
+- [Professor Vanderlei Cunha Parro - Laboratory and Project Coordinator](https://github.com/vparro) (2010-Today)
 - [Professor Tiago Sanches da Silva - Software Architect, SW Team Leader and Developer](https://github.com/Tiagoeem) (2017-2020)
-- [Engineer Rodrigo De Marca França - VHDL Architect and Developer](https://github.com/rodmarfran) (2017-2020)
-- [Engineer Érico Lucas Marques - Project Manager and System Engineer](https://github.com/ericolucasm) (2018-2020)
+- [Engineer Rodrigo De Marca França - VHDL Architect and Developer](https://github.com/rodmarfran) (2017-Today)
+- [Engineer Érico Lucas Marques - Project Manager and System Engineer](https://github.com/ericolucasm) (2018-Today)
 - [Engineer Alexsander Deucher - SW Developer](https://github.com/adbtx) (2019-2020)
-- [Engineer Ricardo Napoli - Test Engineer](https://github.com/rnapoli) (2019-2020)
+- [Engineer Ricardo Napoli - Test Engineer](https://github.com/rnapoli) (2019-2021)
 - [Engineer Cassio Berni - SW Engineer](https://github.com/ccberni) (2019-2020)
 - [Engineer Rafael Corsi Ferrão - Hardware Engineer](https://github.com/rafaelcorsi) (2011-2016) 
+- [Engineer Thiago Pereira Ricciardi - SW Developer](https://github.com/thiagoricciardi) (2018-Today)
 
 
 # SimuCam
@@ -24,7 +27,7 @@ SimuCam has 3 different versions, depending on its final use:
 |:--:|:--:|--|--|
 |1|SimuCam/N-FEE | [Lesia (Laboratoire d’études spatiales et d’instrumentation en astrophysique)](https://lesia.obspm.fr/), [IAA (Instituto Astrofísica Andalucía)](https://www.iaa.csic.es/en)| France, Spain
 |2|SimuCam/F-FEE | [DLR (Deutsches Zentrum für Luft- und Raumfahrt)](https://www.dlr.de/DE/Home/home_node.html) | Germany
-|3|SimuCam/Emulator | [IWF (Österreichische Akademie der Wissenschaften)(https://www.iwf.oeaw.ac.at/home/)], [INAF (Istituto Nazionale di Astrofisica)](http://www.inaf.it/it)|Austria, Italy
+|3|SimuCam/Data Transmission | [IWF (Österreichische Akademie der Wissenschaften)(https://www.iwf.oeaw.ac.at/home/)], [INAF (Istituto Nazionale di Astrofisica)](http://www.inaf.it/it)|Austria, Italy
 
 # PLATO (PLAnetary Transits and Oscillations of stars)
 PLATO (PLAnetary Transits and Oscillations of stars) is the third medium-class mission in ESA's Cosmic Vision programme. Its objective is to find and study a large number of extrasolar planetary systems, with emphasis on the properties of terrestrial planets in the habitable zone around solar-like stars. PLATO has also been designed to investigate seismic activity in stars, enabling the precise characterisation of the planet host star, including its age.
