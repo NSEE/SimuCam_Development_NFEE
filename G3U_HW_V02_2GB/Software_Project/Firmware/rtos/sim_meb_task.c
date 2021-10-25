@@ -572,6 +572,15 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 			break;
 
+		case 59: /* TC_SCAM_RESET */
+
+			/* Wait some time for the NUC to finish reseting */
+			OSTimeDlyHMSM(0,0,3,0);
+
+			/* Reset the SimuCam */
+			vRstcHoldSimucamReset(0);
+			break;
+
 		/* TC_SCAM_RUN */
 		case 61:
 			pxMebCLocal->eMode = sMebToRun;
@@ -1676,6 +1685,18 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xErrorInjControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
 			break;
 
+		case 59: /* TC_SCAM_RESET */
+
+			/* Force all go to Config Mode */
+			vEnterConfigRoutine(pxMebCLocal);
+
+			/* Wait some time for the NUC to finish reseting */
+			OSTimeDlyHMSM(0,0,3,0);
+
+			/* Reset the SimuCam */
+			vRstcHoldSimucamReset(0);
+			break;
+
 		/* TC_SCAM_CONFIG */
 		case 60:
 			if ( xGlobal.bSyncReset == FALSE ) {
@@ -2095,6 +2116,14 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 		vErrorInjOff(pxMebCLocal, ucFeeInstL);
 	}
 
+	/* Disable all DMAs to free the RAM memories */
+	for (ucFeeInstL = 0; ucFeeInstL < N_OF_NFEE; ucFeeInstL++) {
+		bSdmaResetCommDma(ucFeeInstL, eSdmaLeftBuffer, TRUE);
+		bSdmaResetCommDma(ucFeeInstL, eSdmaRightBuffer, TRUE);
+	}
+	bSdmaResetFtdiDma(TRUE);
+
+	/* Disconnect the SpaceWires links */
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
 

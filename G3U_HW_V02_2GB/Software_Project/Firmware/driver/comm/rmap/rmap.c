@@ -1499,7 +1499,13 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 			if (!bRmapGetMemStatus(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
+			if (!bRmapSoftRstMemAreaConfig(ucCommCh)){
+				bInitFail = TRUE;
+			}
 			if (!bRmapGetRmapMemCfgArea(pxRmapCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapSoftRstMemAreaHk(ucCommCh)){
 				bInitFail = TRUE;
 			}
 			if (!bRmapGetRmapMemHkArea(pxRmapCh)) {

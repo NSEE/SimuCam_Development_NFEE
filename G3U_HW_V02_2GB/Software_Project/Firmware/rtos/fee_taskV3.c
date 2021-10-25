@@ -35,11 +35,11 @@ void vFeeTaskV3(void *task_data) {
 				if ( error_code != OS_NO_ERR )
 					vFailFlushNFEEQueue();
 
-				/*Initializing the HW DataPacket*/
-				vInitialConfig_DpktPacket( pxNFee );
-
 				/*Initializing the the values of the RMAP memory area */
 				vInitialConfig_RmapMemArea( pxNFee );
+
+				/*Initializing the HW DataPacket*/
+				vInitialConfig_DpktPacket( pxNFee );
 
 				/* Change the configuration of RMAP for a particular FEE*/
 				vInitialConfig_RMAPCodecConfig( pxNFee );
@@ -65,7 +65,6 @@ void vFeeTaskV3(void *task_data) {
 					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdImgEn = TRUE;
 					pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.bCcdOvsEn = FALSE;
 				}
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFee->xMemMap.xCommon.ulHEnd;
@@ -116,6 +115,17 @@ void vFeeTaskV3(void *task_data) {
 				/* Send Event Log */
 				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeConfig]);
 
+				/* Soft-Reset RMAP Areas (reset all registers) - [rfranca] */
+				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag = TRUE;
+				vInitialConfig_RmapMemArea( pxNFee );
+
+				/* Reset key data packet transmission values */
+				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart    = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd      = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
+				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x00; /*Off*/
@@ -146,7 +156,6 @@ void vFeeTaskV3(void *task_data) {
 					fprintf(fp,"NFEE-%hu TaskB: Config Mode\n", pxNFee->ucId);
 				}
 				#endif
-
 
 				/* End of simulation! Clear everything that is possible */
 				pxNFee->xControl.bWatingSync = FALSE;
@@ -185,10 +194,6 @@ void vFeeTaskV3(void *task_data) {
 
 				/* Enable RMAP Channels - [rfranca] */
 				bRmapChEnableCodec(pxNFee->ucId, TRUE);
-
-				/* Soft-Reset RMAP Areas (reset all registers) - [rfranca] */
-				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag = TRUE;
-				vInitialConfig_RmapMemArea( pxNFee );
 
 				/* Real State */
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
@@ -1607,6 +1612,7 @@ void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 
 			case M_BEFORE_MASTER:
+				vApplyRmap(pxNFeeP);
 				vActivateContentErrInj(pxNFeeP);
 				vActivateDataPacketErrInj(pxNFeeP);
 				/* Stop the module Double Buffer */
@@ -1793,6 +1799,7 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPReadoutSync( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
 				break;
 			case M_BEFORE_MASTER:
+				vApplyRmap(pxNFeeP);
 				vActivateContentErrInj(pxNFeeP);
 				vActivateDataPacketErrInj(pxNFeeP);
 				break;
@@ -2389,6 +2396,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
+						vApplyRmap(pxNFeeP);
 						vActivateContentErrInj(pxNFeeP);
 						vActivateDataPacketErrInj(pxNFeeP);
 					}
@@ -2769,8 +2777,8 @@ void vInitialConfig_DpktPacket( TNFee *pxNFeeP ) {
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize      = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize     = pxNFeeP->xCcdInfo.usiHeight;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFeeP->xCcdInfo.usiOLN;
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart     = 0;
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd       = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN - 1;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart     = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd       = pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd    = pxNFeeP->xCcdInfo.usiHeight - 1;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd    = pxNFeeP->xCcdInfo.usiOLN - 1;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdHStart     = 0;
@@ -2785,6 +2793,7 @@ void vInitialConfig_DpktPacket( TNFee *pxNFeeP ) {
 	bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 	pxNFeeP->xCopyRmap.usiCopyPacketLength = pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength;
+
 }
 
 /* Initializing the the values of the RMAP memory area */
