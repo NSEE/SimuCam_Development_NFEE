@@ -21,7 +21,8 @@
 
 // bit masks
 #define RSTC_SIMUCAM_RST_CTRL_MSK       (1 << 31)
-#define RSTC_SIMUCAM_RST_TMR_MSK        (0x7FFFFFFF << 0)
+#define RSTC_SIMUCAM_RST_CNT_CLR_MSK    (1 << 30)
+#define RSTC_SIMUCAM_RST_TMR_MSK        (0x3FFFFFFF << 0)
 
 #define RSTC_DEV_FTDI_RST_CTRL_MSK      (1 << 11)
 #define RSTC_DEV_SYNC_RST_CTRL_MSK      (1 << 10)
@@ -51,6 +52,7 @@ void vRstcHoldSimucamReset(alt_u32 uliRstCnt);
 void vRstcReleaseDeviceReset(alt_u32 usiRstMask);
 void vRstcHoldDeviceReset(alt_u32 usiRstMask);
 
+void vRstcClearResetCounter(void);
 alt_u32 uliRstcGetResetCounter(void);
 //! [public function prototypes]
 

@@ -1,6 +1,15 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RST_Controller/Development/Testbench/RSTC_Testbench.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RST_Controller/Development/Testbench/RSTC_Testbench.mpf
 # Loading project RSTC_Testbench
+# Compile of avalon_mm_rst_controller_registers_pkg.vhd was successful.
+# Compile of avalon_mm_rst_controller_pkg.vhd was successful.
+# Compile of avalon_mm_rst_controller_read_ent.vhd was successful.
+# Compile of avalon_mm_rst_controller_write_ent.vhd was successful with warnings.
+# Compile of rst_controller_top.vhd was successful with warnings.
+# Compile of testbench_top.vhd was successful.
+# 6 compiles, 0 failed with no errors.
+# Compile of avalon_mm_rst_controller_write_ent.vhd was successful.
+# Compile of rst_controller_top.vhd was successful.
 # Compile of avalon_mm_rst_controller_registers_pkg.vhd was successful.
 # Compile of avalon_mm_rst_controller_pkg.vhd was successful.
 # Compile of avalon_mm_rst_controller_read_ent.vhd was successful.

@@ -37,12 +37,14 @@ begin
             case (read_address_i) is
                 -- Case for access to all registers address
 
-                --  SimuCam Reser Control Register                  (32 bits):
+                --  SimuCam Reset Control Register                  (32 bits):
                 when (c_RSTC_SIMUCAM_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
                     --    31-31 : SimuCam Reset control bit              [R/W]
                     avalon_mm_spacewire_o.readdata(31)          <= rst_controller_write_registers_i.simucam_reset.simucam_reset;
-                    --    30- 0 : SimuCam Reset Timer value              [R/W]
-                    avalon_mm_spacewire_o.readdata(30 downto 0) <= rst_controller_write_registers_i.simucam_reset.simucam_timer;
+                    --    30-30 : SimuCam Reset Counter Clear            [R/W]
+                    avalon_mm_spacewire_o.readdata(30)          <= rst_controller_write_registers_i.simucam_reset.simucam_reset_cnt_clr;
+                    --    29- 0 : SimuCam Reset Timer value              [R/W]
+                    avalon_mm_spacewire_o.readdata(29 downto 0) <= rst_controller_write_registers_i.simucam_reset.simucam_timer;
 
                 --  Device Reset Control Register                  (32 bits):
                 when (c_RSTC_DEVICE_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
@@ -65,7 +67,7 @@ begin
                 --  Reset Counter Status Register                  (32 bits):
                 when (c_RSTC_RESET_COUNTER_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
                     --    31- 0 : Reset Counter status value             [R/-]
-                    avalon_mm_spacewire_o.readdata(31 downto 0)  <= rst_controller_read_registers_i.reset_counter.reset_cnt;
+                    avalon_mm_spacewire_o.readdata(31 downto 0) <= rst_controller_read_registers_i.reset_counter.reset_cnt;
 
                 when others =>
                     avalon_mm_spacewire_o.readdata <= (others => '0');
