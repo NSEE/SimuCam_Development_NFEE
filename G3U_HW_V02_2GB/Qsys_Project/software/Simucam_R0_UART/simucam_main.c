@@ -15,6 +15,7 @@
 #include "driver/scom/scom.h"
 #include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
+#include "driver/reset/reset.h"
 #include <sys/ioctl.h>
 
 #include "includes.h"
@@ -557,20 +558,20 @@ int main(void)
 		fprintf(fp, "Initialization attempt %lu, ", uliRstcGetResetCounter());
 #endif
 		/* Need to reset 2 times (3 tries) before halting the SimuCam */
-//		if (3 > uliRstcGetResetCounter()) {
+		if (3 > uliRstcGetResetCounter()) {
 			/* There are more initialization tries to make */
 #if DEBUG_ON
 			fprintf(fp, "SimuCam will be reseted now!\n");
 #endif
 			vRstcHoldSimucamReset(0);
-//		} else {
-//			/* No more tries, lock the SimuCam */
-//#if DEBUG_ON
-//
-//			fprintf(fp, "SimuCam will be halted now!\n");
-//#endif
-//			vFailTestCriticasParts();
-//		}
+		} else {
+			/* No more tries, lock the SimuCam */
+#if DEBUG_ON
+
+			fprintf(fp, "SimuCam will be halted now!\n");
+#endif
+			vFailTestCriticasParts();
+		}
 		return (-1);
 	}
 

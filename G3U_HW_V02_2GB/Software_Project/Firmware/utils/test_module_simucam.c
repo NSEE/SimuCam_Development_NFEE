@@ -139,11 +139,14 @@ bool bTestSimucamBasicHW(void) {
 
 	/* Enable Isolator Board */
 	bEnableIsoDrivers();
+	usleep(100000);
+	bEnableIsoLogic();
 
 	/* Test Sync Connections */
 	bSuccess = bSyncTestConnection();
 
 	/* Disable Isolator  Board */
+	bDisableIsoLogic();
 	bDisableIsoDrivers();
 
 	if ( FALSE == bSuccess) {

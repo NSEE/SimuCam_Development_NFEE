@@ -173,6 +173,7 @@ begin
 			flags_o.write_data_indication  <= '0';
 			flags_o.write_operation_failed <= '0';
 			flags_o.write_data_discarded   <= '0';
+                        flags_o.write_error_end_of_package <= '0';
 			flags_o.write_busy             <= '0';
 			error_o.early_eop              <= '0';
 			error_o.eep                    <= '0';
@@ -531,6 +532,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					flags_o.write_busy             <= '0';
 					error_o.early_eop              <= '0';
 					error_o.eep                    <= '0';
@@ -552,6 +554,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
 				-- conditional output signals
@@ -564,6 +567,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					-- conditional output signals
@@ -593,6 +597,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					-- conditional output signals
@@ -610,6 +615,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					-- default output signals
@@ -620,6 +626,8 @@ begin
 						-- too much data error
 						error_o.too_much_data <= '1';
 						s_write_error         <= '1';
+                                                -- clear invalid data crc (too much data takes precedence)
+                                                error_o.invalid_data_crc <= '0';
 					end if;
 
 				-- state "WRITE_VERIFIED_DATA"
@@ -629,6 +637,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '0';
 					-- default output signals
 					mem_control_o.write            <= '0';
@@ -651,6 +660,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '1';
 				-- conditional output signals
@@ -663,6 +673,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					error_o.early_eop              <= '0';
@@ -676,6 +687,10 @@ begin
 					else
 						-- eep error
 						error_o.eep <= '1';
+						-- check if the eep happened right after the Header CRC
+						if (s_rmap_target_write_next_state = FIELD_DATA) then
+							flags_o.write_error_end_of_package <= '1';
+						end if;
 					end if;
 
 				-- state "WAITING_PACKAGE_END"
@@ -686,6 +701,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+					flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
 					-- conditional output signals

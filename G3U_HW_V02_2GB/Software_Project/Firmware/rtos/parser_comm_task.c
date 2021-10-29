@@ -17,11 +17,11 @@ void vParserCommTask(void *task_data) {
 	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
 
-	uint uRTCAL;
-	uint uCLT;
-
 	unsigned int uiEPinMilliSeconds;
 	unsigned int uiRTinMilliSeconds;
+	
+	unsigned int uiRTCal;
+	unsigned int uiCLT;
 
 	alt_u16 usiMebFee       = 0;
 	alt_u16 usiDefaultId    = 0;
@@ -1244,23 +1244,14 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues++;
 									bDpktGetPixelDelay(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 									bDpktGetPacketConfig(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd )
-									{
-										uCLT = 0;
-										uRTCAL = 0;
-									}
-									else
-									{
-										uCLT = (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd - xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart) + 1;
-										uRTCAL = ( (xDefaults.ulStartDelay * 1000000)  +
-										uCLT *
-										xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth*
-										xDefaults.ulADCPixelDelay+
-										uCLT*
-										xDefaults.ulLineDelay+
-										( (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHeight + xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiOLN ) - uCLT)* // Version with OverScan
-										xDefaults.ulSkipDelay);
-										uiRTinMilliSeconds = (uRTCAL / 1000);
+									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd ) {
+										uiCLT = 0;
+										uiRTCal = 0;
+									} else {
+										uiCLT = (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd - xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart) + 1;
+										uiRTCal = ((xDefaults.ulStartDelay * 1000000)  + uiCLT * xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth * xDefaults.ulADCPixelDelay + uiCLT * xDefaults.ulLineDelay + 
+										((xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHeight + xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiOLN ) - uiCLT) * xDefaults.ulSkipDelay);
+										uiRTinMilliSeconds = (uiRTCal / 1000);
 									}
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
 									xTmPusL.ucNofValues++;

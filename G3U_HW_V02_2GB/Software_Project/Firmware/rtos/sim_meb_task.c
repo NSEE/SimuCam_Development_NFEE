@@ -59,6 +59,8 @@ void vSimMebTask(void *task_data) {
 
 				bEnableIsoDrivers();
 				bEnableLvdsBoard();
+				usleep(100000);
+				bEnableIsoLogic();
 
 				pxMebC->ucActualDDR = 1;
 				pxMebC->ucNextDDR = 0;
@@ -610,10 +612,6 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ulPx = (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
 			ulLine = (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
 
-			xDefaults.ulLineDelay = ulLine;
-			xDefaults.ulADCPixelDelay = ulPx;
-			xDefaults.ulStartDelay = ulStart;
-
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "---TIME_CONFIG: EP: %lu (ms)\n", ulEP);
@@ -625,7 +623,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/*Configure EP*/
 			//bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ); // Change to update usiEP em xMeb for STATUS REPORT
-			if (bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ) == TRUE) {
+			if (TRUE == bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP )) {
 				vChangeEPValue(pxMebCLocal, (alt_u16)ulEP);
 				xDefaults.usiExposurePeriod = (alt_u16)ulEP;
 			}
@@ -637,6 +635,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
 				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[ucFeeInstL].xChannel.xDataPacket);
 			}
+			xDefaults.ulStartDelay = ulStart;
+			xDefaults.ulADCPixelDelay = ulPx;
+			xDefaults.ulLineDelay = ulLine;
 
 			break;
 
@@ -1693,6 +1694,9 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Wait some time for the NUC to finish reseting */
 			OSTimeDlyHMSM(0,0,3,0);
 
+			/* Clear the Reset Counter */
+			vRstcClearResetCounter();
+
 			/* Reset the SimuCam */
 			vRstcHoldSimucamReset(0);
 			break;
@@ -2124,6 +2128,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	bSdmaResetFtdiDma(TRUE);
 
 	/* Disconnect the SpaceWires links */
+	bDisableIsoLogic();
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
 

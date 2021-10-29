@@ -70,7 +70,7 @@ architecture RTL of spw_controller_stimuli is
     constant c_TEST_INFINITE  : std_logic := '1';
 
     -- test parameters
-    constant c_SELECT_TEST_CMD : std_logic := c_TEST_CMD_WRITE;
+    constant c_SELECT_TEST_CMD : std_logic := c_TEST_CMD_READ;
     constant c_SELECT_DURATION : std_logic := c_TEST_INFINITE;
 
 begin

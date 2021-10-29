@@ -12,6 +12,7 @@
 #include "../driver/reset/reset.h"
 #include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
 #include "../driver/leds/leds.h"
+#include "../driver/comm/spw_controller/spw_controller.h"
 
 /* Intel System ID Peripheral Registers */
 typedef struct SidpRegisters {

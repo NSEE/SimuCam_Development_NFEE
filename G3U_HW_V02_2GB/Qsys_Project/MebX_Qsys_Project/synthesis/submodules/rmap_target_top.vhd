@@ -301,8 +301,14 @@ begin
             -- check if an rmap error injection reset was issued
             if (rmap_errinj_rst_i = '1') then
                 -- an rmap error injection reset was issued
-                s_rmap_target_reply_errinj_rst <= '1';
-                s_rmap_target_read_errinj_rst  <= '1';
+                -- clear all internal variables
+                s_rmap_errinj_manager_injecting      <= '0';
+                s_rmap_errinj_manager_error_cnt      <= (others => '0');
+                s_rmap_errinj_manager_errinj_control <= c_RMAP_ERRINJ_CONTROL_RST;
+                s_rmap_errinj_manager_errinj_ongoing <= '0';
+                -- reset the error machines
+                s_rmap_target_reply_errinj_rst       <= '1';
+                s_rmap_target_read_errinj_rst        <= '1';
             -- check if the rmap error injection was enabled
             elsif (rmap_errinj_trg_i = '1') then
                 -- rmap error injection was trigerred

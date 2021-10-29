@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>May 6, 2021 9:01:16 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1620302476542</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Oct 29, 2021 10:04:08 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1635509048947</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1903,6 +1903,18 @@
         <MemoryMap>
                 <slaveDescriptor>m1_ddr2_i2c_sda</slaveDescriptor>
                 <addressRange>0x80000A00 - 0x80000A0F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>pio_ftdi_umft601a_module_reset</slaveDescriptor>
+                <addressRange>0x80000B00 - 0x80000B0F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>pio_iso_logic_signal_enable</slaveDescriptor>
+                <addressRange>0x80000B10 - 0x80000B1F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>

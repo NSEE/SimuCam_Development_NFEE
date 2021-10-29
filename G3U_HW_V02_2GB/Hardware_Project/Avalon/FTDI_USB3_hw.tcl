@@ -216,7 +216,7 @@ set_interface_property avalon_slave_config CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_slave_config SVD_ADDRESS_GROUP ""
 
 add_interface_port avalon_slave_config avalon_slave_config_address_i address Input 8
-add_interface_port avalon_slave_config avalon_slave_config_byteenable_i byteenable Input 4
+#add_interface_port avalon_slave_config avalon_slave_config_byteenable_i byteenable Input 4
 add_interface_port avalon_slave_config avalon_slave_config_write_i write Input 1
 add_interface_port avalon_slave_config avalon_slave_config_writedata_i writedata Input 32
 add_interface_port avalon_slave_config avalon_slave_config_read_i read Input 1

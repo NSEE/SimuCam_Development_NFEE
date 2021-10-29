@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Echoing "RMAP_Echoing" v1.2
+# RMAP_Echoing "RMAP_Echoing" v1.3
 # rfranca 2019.12.21.00:27:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME RMAP_Echoing
-set_module_property VERSION 1.2
+set_module_property VERSION 1.3
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca
@@ -259,6 +259,7 @@ add_interface_port conduit_end_spacewire_controller spw_data_tx_status_txrdy_i s
 add_interface_port conduit_end_spacewire_controller spw_data_tx_status_txhalff_i spw_data_tx_status_txhalff_signal Input 1
 add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_errinj_busy_i spw_errinj_ctrl_errinj_busy_signal Input 1
 add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_errinj_ready_i spw_errinj_ctrl_errinj_ready_signal Input 1
+add_interface_port conduit_end_spacewire_controller spw_link_command_enable_o spw_link_command_enable_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_autostart_o spw_link_command_autostart_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_linkstart_o spw_link_command_linkstart_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_linkdis_o spw_link_command_linkdis_signal Output 1

@@ -41,6 +41,7 @@ void vInitSimucamBasicHW(void) {
 	vRstcReleaseDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 
 	/* Disable the Isolation and LVDS driver boards*/
+	bDisableIsoLogic();
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
 	

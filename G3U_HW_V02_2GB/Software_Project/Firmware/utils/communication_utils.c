@@ -7,7 +7,7 @@
 
 #include "communication_utils.h"
 
-const alt_u8 cucEvtListData[30][4] = {
+const alt_u8 cucEvtListData[eEventsListSize][4] = {
 		{0, 0,  0, 1}, /* Event SPW ENABLE */
 		{0, 0,  0, 3}, /* Event SPW ENABLE ERROR */
 		{0, 0,  1, 1}, /* Event SPW DISABLE */

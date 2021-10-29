@@ -2465,7 +2465,132 @@ set_global_assignment -name SDC_FILE MebX_Quartus_Project.sdc
 set_global_assignment -name IPX_FILE user_components.ipx
 set_global_assignment -name QIP_FILE ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.qip
 set_global_assignment -name VHDL_FILE ../Hardware_Project/MebX_TopLevel.vhd
-set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to SYNC_OUT
 set_instance_assignment -name FAST_INPUT_REGISTER ON -to SYNC_IN
+set_instance_assignment -name GLOBAL_SIGNAL GLOBAL_CLOCK -to "MebX_Qsys_Project:SOPC_INST|MebX_Qsys_Project_m2_ddr2_memory:m2_ddr2_memory|MebX_Qsys_Project_m2_ddr2_memory_pll0:pll0|afi_clk"
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWA_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWA_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWA_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWA_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWB_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWB_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWB_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWB_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWC_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWC_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWC_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWC_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWD_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWD_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWD_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWD_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWE_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWE_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWE_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWE_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWF_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWF_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWF_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWF_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWG_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWG_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWG_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWG_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWH_DI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWH_DI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWH_SI_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_RX_SPWH_SI_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWA_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWA_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWB_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWB_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWC_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWC_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWD_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWD_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWE_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWE_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWF_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWF_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWG_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWG_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWH_DO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWH_SO_P
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWA_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWA_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWB_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWB_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWC_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWC_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWD_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWD_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWE_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWE_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWF_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWF_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWG_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWG_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWH_DO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to HSMB_LVDS_TX_SPWH_SO_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[31]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[30]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[29]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[28]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[27]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[26]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[25]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[24]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[23]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[22]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[21]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[20]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[19]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[18]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[17]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[16]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[15]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[14]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[13]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[12]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[11]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[10]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[9]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[8]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[7]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[6]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[5]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[4]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[3]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[2]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[1]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_DATA[0]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_BE[3]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_BE[2]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_BE[1]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_BE[0]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_RESET_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_WAKEUP_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_CLOCK
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_RXF_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_TXE_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_GPIO[1]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_GPIO[0]
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_WR_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_RD_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_OE_N
+set_instance_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON -to FTDI_SIWU_N
+set_global_assignment -name PROGRAMMABLE_POWER_TECHNOLOGY_SETTING "FORCE ALL TILES WITH FAILING TIMING PATHS TO HIGH SPEED"
+set_global_assignment -name ADVANCED_PHYSICAL_OPTIMIZATION OFF
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_a_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_a|reset_i"
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_b_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_b|reset_i"
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_c_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_c|reset_i"
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_d_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_d|reset_i"
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_e_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_e|reset_i"
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_f_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_f|reset_i"
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_g_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_g|reset_i"
+set_instance_assignment -name DUPLICATE_ATOM altera_reset_synchronizer_int_chain_out_to_spacewire_channel_h_reset_i -from "MebX_Qsys_Project:SOPC_INST|mebx_qsys_project_rst_controller_002:rst_controller_002|altera_reset_controller:rst_controller_002|altera_reset_synchronizer:alt_rst_sync_uq1|altera_reset_synchronizer_int_chain_out" -to "MebX_Qsys_Project:SOPC_INST|spwc_spacewire_channel_top:spacewire_channel_h|reset_i"
+set_global_assignment -name PLACEMENT_EFFORT_MULTIPLIER 2.0
+set_global_assignment -name SAFE_STATE_MACHINE ON
+set_global_assignment -name ALLOW_REGISTER_DUPLICATION ON
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

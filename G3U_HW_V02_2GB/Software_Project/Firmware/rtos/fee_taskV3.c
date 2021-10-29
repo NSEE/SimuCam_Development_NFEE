@@ -93,6 +93,7 @@ void vFeeTaskV3(void *task_data) {
 				/* Set Others Defaults */
 				bSpwcEnableTimecodeTrans(&pxNFee->xChannel.xSpacewire, xConfSpw[pxNFee->ucId].bTimeCodeTransmissionEn);
 				bSpwcGetLinkConfig(&pxNFee->xChannel.xSpacewire);
+				pxNFee->xChannel.xSpacewire.xSpwcLinkConfig.bEnable     = TRUE;
 				pxNFee->xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
 				pxNFee->xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart  = xConfSpw[pxNFee->ucId].bSpwLinkStart;
 				pxNFee->xChannel.xSpacewire.xSpwcLinkConfig.bAutostart  = xConfSpw[pxNFee->ucId].bSpwLinkAutostart;
@@ -3424,7 +3425,7 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 	return bSuccesL;
 }
 
-bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
+bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucFee ) {
 	/* Disable RMAP channel */
 	bRmapGetIrqControl(pxRmapCh);
 	pxRmapCh->xRmapIrqControl.bWriteConfigEn = FALSE;
@@ -3435,7 +3436,7 @@ bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 	return TRUE;
 }
 
-bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
+bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucFee ) {
 
 	bRmapGetIrqControl(pxRmapCh);
 	pxRmapCh->xRmapIrqControl.bWriteConfigEn = TRUE;
@@ -3446,7 +3447,7 @@ bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 	return TRUE;
 }
 
-bool bDisableSPWChannel( TSpwcChannel *xSPW, unsigned char ucId ) {
+bool bDisableSPWChannel( TSpwcChannel *xSPW, unsigned char ucFee ) {
 	/* Disable SPW channel */
 	bSpwcGetLinkConfig(xSPW);
 	xSPW->xSpwcLinkConfig.bLinkStart = FALSE;
@@ -3458,11 +3459,12 @@ bool bDisableSPWChannel( TSpwcChannel *xSPW, unsigned char ucId ) {
 	return TRUE;
 }
 
-bool bEnableSPWChannel( TSpwcChannel *xSPW, unsigned char ucId ) {
+bool bEnableSPWChannel( TSpwcChannel *xSPW, unsigned char ucFee ) {
 	/* Enable SPW channel */
 	bSpwcGetLinkConfig(xSPW);
-	xSPW->xSpwcLinkConfig.bLinkStart = xConfSpw[ucId].bSpwLinkStart;
-	xSPW->xSpwcLinkConfig.bAutostart = xConfSpw[ucId].bSpwLinkAutostart;
+	xSPW->xSpwcLinkConfig.bEnable = TRUE;
+	xSPW->xSpwcLinkConfig.bLinkStart = xConfSpw[ucFee].bSpwLinkStart;
+	xSPW->xSpwcLinkConfig.bAutostart = xConfSpw[ucFee].bSpwLinkAutostart;
 	xSPW->xSpwcLinkConfig.bDisconnect = FALSE;
 	bSpwcSetLinkConfig(xSPW);
 

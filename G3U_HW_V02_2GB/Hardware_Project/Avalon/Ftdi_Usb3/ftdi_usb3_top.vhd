@@ -39,7 +39,7 @@ entity ftdi_usb3_top is
         umft601a_oe_n_pin_o               : out   std_logic; --                                      --                         .umft_oe_n_signal
         umft601a_siwu_n_pin_o             : out   std_logic; --                                      --                         .umft_siwu_n_signal
         avalon_slave_config_address_i     : in    std_logic_vector(7 downto 0)   := (others => '0'); --      avalon_slave_config.address
-        avalon_slave_config_byteenable_i  : in    std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
+        --		avalon_slave_config_byteenable_i      : in    std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
         avalon_slave_config_write_i       : in    std_logic                      := '0'; --          --                         .write
         avalon_slave_config_writedata_i   : in    std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
         avalon_slave_config_read_i        : in    std_logic                      := '0'; --          --                         .read
@@ -163,7 +163,8 @@ begin
                 rst_i                               => a_reset,
                 ftdi_config_avalon_mm_i.address     => avalon_slave_config_address_i,
                 ftdi_config_avalon_mm_i.read        => avalon_slave_config_read_i,
-                ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable_i,
+                --				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable_i,
+                ftdi_config_avalon_mm_i.byteenable  => (others => '1'),
                 ftdi_config_avalon_mm_o.readdata    => avalon_slave_config_readdata_o,
                 ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_read_waitrequest,
                 ftdi_config_wr_regs_i               => s_config_write_registers,
@@ -178,7 +179,8 @@ begin
                 ftdi_config_avalon_mm_i.address     => avalon_slave_config_address_i,
                 ftdi_config_avalon_mm_i.write       => avalon_slave_config_write_i,
                 ftdi_config_avalon_mm_i.writedata   => avalon_slave_config_writedata_i,
-                ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable_i,
+                --				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable_i,
+                ftdi_config_avalon_mm_i.byteenable  => (others => '1'),
                 ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_write_waitrequest,
                 ftdi_config_wr_regs_o               => s_config_write_registers
             );

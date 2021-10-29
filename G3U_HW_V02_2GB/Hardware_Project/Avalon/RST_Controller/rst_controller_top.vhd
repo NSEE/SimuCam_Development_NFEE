@@ -55,7 +55,7 @@ architecture rtl of rst_controller_top is
     signal s_simucam_reset             : std_logic;
     signal s_simucam_start             : std_logic;
     signal s_simucam_stop              : std_logic;
-    signal s_reset_counter             : std_logic_vector(30 downto 0);
+    signal s_reset_counter             : std_logic_vector(29 downto 0);
     signal s_simucam_reset_cmd_delayed : std_logic;
 
     -- reset counter
@@ -113,6 +113,11 @@ begin
                 s_reset_cnt    <= s_reset_cnt + 1;
             end if;
 
+            -- manage reser counter clear commmand
+            if (s_rst_controller_write_registers.simucam_reset.simucam_reset_cnt_clr = '1') then
+                s_reset_cnt <= (others => '0');
+            end if;
+
             -- check if start or stop command was received
             if (s_simucam_start = '1') then
                 s_simucam_delay <= '1';
@@ -131,14 +136,14 @@ begin
             -- check if a reset is in progress
             if (s_simucam_reset = '1') then
                 -- check if the timer is zero
-                if (s_reset_counter = std_logic_vector(to_unsigned(0, 31))) then
+                if (s_reset_counter = std_logic_vector(to_unsigned(0, s_reset_counter'length))) then
                     -- timer is zero, change state
                     -- check if the current state is a delay or reset
                     if (s_simucam_delay = '1') then
                         -- current state is a delay
                         -- go to a reset state
                         s_simucam_delay      <= '0';
-                        s_reset_counter      <= std_logic_vector(to_unsigned(45000000 - 1, 31)); -- 900 ms of delay
+                        s_reset_counter      <= std_logic_vector(to_unsigned(45000000 - 1, s_reset_counter'length)); -- 900 ms of delay
                         simucam_reset_signal <= '0';
                     else
                         -- current state is a reset

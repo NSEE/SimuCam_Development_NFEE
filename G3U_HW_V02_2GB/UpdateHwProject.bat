@@ -11,5 +11,7 @@ START cmd /c "..\FPGA_Developments\Synchronization_COMM\Development\UpdateScom10
 START cmd /c "..\FPGA_Developments\RMAP_Memory_SCOM_Area\Development\UpdateSRMe100Hw.bat
 START cmd /c "..\FPGA_Developments\Sync\Development\UpdateSyncHw.bat"
 START cmd /c "..\FPGA_Developments\Memory_Filler\Development\UpdateMfilHw.bat"
+START cmd /c "..\FPGA_Developments\RST_Controller\Development\UpdateRstControllerHw.bat"
+START cmd /c "..\FPGA_Developments\Signal_Filter_Latch\Development\UpdateSgFL100Hw.bat"
 REM Adicionar novos Hw sempre que forem criados
 REM PAUSE

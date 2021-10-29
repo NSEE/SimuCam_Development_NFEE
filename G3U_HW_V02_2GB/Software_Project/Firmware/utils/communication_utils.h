@@ -46,10 +46,11 @@ enum EventsList {
 	eEvtSsdNoSpaceLeft,         /* Event SSD NO SPACE LEFT */
 	eEvtNoImageDataForFee,      /* Event NO IMAGE DATA FOR FEE */
 	eEvtPusClientDoesNotExists, /* Event PUS CLIENT DOES NOT EXISTS */
-	eEvtCouldNotStartTcpServer  /* Event COULD NOT START TCP SERVER */
+	eEvtCouldNotStartTcpServer, /* Event COULD NOT START TCP SERVER */
+	eEventsListSize             /* Size of this ENUM list (Not an event) */
 } EEventsList;
 
-extern const alt_u8 cucEvtListData[30][4];
+extern const alt_u8 cucEvtListData[eEventsListSize][4];
 
 unsigned short int usiGetIdCMD ( void );
 short int siPosStr( char *buffer, char cValue);

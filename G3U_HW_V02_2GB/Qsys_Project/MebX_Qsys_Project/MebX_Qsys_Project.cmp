@@ -77,6 +77,8 @@
 			m2_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        -- local_cal_fail
 			m2_ddr2_oct_rdn                                             : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                             : in    std_logic                     := 'X';             -- rup
+			pio_ftdi_umft601a_module_reset_export                       : out   std_logic;                                        -- export
+			pio_iso_logic_signal_enable_export                          : out   std_logic;                                        -- export
 			rs232_uart_rxd                                              : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                              : out   std_logic;                                        -- txd
 			rst_reset_n                                                 : in    std_logic                     := 'X';             -- reset_n
@@ -180,6 +182,7 @@
 			spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        -- spw_lvds_n_strobe_out_signal
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := 'X';             -- spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := 'X';             -- spw_lvds_n_strobe_in_signal
+			sync_filtered_sig_filtered_sig_signal                       : out   std_logic;                                        -- filtered_sig_signal
 			sync_in_conduit                                             : in    std_logic                     := 'X';             -- conduit
 			sync_in_en_conduit                                          : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                            : out   std_logic;                                        -- conduit
@@ -192,6 +195,7 @@
 			sync_spw6_conduit                                           : out   std_logic;                                        -- conduit
 			sync_spw7_conduit                                           : out   std_logic;                                        -- conduit
 			sync_spw8_conduit                                           : out   std_logic;                                        -- conduit
+			sync_unfiltered_sig_unfiltered_sig_signal                   : in    std_logic                     := 'X';             -- unfiltered_sig_signal
 			temp_scl_export                                             : out   std_logic;                                        -- export
 			temp_sda_export                                             : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                              : out   std_logic;                                        -- export
