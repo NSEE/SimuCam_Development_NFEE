@@ -4,7 +4,7 @@
 
 
 # 
-# Communication_Module_v2 "Communication_Module_v2" v1.5
+# Communication_Module_v2 "Communication_Module_v2" v1.6
 #  2019.08.15.20:34:01
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME Communication_Module_v2
-set_module_property VERSION 1.5
+set_module_property VERSION 1.6
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -253,7 +253,7 @@ set_interface_property avalon_mm_config_slave CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_mm_config_slave SVD_ADDRESS_GROUP ""
 
 add_interface_port avalon_mm_config_slave avs_config_address_i address Input 8
-add_interface_port avalon_mm_config_slave avs_config_byteenable_i byteenable Input 4
+#add_interface_port avalon_mm_config_slave avs_config_byteenable_i byteenable Input 4
 add_interface_port avalon_mm_config_slave avs_config_write_i write Input 1
 add_interface_port avalon_mm_config_slave avs_config_writedata_i writedata Input 32
 add_interface_port avalon_mm_config_slave avs_config_read_i read Input 1
@@ -397,6 +397,7 @@ add_interface_port conduit_end_spacewire_controller spw_data_tx_status_txrdy_i s
 add_interface_port conduit_end_spacewire_controller spw_data_tx_status_txhalff_i spw_data_tx_status_txhalff_signal Input 1
 add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_errinj_busy_i spw_errinj_ctrl_errinj_busy_signal Input 1
 add_interface_port conduit_end_spacewire_controller spw_errinj_ctrl_errinj_ready_i spw_errinj_ctrl_errinj_ready_signal Input 1
+add_interface_port conduit_end_spacewire_controller spw_link_command_enable_o spw_link_command_enable_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_autostart_o spw_link_command_autostart_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_linkstart_o spw_link_command_linkstart_signal Output 1
 add_interface_port conduit_end_spacewire_controller spw_link_command_linkdis_o spw_link_command_linkdis_signal Output 1

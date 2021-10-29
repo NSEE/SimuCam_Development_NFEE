@@ -54,6 +54,7 @@ begin
 			spw_data_rx_status_rxdata_i         => (others => '0'),
 			spw_data_tx_status_txrdy_i          => '1',
 			spw_data_tx_status_txhalff_i        => '0',
+			spw_link_command_enable_o           => open,
 			spw_link_command_autostart_o        => open,
 			spw_link_command_linkstart_o        => open,
 			spw_link_command_linkdis_o          => open,

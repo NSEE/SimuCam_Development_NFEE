@@ -341,8 +341,8 @@ begin
 					v_rmap_target_user_state := FINISH_USER_OPERATION;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
-					-- check if a write reply was requested
-					if (codecdata_i.instructions.command.reply = '1') then
+					-- check if a write reply was requested and can be sent
+					if ((codecdata_i.instructions.command.reply = '1') and (flags_i.write_operation.write_error_end_of_package = '0')) then
 						-- write reply requested, go to send reply
 						s_rmap_target_user_state <= SEND_REPLY;
 						v_rmap_target_user_state := SEND_REPLY;

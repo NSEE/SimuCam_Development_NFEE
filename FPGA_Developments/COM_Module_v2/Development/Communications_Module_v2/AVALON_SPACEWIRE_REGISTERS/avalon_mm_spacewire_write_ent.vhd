@@ -33,6 +33,8 @@ begin
             spacewire_write_registers_o.comm_irq_control_reg.comm_global_irq_en                                         <= '0';
             -- SpaceWire Device Address Register : SpaceWire Device Base Address
             spacewire_write_registers_o.spw_dev_addr_reg.spw_dev_base_addr                                              <= (others => '0');
+            -- SpaceWire Link Config Register : SpaceWire Link Config Enable
+            spacewire_write_registers_o.spw_link_config_reg.spw_lnkcfg_enable                                           <= '0';
             -- SpaceWire Link Config Register : SpaceWire Link Config Disconnect
             spacewire_write_registers_o.spw_link_config_reg.spw_lnkcfg_disconnect                                       <= '0';
             -- SpaceWire Link Config Register : SpaceWire Link Config Linkstart
@@ -473,60 +475,66 @@ begin
                 -- end if;
 
                 when (16#03#) =>
+                    -- SpaceWire Link Config Register : SpaceWire Link Config Enable
+                    -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+                    spacewire_write_registers_o.spw_link_config_reg.spw_lnkcfg_enable <= avalon_mm_spacewire_i.writedata(0);
+                -- end if;
+
+                when (16#04#) =>
                     -- SpaceWire Link Config Register : SpaceWire Link Config Disconnect
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_link_config_reg.spw_lnkcfg_disconnect <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#04#) =>
+                when (16#05#) =>
                     -- SpaceWire Link Config Register : SpaceWire Link Config Linkstart
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_link_config_reg.spw_lnkcfg_linkstart <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#05#) =>
+                when (16#06#) =>
                     -- SpaceWire Link Config Register : SpaceWire Link Config Autostart
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_link_config_reg.spw_lnkcfg_autostart <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#06#) =>
+                when (16#07#) =>
                     -- SpaceWire Link Config Register : SpaceWire Link Config TxDivCnt
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_link_config_reg.spw_lnkcfg_txdivcnt <= avalon_mm_spacewire_i.writedata(7 downto 0);
                 -- end if;
 
-                when (16#0E#) =>
+                when (16#0F#) =>
                     -- SpaceWire Timecode Config Register : SpaceWire Timecode Clear
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_timecode_config_reg.timecode_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#0F#) =>
+                when (16#10#) =>
                     -- SpaceWire Timecode Config Register : SpaceWire Timecode Transmission Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_timecode_config_reg.timecode_trans_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#10#) =>
+                when (16#11#) =>
                     -- SpaceWire Timecode Config Register : SpaceWire Timecode Sync Trigger Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_timecode_config_reg.timecode_sync_trigger_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#11#) =>
+                when (16#12#) =>
                     -- SpaceWire Timecode Config Register : SpaceWire Timecode Time Offset
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_timecode_config_reg.timecode_time_offset <= avalon_mm_spacewire_i.writedata(5 downto 0);
                 -- end if;
 
-                when (16#12#) =>
+                when (16#13#) =>
                     -- SpaceWire Timecode Config Register : SpaceWire Timecode Sync Delay Trigger Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_timecode_config_reg.timecode_sync_delay_trigger_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#13#) =>
+                when (16#14#) =>
                     -- SpaceWire Timecode Config Register : SpaceWire Timecode Sync Delay Value
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_timecode_config_reg.timecode_sync_delay_value(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -541,7 +549,7 @@ begin
                     spacewire_write_registers_o.spw_timecode_config_reg.timecode_sync_delay_value(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#16#) =>
+                when (16#17#) =>
                     -- FEE Buffers Device Address Register : FEE Buffers Device Base Address
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_dev_addr_reg.fee_buffers_dev_base_addr(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -556,31 +564,31 @@ begin
                     spacewire_write_registers_o.fee_buffers_dev_addr_reg.fee_buffers_dev_base_addr(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#17#) =>
+                when (16#18#) =>
                     -- FEE Machine Config Register : FEE Machine Clear
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_machine_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#18#) =>
+                when (16#19#) =>
                     -- FEE Machine Config Register : FEE Machine Stop
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_machine_stop <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#19#) =>
+                when (16#1A#) =>
                     -- FEE Machine Config Register : FEE Machine Start
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_machine_start <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#1A#) =>
+                when (16#1B#) =>
                     -- FEE Machine Config Register : FEE Buffer Overflow Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_buffer_overflow_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#1B#) =>
+                when (16#1C#) =>
                     -- FEE Machine Config Register : FEE Left Pixel Storage Size
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.left_pixels_storage_size(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -595,7 +603,7 @@ begin
                     spacewire_write_registers_o.fee_machine_config_reg.left_pixels_storage_size(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#1C#) =>
+                when (16#1D#) =>
                     -- FEE Machine Config Register : FEE Right Pixel Storage Size
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.right_pixels_storage_size(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -610,43 +618,43 @@ begin
                     spacewire_write_registers_o.fee_machine_config_reg.right_pixels_storage_size(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#1D#) =>
+                when (16#1E#) =>
                     -- FEE Machine Config Register : FEE Digitalise Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_digitalise_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#1E#) =>
+                when (16#1F#) =>
                     -- FEE Machine Config Register : FEE Readout Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_readout_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#1F#) =>
+                when (16#20#) =>
                     -- FEE Machine Config Register : FEE Window List Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_window_list_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#20#) =>
+                when (16#21#) =>
                     -- FEE Machine Config Register : FEE Statistics Clear
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_machine_config_reg.fee_statistics_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#2A#) =>
+                when (16#2B#) =>
                     -- FEE Buffers Config Register : Windowing Right Buffer Size Config
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_config_reg.fee_right_buffer_size <= avalon_mm_spacewire_i.writedata(3 downto 0);
                 -- end if;
 
-                when (16#2B#) =>
+                when (16#2C#) =>
                     -- FEE Buffers Config Register : Windowing Left Buffer Size Config
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_config_reg.fee_left_buffer_size <= avalon_mm_spacewire_i.writedata(3 downto 0);
                 -- end if;
 
-                when (16#30#) =>
+                when (16#31#) =>
                     -- FEE Buffers Data Control Register : Right Initial Read Address [High Dword]
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_initial_addr_high_dword(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -661,7 +669,7 @@ begin
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_initial_addr_high_dword(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#31#) =>
+                when (16#32#) =>
                     -- FEE Buffers Data Control Register : Right Initial Read Address [Low Dword]
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_initial_addr_low_dword(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -676,7 +684,7 @@ begin
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_initial_addr_low_dword(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#32#) =>
+                when (16#33#) =>
                     -- FEE Buffers Data Control Register : Right Read Data Length [Bytes]
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_data_length_bytes(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -691,19 +699,19 @@ begin
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_data_length_bytes(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#33#) =>
+                when (16#34#) =>
                     -- FEE Buffers Data Control Register : Right Data Read Start
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_start <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#34#) =>
+                when (16#35#) =>
                     -- FEE Buffers Data Control Register : Right Data Read Reset
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.right_rd_reset <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#35#) =>
+                when (16#36#) =>
                     -- FEE Buffers Data Control Register : Left Initial Read Address [High Dword]
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_initial_addr_high_dword(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -718,7 +726,7 @@ begin
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_initial_addr_high_dword(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#36#) =>
+                when (16#37#) =>
                     -- FEE Buffers Data Control Register : Left Initial Read Address [Low Dword]
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_initial_addr_low_dword(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -733,7 +741,7 @@ begin
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_initial_addr_low_dword(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#37#) =>
+                when (16#38#) =>
                     -- FEE Buffers Data Control Register : Left Read Data Length [Bytes]
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_data_length_bytes(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -748,43 +756,43 @@ begin
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_data_length_bytes(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#38#) =>
+                when (16#39#) =>
                     -- FEE Buffers Data Control Register : Left Data Read Start
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_start <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#39#) =>
+                when (16#3A#) =>
                     -- FEE Buffers Data Control Register : Left Data Read Reset
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_data_control_reg.left_rd_reset <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#3C#) =>
+                when (16#3D#) =>
                     -- FEE Buffers IRQ Control Register : FEE Right Buffer Empty IRQ Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_irq_control_reg.fee_right_buffer_controller_finished_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#3D#) =>
+                when (16#3E#) =>
                     -- FEE Buffers IRQ Control Register : FEE Left Buffer Empty IRQ Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_irq_control_reg.fee_left_buffer_controller_finished_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#40#) =>
+                when (16#41#) =>
                     -- FEE Buffers IRQ Flags Clear Register : FEE Right Buffer 0 Empty IRQ Flag Clear
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_irq_flags_clear_reg.fee_right_buffer_controller_finished_flag_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#41#) =>
+                when (16#42#) =>
                     -- FEE Buffers IRQ Flags Clear Register : FEE Left Buffer 0 Empty IRQ Flag Clear
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.fee_buffers_irq_flags_clear_reg.fee_left_buffer_controller_finished_flag_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#43#) =>
+                when (16#44#) =>
                     -- RMAP Device Address Register : RMAP Device Base Address
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_dev_addr_reg.rmap_dev_base_addr(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -799,37 +807,37 @@ begin
                     spacewire_write_registers_o.rmap_dev_addr_reg.rmap_dev_base_addr(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#44#) =>
+                when (16#45#) =>
                     -- RMAP Echoing Mode Config Register : RMAP Echoing Mode Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_echoing_mode_config_reg.rmap_echoing_mode_enable <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#45#) =>
+                when (16#46#) =>
                     -- RMAP Echoing Mode Config Register : RMAP Echoing ID Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_echoing_mode_config_reg.rmap_echoing_id_enable <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#46#) =>
+                when (16#47#) =>
                     -- RMAP Codec Config Register : RMAP Target Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_enable <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#47#) =>
+                when (16#48#) =>
                     -- RMAP Codec Config Register : RMAP Target Logical Address
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_logical_addr <= avalon_mm_spacewire_i.writedata(7 downto 0);
                 -- end if;
 
-                when (16#48#) =>
+                when (16#49#) =>
                     -- RMAP Codec Config Register : RMAP Target Key
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_key <= avalon_mm_spacewire_i.writedata(7 downto 0);
                 -- end if;
 
-                when (16#5B#) =>
+                when (16#5C#) =>
                     -- RMAP Memory Config Register : RMAP Windowing Area Offset (High Dword)
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_memory_config_reg.rmap_win_area_offset_high_dword(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -844,7 +852,7 @@ begin
                     spacewire_write_registers_o.rmap_memory_config_reg.rmap_win_area_offset_high_dword(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#5C#) =>
+                when (16#5D#) =>
                     -- RMAP Memory Config Register : RMAP Windowing Area Offset (Low Dword)
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_memory_config_reg.rmap_win_area_offset_low_dword(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -859,7 +867,7 @@ begin
                     spacewire_write_registers_o.rmap_memory_config_reg.rmap_win_area_offset_low_dword(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#5D#) =>
+                when (16#5E#) =>
                     -- RMAP Memory Area Pointer Register : RMAP Memory Area Pointer
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -874,31 +882,31 @@ begin
                     spacewire_write_registers_o.rmap_mem_area_ptr_reg.rmap_mem_area_ptr(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#5E#) =>
+                when (16#5F#) =>
                     -- RMAP IRQ Control Register : RMAP Write Config IRQ Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_irq_control_reg.rmap_write_config_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#5F#) =>
+                when (16#60#) =>
                     -- RMAP IRQ Control Register : RMAP Write Window IRQ Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_irq_control_reg.rmap_write_window_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#62#) =>
+                when (16#63#) =>
                     -- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#63#) =>
+                when (16#64#) =>
                     -- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#65#) =>
+                when (16#66#) =>
                     -- Data Packet Device Channel Address Register : Data Packet Device Base Address
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_dev_addr_reg.data_packet_dev_base_addr(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -913,7 +921,7 @@ begin
                     spacewire_write_registers_o.data_packet_dev_addr_reg.data_packet_dev_base_addr(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#66#) =>
+                when (16#67#) =>
                     -- Data Packet Config Register : Data Packet CCD X Size
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_x_size(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -922,7 +930,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_x_size(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#67#) =>
+                when (16#68#) =>
                     -- Data Packet Config Register : Data Packet CCD Y Size
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_y_size(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -931,7 +939,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_y_size(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#68#) =>
+                when (16#69#) =>
                     -- Data Packet Config Register : Data Packet Data Y Size
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_data_y_size(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -940,7 +948,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_data_y_size(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#69#) =>
+                when (16#6A#) =>
                     -- Data Packet Config Register : Data Packet Overscan Y Size
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_overscan_y_size(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -949,7 +957,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_overscan_y_size(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#6A#) =>
+                when (16#6B#) =>
                     -- Data Packet Config Register : Data Packet CCD V-Start
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_start(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -958,7 +966,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_start(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#6B#) =>
+                when (16#6C#) =>
                     -- Data Packet Config Register : Data Packet CCD V-End
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_end(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -967,7 +975,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_v_end(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#6C#) =>
+                when (16#6D#) =>
                     -- Data Packet Config Register : Data Packet CCD Image V-End
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_v_end(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -976,7 +984,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_v_end(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#6D#) =>
+                when (16#6E#) =>
                     -- Data Packet Config Register : Data Packet CCD Overscan V-End
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_v_end(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -985,7 +993,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_v_end(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#6E#) =>
+                when (16#6F#) =>
                     -- Data Packet Config Register : Data Packet CCD H-Start
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_start(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -994,7 +1002,7 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_start(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#6F#) =>
+                when (16#70#) =>
                     -- Data Packet Config Register : Data Packet CCD H-End
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_end(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1003,19 +1011,19 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_end(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#70#) =>
+                when (16#71#) =>
                     -- Data Packet Config Register : Data Packet CCD Image Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#71#) =>
+                when (16#72#) =>
                     -- Data Packet Config Register : Data Packet CCD Overscan Enable
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_en <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#72#) =>
+                when (16#73#) =>
                     -- Data Packet Config Register : Data Packet Packet Length
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1024,37 +1032,37 @@ begin
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#73#) =>
+                when (16#74#) =>
                     -- Data Packet Config Register : Data Packet Logical Address
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_logical_addr <= avalon_mm_spacewire_i.writedata(7 downto 0);
                 -- end if;
 
-                when (16#74#) =>
+                when (16#75#) =>
                     -- Data Packet Config Register : Data Packet Protocol ID
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_protocol_id <= avalon_mm_spacewire_i.writedata(7 downto 0);
                 -- end if;
 
-                when (16#75#) =>
+                when (16#76#) =>
                     -- Data Packet Config Register : Data Packet FEE Mode
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode <= avalon_mm_spacewire_i.writedata(4 downto 0);
                 -- end if;
 
-                when (16#76#) =>
+                when (16#77#) =>
                     -- Data Packet Config Register : Data Packet CCD Number
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_number <= avalon_mm_spacewire_i.writedata(1 downto 0);
                 -- end if;
 
-                when (16#77#) =>
+                when (16#78#) =>
                     -- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#7C#) =>
+                when (16#7D#) =>
                     -- Data Packet Pixel Delay Register : Data Packet Start Delay
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_start_delay(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1069,7 +1077,7 @@ begin
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_start_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#7D#) =>
+                when (16#7E#) =>
                     -- Data Packet Pixel Delay Register : Data Packet Skip Delay
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_skip_delay(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1084,7 +1092,7 @@ begin
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_skip_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#7E#) =>
+                when (16#7F#) =>
                     -- Data Packet Pixel Delay Register : Data Packet Line Delay
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_line_delay(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1099,7 +1107,7 @@ begin
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_line_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#7F#) =>
+                when (16#80#) =>
                     -- Data Packet Pixel Delay Register : Data Packet ADC Delay
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_adc_delay(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1114,13 +1122,13 @@ begin
                     spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_adc_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#80#) =>
+                when (16#81#) =>
                     -- SpaceWire Error Injection Control Register : Enable for "EEP Received" SpaceWire Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_eep_received <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#81#) =>
+                when (16#82#) =>
                     -- SpaceWire Error Injection Control Register : Sequence Counter of SpaceWire Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_sequence_cnt(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1129,7 +1137,7 @@ begin
                     spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_sequence_cnt(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#82#) =>
+                when (16#83#) =>
                     -- SpaceWire Error Injection Control Register : Number of Times the SpaceWire Error Repeats
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_n_repeat(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1138,43 +1146,43 @@ begin
                     spacewire_write_registers_o.spw_error_injection_control_reg.spw_errinj_n_repeat(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#83#) =>
+                when (16#84#) =>
                     -- SpaceWire Codec Error Injection Control Register : Start SpaceWire Codec Error Injection
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_codec_errinj_control_reg.errinj_ctrl_start_errinj <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#84#) =>
+                when (16#85#) =>
                     -- SpaceWire Codec Error Injection Control Register : Reset SpaceWire Codec Error Injection
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_codec_errinj_control_reg.errinj_ctrl_reset_errinj <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#85#) =>
+                when (16#86#) =>
                     -- SpaceWire Codec Error Injection Control Register : SpaceWire Codec Error Injection Error Code
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.spw_codec_errinj_control_reg.errinj_ctrl_errinj_code <= avalon_mm_spacewire_i.writedata(3 downto 0);
                 -- end if;
 
-                when (16#88#) =>
+                when (16#89#) =>
                     -- RMAP Error Injection Control Register : Reset RMAP Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_error_injection_control_reg.rmap_errinj_reset <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#89#) =>
+                when (16#8A#) =>
                     -- RMAP Error Injection Control Register : Trigger RMAP Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_error_injection_control_reg.rmap_errinj_trigger <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#8A#) =>
+                when (16#8B#) =>
                     -- RMAP Error Injection Control Register : Error ID of RMAP Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_error_injection_control_reg.rmap_errinj_err_id <= avalon_mm_spacewire_i.writedata(7 downto 0);
                 -- end if;
 
-                when (16#8B#) =>
+                when (16#8C#) =>
                     -- RMAP Error Injection Control Register : Value of RMAP Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_error_injection_control_reg.rmap_errinj_value(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1189,7 +1197,7 @@ begin
                     spacewire_write_registers_o.rmap_error_injection_control_reg.rmap_errinj_value(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#8C#) =>
+                when (16#8D#) =>
                     -- RMAP Error Injection Control Register : Repetitions of RMAP Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.rmap_error_injection_control_reg.rmap_errinj_repeats(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1198,31 +1206,31 @@ begin
                     spacewire_write_registers_o.rmap_error_injection_control_reg.rmap_errinj_repeats(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#8D#) =>
+                when (16#8E#) =>
                     -- Transmission Error Injection Control Register : Enable for "Tx Disabled" Transmission Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_tx_disabled <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#8E#) =>
+                when (16#8F#) =>
                     -- Transmission Error Injection Control Register : Enable for "Missing Packets" Transmission Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_missing_pkts <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#8F#) =>
+                when (16#90#) =>
                     -- Transmission Error Injection Control Register : Enable for "Missing Data" Transmission Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_missing_data <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#90#) =>
+                when (16#91#) =>
                     -- Transmission Error Injection Control Register : Frame Number of Transmission Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_frame_num <= avalon_mm_spacewire_i.writedata(1 downto 0);
                 -- end if;
 
-                when (16#91#) =>
+                when (16#92#) =>
                     -- Transmission Error Injection Control Register : Sequence Counter of Transmission Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_sequence_cnt(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1231,7 +1239,7 @@ begin
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_sequence_cnt(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#92#) =>
+                when (16#93#) =>
                     -- Transmission Error Injection Control Register : Data Counter of Transmission Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_data_cnt(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1240,7 +1248,7 @@ begin
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_data_cnt(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#93#) =>
+                when (16#94#) =>
                     -- Transmission Error Injection Control Register : Number of Times the Transmission Error Repeats
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_n_repeat(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1249,43 +1257,43 @@ begin
                     spacewire_write_registers_o.trans_error_injection_control_reg.trans_errinj_n_repeat(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#94#) =>
+                when (16#95#) =>
                     -- Left Content Error Injection Control Register : Open the Left Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_open <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#95#) =>
+                when (16#96#) =>
                     -- Left Content Error Injection Control Register : Close the Left Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_close <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#96#) =>
+                when (16#97#) =>
                     -- Left Content Error Injection Control Register : Clear Left Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#97#) =>
+                when (16#98#) =>
                     -- Left Content Error Injection Control Register : Write to Left Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_write <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#98#) =>
+                when (16#99#) =>
                     -- Left Content Error Injection Control Register : Start Injection of Left Content Errors
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_start <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#99#) =>
+                when (16#9A#) =>
                     -- Left Content Error Injection Control Register : Stop Injection of Left Content Errors
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_stop <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#9A#) =>
+                when (16#9B#) =>
                     -- Left Content Error Injection Control Register : Start Frame of Left Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_start_frame(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1294,7 +1302,7 @@ begin
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_start_frame(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#9B#) =>
+                when (16#9C#) =>
                     -- Left Content Error Injection Control Register : Stop Frame of Left Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_stop_frame(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1303,7 +1311,7 @@ begin
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_stop_frame(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#9C#) =>
+                when (16#9D#) =>
                     -- Left Content Error Injection Control Register : Pixel Column (x-position) of Left Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_pixel_col(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1312,7 +1320,7 @@ begin
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_pixel_col(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#9D#) =>
+                when (16#9E#) =>
                     -- Left Content Error Injection Control Register : Pixel Row (y-position) of Left Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_pixel_row(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1321,7 +1329,7 @@ begin
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_pixel_row(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#9E#) =>
+                when (16#9F#) =>
                     -- Left Content Error Injection Control Register : Pixel Value of Left Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_pixel_value(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1330,43 +1338,43 @@ begin
                     spacewire_write_registers_o.left_content_error_injection_control_reg.left_content_errinj_pixel_value(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#A3#) =>
+                when (16#A4#) =>
                     -- Right Content Error Injection Control Register : Open the Right Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_open <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#A4#) =>
+                when (16#A5#) =>
                     -- Right Content Error Injection Control Register : Close the Right Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_close <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#A5#) =>
+                when (16#A6#) =>
                     -- Right Content Error Injection Control Register : Clear Right Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#A6#) =>
+                when (16#A7#) =>
                     -- Right Content Error Injection Control Register : Write to Right Content Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_write <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#A7#) =>
+                when (16#A8#) =>
                     -- Right Content Error Injection Control Register : Start Injection of Right Content Errors
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_start <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#A8#) =>
+                when (16#A9#) =>
                     -- Right Content Error Injection Control Register : Stop Injection of Right Content Errors
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_stop <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#A9#) =>
+                when (16#AA#) =>
                     -- Right Content Error Injection Control Register : Start Frame of Right Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_start_frame(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1375,7 +1383,7 @@ begin
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_start_frame(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#AA#) =>
+                when (16#AB#) =>
                     -- Right Content Error Injection Control Register : Stop Frame of Right Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1384,7 +1392,7 @@ begin
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_stop_frame(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#AB#) =>
+                when (16#AC#) =>
                     -- Right Content Error Injection Control Register : Pixel Column (x-position) of Right Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1393,7 +1401,7 @@ begin
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_pixel_col(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#AC#) =>
+                when (16#AD#) =>
                     -- Right Content Error Injection Control Register : Pixel Row (y-position) of Right Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1402,7 +1410,7 @@ begin
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_pixel_row(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#AD#) =>
+                when (16#AE#) =>
                     -- Right Content Error Injection Control Register : Pixel Value of Right Content Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1411,49 +1419,49 @@ begin
                     spacewire_write_registers_o.right_content_error_injection_control_reg.right_content_errinj_pixel_value(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#B2#) =>
+                when (16#B3#) =>
                     -- Header Error Injection Control Register : Open the Header Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_open <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#B3#) =>
+                when (16#B4#) =>
                     -- Header Error Injection Control Register : Close the Header Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_close <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#B4#) =>
+                when (16#B5#) =>
                     -- Header Error Injection Control Register : Clear Header Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_clear <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#B5#) =>
+                when (16#B6#) =>
                     -- Header Error Injection Control Register : Write to Header Error List
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_write <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#B6#) =>
+                when (16#B7#) =>
                     -- Header Error Injection Control Register : Start Injection of Header Errors
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_start <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#B7#) =>
+                when (16#B8#) =>
                     -- Header Error Injection Control Register : Stop Injection of Header Errors
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_stop <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#B8#) =>
+                when (16#B9#) =>
                     -- Header Error Injection Control Register : Frame Number of Header Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_frame_num <= avalon_mm_spacewire_i.writedata(1 downto 0);
                 -- end if;
 
-                when (16#B9#) =>
+                when (16#BA#) =>
                     -- Header Error Injection Control Register : Sequence Counter of Header Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_sequence_cnt(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1462,13 +1470,13 @@ begin
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_sequence_cnt(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#BA#) =>
+                when (16#BB#) =>
                     -- Header Error Injection Control Register : Field ID of Header Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_field_id <= avalon_mm_spacewire_i.writedata(3 downto 0);
                 -- end if;
 
-                when (16#BB#) =>
+                when (16#BC#) =>
                     -- Header Error Injection Control Register : Value of Header Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_value(7 downto 0)  <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1477,7 +1485,7 @@ begin
                     spacewire_write_registers_o.header_error_injection_control_reg.header_errinj_value(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
                 -- end if;
 
-                when (16#C0#) =>
+                when (16#C1#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 15
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_15(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1492,7 +1500,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_15(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C1#) =>
+                when (16#C2#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 14
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_14(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1507,7 +1515,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_14(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C2#) =>
+                when (16#C3#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 13
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_13(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1522,7 +1530,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_13(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C3#) =>
+                when (16#C4#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 12
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_12(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1537,7 +1545,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_12(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C4#) =>
+                when (16#C5#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 11
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_11(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1552,7 +1560,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_11(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C5#) =>
+                when (16#C6#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 10
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_10(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1567,7 +1575,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_10(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C6#) =>
+                when (16#C7#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 9
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_9(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1582,7 +1590,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_9(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C7#) =>
+                when (16#C8#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 8
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_8(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1597,7 +1605,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_8(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C8#) =>
+                when (16#C9#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 7
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_7(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1612,7 +1620,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_7(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#C9#) =>
+                when (16#CA#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 6
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_6(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1627,7 +1635,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_6(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#CA#) =>
+                when (16#CB#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 5
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_5(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1642,7 +1650,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_5(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#CB#) =>
+                when (16#CC#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 4
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_4(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1657,7 +1665,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_4(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#CC#) =>
+                when (16#CD#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 3
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_3(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1672,7 +1680,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_3(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#CD#) =>
+                when (16#CE#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 2
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_2(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1687,7 +1695,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_2(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#CE#) =>
+                when (16#CF#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 1
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_1(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1702,7 +1710,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_1(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#CF#) =>
+                when (16#D0#) =>
                     -- Windowing Parameters Register : Windowing Packet Order List Dword 0
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_0(7 downto 0)   <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1717,7 +1725,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_0(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#D0#) =>
+                when (16#D1#) =>
                     -- Windowing Parameters Register : Windowing Last E Packet
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_last_e_packet(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1726,7 +1734,7 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_last_e_packet(9 downto 8) <= avalon_mm_spacewire_i.writedata(9 downto 8);
                 -- end if;
 
-                when (16#D1#) =>
+                when (16#D2#) =>
                     -- Windowing Parameters Register : Windowing Last F Packet
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_last_f_packet(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1735,13 +1743,13 @@ begin
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_last_f_packet(9 downto 8) <= avalon_mm_spacewire_i.writedata(9 downto 8);
                 -- end if;
 
-                when (16#D2#) =>
+                when (16#D3#) =>
                     -- Windowing Parameters Register : Windowing X-Coordinate Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_x_coordinate_error <= avalon_mm_spacewire_i.writedata(0);
                 -- end if;
 
-                when (16#D3#) =>
+                when (16#D4#) =>
                     -- Windowing Parameters Register : Windowing Y-Coordinate Error
                     -- if (avalon_mm_spacewire_i.byteenable(0) = '1') then
                     spacewire_write_registers_o.windowing_parameters_reg.windowing_y_coordinate_error <= avalon_mm_spacewire_i.writedata(0);

@@ -1,19 +1,6 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development2/FPGA_Developments/RMAP_Echoing/Development/Testbench/RMAP_Echoing_tb.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development4/FPGA_Developments/RMAP_Echoing/Development/Testbench/RMAP_Echoing_tb.mpf
 # Loading project RMAP_Echoing_tb
-# Compile of rmpe_rmap_echoing_pkg.vhd was successful.
-# Compile of rmap_data_sc_fifo.vhd was successful.
-# Compile of spacewire_data_sc_fifo.vhd was successful.
-# Compile of rmpe_rmap_echo_controller_ent.vhd was successful.
-# Compile of rmpe_rmap_echo_transmitter_ent.vhd was successful.
-# Compile of rmpe_rmap_echoing_top.vhd failed with 25 errors.
-# Compile of rmap_fifo_stimuli.vhd was successful.
-# Compile of testbench_top.vhd failed with 49 errors.
-# 8 compiles, 2 failed with 74 errors.
-# Compile of rmpe_rmap_echoing_top.vhd was successful.
-# Compile of testbench_top.vhd failed with 49 errors.
-# 2 compiles, 1 failed with 49 errors.
-# Compile of testbench_top.vhd was successful.
 # Compile of rmpe_rmap_echoing_pkg.vhd was successful.
 # Compile of rmap_data_sc_fifo.vhd was successful.
 # Compile of spacewire_data_sc_fifo.vhd was successful.

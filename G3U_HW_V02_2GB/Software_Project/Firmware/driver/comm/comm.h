@@ -74,6 +74,7 @@ typedef struct SpwcDevAddr {
 
 /* SpaceWire Link Config Register Struct */
 typedef struct SpwcLinkConfig {
+	bool bEnable; /* SpaceWire Link Config Enable */
 	bool bDisconnect; /* SpaceWire Link Config Disconnect */
 	bool bLinkStart; /* SpaceWire Link Config Linkstart */
 	bool bAutostart; /* SpaceWire Link Config Autostart */

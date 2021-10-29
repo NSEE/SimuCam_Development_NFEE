@@ -50,6 +50,7 @@ void vScomInit(void){
 
 	vpxScomChannel->xSScomChannel.uliDevBaseAddr           = (alt_u32)(SCOM_BASE_ADDR);
 	vpxScomChannel->xSSpwcDevAddr.uliSpwcBaseAddr          = (alt_u32)(SCOM_BASE_ADDR);
+	vpxScomChannel->xSSpwcLinkConfig.bEnable               = TRUE;
 	vpxScomChannel->xSSpwcLinkConfig.bDisconnect           = FALSE;
 	vpxScomChannel->xSSpwcLinkConfig.bLinkStart            = FALSE;
 	vpxScomChannel->xSSpwcLinkConfig.bAutostart            = TRUE;
