@@ -44,6 +44,9 @@ bool bDisableIsoDrivers(void);
 bool bEnableLvdsBoard(void);
 bool bDisableLvdsBoard(void);
 bool bSetPreEmphasys(alt_u8 ucPemLevel);
+
+bool bEnableIsoLogic(void);
+bool bDisableIsoLogic(void);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

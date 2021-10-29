@@ -306,6 +306,8 @@ alt_u8 ucFtdiGetTxErrorCode(void);
 alt_u16 usiFtdiRxBufferUsedBytes(void);
 alt_u16 usiFtdiTxBufferUsedBytes(void);
 
+void vFtdiResetModule(alt_u32 uliWaitTimeUs);
+
 void vFtdiStopModule(void);
 void vFtdiStartModule(void);
 void vFtdiClearModule(void);
