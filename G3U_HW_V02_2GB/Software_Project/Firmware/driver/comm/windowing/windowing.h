@@ -18,7 +18,7 @@
 #define COMM_WINDOING_PARAMETERS_OFST   512 /* Offset for all windowing related parameters (packet order list, etc.) */
 #define COMM_WINDOING_RMAP_AREA_SIZE    0x00800000
 #define COMM_WINDOING_RMAP_AREA_OFST    0x00800000
-#define COMM_WIN_LIST_NFEE_CCD_MAX      44123
+#define COMM_WIN_LIST_NFEE_CCD_MAX      45186
 // bit masks
 //! [constants definition]
 
