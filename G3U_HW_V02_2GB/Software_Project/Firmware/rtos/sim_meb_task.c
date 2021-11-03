@@ -578,6 +578,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Wait some time for the NUC to finish reseting */
 			OSTimeDlyHMSM(0,0,3,0);
+			
+			/* Clear the Reset Counter */
+			vRstcClearResetCounter();
 
 			/* Reset the SimuCam */
 			vRstcHoldSimucamReset(0);
