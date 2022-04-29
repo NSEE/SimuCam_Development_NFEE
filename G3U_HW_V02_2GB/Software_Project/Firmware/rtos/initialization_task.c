@@ -305,6 +305,13 @@ void vInitialTask(void *task_data)
 	vChangeSyncSource(&xSimMeb, xDefaults.ucSyncSource);
 	vChangeEPValue(&xSimMeb, xDefaults.usiExposurePeriod);
 
+	/* Update all default configurations */
+	xDefaults = vxDeftMebDefaults.xGenSimulationParams;
+	for (ucFee = 0; ucFee < N_OF_NFEE; ucFee++) {
+		xConfSpw[ucFee] = vxDeftFeeDefaults[ucFee].xSpwInterfaceParams;
+	}
+	xConfEth  = vxDeftNucDefaults.xEthInterfaceParams;
+
 #if DEBUG_ON
 //		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {

@@ -27,6 +27,8 @@ void vParserCommTask(void *task_data) {
 	alt_u16 usiDefaultId    = 0;
 	alt_u32 uliDefaultValue = 0;
 
+	alt_u32 uliDumpValue = 0;
+
     #if DEBUG_ON
 		if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 			fprintf(fp,"Parser Comm Task. (Task on)\n");
@@ -208,220 +210,220 @@ void vParserCommTask(void *task_data) {
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
-							/* TC_SCAMxx_RMAP_CONF_DUMP */
-							case 34:
-								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
-									tTMPus xTmPusL;
-									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPid;
-									xTmPusL.usiCat = xTcPusL.usiCat;
-									xTmPusL.usiType = 250;
-									xTmPusL.usiSubType = 35;
-									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiChargeInjectionWidth;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiChargeInjectionGap;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelToiPeriod;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelClkOverlap;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiNFinalDump;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bTriLevelClkEn;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bImgClkDir;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bRegClkDir;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiIntSyncPeriod;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bSyncSel;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucSensorSel;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDGEn;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucConvDly;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bHighPrecisionHkEn;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1WinListLength;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeX;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeY;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg8ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2WinListLength;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeX;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeY;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg11ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3WinListLength;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeX;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeY;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg14ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4WinListLength;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeX;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeY;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg17ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdVodConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1VrdConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2VrdConfig0;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2VrdConfig1;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3VrdConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4VrdConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdVgdConfig0;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdVgdConfig1;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdVogConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdIgHiConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdIgLoConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucTrkHldHi;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucTrkHldLo;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg21ConfigReserved0;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg21ConfigReserved1;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucRCfg1;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucRCfg2;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCdsclpLo;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliReg22ConfigReserved >> 16;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliReg22ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastEPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastFPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastEPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg23ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastFPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastEPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastFPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg24ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastEPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastFPacket;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiSurfaceInversionCounter;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg25ConfigReserved;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiReadoutPauseCounter;
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
-									xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
-									// Change to R3
-									//bSendMessagePUStoMebTask(&xTcPusL);
-								} else {
-									#if DEBUG_ON
-									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
-										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
-									#endif
-								}
-								break;
+//							/* TC_SCAMxx_RMAP_CONF_DUMP */
+//							case 34:
+//								usiFeeInstL = PreParsedLocal.usiValues[6];
+//								if ( usiFeeInstL <= N_OF_NFEE ) {
+//									tTMPus xTmPusL;
+//									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//									xTmPusL.usiPusId = xTcPusL.usiPusId;
+//									xTmPusL.usiPid = xTcPusL.usiPid;
+//									xTmPusL.usiCat = xTcPusL.usiCat;
+//									xTmPusL.usiType = 250;
+//									xTmPusL.usiSubType = 35;
+//									xTmPusL.ucNofValues = 0;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiChargeInjectionWidth;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiChargeInjectionGap;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelToiPeriod;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiParallelClkOverlap;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder1stCcd;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder2ndCcd;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder3rdCcd;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdReadoutOrder4thCcd;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiNFinalDump;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bChargeInjectionEn;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bTriLevelClkEn;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bImgClkDir;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bRegClkDir;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiIntSyncPeriod;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliTrapPumpingDwellCounter;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bSyncSel;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucSensorSel;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDigitiseEn;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bDGEn;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bCcdReadEn;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucConvDly;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bHighPrecisionHkEn;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1WinListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd1PktorderListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1WinListLength;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeX;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd1WinSizeY;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg8ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2WinListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd2PktorderListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2WinListLength;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeX;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2WinSizeY;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg11ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3WinListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd3PktorderListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3WinListLength;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeX;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd3WinSizeY;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg14ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4WinListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliCcd4PktorderListPtr;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4WinListLength;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeX;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd4WinSizeY;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg17ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdVodConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1VrdConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2VrdConfig0;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcd2VrdConfig1;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3VrdConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4VrdConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdVgdConfig0;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdVgdConfig1;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdVogConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdIgHiConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcdIgLoConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucTrkHldHi;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucTrkHldLo;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg21ConfigReserved0;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCcdModeConfig;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg21ConfigReserved1;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucRCfg1;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucRCfg2;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucCdsclpLo;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliReg22ConfigReserved >> 16;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.uliReg22ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastEPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd1LastFPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastEPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg23ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd2LastFPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastEPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd3LastFPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg24ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastEPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiCcd4LastFPacket;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiSurfaceInversionCounter;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.ucReg25ConfigReserved;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiReadoutPauseCounter;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
+//									xTmPusL.ucNofValues++;
+//									vSendPusTM512(xTmPusL);
+//									// Change to R3
+//									//bSendMessagePUStoMebTask(&xTcPusL);
+//								} else {
+//									#if DEBUG_ON
+//									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
+//										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+//									#endif
+//								}
+//								break;
 							case 36:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								if ( usiFeeInstL <= N_OF_NFEE ) {
@@ -586,6 +588,81 @@ void vParserCommTask(void *task_data) {
 									#endif
 								}
 								break;
+
+							/* TC_SCAMxx_CONFIG_DUMP */
+							case 54:
+								xTmPusL.usiPusId   = xTcPusL.usiPusId;
+								xTmPusL.usiPid     = xTcPusL.usiPid;
+								xTmPusL.usiCat     = xTcPusL.usiCat;
+								xTmPusL.usiType    = 250;
+								xTmPusL.usiSubType = 55; /* TM_SCAMxx_CONFIG_DUMP */
+
+								/* Get Config Dump Value */
+								uliDumpValue = 0;
+								if (bDeftGetConfigValues(PreParsedLocal.usiValues[6], PreParsedLocal.usiValues[7], &uliDumpValue, &xSimMeb.xFeeControl)) {
+									/* Set Config Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[6];  /* Config Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[7];  /* Config Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue >> 16;           /* Config Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue;                 /* Config Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								} else {
+									/* Set Failure Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0x00FF;  /* Config Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Config Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Config Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Config Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								}
+
+								vSendPusTM128(xTmPusL);
+								break;
+
+							/* TC_SCAMxx_DEFAULT_DUMP */
+							case 56:
+								xTmPusL.usiPusId   = xTcPusL.usiPusId;
+								xTmPusL.usiPid     = xTcPusL.usiPid;
+								xTmPusL.usiCat     = xTcPusL.usiCat;
+								xTmPusL.usiType    = 250;
+								xTmPusL.usiSubType = 57; /* TM_SCAMxx_DEFAULT_DUMP */
+
+								/* Get Default Dump Value */
+								uliDumpValue = 0;
+								if (bDeftGetDefaultValues(PreParsedLocal.usiValues[6], PreParsedLocal.usiValues[7], &uliDumpValue)) {
+									/* Set Default Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[6];  /* Default Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[7];  /* Default Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue >> 16;           /* Default Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue;                 /* Default Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								} else {
+									/* Set Failure Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0x00FF;  /* Default Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Default Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Default Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Default Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								}
+
+								vSendPusTM128(xTmPusL);
+								break;
+
 							case 62: /* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */

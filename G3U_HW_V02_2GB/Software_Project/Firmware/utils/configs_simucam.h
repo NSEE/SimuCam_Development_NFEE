@@ -34,11 +34,12 @@ typedef struct EthInterfaceParams{
 
 typedef struct Globals{
 	bool bSyncReset;
-	bool bNormal;			/*Indicates if it is a normal or Fast FEE. Normal=1; Fast=0*/
-	volatile bool bPreMaster;		/*Indicates if is the pre-master sync cycle*/
-	volatile bool bDTCFinished;		/*Indicates if the DTC finishes to update the memory*/
-	volatile bool bJustBeforSync;	/*Indicates if is in the period that is between The Before Sync Signal and the Sync Interrupt Signal*/
-	unsigned char ucEP0_3;	/*Indicate which sequence are 0, 1, 2, 3 => 0: Master Sync*/
+	bool bNormal;                 /*Indicates if it is a normal or Fast FEE. Normal=1; Fast=0*/
+	volatile bool bPreMaster;     /*Indicates if is the pre-master sync cycle*/
+	volatile bool bDTCFinished;	  /*Indicates if the DTC finishes to update the memory*/
+	volatile bool bJustBeforSync; /*Indicates if is in the period that is between The Before Sync Signal and the Sync Interrupt Signal*/
+	unsigned char ucEP0_3;        /*Indicate which sequence are 0, 1, 2, 3 => 0: Master Sync*/
+	alt_u8 ucCurrentIp[4];        /* Current SimuCam IP */
 }TGlobal;
 
 typedef struct GenSimulationParams{
