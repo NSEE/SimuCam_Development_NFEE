@@ -102,10 +102,12 @@ void vSimMebTask(void *task_data) {
 					/* Give time to all tasks receive the command */
 					//OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
 
-					/* Clear the timecode of the channel SPW (for now is for spw channel) */
+					/* Clear the timecode and statistics of the channel SPW (for now is for spw channel) */
 					for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
 						bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
 						pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+						pxMebC->xFeeControl.xNfee[ucIL].xChannel.xFeeBuffer.xFeebMachineControl.bStatisticsClear = TRUE;
+						pxMebC->xFeeControl.xNfee[ucIL].xChannel.xFeeBuffer.xFeebMachineControl.bStatisticsClear = FALSE;
 					}
 					/* Reset the Synchronization Provider Timecode - [rfranca] */
 					vScomClearTimecode();

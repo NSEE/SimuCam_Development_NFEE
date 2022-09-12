@@ -21,12 +21,15 @@
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
 #endif
 
+/* HW and FW release version */
+#define SIMUCAM_RELEASE                 "L6"
+#define SIMUCAM_HW_VERSION              "0.8"
+#define SIMUCAM_FW_VERSION              "0.2"
 
 #define N_OF_NFEE       6	/* ONLY for tests */
-#define N_OF_FastFEE    2
+#define N_OF_FastFEE    1
 
 #define N_SEC_WAIT_SHUTDOWN 15   /*In seconds*/
-
 
 #define DATA_PACKET		TRUE	/* Using data packet or Transparent mode ( 0 ) */
 #define TRANSPARENT		FALSE
@@ -64,8 +67,6 @@ typedef enum { dlFullMessage  = 0, dlCustom0, dlMinorMessage, dlCustom1, dlMajor
 #include "driver/seven_seg/seven_seg.h"
 /*---------------------------------*/
 
-
-
 /* Variable that will carry the debug JTAG device file descriptor*/
 #if DEBUG_ON
     extern FILE* fp;
@@ -74,8 +75,5 @@ typedef enum { dlFullMessage  = 0, dlCustom0, dlMinorMessage, dlCustom1, dlMajor
 #define min_sim( x , y ) ((x < y) ? x : y)
 
 #include <altera_avalon_uart.h>
-
-
-
 
 #endif /* SIMUCAM_DEFINITIONS_H_ */
