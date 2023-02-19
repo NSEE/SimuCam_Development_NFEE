@@ -1328,8 +1328,8 @@ void vParserCommTask(void *task_data) {
 										uiCLT = (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd - xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart) + 1;
 										uiRTCal = ((xDefaults.ulStartDelay * 1000000)  + uiCLT * xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth * xDefaults.ulADCPixelDelay + uiCLT * xDefaults.ulLineDelay + 
 										((xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHeight + xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiOLN ) - uiCLT) * xDefaults.ulSkipDelay);
-										uiRTinMilliSeconds = (uiRTCal / 1000);
 									}
+									uiRTinMilliSeconds = (uiRTCal / 1000);
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */

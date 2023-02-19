@@ -917,6 +917,9 @@ bool bDeftGetMebDefaultValues(alt_u16 usiDefaultId, alt_u32 *puliDefaultValue, a
 		case eDeftFeeConfigOpTypeId:
 			pxMebGenSimulationParams = &(xDefaults);
 			break;
+		default:
+			pxMebGenSimulationParams = (TGenSimulationParams *)(&(vxDeftMebDefaults.xGenSimulationParams));
+			break;
 	}
 
 	switch (usiDefaultId) {
@@ -1002,6 +1005,11 @@ bool bDeftGetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 *puliD
 			pxFeeRmapMemAreaConfig  = &(pxNFeeCtrl->xNfee[ucFee].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig);
 			pxFeeRmapMemAreaHk      = &(pxNFeeCtrl->xNfee[ucFee].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk);
 			pxFeeSpwInterfaceParams = &(xConfSpw[ucFee]);
+			break;
+		default:
+			pxFeeRmapMemAreaConfig  = (TRmapMemAreaConfig * )(&(vxDeftFeeDefaults[ucFee].xRmapMemAreaConfig));
+			pxFeeRmapMemAreaHk      = (TRmapMemAreaHk *     )(&(vxDeftFeeDefaults[ucFee].xRmapMemAreaHk));
+			pxFeeSpwInterfaceParams = (TSpwInterfaceParams *)(&(vxDeftFeeDefaults[ucFee].xSpwInterfaceParams));
 			break;
 	}
 
@@ -1686,6 +1694,9 @@ bool bDeftGetNucDefaultValues(alt_u16 usiDefaultId, alt_u32 *puliDefaultValue, a
 			break;
 		case eDeftFeeConfigOpTypeId:
 			pxNucEthInterfaceParams = &(xConfEth);
+			break;
+		default:
+			pxNucEthInterfaceParams = (TEthInterfaceParams *)(&(vxDeftNucDefaults.xEthInterfaceParams));
 			break;
 	}
 

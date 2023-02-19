@@ -94,6 +94,7 @@ bool bMfilDmaTransfer(alt_u8 ucDdrMemId, alt_u32 *uliDdrInitialAddr, alt_u32 uli
 		bMemoryFlag = TRUE;
 		break;
 	default:
+		unMemoryAddress.ulliMemAddr64b = 0;
 		bMemoryFlag = FALSE;
 		break;
 	}

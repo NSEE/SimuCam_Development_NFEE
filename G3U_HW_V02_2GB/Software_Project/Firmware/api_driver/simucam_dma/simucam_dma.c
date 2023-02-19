@@ -173,6 +173,7 @@ bool bSdmaCommDmaTransfer(alt_u8 ucDdrMemId, alt_u32 *uliDdrInitialAddr, alt_u32
 		bMemoryFlag = TRUE;
 		break;
 	default:
+		unMemoryAddress.ulliMemAddr64b = 0;
 		bMemoryFlag = FALSE;
 		break;
 	}
@@ -294,6 +295,7 @@ bool bSdmaFtdiDmaTransfer(alt_u8 ucDdrMemId, alt_u32 *uliDdrInitialAddr, alt_u32
 		bMemoryFlag = TRUE;
 		break;
 	default:
+		unMemoryAddress.ulliMemAddr64b = 0;
 		bMemoryFlag = FALSE;
 		break;
 	}

@@ -434,8 +434,8 @@ begin
 							-- check if the data need to be transmitted
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then
 								-- data need to be transmitted
-								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
-								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
+                                -- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted) or the ccd is in overcan area
+                                if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1')) or (s_image_area = '0')) then
 									-- windowing disabled or is enabled and pixel is transmitted
 									-- check if the masking fifo is writeable
 									if (s_masking_fifo_wrable = '1') then
@@ -507,8 +507,8 @@ begin
 							-- check if the data need to be transmitted
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then
 								-- data need to be transmitted
-								-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
-								if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1'))) then
+                                -- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted) or the ccd is in overcan area
+                                if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask = '1')) or (s_image_area = '0')) then
 									s_masking_fifo.wrreq <= '1';
 									-- increment the pixels sent counter
 									s_pixels_sent_cnt    <= s_pixels_sent_cnt + 1;
@@ -747,13 +747,13 @@ begin
 	s_masking_fifo.sclr <= ('1') when (rst_i = '1') else (fee_clear_signal_i);
 
 	-- masking fifo almost empty signal
-	masking_buffer_almost_empty_o <= ('0') when (rst_i = '1')
-	                                 else ('1') when (s_masking_fifo.usedw = std_logic_vector(to_unsigned(1, s_masking_fifo.usedw'length)))
-	                                 else ('0');
+    masking_buffer_almost_empty_o <= ('0') when (rst_i = '1') else
+                                     ('1') when (s_masking_fifo.usedw = std_logic_vector(to_unsigned(1, s_masking_fifo.usedw'length))) else
+                                     ('0');
 
 	-- masking fifo wrready signal
-	s_masking_fifo_wrable <= ('0') when (rst_i = '1')
-	                         else ('1') when (s_masking_fifo.usedw((s_masking_fifo.usedw'length - 1) downto (s_masking_fifo.usedw'length - c_MASKING_FIFO_WRREADY_VALUE'length)) /= c_MASKING_FIFO_WRREADY_VALUE)
-	                         else ('0');
+    s_masking_fifo_wrable <= ('0') when (rst_i = '1') else
+                             ('1') when (s_masking_fifo.usedw((s_masking_fifo.usedw'length - 1) downto (s_masking_fifo.usedw'length - c_MASKING_FIFO_WRREADY_VALUE'length)) /= c_MASKING_FIFO_WRREADY_VALUE) else
+                             ('0');
 
 end architecture RTL;
