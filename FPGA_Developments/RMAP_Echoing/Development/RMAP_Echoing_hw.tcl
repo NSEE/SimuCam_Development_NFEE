@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Echoing "RMAP_Echoing" v1.3
+# RMAP_Echoing "RMAP_Echoing" v1.4
 # rfranca 2019.12.21.00:27:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME RMAP_Echoing
-set_module_property VERSION 1.3
+set_module_property VERSION 1.4
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca
@@ -81,6 +81,21 @@ set_interface_property reset_sink CMSIS_SVD_VARIABLES ""
 set_interface_property reset_sink SVD_ADDRESS_GROUP ""
 
 add_interface_port reset_sink reset_i reset Input 1
+
+
+# 
+# connection point echo_rst_sink
+# 
+add_interface echo_rst_sink reset end
+set_interface_property echo_rst_sink associatedClock clock_sink_100mhz
+set_interface_property echo_rst_sink synchronousEdges DEASSERT
+set_interface_property echo_rst_sink ENABLED true
+set_interface_property echo_rst_sink EXPORT_OF ""
+set_interface_property echo_rst_sink PORT_NAME_MAP ""
+set_interface_property echo_rst_sink CMSIS_SVD_VARIABLES ""
+set_interface_property echo_rst_sink SVD_ADDRESS_GROUP ""
+
+add_interface_port echo_rst_sink echo_rst_i reset Input 1
 
 
 # 

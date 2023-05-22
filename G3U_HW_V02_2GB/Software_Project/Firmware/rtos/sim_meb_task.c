@@ -57,10 +57,14 @@ void vSimMebTask(void *task_data) {
 
 			case sMebToRun:
 
+				/* Enable the Isolation and LVDS driver boards*/
 				bEnableIsoDrivers();
 				bEnableLvdsBoard();
 				usleep(100000);
 				bEnableIsoLogic();
+
+				/* Reset RMAP Echoing */
+				vRmapResetEchoingModule(100000);
 
 				pxMebC->ucActualDDR = 1;
 				pxMebC->ucNextDDR = 0;

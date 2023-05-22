@@ -23,7 +23,7 @@
 
 /* HW and FW release version */
 #define SIMUCAM_RELEASE                 "L6"
-#define SIMUCAM_HW_VERSION              "0.9"
+#define SIMUCAM_HW_VERSION              "0.10"
 #define SIMUCAM_FW_VERSION              "0.0"
 
 #define N_OF_NFEE       6	/* ONLY for tests */

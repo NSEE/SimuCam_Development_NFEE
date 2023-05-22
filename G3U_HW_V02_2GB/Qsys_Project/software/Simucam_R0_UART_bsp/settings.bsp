@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Feb 2, 2023 5:10:05 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1675321805695</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Apr 9, 2023 9:15:31 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1681085731823</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1915,6 +1915,12 @@
         <MemoryMap>
                 <slaveDescriptor>pio_iso_logic_signal_enable</slaveDescriptor>
                 <addressRange>0x80000B10 - 0x80000B1F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>pio_rmap_echoing_module_reset</slaveDescriptor>
+                <addressRange>0x80000C00 - 0x80000C0F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>

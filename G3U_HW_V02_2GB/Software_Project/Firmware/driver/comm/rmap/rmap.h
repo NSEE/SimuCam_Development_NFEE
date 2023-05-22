@@ -120,6 +120,8 @@ bool bRmapGetRmapMemHkArea(TRmapChannel *pxRmapCh);
 bool bRmapSetEchoingMode(TRmapChannel *pxRmapCh);
 bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh);
 
+void vRmapResetEchoingModule(alt_u32 uliWaitTimeUs);
+
 bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh);
 
 alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);

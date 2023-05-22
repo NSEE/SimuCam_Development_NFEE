@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Tue Jan 31 01:41:06 BRST 2023
+ * Generated: Sun Apr 09 21:15:32 BRT 2023
  */
 
 /*
@@ -905,6 +905,33 @@
 
 
 /*
+ * pio_rmap_echoing_module_reset configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_pio_rmap_echoing_module_reset altera_avalon_pio
+#define PIO_RMAP_ECHOING_MODULE_RESET_BASE 0x80000c00
+#define PIO_RMAP_ECHOING_MODULE_RESET_BIT_CLEARING_EDGE_REGISTER 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_CAPTURE 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_DATA_WIDTH 1
+#define PIO_RMAP_ECHOING_MODULE_RESET_DO_TEST_BENCH_WIRING 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_DRIVEN_SIM_VALUE 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_EDGE_TYPE "NONE"
+#define PIO_RMAP_ECHOING_MODULE_RESET_FREQ 50000000
+#define PIO_RMAP_ECHOING_MODULE_RESET_HAS_IN 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_HAS_OUT 1
+#define PIO_RMAP_ECHOING_MODULE_RESET_HAS_TRI 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_IRQ -1
+#define PIO_RMAP_ECHOING_MODULE_RESET_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define PIO_RMAP_ECHOING_MODULE_RESET_IRQ_TYPE "NONE"
+#define PIO_RMAP_ECHOING_MODULE_RESET_NAME "/dev/pio_rmap_echoing_module_reset"
+#define PIO_RMAP_ECHOING_MODULE_RESET_RESET_VALUE 0
+#define PIO_RMAP_ECHOING_MODULE_RESET_SPAN 16
+#define PIO_RMAP_ECHOING_MODULE_RESET_TYPE "altera_avalon_pio"
+
+
+/*
  * rmap_mem_nfee_comm_1 configuration
  *
  */
@@ -1094,7 +1121,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1635423393
+#define SYSID_QSYS_TIMESTAMP 1681054324
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

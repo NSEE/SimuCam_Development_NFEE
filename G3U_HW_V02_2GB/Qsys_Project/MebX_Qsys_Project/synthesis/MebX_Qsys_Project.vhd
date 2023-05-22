@@ -8,223 +8,225 @@ use IEEE.numeric_std.all;
 
 entity MebX_Qsys_Project is
 	port (
-		button_export                                               : in    std_logic_vector(3 downto 0)  := (others => '0'); --                               button.export
-		clk50_clk                                                   : in    std_logic                     := '0';             --                                clk50.clk
-		comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_1_measurements.measurements_signal
-		comm_1_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_1_sync.sync_signal
-		comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_2_measurements.measurements_signal
-		comm_2_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_2_sync.sync_signal
-		comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_3_measurements.measurements_signal
-		comm_3_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_3_sync.sync_signal
-		comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_4_measurements.measurements_signal
-		comm_4_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_4_sync.sync_signal
-		comm_5_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_5_measurements.measurements_signal
-		comm_5_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_5_sync.sync_signal
-		comm_6_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                  comm_6_measurements.measurements_signal
-		comm_6_sync_sync_signal                                     : in    std_logic                     := '0';             --                          comm_6_sync.sync_signal
-		csense_adc_fo_export                                        : out   std_logic;                                        --                        csense_adc_fo.export
-		csense_cs_n_export                                          : out   std_logic_vector(1 downto 0);                     --                          csense_cs_n.export
-		csense_sck_export                                           : out   std_logic;                                        --                           csense_sck.export
-		csense_sdi_export                                           : out   std_logic;                                        --                           csense_sdi.export
-		csense_sdo_export                                           : in    std_logic                     := '0';             --                           csense_sdo.export
-		ctrl_io_lvds_export                                         : out   std_logic_vector(3 downto 0);                     --                         ctrl_io_lvds.export
-		dip_export                                                  : in    std_logic_vector(7 downto 0)  := (others => '0'); --                                  dip.export
-		ext_export                                                  : in    std_logic                     := '0';             --                                  ext.export
-		ftdi_clk_clk                                                : in    std_logic                     := '0';             --                             ftdi_clk.clk
-		led_de4_export                                              : out   std_logic_vector(7 downto 0);                     --                              led_de4.export
-		led_painel_export                                           : out   std_logic_vector(20 downto 0);                    --                           led_painel.export
-		m1_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                      m1_ddr2_i2c_scl.export
-		m1_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                      m1_ddr2_i2c_sda.export
-		m1_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                       m1_ddr2_memory.mem_a
-		m1_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                     .mem_ba
-		m1_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck
-		m1_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck_n
-		m1_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_cke
-		m1_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_cs_n
-		m1_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                     .mem_dm
-		m1_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_ras_n
-		m1_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_cas_n
-		m1_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                     .mem_we_n
-		m1_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                     .mem_dq
-		m1_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs
-		m1_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs_n
-		m1_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_odt
-		m1_ddr2_memory_pll_ref_clk_clk                              : in    std_logic                     := '0';             --           m1_ddr2_memory_pll_ref_clk.clk
-		m1_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                m1_ddr2_memory_status.local_init_done
-		m1_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                     .local_cal_success
-		m1_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                     .local_cal_fail
-		m1_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                          m1_ddr2_oct.rdn
-		m1_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                     .rup
-		m2_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                      m2_ddr2_i2c_scl.export
-		m2_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                      m2_ddr2_i2c_sda.export
-		m2_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                       m2_ddr2_memory.mem_a
-		m2_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                     .mem_ba
-		m2_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck
-		m2_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_ck_n
-		m2_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_cke
-		m2_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                     .mem_cs_n
-		m2_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                     .mem_dm
-		m2_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_ras_n
-		m2_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                     .mem_cas_n
-		m2_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                     .mem_we_n
-		m2_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                     .mem_dq
-		m2_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs
-		m2_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                     .mem_dqs_n
-		m2_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                     .mem_odt
-		m2_ddr2_memory_dll_sharing_dll_pll_locked                   : in    std_logic                     := '0';             --           m2_ddr2_memory_dll_sharing.dll_pll_locked
-		m2_ddr2_memory_dll_sharing_dll_delayctrl                    : out   std_logic_vector(5 downto 0);                     --                                     .dll_delayctrl
-		m2_ddr2_memory_pll_sharing_pll_mem_clk                      : out   std_logic;                                        --           m2_ddr2_memory_pll_sharing.pll_mem_clk
-		m2_ddr2_memory_pll_sharing_pll_write_clk                    : out   std_logic;                                        --                                     .pll_write_clk
-		m2_ddr2_memory_pll_sharing_pll_locked                       : out   std_logic;                                        --                                     .pll_locked
-		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk        : out   std_logic;                                        --                                     .pll_write_clk_pre_phy_clk
-		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk                 : out   std_logic;                                        --                                     .pll_addr_cmd_clk
-		m2_ddr2_memory_pll_sharing_pll_avl_clk                      : out   std_logic;                                        --                                     .pll_avl_clk
-		m2_ddr2_memory_pll_sharing_pll_config_clk                   : out   std_logic;                                        --                                     .pll_config_clk
-		m2_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                m2_ddr2_memory_status.local_init_done
-		m2_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                     .local_cal_success
-		m2_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                     .local_cal_fail
-		m2_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                          m2_ddr2_oct.rdn
-		m2_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                     .rup
-		pio_ftdi_umft601a_module_reset_export                       : out   std_logic;                                        --       pio_ftdi_umft601a_module_reset.export
-		pio_iso_logic_signal_enable_export                          : out   std_logic;                                        --          pio_iso_logic_signal_enable.export
-		rs232_uart_rxd                                              : in    std_logic                     := '0';             --                           rs232_uart.rxd
-		rs232_uart_txd                                              : out   std_logic;                                        --                                     .txd
-		rst_reset_n                                                 : in    std_logic                     := '0';             --                                  rst.reset_n
-		rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := '0';             --   rst_controller_conduit_reset_input.t_reset_input_signal
-		rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
-		scom_0_sync_sync_signal                                     : in    std_logic                     := '0';             --                          scom_0_sync.sync_signal
-		sd_card_wp_n_io_export                                      : in    std_logic                     := '0';             --                      sd_card_wp_n_io.export
-		spwc_a_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_a_enable.spw_rx_enable_signal
-		spwc_a_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_a_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_a_leds.spw_red_status_led_signal
-		spwc_a_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_a_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_a_lvds.spw_lvds_p_data_in_signal
-		spwc_a_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_a_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_a_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_a_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_a_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_a_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_a_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		spwc_b_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_b_enable.spw_rx_enable_signal
-		spwc_b_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_b_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_b_leds.spw_red_status_led_signal
-		spwc_b_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_b_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_b_lvds.spw_lvds_p_data_in_signal
-		spwc_b_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_b_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_b_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_b_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_b_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_b_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_b_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		spwc_c_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_c_enable.spw_rx_enable_signal
-		spwc_c_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_c_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_c_leds.spw_red_status_led_signal
-		spwc_c_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_c_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_c_lvds.spw_lvds_p_data_in_signal
-		spwc_c_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_c_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_c_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_c_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_c_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_c_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_c_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		spwc_d_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_d_enable.spw_rx_enable_signal
-		spwc_d_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_d_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_d_leds.spw_red_status_led_signal
-		spwc_d_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_d_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_d_lvds.spw_lvds_p_data_in_signal
-		spwc_d_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_d_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_d_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_d_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_d_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_d_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_d_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		spwc_e_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_e_enable.spw_rx_enable_signal
-		spwc_e_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_e_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_e_leds.spw_red_status_led_signal
-		spwc_e_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_e_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_e_lvds.spw_lvds_p_data_in_signal
-		spwc_e_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_e_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_e_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_e_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_e_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_e_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_e_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		spwc_f_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_f_enable.spw_rx_enable_signal
-		spwc_f_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_f_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_f_leds.spw_red_status_led_signal
-		spwc_f_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_f_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_f_lvds.spw_lvds_p_data_in_signal
-		spwc_f_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_f_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_f_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_f_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_f_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_f_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_f_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		spwc_g_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_g_enable.spw_rx_enable_signal
-		spwc_g_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_g_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_g_leds.spw_red_status_led_signal
-		spwc_g_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_g_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_g_lvds.spw_lvds_p_data_in_signal
-		spwc_g_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_g_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_g_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_g_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_g_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_g_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_g_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		spwc_h_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                        spwc_h_enable.spw_rx_enable_signal
-		spwc_h_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                     .spw_tx_enable_signal
-		spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                          spwc_h_leds.spw_red_status_led_signal
-		spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                     .spw_green_status_led_signal
-		spwc_h_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                          spwc_h_lvds.spw_lvds_p_data_in_signal
-		spwc_h_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                     .spw_lvds_n_data_in_signal
-		spwc_h_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_p_data_out_signal
-		spwc_h_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                     .spw_lvds_n_data_out_signal
-		spwc_h_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_p_strobe_out_signal
-		spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                     .spw_lvds_n_strobe_out_signal
-		spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_p_strobe_in_signal
-		spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                     .spw_lvds_n_strobe_in_signal
-		sync_filtered_sig_filtered_sig_signal                       : out   std_logic;                                        --                    sync_filtered_sig.filtered_sig_signal
-		sync_in_conduit                                             : in    std_logic                     := '0';             --                              sync_in.conduit
-		sync_in_en_conduit                                          : in    std_logic                     := '0';             --                           sync_in_en.conduit
-		sync_out_conduit                                            : out   std_logic;                                        --                             sync_out.conduit
-		sync_out_en_conduit                                         : in    std_logic                     := '0';             --                          sync_out_en.conduit
-		sync_spw1_conduit                                           : out   std_logic;                                        --                            sync_spw1.conduit
-		sync_spw2_conduit                                           : out   std_logic;                                        --                            sync_spw2.conduit
-		sync_spw3_conduit                                           : out   std_logic;                                        --                            sync_spw3.conduit
-		sync_spw4_conduit                                           : out   std_logic;                                        --                            sync_spw4.conduit
-		sync_spw5_conduit                                           : out   std_logic;                                        --                            sync_spw5.conduit
-		sync_spw6_conduit                                           : out   std_logic;                                        --                            sync_spw6.conduit
-		sync_spw7_conduit                                           : out   std_logic;                                        --                            sync_spw7.conduit
-		sync_spw8_conduit                                           : out   std_logic;                                        --                            sync_spw8.conduit
-		sync_unfiltered_sig_unfiltered_sig_signal                   : in    std_logic                     := '0';             --                  sync_unfiltered_sig.unfiltered_sig_signal
-		temp_scl_export                                             : out   std_logic;                                        --                             temp_scl.export
-		temp_sda_export                                             : inout std_logic                     := '0';             --                             temp_sda.export
-		timer_1ms_external_port_export                              : out   std_logic;                                        --              timer_1ms_external_port.export
-		timer_1us_external_port_export                              : out   std_logic;                                        --              timer_1us_external_port.export
-		tristate_conduit_tcm_address_out                            : out   std_logic_vector(25 downto 0);                    --                     tristate_conduit.tcm_address_out
-		tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);                     --                                     .tcm_read_n_out
-		tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     --                                     .tcm_write_n_out
-		tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => '0'); --                                     .tcm_data_out
-		tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     --                                     .tcm_chipselect_n_out
-		umft601a_pins_umft_clock_signal                             : in    std_logic                     := '0';             --                        umft601a_pins.umft_clock_signal
-		umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := '0';             --                                     .umft_txe_n_signal
-		umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := '0';             --                                     .umft_rxf_n_signal
-		umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => '0'); --                                     .umft_data_signal
-		umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => '0'); --                                     .umft_be_signal
-		umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := '0';             --                                     .umft_wakeup_n_signal
-		umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => '0'); --                                     .umft_gpio_bus_signal
-		umft601a_pins_umft_reset_n_signal                           : out   std_logic;                                        --                                     .umft_reset_n_signal
-		umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        --                                     .umft_wr_n_signal
-		umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        --                                     .umft_rd_n_signal
-		umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        --                                     .umft_oe_n_signal
-		umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         --                                     .umft_siwu_n_signal
+		button_export                                               : in    std_logic_vector(3 downto 0)  := (others => '0'); --                                            button.export
+		clk50_clk                                                   : in    std_logic                     := '0';             --                                             clk50.clk
+		comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                               comm_1_measurements.measurements_signal
+		comm_1_sync_sync_signal                                     : in    std_logic                     := '0';             --                                       comm_1_sync.sync_signal
+		comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                               comm_2_measurements.measurements_signal
+		comm_2_sync_sync_signal                                     : in    std_logic                     := '0';             --                                       comm_2_sync.sync_signal
+		comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                               comm_3_measurements.measurements_signal
+		comm_3_sync_sync_signal                                     : in    std_logic                     := '0';             --                                       comm_3_sync.sync_signal
+		comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                               comm_4_measurements.measurements_signal
+		comm_4_sync_sync_signal                                     : in    std_logic                     := '0';             --                                       comm_4_sync.sync_signal
+		comm_5_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                               comm_5_measurements.measurements_signal
+		comm_5_sync_sync_signal                                     : in    std_logic                     := '0';             --                                       comm_5_sync.sync_signal
+		comm_6_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0);                     --                               comm_6_measurements.measurements_signal
+		comm_6_sync_sync_signal                                     : in    std_logic                     := '0';             --                                       comm_6_sync.sync_signal
+		csense_adc_fo_export                                        : out   std_logic;                                        --                                     csense_adc_fo.export
+		csense_cs_n_export                                          : out   std_logic_vector(1 downto 0);                     --                                       csense_cs_n.export
+		csense_sck_export                                           : out   std_logic;                                        --                                        csense_sck.export
+		csense_sdi_export                                           : out   std_logic;                                        --                                        csense_sdi.export
+		csense_sdo_export                                           : in    std_logic                     := '0';             --                                        csense_sdo.export
+		ctrl_io_lvds_export                                         : out   std_logic_vector(3 downto 0);                     --                                      ctrl_io_lvds.export
+		dip_export                                                  : in    std_logic_vector(7 downto 0)  := (others => '0'); --                                               dip.export
+		ext_export                                                  : in    std_logic                     := '0';             --                                               ext.export
+		ftdi_clk_clk                                                : in    std_logic                     := '0';             --                                          ftdi_clk.clk
+		led_de4_export                                              : out   std_logic_vector(7 downto 0);                     --                                           led_de4.export
+		led_painel_export                                           : out   std_logic_vector(20 downto 0);                    --                                        led_painel.export
+		m1_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                                   m1_ddr2_i2c_scl.export
+		m1_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                                   m1_ddr2_i2c_sda.export
+		m1_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                                    m1_ddr2_memory.mem_a
+		m1_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                                  .mem_ba
+		m1_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                                  .mem_ck
+		m1_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                                  .mem_ck_n
+		m1_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                                  .mem_cke
+		m1_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                                  .mem_cs_n
+		m1_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                                  .mem_dm
+		m1_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                                  .mem_ras_n
+		m1_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                                  .mem_cas_n
+		m1_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                                  .mem_we_n
+		m1_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                                  .mem_dq
+		m1_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                                  .mem_dqs
+		m1_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                                  .mem_dqs_n
+		m1_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                                  .mem_odt
+		m1_ddr2_memory_pll_ref_clk_clk                              : in    std_logic                     := '0';             --                        m1_ddr2_memory_pll_ref_clk.clk
+		m1_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                             m1_ddr2_memory_status.local_init_done
+		m1_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                                  .local_cal_success
+		m1_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                                  .local_cal_fail
+		m1_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                                       m1_ddr2_oct.rdn
+		m1_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                                  .rup
+		m2_ddr2_i2c_scl_export                                      : out   std_logic;                                        --                                   m2_ddr2_i2c_scl.export
+		m2_ddr2_i2c_sda_export                                      : inout std_logic                     := '0';             --                                   m2_ddr2_i2c_sda.export
+		m2_ddr2_memory_mem_a                                        : out   std_logic_vector(13 downto 0);                    --                                    m2_ddr2_memory.mem_a
+		m2_ddr2_memory_mem_ba                                       : out   std_logic_vector(2 downto 0);                     --                                                  .mem_ba
+		m2_ddr2_memory_mem_ck                                       : out   std_logic_vector(1 downto 0);                     --                                                  .mem_ck
+		m2_ddr2_memory_mem_ck_n                                     : out   std_logic_vector(1 downto 0);                     --                                                  .mem_ck_n
+		m2_ddr2_memory_mem_cke                                      : out   std_logic_vector(1 downto 0);                     --                                                  .mem_cke
+		m2_ddr2_memory_mem_cs_n                                     : out   std_logic_vector(1 downto 0);                     --                                                  .mem_cs_n
+		m2_ddr2_memory_mem_dm                                       : out   std_logic_vector(7 downto 0);                     --                                                  .mem_dm
+		m2_ddr2_memory_mem_ras_n                                    : out   std_logic_vector(0 downto 0);                     --                                                  .mem_ras_n
+		m2_ddr2_memory_mem_cas_n                                    : out   std_logic_vector(0 downto 0);                     --                                                  .mem_cas_n
+		m2_ddr2_memory_mem_we_n                                     : out   std_logic_vector(0 downto 0);                     --                                                  .mem_we_n
+		m2_ddr2_memory_mem_dq                                       : inout std_logic_vector(63 downto 0) := (others => '0'); --                                                  .mem_dq
+		m2_ddr2_memory_mem_dqs                                      : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                                  .mem_dqs
+		m2_ddr2_memory_mem_dqs_n                                    : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                                  .mem_dqs_n
+		m2_ddr2_memory_mem_odt                                      : out   std_logic_vector(1 downto 0);                     --                                                  .mem_odt
+		m2_ddr2_memory_dll_sharing_dll_pll_locked                   : in    std_logic                     := '0';             --                        m2_ddr2_memory_dll_sharing.dll_pll_locked
+		m2_ddr2_memory_dll_sharing_dll_delayctrl                    : out   std_logic_vector(5 downto 0);                     --                                                  .dll_delayctrl
+		m2_ddr2_memory_pll_sharing_pll_mem_clk                      : out   std_logic;                                        --                        m2_ddr2_memory_pll_sharing.pll_mem_clk
+		m2_ddr2_memory_pll_sharing_pll_write_clk                    : out   std_logic;                                        --                                                  .pll_write_clk
+		m2_ddr2_memory_pll_sharing_pll_locked                       : out   std_logic;                                        --                                                  .pll_locked
+		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk        : out   std_logic;                                        --                                                  .pll_write_clk_pre_phy_clk
+		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk                 : out   std_logic;                                        --                                                  .pll_addr_cmd_clk
+		m2_ddr2_memory_pll_sharing_pll_avl_clk                      : out   std_logic;                                        --                                                  .pll_avl_clk
+		m2_ddr2_memory_pll_sharing_pll_config_clk                   : out   std_logic;                                        --                                                  .pll_config_clk
+		m2_ddr2_memory_status_local_init_done                       : out   std_logic;                                        --                             m2_ddr2_memory_status.local_init_done
+		m2_ddr2_memory_status_local_cal_success                     : out   std_logic;                                        --                                                  .local_cal_success
+		m2_ddr2_memory_status_local_cal_fail                        : out   std_logic;                                        --                                                  .local_cal_fail
+		m2_ddr2_oct_rdn                                             : in    std_logic                     := '0';             --                                       m2_ddr2_oct.rdn
+		m2_ddr2_oct_rup                                             : in    std_logic                     := '0';             --                                                  .rup
+		pio_ftdi_umft601a_module_reset_export                       : out   std_logic;                                        --                    pio_ftdi_umft601a_module_reset.export
+		pio_iso_logic_signal_enable_export                          : out   std_logic;                                        --                       pio_iso_logic_signal_enable.export
+		pio_rmap_echoing_module_reset_external_connection_export    : out   std_logic;                                        -- pio_rmap_echoing_module_reset_external_connection.export
+		rmap_echoing_echo_rst_sink_reset                            : in    std_logic                     := '0';             --                        rmap_echoing_echo_rst_sink.reset
+		rs232_uart_rxd                                              : in    std_logic                     := '0';             --                                        rs232_uart.rxd
+		rs232_uart_txd                                              : out   std_logic;                                        --                                                  .txd
+		rst_reset_n                                                 : in    std_logic                     := '0';             --                                               rst.reset_n
+		rst_controller_conduit_reset_input_t_reset_input_signal     : in    std_logic                     := '0';             --                rst_controller_conduit_reset_input.t_reset_input_signal
+		rst_controller_conduit_simucam_reset_t_simucam_reset_signal : out   std_logic;                                        --              rst_controller_conduit_simucam_reset.t_simucam_reset_signal
+		scom_0_sync_sync_signal                                     : in    std_logic                     := '0';             --                                       scom_0_sync.sync_signal
+		sd_card_wp_n_io_export                                      : in    std_logic                     := '0';             --                                   sd_card_wp_n_io.export
+		spwc_a_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_a_enable.spw_rx_enable_signal
+		spwc_a_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_a_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_a_leds.spw_red_status_led_signal
+		spwc_a_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_a_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_a_lvds.spw_lvds_p_data_in_signal
+		spwc_a_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_a_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_a_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_a_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_a_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_a_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_a_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		spwc_b_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_b_enable.spw_rx_enable_signal
+		spwc_b_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_b_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_b_leds.spw_red_status_led_signal
+		spwc_b_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_b_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_b_lvds.spw_lvds_p_data_in_signal
+		spwc_b_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_b_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_b_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_b_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_b_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_b_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_b_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		spwc_c_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_c_enable.spw_rx_enable_signal
+		spwc_c_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_c_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_c_leds.spw_red_status_led_signal
+		spwc_c_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_c_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_c_lvds.spw_lvds_p_data_in_signal
+		spwc_c_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_c_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_c_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_c_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_c_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_c_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_c_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		spwc_d_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_d_enable.spw_rx_enable_signal
+		spwc_d_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_d_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_d_leds.spw_red_status_led_signal
+		spwc_d_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_d_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_d_lvds.spw_lvds_p_data_in_signal
+		spwc_d_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_d_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_d_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_d_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_d_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_d_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_d_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		spwc_e_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_e_enable.spw_rx_enable_signal
+		spwc_e_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_e_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_e_leds.spw_red_status_led_signal
+		spwc_e_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_e_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_e_lvds.spw_lvds_p_data_in_signal
+		spwc_e_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_e_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_e_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_e_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_e_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_e_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_e_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		spwc_f_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_f_enable.spw_rx_enable_signal
+		spwc_f_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_f_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_f_leds.spw_red_status_led_signal
+		spwc_f_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_f_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_f_lvds.spw_lvds_p_data_in_signal
+		spwc_f_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_f_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_f_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_f_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_f_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_f_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_f_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		spwc_g_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_g_enable.spw_rx_enable_signal
+		spwc_g_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_g_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_g_leds.spw_red_status_led_signal
+		spwc_g_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_g_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_g_lvds.spw_lvds_p_data_in_signal
+		spwc_g_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_g_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_g_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_g_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_g_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_g_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_g_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		spwc_h_enable_spw_rx_enable_signal                          : in    std_logic                     := '0';             --                                     spwc_h_enable.spw_rx_enable_signal
+		spwc_h_enable_spw_tx_enable_signal                          : in    std_logic                     := '0';             --                                                  .spw_tx_enable_signal
+		spwc_h_leds_spw_red_status_led_signal                       : out   std_logic;                                        --                                       spwc_h_leds.spw_red_status_led_signal
+		spwc_h_leds_spw_green_status_led_signal                     : out   std_logic;                                        --                                                  .spw_green_status_led_signal
+		spwc_h_lvds_spw_lvds_p_data_in_signal                       : in    std_logic                     := '0';             --                                       spwc_h_lvds.spw_lvds_p_data_in_signal
+		spwc_h_lvds_spw_lvds_n_data_in_signal                       : in    std_logic                     := '0';             --                                                  .spw_lvds_n_data_in_signal
+		spwc_h_lvds_spw_lvds_p_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_p_data_out_signal
+		spwc_h_lvds_spw_lvds_n_data_out_signal                      : out   std_logic;                                        --                                                  .spw_lvds_n_data_out_signal
+		spwc_h_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_p_strobe_out_signal
+		spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic;                                        --                                                  .spw_lvds_n_strobe_out_signal
+		spwc_h_lvds_spw_lvds_p_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_p_strobe_in_signal
+		spwc_h_lvds_spw_lvds_n_strobe_in_signal                     : in    std_logic                     := '0';             --                                                  .spw_lvds_n_strobe_in_signal
+		sync_filtered_sig_filtered_sig_signal                       : out   std_logic;                                        --                                 sync_filtered_sig.filtered_sig_signal
+		sync_in_conduit                                             : in    std_logic                     := '0';             --                                           sync_in.conduit
+		sync_in_en_conduit                                          : in    std_logic                     := '0';             --                                        sync_in_en.conduit
+		sync_out_conduit                                            : out   std_logic;                                        --                                          sync_out.conduit
+		sync_out_en_conduit                                         : in    std_logic                     := '0';             --                                       sync_out_en.conduit
+		sync_spw1_conduit                                           : out   std_logic;                                        --                                         sync_spw1.conduit
+		sync_spw2_conduit                                           : out   std_logic;                                        --                                         sync_spw2.conduit
+		sync_spw3_conduit                                           : out   std_logic;                                        --                                         sync_spw3.conduit
+		sync_spw4_conduit                                           : out   std_logic;                                        --                                         sync_spw4.conduit
+		sync_spw5_conduit                                           : out   std_logic;                                        --                                         sync_spw5.conduit
+		sync_spw6_conduit                                           : out   std_logic;                                        --                                         sync_spw6.conduit
+		sync_spw7_conduit                                           : out   std_logic;                                        --                                         sync_spw7.conduit
+		sync_spw8_conduit                                           : out   std_logic;                                        --                                         sync_spw8.conduit
+		sync_unfiltered_sig_unfiltered_sig_signal                   : in    std_logic                     := '0';             --                               sync_unfiltered_sig.unfiltered_sig_signal
+		temp_scl_export                                             : out   std_logic;                                        --                                          temp_scl.export
+		temp_sda_export                                             : inout std_logic                     := '0';             --                                          temp_sda.export
+		timer_1ms_external_port_export                              : out   std_logic;                                        --                           timer_1ms_external_port.export
+		timer_1us_external_port_export                              : out   std_logic;                                        --                           timer_1us_external_port.export
+		tristate_conduit_tcm_address_out                            : out   std_logic_vector(25 downto 0);                    --                                  tristate_conduit.tcm_address_out
+		tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);                     --                                                  .tcm_read_n_out
+		tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     --                                                  .tcm_write_n_out
+		tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => '0'); --                                                  .tcm_data_out
+		tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     --                                                  .tcm_chipselect_n_out
+		umft601a_pins_umft_clock_signal                             : in    std_logic                     := '0';             --                                     umft601a_pins.umft_clock_signal
+		umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := '0';             --                                                  .umft_txe_n_signal
+		umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := '0';             --                                                  .umft_rxf_n_signal
+		umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => '0'); --                                                  .umft_data_signal
+		umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => '0'); --                                                  .umft_be_signal
+		umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := '0';             --                                                  .umft_wakeup_n_signal
+		umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => '0'); --                                                  .umft_gpio_bus_signal
+		umft601a_pins_umft_reset_n_signal                           : out   std_logic;                                        --                                                  .umft_reset_n_signal
+		umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        --                                                  .umft_wr_n_signal
+		umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        --                                                  .umft_rd_n_signal
+		umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        --                                                  .umft_oe_n_signal
+		umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         --                                                  .umft_siwu_n_signal
 	);
 end entity MebX_Qsys_Project;
 
@@ -383,6 +385,7 @@ architecture rtl of MebX_Qsys_Project is
 	component rmpe_rmap_echoing_top is
 		port (
 			reset_i                        : in  std_logic                    := 'X';             -- reset
+			echo_rst_i                     : in  std_logic                    := 'X';             -- reset
 			clk_100_i                      : in  std_logic                    := 'X';             -- clk
 			rmap_echo_0_echo_en_i          : in  std_logic                    := 'X';             -- echo_en_signal
 			rmap_echo_0_echo_id_en_i       : in  std_logic                    := 'X';             -- echo_id_en_signal
@@ -1609,6 +1612,11 @@ architecture rtl of MebX_Qsys_Project is
 			pio_LED_painel_s1_readdata                               : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			pio_LED_painel_s1_writedata                              : out std_logic_vector(31 downto 0);                    -- writedata
 			pio_LED_painel_s1_chipselect                             : out std_logic;                                        -- chipselect
+			pio_rmap_echoing_module_reset_s1_address                 : out std_logic_vector(1 downto 0);                     -- address
+			pio_rmap_echoing_module_reset_s1_write                   : out std_logic;                                        -- write
+			pio_rmap_echoing_module_reset_s1_readdata                : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			pio_rmap_echoing_module_reset_s1_writedata               : out std_logic_vector(31 downto 0);                    -- writedata
+			pio_rmap_echoing_module_reset_s1_chipselect              : out std_logic;                                        -- chipselect
 			rs232_uart_s1_address                                    : out std_logic_vector(2 downto 0);                     -- address
 			rs232_uart_s1_write                                      : out std_logic;                                        -- write
 			rs232_uart_s1_read                                       : out std_logic;                                        -- read
@@ -2974,6 +2982,11 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_address                                         : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_iso_logic_signal_enable_s1_address -> pio_iso_logic_signal_enable:address
 	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_write                                           : std_logic;                      -- mm_interconnect_2:pio_iso_logic_signal_enable_s1_write -> mm_interconnect_2_pio_iso_logic_signal_enable_s1_write:in
 	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_iso_logic_signal_enable_s1_writedata -> pio_iso_logic_signal_enable:writedata
+	signal mm_interconnect_2_pio_rmap_echoing_module_reset_s1_chipselect                                    : std_logic;                      -- mm_interconnect_2:pio_rmap_echoing_module_reset_s1_chipselect -> pio_rmap_echoing_module_reset:chipselect
+	signal mm_interconnect_2_pio_rmap_echoing_module_reset_s1_readdata                                      : std_logic_vector(31 downto 0);  -- pio_rmap_echoing_module_reset:readdata -> mm_interconnect_2:pio_rmap_echoing_module_reset_s1_readdata
+	signal mm_interconnect_2_pio_rmap_echoing_module_reset_s1_address                                       : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_rmap_echoing_module_reset_s1_address -> pio_rmap_echoing_module_reset:address
+	signal mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write                                         : std_logic;                      -- mm_interconnect_2:pio_rmap_echoing_module_reset_s1_write -> mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write:in
+	signal mm_interconnect_2_pio_rmap_echoing_module_reset_s1_writedata                                     : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_rmap_echoing_module_reset_s1_writedata -> pio_rmap_echoing_module_reset:writedata
 	signal m1_clock_bridge_m0_waitrequest                                                                   : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_m0_waitrequest -> m1_clock_bridge:m0_waitrequest
 	signal m1_clock_bridge_m0_readdata                                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_m0_readdata -> m1_clock_bridge:m0_readdata
 	signal m1_clock_bridge_m0_debugaccess                                                                   : std_logic;                      -- m1_clock_bridge:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_m0_debugaccess
@@ -3057,9 +3070,10 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_write_ports_inv                                            : std_logic;                      -- mm_interconnect_2_pio_ctrl_io_lvds_s1_write:inv -> pio_ctrl_io_lvds:write_n
 	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write_ports_inv                              : std_logic;                      -- mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write:inv -> pio_ftdi_umft601a_module_reset:write_n
 	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_write_ports_inv                                 : std_logic;                      -- mm_interconnect_2_pio_iso_logic_signal_enable_s1_write:inv -> pio_iso_logic_signal_enable:write_n
+	signal mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write_ports_inv                               : std_logic;                      -- mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write:inv -> pio_rmap_echoing_module_reset:write_n
 	signal mm_interconnect_3_m1_ddr2_memory_avl_inv                                                         : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_3:m1_ddr2_memory_avl_waitrequest
 	signal rst_controller_001_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_001_reset_out_reset:inv -> [jtag_uart_0:rst_n, sysid_qsys:reset_n]
-	signal rst_controller_003_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_003_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, pio_ftdi_umft601a_module_reset:reset_n, pio_iso_logic_signal_enable:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
+	signal rst_controller_003_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_003_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, pio_ftdi_umft601a_module_reset:reset_n, pio_iso_logic_signal_enable:reset_n, pio_rmap_echoing_module_reset:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
 	signal m2_ddr2_memory_afi_reset_reset_ports_inv                                                         : std_logic;                      -- m2_ddr2_memory_afi_reset_reset:inv -> [rst_controller_005:reset_in0, rst_controller_006:reset_in0]
 	signal rst_controller_007_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_007_reset_out_reset:inv -> nios2_gen2_0:reset_n
 	signal rst_controller_008_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_008_reset_out_reset:inv -> rs232_uart:reset_n
@@ -3707,6 +3721,7 @@ begin
 	rmap_echoing : component rmpe_rmap_echoing_top
 		port map (
 			reset_i                        => rst_controller_001_reset_out_reset,                                                    --                       reset_sink.reset
+			echo_rst_i                     => rmap_echoing_echo_rst_sink_reset,                                                      --                    echo_rst_sink.reset
 			clk_100_i                      => m2_ddr2_memory_afi_half_clk_clk,                                                       --                clock_sink_100mhz.clk
 			rmap_echo_0_echo_en_i          => communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal,                  --       conduit_end_rmap_echo_0_in.echo_en_signal
 			rmap_echo_0_echo_id_en_i       => communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_id_en_signal,               --                                 .echo_id_en_signal
@@ -4812,6 +4827,18 @@ begin
 			out_port   => pio_iso_logic_signal_enable_export                                -- external_connection.export
 		);
 
+	pio_rmap_echoing_module_reset : component MebX_Qsys_Project_csense_adc_fo
+		port map (
+			clk        => clk50_clk,                                                          --                 clk.clk
+			reset_n    => rst_controller_003_reset_out_reset_ports_inv,                       --               reset.reset_n
+			address    => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_readdata,        --                    .readdata
+			out_port   => pio_rmap_echoing_module_reset_external_connection_export            -- external_connection.export
+		);
+
 	rmap_mem_nfee_comm_1 : component nrme_rmap_memory_nfee_area_top
 		port map (
 			reset_i                             => rst_controller_001_reset_out_reset,                                                      --                      reset_sink.reset
@@ -5718,6 +5745,11 @@ begin
 			pio_LED_painel_s1_readdata                               => mm_interconnect_2_pio_led_painel_s1_readdata,                             --                                                   .readdata
 			pio_LED_painel_s1_writedata                              => mm_interconnect_2_pio_led_painel_s1_writedata,                            --                                                   .writedata
 			pio_LED_painel_s1_chipselect                             => mm_interconnect_2_pio_led_painel_s1_chipselect,                           --                                                   .chipselect
+			pio_rmap_echoing_module_reset_s1_address                 => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_address,               --                   pio_rmap_echoing_module_reset_s1.address
+			pio_rmap_echoing_module_reset_s1_write                   => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write,                 --                                                   .write
+			pio_rmap_echoing_module_reset_s1_readdata                => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_readdata,              --                                                   .readdata
+			pio_rmap_echoing_module_reset_s1_writedata               => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_writedata,             --                                                   .writedata
+			pio_rmap_echoing_module_reset_s1_chipselect              => mm_interconnect_2_pio_rmap_echoing_module_reset_s1_chipselect,            --                                                   .chipselect
 			rs232_uart_s1_address                                    => mm_interconnect_2_rs232_uart_s1_address,                                  --                                      rs232_uart_s1.address
 			rs232_uart_s1_write                                      => mm_interconnect_2_rs232_uart_s1_write,                                    --                                                   .write
 			rs232_uart_s1_read                                       => mm_interconnect_2_rs232_uart_s1_read,                                     --                                                   .read
@@ -6512,6 +6544,8 @@ begin
 	mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write_ports_inv <= not mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write;
 
 	mm_interconnect_2_pio_iso_logic_signal_enable_s1_write_ports_inv <= not mm_interconnect_2_pio_iso_logic_signal_enable_s1_write;
+
+	mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write_ports_inv <= not mm_interconnect_2_pio_rmap_echoing_module_reset_s1_write;
 
 	mm_interconnect_3_m1_ddr2_memory_avl_inv <= not m1_ddr2_memory_avl_waitrequest;
 

@@ -298,10 +298,11 @@ architecture bhv of MebX_TopLevel is
     -----------------------------------------
     -- Clock e reset
     -----------------------------------------
-    signal rst_ctrl_input : std_logic := '0';
-    signal simucam_rst    : std_logic := '0';
-    signal rst_n          : std_logic;
-    signal ftdi_rst       : std_logic;
+    signal rst_ctrl_input   : std_logic := '0';
+    signal simucam_rst      : std_logic := '0';
+    signal rst_n            : std_logic;
+    signal rmap_echoing_rst : std_logic;
+    signal ftdi_rst         : std_logic;
 
     -----------------------------------------
     -- Ethernet 
@@ -523,6 +524,9 @@ architecture bhv of MebX_TopLevel is
             spwc_h_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; --                         -- spw_lvds_p_strobe_out_signal
             spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; --                         -- spw_lvds_n_strobe_out_signal
             --
+            rmap_echoing_echo_rst_sink_reset                            : in    std_logic                     := '0'; -- reset
+            pio_rmap_echoing_module_reset_external_connection_export    : out   std_logic;                            -- export
+            --
             comm_1_sync_sync_signal                                     : in    std_logic                     := '0'; -- sync_signal
             comm_2_sync_sync_signal                                     : in    std_logic                     := '0'; -- sync_signal
             comm_3_sync_sync_signal                                     : in    std_logic                     := '0'; -- sync_signal
@@ -658,8 +662,8 @@ begin
             --
             rst_reset_n                                                 => rst_n,
             --
-            rst_controller_conduit_reset_input_t_reset_input_signal     => rst_ctrl_input, --              --   rst_controller_conduit_reset_input.t_reset_input_signal
-            rst_controller_conduit_simucam_reset_t_simucam_reset_signal => simucam_rst, --                 -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
+            rst_controller_conduit_reset_input_t_reset_input_signal     => rst_ctrl_input, --      --                rst_controller_conduit_reset_input.t_reset_input_signal
+            rst_controller_conduit_simucam_reset_t_simucam_reset_signal => simucam_rst, --         --              rst_controller_conduit_simucam_reset.t_simucam_reset_signal
             --
             led_de4_export                                              => leds_b,
             led_painel_export                                           => leds_p,
@@ -672,7 +676,7 @@ begin
             ext_export                                                  => EXT_IO,
             --
             ctrl_io_lvds_export                                         => ctrl_io_lvds,
-            pio_iso_logic_signal_enable_export                          => iso_logic_enable, --                                  pio_iso_logic_signal_enable.export
+            pio_iso_logic_signal_enable_export                          => iso_logic_enable, --    --                       pio_iso_logic_signal_enable.export
             --
             tristate_conduit_tcm_address_out                            => FSM_A,
             tristate_conduit_tcm_data_out                               => FSM_D,
@@ -721,134 +725,137 @@ begin
             m2_ddr2_i2c_scl_export                                      => M2_DDR2_SCL,
             m2_ddr2_i2c_sda_export                                      => M2_DDR2_SDA,
             --
-            spwc_a_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWA_DI_P, --                        spwc_a_lvds.spw_lvds_p_data_in_signal
-            spwc_a_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWA_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_a_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWA_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_a_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWA_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_a_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWA_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_a_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWA_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_a_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWA_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_a_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWA_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_a_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWA_DI_P, --                                       spwc_a_lvds.spw_lvds_p_data_in_signal
+            spwc_a_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWA_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_a_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWA_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_a_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWA_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_a_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWA_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_a_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWA_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_a_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWA_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_a_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWA_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            spwc_b_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWB_DI_P, --                        spwc_b_lvds.spw_lvds_p_data_in_signal
-            spwc_b_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWB_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_b_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWB_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_b_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWB_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_b_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWB_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_b_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWB_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_b_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWB_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_b_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWB_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_b_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWB_DI_P, --                                       spwc_b_lvds.spw_lvds_p_data_in_signal
+            spwc_b_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWB_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_b_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWB_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_b_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWB_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_b_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWB_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_b_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWB_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_b_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWB_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_b_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWB_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            spwc_c_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWC_DI_P, --                        spwc_c_lvds.spw_lvds_p_data_in_signal
-            spwc_c_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWC_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_c_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWC_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_c_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWC_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_c_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWC_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_c_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWC_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_c_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWC_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_c_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWC_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_c_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWC_DI_P, --                                       spwc_c_lvds.spw_lvds_p_data_in_signal
+            spwc_c_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWC_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_c_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWC_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_c_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWC_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_c_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWC_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_c_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWC_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_c_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWC_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_c_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWC_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            spwc_d_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWD_DI_P, --                        spwc_d_lvds.spw_lvds_p_data_in_signal
-            spwc_d_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWD_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_d_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWD_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_d_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWD_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_d_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWD_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_d_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWD_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_d_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWD_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_d_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWD_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_d_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWD_DI_P, --                                       spwc_d_lvds.spw_lvds_p_data_in_signal
+            spwc_d_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWD_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_d_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWD_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_d_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWD_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_d_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWD_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_d_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWD_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_d_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWD_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_d_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWD_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            spwc_e_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWE_DI_P, --                        spwc_e_lvds.spw_lvds_p_data_in_signal
-            spwc_e_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWE_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_e_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWE_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_e_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWE_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_e_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWE_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_e_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWE_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_e_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWE_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_e_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWE_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_e_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWE_DI_P, --                                       spwc_e_lvds.spw_lvds_p_data_in_signal
+            spwc_e_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWE_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_e_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWE_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_e_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWE_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_e_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWE_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_e_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWE_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_e_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWE_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_e_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWE_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            spwc_f_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWF_DI_P, --                        spwc_f_lvds.spw_lvds_p_data_in_signal
-            spwc_f_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWF_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_f_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWF_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_f_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWF_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_f_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWF_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_f_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWF_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_f_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWF_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_f_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWF_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_f_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWF_DI_P, --                                       spwc_f_lvds.spw_lvds_p_data_in_signal
+            spwc_f_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWF_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_f_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWF_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_f_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWF_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_f_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWF_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_f_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWF_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_f_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWF_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_f_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWF_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            spwc_g_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWG_DI_P, --                        spwc_g_lvds.spw_lvds_p_data_in_signal
-            spwc_g_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWG_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_g_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWG_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_g_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWG_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_g_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWG_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_g_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWG_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_g_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWG_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_g_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWG_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_g_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWG_DI_P, --                                       spwc_g_lvds.spw_lvds_p_data_in_signal
+            spwc_g_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWG_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_g_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWG_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_g_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWG_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_g_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWG_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_g_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWG_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_g_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWG_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_g_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWG_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            spwc_h_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWH_DI_P, --                        spwc_h_lvds.spw_lvds_p_data_in_signal
-            spwc_h_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWH_DI_N, --                                   .spw_lvds_n_data_in_signal
-            spwc_h_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWH_SI_P, --                                   .spw_lvds_p_strobe_in_signal
-            spwc_h_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWH_SI_N, --                                   .spw_lvds_n_strobe_in_signal
-            spwc_h_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWH_DO_P, --                                   .spw_lvds_p_data_out_signal
-            spwc_h_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWH_DO_N, --                                   .spw_lvds_n_data_out_signal
-            spwc_h_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_P, --                                   .spw_lvds_p_strobe_out_signal
-            spwc_h_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_N, --                                   .spw_lvds_n_strobe_out_signal
+            spwc_h_lvds_spw_lvds_p_data_in_signal                       => HSMB_LVDS_RX_SPWH_DI_P, --                                       spwc_h_lvds.spw_lvds_p_data_in_signal
+            spwc_h_lvds_spw_lvds_n_data_in_signal                       => HSMB_LVDS_RX_SPWH_DI_N, --                                                  .spw_lvds_n_data_in_signal
+            spwc_h_lvds_spw_lvds_p_strobe_in_signal                     => HSMB_LVDS_RX_SPWH_SI_P, --                                                  .spw_lvds_p_strobe_in_signal
+            spwc_h_lvds_spw_lvds_n_strobe_in_signal                     => HSMB_LVDS_RX_SPWH_SI_N, --                                                  .spw_lvds_n_strobe_in_signal
+            spwc_h_lvds_spw_lvds_p_data_out_signal                      => HSMB_LVDS_TX_SPWH_DO_P, --                                                  .spw_lvds_p_data_out_signal
+            spwc_h_lvds_spw_lvds_n_data_out_signal                      => HSMB_LVDS_TX_SPWH_DO_N, --                                                  .spw_lvds_n_data_out_signal
+            spwc_h_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_P, --                                                  .spw_lvds_p_strobe_out_signal
+            spwc_h_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_N, --                                                  .spw_lvds_n_strobe_out_signal
             --
-            comm_1_sync_sync_signal                                     => comm_1_sync, --         --                        comm_1_sync.sync_signal
-            comm_2_sync_sync_signal                                     => comm_2_sync, --         --                        comm_2_sync.sync_signal
-            comm_3_sync_sync_signal                                     => comm_3_sync, --         --                        comm_3_sync.sync_signal
-            comm_4_sync_sync_signal                                     => comm_4_sync, --         --                        comm_4_sync.sync_signal
-            comm_5_sync_sync_signal                                     => comm_5_sync, --         --                        comm_5_sync.sync_signal
-            comm_6_sync_sync_signal                                     => comm_6_sync, --         --                        comm_6_sync.sync_signal
+            rmap_echoing_echo_rst_sink_reset                            => rmap_echoing_rst, --    --                        rmap_echoing_echo_rst_sink.reset
+            pio_rmap_echoing_module_reset_external_connection_export    => rmap_echoing_rst, --    -- pio_rmap_echoing_module_reset_external_connection.export
             --
-            comm_1_measurements_measurements_signal                     => comm_1_measure, --      --                comm_1_measurements.measurements_signal
-            comm_2_measurements_measurements_signal                     => comm_2_measure, --      --                comm_2_measurements.measurements_signal
-            comm_3_measurements_measurements_signal                     => comm_3_measure, --      --                comm_3_measurements.measurements_signal
-            comm_4_measurements_measurements_signal                     => comm_4_measure, --      --                comm_4_measurements.measurements_signal
-            comm_5_measurements_measurements_signal                     => comm_5_measure, --      --                comm_5_measurements.measurements_signal
-            comm_6_measurements_measurements_signal                     => comm_6_measure, --      --                comm_6_measurements.measurements_signal
+            comm_1_sync_sync_signal                                     => comm_1_sync, --         --                                       comm_1_sync.sync_signal
+            comm_2_sync_sync_signal                                     => comm_2_sync, --         --                                       comm_2_sync.sync_signal
+            comm_3_sync_sync_signal                                     => comm_3_sync, --         --                                       comm_3_sync.sync_signal
+            comm_4_sync_sync_signal                                     => comm_4_sync, --         --                                       comm_4_sync.sync_signal
+            comm_5_sync_sync_signal                                     => comm_5_sync, --         --                                       comm_5_sync.sync_signal
+            comm_6_sync_sync_signal                                     => comm_6_sync, --         --                                       comm_6_sync.sync_signal
             --
-            scom_0_sync_sync_signal                                     => comm_7_sync, --         --                        scom_0_sync.sync_signal
+            comm_1_measurements_measurements_signal                     => comm_1_measure, --      --                               comm_1_measurements.measurements_signal
+            comm_2_measurements_measurements_signal                     => comm_2_measure, --      --                               comm_2_measurements.measurements_signal
+            comm_3_measurements_measurements_signal                     => comm_3_measure, --      --                               comm_3_measurements.measurements_signal
+            comm_4_measurements_measurements_signal                     => comm_4_measure, --      --                               comm_4_measurements.measurements_signal
+            comm_5_measurements_measurements_signal                     => comm_5_measure, --      --                               comm_5_measurements.measurements_signal
+            comm_6_measurements_measurements_signal                     => comm_6_measure, --      --                               comm_6_measurements.measurements_signal
             --
-            spwc_a_leds_spw_red_status_led_signal                       => spw_a_red_led, --       --                        spwc_a_leds.spw_red_status_led_signal
-            spwc_a_leds_spw_green_status_led_signal                     => spw_a_green_led, --     --                                   .spw_green_status_led_signal
+            scom_0_sync_sync_signal                                     => comm_7_sync, --         --                                       scom_0_sync.sync_signal
             --
-            spwc_b_leds_spw_red_status_led_signal                       => spw_b_red_led, --       --                        spwc_b_leds.spw_red_status_led_signal
-            spwc_b_leds_spw_green_status_led_signal                     => spw_b_green_led, --     --                                   .spw_green_status_led_signal
+            spwc_a_leds_spw_red_status_led_signal                       => spw_a_red_led, --       --                                       spwc_a_leds.spw_red_status_led_signal
+            spwc_a_leds_spw_green_status_led_signal                     => spw_a_green_led, --     --                                                  .spw_green_status_led_signal
             --
-            spwc_c_leds_spw_red_status_led_signal                       => spw_c_red_led, --       --                        spwc_c_leds.spw_red_status_led_signal
-            spwc_c_leds_spw_green_status_led_signal                     => spw_c_green_led, --     --                                   .spw_green_status_led_signal
+            spwc_b_leds_spw_red_status_led_signal                       => spw_b_red_led, --       --                                       spwc_b_leds.spw_red_status_led_signal
+            spwc_b_leds_spw_green_status_led_signal                     => spw_b_green_led, --     --                                                  .spw_green_status_led_signal
             --
-            spwc_d_leds_spw_red_status_led_signal                       => spw_d_red_led, --       --                        spwc_d_leds.spw_red_status_led_signal
-            spwc_d_leds_spw_green_status_led_signal                     => spw_d_green_led, --     --                                   .spw_green_status_led_signal
+            spwc_c_leds_spw_red_status_led_signal                       => spw_c_red_led, --       --                                       spwc_c_leds.spw_red_status_led_signal
+            spwc_c_leds_spw_green_status_led_signal                     => spw_c_green_led, --     --                                                  .spw_green_status_led_signal
             --
-            spwc_e_leds_spw_red_status_led_signal                       => spw_e_red_led, --       --                        spwc_e_leds.spw_red_status_led_signal
-            spwc_e_leds_spw_green_status_led_signal                     => spw_e_green_led, --     --                                   .spw_green_status_led_signal
+            spwc_d_leds_spw_red_status_led_signal                       => spw_d_red_led, --       --                                       spwc_d_leds.spw_red_status_led_signal
+            spwc_d_leds_spw_green_status_led_signal                     => spw_d_green_led, --     --                                                  .spw_green_status_led_signal
             --
-            spwc_f_leds_spw_red_status_led_signal                       => spw_f_red_led, --       --                        spwc_f_leds.spw_red_status_led_signal
-            spwc_f_leds_spw_green_status_led_signal                     => spw_f_green_led, --     --                                   .spw_green_status_led_signal
+            spwc_e_leds_spw_red_status_led_signal                       => spw_e_red_led, --       --                                       spwc_e_leds.spw_red_status_led_signal
+            spwc_e_leds_spw_green_status_led_signal                     => spw_e_green_led, --     --                                                  .spw_green_status_led_signal
             --
-            spwc_g_leds_spw_red_status_led_signal                       => spw_g_red_led, --       --                        spwc_g_leds.spw_red_status_led_signal
-            spwc_g_leds_spw_green_status_led_signal                     => spw_g_green_led, --     --                                   .spw_green_status_led_signal
+            spwc_f_leds_spw_red_status_led_signal                       => spw_f_red_led, --       --                                       spwc_f_leds.spw_red_status_led_signal
+            spwc_f_leds_spw_green_status_led_signal                     => spw_f_green_led, --     --                                                  .spw_green_status_led_signal
             --
-            spwc_h_leds_spw_red_status_led_signal                       => spw_h_red_led, --       --                        spwc_h_leds.spw_red_status_led_signal
-            spwc_h_leds_spw_green_status_led_signal                     => spw_h_green_led, --     --                                   .spw_green_status_led_signal
+            spwc_g_leds_spw_red_status_led_signal                       => spw_g_red_led, --       --                                       spwc_g_leds.spw_red_status_led_signal
+            spwc_g_leds_spw_green_status_led_signal                     => spw_g_green_led, --     --                                                  .spw_green_status_led_signal
             --
-            spwc_a_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_a_enable.spw_rx_enable_signal
-            spwc_a_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
-            spwc_b_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_b_enable.spw_rx_enable_signal
-            spwc_b_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
-            spwc_c_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_c_enable.spw_rx_enable_signal
-            spwc_c_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
-            spwc_d_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_d_enable.spw_rx_enable_signal
-            spwc_d_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
-            spwc_e_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_e_enable.spw_rx_enable_signal
-            spwc_e_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
-            spwc_f_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_f_enable.spw_rx_enable_signal
-            spwc_f_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal            
-            spwc_g_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_g_enable.spw_rx_enable_signal
-            spwc_g_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal            
-            spwc_h_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_h_enable.spw_rx_enable_signal
-            spwc_h_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
+            spwc_h_leds_spw_red_status_led_signal                       => spw_h_red_led, --       --                                       spwc_h_leds.spw_red_status_led_signal
+            spwc_h_leds_spw_green_status_led_signal                     => spw_h_green_led, --     --                                                  .spw_green_status_led_signal
+            --
+            spwc_a_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_a_enable.spw_rx_enable_signal
+            spwc_a_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal
+            spwc_b_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_b_enable.spw_rx_enable_signal
+            spwc_b_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal
+            spwc_c_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_c_enable.spw_rx_enable_signal
+            spwc_c_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal
+            spwc_d_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_d_enable.spw_rx_enable_signal
+            spwc_d_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal
+            spwc_e_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_e_enable.spw_rx_enable_signal
+            spwc_e_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal
+            spwc_f_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_f_enable.spw_rx_enable_signal
+            spwc_f_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal            
+            spwc_g_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_g_enable.spw_rx_enable_signal
+            spwc_g_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal            
+            spwc_h_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                                     spwc_h_enable.spw_rx_enable_signal
+            spwc_h_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                                  .spw_tx_enable_signal
             --
             temp_scl_export                                             => TEMP_SMCLK,
             temp_sda_export                                             => TEMP_SMDAT,
@@ -865,21 +872,21 @@ begin
             --			rtcc_sdi_export                                             => RTCC_SDI,
             --			rtcc_sdo_export                                             => RTCC_SDO,
             --
-            sync_unfiltered_sig_unfiltered_sig_signal                   => s_sync_in_unfiltered, ----                sync_unfiltered_sig.unfiltered_sig_signal
-            sync_filtered_sig_filtered_sig_signal                       => s_sync_in_filtered, --  --                  sync_filtered_sig.filtered_sig_signal
+            sync_unfiltered_sig_unfiltered_sig_signal                   => s_sync_in_unfiltered, ----                               sync_unfiltered_sig.unfiltered_sig_signal
+            sync_filtered_sig_filtered_sig_signal                       => s_sync_in_filtered, --  --                                 sync_filtered_sig.filtered_sig_signal
             --
-            sync_in_conduit                                             => s_sync_in_filtered, --  --                            sync_in.conduit
-            sync_in_en_conduit                                          => iso_logic_enable, --    --                 sync_in_en_conduit.conduit
-            sync_out_en_conduit                                         => iso_logic_enable, --    --                sync_out_en_conduit.conduit
-            sync_out_conduit                                            => s_sync_out, --          --                           sync_out.conduit
-            sync_spw1_conduit                                           => comm_1_sync, --         --                          sync_spw1.conduit
-            sync_spw2_conduit                                           => comm_2_sync, --         --                          sync_spw2.conduit
-            sync_spw3_conduit                                           => comm_3_sync, --         --                          sync_spw3.conduit
-            sync_spw4_conduit                                           => comm_4_sync, --         --                          sync_spw4.conduit
-            sync_spw5_conduit                                           => comm_5_sync, --         --                          sync_spw5.conduit
-            sync_spw6_conduit                                           => comm_6_sync, --         --                          sync_spw6.conduit
-            sync_spw7_conduit                                           => comm_7_sync, --         --                          sync_spw7.conduit
-            sync_spw8_conduit                                           => comm_8_sync, --         --                          sync_spw8.conduit
+            sync_in_conduit                                             => s_sync_in_filtered, --  --                                           sync_in.conduit
+            sync_in_en_conduit                                          => iso_logic_enable, --    --                                sync_in_en_conduit.conduit
+            sync_out_en_conduit                                         => iso_logic_enable, --    --                               sync_out_en_conduit.conduit
+            sync_out_conduit                                            => s_sync_out, --          --                                          sync_out.conduit
+            sync_spw1_conduit                                           => comm_1_sync, --         --                                         sync_spw1.conduit
+            sync_spw2_conduit                                           => comm_2_sync, --         --                                         sync_spw2.conduit
+            sync_spw3_conduit                                           => comm_3_sync, --         --                                         sync_spw3.conduit
+            sync_spw4_conduit                                           => comm_4_sync, --         --                                         sync_spw4.conduit
+            sync_spw5_conduit                                           => comm_5_sync, --         --                                         sync_spw5.conduit
+            sync_spw6_conduit                                           => comm_6_sync, --         --                                         sync_spw6.conduit
+            sync_spw7_conduit                                           => comm_7_sync, --         --                                         sync_spw7.conduit
+            sync_spw8_conduit                                           => comm_8_sync, --         --                                         sync_spw8.conduit
             --
             --			sd_card_wp_n_io_export                                      => I_SD_CARD_WP_n, --      --                    sd_card_wp_n_io.export
             --			sd_card_ip_b_SD_cmd                                         => B_SD_CARD_CMD, --       --                         sd_card_ip.b_SD_cmd
@@ -887,25 +894,25 @@ begin
             --			sd_card_ip_b_SD_dat3                                        => B_SD_CARD_DAT3, --      --                                   .b_SD_dat3
             --			sd_card_ip_o_SD_clock                                       => O_SD_CARD_CLOCK, --     --                                   .o_SD_clock
             --
-            rs232_uart_rxd                                              => I_RS232_UART_RXD, --    --                         rs232_uart.rxd
-            rs232_uart_txd                                              => O_RS232_UART_TXD, --    --                                   .txd
+            rs232_uart_rxd                                              => I_RS232_UART_RXD, --    --                                        rs232_uart.rxd
+            rs232_uart_txd                                              => O_RS232_UART_TXD, --    --                                                  .txd
             --
-            ftdi_clk_clk                                                => FTDI_CLOCK, --          --                           ftdi_clk.clk
+            ftdi_clk_clk                                                => FTDI_CLOCK, --          --                                          ftdi_clk.clk
             --
-            pio_ftdi_umft601a_module_reset_export                       => ftdi_rst, --            --     pio_ftdi_umft601a_module_reset.export
+            pio_ftdi_umft601a_module_reset_export                       => ftdi_rst, --            --                    pio_ftdi_umft601a_module_reset.export
             --
-            umft601a_pins_umft_data_signal                              => FTDI_DATA, --           --                      umft601a_pins.umft_data_signal
-            umft601a_pins_umft_reset_n_signal                           => open, --                --                                   .umft_reset_n_signal
-            umft601a_pins_umft_rxf_n_signal                             => FTDI_RXF_N, --          --                                   .umft_rxf_n_signal
-            umft601a_pins_umft_clock_signal                             => '0', --                 --                                   .umft_clock_signal
-            umft601a_pins_umft_wakeup_n_signal                          => FTDI_WAKEUP_N, --       --                                   .umft_wakeup_n_signal
-            umft601a_pins_umft_be_signal                                => FTDI_BE, --             --                                   .umft_be_signal
-            umft601a_pins_umft_txe_n_signal                             => FTDI_TXE_N, --          --                                   .umft_txe_n_signal
-            umft601a_pins_umft_gpio_bus_signal                          => FTDI_GPIO, --           --                                   .umft_gpio_bus_signal
-            umft601a_pins_umft_wr_n_signal                              => FTDI_WR_N, --           --                                   .umft_wr_n_signal
-            umft601a_pins_umft_rd_n_signal                              => FTDI_RD_N, --           --                                   .umft_rd_n_signal
-            umft601a_pins_umft_oe_n_signal                              => FTDI_OE_N, --           --                                   .umft_oe_n_signal
-            umft601a_pins_umft_siwu_n_signal                            => FTDI_SIWU_N --          --                                   .umft_siwu_n_signal
+            umft601a_pins_umft_data_signal                              => FTDI_DATA, --           --                                     umft601a_pins.umft_data_signal
+            umft601a_pins_umft_reset_n_signal                           => open, --                --                                                  .umft_reset_n_signal
+            umft601a_pins_umft_rxf_n_signal                             => FTDI_RXF_N, --          --                                                  .umft_rxf_n_signal
+            umft601a_pins_umft_clock_signal                             => '0', --                 --                                                  .umft_clock_signal
+            umft601a_pins_umft_wakeup_n_signal                          => FTDI_WAKEUP_N, --       --                                                  .umft_wakeup_n_signal
+            umft601a_pins_umft_be_signal                                => FTDI_BE, --             --                                                  .umft_be_signal
+            umft601a_pins_umft_txe_n_signal                             => FTDI_TXE_N, --          --                                                  .umft_txe_n_signal
+            umft601a_pins_umft_gpio_bus_signal                          => FTDI_GPIO, --           --                                                  .umft_gpio_bus_signal
+            umft601a_pins_umft_wr_n_signal                              => FTDI_WR_N, --           --                                                  .umft_wr_n_signal
+            umft601a_pins_umft_rd_n_signal                              => FTDI_RD_N, --           --                                                  .umft_rd_n_signal
+            umft601a_pins_umft_oe_n_signal                              => FTDI_OE_N, --           --                                                  .umft_oe_n_signal
+            umft601a_pins_umft_siwu_n_signal                            => FTDI_SIWU_N --          --                                                  .umft_siwu_n_signal
         );
 
     --==========--
