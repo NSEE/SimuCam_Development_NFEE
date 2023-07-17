@@ -1286,7 +1286,7 @@ LED_DE4[5]                   : M29       : output : 2.5 V             :         
 LED_DE4[6]                   : M30       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : M31       :        :                   :         : 1A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : M32       :        :                   :         : 1C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : M33       :        :                   :         : 1C        :                
+FSM_A[0]                     : M33       : output : 2.5 V             :         : 1C        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : M34       :        :                   :         : 1C        :                
 VCCA_L                       : M35       : power  :                   : 2.5V    :           :                
 GXB_NC                       : M36       :        :                   :         : QL2       :                
@@ -1327,7 +1327,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : N31       :        :                   :      
 VCCIO1C                      : N32       : power  :                   : 2.5V    : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N33       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N34       :        :                   :         : 1C        :                
-FSM_A[0]                     : N35       : output : 2.5 V             :         : 1C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N35       :        :                   :         : 1C        :                
 GND                          : N36       : gnd    :                   :         :           :                
 GND                          : N37       : gnd    :                   :         :           :                
 GXB_GND*                     : N38       :        :                   :         : QL2       :                
