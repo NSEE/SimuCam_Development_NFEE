@@ -49,14 +49,14 @@ module MebX_Qsys_Project_mm_interconnect_0_router_default_decode
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 0 
    )
-  (output [390 - 386 : 0] default_destination_id,
+  (output [387 - 383 : 0] default_destination_id,
    output [21-1 : 0] default_wr_channel,
    output [21-1 : 0] default_rd_channel,
    output [21-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[390 - 386 : 0];
+    DEFAULT_DESTID[387 - 383 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
@@ -93,7 +93,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [404-1 : 0]    sink_data,
+    input  [401-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,7 +102,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [404-1    : 0] src_data,
+    output reg [401-1    : 0] src_data,
     output reg [21-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
@@ -114,11 +114,11 @@ module MebX_Qsys_Project_mm_interconnect_0_router
     // -------------------------------------------------------
     localparam PKT_ADDR_H = 351;
     localparam PKT_ADDR_L = 288;
-    localparam PKT_DEST_ID_H = 390;
-    localparam PKT_DEST_ID_L = 386;
-    localparam PKT_PROTECTION_H = 394;
-    localparam PKT_PROTECTION_L = 392;
-    localparam ST_DATA_W = 404;
+    localparam PKT_DEST_ID_H = 387;
+    localparam PKT_DEST_ID_L = 383;
+    localparam PKT_PROTECTION_H = 391;
+    localparam PKT_PROTECTION_L = 389;
+    localparam ST_DATA_W = 401;
     localparam ST_CHANNEL_W = 21;
     localparam DECODER_TYPE = 0;
 

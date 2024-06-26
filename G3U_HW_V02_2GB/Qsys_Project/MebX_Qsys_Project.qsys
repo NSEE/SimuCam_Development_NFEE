@@ -546,7 +546,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -580,7 +580,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -805,7 +805,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -1133,7 +1133,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -1201,7 +1201,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -2789,11 +2789,11 @@
    enabled="1">
   <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
   <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="8" />
+  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
   <parameter name="DATA_WIDTH" value="256" />
   <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="4" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="8" />
+  <parameter name="MAX_BURST_SIZE" value="1" />
+  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
   <parameter name="SLAVE_SYNC_DEPTH" value="2" />
   <parameter name="SYMBOL_WIDTH" value="8" />
   <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
@@ -3200,7 +3200,7 @@
   <parameter name="AUTO_PD_CYCLES" value="0" />
   <parameter name="AUTO_POWERDN_EN" value="false" />
   <parameter name="AVL_DATA_WIDTH_PORT" value="32,32,32,32,32,32" />
-  <parameter name="AVL_MAX_SIZE" value="128" />
+  <parameter name="AVL_MAX_SIZE" value="1" />
   <parameter name="BYTE_ENABLE" value="true" />
   <parameter name="C2P_WRITE_CLOCK_ADD_PHASE" value="0.0" />
   <parameter name="CALIBRATION_MODE" value="Full" />
@@ -3554,7 +3554,7 @@
   <parameter name="AUTO_PD_CYCLES" value="0" />
   <parameter name="AUTO_POWERDN_EN" value="false" />
   <parameter name="AVL_DATA_WIDTH_PORT" value="32,32,32,32,32,32" />
-  <parameter name="AVL_MAX_SIZE" value="128" />
+  <parameter name="AVL_MAX_SIZE" value="1" />
   <parameter name="BYTE_ENABLE" value="true" />
   <parameter name="C2P_WRITE_CLOCK_ADD_PHASE" value="0.0" />
   <parameter name="CALIBRATION_MODE" value="Full" />
@@ -6943,11 +6943,6 @@
    kind="reset"
    version="18.1"
    start="m2_ddr2_memory.afi_reset"
-   end="m1_clock_bridge.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="m2_ddr2_memory.afi_reset"
    end="m1_clock_bridge_general.s0_reset" />
  <connection
    kind="reset"
@@ -7044,11 +7039,6 @@
    version="18.1"
    start="m2_ddr2_memory.afi_reset"
    end="m1_clock_bridge_ch1_rmap.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="m2_ddr2_memory.afi_reset"
-   end="m1_clock_bridge.s0_reset" />
  <connection
    kind="reset"
    version="18.1"

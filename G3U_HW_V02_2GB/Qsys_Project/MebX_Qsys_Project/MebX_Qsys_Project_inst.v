@@ -78,6 +78,8 @@
 		.m2_ddr2_oct_rup                                             (<connected-to-m2_ddr2_oct_rup>),                                             //                                                  .rup
 		.pio_ftdi_umft601a_module_reset_export                       (<connected-to-pio_ftdi_umft601a_module_reset_export>),                       //                    pio_ftdi_umft601a_module_reset.export
 		.pio_iso_logic_signal_enable_export                          (<connected-to-pio_iso_logic_signal_enable_export>),                          //                       pio_iso_logic_signal_enable.export
+		.pio_rmap_echoing_module_reset_external_connection_export    (<connected-to-pio_rmap_echoing_module_reset_external_connection_export>),    // pio_rmap_echoing_module_reset_external_connection.export
+		.rmap_echoing_echo_rst_sink_reset                            (<connected-to-rmap_echoing_echo_rst_sink_reset>),                            //                        rmap_echoing_echo_rst_sink.reset
 		.rs232_uart_rxd                                              (<connected-to-rs232_uart_rxd>),                                              //                                        rs232_uart.rxd
 		.rs232_uart_txd                                              (<connected-to-rs232_uart_txd>),                                              //                                                  .txd
 		.rst_reset_n                                                 (<connected-to-rst_reset_n>),                                                 //                                               rst.reset_n
@@ -215,8 +217,6 @@
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                                  .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                                  .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                                  .umft_oe_n_signal
-		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                                  .umft_siwu_n_signal
-		.rmap_echoing_echo_rst_sink_reset                            (<connected-to-rmap_echoing_echo_rst_sink_reset>),                            //                        rmap_echoing_echo_rst_sink.reset
-		.pio_rmap_echoing_module_reset_external_connection_export    (<connected-to-pio_rmap_echoing_module_reset_external_connection_export>)     // pio_rmap_echoing_module_reset_external_connection.export
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                                  .umft_siwu_n_signal
 	);
 

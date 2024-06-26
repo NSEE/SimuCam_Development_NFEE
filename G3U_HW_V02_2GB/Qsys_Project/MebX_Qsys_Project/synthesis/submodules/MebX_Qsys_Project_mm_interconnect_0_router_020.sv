@@ -49,14 +49,14 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020_default_decode
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 0 
    )
-  (output [138 - 134 : 0] default_destination_id,
+  (output [135 - 131 : 0] default_destination_id,
    output [21-1 : 0] default_wr_channel,
    output [21-1 : 0] default_rd_channel,
    output [21-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[138 - 134 : 0];
+    DEFAULT_DESTID[135 - 131 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
@@ -93,7 +93,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [152-1 : 0]    sink_data,
+    input  [149-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,7 +102,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [152-1    : 0] src_data,
+    output reg [149-1    : 0] src_data,
     output reg [21-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
@@ -114,11 +114,11 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
     // -------------------------------------------------------
     localparam PKT_ADDR_H = 99;
     localparam PKT_ADDR_L = 36;
-    localparam PKT_DEST_ID_H = 138;
-    localparam PKT_DEST_ID_L = 134;
-    localparam PKT_PROTECTION_H = 142;
-    localparam PKT_PROTECTION_L = 140;
-    localparam ST_DATA_W = 152;
+    localparam PKT_DEST_ID_H = 135;
+    localparam PKT_DEST_ID_L = 131;
+    localparam PKT_PROTECTION_H = 139;
+    localparam PKT_PROTECTION_L = 137;
+    localparam ST_DATA_W = 149;
     localparam ST_CHANNEL_W = 21;
     localparam DECODER_TYPE = 0;
 

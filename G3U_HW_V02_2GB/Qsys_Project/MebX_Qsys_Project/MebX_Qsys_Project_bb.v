@@ -79,6 +79,8 @@ module MebX_Qsys_Project (
 	m2_ddr2_oct_rup,
 	pio_ftdi_umft601a_module_reset_export,
 	pio_iso_logic_signal_enable_export,
+	pio_rmap_echoing_module_reset_external_connection_export,
+	rmap_echoing_echo_rst_sink_reset,
 	rs232_uart_rxd,
 	rs232_uart_txd,
 	rst_reset_n,
@@ -216,9 +218,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	rmap_echoing_echo_rst_sink_reset,
-	pio_rmap_echoing_module_reset_external_connection_export);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -299,6 +299,8 @@ module MebX_Qsys_Project (
 	input		m2_ddr2_oct_rup;
 	output		pio_ftdi_umft601a_module_reset_export;
 	output		pio_iso_logic_signal_enable_export;
+	output		pio_rmap_echoing_module_reset_external_connection_export;
+	input		rmap_echoing_echo_rst_sink_reset;
 	input		rs232_uart_rxd;
 	output		rs232_uart_txd;
 	input		rst_reset_n;
@@ -437,6 +439,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		rmap_echoing_echo_rst_sink_reset;
-	output		pio_rmap_echoing_module_reset_external_connection_export;
 endmodule

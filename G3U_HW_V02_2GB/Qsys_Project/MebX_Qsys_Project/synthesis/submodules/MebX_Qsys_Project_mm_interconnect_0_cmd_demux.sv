@@ -28,7 +28,7 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         MebX_Qsys_Project_mm_interconnect_0_cmd_demux
-//   ST_DATA_W:           404
+//   ST_DATA_W:           401
 //   ST_CHANNEL_W:        21
 //   NUM_OUTPUTS:         2
 //   VALID_WIDTH:         1
@@ -46,7 +46,7 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_demux
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [404-1    : 0]   sink_data, // ST_DATA_W=404
+    input  [401-1    : 0]   sink_data, // ST_DATA_W=401
     input  [21-1 : 0]   sink_channel, // ST_CHANNEL_W=21
     input                         sink_startofpacket,
     input                         sink_endofpacket,
@@ -56,14 +56,14 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_demux
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [404-1    : 0] src0_data, // ST_DATA_W=404
+    output reg [401-1    : 0] src0_data, // ST_DATA_W=401
     output reg [21-1 : 0] src0_channel, // ST_CHANNEL_W=21
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
     output reg                      src1_valid,
-    output reg [404-1    : 0] src1_data, // ST_DATA_W=404
+    output reg [401-1    : 0] src1_data, // ST_DATA_W=401
     output reg [21-1 : 0] src1_channel, // ST_CHANNEL_W=21
     output reg                      src1_startofpacket,
     output reg                      src1_endofpacket,

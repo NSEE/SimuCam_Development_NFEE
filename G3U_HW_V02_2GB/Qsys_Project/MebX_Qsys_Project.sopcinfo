@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2023.04.09.12:32:04 -->
+ <!-- 2024.06.16.20:08:41 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1681054324</value>
+  <value>1718579320</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -31939,7 +31939,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BURSTCOUNT_WIDTH">
    <type>int</type>
-   <value>3</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -31947,7 +31947,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_BURST_SIZE">
    <type>int</type>
-   <value>4</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -31955,7 +31955,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="COMMAND_FIFO_DEPTH">
    <type>int</type>
-   <value>8</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -31963,7 +31963,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="RESPONSE_FIFO_DEPTH">
    <type>int</type>
-   <value>8</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -32367,7 +32367,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="maximumPendingReadTransactions">
     <type>int</type>
-    <value>16</value>
+    <value>4</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -32532,7 +32532,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_burstcount</name>
     <direction>Input</direction>
-    <width>3</width>
+    <width>1</width>
     <role>burstcount</role>
    </port>
    <port>
@@ -32855,7 +32855,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_burstcount</name>
     <direction>Output</direction>
-    <width>3</width>
+    <width>1</width>
     <role>burstcount</role>
    </port>
    <port>
@@ -37186,7 +37186,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AVL_SIZE_WIDTH">
    <type>int</type>
-   <value>8</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -42450,7 +42450,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AVL_MAX_SIZE">
    <type>java.lang.String</type>
-   <value>128</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -47809,7 +47809,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avl_size</name>
     <direction>Input</direction>
-    <width>8</width>
+    <width>1</width>
     <role>burstcount</role>
    </port>
   </interface>
@@ -52208,7 +52208,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AVL_SIZE_WIDTH">
    <type>int</type>
-   <value>8</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -57472,7 +57472,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AVL_MAX_SIZE">
    <type>java.lang.String</type>
-   <value>128</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -63095,7 +63095,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avl_size</name>
     <direction>Input</direction>
-    <width>8</width>
+    <width>1</width>
     <role>burstcount</role>
    </port>
   </interface>
@@ -86281,7 +86281,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1681054324</value>
+   <value>1718579320</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -86301,7 +86301,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1681054324</value>
+   <value>1718579320</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -86317,7 +86317,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1681054324</value>
+   <value>1718579320</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -100650,60 +100650,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>tx_interrupt_sender</endConnectionPoint>
  </connection>
  <connection
-   name="m2_ddr2_memory.afi_reset/m1_clock_bridge.m0_reset"
-   kind="reset"
-   version="18.1"
-   start="m2_ddr2_memory.afi_reset"
-   end="m1_clock_bridge.m0_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>m2_ddr2_memory</startModule>
-  <startConnectionPoint>afi_reset</startConnectionPoint>
-  <endModule>m1_clock_bridge</endModule>
-  <endConnectionPoint>m0_reset</endConnectionPoint>
- </connection>
- <connection
-   name="m2_ddr2_memory.afi_reset/m1_clock_bridge.s0_reset"
-   kind="reset"
-   version="18.1"
-   start="m2_ddr2_memory.afi_reset"
-   end="m1_clock_bridge.s0_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>m2_ddr2_memory</startModule>
-  <startConnectionPoint>afi_reset</startConnectionPoint>
-  <endModule>m1_clock_bridge</endModule>
-  <endConnectionPoint>s0_reset</endConnectionPoint>
- </connection>
- <connection
    name="clk_50.clk_reset/clk_200.clk_in_reset"
    kind="reset"
    version="18.1"
@@ -103054,7 +103000,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>75</instanceCount>
+  <instanceCount>73</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
