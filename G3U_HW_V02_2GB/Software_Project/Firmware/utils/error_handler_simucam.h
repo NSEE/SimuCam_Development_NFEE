@@ -19,6 +19,7 @@
 void vFailFtdiErrorIRQtoDTC ( void );
 void vFailSendBufferLastIRQtoLUT ( void );
 void vFailFtdiErrorIRQtoLUT ( void );
+void vFailFtdiErrorConfigtoLUT ( void );
 void vFailSendBufferEmptyIRQtoDTC ( void );
 void vFailSendBufferLastIRQtoDTC ( void );
 void vFailFromFEE ( void );

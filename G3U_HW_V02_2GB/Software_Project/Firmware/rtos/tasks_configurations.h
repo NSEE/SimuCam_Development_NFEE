@@ -69,9 +69,9 @@
     #define   HEAVY_TASK_STACKSIZE    1536
     #define   TINY_TASK_STACKSIZE     512   /*[bndky]*/
 #else
-    #define   TASK_STACKSIZE          1536//1024
-    #define   FEE_TASK_STACKSIZE      1536//1024
-    #define   HEAVY_TASK_STACKSIZE    2048//1536
+    #define   TASK_STACKSIZE          1792//1024
+    #define   FEE_TASK_STACKSIZE      1792//1024
+    #define   HEAVY_TASK_STACKSIZE    3072//1536
     #define   TINY_TASK_STACKSIZE     512   /*[bndky]*/
 #endif
 

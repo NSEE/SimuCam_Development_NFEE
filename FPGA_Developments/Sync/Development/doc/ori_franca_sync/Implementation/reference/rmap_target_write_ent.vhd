@@ -44,6 +44,8 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
+--! 09\01\2019 CB Constant redefinition and s_byte_counter load with\n
+--!            (s_byte_counter_vector - 1) -> line 306\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -66,8 +68,8 @@ entity rmap_target_write_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i              : in  std_logic; --! Local rmap clock
-		reset_n_i          : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
-
+		rst_i              : in  std_logic; --! Reset = '0': no reset; Reset = '1': reset active
+		--
 		control_i          : in  t_rmap_target_write_control;
 		headerdata_i       : in  t_rmap_target_write_headerdata;
 		spw_flag_i         : in  t_rmap_target_spw_rx_flag;
@@ -111,9 +113,10 @@ architecture rtl of rmap_target_write_ent is
 
 	signal s_write_error : std_logic;
 
-	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
-	signal s_write_address        : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** g_MEMORY_ACCESS_WIDTH;
 	signal s_write_byte_counter   : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
+
+	signal s_write_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 	signal s_byte_counter        : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
@@ -123,6 +126,8 @@ architecture rtl of rmap_target_write_ent is
 
 	signal s_write_address_vector : std_logic_vector(39 downto 0);
 	signal s_byte_counter_vector  : std_logic_vector(23 downto 0);
+
+	signal s_last_byte_written : std_logic;
 
 	--============================================================================
 	-- architecture begin
@@ -136,7 +141,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, rst_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -148,308 +153,27 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_write_state
-	p_rmap_target_write_FSM_state : process(clk_i, reset_n_i)
+	p_rmap_target_write_FSM_state : process(clk_i, rst_i)
+		variable v_rmap_target_write_state : t_rmap_target_write_state; -- current state
+		variable v_byte_counter            : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (rst_i = '1') then
 			s_rmap_target_write_state      <= IDLE;
+			v_rmap_target_write_state      := IDLE;
 			s_rmap_target_write_next_state <= IDLE;
 			s_write_address                <= (others => '0');
 			s_write_byte_counter           <= 0;
 			s_byte_counter                 <= (others => '0');
+			v_byte_counter                 := (others => '0');
 			s_write_data_crc               <= x"00";
 			s_write_data_crc_ok            <= '0';
-		-- state transitions are always synchronous to the clock
-		elsif (rising_edge(clk_i)) then
-			case (s_rmap_target_write_state) is
-
-				-- state "IDLE"
-				when IDLE =>
-					-- does nothing until user application signals a write authorization
-					-- default state transition
-					s_rmap_target_write_state      <= IDLE;
-					s_rmap_target_write_next_state <= IDLE;
-					-- default internal signal values
-					s_write_address                <= (others => '0');
-					s_write_byte_counter           <= 0;
-					s_byte_counter                 <= (others => '0');
-					s_write_data_crc               <= x"00";
-					s_write_data_crc_ok            <= '0';
-					-- conditional state transition and internal signal values
-					-- check if user application authorized a write
-					if (control_i.write_authorization = '1') then
-						-- user application authorized write operation
-						-- update data address
-						s_write_address                <= s_write_address_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
-						-- prepare byte counter for multi-byte write data
-						s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
-						-- check if the data need to be verified before written
-						if (headerdata_i.instruction_verify_data_before_write = '1') then
-							-- data does need to be verified to be written
-							-- go to waiting buffer data
-							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
-						else
-							-- data does not need to be verified to be written
-							-- go to write memory data
-							s_rmap_target_write_state <= WRITE_DATA;
-						end if;
-						-- prepare for next field (data field)
-						s_rmap_target_write_next_state <= FIELD_DATA;
-					-- check if a write request was not authorized by the user application
-					elsif (control_i.write_not_authorized = '1') then
-						-- write request not authorized
-						-- discard rest of the write package
-						-- go to waiting buffer data
-						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
-						-- prepare to wait for package end
-						s_rmap_target_write_next_state <= WAITING_PACKAGE_END;
-					end if;
-
-				-- state "WAITING_BUFFER_DATA"
-				when WAITING_BUFFER_DATA =>
-					-- wait until the spacewire rx buffer has data
-					-- default state transition
-					s_rmap_target_write_state <= WAITING_BUFFER_DATA;
-					-- default internal signal values
-					-- conditional state transition and internal signal values
-					-- check if rx buffer have valid data
-					if (spw_flag_i.valid = '1') then
-						-- rx buffer have valid data
-						-- check if the the rx data is an end of package and not an expected eop
-						if ((spw_flag_i.flag = '1') and not (((spw_flag_i.data = c_EOP_VALUE) and (s_rmap_target_write_next_state = FIELD_EOP)) or (s_rmap_target_write_next_state = WAITING_PACKAGE_END))) then
-							-- rx data is an unexpected package end
-							-- go to unexpected end of package					
-							s_rmap_target_write_state <= UNEXPECTED_PACKAGE_END;
-						else
-							-- rx data is not an end of package or is expected end of package
-							-- go to next field
-							s_rmap_target_write_state <= s_rmap_target_write_next_state;
-						end if;
-					end if;
-
-				-- state "FIELD_DATA"
-				when FIELD_DATA =>
-					-- data field, receive write data from the initiator
-					-- default state transition
-					s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
-					s_rmap_target_write_next_state <= FIELD_DATA;
-					-- default internal signal values
-					s_write_byte_counter           <= 0;
-					s_write_data_crc               <= RMAP_CalculateCRC(s_write_data_crc, spw_flag_i.data);
-					s_write_data_crc_ok            <= '0';
-					s_byte_counter                <= (others => '0');
-					-- conditional state transition and internal signal values
-					-- check if all data has been written
-					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
-						-- all data written
-						-- go to next field (data crc)
-						s_rmap_target_write_next_state <= FIELD_DATA_CRC;
-					else
-						-- there is still more data to be written
-						-- check if the data need to be verified before written
-						if not (headerdata_i.instruction_verify_data_before_write = '1') then
-							-- data does not need to be verified to be written
-							-- go to write memory data
-							s_rmap_target_write_state <= WRITE_DATA;
-							-- check if memory address need to be incremented
-							if (headerdata_i.instruction_increment_address = '1') then
-								-- increment memory address (for next data)
-								s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
-							end if;
-							-- check if byte counter can to be incremented (else it will be reseted)
-							if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
-								-- can be incremented without overflowing
-								s_write_byte_counter <= s_write_byte_counter + 1;
-							end if;
-						end if;
-						-- update byte counter (for next byte)
-						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
-
-					end if;
-
-				-- state "FIELD_DATA_CRC"
-				when FIELD_DATA_CRC =>
-					-- data crc field, receive write data crc from the initiator
-					-- default state transition
-					s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
-					s_rmap_target_write_next_state <= FIELD_EOP;
-					-- default internal signal values
-					s_byte_counter                 <= (others => '0');
-					s_write_data_crc               <= x"00";
-					s_write_data_crc_ok            <= '0';
-					-- conditional state transition and internal signal values
-					if (s_write_data_crc = spw_flag_i.data) then
-						s_write_data_crc_ok <= '1';
-					end if;
-
-				-- state "FIELD_EOP"
-				when FIELD_EOP =>
-					-- eop field, receive eop indicating the end of package
-					-- default state transition
-					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
-					s_rmap_target_write_next_state <= IDLE;
-					-- default internal signal values
-					s_byte_counter                 <= (others => '0');
-					s_write_data_crc               <= x"00";
-					-- conditional state transition and internal signal values
-					-- check if an end of package arrived
-					if (spw_flag_i.flag = '1') then
-						-- eop arrived (an eep would have been detected in WAITING_BUFFER_DATA)
-						-- check if the data need to be verified before written and if the data crc checked out
-						if ((headerdata_i.instruction_verify_data_before_write = '1') and (s_write_data_crc_ok = '1')) then
-							-- data need to be verified and data crc checked out
-							-- data can be written to memory
-							-- prepare the data counter; go to verified data write
-							s_byte_counter                 <= s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
-							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
-							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
-						end if;
-					else
-						-- data arrived, not an end of package
-						-- too much data error, go to waiting package end
-						s_rmap_target_write_state      <= WAITING_PACKAGE_END;
-						s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
-					end if;
-
-				-- state "WRITE_VERIFIED_DATA"
-				when WRITE_VERIFIED_DATA =>
-					-- write verified memory data
-					-- default state transition
-					s_rmap_target_write_state      <= WRITE_DATA;
-					s_rmap_target_write_next_state <= WRITE_VERIFIED_DATA;
-					-- default internal signal values
-					s_write_byte_counter           <= 0;
-					s_write_data_crc               <= x"00";
-					s_write_data_crc_ok            <= '0';
-					-- conditional state transition and internal signal values
-					-- check if all data has been written
-					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
-						-- all data written
-						-- finish write operation
-						s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
-						s_rmap_target_write_next_state <= IDLE;
-					else
-						-- there is still more data to be written
-						-- update byte counter (for next byte)
-						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
-						-- check if memory address need to be incremented
-						if (headerdata_i.instruction_increment_address = '1') then
-							-- increment memory address (for next data)
-							s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
-						end if;
-						-- check if byte counter can to be incremented (else it will be reseted)
-						if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
-							-- can be incremented without overflowing
-							s_write_byte_counter <= s_write_byte_counter + 1;
-						end if;
-					end if;
-
-				-- state "WRITE_DATA"
-				when WRITE_DATA =>
-					-- write memory data, waits for the memory to be ready for new data
-					s_rmap_target_write_state <= WRITE_DATA;
-					-- default state transition
-					-- default internal signal values
-					s_write_data_crc_ok       <= '0';
-					-- conditional state transition and internal signal values
-					-- check if a memory error occurred
-					-- check if the memory is ready for more data
-					if (mem_flag_i.ready = '1') then
-						-- memory is ready for more data
-						-- check if the data need to be verified before written
-						if (headerdata_i.instruction_verify_data_before_write = '1') then
-							-- data need to be verified, go to write verified data
-							s_rmap_target_write_state <= WRITE_VERIFIED_DATA;
-						else
-							-- data does not need to be verified, go to waiting buffer data
-							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
-						end if;
-					-- check if and write error occured
-					elsif (mem_flag_i.error = '1') then
-						-- write error ocurred
-						-- check if the data need to be verified before written
-						if (headerdata_i.instruction_verify_data_before_write = '1') then
-							-- data need to be verified, discard rest of the write data
-							s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
-							s_rmap_target_write_next_state <= IDLE;
-						else
-							-- data does not need to be verified, go to next data field
-							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
-						end if;
-
-					end if;
-
-				-- state "UNEXPECTED_PACKAGE_END"
-				when UNEXPECTED_PACKAGE_END =>
-					-- unexpected package end arrived
-					-- default state transition
-					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
-					s_rmap_target_write_next_state <= IDLE;
-					-- default internal signal values
-					s_byte_counter                 <= (others => '0');
-					s_write_data_crc               <= x"00";
-					s_write_data_crc_ok            <= '0';
-				-- conditional state transition and internal signal values
-
-				-- state "WAITING_PACKAGE_END"
-				when WAITING_PACKAGE_END =>
-					-- wait until a package end arrives
-					-- default state transition
-					s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
-					s_rmap_target_write_next_state <= WAITING_PACKAGE_END;
-					-- default internal signal values
-					s_write_data_crc               <= x"00";
-					s_write_data_crc_ok            <= '0';
-					-- conditional state transition and internal signal values
-					-- check if an end of package arrived
-					if (spw_flag_i.flag = '1') then
-						-- package ended
-						-- go to write finish operation
-						s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
-						s_rmap_target_write_next_state <= IDLE;
-					end if;
-
-				-- state "WRITE_FINISH_OPERATION"
-				when WRITE_FINISH_OPERATION =>
-					-- finish write operation
-					-- default state transition
-					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
-					s_rmap_target_write_next_state <= IDLE;
-					-- default internal signal values
-					s_byte_counter                 <= (others => '0');
-					s_write_data_crc               <= x"00";
-					s_write_data_crc_ok            <= '0';
-					-- conditional state transition and internal signal values
-					if (control_i.write_reset = '1') then
-						-- write reset commanded, go back to idle
-						s_rmap_target_write_state      <= IDLE;
-						s_rmap_target_write_next_state <= IDLE;
-					end if;
-
-				-- all the other states (not defined)
-				when others =>
-					-- jump to save state (ERROR?!)
-					s_rmap_target_write_state      <= IDLE;
-					s_rmap_target_write_next_state <= IDLE;
-
-			end case;
-		end if;
-	end process p_rmap_target_write_FSM_state;
-
-	--=============================================================================
-	-- Begin of RMAP Target Write Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_write_state, reset_n_i
-	-- write:
-	-- r/w:
-	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, reset_n_i)
-	begin
-		-- asynchronous reset
-		if (reset_n_i = '0') then
+			s_last_byte_written            <= '0';
+			-- Outputs Generation
 			flags_o.write_data_indication  <= '0';
 			flags_o.write_operation_failed <= '0';
 			flags_o.write_data_discarded   <= '0';
+                        flags_o.write_error_end_of_package <= '0';
 			flags_o.write_busy             <= '0';
 			error_o.early_eop              <= '0';
 			error_o.eep                    <= '0';
@@ -461,9 +185,345 @@ begin
 			mem_byte_address_o             <= (others => '0');
 			s_write_verify_buffer          <= (others => x"00");
 			s_write_error                  <= '0';
-		-- output generation when s_rmap_target_write_state changes
-		else
+		-- state transitions are always synchronous to the clock
+		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_write_state) is
+
+				-- state "IDLE"
+				when IDLE =>
+					-- does nothing until user application signals a write authorization
+					-- default state transition
+					s_rmap_target_write_state      <= IDLE;
+					v_rmap_target_write_state      := IDLE;
+					s_rmap_target_write_next_state <= IDLE;
+					-- default internal signal values
+					s_write_address                <= (others => '0');
+					s_write_byte_counter           <= 0;
+					s_byte_counter                 <= (others => '0');
+					v_byte_counter                 := (others => '0');
+					s_write_data_crc               <= x"00";
+					s_write_data_crc_ok            <= '0';
+					s_last_byte_written            <= '0';
+					-- conditional state transition and internal signal values
+					-- check if user application authorized a write
+					if (control_i.write_authorization = '1') then
+						-- user application authorized write operation
+						-- update data address
+						s_write_address                <= s_write_address_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+						-- prepare byte counter for multi-byte write data
+						s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
+						v_byte_counter                 := std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
+						--						-- check if the data need to be verified before written
+						--						if (headerdata_i.instruction_verify_data_before_write = '1') then
+						--							-- data does need to be verified to be written
+						--							-- go to waiting buffer data
+						--							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+						--							v_rmap_target_write_state := WAITING_BUFFER_DATA;
+						--						else
+						--							-- data does not need to be verified to be written
+						--							-- go to write memory data
+						--							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+						--							v_rmap_target_write_state := WAITING_BUFFER_DATA;
+						--						end if;
+						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+						v_rmap_target_write_state      := WAITING_BUFFER_DATA;
+						-- prepare for next field (data field)
+						s_rmap_target_write_next_state <= FIELD_DATA;
+					-- check if a write request was not authorized by the user application
+					elsif (control_i.write_not_authorized = '1') then
+						-- write request not authorized
+						-- discard rest of the write package
+						-- go to waiting buffer data
+						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+						v_rmap_target_write_state      := WAITING_BUFFER_DATA;
+						-- prepare to wait for package end
+						s_rmap_target_write_next_state <= WAITING_PACKAGE_END;
+					end if;
+
+				-- state "WAITING_BUFFER_DATA"
+				when WAITING_BUFFER_DATA =>
+					-- wait until the spacewire rx buffer has data
+					-- default state transition
+					s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+					v_rmap_target_write_state := WAITING_BUFFER_DATA;
+					-- default internal signal values
+					-- conditional state transition and internal signal values
+					-- check if rx buffer have valid data
+					if (spw_flag_i.valid = '1') then
+						-- rx buffer have valid data
+						-- check if the the rx data is an end of package and not an expected eop
+						if ((spw_flag_i.flag = '1') and not (((spw_flag_i.data = c_EOP_VALUE) and (s_rmap_target_write_next_state = FIELD_EOP)) or (s_rmap_target_write_next_state = WAITING_PACKAGE_END))) then
+							-- rx data is an unexpected package end
+							-- go to unexpected end of package					
+							s_rmap_target_write_state <= UNEXPECTED_PACKAGE_END;
+							v_rmap_target_write_state := UNEXPECTED_PACKAGE_END;
+						else
+							-- rx data is not an end of package or is expected end of package
+							-- go to next field
+							s_rmap_target_write_state <= s_rmap_target_write_next_state;
+							v_rmap_target_write_state := s_rmap_target_write_next_state;
+						end if;
+					end if;
+
+				-- state "FIELD_DATA"
+				when FIELD_DATA =>
+					-- data field, receive write data from the initiator
+					-- default state transition
+					s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_write_state      := WAITING_BUFFER_DATA;
+					s_rmap_target_write_next_state <= FIELD_DATA;
+					-- default internal signal values
+					s_write_byte_counter           <= 0;
+					s_write_data_crc               <= RMAP_CalculateCRC(s_write_data_crc, spw_flag_i.data);
+					s_write_data_crc_ok            <= '0';
+					s_byte_counter                 <= (others => '0');
+					v_byte_counter                 := (others => '0');
+					-- conditional state transition and internal signal values
+					-- check if all data has been written
+					if not ((s_byte_counter = c_BYTE_COUNTER_ZERO) and (s_last_byte_written = '1')) then
+						--					if ((s_byte_counter = c_BYTE_COUNTER_ZERO) and (s_last_byte_written = '1')) then
+						--						-- all data written
+						--						-- go to next field (data crc)
+						--						s_rmap_target_write_next_state <= FIELD_DATA_CRC;
+						--					else
+						-- there is still more data to be written
+						-- check if the data need to be verified before written
+						if not (headerdata_i.instruction_verify_data_before_write = '1') then
+							-- data does not need to be verified to be written
+							-- go to write memory data
+							s_rmap_target_write_state <= WRITE_DATA;
+							v_rmap_target_write_state := WRITE_DATA;
+							-- check if it is the last byte
+							if (s_byte_counter /= c_BYTE_COUNTER_ZERO) then
+								-- not the last byte
+								-- check if memory address need to be incremented
+								if (headerdata_i.instruction_increment_address = '1') then
+									-- increment memory address (for next data)
+									s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
+								end if;
+								-- check if byte counter can to be incremented (else it will be reseted)
+								if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
+									-- can be incremented without overflowing
+									s_write_byte_counter <= s_write_byte_counter + 1;
+								end if;
+							end if;
+						end if;
+						-- update byte counter (for next byte)
+						if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
+							--						-- all data written
+							--						-- go to next field (data crc)
+							s_rmap_target_write_next_state <= FIELD_DATA_CRC;
+							s_last_byte_written            <= '1';
+						else
+							s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
+							v_byte_counter := std_logic_vector(unsigned(s_byte_counter) - 1);
+						end if;
+					end if;
+
+				-- state "FIELD_DATA_CRC"
+				when FIELD_DATA_CRC =>
+					-- data crc field, receive write data crc from the initiator
+					-- default state transition
+					s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_write_state      := WAITING_BUFFER_DATA;
+					s_rmap_target_write_next_state <= FIELD_EOP;
+					-- default internal signal values
+					s_byte_counter                 <= (others => '0');
+					v_byte_counter                 := (others => '0');
+					s_write_data_crc               <= x"00";
+					s_write_data_crc_ok            <= '0';
+					s_last_byte_written            <= '0';
+					-- conditional state transition and internal signal values
+					if (s_write_data_crc = spw_flag_i.data) then
+						s_write_data_crc_ok <= '1';
+					end if;
+
+				-- state "FIELD_EOP"
+				when FIELD_EOP =>
+					-- eop field, receive eop indicating the end of package
+					-- default state transition
+					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
+					v_rmap_target_write_state      := WRITE_FINISH_OPERATION;
+					s_rmap_target_write_next_state <= IDLE;
+					-- default internal signal values
+					s_byte_counter                 <= (others => '0');
+					v_byte_counter                 := (others => '0');
+					s_write_data_crc               <= x"00";
+					s_last_byte_written            <= '0';
+					-- conditional state transition and internal signal values
+					-- check if an end of package arrived
+					if (spw_flag_i.flag = '1') then
+						-- eop arrived (an eep would have been detected in WAITING_BUFFER_DATA)
+						-- check if the data need to be verified before written and if the data crc checked out
+						if ((headerdata_i.instruction_verify_data_before_write = '1') and (s_write_data_crc_ok = '1')) then
+							-- data need to be verified and data crc checked out
+							-- data can be written to memory
+							-- prepare the data counter; go to verified data write
+							s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
+							v_byte_counter                 := std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
+							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
+							v_rmap_target_write_state      := WRITE_VERIFIED_DATA;
+							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
+						end if;
+					else
+						-- data arrived, not an end of package
+						-- too much data error, go to waiting package end
+						s_rmap_target_write_state      <= WAITING_PACKAGE_END;
+						v_rmap_target_write_state      := WAITING_PACKAGE_END;
+						s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
+					end if;
+
+				-- state "WRITE_VERIFIED_DATA"
+				when WRITE_VERIFIED_DATA =>
+					-- write verified memory data
+					-- default state transition
+					s_rmap_target_write_state      <= WRITE_DATA;
+					v_rmap_target_write_state      := WRITE_DATA;
+					s_rmap_target_write_next_state <= WRITE_VERIFIED_DATA;
+					-- default internal signal values
+					s_write_byte_counter           <= 0;
+					s_write_data_crc               <= x"00";
+					s_write_data_crc_ok            <= '0';
+					-- conditional state transition and internal signal values
+					-- check if all data has been written
+					if ((s_byte_counter = c_BYTE_COUNTER_ZERO) and (s_last_byte_written = '1')) then
+						-- all data written
+						-- finish write operation
+						s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
+						v_rmap_target_write_state      := WRITE_FINISH_OPERATION;
+						s_rmap_target_write_next_state <= IDLE;
+					else
+						-- there is still more data to be written
+						if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
+							s_last_byte_written <= '1';
+						else
+							-- update byte counter (for next byte)
+							s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
+							v_byte_counter := std_logic_vector(unsigned(s_byte_counter) - 1);
+							-- check if memory address need to be incremented
+							if (headerdata_i.instruction_increment_address = '1') then
+								-- increment memory address (for next data)
+								s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
+							end if;
+							-- check if byte counter can to be incremented (else it will be reseted)
+							if (s_write_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
+								-- can be incremented without overflowing
+								s_write_byte_counter <= s_write_byte_counter + 1;
+							end if;
+						end if;
+					end if;
+
+				-- state "WRITE_DATA"
+				when WRITE_DATA =>
+					-- write memory data, waits for the memory to be ready for new data
+					s_rmap_target_write_state <= WRITE_DATA;
+					v_rmap_target_write_state := WRITE_DATA;
+					-- default state transition
+					-- default internal signal values
+					s_write_data_crc_ok       <= '0';
+					-- conditional state transition and internal signal values
+					-- check if a memory error occurred
+					-- check if the memory is ready for more data
+					if (mem_flag_i.waitrequest = '0') then
+						-- memory is ready for more data
+						-- check if the data need to be verified before written
+						if (headerdata_i.instruction_verify_data_before_write = '1') then
+							-- data need to be verified, go to write verified data
+							s_rmap_target_write_state <= WRITE_VERIFIED_DATA;
+							v_rmap_target_write_state := WRITE_VERIFIED_DATA;
+						else
+							-- data does not need to be verified, go to waiting buffer data
+							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+							v_rmap_target_write_state := WAITING_BUFFER_DATA;
+						end if;
+					-- check if and write error occured
+					elsif (mem_flag_i.error = '1') then
+						-- write error ocurred
+						-- check if the data need to be verified before written
+						if (headerdata_i.instruction_verify_data_before_write = '1') then
+							-- data need to be verified, discard rest of the write data
+							s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
+							v_rmap_target_write_state      := WRITE_FINISH_OPERATION;
+							s_rmap_target_write_next_state <= IDLE;
+						else
+							-- data does not need to be verified, go to next data field
+							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+							v_rmap_target_write_state := WAITING_BUFFER_DATA;
+						end if;
+
+					end if;
+
+				-- state "UNEXPECTED_PACKAGE_END"
+				when UNEXPECTED_PACKAGE_END =>
+					-- unexpected package end arrived
+					-- default state transition
+					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
+					v_rmap_target_write_state      := WRITE_FINISH_OPERATION;
+					s_rmap_target_write_next_state <= IDLE;
+					-- default internal signal values
+					s_byte_counter                 <= (others => '0');
+					v_byte_counter                 := (others => '0');
+					s_write_data_crc               <= x"00";
+					s_write_data_crc_ok            <= '0';
+				-- conditional state transition and internal signal values
+
+				-- state "WAITING_PACKAGE_END"
+				when WAITING_PACKAGE_END =>
+					-- wait until a package end arrives
+					-- default state transition
+					s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_write_state      := WAITING_BUFFER_DATA;
+					s_rmap_target_write_next_state <= WAITING_PACKAGE_END;
+					-- default internal signal values
+					s_write_data_crc               <= x"00";
+					s_write_data_crc_ok            <= '0';
+					-- conditional state transition and internal signal values
+					-- check if an end of package arrived
+					if (spw_flag_i.flag = '1') then
+						-- package ended
+						-- go to write finish operation
+						s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
+						v_rmap_target_write_state      := WRITE_FINISH_OPERATION;
+						s_rmap_target_write_next_state <= IDLE;
+					end if;
+
+				-- state "WRITE_FINISH_OPERATION"
+				when WRITE_FINISH_OPERATION =>
+					-- finish write operation
+					-- default state transition
+					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
+					v_rmap_target_write_state      := WRITE_FINISH_OPERATION;
+					s_rmap_target_write_next_state <= IDLE;
+					-- default internal signal values
+					s_byte_counter                 <= (others => '0');
+					v_byte_counter                 := (others => '0');
+					s_write_data_crc               <= x"00";
+					s_write_data_crc_ok            <= '0';
+					s_last_byte_written            <= '0';
+					-- conditional state transition and internal signal values
+					if (control_i.write_reset = '1') then
+						-- write reset commanded, go back to idle
+						s_rmap_target_write_state      <= IDLE;
+						v_rmap_target_write_state      := IDLE;
+						s_rmap_target_write_next_state <= IDLE;
+					end if;
+
+				-- all the other states (not defined)
+				when others =>
+					-- jump to save state (ERROR?!)
+					s_rmap_target_write_state      <= IDLE;
+					v_rmap_target_write_state      := IDLE;
+					s_rmap_target_write_next_state <= IDLE;
+
+			end case;
+			--=============================================================================
+			-- Begin of RMAP Target Write Finite State Machine
+			-- (output generation)
+			--=============================================================================
+			-- read: s_rmap_target_write_state, rst_i
+			-- write:
+			-- r/w:
+			case (v_rmap_target_write_state) is
 
 				-- state "IDLE"
 				when IDLE =>
@@ -472,6 +532,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					flags_o.write_busy             <= '0';
 					error_o.early_eop              <= '0';
 					error_o.eep                    <= '0';
@@ -493,6 +554,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
 				-- conditional output signals
@@ -505,6 +567,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					-- conditional output signals
@@ -514,7 +577,7 @@ begin
 						-- write data in verify buffer
 						s_write_verify_buffer(to_integer(unsigned(s_byte_counter))) <= spw_flag_i.data;
 					else
-						mem_control_o.write <= '1';
+						mem_control_o.write <= '0';
 						mem_control_o.data  <= spw_flag_i.data;
 						-- check if memory access is more than one byte
 						if (c_MEMORY_ACCESS_SIZE > 1) then
@@ -534,6 +597,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					-- conditional output signals
@@ -551,6 +615,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					-- default output signals
@@ -561,6 +626,8 @@ begin
 						-- too much data error
 						error_o.too_much_data <= '1';
 						s_write_error         <= '1';
+                                                -- clear invalid data crc (too much data takes precedence)
+                                                error_o.invalid_data_crc <= '0';
 					end if;
 
 				-- state "WRITE_VERIFIED_DATA"
@@ -570,10 +637,12 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '0';
 					-- default output signals
-					mem_control_o.write            <= '1';
-					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(s_byte_counter)));
+					mem_control_o.write            <= '0';
+					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(v_byte_counter)));
+					-- conditional output signals
 					-- check if memory access is more than one byte
 					if (c_MEMORY_ACCESS_SIZE > 1) then
 						-- memory access is more than one byte, need to send write address and byte address
@@ -582,7 +651,6 @@ begin
 						-- memory access is only one byte, need to send just the write address
 						mem_byte_address_o <= s_write_address;
 					end if;
-				-- conditional output signals
 
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>
@@ -592,8 +660,9 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '0';
-					mem_control_o.write            <= '0';
+					mem_control_o.write            <= '1';
 				-- conditional output signals
 
 				-- state "UNEXPECTED_PACKAGE_END"
@@ -604,6 +673,7 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
+                                        flags_o.write_error_end_of_package <= '0';
 					spw_control_o.read             <= '1';
 					mem_control_o.write            <= '0';
 					error_o.early_eop              <= '0';
@@ -617,6 +687,10 @@ begin
 					else
 						-- eep error
 						error_o.eep <= '1';
+						-- check if the eep happened right after the Header CRC
+						if (s_rmap_target_write_next_state = FIELD_DATA) then
+							flags_o.write_error_end_of_package <= '1';
+						end if;
 					end if;
 
 				-- state "WAITING_PACKAGE_END"
@@ -627,9 +701,13 @@ begin
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '1';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
-				-- conditional output signals
+					-- conditional output signals
+					if (spw_flag_i.valid = '1') then
+						spw_control_o.read <= '1';
+					end if;
 
 				-- state "WRITE_FINISH_OPERATION"
 				when WRITE_FINISH_OPERATION =>
@@ -664,7 +742,7 @@ begin
 
 			end case;
 		end if;
-	end process p_rmap_target_write_FSM_output;
+	end process p_rmap_target_write_FSM_state;
 
 end architecture rtl;
 --============================================================================

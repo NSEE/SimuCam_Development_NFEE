@@ -120,6 +120,14 @@ bool bDeftSetMebDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue) {
 		case eDeftMebSyncSourceId:
 			vxDeftMebDefaults.xGenSimulationParams.ucSyncSource = (alt_u8 ) uliDefaultValue;
 			break;
+		/* Invert the polarity of the SYNC IN signal (0 = Normal / 1 = Inverted) */
+		case eDeftMebSyncInInvPolId:
+			vxDeftMebDefaults.xGenSimulationParams.bSyncInInvertPolarity = (bool) uliDefaultValue;
+			break;
+		/* Invert the polarity of the SYNC OUT signal (0 = Normal / 1 = Inverted) */
+		case eDeftMebSyncOutInvPolId:
+			vxDeftMebDefaults.xGenSimulationParams.bSyncOutInvertPolarity = (bool) uliDefaultValue;
+			break;
 
 		default:
 			bStatus = FALSE;
@@ -979,6 +987,14 @@ bool bDeftGetMebDefaultValues(alt_u16 usiDefaultId, alt_u32 *puliDefaultValue, a
 		/* SimuCam Synchronism Source (0 = Internal / 1 = External) */
 		case eDeftMebSyncSourceId:
 			*puliDefaultValue = (alt_u32)pxMebGenSimulationParams->ucSyncSource;
+			break;
+		/* Invert the polarity of the SYNC IN signal (0 = Normal / 1 = Inverted) */
+		case eDeftMebSyncInInvPolId:
+			*puliDefaultValue = (alt_u32)pxMebGenSimulationParams->bSyncInInvertPolarity;
+			break;
+		/* Invert the polarity of the SYNC OUT signal (0 = Normal / 1 = Inverted) */
+		case eDeftMebSyncOutInvPolId:
+			*puliDefaultValue = (alt_u32)pxMebGenSimulationParams->bSyncOutInvertPolarity;
 			break;
 		default:
 			bStatus = FALSE;

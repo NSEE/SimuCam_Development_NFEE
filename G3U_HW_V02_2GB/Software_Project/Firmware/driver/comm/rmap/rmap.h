@@ -111,6 +111,8 @@ bool bRmapGetMemStatus(TRmapChannel *pxRmapCh);
 bool bRmapSetMemConfig(TRmapChannel *pxRmapCh);
 bool bRmapGetMemConfig(TRmapChannel *pxRmapCh);
 
+bool bRmapAddrFifoRead(TRmapChannel *pxRmapCh, bool *ucAddrFifoEmpty, alt_u8 *ucAddrFifoData);
+
 bool bRmapSetRmapMemCfgArea(TRmapChannel *pxRmapCh);
 bool bRmapGetRmapMemCfgArea(TRmapChannel *pxRmapCh);
 

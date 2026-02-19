@@ -218,7 +218,9 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal);	
+	umft601a_pins_umft_siwu_n_signal,
+	pio_sync_pol_inv_ctrl_export,
+	pio_leds_niosii_ctrl_export);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -439,4 +441,6 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
+	output	[1:0]	pio_sync_pol_inv_ctrl_export;
+	output	[28:0]	pio_leds_niosii_ctrl_export;
 endmodule

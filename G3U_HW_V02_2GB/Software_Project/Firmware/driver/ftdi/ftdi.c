@@ -87,7 +87,7 @@ void vFtdiRxIrqHandler(void* pvContext) {
 			vFailFtdiErrorIRQtoDTC();
 		}
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "FTDI Rx Irq Err \n");
 //			fprintf(fp, "FTDI Rx Irq Err : Payload CRC %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayCrcErr);

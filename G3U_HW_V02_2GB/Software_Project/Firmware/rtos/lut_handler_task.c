@@ -17,6 +17,7 @@ void vLutHandlerTask(void *task_data) {
 	INT8U ucIReq = 0;
 	bool bSuccess = FALSE;
 	bool bDmaReturn = FALSE;
+	void *pmsg;
 
 	/* Fee Instance Data Structure */
 	pxMebC = (TSimucam_MEB *) task_data;
@@ -41,10 +42,23 @@ void vLutHandlerTask(void *task_data) {
 
 				pxMebC->xLut.eState = sRunLut;
 				break;
+
 			case sConfigLut:
 
-				/*Use only if needed.*/
+				/* Config mode - Clear LUT operations */
 
+				OSMutexPost(xMutexDMAFTDI);
+
+				for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+
+					/*Cleaning all configs and possible updates*/
+					pxMebC->xLut.bUpdatedRam[ucIL] = FALSE;
+					pxMebC->xLut.bFakingLUT[ucIL] = FALSE;
+				}
+
+				vFtdiResetLutWinArea();
+
+				pxMebC->xLut.eState = sRunLut;
 				break;
 
 			case sRunLut:
@@ -132,6 +146,12 @@ void vLutHandlerTask(void *task_data) {
 
 			case sWaitingIRQFinish:
 
+				pmsg = OSQAccept(xLutQ, &error_code);      // non-blocking
+				if (error_code == OS_ERR_NONE && pmsg != (void *)0) {
+				    uiCmdFEE.ulWord = (unsigned int)(uintptr_t)pmsg;
+				    vQCmdLUTCmd(pxMebC, uiCmdFEE.ulWord);
+				}
+
 				/*Wait for message in the Queue*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xLutQ , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -208,6 +228,10 @@ void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 			vFtdiStartModule();
 			break;
 
+		case M_LUT_CONFIG_FORCED:
+			pxMebCP->xLut.eState = sConfigLut;
+			break;
+
 		case M_BEFORE_SYNC:
 		case M_SYNC:
 		case M_PRE_MASTER:
@@ -246,6 +270,7 @@ void vQCmdLUTWaitIRQFinish( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 
 		case M_LUT_FTDI_BUFFER_FINISH:
 			pxMebCP->xLut.eState = sRequestFTDI;
+			OSTimeDlyHMSM(0, 0, 0, 50); // Delay de 50 ms de estabilização da NUC
 			break;
 
 		case M_LUT_FTDI_ERROR:
@@ -253,6 +278,7 @@ void vQCmdLUTWaitIRQFinish( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 			vFtdiClearModule();
 			vFtdiStartModule();
 			pxMebCP->xLut.eState = sRequestFTDI;
+			OSTimeDlyHMSM(0, 0, 0, 50); // Delay de 50 ms de estabilização da NUC
 			break;
 
 		case M_BEFORE_MASTER:

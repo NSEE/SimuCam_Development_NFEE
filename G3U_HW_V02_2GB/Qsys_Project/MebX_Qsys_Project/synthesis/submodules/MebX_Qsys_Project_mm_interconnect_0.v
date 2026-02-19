@@ -8,8 +8,10 @@
 `timescale 1 ps / 1 ps
 module MebX_Qsys_Project_mm_interconnect_0 (
 		input  wire         clk_100_clk_clk,                                                       //                                               clk_100_clk.clk
+		input  wire         clk_nios2_clk_clk,                                                     //                                             clk_nios2_clk.clk
 		input  wire         m2_ddr2_memory_afi_clk_clk,                                            //                                    m2_ddr2_memory_afi_clk.clk
 		input  wire         m2_ddr2_memory_afi_half_clk_clk,                                       //                               m2_ddr2_memory_afi_half_clk.clk
+		input  wire         ddr2_address_span_extender_reset_reset_bridge_in_reset_reset,          //    ddr2_address_span_extender_reset_reset_bridge_in_reset.reset
 		input  wire         FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset,           //     FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset.reset
 		input  wire         m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset,                  //            m1_clock_bridge_s0_reset_reset_bridge_in_reset.reset
 		input  wire         m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset,       // m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
@@ -3165,8 +3167,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.AV_LINEWRAPBURSTS           (0),
 		.AV_REGISTERINCOMINGSIGNALS  (0)
 	) ddr2_address_span_extender_expanded_master_translator (
-		.clk                    (clk_100_clk_clk),                                                                               //                       clk.clk
-		.reset                  (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),                                   //                     reset.reset
+		.clk                    (clk_nios2_clk_clk),                                                                             //                       clk.clk
+		.reset                  (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),                                  //                     reset.reset
 		.uav_address            (ddr2_address_span_extender_expanded_master_translator_avalon_universal_master_0_address),       // avalon_universal_master_0.address
 		.uav_burstcount         (ddr2_address_span_extender_expanded_master_translator_avalon_universal_master_0_burstcount),    //                          .burstcount
 		.uav_read               (ddr2_address_span_extender_expanded_master_translator_avalon_universal_master_0_read),          //                          .read
@@ -5001,8 +5003,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0)
 	) ddr2_address_span_extender_expanded_master_agent (
-		.clk                   (clk_100_clk_clk),                                                                               //       clk.clk
-		.reset                 (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),                                   // clk_reset.reset
+		.clk                   (clk_nios2_clk_clk),                                                                             //       clk.clk
+		.reset                 (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),                                  // clk_reset.reset
 		.av_address            (ddr2_address_span_extender_expanded_master_translator_avalon_universal_master_0_address),       //        av.address
 		.av_write              (ddr2_address_span_extender_expanded_master_translator_avalon_universal_master_0_write),         //          .write
 		.av_read               (ddr2_address_span_extender_expanded_master_translator_avalon_universal_master_0_read),          //          .read
@@ -5687,8 +5689,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.sink_data          (ddr2_address_span_extender_expanded_master_agent_cp_data),          //          .data
 		.sink_startofpacket (ddr2_address_span_extender_expanded_master_agent_cp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (ddr2_address_span_extender_expanded_master_agent_cp_endofpacket),   //          .endofpacket
-		.clk                (clk_100_clk_clk),                                                   //       clk.clk
-		.reset              (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),       // clk_reset.reset
+		.clk                (clk_nios2_clk_clk),                                                 //       clk.clk
+		.reset              (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),      // clk_reset.reset
 		.src_ready          (router_020_src_ready),                                              //       src.ready
 		.src_valid          (router_020_src_valid),                                              //          .valid
 		.src_data           (router_020_src_data),                                               //          .data
@@ -5751,8 +5753,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.SUPPORTS_NONPOSTED_WRITES (0),
 		.REORDER                   (0)
 	) ddr2_address_span_extender_expanded_master_limiter (
-		.clk                    (clk_100_clk_clk),                                                                //       clk.clk
-		.reset                  (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),                    // clk_reset.reset
+		.clk                    (clk_nios2_clk_clk),                                                              //       clk.clk
+		.reset                  (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),                   // clk_reset.reset
 		.cmd_sink_ready         (router_020_src_ready),                                                           //  cmd_sink.ready
 		.cmd_sink_valid         (router_020_src_valid),                                                           //          .valid
 		.cmd_sink_data          (router_020_src_data),                                                            //          .data
@@ -6339,9 +6341,9 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.src1_endofpacket   (cmd_demux_019_src1_endofpacket)                                                  //          .endofpacket
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_cmd_demux cmd_demux_020 (
-		.clk                (clk_100_clk_clk),                                                                //       clk.clk
-		.reset              (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),                    // clk_reset.reset
+	MebX_Qsys_Project_mm_interconnect_0_cmd_demux_020 cmd_demux_020 (
+		.clk                (clk_nios2_clk_clk),                                                              //       clk.clk
+		.reset              (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),                   // clk_reset.reset
 		.sink_ready         (ddr2_address_span_extender_expanded_master_cmd_width_adapter_src_ready),         //      sink.ready
 		.sink_channel       (ddr2_address_span_extender_expanded_master_cmd_width_adapter_src_channel),       //          .channel
 		.sink_data          (ddr2_address_span_extender_expanded_master_cmd_width_adapter_src_data),          //          .data
@@ -7371,26 +7373,26 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_rsp_mux rsp_mux_020 (
-		.clk                 (clk_100_clk_clk),                                             //       clk.clk
-		.reset               (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (rsp_mux_020_src_ready),                                       //       src.ready
-		.src_valid           (rsp_mux_020_src_valid),                                       //          .valid
-		.src_data            (rsp_mux_020_src_data),                                        //          .data
-		.src_channel         (rsp_mux_020_src_channel),                                     //          .channel
-		.src_startofpacket   (rsp_mux_020_src_startofpacket),                               //          .startofpacket
-		.src_endofpacket     (rsp_mux_020_src_endofpacket),                                 //          .endofpacket
-		.sink0_ready         (crosser_062_out_ready),                                       //     sink0.ready
-		.sink0_valid         (crosser_062_out_valid),                                       //          .valid
-		.sink0_channel       (crosser_062_out_channel),                                     //          .channel
-		.sink0_data          (crosser_062_out_data),                                        //          .data
-		.sink0_startofpacket (crosser_062_out_startofpacket),                               //          .startofpacket
-		.sink0_endofpacket   (crosser_062_out_endofpacket),                                 //          .endofpacket
-		.sink1_ready         (crosser_083_out_ready),                                       //     sink1.ready
-		.sink1_valid         (crosser_083_out_valid),                                       //          .valid
-		.sink1_channel       (crosser_083_out_channel),                                     //          .channel
-		.sink1_data          (crosser_083_out_data),                                        //          .data
-		.sink1_startofpacket (crosser_083_out_startofpacket),                               //          .startofpacket
-		.sink1_endofpacket   (crosser_083_out_endofpacket)                                  //          .endofpacket
+		.clk                 (clk_nios2_clk_clk),                                            //       clk.clk
+		.reset               (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (rsp_mux_020_src_ready),                                        //       src.ready
+		.src_valid           (rsp_mux_020_src_valid),                                        //          .valid
+		.src_data            (rsp_mux_020_src_data),                                         //          .data
+		.src_channel         (rsp_mux_020_src_channel),                                      //          .channel
+		.src_startofpacket   (rsp_mux_020_src_startofpacket),                                //          .startofpacket
+		.src_endofpacket     (rsp_mux_020_src_endofpacket),                                  //          .endofpacket
+		.sink0_ready         (crosser_062_out_ready),                                        //     sink0.ready
+		.sink0_valid         (crosser_062_out_valid),                                        //          .valid
+		.sink0_channel       (crosser_062_out_channel),                                      //          .channel
+		.sink0_data          (crosser_062_out_data),                                         //          .data
+		.sink0_startofpacket (crosser_062_out_startofpacket),                                //          .startofpacket
+		.sink0_endofpacket   (crosser_062_out_endofpacket),                                  //          .endofpacket
+		.sink1_ready         (crosser_083_out_ready),                                        //     sink1.ready
+		.sink1_valid         (crosser_083_out_valid),                                        //          .valid
+		.sink1_channel       (crosser_083_out_channel),                                      //          .channel
+		.sink1_data          (crosser_083_out_data),                                         //          .data
+		.sink1_startofpacket (crosser_083_out_startofpacket),                                //          .startofpacket
+		.sink1_endofpacket   (crosser_083_out_endofpacket)                                   //          .endofpacket
 	);
 
 	altera_merlin_width_adapter #(
@@ -8234,8 +8236,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.PACKING                       (1),
 		.ENABLE_ADDRESS_ALIGNMENT      (0)
 	) ddr2_address_span_extender_expanded_master_cmd_width_adapter (
-		.clk                  (clk_100_clk_clk),                                                                //       clk.clk
-		.reset                (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),                    // clk_reset.reset
+		.clk                  (clk_nios2_clk_clk),                                                              //       clk.clk
+		.reset                (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),                   // clk_reset.reset
 		.in_valid             (ddr2_address_span_extender_expanded_master_limiter_cmd_src_valid),               //      sink.valid
 		.in_channel           (ddr2_address_span_extender_expanded_master_limiter_cmd_src_channel),             //          .channel
 		.in_startofpacket     (ddr2_address_span_extender_expanded_master_limiter_cmd_src_startofpacket),       //          .startofpacket
@@ -8300,8 +8302,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.PACKING                       (1),
 		.ENABLE_ADDRESS_ALIGNMENT      (0)
 	) ddr2_address_span_extender_expanded_master_rsp_width_adapter (
-		.clk                  (clk_100_clk_clk),                                                                //       clk.clk
-		.reset                (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),                    // clk_reset.reset
+		.clk                  (clk_nios2_clk_clk),                                                              //       clk.clk
+		.reset                (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),                   // clk_reset.reset
 		.in_valid             (rsp_mux_020_src_valid),                                                          //      sink.valid
 		.in_channel           (rsp_mux_020_src_channel),                                                        //          .channel
 		.in_startofpacket     (rsp_mux_020_src_startofpacket),                                                  //          .startofpacket
@@ -9689,8 +9691,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.READY_SYNC_DEPTH    (2),
 		.USE_OUTPUT_PIPELINE (0)
 	) crosser_040 (
-		.in_clk            (clk_100_clk_clk),                                                 //        in_clk.clk
-		.in_reset          (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),     //  in_clk_reset.reset
+		.in_clk            (clk_nios2_clk_clk),                                               //        in_clk.clk
+		.in_reset          (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),    //  in_clk_reset.reset
 		.out_clk           (m2_ddr2_memory_afi_clk_clk),                                      //       out_clk.clk
 		.out_reset         (m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset), // out_clk_reset.reset
 		.in_ready          (cmd_demux_020_src0_ready),                                        //            in.ready
@@ -9723,26 +9725,26 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.READY_SYNC_DEPTH    (2),
 		.USE_OUTPUT_PIPELINE (0)
 	) crosser_041 (
-		.in_clk            (clk_100_clk_clk),                                             //        in_clk.clk
-		.in_reset          (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset), //  in_clk_reset.reset
-		.out_clk           (m2_ddr2_memory_afi_half_clk_clk),                             //       out_clk.clk
-		.out_reset         (m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset),        // out_clk_reset.reset
-		.in_ready          (cmd_demux_020_src1_ready),                                    //            in.ready
-		.in_valid          (cmd_demux_020_src1_valid),                                    //              .valid
-		.in_startofpacket  (cmd_demux_020_src1_startofpacket),                            //              .startofpacket
-		.in_endofpacket    (cmd_demux_020_src1_endofpacket),                              //              .endofpacket
-		.in_channel        (cmd_demux_020_src1_channel),                                  //              .channel
-		.in_data           (cmd_demux_020_src1_data),                                     //              .data
-		.out_ready         (crosser_041_out_ready),                                       //           out.ready
-		.out_valid         (crosser_041_out_valid),                                       //              .valid
-		.out_startofpacket (crosser_041_out_startofpacket),                               //              .startofpacket
-		.out_endofpacket   (crosser_041_out_endofpacket),                                 //              .endofpacket
-		.out_channel       (crosser_041_out_channel),                                     //              .channel
-		.out_data          (crosser_041_out_data),                                        //              .data
-		.in_empty          (1'b0),                                                        //   (terminated)
-		.in_error          (1'b0),                                                        //   (terminated)
-		.out_empty         (),                                                            //   (terminated)
-		.out_error         ()                                                             //   (terminated)
+		.in_clk            (clk_nios2_clk_clk),                                            //        in_clk.clk
+		.in_reset          (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset), //  in_clk_reset.reset
+		.out_clk           (m2_ddr2_memory_afi_half_clk_clk),                              //       out_clk.clk
+		.out_reset         (m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset),         // out_clk_reset.reset
+		.in_ready          (cmd_demux_020_src1_ready),                                     //            in.ready
+		.in_valid          (cmd_demux_020_src1_valid),                                     //              .valid
+		.in_startofpacket  (cmd_demux_020_src1_startofpacket),                             //              .startofpacket
+		.in_endofpacket    (cmd_demux_020_src1_endofpacket),                               //              .endofpacket
+		.in_channel        (cmd_demux_020_src1_channel),                                   //              .channel
+		.in_data           (cmd_demux_020_src1_data),                                      //              .data
+		.out_ready         (crosser_041_out_ready),                                        //           out.ready
+		.out_valid         (crosser_041_out_valid),                                        //              .valid
+		.out_startofpacket (crosser_041_out_startofpacket),                                //              .startofpacket
+		.out_endofpacket   (crosser_041_out_endofpacket),                                  //              .endofpacket
+		.out_channel       (crosser_041_out_channel),                                      //              .channel
+		.out_data          (crosser_041_out_data),                                         //              .data
+		.in_empty          (1'b0),                                                         //   (terminated)
+		.in_error          (1'b0),                                                         //   (terminated)
+		.out_empty         (),                                                             //   (terminated)
+		.out_error         ()                                                              //   (terminated)
 	);
 
 	altera_avalon_st_handshake_clock_crosser #(
@@ -10439,8 +10441,8 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	) crosser_062 (
 		.in_clk            (m2_ddr2_memory_afi_clk_clk),                                      //        in_clk.clk
 		.in_reset          (m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset), //  in_clk_reset.reset
-		.out_clk           (clk_100_clk_clk),                                                 //       out_clk.clk
-		.out_reset         (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset),     // out_clk_reset.reset
+		.out_clk           (clk_nios2_clk_clk),                                               //       out_clk.clk
+		.out_reset         (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset),    // out_clk_reset.reset
 		.in_ready          (rsp_demux_src20_ready),                                           //            in.ready
 		.in_valid          (rsp_demux_src20_valid),                                           //              .valid
 		.in_startofpacket  (rsp_demux_src20_startofpacket),                                   //              .startofpacket
@@ -11151,26 +11153,26 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.READY_SYNC_DEPTH    (2),
 		.USE_OUTPUT_PIPELINE (0)
 	) crosser_083 (
-		.in_clk            (m2_ddr2_memory_afi_half_clk_clk),                             //        in_clk.clk
-		.in_reset          (m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset),        //  in_clk_reset.reset
-		.out_clk           (clk_100_clk_clk),                                             //       out_clk.clk
-		.out_reset         (FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset), // out_clk_reset.reset
-		.in_ready          (rsp_demux_001_src20_ready),                                   //            in.ready
-		.in_valid          (rsp_demux_001_src20_valid),                                   //              .valid
-		.in_startofpacket  (rsp_demux_001_src20_startofpacket),                           //              .startofpacket
-		.in_endofpacket    (rsp_demux_001_src20_endofpacket),                             //              .endofpacket
-		.in_channel        (rsp_demux_001_src20_channel),                                 //              .channel
-		.in_data           (rsp_demux_001_src20_data),                                    //              .data
-		.out_ready         (crosser_083_out_ready),                                       //           out.ready
-		.out_valid         (crosser_083_out_valid),                                       //              .valid
-		.out_startofpacket (crosser_083_out_startofpacket),                               //              .startofpacket
-		.out_endofpacket   (crosser_083_out_endofpacket),                                 //              .endofpacket
-		.out_channel       (crosser_083_out_channel),                                     //              .channel
-		.out_data          (crosser_083_out_data),                                        //              .data
-		.in_empty          (1'b0),                                                        //   (terminated)
-		.in_error          (1'b0),                                                        //   (terminated)
-		.out_empty         (),                                                            //   (terminated)
-		.out_error         ()                                                             //   (terminated)
+		.in_clk            (m2_ddr2_memory_afi_half_clk_clk),                              //        in_clk.clk
+		.in_reset          (m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset),         //  in_clk_reset.reset
+		.out_clk           (clk_nios2_clk_clk),                                            //       out_clk.clk
+		.out_reset         (ddr2_address_span_extender_reset_reset_bridge_in_reset_reset), // out_clk_reset.reset
+		.in_ready          (rsp_demux_001_src20_ready),                                    //            in.ready
+		.in_valid          (rsp_demux_001_src20_valid),                                    //              .valid
+		.in_startofpacket  (rsp_demux_001_src20_startofpacket),                            //              .startofpacket
+		.in_endofpacket    (rsp_demux_001_src20_endofpacket),                              //              .endofpacket
+		.in_channel        (rsp_demux_001_src20_channel),                                  //              .channel
+		.in_data           (rsp_demux_001_src20_data),                                     //              .data
+		.out_ready         (crosser_083_out_ready),                                        //           out.ready
+		.out_valid         (crosser_083_out_valid),                                        //              .valid
+		.out_startofpacket (crosser_083_out_startofpacket),                                //              .startofpacket
+		.out_endofpacket   (crosser_083_out_endofpacket),                                  //              .endofpacket
+		.out_channel       (crosser_083_out_channel),                                      //              .channel
+		.out_data          (crosser_083_out_data),                                         //              .data
+		.in_empty          (1'b0),                                                         //   (terminated)
+		.in_error          (1'b0),                                                         //   (terminated)
+		.out_empty         (),                                                             //   (terminated)
+		.out_error         ()                                                              //   (terminated)
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter #(

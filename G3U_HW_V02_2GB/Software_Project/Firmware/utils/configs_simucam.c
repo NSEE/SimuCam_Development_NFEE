@@ -20,20 +20,22 @@ const TEthInterfaceParams cxDefaultsEthInterfaceParams = {
 };
 
 const TGenSimulationParams cxDefaultsGenSimulationParams = {
-	.usiOverScanSerial = 0,
-	.usiPreScanSerial  = 0,
-	.usiOLN            = 300,
-	.usiCols           = 2295,
-	.usiRows           = 4510,
-	.usiExposurePeriod = 25000,
-	.bBufferOverflowEn = TRUE,
-	.ulStartDelay      = 0,
-	.ulSkipDelay       = 110000,
-	.ulLineDelay       = 90000,
-	.ulADCPixelDelay   = 333,
-	.ucDebugLevel      = 4,
-	.usiGuardFEEDelay  = 50,
-	.ucSyncSource      = 0
+	.usiOverScanSerial      = 0,
+	.usiPreScanSerial       = 0,
+	.usiOLN                 = 300,
+	.usiCols                = 2295,
+	.usiRows                = 4510,
+	.usiExposurePeriod      = 25000,
+	.bBufferOverflowEn      = TRUE,
+	.ulStartDelay           = 0,
+	.ulSkipDelay            = 110000,
+	.ulLineDelay            = 90000,
+	.ulADCPixelDelay        = 333,
+	.ucDebugLevel           = 4,
+	.usiGuardFEEDelay       = 50,
+	.ucSyncSource           = 0,
+	.bSyncInInvertPolarity  = FALSE,
+	.bSyncOutInvertPolarity = FALSE
 };
 
 const TSpwInterfaceParams cxDefaultsSpwInterfaceParams = {

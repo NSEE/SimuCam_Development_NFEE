@@ -217,6 +217,8 @@
 		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                                  .umft_wr_n_signal
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                                  .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                                  .umft_oe_n_signal
-		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                                  .umft_siwu_n_signal
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                                  .umft_siwu_n_signal
+		.pio_sync_pol_inv_ctrl_export                                (<connected-to-pio_sync_pol_inv_ctrl_export>),                                //                             pio_sync_pol_inv_ctrl.export
+		.pio_leds_niosii_ctrl_export                                 (<connected-to-pio_leds_niosii_ctrl_export>)                                  //                              pio_leds_niosii_ctrl.export
 	);
 

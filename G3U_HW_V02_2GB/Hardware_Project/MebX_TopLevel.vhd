@@ -321,8 +321,9 @@ architecture bhv of MebX_TopLevel is
     -----------------------------------------
     -- LEDs
     -----------------------------------------
-    signal leds_b : std_logic_vector(7 downto 0);
-    signal leds_p : std_logic_vector(20 downto 0);
+    signal leds_b           : std_logic_vector(7 downto 0);
+    signal leds_p           : std_logic_vector(20 downto 0);
+    signal s_led_niosii_ctrl : std_logic_vector(28 downto 0) := (others => '0');
 
     -----------------------------------------
     -- Ctrl io lvds
@@ -378,6 +379,8 @@ architecture bhv of MebX_TopLevel is
     signal s_sync_out           : std_logic := '0';
     signal s_sync_in_unfiltered : std_logic := '0';
     signal s_sync_in_filtered   : std_logic := '0';
+    signal s_sync_in_pol_inv    : std_logic := '0';
+    signal s_sync_out_pol_inv   : std_logic := '0';
 
     -----------------------------------------
     -- Component
@@ -543,6 +546,8 @@ architecture bhv of MebX_TopLevel is
             --
             scom_0_sync_sync_signal                                     : in    std_logic                     := '0'; -- sync_signal
             --
+            pio_leds_niosii_ctrl_export                                 : out   std_logic_vector(28 downto 0); --     -- export
+            --
             spwc_a_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
             spwc_a_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
             --
@@ -598,6 +603,8 @@ architecture bhv of MebX_TopLevel is
             --			rtcc_sck_export                                             : out   std_logic; --                         -- export
             --			rtcc_sdi_export                                             : out   std_logic; --                         -- export
             --			rtcc_sdo_export                                             : in    std_logic                     := 'X'; -- export
+            --
+            pio_sync_pol_inv_ctrl_export                                : out   std_logic_vector(1 downto 0); --                  -- export
             --
             sync_unfiltered_sig_unfiltered_sig_signal                   : in    std_logic                     := '0'; -- unfiltered_sig_signal
             sync_filtered_sig_filtered_sig_signal                       : out   std_logic; --                         -- filtered_sig_signal
@@ -816,6 +823,8 @@ begin
             --
             scom_0_sync_sync_signal                                     => comm_7_sync, --         --                                       scom_0_sync.sync_signal
             --
+            pio_leds_niosii_ctrl_export                                 => s_led_niosii_ctrl, --   --                              pio_leds_niosii_ctrl.export
+            --
             spwc_a_leds_spw_red_status_led_signal                       => spw_a_red_led, --       --                                       spwc_a_leds.spw_red_status_led_signal
             spwc_a_leds_spw_green_status_led_signal                     => spw_a_green_led, --     --                                                  .spw_green_status_led_signal
             --
@@ -872,6 +881,9 @@ begin
             --			rtcc_sdi_export                                             => RTCC_SDI,
             --			rtcc_sdo_export                                             => RTCC_SDO,
             --
+            pio_sync_pol_inv_ctrl_export(0)                              => s_sync_in_pol_inv, --  --                             pio_sync_pol_inv_ctrl.export
+            pio_sync_pol_inv_ctrl_export(1)                              => s_sync_out_pol_inv, -- --                             pio_sync_pol_inv_ctrl.export
+            --
             sync_unfiltered_sig_unfiltered_sig_signal                   => s_sync_in_unfiltered, ----                               sync_unfiltered_sig.unfiltered_sig_signal
             sync_filtered_sig_filtered_sig_signal                       => s_sync_in_filtered, --  --                                 sync_filtered_sig.filtered_sig_signal
             --
@@ -927,46 +939,46 @@ begin
     -- I/Os
     --==========--    
     -- Routing sync i/o´s - test
-    SYNC_OUT             <= s_sync_out;
+    SYNC_OUT             <= s_sync_out xor s_sync_out_pol_inv;
     -- Observe that SYNC_IN is at high level state when there is no excitation input
     -- For test purposes, don´t use isolator board.
-    s_sync_in_unfiltered <= SYNC_IN;
+    s_sync_in_unfiltered <= SYNC_IN xor s_sync_in_pol_inv;
 
     -- Ativa ventoinha
     FAN_CTRL <= '1';
 
     -- LEDs assumem estado diferente no rst.
 
-    LED_DE4(0) <= ('1') when (rst_n = '0') else (leds_b(0));
-    LED_DE4(1) <= ('1') when (rst_n = '0') else (leds_b(1));
-    LED_DE4(2) <= ('1') when (rst_n = '0') else (leds_b(2));
-    LED_DE4(3) <= ('1') when (rst_n = '0') else (leds_b(3));
-    LED_DE4(4) <= ('1') when (rst_n = '0') else (leds_b(4));
-    LED_DE4(5) <= ('1') when (rst_n = '0') else (leds_b(5));
-    LED_DE4(6) <= ('1') when (rst_n = '0') else (leds_b(6));
-    LED_DE4(7) <= ('1') when (rst_n = '0') else (leds_b(7));
+    LED_DE4(0) <= '1' when (rst_n = '0') else leds_b(0) when (s_led_niosii_ctrl(0) = '1') else '0';
+    LED_DE4(1) <= '1' when (rst_n = '0') else leds_b(1) when (s_led_niosii_ctrl(1) = '1') else '0';
+    LED_DE4(2) <= '1' when (rst_n = '0') else leds_b(2) when (s_led_niosii_ctrl(2) = '1') else '0';
+    LED_DE4(3) <= '1' when (rst_n = '0') else leds_b(3) when (s_led_niosii_ctrl(3) = '1') else '0';
+    LED_DE4(4) <= '1' when (rst_n = '0') else leds_b(4) when (s_led_niosii_ctrl(4) = '1') else '0';
+    LED_DE4(5) <= '1' when (rst_n = '0') else leds_b(5) when (s_led_niosii_ctrl(5) = '1') else '0';
+    LED_DE4(6) <= '1' when (rst_n = '0') else leds_b(6) when (s_led_niosii_ctrl(6) = '1') else '0';
+    LED_DE4(7) <= '1' when (rst_n = '0') else leds_b(7) when (s_led_niosii_ctrl(7) = '1') else '0';
 
-    LED_PAINEL_LED_1G    <= ('1') when (rst_n = '0') else (leds_p(0) or spw_a_green_led);
-    LED_PAINEL_LED_1R    <= ('1') when (rst_n = '0') else (leds_p(1) or spw_a_red_led);
-    LED_PAINEL_LED_2G    <= ('1') when (rst_n = '0') else (leds_p(2) or spw_b_green_led);
-    LED_PAINEL_LED_2R    <= ('1') when (rst_n = '0') else (leds_p(3) or spw_b_red_led);
-    LED_PAINEL_LED_3G    <= ('1') when (rst_n = '0') else (leds_p(4) or spw_c_green_led);
-    LED_PAINEL_LED_3R    <= ('1') when (rst_n = '0') else (leds_p(5) or spw_c_red_led);
-    LED_PAINEL_LED_4G    <= ('1') when (rst_n = '0') else (leds_p(6) or spw_d_green_led);
-    LED_PAINEL_LED_4R    <= ('1') when (rst_n = '0') else (leds_p(7) or spw_d_red_led);
-    LED_PAINEL_LED_5G    <= ('1') when (rst_n = '0') else (leds_p(8) or spw_e_green_led);
-    LED_PAINEL_LED_5R    <= ('1') when (rst_n = '0') else (leds_p(9) or spw_e_red_led);
-    LED_PAINEL_LED_6G    <= ('1') when (rst_n = '0') else (leds_p(10) or spw_f_green_led);
-    LED_PAINEL_LED_6R    <= ('1') when (rst_n = '0') else (leds_p(11) or spw_f_red_led);
-    LED_PAINEL_LED_7G    <= ('1') when (rst_n = '0') else (leds_p(12) or spw_g_green_led);
-    LED_PAINEL_LED_7R    <= ('1') when (rst_n = '0') else (leds_p(13) or spw_g_red_led);
-    LED_PAINEL_LED_8G    <= ('1') when (rst_n = '0') else (leds_p(14) or spw_h_green_led);
-    LED_PAINEL_LED_8R    <= ('1') when (rst_n = '0') else (leds_p(15) or spw_h_red_led);
-    LED_PAINEL_LED_POWER <= ('1') when (rst_n = '0') else (leds_p(16));
-    LED_PAINEL_LED_ST1   <= ('1') when (rst_n = '0') else (leds_p(17));
-    LED_PAINEL_LED_ST2   <= ('1') when (rst_n = '0') else (leds_p(18));
-    LED_PAINEL_LED_ST3   <= ('1') when (rst_n = '0') else (leds_p(19));
-    LED_PAINEL_LED_ST4   <= ('1') when (rst_n = '0') else (leds_p(20));
+    LED_PAINEL_LED_1G    <= '1' when (rst_n = '0') else leds_p(0) when (s_led_niosii_ctrl(8) = '1') else spw_a_green_led;
+    LED_PAINEL_LED_1R    <= '1' when (rst_n = '0') else leds_p(1) when (s_led_niosii_ctrl(9) = '1') else spw_a_red_led;
+    LED_PAINEL_LED_2G    <= '1' when (rst_n = '0') else leds_p(2) when (s_led_niosii_ctrl(10) = '1') else spw_b_green_led;
+    LED_PAINEL_LED_2R    <= '1' when (rst_n = '0') else leds_p(3) when (s_led_niosii_ctrl(11) = '1') else spw_b_red_led;
+    LED_PAINEL_LED_3G    <= '1' when (rst_n = '0') else leds_p(4) when (s_led_niosii_ctrl(12) = '1') else spw_c_green_led;
+    LED_PAINEL_LED_3R    <= '1' when (rst_n = '0') else leds_p(5) when (s_led_niosii_ctrl(13) = '1') else spw_c_red_led;
+    LED_PAINEL_LED_4G    <= '1' when (rst_n = '0') else leds_p(6) when (s_led_niosii_ctrl(14) = '1') else spw_d_green_led;
+    LED_PAINEL_LED_4R    <= '1' when (rst_n = '0') else leds_p(7) when (s_led_niosii_ctrl(15) = '1') else spw_d_red_led;
+    LED_PAINEL_LED_5G    <= '1' when (rst_n = '0') else leds_p(8) when (s_led_niosii_ctrl(16) = '1') else spw_e_green_led;
+    LED_PAINEL_LED_5R    <= '1' when (rst_n = '0') else leds_p(9) when (s_led_niosii_ctrl(17) = '1') else spw_e_red_led;
+    LED_PAINEL_LED_6G    <= '1' when (rst_n = '0') else leds_p(10) when (s_led_niosii_ctrl(18) = '1') else spw_f_green_led;
+    LED_PAINEL_LED_6R    <= '1' when (rst_n = '0') else leds_p(11) when (s_led_niosii_ctrl(19) = '1') else spw_f_red_led;
+    LED_PAINEL_LED_7G    <= '1' when (rst_n = '0') else leds_p(12) when (s_led_niosii_ctrl(20) = '1') else spw_g_green_led;
+    LED_PAINEL_LED_7R    <= '1' when (rst_n = '0') else leds_p(13) when (s_led_niosii_ctrl(21) = '1') else spw_g_red_led;
+    LED_PAINEL_LED_8G    <= '1' when (rst_n = '0') else leds_p(14) when (s_led_niosii_ctrl(22) = '1') else spw_h_green_led;
+    LED_PAINEL_LED_8R    <= '1' when (rst_n = '0') else leds_p(15) when (s_led_niosii_ctrl(23) = '1') else spw_h_red_led;
+    LED_PAINEL_LED_POWER <= '1' when (rst_n = '0') else leds_p(16) when (s_led_niosii_ctrl(24) = '1') else '1';
+    LED_PAINEL_LED_ST1   <= '1' when (rst_n = '0') else leds_p(17) when (s_led_niosii_ctrl(25) = '1') else '0';
+    LED_PAINEL_LED_ST2   <= '1' when (rst_n = '0') else leds_p(18) when (s_led_niosii_ctrl(26) = '1') else '0';
+    LED_PAINEL_LED_ST3   <= '1' when (rst_n = '0') else leds_p(19) when (s_led_niosii_ctrl(27) = '1') else s_sync_in_filtered;
+    LED_PAINEL_LED_ST4   <= '1' when (rst_n = '0') else leds_p(20) when (s_led_niosii_ctrl(28) = '1') else s_sync_out;
 
     -- SpW Channel Measurements
     JP3_GPIO0_D22_IO <= comm_1_measure(4); -- measurement 4 : right fee busy signal

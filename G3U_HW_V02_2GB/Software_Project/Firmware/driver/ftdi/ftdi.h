@@ -30,9 +30,9 @@
 #define FTDI_MAX_HCCD_IMG_WIDTH          2295
 #define FTDI_MAX_HCCD_IMG_HEIGHT         4810
 
-/* Timeout scale is 0.5 ms. Timeout = 4000 = 2s */
-#define FTDI_HALFCCD_REQ_TIMEOUT         4000
-#define FTDI_LUT_TRANS_TIMEOUT           4000
+/* Timeout scale is 0.5 ms. Timeout = 40000 = 20s */
+#define FTDI_HALFCCD_REQ_TIMEOUT         40000
+#define FTDI_LUT_TRANS_TIMEOUT           40000
 //! [constants definition]
 
 //! [public module structs definition]

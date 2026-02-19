@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Jun 25, 2024 4:09:54 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1719342594676</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>.\</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Feb 16, 2026 8:33:15 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1771281195569</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development_NFEE\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -1754,7 +1754,7 @@
                 <SettingName>altera_avalon_jtag_uart_driver.enable_jtag_uart_ignore_fifo_full_error</SettingName>
                 <Identifier>ALTERA_AVALON_JTAG_UART_IGNORE_FIFO_FULL_ERROR</Identifier>
                 <Type>BooleanDefineOnly</Type>
-                <Value>false</Value>
+                <Value>true</Value>
                 <DefaultValue>false</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable JTAG UART driver to recover when host is inactive causing buffer to full without returning error. Printf will not fail with this recovery.</Description>
@@ -1919,6 +1919,18 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>pio_sync_pol_inv_ctrl</slaveDescriptor>
+                <addressRange>0x80000B20 - 0x80000B2F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>pio_leds_niosii_ctrl</slaveDescriptor>
+                <addressRange>0x80000B30 - 0x80000B3F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>pio_rmap_echoing_module_reset</slaveDescriptor>
                 <addressRange>0x80000C00 - 0x80000C0F</addressRange>
                 <addressSpan>16</addressSpan>
@@ -2022,8 +2034,8 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811BFFFF</addressRange>
-                <addressSpan>786432</addressSpan>
+                <addressRange>0x81100000 - 0x8119450B</addressRange>
+                <addressSpan>607500</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
@@ -2050,13 +2062,19 @@
                 <addressSpan>67108864</addressSpan>
                 <attributes>flash, memory, non-volatile</attributes>
         </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>onchip_memory_alt</slaveDescriptor>
+                <addressRange>0x90000000 - 0x9007B0BF</addressRange>
+                <addressSpan>504000</addressSpan>
+                <attributes>memory</attributes>
+        </MemoryMap>
         <LinkerSection>
                 <sectionName>.text</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_memory_alt</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rodata</sectionName>
-                <regionName>onchip_memory</regionName>
+                <regionName>onchip_memory_alt</regionName>
         </LinkerSection>
         <LinkerSection>
                 <sectionName>.rwdata</sectionName>

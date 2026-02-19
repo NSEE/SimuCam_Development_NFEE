@@ -1,4 +1,4 @@
-//Legal Notice: (C)2024 Altera Corporation. All rights reserved.  Your
+//Legal Notice: (C)2026 Altera Corporation. All rights reserved.  Your
 //use of Altera Corporation's design tools, logic functions and other
 //software and tools, and its AMPP partner logic functions, and any
 //output files any of the foregoing (including device programming or
@@ -68,8 +68,8 @@ wire             wren;
   defparam the_altsyncram.byte_size = 8,
            the_altsyncram.init_file = "UNUSED",
            the_altsyncram.lpm_type = "altsyncram",
-           the_altsyncram.maximum_depth = 196608,
-           the_altsyncram.numwords_a = 196608,
+           the_altsyncram.maximum_depth = 151875,
+           the_altsyncram.numwords_a = 151875,
            the_altsyncram.operation_mode = "SINGLE_PORT",
            the_altsyncram.outdata_reg_a = "UNREGISTERED",
            the_altsyncram.ram_block_type = "M9K",

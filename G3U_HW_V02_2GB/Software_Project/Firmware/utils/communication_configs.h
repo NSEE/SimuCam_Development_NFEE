@@ -69,7 +69,7 @@ extern volatile unsigned short int usiIdCMD;
 
 /* This structure will be used to send TM PUS packets through UART */
 #define SIZE_TM_PUS_VALUES     128
-#define N_PUS_PIPE     16
+#define N_PUS_PIPE     32
 typedef struct {
     tErrorReceiver ucErrorFlag;
     bool bInUse;
@@ -98,8 +98,8 @@ typedef struct {
 
 
 
-#define N_OF_MEB_MSG_QUEUE      32
-#define N_OF_LUT_MSG_QUEUE      8
+#define N_OF_MEB_MSG_QUEUE      256
+#define N_OF_LUT_MSG_QUEUE      128
 
 /* This Queue will synchronize the MEB task for any action that it should be aware (PUS, CHANGES in the FEE) */
 extern void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
@@ -112,7 +112,7 @@ extern OS_EVENT *xLutQ;
 
 
 /*Struct used to parse the received command through UART*/
-#define N_PREPARSED_ENTRIES     32
+#define N_PREPARSED_ENTRIES     64
 typedef struct {
     tErrorReceiver ucErrorFlag;
     char cType; /* ?(request):0 or !(reply):1*/
@@ -172,7 +172,7 @@ extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 #define MAX_RETRIES_ACK_IN              40
 
 
-#define N_512   16
+#define N_512   64
 typedef struct {
     char buffer[512];
     bool bSent;     /* Indicates if it was already transmited */
@@ -181,7 +181,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer512;
 
-#define N_128   32
+#define N_128   128
 typedef struct {
     char buffer[128];
     bool bSent;     /* Indicates if it was already transmited */
@@ -190,7 +190,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer128;
 
-#define N_64   32
+#define N_64   128
 typedef struct {
     char buffer[64];
     bool bSent;     /* Indicates if it was already transmited */
@@ -199,7 +199,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer64;
 
-#define N_32   32
+#define N_32   192
 typedef struct {
     char buffer[32];
     bool bSent;     /* Indicates if it was already transmited */

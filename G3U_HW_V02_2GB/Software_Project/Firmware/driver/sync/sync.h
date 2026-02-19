@@ -25,6 +25,14 @@
 #define SYNC_BIT_ON                     TRUE
 #define SYNC_BIT_OFF                    FALSE
 
+// Sync Polarity Control
+#define SYNC_POL_CTRL_NOR               FALSE
+#define SYNC_POL_CTRL_INV               TRUE
+
+// Sync Polarity Masks
+#define SYNC_POL_INV_SYNC_IN_MASK    (0x00000001u)  // bit 0
+#define SYNC_POL_INV_SYNC_OUT_MASK   (0x00000002u)  // bit 1
+
 //! [constants definition]
 /* N-FEE - LESIA */
 extern const alt_u16 cusiSyncNFeeMasterBlankTimeMs;
@@ -276,6 +284,9 @@ alt_u16 usiRegCalcTimeMs(alt_u32 uliSyncReg);
 //! [private function prototypes]
 
 void vSyncClearCounter(void);
+
+bool bSyncSetSyncInPol(bool bPolarity);
+bool bSyncSetSyncOutPol(bool bPolarity);
 
 //! [public function prototypes]
 

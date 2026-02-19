@@ -25,7 +25,7 @@ use work.sync_irq_pkg.all;
 --
 --! @brief 
 --
---! @author Rodrigo França (rodrigo.franca@maua.br)
+--! @author Rodrigo FranÃ§a (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -406,14 +406,14 @@ begin
 	-- Sync mux status
 	s_sync_mm_read_registers.sync_status_reg.int_ext_n <= s_sync_mm_write_registers.sync_control_reg.int_ext_n;
 
-	-- Keep error code status reseted (no error) - It´s logic should be conceived
+	-- Keep error code status reseted (no error) - ItÂ´s logic should be conceived
 	s_sync_mm_read_registers.sync_status_reg.error_code <= (others => '0');
 
 	-- Sync IRQ Number assignment
 	s_sync_mm_read_registers.sync_irq_number_reg.sync_irq_number     <= std_logic_vector(to_unsigned(g_SYNC_IRQ_NUMBER, s_sync_mm_read_registers.sync_irq_number_reg.sync_irq_number'length));
 	s_sync_mm_read_registers.sync_irq_number_reg.pre_sync_irq_number <= std_logic_vector(to_unsigned(g_PRE_SYNC_IRQ_NUMBER, s_sync_mm_read_registers.sync_irq_number_reg.pre_sync_irq_number'length));
 
-	--	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value"
+	--	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using donÂ´t care ('x') value"
 	--	s_sync_mm_read_registers.irq_enable_register.error_irq_enable               <= '0';
 	--	s_sync_mm_read_registers.irq_enable_register.blank_pulse_irq_enable         <= '0';
 	--	s_sync_mm_read_registers.irq_flag_clear_register.error_irq_flag_clear       <= '0';

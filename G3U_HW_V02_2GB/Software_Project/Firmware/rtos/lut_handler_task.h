@@ -20,6 +20,7 @@
 #include "../utils/communication_configs.h"
 #include "../utils/error_handler_simucam.h"
 #include "../driver/ftdi/ftdi.h"
+#include <stdint.h>
 
 void vLutHandlerTask(void *task_data);
 void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd );

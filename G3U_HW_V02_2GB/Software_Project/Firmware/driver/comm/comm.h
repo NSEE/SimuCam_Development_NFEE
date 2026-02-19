@@ -251,6 +251,17 @@ typedef struct RmapMemConfig {
 	alt_u32 uliWinAreaOffLowDword; /* RMAP Windowing Area Offset (Low Dword) */
 } TRmapMemConfig;
 
+/* RMAP Address FIFO Control Register Struct */
+typedef struct RmapAddrFifoControl {
+	bool bAddrFifoRead; /* RMAP Address FIFO Read */
+} TRmapAddrFifoControl;
+
+/* RMAP Address FIFO Status Register Struct */
+typedef struct RmapAddrFifoStatus {
+	bool bAddrFifoEmpty; /* RMAP Address FIFO Empty */
+	alt_u32 ucAddrFifoRdData; /* RMAP Address FIFO Read Data */
+} TRmapAddrFifoStatus;
+
 /* RMAP Memory Area Pointer Register Struct */
 typedef struct RmapMemAreaPrt {
 	TRmapMemArea *puliRmapAreaPrt; /* RMAP Memory Area Pointer */
@@ -260,12 +271,20 @@ typedef struct RmapMemAreaPrt {
 typedef struct RmapIrqControl {
 	bool bWriteConfigEn; /* RMAP Write Config IRQ Enable */
 	bool bWriteWindowEn; /* RMAP Write Window IRQ Enable */
+	alt_u32 uliWriteConfigRateLimit; /* RMAP Write Config IRQ Rate Limit */
+	alt_u32 uliWriteWindowRateLimit; /* RMAP Write Window IRQ Rate Limit */
+	bool bWriteConfigRateCountClear; /* RMAP Write Config IRQ Rate Counter Clear */
+	bool bWriteWindowRateCountClear; /* RMAP Write Window IRQ Rate Counter Clear */
 } TRmapIrqControl;
 
 /* RMAP IRQ Flags Register Struct */
 typedef struct RmapIrqFlag {
 	bool bWriteConfigFlag; /* RMAP Write Config IRQ Flag */
-	bool bWriteWindowFlag; /* RMAP Write Config IRQ Flag */
+	bool bWriteWindowFlag; /* RMAP Write Window IRQ Flag */
+	alt_u32 uliWriteConfigRateCounter; /* RMAP Write Config IRQ Rate Counter */
+	alt_u32 uliWriteWindowRateCounter; /* RMAP Write Window IRQ Rate Counter */
+	alt_u32 uliWriteConfigEventsBetween; /* RMAP Write Config IRQ Events Between */
+	alt_u32 uliWriteWindowEventsBetween; /* RMAP Write Window IRQ Events Between */
 } TRmapIrqFlag;
 
 /* RMAP IRQ Flags Clear Register Struct */
@@ -475,6 +494,8 @@ typedef struct RmapChannel {
 	TRmapCodecError xRmapCodecError;
 	TRmapMemStatus xRmapMemStatus;
 	TRmapMemConfig xRmapMemConfig;
+	TRmapAddrFifoControl xRmapAddrFifoControl;
+	TRmapAddrFifoStatus xRmapAddrFifoStatus;
 	TRmapMemAreaPrt xRmapMemAreaPrt;
 	TRmapIrqControl xRmapIrqControl;
 	TRmapIrqFlag xRmapIrqFlag;

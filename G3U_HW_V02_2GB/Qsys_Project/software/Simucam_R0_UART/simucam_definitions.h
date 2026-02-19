@@ -15,7 +15,8 @@
 
 #define DEBUG_ON    	1
 #if defined(STACK_MONITOR) || defined(QUERY_STACK)
-    #define DEBUG_ON    1 /* This value should always be 1 when one of the above options is defined */
+    #define DEBUG_ON     1 /* This value should always be 1 when one of the above options is defined */
+	#define DEBUG_ISR_ON 0
 #endif
 #if DEBUG_ON
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
@@ -23,7 +24,7 @@
 
 /* HW and FW release version */
 #define SIMUCAM_RELEASE                 "L6"
-#define SIMUCAM_HW_VERSION              "0.11"
+#define SIMUCAM_HW_VERSION              "0.12"
 #define SIMUCAM_FW_VERSION              "0.0"
 
 #define N_OF_NFEE       6	/* ONLY for tests */

@@ -24,6 +24,10 @@
 #define LEDS_ON TRUE
 #define LEDS_OFF FALSE
 
+/* NIOSII LED Control Mode */
+#define NIOSII_LED_HW_CTRL   FALSE   /* 0: Hardware controls LED */
+#define NIOSII_LED_SW_CTRL   TRUE    /* 1: NIOSII controls LED */
+
 #define LEDS_BOARD_0_MASK 0x01
 #define LEDS_BOARD_1_MASK 0x02
 #define LEDS_BOARD_2_MASK 0x04
@@ -63,11 +67,73 @@
 
 #define LEDS_PAINEL_ALL_MASK 0x001FFFFF
 
+/* ============================================================
+ * NIOSII s_led_niosii_ctrl register bit mapping
+ * ============================================================
+ * bits  0..7   : LED_DE4(0..7)
+ * bits  8..23  : LED_PAINEL_LED_1G..LED_PAINEL_LED_8R
+ * bit   24     : LED_PAINEL_LED_POWER
+ * bits  25..28 : LED_PAINEL_LED_ST1..LED_PAINEL_LED_ST4
+ */
+
+/* ========================= */
+/* DE4 Board LEDs (0..7)    */
+/* ========================= */
+#define NIOSII_LED_CTRL_BOARD_0_MASK     (0x00000001u)
+#define NIOSII_LED_CTRL_BOARD_1_MASK     (0x00000002u)
+#define NIOSII_LED_CTRL_BOARD_2_MASK     (0x00000004u)
+#define NIOSII_LED_CTRL_BOARD_3_MASK     (0x00000008u)
+#define NIOSII_LED_CTRL_BOARD_4_MASK     (0x00000010u)
+#define NIOSII_LED_CTRL_BOARD_5_MASK     (0x00000020u)
+#define NIOSII_LED_CTRL_BOARD_6_MASK     (0x00000040u)
+#define NIOSII_LED_CTRL_BOARD_7_MASK     (0x00000080u)
+#define NIOSII_LED_CTRL_BOARD_ALL_MASK   (0x000000FFu)
+
+/* ========================= */
+/* SPW LEDs (8..23)         */
+/* ========================= */
+#define NIOSII_LED_CTRL_1G_MASK          (0x00000100u)
+#define NIOSII_LED_CTRL_1R_MASK          (0x00000200u)
+#define NIOSII_LED_CTRL_2G_MASK          (0x00000400u)
+#define NIOSII_LED_CTRL_2R_MASK          (0x00000800u)
+#define NIOSII_LED_CTRL_3G_MASK          (0x00001000u)
+#define NIOSII_LED_CTRL_3R_MASK          (0x00002000u)
+#define NIOSII_LED_CTRL_4G_MASK          (0x00004000u)
+#define NIOSII_LED_CTRL_4R_MASK          (0x00008000u)
+#define NIOSII_LED_CTRL_5G_MASK          (0x00010000u)
+#define NIOSII_LED_CTRL_5R_MASK          (0x00020000u)
+#define NIOSII_LED_CTRL_6G_MASK          (0x00040000u)
+#define NIOSII_LED_CTRL_6R_MASK          (0x00080000u)
+#define NIOSII_LED_CTRL_7G_MASK          (0x00100000u)
+#define NIOSII_LED_CTRL_7R_MASK          (0x00200000u)
+#define NIOSII_LED_CTRL_8G_MASK          (0x00400000u)
+#define NIOSII_LED_CTRL_8R_MASK          (0x00800000u)
+
+#define NIOSII_LED_CTRL_G_ALL_MASK       (0x00555500u)
+#define NIOSII_LED_CTRL_R_ALL_MASK       (0x00AAAA00u)
+#define NIOSII_LED_CTRL_GR_ALL_MASK      (0x00FFFF00u)
+
+/* ========================= */
+/* Power + Status (24..28)  */
+/* ========================= */
+#define NIOSII_LED_CTRL_POWER_MASK       (0x01000000u)
+#define NIOSII_LED_CTRL_ST_1_MASK        (0x02000000u)
+#define NIOSII_LED_CTRL_ST_2_MASK        (0x04000000u)
+#define NIOSII_LED_CTRL_ST_3_MASK        (0x08000000u)
+#define NIOSII_LED_CTRL_ST_4_MASK        (0x10000000u)
+
+#define NIOSII_LED_CTRL_STATUS_ALL_MASK  (0x1F000000u)
+
+/* All bits driven by NIOS */
+#define NIOSII_LED_CTRL_ALL_MASK         (0x1FFFFFFFu)
+
 /* prototype */
 extern alt_u8 LedsBoardControl;
 extern alt_u32 LedsPainelControl;
+extern alt_u32 LedsNiosiiCtrl;
 
 bool bSetBoardLeds(bool bDRIVE, alt_u8 LedsMask);
 bool bSetPainelLeds(bool bDRIVE, alt_u32 LedsMask);
+bool bSetNiosiiCtrlLeds(bool bDRIVE, alt_u32 LedsMask);
 
 #endif /* LEDS_H_ */

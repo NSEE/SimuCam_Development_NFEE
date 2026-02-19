@@ -172,6 +172,8 @@ typedef union qMask{
 /* FORMAT: 32 bits MASK ()    0x BB BB */
 #define M_LUT_UPDATE 				0xF0 /* Indicates that there's LUT update */
 
+#define M_LUT_CONFIG_FORCED         0xA1 /* Indicates SimuCam going to config mode */
+
 #define M_LUT_FTDI_BUFFER_FINISH    0xB2 /* Indicates IRQ last packet */
 #define M_LUT_FTDI_ERROR   			0xC1 	/* Indicates IRQ Communication error */
 /*=====================================================================================================================*/

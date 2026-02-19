@@ -6,6 +6,9 @@ use work.nrme_rmap_mem_area_nfee_pkg.all;
 use work.nrme_avalon_mm_rmap_nfee_pkg.all;
 
 entity nrme_rmap_mem_area_nfee_write_ent is
+    generic(
+        g_MEM_WR_TIMEOUT_CYCLES : positive := 1024
+    );
     port(
         clk_i                  : in  std_logic;
         rst_i                  : in  std_logic;
@@ -29,6 +32,8 @@ architecture RTL of nrme_rmap_mem_area_nfee_write_ent is
     signal s_write_started     : std_logic;
     signal s_write_in_progress : std_logic;
     signal s_write_finished    : std_logic;
+    signal s_write_timeout_cnt : natural range 0 to g_MEM_WR_TIMEOUT_CYCLES;
+    signal s_write_timeout_err : std_logic;
 
     signal s_data_registered : std_logic;
 
@@ -53,6 +58,7 @@ begin
                 -- a write was finished
                 -- keep setted the write finished flag
                 s_write_finished   <= '1';
+                s_write_timeout_cnt <= 0;
                 -- keep cleared the waitrequest flag
                 rmap_waitrequest_o <= '0';
             else
@@ -72,6 +78,16 @@ begin
                         s_write_started        <= '1';
                         -- set the write in progress flag
                         s_write_in_progress    <= '1';
+                        s_write_timeout_cnt    <= 0;
+                    elsif (s_write_timeout_cnt >= (g_MEM_WR_TIMEOUT_CYCLES - 1)) then
+                        -- timeout while waiting memory interface idle, release handshake to avoid deadlock
+                        s_write_in_progress <= '0';
+                        s_write_finished    <= '1';
+                        s_write_timeout_cnt <= 0;
+                        s_write_timeout_err <= '1';
+                        rmap_waitrequest_o  <= '0';
+                    else
+                        s_write_timeout_cnt <= s_write_timeout_cnt + 1;
                     end if;
                 -- check if a write is in progress and was just started    
                 elsif ((s_write_in_progress = '1') and (s_write_started = '1')) then
@@ -79,6 +95,7 @@ begin
                     s_write_started     <= '0';
                     -- keep setted the write in progress flag
                     s_write_in_progress <= '1';
+                    s_write_timeout_cnt <= 0;
                 -- check if a write is in progress and was not just started    
                 elsif ((s_write_in_progress = '1') and (s_write_started = '0')) then
                     -- a write is in progress
@@ -91,8 +108,18 @@ begin
                         s_write_in_progress <= '0';
                         -- set the write finished flag
                         s_write_finished    <= '1';
+                        s_write_timeout_cnt <= 0;
                         -- clear the waitrequest flag
                         rmap_waitrequest_o  <= '0';
+                    elsif (s_write_timeout_cnt >= (g_MEM_WR_TIMEOUT_CYCLES - 1)) then
+                        -- timeout while waiting memory write completion, release handshake to avoid deadlock
+                        s_write_in_progress <= '0';
+                        s_write_finished    <= '1';
+                        s_write_timeout_cnt <= 0;
+                        s_write_timeout_err <= '1';
+                        rmap_waitrequest_o  <= '0';
+                    else
+                        s_write_timeout_cnt <= s_write_timeout_cnt + 1;
                     end if;
                 end if;
             end if;
@@ -2566,6 +2593,8 @@ begin
             s_write_started              <= '0';
             s_write_in_progress          <= '0';
             s_write_finished             <= '0';
+            s_write_timeout_cnt          <= 0;
+            s_write_timeout_err          <= '0';
             s_data_registered            <= '0';
             p_nfee_reg_reset;
             v_fee_write_address          := (others => '0');
@@ -2578,6 +2607,7 @@ begin
             s_write_started              <= '0';
             s_write_in_progress          <= '0';
             s_write_finished             <= '0';
+            s_write_timeout_cnt          <= 0;
             s_data_registered            <= '0';
             if (fee_rmap_i.write = '1') then
                 v_fee_write_address := fee_rmap_i.address;

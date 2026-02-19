@@ -26,11 +26,13 @@ bool bInitSimucamCoreHW(void) {
 void vInitSimucamBasicHW(void) {
 
 	/* Turn Off all LEDs */
+	bSetNiosiiCtrlLeds(NIOSII_LED_SW_CTRL, NIOSII_LED_CTRL_ALL_MASK);
 	bSetBoardLeds(LEDS_OFF, LEDS_BOARD_ALL_MASK);
 	bSetPainelLeds(LEDS_OFF, LEDS_PAINEL_ALL_MASK);
 
 	/* Turn On Power LED */
 	bSetPainelLeds(LEDS_ON, LEDS_POWER_MASK);
+	bSetNiosiiCtrlLeds(NIOSII_LED_HW_CTRL, NIOSII_LED_CTRL_ALL_MASK);
 
 	/* Configure Seven Segments Display */
 //	bSSDisplayConfig(SSDP_NORMAL_MODE);
@@ -49,10 +51,12 @@ void vInitSimucamBasicHW(void) {
 	bSetPreEmphasys(LVDS_PEM_OFF);
 
 	/* Turn on all Panel Leds */
+	bSetNiosiiCtrlLeds(NIOSII_LED_SW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK);
 	usleep(5000000);
 	/* Initial values for the Leds */
 	bSetPainelLeds( LEDS_OFF, LEDS_PAINEL_ALL_MASK);
 	bSetPainelLeds( LEDS_ON, LEDS_POWER_MASK);
+	bSetNiosiiCtrlLeds(NIOSII_LED_HW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 
 }

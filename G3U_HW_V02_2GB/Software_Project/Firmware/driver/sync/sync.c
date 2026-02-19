@@ -55,6 +55,8 @@ const alt_u8 cusiSyncFFeeNumberOfPulses = 1;
 // A variable to hold the context of interrupt
 static volatile int viSyncHoldContext;
 static volatile int viPreSyncHoldContext;
+
+alt_u32 u32SyncPolControl = 0x00000000;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -1472,6 +1474,33 @@ bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 	}
 
 	return (bSuccess);
+}
+
+
+bool bSyncSetSyncInPol(bool bPolarity)
+{
+
+	if (bPolarity == SYNC_POL_CTRL_INV) {
+    	u32SyncPolControl |= SYNC_POL_INV_SYNC_IN_MASK;        // Set bits
+    } else {
+    	u32SyncPolControl &= (~SYNC_POL_INV_SYNC_IN_MASK);     // Clear bits
+    }
+    IOWR_ALTERA_AVALON_PIO_DATA(PIO_SYNC_POL_INV_CTRL_BASE, u32SyncPolControl);
+
+    return TRUE;
+}
+
+bool bSyncSetSyncOutPol(bool bPolarity)
+{
+
+	if (bPolarity == SYNC_POL_CTRL_INV) {
+    	u32SyncPolControl |= SYNC_POL_INV_SYNC_OUT_MASK;        // Set bits
+    } else {
+    	u32SyncPolControl &= (~SYNC_POL_INV_SYNC_OUT_MASK);     // Clear bits
+    }
+    IOWR_ALTERA_AVALON_PIO_DATA(PIO_SYNC_POL_INV_CTRL_BASE, u32SyncPolControl);
+
+    return TRUE;
 }
 
 //! [private functions]

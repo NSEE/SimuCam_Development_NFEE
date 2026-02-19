@@ -19,7 +19,7 @@
 
 /* If some critical error ocours all LEDs in the panel will turn on */
 void vCriticalErrorLedPanel( void ) {
-
+	bSetNiosiiCtrlLeds(NIOSII_LED_SW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK | NIOSII_LED_CTRL_GR_ALL_MASK);
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );
 }
 
@@ -1320,6 +1320,14 @@ void vFailFtdiErrorIRQtoLUT ( void ) {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailFtdiErrorIRQtoLUT \n");
+	}
+	#endif
+}
+
+void vFailFtdiErrorConfigtoLUT ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailFtdiErrorConfigtoLUT \n");
 	}
 	#endif
 }

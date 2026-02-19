@@ -40,6 +40,21 @@ package comm_irq_manager_pkg is
 		rmap_write_window_flag : std_logic;
 	end record t_ftdi_comm_rmap_manager_flags;
 
+	type t_ftdi_comm_rmap_manager_rate_limits is record
+		rmap_write_config_limit : std_logic_vector(31 downto 0);
+		rmap_write_window_limit : std_logic_vector(31 downto 0);
+	end record t_ftdi_comm_rmap_manager_rate_limits;
+
+	type t_ftdi_comm_rmap_manager_rate_clears is record
+		rmap_write_config_clear : std_logic;
+		rmap_write_window_clear : std_logic;
+	end record t_ftdi_comm_rmap_manager_rate_clears;
+
+	type t_ftdi_comm_rmap_manager_rate_counters is record
+		rmap_write_config_counter : std_logic_vector(31 downto 0);
+		rmap_write_window_counter : std_logic_vector(31 downto 0);
+	end record t_ftdi_comm_rmap_manager_rate_counters;
+
 	constant c_COMM_RMAP_IRQ_MANAGER_WATCHES_RST : t_ftdi_comm_rmap_manager_watches := (
 		rmap_write_data_finished => '0'
 	);
@@ -52,6 +67,21 @@ package comm_irq_manager_pkg is
 	constant c_COMM_RMAP_IRQ_MANAGER_FLAGS_RST : t_ftdi_comm_rmap_manager_flags := (
 		rmap_write_config_flag => '0',
 		rmap_write_window_flag => '0'
+	);
+
+	constant c_COMM_RMAP_IRQ_MANAGER_RATE_LIMITS_RST : t_ftdi_comm_rmap_manager_rate_limits := (
+		rmap_write_config_limit => (others => '0'),
+		rmap_write_window_limit => (others => '0')
+	);
+
+	constant c_COMM_RMAP_IRQ_MANAGER_RATE_CLEARS_RST : t_ftdi_comm_rmap_manager_rate_clears := (
+		rmap_write_config_clear => '0',
+		rmap_write_window_clear => '0'
+	);
+
+	constant c_COMM_RMAP_IRQ_MANAGER_RATE_COUNTERS_RST : t_ftdi_comm_rmap_manager_rate_counters := (
+		rmap_write_config_counter => (others => '0'),
+		rmap_write_window_counter => (others => '0')
 	);
 
 end package comm_irq_manager_pkg;

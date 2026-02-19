@@ -6,6 +6,9 @@ use work.nrme_rmap_mem_area_nfee_pkg.all;
 use work.nrme_avalon_mm_rmap_nfee_pkg.all;
 
 entity nrme_rmap_mem_area_nfee_read_ent is
+    generic(
+        g_MEM_RD_TIMEOUT_CYCLES : positive := 1024
+    );
     port(
         clk_i               : in  std_logic;
         rst_i               : in  std_logic;
@@ -28,6 +31,8 @@ architecture RTL of nrme_rmap_mem_area_nfee_read_ent is
     signal s_read_started     : std_logic;
     signal s_read_in_progress : std_logic;
     signal s_read_finished    : std_logic;
+    signal s_read_timeout_cnt : natural range 0 to g_MEM_RD_TIMEOUT_CYCLES;
+    signal s_read_timeout_err : std_logic;
 
 begin
 
@@ -48,6 +53,7 @@ begin
                 rmap_readdata_o((memarea_rddata_i'length - 1) downto 0) := memarea_rddata_i;
                 -- keep setted the read finished flag
                 s_read_finished                                         <= '1';
+                s_read_timeout_cnt                                      <= 0;
                 -- keep cleared the waitrequest flag
                 rmap_waitrequest_o                                      <= '0';
             else
@@ -65,6 +71,17 @@ begin
                         s_read_started      <= '1';
                         -- set the read in progress flag
                         s_read_in_progress  <= '1';
+                        s_read_timeout_cnt  <= 0;
+                    elsif (s_read_timeout_cnt >= (g_MEM_RD_TIMEOUT_CYCLES - 1)) then
+                        -- timeout while waiting memory interface idle, release handshake to avoid deadlock
+                        rmap_readdata_o    := (others => '0');
+                        s_read_in_progress <= '0';
+                        s_read_finished    <= '1';
+                        s_read_timeout_cnt <= 0;
+                        s_read_timeout_err <= '1';
+                        rmap_waitrequest_o <= '0';
+                    else
+                        s_read_timeout_cnt <= s_read_timeout_cnt + 1;
                     end if;
                 -- check if a read is in progress and was just started    
                 elsif ((s_read_in_progress = '1') and (s_read_started = '1')) then
@@ -72,6 +89,7 @@ begin
                     s_read_started     <= '0';
                     -- keep setted the read in progress flag
                     s_read_in_progress <= '1';
+                    s_read_timeout_cnt <= 0;
                 -- check if a read is in progress and was not just started    
                 elsif ((s_read_in_progress = '1') and (s_read_started = '0')) then
                     -- a read is in progress
@@ -86,8 +104,19 @@ begin
                         s_read_in_progress                                      <= '0';
                         -- set the read finished flag
                         s_read_finished                                         <= '1';
+                        s_read_timeout_cnt                                      <= 0;
                         -- clear the waitrequest flag
                         rmap_waitrequest_o                                      <= '0';
+                    elsif (s_read_timeout_cnt >= (g_MEM_RD_TIMEOUT_CYCLES - 1)) then
+                        -- timeout while waiting memory read response, release handshake to avoid deadlock
+                        rmap_readdata_o      := (others => '0');
+                        s_read_in_progress   <= '0';
+                        s_read_finished      <= '1';
+                        s_read_timeout_cnt   <= 0;
+                        s_read_timeout_err   <= '1';
+                        rmap_waitrequest_o   <= '0';
+                    else
+                        s_read_timeout_cnt <= s_read_timeout_cnt + 1;
                     end if;
                 end if;
             end if;
@@ -2906,6 +2935,8 @@ begin
             s_read_started               <= '0';
             s_read_in_progress           <= '0';
             s_read_finished              <= '0';
+            s_read_timeout_cnt           <= 0;
+            s_read_timeout_err           <= '0';
             v_fee_read_address           := (others => '0');
             v_avs_read_address           := 0;
         elsif (rising_edge(clk_i)) then
@@ -2917,6 +2948,7 @@ begin
             s_read_started               <= '0';
             s_read_in_progress           <= '0';
             s_read_finished              <= '0';
+            s_read_timeout_cnt           <= 0;
             if (fee_rmap_i.read = '1') then
                 v_fee_read_address := fee_rmap_i.address;
                 --                fee_rmap_o.waitrequest <= '0';

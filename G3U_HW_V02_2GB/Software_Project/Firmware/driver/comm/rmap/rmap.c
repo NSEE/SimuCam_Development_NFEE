@@ -215,7 +215,7 @@ static volatile int viCh6HoldContext;
 void vRmapCh1HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEventsTotal;
 	INT8U error_codel;
 
 	const unsigned char cucFeeNumber = 0;
@@ -231,25 +231,25 @@ void vRmapCh1HandleIrq(void* pvContext) {
 
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
 
-		ucADDRReg = (unsigned char) vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
+		ucEventsTotal = (unsigned char) vpxCommChannel->xRmap.xRmapIrqFlag.uliWriteConfigEventsBetween;
 
 		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[1] = ucEventsTotal;
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
-			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
+			fprintf(fp, "ucEventsTotal: %u\n", ucEventsTotal);
 		}
 #endif
-#if ( 1 <= N_OF_NFEE )
+#if ( (cucFeeNumber + 1) <= N_OF_NFEE )
 		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendRMAPFromIRQ( cucIrqNumber );
@@ -279,7 +279,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 void vRmapCh2HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEventsTotal;
 	INT8U error_codel;
 
 	const unsigned char cucFeeNumber = 1;
@@ -295,25 +295,25 @@ void vRmapCh2HandleIrq(void* pvContext) {
 
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
 
-		ucADDRReg = (unsigned char) vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
+		ucEventsTotal = (unsigned char) vpxCommChannel->xRmap.xRmapIrqFlag.uliWriteConfigEventsBetween;
 
 		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[1] = ucEventsTotal;
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
-			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
+			fprintf(fp, "ucEventsTotal: %u\n", ucEventsTotal);
 		}
 #endif
-#if ( 2 <= N_OF_NFEE )
+#if ( (cucFeeNumber + 1) <= N_OF_NFEE )
 		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendRMAPFromIRQ( cucIrqNumber );
@@ -343,7 +343,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 void vRmapCh3HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEventsTotal;
 	INT8U error_codel;
 
 	const unsigned char cucFeeNumber = 2;
@@ -359,25 +359,25 @@ void vRmapCh3HandleIrq(void* pvContext) {
 
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
 
-		ucADDRReg = (unsigned char) vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
+		ucEventsTotal = (unsigned char) vpxCommChannel->xRmap.xRmapIrqFlag.uliWriteConfigEventsBetween;
 
 		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[1] = ucEventsTotal;
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
-			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
+			fprintf(fp, "ucEventsTotal: %u\n", ucEventsTotal);
 		}
 #endif
-#if ( 3 <= N_OF_NFEE )
+#if ( (cucFeeNumber + 1) <= N_OF_NFEE )
 		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendRMAPFromIRQ( cucIrqNumber );
@@ -407,7 +407,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 void vRmapCh4HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEventsTotal;
 	INT8U error_codel;
 
 	const unsigned char cucFeeNumber = 3;
@@ -423,25 +423,25 @@ void vRmapCh4HandleIrq(void* pvContext) {
 
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
 
-		ucADDRReg = (unsigned char) vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
+		ucEventsTotal = (unsigned char) vpxCommChannel->xRmap.xRmapIrqFlag.uliWriteConfigEventsBetween;
 
 		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[1] = ucEventsTotal;
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
-			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
+			fprintf(fp, "ucEventsTotal: %u\n", ucEventsTotal);
 		}
 #endif
-#if ( 4 <= N_OF_NFEE )
+#if ( (cucFeeNumber + 1) <= N_OF_NFEE )
 		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendRMAPFromIRQ( cucIrqNumber );
@@ -471,7 +471,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 void vRmapCh5HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEventsTotal;
 	INT8U error_codel;
 
 	const unsigned char cucFeeNumber = 4;
@@ -487,25 +487,25 @@ void vRmapCh5HandleIrq(void* pvContext) {
 
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
 
-		ucADDRReg = (unsigned char) vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
+		ucEventsTotal = (unsigned char) vpxCommChannel->xRmap.xRmapIrqFlag.uliWriteConfigEventsBetween;
 
 		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[1] = ucEventsTotal;
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
-			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
+			fprintf(fp, "ucEventsTotal: %u\n", ucEventsTotal);
 		}
 #endif
-#if ( 5 <= N_OF_NFEE )
+#if ( (cucFeeNumber + 1) <= N_OF_NFEE )
 		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendRMAPFromIRQ( cucIrqNumber );
@@ -535,7 +535,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 void vRmapCh6HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEventsTotal;
 	INT8U error_codel;
 
 	const unsigned char cucFeeNumber = 5;
@@ -551,25 +551,25 @@ void vRmapCh6HandleIrq(void* pvContext) {
 
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 			fprintf(fp, "IRQ RMAP.\n");
 		}
 #endif
 
-		ucADDRReg = (unsigned char) vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
+		ucEventsTotal = (unsigned char) vpxCommChannel->xRmap.xRmapIrqFlag.uliWriteConfigEventsBetween;
 
 		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[1] = ucEventsTotal;
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 		if (xDefaults.ucDebugLevel <= dlMinorMessage) {
-			fprintf(fp, "IucADDRReg: %u\n", ucADDRReg);
+			fprintf(fp, "ucEventsTotal: %u\n", ucEventsTotal);
 		}
 #endif
-#if ( 6 <= N_OF_NFEE )
+#if ( (cucFeeNumber + 1) <= N_OF_NFEE )
 		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendRMAPFromIRQ( cucIrqNumber );
@@ -1327,6 +1327,31 @@ bool bRmapGetMemConfig(TRmapChannel *pxRmapCh) {
 	return bStatus;
 }
 
+bool bRmapAddrFifoRead(TRmapChannel *pxRmapCh, bool *ucAddrFifoEmpty, alt_u8 *ucAddrFifoData) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxRmapCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxRmapCh->xRmapDevAddr.uliRmapBaseAddr);
+
+		/* Check if the RMAP Address FIFO have data */
+		*ucAddrFifoEmpty = vpxCommChannel->xRmap.xRmapAddrFifoStatus.bAddrFifoEmpty;
+		if (FALSE == *ucAddrFifoEmpty) {
+			/* Get RMAP Address */
+			*ucAddrFifoData = (alt_u8) vpxCommChannel->xRmap.xRmapAddrFifoStatus.ucAddrFifoRdData;
+			vpxCommChannel->xRmap.xRmapAddrFifoControl.bAddrFifoRead = TRUE;
+		}
+
+		pxRmapCh->xRmapAddrFifoStatus = vpxCommChannel->xRmap.xRmapAddrFifoStatus;
+		pxRmapCh->xRmapAddrFifoControl = vpxCommChannel->xRmap.xRmapAddrFifoControl;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
 bool bRmapGetMemStatus(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -1493,6 +1518,8 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 			if (!bRmapGetIrqControl(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
+			pxRmapCh->xRmapIrqControl.uliWriteConfigRateLimit = 100000;
+			pxRmapCh->xRmapIrqControl.uliWriteWindowRateLimit = 100000;
 			if (!bRmapGetCodecConfig(pxRmapCh)) {
 				bInitFail = TRUE;
 			}

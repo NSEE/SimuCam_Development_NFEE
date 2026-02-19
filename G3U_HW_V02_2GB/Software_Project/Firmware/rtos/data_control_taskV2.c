@@ -24,6 +24,7 @@ void vDataControlTaskV2(void *task_data) {
 	//bool bA, bB, bC, bD, bE; //todo: Will be used in future implementations
 	bool bDmaReturn = FALSE;
 	TCcdMemMap *xCCDMemMapL=0;
+	tQMask uiCmdtoSend;
 
 	pxDataC = (TNData_Control *) task_data;
 
@@ -65,6 +66,19 @@ void vDataControlTaskV2(void *task_data) {
 
 				/* Reset FTDI DMA */
 				bSdmaResetFtdiDma(TRUE);
+
+//				OSMutexPost(xMutexDMAFTDI);
+
+				uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
+				uiCmdtoSend.ucByte[2] = M_LUT_CONFIG_FORCED;
+				uiCmdtoSend.ucByte[1] = 0;
+				uiCmdtoSend.ucByte[0] = ucFtdiGetRxErrorCode();
+
+				/*Sync the Meb task and tell that has a PUS command waiting*/
+				error_code = OSQPost(xLutQ, (void *) uiCmdtoSend.ulWord);
+				if (error_code != OS_ERR_NONE) {
+					vFailFtdiErrorConfigtoLUT();
+				}
 
 				vFtdiStopModule();
 				vFtdiClearModule();

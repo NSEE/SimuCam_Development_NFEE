@@ -90,7 +90,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 	}
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
@@ -158,7 +158,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 
 	}
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
@@ -226,7 +226,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 
 	}
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
@@ -294,7 +294,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 
 	}
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
@@ -362,7 +362,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 
 	}
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}
@@ -430,7 +430,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 
 	}
 
-#if DEBUG_ON
+#if DEBUG_ISR_ON
 	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		fprintf(fp, "IntF%u\n", cucIrqNumber);
 	}

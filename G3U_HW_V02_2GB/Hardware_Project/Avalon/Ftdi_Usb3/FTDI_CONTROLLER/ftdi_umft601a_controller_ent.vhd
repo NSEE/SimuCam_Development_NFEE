@@ -150,6 +150,21 @@ architecture RTL of ftdi_umft601a_controller_ent is
 	signal s_synchronized_start : std_logic;
 	signal s_synchronized_stop  : std_logic;
 
+	signal s_rst_ftdi_meta : std_logic;
+	signal s_rst_ftdi      : std_logic;
+
+	signal s_umft_rxf_n_meta : std_logic;
+	signal s_umft_rxf_n_sync : std_logic;
+	signal s_umft_txe_n_meta : std_logic;
+	signal s_umft_txe_n_sync : std_logic;
+
+	signal s_ftdi_clear_stretch_cnt : natural range 0 to 7;
+	signal s_ftdi_clear_stretched   : std_logic;
+
+	signal s_rx_dc_data_sampled : std_logic_vector(31 downto 0);
+	signal s_rx_dc_be_sampled   : std_logic_vector(3 downto 0);
+	signal s_rx_dc_sample_valid : std_logic;
+
 	signal s_tx_words_cnt : natural range 0 to 1024;
 
 begin
@@ -306,12 +321,60 @@ begin
 			rdsig_o(2)  => s_synchronized_start
 		);
 
+	-- synchronize reset deassertion into ftdi clock domain
+	p_ftdi_reset_sync : process(ftdi_clk_i, rst_i)
+	begin
+		if (rst_i = '1') then
+			s_rst_ftdi_meta <= '1';
+			s_rst_ftdi      <= '1';
+		elsif rising_edge(ftdi_clk_i) then
+			s_rst_ftdi_meta <= '0';
+			s_rst_ftdi      <= s_rst_ftdi_meta;
+		end if;
+	end process p_ftdi_reset_sync;
+
+	-- synchronize umft status flags into ftdi clock domain
+	p_umft_status_sync : process(ftdi_clk_i, s_rst_ftdi)
+	begin
+		if (s_rst_ftdi = '1') then
+			s_umft_rxf_n_meta <= '1';
+			s_umft_rxf_n_sync <= '1';
+			s_umft_txe_n_meta <= '1';
+			s_umft_txe_n_sync <= '1';
+		elsif rising_edge(ftdi_clk_i) then
+			s_umft_rxf_n_meta <= s_umft601a_buffered_pins.rxf_n;
+			s_umft_rxf_n_sync <= s_umft_rxf_n_meta;
+			s_umft_txe_n_meta <= s_umft601a_buffered_pins.txe_n;
+			s_umft_txe_n_sync <= s_umft_txe_n_meta;
+		end if;
+	end process p_umft_status_sync;
+
+	-- stretch clear request in ftdi clock domain to robustly reset fifo/control paths
+	p_ftdi_clear_stretch : process(ftdi_clk_i, s_rst_ftdi)
+	begin
+		if (s_rst_ftdi = '1') then
+			s_ftdi_clear_stretch_cnt <= 0;
+			s_ftdi_clear_stretched   <= '0';
+		elsif rising_edge(ftdi_clk_i) then
+			if (s_synchronized_clear = '1') then
+				s_ftdi_clear_stretch_cnt <= 7;
+				s_ftdi_clear_stretched   <= '1';
+			elsif (s_ftdi_clear_stretch_cnt > 0) then
+				s_ftdi_clear_stretch_cnt <= s_ftdi_clear_stretch_cnt - 1;
+				s_ftdi_clear_stretched   <= '1';
+			else
+				s_ftdi_clear_stretch_cnt <= 0;
+				s_ftdi_clear_stretched   <= '0';
+			end if;
+		end if;
+	end process p_ftdi_clear_stretch;
+
 	-- ftdi umft601a controller fsm process (245 Synchronous FIFO mode Protocols)
-	p_ftdi_umft601a_controller : process(ftdi_clk_i, rst_i)
+	p_ftdi_umft601a_controller : process(ftdi_clk_i, s_rst_ftdi)
 		variable v_ftdi_umft601a_controller_state : t_ftdi_umft601a_controller_fsm; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (rst_i = '1') then
+		if (s_rst_ftdi = '1') then
 			-- states
 			s_ftdi_umft601a_controller_state      <= IDLE;
 			v_ftdi_umft601a_controller_state      := IDLE;
@@ -332,6 +395,9 @@ begin
 			s_tx_dc_data_little_endian            <= (others => '0');
 			s_tx_dc_be_little_endian              <= (others => '0');
 			s_tx_dc_data_fifo.rdreq               <= '0';
+			s_rx_dc_data_sampled                  <= (others => '0');
+			s_rx_dc_be_sampled                    <= (others => '0');
+			s_rx_dc_sample_valid                  <= '0';
 			s_rx_dc_data_fifo.wrdata_data         <= (others => '0');
 			s_rx_dc_data_fifo.wrdata_be           <= (others => '0');
 			s_rx_dc_data_fifo.wrreq               <= '0';
@@ -373,13 +439,13 @@ begin
 					-- conditional state transition and internal signal values
 					if (s_tx_priority = '0') then
 						-- check if the UMFT601A module have rx data and the rx dc fifo can receive
-						if ((s_umft601a_buffered_pins.rxf_n = '0')) then
+						if ((s_umft_rxf_n_sync = '0')) then
 							-- UMFT601A module have rx data and the rx dc fifo can receive
 							s_ftdi_umft601a_controller_state <= RX_DELAY;
 							v_ftdi_umft601a_controller_state := RX_DELAY;
 							s_delay_cnt                      <= 1;
 						-- check if the UMFT601A module can receive tx data and the tx dc fifo have data
-						elsif ((s_umft601a_buffered_pins.txe_n = '0')) then
+						elsif ((s_umft_txe_n_sync = '0')) then
 							-- UMFT601A module can receive tx data and the tx dc fifo have data
 							s_ftdi_umft601a_controller_state <= TX_DELAY;
 							v_ftdi_umft601a_controller_state := TX_DELAY;
@@ -387,13 +453,13 @@ begin
 						end if;
 					else
 						-- check if the UMFT601A module can receive tx data and the tx dc fifo have data
-						if ((s_umft601a_buffered_pins.txe_n = '0')) then
+						if ((s_umft_txe_n_sync = '0')) then
 							-- UMFT601A module can receive tx data and the tx dc fifo have data
 							s_ftdi_umft601a_controller_state <= TX_DELAY;
 							v_ftdi_umft601a_controller_state := TX_DELAY;
 							s_delay_cnt                      <= 1;
 						-- check if the UMFT601A module have rx data and the rx dc fifo can receive
-						elsif ((s_umft601a_buffered_pins.rxf_n = '0')) then
+						elsif ((s_umft_rxf_n_sync = '0')) then
 							-- UMFT601A module have rx data and the rx dc fifo can receive
 							s_ftdi_umft601a_controller_state <= RX_DELAY;
 							v_ftdi_umft601a_controller_state := RX_DELAY;
@@ -461,9 +527,8 @@ begin
 					s_tx_priority                    <= '1';
 					s_tx_words_cnt                   <= 0;
 					-- conditional state transition and internal signal values
-					-- check if the UMFT601A module still have rx data and the rx dc fifo can still receive
-					if ((s_umft601a_buffered_pins.rxf_n = '0')) then
-						-- UMFT601A module still have rx data and the rx dc fifo still can receive
+					-- keep receiving while data is available or to flush one sampled word
+					if ((s_umft_rxf_n_sync = '0') or (s_rx_dc_sample_valid = '1')) then
 						s_ftdi_umft601a_controller_state <= RX_WRITING;
 						v_ftdi_umft601a_controller_state := RX_WRITING;
 					end if;
@@ -564,7 +629,7 @@ begin
 					--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					else
 						-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
-						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+						if ((s_umft_txe_n_sync = '0') and (s_tx_words_cnt > 0)) then
 							--						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							-- umft601a module can still receive data
 							s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
@@ -598,7 +663,7 @@ begin
 					-- conditional state transition and internal signal values
 					-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
 					--					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
-					if ((s_umft601a_buffered_pins.txe_n = '0')) then
+					if ((s_umft_txe_n_sync = '0')) then
 						--					if ((s_umft601a_buffered_pins.txe_n = '0')) then
 						-- umft601a module can still receive data
 						s_ftdi_umft601a_controller_state <= TX_FILLING;
@@ -620,9 +685,18 @@ begin
 				--				v_ftdi_umft601a_controller_state := STOPPED;
 				null;
 			-- check if a clear command was issued
-			elsif (s_synchronized_clear = '1') then
+			elsif (s_ftdi_clear_stretched = '1') then
 				s_ftdi_umft601a_controller_state <= IDLE;
 				v_ftdi_umft601a_controller_state := IDLE;
+				s_delay_cnt                      <= 0;
+				s_tx_priority                    <= '0';
+				s_tx_interrupted                 <= '0';
+				s_tx_interrupted_data            <= (others => '0');
+				s_tx_interrupted_be              <= (others => '0');
+				s_tx_words_cnt                   <= 0;
+				s_rx_dc_data_sampled             <= (others => '0');
+				s_rx_dc_be_sampled               <= (others => '0');
+				s_rx_dc_sample_valid             <= '0';
 			end if;
 
 			-- Output generation FSM
@@ -642,6 +716,7 @@ begin
 					s_tx_dc_data_fifo.rdreq               <= '0';
 					s_tx_dc_data_little_endian            <= (others => '0');
 					s_tx_dc_be_little_endian              <= (others => '0');
+					s_rx_dc_sample_valid                  <= '0';
 					s_rx_dc_data_fifo.wrreq               <= '0';
 					s_rx_dc_data_fifo.wrdata_data         <= (others => '0');
 					s_rx_dc_data_fifo.wrdata_be           <= (others => '0');
@@ -661,6 +736,7 @@ begin
 					s_tx_dc_data_fifo.rdreq               <= '0';
 					s_tx_dc_data_little_endian            <= (others => '0');
 					s_tx_dc_be_little_endian              <= (others => '0');
+					s_rx_dc_sample_valid                  <= '0';
 					s_rx_dc_data_fifo.wrreq               <= '0';
 					s_rx_dc_data_fifo.wrdata_data         <= (others => '0');
 					s_rx_dc_data_fifo.wrdata_be           <= (others => '0');
@@ -719,8 +795,9 @@ begin
 					s_tx_dc_data_little_endian            <= (others => '0');
 					s_tx_dc_be_little_endian              <= (others => '0');
 					s_rx_dc_data_fifo.wrreq               <= '0';
-					s_rx_dc_data_fifo.wrdata_data         <= s_rx_dc_data_little_endian;
-					s_rx_dc_data_fifo.wrdata_be           <= s_rx_dc_be_little_endian;
+					s_rx_dc_data_fifo.wrdata_data         <= s_rx_dc_data_sampled;
+					s_rx_dc_data_fifo.wrdata_be           <= s_rx_dc_be_sampled;
+					s_rx_dc_sample_valid                  <= '0';
 				-- conditional output signals
 
 				-- state "RX_WRITING"
@@ -737,9 +814,16 @@ begin
 					s_tx_dc_data_fifo.rdreq               <= '0';
 					s_tx_dc_data_little_endian            <= (others => '0');
 					s_tx_dc_be_little_endian              <= (others => '0');
-					s_rx_dc_data_fifo.wrreq               <= '1';
-					s_rx_dc_data_fifo.wrdata_data         <= s_rx_dc_data_little_endian;
-					s_rx_dc_data_fifo.wrdata_be           <= s_rx_dc_be_little_endian;
+					s_rx_dc_data_fifo.wrreq               <= s_rx_dc_sample_valid;
+					s_rx_dc_data_fifo.wrdata_data         <= s_rx_dc_data_sampled;
+					s_rx_dc_data_fifo.wrdata_be           <= s_rx_dc_be_sampled;
+					if (s_umft_rxf_n_sync = '0') then
+						s_rx_dc_data_sampled <= s_rx_dc_data_little_endian;
+						s_rx_dc_be_sampled   <= s_rx_dc_be_little_endian;
+						s_rx_dc_sample_valid <= '1';
+					else
+						s_rx_dc_sample_valid <= '0';
+					end if;
 				-- conditional output signals
 
 				-- state "TX_DELAY"
@@ -865,7 +949,7 @@ begin
 	-- signals assingments
 	-- clock and reset assingments
 	--	s_umft601a_clock                 <= (s_umft601a_buffered_pins.clock);
-	s_umft601a_buffered_pins.reset_n <= not (rst_i);
+	s_umft601a_buffered_pins.reset_n <= not (s_rst_ftdi or s_ftdi_clear_stretched);
 
 	s_tx_dc_extended_wrusedw(s_tx_dc_data_fifo.rdusedw'length)                <= s_tx_dc_data_fifo.rdfull;
 	s_tx_dc_extended_wrusedw((s_tx_dc_data_fifo.rdusedw'length - 1) downto 0) <= s_tx_dc_data_fifo.rdusedw;
@@ -873,23 +957,19 @@ begin
 	s_rx_dc_extended_wrusedw(s_rx_dc_data_fifo.wrusedw'length)                <= s_rx_dc_data_fifo.wrfull;
 	s_rx_dc_extended_wrusedw((s_rx_dc_data_fifo.wrusedw'length - 1) downto 0) <= s_rx_dc_data_fifo.wrusedw;
 
-	--	s_rx_wrreq_protected <= (s_rx_dc_data_fifo.wrreq) when (s_umft601a_buffered_pins.rxf_n = '0') else ('0');
-	s_rx_wrreq_protected <= (s_rx_dc_data_fifo.wrreq);
-	--	s_tx_rdreq_protected <= (s_tx_dc_data_fifo.rdreq) when ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_dc_data_fifo.rdempty = '0')) else ('0');
-	s_tx_rdreq_protected <= (s_tx_dc_data_fifo.rdreq);
+	s_rx_wrreq_protected <= (s_rx_dc_data_fifo.wrreq) when (s_umft_rxf_n_sync = '0') else ('0');
+	s_tx_rdreq_protected <= (s_tx_dc_data_fifo.rdreq) when ((s_umft_txe_n_sync = '0') and (s_tx_dc_data_fifo.rdempty = '0')) else ('0');
 
-	--	s_rx_rd_n_protected <= (s_umft601a_buffered_pins.rd_n) when (s_umft601a_buffered_pins.rxf_n = '0') else ('1');
-	s_rx_rd_n_protected <= (s_umft601a_buffered_pins.rd_n);
-	--	s_tx_wr_n_protected <= (s_umft601a_buffered_pins.wr_n) when (s_umft601a_buffered_pins.txe_n = '0') else ('1');
-	s_tx_wr_n_protected <= (s_umft601a_buffered_pins.wr_n);
+	s_rx_rd_n_protected <= (s_umft601a_buffered_pins.rd_n) when (s_umft_rxf_n_sync = '0') else ('1');
+	s_tx_wr_n_protected <= (s_umft601a_buffered_pins.wr_n) when (s_umft_txe_n_sync = '0') else ('1');
 
 	--	s_tx_be_protected   <= (s_umft601a_buffered_pins.be_out) when (s_tx_dc_data_fifo.rdempty = '0') else ("0000");
 	s_tx_be_protected   <= (s_umft601a_buffered_pins.be_out);
 	--	s_tx_data_protected <= (s_umft601a_buffered_pins.data_out) when (s_tx_dc_data_fifo.rdempty = '0') else (x"00000000");
 	s_tx_data_protected <= (s_umft601a_buffered_pins.data_out);
 
-	s_tx_dc_data_fifo.aclr <= (rst_i) or (s_synchronized_clear);
-	s_rx_dc_data_fifo.aclr <= (rst_i) or (s_synchronized_clear);
+	s_tx_dc_data_fifo.aclr <= (s_rst_ftdi) or (s_ftdi_clear_stretched);
+	s_rx_dc_data_fifo.aclr <= (s_rst_ftdi) or (s_ftdi_clear_stretched);
 
 	-- endianess correction
 	s_umft601a_buffered_pins.data_out(31 downto 24) <= s_tx_dc_data_little_endian(7 downto 0);

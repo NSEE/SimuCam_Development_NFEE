@@ -9,6 +9,8 @@
 
 /* todo: Create a struct that will contain all config, and pass as parameter to the functions */
 
+bool bWaitingForFirstMasterSync = FALSE;
+
 bool bInitSync( void ) {
 	bool	bSuccess;
 
@@ -141,6 +143,90 @@ bool bClearSync(void){
 	bSyncPreIrqEnableMasterPulse(TRUE);
 
 	return bSuccess;
+}
+
+bool bSyncDisableAllIrqs(void){
+
+	/* Disable all IRQs generation */
+
+	/* Disable all sync IRQs [rfranca] */
+	bSyncIrqEnableError(FALSE);
+	bSyncIrqEnableBlankPulse(FALSE);
+	bSyncIrqEnableMasterPulse(FALSE);
+	bSyncIrqEnableNormalPulse(FALSE);
+	bSyncIrqEnableLastPulse(FALSE);
+	bSyncPreIrqEnableBlankPulse(FALSE);
+	bSyncPreIrqEnableMasterPulse(FALSE);
+	bSyncPreIrqEnableNormalPulse(FALSE);
+	bSyncPreIrqEnableLastPulse(FALSE);
+	/* Clear all sync IRQ Flags [rfranca] */
+	bSyncIrqFlagClrError(TRUE);
+	bSyncIrqFlagClrBlankPulse(TRUE);
+	bSyncIrqFlagClrMasterPulse(TRUE);
+	bSyncIrqFlagClrNormalPulse(TRUE);
+	bSyncIrqFlagClrLastPulse(TRUE);
+	bSyncPreIrqFlagClrBlankPulse(TRUE);
+	bSyncPreIrqFlagClrMasterPulse(TRUE);
+	bSyncPreIrqFlagClrNormalPulse(TRUE);
+	bSyncPreIrqFlagClrLastPulse(TRUE);
+
+	/* Disable channels sync out */
+	bSyncCtrCh1OutEnable(FALSE);
+	bSyncCtrCh2OutEnable(FALSE);
+	bSyncCtrCh3OutEnable(FALSE);
+	bSyncCtrCh4OutEnable(FALSE);
+	bSyncCtrCh5OutEnable(FALSE);
+	bSyncCtrCh6OutEnable(FALSE);
+	bSyncCtrCh7OutEnable(FALSE);
+
+	return TRUE;
+}
+
+bool bSyncConfigureWaitFirstMaster(alt_u8 u8SyncSource){
+
+	/* Set everything to wait for the next master sync */
+
+	/* Set number of cycles to be as long as possible to wait for master sync, only for external sync */
+	if (sExternal == u8SyncSource) {
+		bSyncSetNCycles(255);
+	}
+
+	/* Enable relevant sync IRQs [rfranca] */
+	bSyncIrqEnableMasterPulse(TRUE);
+
+	bWaitingForFirstMasterSync = TRUE;
+
+	return TRUE;
+}
+
+bool bSyncRestoreNormalIrqConfig(void){
+
+	/* Restore Normal IRQ for operation, after the arrival of the first master sync */
+
+	if (bWaitingForFirstMasterSync == TRUE) {
+
+		/* Set number of cycles to the correct one */
+		bSyncSetNCycles(cusiSyncNFeeNumberOfPulses);
+
+		/* Enable channels sync out */
+		bSyncCtrCh1OutEnable(TRUE);
+		bSyncCtrCh2OutEnable(TRUE);
+		bSyncCtrCh3OutEnable(TRUE);
+		bSyncCtrCh4OutEnable(TRUE);
+		bSyncCtrCh5OutEnable(TRUE);
+		bSyncCtrCh6OutEnable(TRUE);
+		bSyncCtrCh7OutEnable(TRUE);
+
+		/* Enable relevant sync IRQs [rfranca] */
+		bSyncIrqEnableNormalPulse(TRUE);
+		bSyncIrqEnableLastPulse(TRUE);
+		bSyncPreIrqEnableBlankPulse(TRUE);
+		bSyncPreIrqEnableMasterPulse(TRUE);
+
+		bWaitingForFirstMasterSync = FALSE;
+	}
+
+	return TRUE;
 }
 
 void bClearCounterSync(void) {

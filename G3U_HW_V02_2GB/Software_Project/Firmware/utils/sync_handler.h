@@ -18,4 +18,8 @@ bool bStopSync(void);
 bool bClearSync(void);
 void bClearCounterSync(void);
 
+bool bSyncDisableAllIrqs(void);
+bool bSyncConfigureWaitFirstMaster(alt_u8 u8SyncSource);
+bool bSyncRestoreNormalIrqConfig(void);
+
 #endif /* SYNC_HANDLER_H_ */

@@ -218,7 +218,9 @@
 			umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         -- umft_siwu_n_signal
+			umft601a_pins_umft_siwu_n_signal                            : out   std_logic;                                        -- umft_siwu_n_signal
+			pio_sync_pol_inv_ctrl_export                                : out   std_logic_vector(1 downto 0);                     -- export
+			pio_leds_niosii_ctrl_export                                 : out   std_logic_vector(28 downto 0)                     -- export
 		);
 	end component MebX_Qsys_Project;
 
@@ -442,6 +444,8 @@
 			umft601a_pins_umft_wr_n_signal                              => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                              --                                                  .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                              => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                              --                                                  .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                              --                                                  .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                             --                                                  .umft_siwu_n_signal
+			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                            --                                                  .umft_siwu_n_signal
+			pio_sync_pol_inv_ctrl_export                                => CONNECTED_TO_pio_sync_pol_inv_ctrl_export,                                --                             pio_sync_pol_inv_ctrl.export
+			pio_leds_niosii_ctrl_export                                 => CONNECTED_TO_pio_leds_niosii_ctrl_export                                  --                              pio_leds_niosii_ctrl.export
 		);
 

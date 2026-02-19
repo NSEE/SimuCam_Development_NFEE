@@ -17,6 +17,13 @@ use work.nrme_rmap_mem_area_nfee_pkg.all;
 use work.nrme_avm_rmap_nfee_pkg.all;
 
 entity nrme_rmap_memory_nfee_area_top is
+    generic(
+        g_ARB_TIMEOUT_CYCLES    : positive := 1024;
+        g_ARB_SWITCH_GAP_CYCLES : positive := 1;
+        g_ARB_QUEUE_DEPTH       : positive := 7;
+        g_MEM_RD_TIMEOUT_CYCLES : positive := 1024;
+        g_MEM_WR_TIMEOUT_CYCLES : positive := 1024
+    );
     port(
         reset_i                             : in  std_logic                     := '0'; --          --                      reset_sink.reset
         clk_100_i                           : in  std_logic                     := '0'; --          --               clock_sink_100mhz.clk
@@ -127,6 +134,11 @@ architecture rtl of nrme_rmap_memory_nfee_area_top is
 begin
 
     nrme_rmap_mem_area_nfee_arbiter_ent_inst : entity work.nrme_rmap_mem_area_nfee_arbiter_ent
+        generic map(
+            g_ARB_TIMEOUT_CYCLES    => g_ARB_TIMEOUT_CYCLES,
+            g_ARB_SWITCH_GAP_CYCLES => g_ARB_SWITCH_GAP_CYCLES,
+            g_ARB_QUEUE_DEPTH       => g_ARB_QUEUE_DEPTH
+        )
         port map(
             clk_i                             => a_avs_clock,
             rst_i                             => a_reset,
@@ -169,9 +181,15 @@ begin
             avalon_mm_wr_rmap_o               => s_avalon_mm_wr_rmap_in,
             avalon_mm_rd_rmap_o               => s_avalon_mm_rd_rmap_in
         );
-    avs_0_rmap_waitrequest_o <= (s_avs_0_rmap_wr_waitrequest) and (s_avs_0_rmap_rd_waitrequest);
+    avs_0_rmap_waitrequest_o <= s_avs_0_rmap_rd_waitrequest when ((avs_0_rmap_read_i = '1') and (avs_0_rmap_write_i = '0')) else
+                                s_avs_0_rmap_wr_waitrequest when ((avs_0_rmap_write_i = '1') and (avs_0_rmap_read_i = '0')) else
+                                '1' when ((avs_0_rmap_write_i = '1') and (avs_0_rmap_read_i = '1')) else
+                                '0';
 
     nrme_rmap_mem_area_nfee_read_ent_inst : entity work.nrme_rmap_mem_area_nfee_read_ent
+        generic map(
+            g_MEM_RD_TIMEOUT_CYCLES => g_MEM_RD_TIMEOUT_CYCLES
+        )
         port map(
             clk_i               => a_avs_clock,
             rst_i               => a_reset,
@@ -189,6 +207,9 @@ begin
         );
 
     nrme_rmap_mem_area_nfee_write_ent_inst : entity work.nrme_rmap_mem_area_nfee_write_ent
+        generic map(
+            g_MEM_WR_TIMEOUT_CYCLES => g_MEM_WR_TIMEOUT_CYCLES
+        )
         port map(
             clk_i                  => a_avs_clock,
             rst_i                  => a_reset,

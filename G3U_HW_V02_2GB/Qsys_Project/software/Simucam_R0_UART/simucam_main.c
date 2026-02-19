@@ -686,8 +686,10 @@ int main(void)
 
 	vVariablesInitialization();
 
+	bSetNiosiiCtrlLeds(NIOSII_LED_SW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
+	bSetNiosiiCtrlLeds(NIOSII_LED_HW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 
 	/* Creating the initialization task*/
 	#if STACK_MONITOR
@@ -765,6 +767,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 				}
 				#endif
 
+				bSetNiosiiCtrlLeds(NIOSII_LED_SW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ccd_number) );
 
@@ -789,6 +792,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 			}
 		}
 	}
+	bSetNiosiiCtrlLeds(NIOSII_LED_HW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 
 #if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {

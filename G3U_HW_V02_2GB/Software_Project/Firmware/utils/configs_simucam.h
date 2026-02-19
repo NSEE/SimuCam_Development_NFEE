@@ -57,6 +57,8 @@ typedef struct GenSimulationParams{
 	alt_u8 ucDebugLevel;
 	alt_u16 usiGuardFEEDelay;
 	alt_u8 ucSyncSource;
+	bool bSyncInInvertPolarity;
+	bool bSyncOutInvertPolarity;
 }TGenSimulationParams;
 
 typedef struct SpwInterfaceParams{

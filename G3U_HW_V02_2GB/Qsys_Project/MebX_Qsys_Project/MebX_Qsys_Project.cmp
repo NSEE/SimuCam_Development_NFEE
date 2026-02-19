@@ -79,7 +79,9 @@
 			m2_ddr2_oct_rup                                             : in    std_logic                     := 'X';             -- rup
 			pio_ftdi_umft601a_module_reset_export                       : out   std_logic;                                        -- export
 			pio_iso_logic_signal_enable_export                          : out   std_logic;                                        -- export
+			pio_leds_niosii_ctrl_export                                 : out   std_logic_vector(28 downto 0);                    -- export
 			pio_rmap_echoing_module_reset_external_connection_export    : out   std_logic;                                        -- export
+			pio_sync_pol_inv_ctrl_export                                : out   std_logic_vector(1 downto 0);                     -- export
 			rmap_echoing_echo_rst_sink_reset                            : in    std_logic                     := 'X';             -- reset
 			rs232_uart_rxd                                              : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                              : out   std_logic;                                        -- txd

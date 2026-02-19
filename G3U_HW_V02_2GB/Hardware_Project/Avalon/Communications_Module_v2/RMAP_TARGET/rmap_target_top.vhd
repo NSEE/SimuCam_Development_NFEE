@@ -393,7 +393,8 @@ begin
         elsif rising_edge(clk_i) then
 
             if (conf_target_pre_sync_i = '1') then
-                v_codec_enabled := '0';
+                -- v_codec_enabled := '0';
+				v_codec_enabled := '1';
             elsif (conf_target_sync_i = '1') then
                 v_codec_enabled := '1';
             end if;

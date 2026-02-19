@@ -36,7 +36,9 @@ enum DeftGenSimulationParamsID {
 	eDeftMebADCPixelDelayId      = 15, /* CCD ADC And Pixel Transfer Delay [ns] */
 	eDeftMebDebugLevelId         = 20, /* Serial Messages Debug Level */
 	eDeftMebGuardFeeDelayId      = 22, /* FEEs Guard Delay [ms] */
-	eDeftMebSyncSourceId         = 26  /* SimuCam Synchronism Source (0 = Internal / 1 = External) */
+	eDeftMebSyncSourceId         = 26, /* SimuCam Synchronism Source (0 = Internal / 1 = External) */
+	eDeftMebSyncInInvPolId       = 31, /* Invert the polarity of the SYNC IN signal (0 = Normal / 1 = Inverted) */
+	eDeftMebSyncOutInvPolId      = 32  /* Invert the polarity of the SYNC OUT signal (0 = Normal / 1 = Inverted) */
 } EDeftGenSimulationParamsID;
 
 /* N-FEE Configuration RMAP Area */

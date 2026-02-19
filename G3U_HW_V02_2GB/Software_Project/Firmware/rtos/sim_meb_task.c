@@ -124,12 +124,15 @@ void vSimMebTask(void *task_data) {
 					OSTimeDlyHMSM(0, 0, 5, 200);
 
 					/* [rfranca] */
+					bSyncDisableAllIrqs();
 					if (sInternal == pxMebC->eSync) {
 						bSyncCtrIntern(TRUE); /*TRUE = Internal*/
 						#if DEBUG_ON
 						if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 							fprintf(fp,"\nMEB Task: Sync Module Released\n");
 						#endif
+						/* Configure IRQs to wait for first Master Sync */
+						bSyncConfigureWaitFirstMaster((alt_u8)pxMebC->eSync);
 					} else {
 						bSyncCtrIntern(FALSE); /*TRUE = Internal*/
 						#if DEBUG_ON
@@ -142,6 +145,13 @@ void vSimMebTask(void *task_data) {
 					bSyncCtrReset();
 					vSyncClearCounter();
 					bStartSync();
+
+					/* [rfranca] */
+					if (sExternal == pxMebC->eSync) {
+						/* Configure IRQs to wait for first Master Sync */
+						OSTimeDlyHMSM(0, 0, 0, 100);
+						bSyncConfigureWaitFirstMaster((alt_u8)pxMebC->eSync);
+					}
 
 					vEvtChangeMebMode();
 					pxMebC->eMode = sMebRun;
@@ -227,6 +237,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vSwapMemmory(pxMebCLocal);
 				vTimeCodeMissCounter(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
+				/* Restore IRQs after the first master sync arrival */
+				bSyncRestoreNormalIrqConfig();
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\n============== Master Sync ==============\n\n");
@@ -604,6 +616,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Wait for N seconds */
 			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
 
+
+				bSetNiosiiCtrlLeds(NIOSII_LED_SW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ( ucShutDownI % 4 )) );
 
@@ -1726,6 +1740,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Wait for N seconds */
 			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
 
+				bSetNiosiiCtrlLeds(NIOSII_LED_SW_CTRL, NIOSII_LED_CTRL_STATUS_ALL_MASK);
 				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ( ucShutDownI % 4 )) );
 
