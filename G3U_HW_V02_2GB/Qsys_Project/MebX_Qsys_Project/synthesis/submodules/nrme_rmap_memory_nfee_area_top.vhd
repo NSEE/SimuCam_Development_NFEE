@@ -18,11 +18,12 @@ use work.nrme_avm_rmap_nfee_pkg.all;
 
 entity nrme_rmap_memory_nfee_area_top is
     generic(
-        g_ARB_TIMEOUT_CYCLES    : positive := 1024;
-        g_ARB_SWITCH_GAP_CYCLES : positive := 1;
-        g_ARB_QUEUE_DEPTH       : positive := 7;
-        g_MEM_RD_TIMEOUT_CYCLES : positive := 1024;
-        g_MEM_WR_TIMEOUT_CYCLES : positive := 1024
+        g_ARB_TIMEOUT_CYCLES       : positive := 1024;
+        g_ARB_RD_SWITCH_GAP_CYCLES : positive := 2;
+        g_ARB_WR_SWITCH_GAP_CYCLES : positive := 1;
+        g_ARB_QUEUE_DEPTH          : positive := 7;
+        g_MEM_RD_TIMEOUT_CYCLES    : positive := 1024;
+        g_MEM_WR_TIMEOUT_CYCLES    : positive := 1024
     );
     port(
         reset_i                             : in  std_logic                     := '0'; --          --                      reset_sink.reset
@@ -135,9 +136,10 @@ begin
 
     nrme_rmap_mem_area_nfee_arbiter_ent_inst : entity work.nrme_rmap_mem_area_nfee_arbiter_ent
         generic map(
-            g_ARB_TIMEOUT_CYCLES    => g_ARB_TIMEOUT_CYCLES,
-            g_ARB_SWITCH_GAP_CYCLES => g_ARB_SWITCH_GAP_CYCLES,
-            g_ARB_QUEUE_DEPTH       => g_ARB_QUEUE_DEPTH
+            g_ARB_TIMEOUT_CYCLES       => g_ARB_TIMEOUT_CYCLES,
+            g_ARB_RD_SWITCH_GAP_CYCLES => g_ARB_RD_SWITCH_GAP_CYCLES,
+            g_ARB_WR_SWITCH_GAP_CYCLES => g_ARB_WR_SWITCH_GAP_CYCLES,
+            g_ARB_QUEUE_DEPTH          => g_ARB_QUEUE_DEPTH
         )
         port map(
             clk_i                             => a_avs_clock,

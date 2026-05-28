@@ -3,7 +3,7 @@
 # Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
 # SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
 #
-# Generated: Sun Feb 08 02:07:37 BRST 2026
+# Generated: Thu May 28 01:06:13 CEST 2026
 
 # DO NOT MODIFY THIS FILE
 #
